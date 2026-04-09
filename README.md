@@ -2,10 +2,6 @@
 
 **A local-first, persistent memory operating system for long-horizon LLM agents.**
 
-> Targeting submission to the **NeurIPS 2026 Memory & Cognition Workshop** — June 2026 deadline.
-
----
-
 ## Overview
 
 Modern LLM agents forget everything when a conversation ends. AgentMem OS solves this with a four-tier memory hierarchy that persists knowledge across sessions, compresses it intelligently, and retrieves the most relevant context at inference time — all running locally with no cloud dependencies.
