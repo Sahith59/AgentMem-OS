@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "memnai"
+version = "0.1.0"
+description = "AgentMem OS: Hierarchical Memory Management for Long-Horizon LLM Agents"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Sahith", email = "sahith0904@gmail.com" }
+]
+keywords = [
+    "llm", "agent", "memory", "hierarchical", "episodic",
+    "semantic", "procedural", "knowledge-graph", "context-compression"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.9.0",
+    "typer>=0.13.0",
+    "rich>=13.9.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.14.0",
+    "chromadb>=0.5.0",
+    "litellm>=1.52.0",
+    "tiktoken>=0.8.0",
+    "langchain>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-ollama>=0.2.0",
+    "redis>=5.2.0",
+    "scikit-learn>=1.5.0",
+    "numpy>=2.0.0",
+    "scipy>=1.14.0",
+    "spacy>=3.8.0",
+    "networkx>=3.4.0",
+    "pyyaml>=6.0.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+    "tenacity>=9.0.0",
+    "loguru>=0.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "black>=24.10.0",
+    "ruff>=0.7.0",
+]
+
+[project.scripts]
+memnai = "memnai.cli.main:app"
+
+[project.urls]
+Repository = "https://github.com/sahith0904/agentmem-os"
+Paper = "https://arxiv.org/abs/xxxx.xxxxx"
+
+[tool.setuptools.packages.find]
+where = [".."]
+include = ["memnai*"]
+exclude = ["venv*", "tests*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+# Coverage disabled by default — run manually with: pytest --cov=memnai --cov-report=term-missing
+# Reason: --cov can deadlock with SQLite StaticPool in test teardown
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "N", "W"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]

@@ -1,0 +1,14 @@
+storage:
+  base_path: "/Volumes/Sahith_SSD/MemNAI/"
+  fallback_path: "~/.memnai_fallback/"
+  warn_on_fallback: true
+  sync_on_reconnect: true
+
+models:
+  # LiteLLM model strings — use the full string exactly as shown
+  # anthropic/claude-haiku-4-5-20251001  →  cheapest Claude (Haiku 4.5), used for E2E testing
+  # anthropic/claude-sonnet-4-6          →  best quality if you want richer benchmark results
+  default_model: "anthropic/claude-haiku-4-5-20251001"
+  fallback_model: "ollama/llama3.1"
+  ollama_models_path: "/Volumes/Sahith_SSD/Ollama_Models"
+  compression_threshold: 0.70

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemNAI Web Interface</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for in-browser JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [session, setSession] = useState("default-session");
+            const [model, setModel] = useState("groq/llama-3.1-8b-instant");
+            const [messages, setMessages] = useState([]);
+            const [input, setInput] = useState("");
+            const [loading, setLoading] = useState(false);
+            const [branches, setBranches] = useState([]);
+            const [storageStatus, setStorageStatus] = useState(null);
+
+            const fetchHistory = async () => {
+                const res = await fetch(`http://localhost:8000/history/${session}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setMessages(data.turns.reverse()); 
+                }
+            };
+
+            const fetchBranches = async () => {
+                const res = await fetch(`http://localhost:8000/branch/list/${session}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setBranches(data);
+                }
+            };
+
+            const fetchStorage = async () => {
+                const res = await fetch(`http://localhost:8000/storage/status`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setStorageStatus(data);
+                }
+            };
+
+            useEffect(() => {
+                fetchHistory();
+                fetchBranches();
+                fetchStorage();
+            }, [session]);
+
+            const sendMessage = async (e) => {
+                e.preventDefault();
+                if (!input.trim()) return;
+
+                const newMsg = { role: "user", content: input };
+                setMessages([...messages, newMsg]);
+                setInput("");
+                setLoading(true);
+
+                try {
+                    const res = await fetch("http://localhost:8000/chat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ session_id: session, message: newMsg.content, model: model })
+                    });
+                    const data = await res.json();
+                    setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+                } catch (err) {
+                    console.error("Failed to send", err);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const handleBranch = async () => {
+                const name = prompt("Enter branch name:");
+                if (!name) return;
+                try {
+                    const res = await fetch("http://localhost:8000/branch/create", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ parent_id: session, branch_name: name })
+                    });
+                    const data = await res.json();
+                    if (data.new_session_id) {
+                        setSession(data.new_session_id);
+                    }
+                } catch (err) {
+                    console.error("Failed to branch", err);
+                }
+            };
+
+            return (
+                <div class="flex h-screen overflow-hidden">
+                    {/* Sidebar */}
+                    <div class="w-64 bg-gray-800 p-4 flex flex-col justify-between hidden md:flex">
+                        <div>
+                            <h2 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500 mb-6">MemNAI</h2>
+                            <h3 class="text-xs uppercase text-gray-400 mb-2">Branches</h3>
+                            <div class="space-y-2 max-h-[50vh] overflow-y-auto">
+                                {branches.map(b => (
+                                    <button 
+                                        key={b.id} 
+                                        onClick={() => setSession(b.id)}
+                                        class={`w-full text-left p-2 rounded text-sm transition ${session === b.id ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}
+                                    >
+                                        <div class="font-medium truncate">{b.name || b.id}</div>
+                                        <div class="text-xs text-gray-300">Tokens: {b.tokens}</div>
+                                    </button>
+                                ))}
+                            </div>
+                            <button onClick={handleBranch} class="mt-4 w-full bg-gray-700 hover:bg-gray-600 p-2 rounded text-sm shrink-0 flex items-center justify-center gap-2">
+                                + Create Branch
+                            </button>
+                        </div>
+                        
+                        {storageStatus && (
+                            <div class="p-3 bg-gray-900 rounded-lg text-xs shrink-0">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <div class={`w-2 h-2 rounded-full ${storageStatus.is_fallback ? 'bg-yellow-500' : 'bg-green-500'}`}></div>
+                                    <span class="font-medium">{storageStatus.is_fallback ? 'Fallback DB' : 'SSD Mounted'}</span>
+                                </div>
+                                <div class="text-gray-400 truncate" title={storageStatus.active_path}>
+                                    {storageStatus.active_path}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Main Chat Area */}
+                    <div class="flex-1 flex flex-col relative">
+                        {/* Header */}
+                        <header class="h-14 border-b border-gray-800 flex items-center justify-between px-6 bg-gray-900 shadow-sm shrink-0">
+                            <div class="font-medium flex items-center gap-3">
+                                <span>Session: <span class="text-indigo-400">{session}</span></span>
+                            </div>
+                            <select 
+                                value={model} 
+                                onChange={(e) => setModel(e.target.value)}
+                                class="bg-gray-800 border-none outline-none text-sm p-1.5 rounded"
+                            >
+                                <option value="groq/llama-3.1-8b-instant">Cloud: Llama 3.1 8B (Groq)</option>
+                                <option value="groq/mixtral-8x7b-32768">Cloud: Mixtral (Groq)</option>
+                                <option value="ollama/qwen2.5:14b">Local: Qwen 2.5 14B (Ollama)</option>
+                                <option value="ollama/llama3.1">Local: Llama 3.1 (Ollama)</option>
+                                <option value="claude-3-haiku-20240307">Cloud: Claude Haiku (Anthropic)</option>
+                                <option value="gpt-4o-mini">Cloud: GPT-4o Mini (OpenAI)</option>
+                                <option value="gemini-1.5-flash">Cloud: Gemini Flash (Google)</option>
+                            </select>
+                        </header>
+
+                        {/* Chat Messages */}
+                        <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 pb-24">
+                            {messages.map((m, i) => (
+                                <div key={i} class={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                    <div class={`max-w-[80%] rounded-2xl px-5 py-3 ${
+                                        m.role === 'user' 
+                                            ? 'bg-indigo-600 text-white shadow-md' 
+                                            : 'bg-gray-800 text-gray-100 shadow-sm border border-gray-700'
+                                    }`}>
+                                        <div class="whitespace-pre-wrap text-sm md:text-base leading-relaxed">{m.content}</div>
+                                    </div>
+                                </div>
+                            ))}
+                            {loading && (
+                                <div class="flex justify-start">
+                                    <div class="bg-gray-800 border border-gray-700 rounded-2xl px-5 py-3 flex items-center gap-2">
+                                        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
+                                        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: "0.2s"}}></div>
+                                        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: "0.4s"}}></div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Input Area */}
+                        <div class="absolute bottom-0 w-full bg-gradient-to-t from-gray-900 via-gray-900 to-transparent pt-10 pb-6 px-4 md:px-12 shrink-0">
+                            <form onSubmit={sendMessage} class="relative w-full max-w-4xl mx-auto flex items-center bg-gray-800 rounded-xl border border-gray-700 focus-within:border-indigo-500 shadow-lg overflow-hidden transition">
+                                <input 
+                                    type="text" 
+                                    value={input} 
+                                    onChange={(e) => setInput(e.target.value)}
+                                    placeholder="Message MemNAI..."
+                                    class="w-full bg-transparent p-4 outline-none text-gray-100 md:text-base placeholder-gray-500"
+                                    disabled={loading}
+                                />
+                                <button type="submit" disabled={!input.trim() || loading} class="mr-2 p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:bg-gray-700 transition">
+                                    <svg xmlns="http://www.-w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
+                            </form>
+                            <div class="text-center text-xs text-gray-500 mt-3">MemNAI operates with persistent semantic memory. Total token budget strictly enforced.</div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

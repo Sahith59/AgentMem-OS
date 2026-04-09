@@ -1,0 +1,57 @@
+# ============================================================
+# AgentMem OS — requirements.txt
+# Local-first AI Memory OS for Long-Horizon LLM Agents
+# 100% free, runs entirely locally via Ollama
+# ============================================================
+
+# --- Core Framework ---
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.9.2
+typer==0.13.1
+rich==13.9.4
+
+# --- Database ---
+sqlalchemy==2.0.36
+alembic==1.14.0          # DB schema migrations (Phase 1 addition)
+
+# --- Vector Store ---
+chromadb==0.5.20
+
+# --- LLM Routing (model-agnostic) ---
+litellm==1.52.9
+tiktoken==0.8.0
+
+# --- Embeddings & NLP ---
+langchain==0.3.9
+langchain-core==0.3.21
+langchain-community==0.3.9
+langchain-ollama==0.2.1   # Local Ollama embeddings (free)
+
+# --- Caching ---
+redis==5.2.1
+
+# --- Novel ML Algorithms (AgentMem OS contributions) ---
+scikit-learn==1.5.2       # DBSCAN for Sleep Consolidation Engine
+numpy==2.1.3              # Vector math for Importance Scorer (2.x required for Python 3.13)
+scipy==1.14.1             # Cosine similarity, statistical tools
+spacy==3.8.2              # NER for Entity Knowledge Graph
+
+# --- Knowledge Graph ---
+networkx==3.4.2           # Entity co-occurrence graph
+
+# --- Utilities ---
+pyyaml==6.0.2             # config.yaml parsing
+python-dotenv==1.0.1      # .env support
+httpx==0.27.2             # Async HTTP client
+tenacity==9.0.0           # Retry logic for LLM calls
+loguru==0.7.2             # Structured logging
+
+# --- Testing ---
+pytest==8.3.3
+pytest-asyncio==0.24.0
+pytest-cov==6.0.0
+
+# --- Dev Tools ---
+black==24.10.0
+ruff==0.7.4
