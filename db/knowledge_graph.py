@@ -75,7 +75,7 @@ class EntityKnowledgeGraph:
 
         db = self.get_db()
         try:
-            from memnai.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
+            from agentmem_os.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
 
             # Upsert nodes
             node_ids = {}
@@ -407,7 +407,7 @@ class EntityKnowledgeGraph:
         """Load graph from SQLite into NetworkX (called once on first access)."""
         db = self.get_db()
         try:
-            from memnai.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
+            from agentmem_os.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
 
             nodes = db.query(KnowledgeGraphNode).filter(
                 KnowledgeGraphNode.agent_id == agent_id

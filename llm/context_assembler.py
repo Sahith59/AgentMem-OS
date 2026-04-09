@@ -18,7 +18,7 @@ v2 replaces it with EntityKnowledgeGraph (7%) + ProceduralMemory (3%).
 """
 
 from loguru import logger
-from memnai.llm.token_counter import TokenCounter
+from agentmem_os.llm.token_counter import TokenCounter
 
 
 class ContextAssembler:
@@ -209,26 +209,26 @@ class ContextAssembler:
 
     def _get_store(self):
         if self._store is None:
-            from memnai.storage.store import ConversationStore
+            from agentmem_os.storage.store import ConversationStore
             self._store = ConversationStore()
         return self._store
 
     def _get_chroma(self):
         if self._chroma is None:
-            from memnai.db.chroma_client import ChromaManager
+            from agentmem_os.db.chroma_client import ChromaManager
             self._chroma = ChromaManager()
         return self._chroma
 
     def _get_kg(self):
         if self._kg is None:
-            from memnai.db.knowledge_graph import EntityKnowledgeGraph
-            from memnai.db.engine import get_session
+            from agentmem_os.db.knowledge_graph import EntityKnowledgeGraph
+            from agentmem_os.db.engine import get_session
             self._kg = EntityKnowledgeGraph(get_session)
         return self._kg
 
     def _get_procedural(self):
         if self._procedural is None:
-            from memnai.llm.procedural_memory import ProceduralMemory
-            from memnai.db.engine import get_session
+            from agentmem_os.llm.procedural_memory import ProceduralMemory
+            from agentmem_os.db.engine import get_session
             self._procedural = ProceduralMemory(get_session)
         return self._procedural

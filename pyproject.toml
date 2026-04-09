@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "memnai"
+name = "agentmem-os"
 version = "0.1.0"
 description = "AgentMem OS: Hierarchical Memory Management for Long-Horizon LLM Agents"
 readme = "README.md"
@@ -61,21 +61,32 @@ dev = [
 ]
 
 [project.scripts]
-memnai = "memnai.cli.main:app"
+agentmem-os = "agentmem_os.cli.main:app"
 
 [project.urls]
 Repository = "https://github.com/sahith0904/agentmem-os"
 Paper = "https://arxiv.org/abs/xxxx.xxxxx"
 
-[tool.setuptools.packages.find]
-where = [".."]
-include = ["memnai*"]
-exclude = ["venv*", "tests*"]
+[tool.setuptools]
+packages = [
+    "agentmem_os",
+    "agentmem_os.agents",
+    "agentmem_os.api",
+    "agentmem_os.benchmarks",
+    "agentmem_os.cache",
+    "agentmem_os.cli",
+    "agentmem_os.db",
+    "agentmem_os.llm",
+    "agentmem_os.storage",
+]
+
+[tool.setuptools.package-dir]
+"agentmem_os" = "."
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
-# Coverage disabled by default — run manually with: pytest --cov=memnai --cov-report=term-missing
+# Coverage disabled by default — run manually with: pytest --cov=agentmem_os --cov-report=term-missing
 # Reason: --cov can deadlock with SQLite StaticPool in test teardown
 
 [tool.ruff]

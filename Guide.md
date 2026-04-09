@@ -25,7 +25,7 @@
 
 ## 1. Project Overview
 
-**Name:** AgentMem OS (codebase: `memnai`)
+**Name:** AgentMem OS (codebase: `agentmem_os`)
 **Type:** Research system / open-source framework
 **Target:** Anthropic engineering teams, NeurIPS 2026 ML for Systems Workshop
 **Cost to run:** $0.00 — fully local, zero cloud dependency
@@ -148,7 +148,7 @@ These are the four algorithmic contributions that differentiate this work from e
 
 ### Algorithm #1: Memory Importance Scorer
 
-**File:** `memnai/llm/importance_scorer.py`
+**File:** `agentmem_os/llm/importance_scorer.py`
 **Class:** `MemoryImportanceScorer`
 
 **The Core Idea:** Instead of compressing the *oldest* turns when memory fills (the naive approach), we compress the *least important* turns. This preserves rare, entity-rich, semantically novel information even if it's old.
@@ -184,7 +184,7 @@ Exponential decay: `score = 2^(-(age/HALF_LIFE))` where `HALF_LIFE = 20` turns. 
 
 ### Algorithm #2: Sleep Consolidation Engine
 
-**File:** `memnai/llm/consolidation_engine.py`
+**File:** `agentmem_os/llm/consolidation_engine.py`
 **Class:** `SleepConsolidationEngine`
 
 **The Core Idea:** Inspired by human sleep consolidation — the biological process where the brain replays and reorganizes episodic memories into semantic knowledge during sleep. Our engine runs as a **background daemon thread** (not triggered on every turn), clusters similar turns together, and generates abstractive summaries.
@@ -227,7 +227,7 @@ engine.stop_background_scheduler()  # graceful shutdown
 
 ### Algorithm #3: Entity Knowledge Graph
 
-**File:** `memnai/db/knowledge_graph.py`
+**File:** `agentmem_os/db/knowledge_graph.py`
 **Class:** `EntityKnowledgeGraph`
 
 **The Core Idea:** Extract named entities from every turn and build a co-occurrence graph. Two entities that appear in the same turn share an edge; the edge weight increases each time they co-occur. This gives the agent a structured "world model" of who/what/where exists in its context.
@@ -258,7 +258,7 @@ Every turn is passed to `_ingest_kg()` in a daemon thread, so entity extraction 
 
 ### Algorithm #4: Procedural Memory
 
-**File:** `memnai/llm/procedural_memory.py`
+**File:** `agentmem_os/llm/procedural_memory.py`
 **Class:** `ProceduralMemory`
 
 **The Core Idea:** This is the first formulation of procedural memory for LLM agents. Using sequence mining over `(user_turn, assistant_turn)` pairs, we learn recurring behavioral patterns: "When user X happens → agent consistently does Y." Equivalent to imitation learning from self-play.
@@ -305,7 +305,7 @@ pm.get_relevant_patterns(query, agent_id, top_k=3)
 ## 5. System Architecture & File Map
 
 ```
-memnai/
+agentmem_os/
 ├── Guide.md                        ← This file
 ├── requirements.txt                ← Pinned dependencies (reproducible)
 ├── pyproject.toml                  ← pip installable, CLI entry point
@@ -540,8 +540,8 @@ where K is a "horizon" offset (e.g., 50 turns later).
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/memnai.git
-cd memnai
+git clone https://github.com/your-username/agentmem-os.git
+cd agentmem-os
 
 # 2. One-command setup
 chmod +x setup.sh
@@ -580,7 +580,7 @@ redis-server
 
 ```bash
 source .venv/bin/activate
-uvicorn memnai.api.routes:app --reload --port 8000
+uvicorn agentmem_os.api.app:app --reload --port 8000
 # API docs at http://localhost:8000/docs
 ```
 
@@ -605,17 +605,17 @@ pytest tests/test_phase3_algorithms.py -v
 alembic upgrade head
 
 # Or let engine.py auto-initialize
-python -c "from memnai.db.engine import init_db; init_db()"
+python -c "from agentmem_os.db.engine import init_db; init_db()"
 ```
 
 ### Environment Variables
 
 ```bash
 # .env (auto-created by setup.sh)
-MEMNAI_DB_PATH=~/.memnai/memnai.db  # SQLite location
+AGENTMEM_OS_DB_PATH=~/.agentmem_os/agentmem_os.db  # SQLite location
 OLLAMA_BASE_URL=http://localhost:11434
 REDIS_URL=redis://localhost:6379
-MEMNAI_DEFAULT_MODEL=ollama/llama3.2
+AGENTMEM_OS_DEFAULT_MODEL=ollama/llama3.2
 ```
 
 ---
@@ -626,7 +626,7 @@ MEMNAI_DEFAULT_MODEL=ollama/llama3.2
 
 **What was built:**
 - `requirements.txt` — pinned dependency versions for full reproducibility
-- `pyproject.toml` — makes project `pip install -e .` installable, registers `memnai` CLI
+- `pyproject.toml` — makes project `pip install -e .` installable, registers `agentmem-os` CLI
 - `setup.sh` — one-command setup script
 
 **Why it mattered:** The project existed as scattered files without proper packaging. Without `requirements.txt`, collaborators and paper reviewers couldn't reproduce the environment.

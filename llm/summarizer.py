@@ -1,6 +1,6 @@
 import logging
 from typing import List, Dict, Tuple
-from memnai.storage.manager import StorageManager
+from agentmem_os.storage.manager import StorageManager
 
 # Lazy-load to prevent import halting
 _embedder = None

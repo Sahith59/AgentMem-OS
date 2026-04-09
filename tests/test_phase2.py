@@ -3,14 +3,14 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 import pytest
-from memnai.storage.manager import StorageManager
-from memnai.storage.store import ConversationStore
-from memnai.llm.summarizer import SummarizationEngine
+from agentmem_os.storage.manager import StorageManager
+from agentmem_os.storage.store import ConversationStore
+from agentmem_os.llm.summarizer import SummarizationEngine
 import uuid
 
 from unittest.mock import patch
 
-@patch('memnai.llm.summarizer.SummarizationEngine._get_llm')
+@patch('agentmem_os.llm.summarizer.SummarizationEngine._get_llm')
 def test_entity_preservation(mock_get_llm):
     from langchain_core.outputs import Generation, LLMResult
     
@@ -25,7 +25,7 @@ def test_entity_preservation(mock_get_llm):
     
     assert "Alice" in entities or "Bob" in entities or "Project Apollo" in entities
 
-@patch('memnai.llm.summarizer.SummarizationEngine.compress')
+@patch('agentmem_os.llm.summarizer.SummarizationEngine.compress')
 def test_branch_snapshot_generation(mock_compress):
     # Mock compress to return a fake compressed string and entities
     mock_compress.return_value = ("[Context]\nMocked summary via patch.\n[Key Entities]\nMocked", [])

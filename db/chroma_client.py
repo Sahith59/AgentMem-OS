@@ -1,8 +1,8 @@
 import os
 import chromadb
 from chromadb.config import Settings
-from memnai.storage.manager import StorageManager
-from memnai.llm.summarizer import get_embedder
+from agentmem_os.storage.manager import StorageManager
+from agentmem_os.llm.summarizer import get_embedder
 
 class ChromaManager:
     """

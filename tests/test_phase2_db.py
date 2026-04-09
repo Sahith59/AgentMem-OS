@@ -26,7 +26,7 @@ def engine_and_session():
     from sqlalchemy import create_engine
     from sqlalchemy.orm import sessionmaker
     from sqlalchemy.pool import StaticPool
-    from memnai.db.models import Base
+    from agentmem_os.db.models import Base
 
     engine = create_engine(
         "sqlite:///:memory:",
@@ -120,7 +120,7 @@ def test_sessions_table_has_agent_id(engine_and_session):
 def test_create_session(engine_and_session):
     """Can create a Session row."""
     _, db = engine_and_session
-    from memnai.db.models import Session
+    from agentmem_os.db.models import Session
     s = Session(
         session_id="test-session-001",
         name="Test Session",
@@ -138,7 +138,7 @@ def test_create_session(engine_and_session):
 def test_create_turn(engine_and_session):
     """Can create a Turn row linked to a Session."""
     _, db = engine_and_session
-    from memnai.db.models import Turn
+    from agentmem_os.db.models import Turn
     t = Turn(
         session_id="test-session-001",
         role="user",
@@ -164,7 +164,7 @@ def test_create_turn(engine_and_session):
 def test_create_summary(engine_and_session):
     """Can create a Summary row (Tier 3) with cluster metadata."""
     _, db = engine_and_session
-    from memnai.db.models import Summary
+    from agentmem_os.db.models import Summary
     s = Summary(
         session_id="test-session-001",
         turn_range="1-5",
@@ -189,7 +189,7 @@ def test_create_summary(engine_and_session):
 def test_create_procedural_pattern(engine_and_session):
     """Can create a ProceduralPattern row (Tier 4 — brand new table)."""
     _, db = engine_and_session
-    from memnai.db.models import ProceduralPattern
+    from agentmem_os.db.models import ProceduralPattern
     p = ProceduralPattern(
         trigger="bug_report",
         action="provided code block",
@@ -215,7 +215,7 @@ def test_create_procedural_pattern(engine_and_session):
 def test_create_kg_node(engine_and_session):
     """Can create a KnowledgeGraphNode row."""
     _, db = engine_and_session
-    from memnai.db.models import KnowledgeGraphNode
+    from agentmem_os.db.models import KnowledgeGraphNode
     node = KnowledgeGraphNode(
         session_id="test-session-001",
         entity_text="Anthropic",
@@ -234,7 +234,7 @@ def test_create_kg_node(engine_and_session):
 def test_create_kg_edge(engine_and_session):
     """Can create a KnowledgeGraphEdge linking two nodes."""
     _, db = engine_and_session
-    from memnai.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
+    from agentmem_os.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
 
     node_a = KnowledgeGraphNode(
         session_id="test-session-001",
@@ -274,7 +274,7 @@ def test_create_kg_edge(engine_and_session):
 def test_create_consolidation_log(engine_and_session):
     """Can create a ConsolidationLog entry (benchmark audit trail)."""
     _, db = engine_and_session
-    from memnai.db.models import ConsolidationLog
+    from agentmem_os.db.models import ConsolidationLog
     log = ConsolidationLog(
         session_id="test-session-001",
         turns_processed=30,
@@ -301,7 +301,7 @@ def test_create_consolidation_log(engine_and_session):
 def test_session_branching(engine_and_session):
     """Child session can reference parent session via parent_session_id."""
     _, db = engine_and_session
-    from memnai.db.models import Session
+    from agentmem_os.db.models import Session
 
     parent = Session(
         session_id="parent-001",

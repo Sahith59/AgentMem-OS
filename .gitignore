@@ -45,6 +45,10 @@ logs/
 *.swp
 *.swo
 .DS_Store
+._*
+
+# Legacy symlink (old package name)
+memnai
 
 # Alembic (keep versions, ignore local state)
 alembic/versions/*.pyc

@@ -418,8 +418,8 @@ class AgentMemEvaluator:
             report.add_result(avg_crs)
 
         # ── TES: Token Efficiency ─────────────────────────────────────────────
-        from memnai.db.engine import get_session as get_db
-        from memnai.db.models import Summary
+        from agentmem_os.db.engine import get_session as get_db
+        from agentmem_os.db.models import Summary
         db = get_db()
         try:
             summaries = db.query(Summary).filter(

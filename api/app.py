@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 
-from memnai.storage.store import ConversationStore
-from memnai.storage.manager import StorageManager
-from memnai.llm.adapters import UniversalAdapter
+from agentmem_os.storage.store import ConversationStore
+from agentmem_os.storage.manager import StorageManager
+from agentmem_os.llm.adapters import UniversalAdapter
 
 app = FastAPI(title="MemNAI Context & Storage API")
 
@@ -74,4 +74,4 @@ async def storage_status():
     }
 
 if __name__ == "__main__":
-    uvicorn.run("memnai.api.app:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("agentmem_os.api.app:app", host="0.0.0.0", port=8000, reload=True)

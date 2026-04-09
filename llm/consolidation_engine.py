@@ -89,7 +89,7 @@ class SleepConsolidationEngine:
         db = self.get_db()
 
         try:
-            from memnai.db.models import Turn, Summary, Session, ConsolidationLog
+            from agentmem_os.db.models import Turn, Summary, Session, ConsolidationLog
 
             session = db.query(Session).filter(Session.session_id == session_id).first()
             if not session:
@@ -245,7 +245,7 @@ class SleepConsolidationEngine:
         """Run consolidation on all active sessions above threshold."""
         db = self.get_db()
         try:
-            from memnai.db.models import Session
+            from agentmem_os.db.models import Session
             sessions = db.query(Session).filter(
                 Session.is_archived == False,
                 Session.total_tokens > 128_000 * 0.70

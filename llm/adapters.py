@@ -1,7 +1,7 @@
 import litellm
-from memnai.db.database import get_session
-from memnai.db.models import CostLog
-from memnai.llm.context_assembler import ContextAssembler
+from agentmem_os.db.database import get_session
+from agentmem_os.db.models import CostLog
+from agentmem_os.llm.context_assembler import ContextAssembler
 
 class UniversalAdapter:
     def __init__(self):

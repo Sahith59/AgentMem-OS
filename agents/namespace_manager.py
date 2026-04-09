@@ -28,7 +28,7 @@ from typing import List, Optional, Dict, Any
 
 from loguru import logger
 
-from memnai.db.models import (
+from agentmem_os.db.models import (
     AgentNamespace, Session, Summary, ProceduralPattern,
     AgentTrustScore, AgentForkRecord
 )

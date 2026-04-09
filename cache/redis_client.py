@@ -2,7 +2,7 @@ import json
 import redis
 import logging
 from typing import List, Dict
-from memnai.storage.manager import StorageManager
+from agentmem_os.storage.manager import StorageManager
 
 class RedisCache:
     """
@@ -23,7 +23,7 @@ class RedisCache:
         if not self.client:
             return
         
-        key = f"memnai:session:{session_id}:turns"
+        key = f"agentmem_os:session:{session_id}:turns"
         self.client.lpush(key, json.dumps(turn))
         self.client.ltrim(key, 0, self.max_turns - 1)
 
@@ -31,7 +31,7 @@ class RedisCache:
         if not self.client:
             return []
             
-        key = f"memnai:session:{session_id}:turns"
+        key = f"agentmem_os:session:{session_id}:turns"
         turns = self.client.lrange(key, 0, -1)
         return [json.loads(turn) for turn in reversed(turns)]
 

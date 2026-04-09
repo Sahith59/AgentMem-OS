@@ -1,8 +1,8 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from memnai.storage.manager import StorageManager
-from memnai.db.models import Base
+from agentmem_os.storage.manager import StorageManager
+from agentmem_os.db.models import Base
 
 storage_manager = StorageManager()
 

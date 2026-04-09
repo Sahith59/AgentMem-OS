@@ -50,7 +50,7 @@ The system ships four novel ML algorithms as its core contributions, each target
 Scores each conversation turn with an EMA-weighted importance signal combining entity density, semantic novelty, and recency decay. Drives selective retention — only high-signal turns survive consolidation.
 
 ```python
-from memnai.llm.importance_scorer import MemoryImportanceScorer
+from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
 scorer = MemoryImportanceScorer(get_db)
 score = scorer.score_turn(session_id, turn_content, role="user")
 ```
@@ -59,7 +59,7 @@ score = scorer.score_turn(session_id, turn_content, role="user")
 Runs offline compression using DBSCAN clustering over turn embeddings. Groups semantically similar turns into clusters, extracts representative summaries, and writes them to the Summary table — analogous to hippocampal replay during sleep.
 
 ```python
-from memnai.llm.consolidation_engine import SleepConsolidationEngine
+from agentmem_os.llm.consolidation_engine import SleepConsolidationEngine
 engine = SleepConsolidationEngine(get_db, summarizer, chroma, scorer, get_embedding)
 engine.consolidate(session_id)
 ```
@@ -68,7 +68,7 @@ engine.consolidate(session_id)
 Builds a persistent co-occurrence graph (NetworkX) of named entities extracted from conversation turns. Supports subgraph retrieval for world-model queries, updated incrementally as new turns arrive.
 
 ```python
-from memnai.db.knowledge_graph import EntityKnowledgeGraph
+from agentmem_os.db.knowledge_graph import EntityKnowledgeGraph
 kg = EntityKnowledgeGraph(get_db)
 subgraph = kg.get_relevant_subgraph("Tell me about Sahith AgentMem", agent_id=None)
 ```
@@ -77,7 +77,7 @@ subgraph = kg.get_relevant_subgraph("Tell me about Sahith AgentMem", agent_id=No
 Mines recurring interaction patterns from session history (e.g., user always asks for code before explanation). Patterns are scored by frequency and recency, retrieved at inference time to pre-shape responses.
 
 ```python
-from memnai.llm.procedural_memory import ProceduralMemory
+from agentmem_os.llm.procedural_memory import ProceduralMemory
 pm = ProceduralMemory(get_db)
 patterns = pm.get_relevant_patterns("explain research methodology", agent_id=None)
 ```
@@ -120,7 +120,7 @@ baseline = (facts recalled with recent-only context)
 ## Project Structure
 
 ```
-memnai/
+agentmem_os/
 ├── agents/                  # Multi-agent memory federation
 │   ├── memory_federation.py
 │   ├── namespace_manager.py
@@ -163,8 +163,8 @@ memnai/
 
 ```bash
 # Clone
-git clone https://github.com/yourusername/memnai.git
-cd memnai
+git clone https://github.com/yourusername/agentmem-os.git
+cd agentmem-os
 
 # Virtual environment
 python3 -m venv venv
@@ -178,7 +178,7 @@ cp .env.example .env
 # Edit .env and set ANTHROPIC_API_KEY (or GROQ_API_KEY for free tier)
 
 # Database
-python -c "from memnai.db.engine import init_db; init_db()"
+python -c "from agentmem_os.db.engine import init_db; init_db()"
 ```
 
 ---
@@ -233,7 +233,7 @@ models:
   compression_threshold: 0.70                             # trigger consolidation at 70% context
 
 storage:
-  base_path: "~/.memnai/"
+  base_path: "~/.agentmem_os/"
 ```
 
 Supported model strings (LiteLLM format):

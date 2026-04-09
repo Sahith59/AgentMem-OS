@@ -10,7 +10,7 @@ Algorithms under test:
   3D — ProceduralMemory         (llm/procedural_memory.py)
 
 Run on your Mac:
-    cd /path/to/memnai
+    cd /path/to/agentmem_os
     source venv/bin/activate
     pytest tests/test_phase3_algorithms.py -v --tb=short
 
@@ -37,7 +37,7 @@ os.environ["MEMNAI_DB_PATH"] = ":memory:"
 @pytest.fixture(scope="session")
 def db_engine():
     """In-memory SQLite engine shared across the entire test session."""
-    from memnai.db.models import Base
+    from agentmem_os.db.models import Base
     engine = create_engine(
         "sqlite:///:memory:",
         connect_args={"check_same_thread": False},
@@ -60,7 +60,7 @@ def get_db(db_engine):
 
 @pytest.fixture
 def scorer():
-    from memnai.llm.importance_scorer import MemoryImportanceScorer
+    from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
     return MemoryImportanceScorer()
 
 
@@ -265,8 +265,8 @@ class TestSleepConsolidationEngine:
 
     @pytest.fixture
     def engine_fixture(self, get_db):
-        from memnai.llm.consolidation_engine import SleepConsolidationEngine
-        from memnai.llm.importance_scorer import MemoryImportanceScorer
+        from agentmem_os.llm.consolidation_engine import SleepConsolidationEngine
+        from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
 
         mock_summarizer = MagicMock()
         mock_summarizer.compress.return_value = (
@@ -331,7 +331,7 @@ class TestSleepConsolidationEngine:
 
     def test_consolidate_skips_when_below_threshold(self, engine_fixture, get_db):
         """Session with few tokens should skip consolidation."""
-        from memnai.db.models import Session
+        from agentmem_os.db.models import Session
         db = get_db()
         s = Session(session_id="test-cons-low", total_tokens=1000, branch_type="root")
         db.add(s)
@@ -343,7 +343,7 @@ class TestSleepConsolidationEngine:
 
     def test_consolidate_skips_too_few_turns(self, engine_fixture, get_db):
         """Session above threshold but with < 4 turns should skip."""
-        from memnai.db.models import Session, Turn
+        from agentmem_os.db.models import Session, Turn
         db = get_db()
         s = Session(session_id="test-cons-few", total_tokens=100_000, branch_type="root")
         db.add(s)
@@ -357,7 +357,7 @@ class TestSleepConsolidationEngine:
 
     def test_consolidate_forced_runs_on_full_session(self, engine_fixture, get_db):
         """Force=True bypasses threshold check. Should return a real report."""
-        from memnai.db.models import Session, Turn
+        from agentmem_os.db.models import Session, Turn
         db = get_db()
         sid = "test-cons-full"
         s = Session(session_id=sid, total_tokens=50_000, branch_type="root")
@@ -408,7 +408,7 @@ class TestEntityKnowledgeGraph:
 
     @pytest.fixture
     def kg(self, get_db):
-        from memnai.db.knowledge_graph import EntityKnowledgeGraph
+        from agentmem_os.db.knowledge_graph import EntityKnowledgeGraph
         return EntityKnowledgeGraph(get_db)
 
     # ── Entity Extraction (regex fallback) ───────────────────────────────────
@@ -534,7 +534,7 @@ class TestProceduralMemory:
 
     @pytest.fixture
     def pm(self, get_db):
-        from memnai.llm.procedural_memory import ProceduralMemory
+        from agentmem_os.llm.procedural_memory import ProceduralMemory
         return ProceduralMemory(get_db, summarizer=None)
 
     # ── Trigger Classification ────────────────────────────────────────────────
@@ -553,12 +553,12 @@ class TestProceduralMemory:
         ("this is confusing, can you clarify", "clarification"),
     ])
     def test_trigger_classification(self, text, expected):
-        from memnai.llm.procedural_memory import classify_trigger
+        from agentmem_os.llm.procedural_memory import classify_trigger
         result = classify_trigger(text)
         assert result == expected, f"'{text}' → got '{result}', expected '{expected}'"
 
     def test_trigger_unknown_returns_general(self):
-        from memnai.llm.procedural_memory import classify_trigger
+        from agentmem_os.llm.procedural_memory import classify_trigger
         result = classify_trigger("the sky is blue today")
         assert result == "general"
 
@@ -571,7 +571,7 @@ class TestProceduralMemory:
         ("I would suggest using FastAPI instead.",           "suggested solution"),
     ])
     def test_action_extraction(self, response, expected):
-        from memnai.llm.procedural_memory import extract_action
+        from agentmem_os.llm.procedural_memory import extract_action
         result = extract_action(response)
         assert result == expected, f"Got '{result}', expected '{expected}'"
 
@@ -589,7 +589,7 @@ class TestProceduralMemory:
 
     def test_mine_patterns_needs_min_turns(self, pm, get_db):
         """Session with < 4 turns should return 0 patterns."""
-        from memnai.db.models import Session, Turn
+        from agentmem_os.db.models import Session, Turn
         db = get_db()
         sid = "pm-few-turns"
         db.add(Session(session_id=sid, branch_type="root"))
@@ -603,7 +603,7 @@ class TestProceduralMemory:
 
     def test_mine_patterns_from_session(self, pm, get_db):
         """Session with repeated (bug_report, code_block) pairs should produce a pattern."""
-        from memnai.db.models import Session, Turn
+        from agentmem_os.db.models import Session, Turn
         db = get_db()
         sid = "pm-mine-test"
         db.add(Session(session_id=sid, branch_type="root"))
@@ -623,7 +623,7 @@ class TestProceduralMemory:
 
     def test_mine_patterns_idempotent_upsert(self, pm, get_db):
         """Mining the same session twice should increment support_count, not duplicate."""
-        from memnai.db.models import Session, Turn, ProceduralPattern
+        from agentmem_os.db.models import Session, Turn, ProceduralPattern
         db = get_db()
         sid = "pm-upsert-test"
         aid = "pm-upsert-agent"
@@ -663,7 +663,7 @@ class TestProceduralMemory:
 
     def test_get_relevant_patterns_returns_string(self, pm, get_db):
         """After mining, get_relevant_patterns should return non-empty string."""
-        from memnai.db.models import Session, Turn
+        from agentmem_os.db.models import Session, Turn
         db = get_db()
         sid = "pm-retrieve-test"
         aid = "pm-retrieve-agent"
@@ -689,7 +689,7 @@ class TestProceduralMemory:
 
     def test_serialize_patterns_format(self, pm, get_db):
         """Serialized patterns must include BEHAVIORAL PATTERNS header and bullets."""
-        from memnai.db.models import ProceduralPattern
+        from agentmem_os.db.models import ProceduralPattern
         db = get_db()
         mock_patterns = [
             ProceduralPattern(
@@ -718,8 +718,8 @@ class TestPhase3Integration:
         Importance scorer and consolidation engine work together:
         scored turns feed directly into consolidation engine's clustering step.
         """
-        from memnai.llm.importance_scorer import MemoryImportanceScorer
-        from memnai.llm.consolidation_engine import SleepConsolidationEngine
+        from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
+        from agentmem_os.llm.consolidation_engine import SleepConsolidationEngine
 
         scorer = MemoryImportanceScorer()
         mock_summarizer = MagicMock()
@@ -750,7 +750,7 @@ class TestPhase3Integration:
         """
         Entity KG correctly ingests a turn and retrieves relevant subgraph.
         """
-        from memnai.db.knowledge_graph import EntityKnowledgeGraph
+        from agentmem_os.db.knowledge_graph import EntityKnowledgeGraph
         import networkx as nx
 
         kg = EntityKnowledgeGraph(get_db)
@@ -774,8 +774,8 @@ class TestPhase3Integration:
         procedural = what to do, scorer = what to keep.
         Both should operate on the same turns without conflict.
         """
-        from memnai.llm.importance_scorer import MemoryImportanceScorer
-        from memnai.llm.procedural_memory import classify_trigger, extract_action
+        from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
+        from agentmem_os.llm.procedural_memory import classify_trigger, extract_action
 
         scorer = MemoryImportanceScorer()
 

@@ -1,7 +1,7 @@
 import os
 import shutil
 import logging
-from memnai.storage.manager import StorageManager
+from agentmem_os.storage.manager import StorageManager
 from rich.console import Console
 
 console = Console()

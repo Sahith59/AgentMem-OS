@@ -5,13 +5,13 @@ Central SQLAlchemy setup. All modules import get_session() from here.
 
 Why engine.py and not database.py?
   The original database.py is an older implementation. This file is the
-  upgraded Phase 2 version. All new code imports from memnai.db.engine.
+  upgraded Phase 2 version. All new code imports from agentmem_os.db.engine.
   The old database.py is preserved for backward compatibility with any
   legacy code that still references it.
 
 Design decisions:
   - SQLite for local-first, zero-config operation (free, no server)
-  - Path resolved: MEMNAI_DB_PATH env → config.yaml → ~/.memnai/memnai.db
+  - Path resolved: AGENTMEM_OS_DB_PATH env → config.yaml → ~/.agentmem_os/agentmem_os.db
   - check_same_thread=False — background threads (consolidation engine,
     KG ingestion) access DB from threads other than the main thread
   - StaticPool — single shared connection, correct for SQLite
@@ -29,7 +29,7 @@ from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.pool import StaticPool
 
-from memnai.db.models import Base
+from agentmem_os.db.models import Base
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -41,13 +41,13 @@ def _resolve_db_path() -> str:
     Resolve the SQLite database file path.
 
     Priority:
-      1. MEMNAI_DB_PATH environment variable  (testing / CI override)
+      1. AGENTMEM_OS_DB_PATH environment variable  (testing / CI override)
       2. storage.base_path in config.yaml     (primary SSD)
       3. storage.fallback_path in config.yaml (SSD disconnected)
-      4. ~/.memnai/memnai.db                  (universal fallback)
+      4. ~/.agentmem_os/agentmem_os.db                  (universal fallback)
     """
     # 1. Env var override
-    env_path = os.environ.get("MEMNAI_DB_PATH")
+    env_path = os.environ.get("AGENTMEM_OS_DB_PATH")
     if env_path:
         p = Path(env_path).expanduser()
         p.parent.mkdir(parents=True, exist_ok=True)
@@ -66,20 +66,20 @@ def _resolve_db_path() -> str:
                 if base_path.exists():
                     db_dir = base_path / "db"
                     db_dir.mkdir(parents=True, exist_ok=True)
-                    return str(db_dir / "memnai.db")
+                    return str(db_dir / "agentmem_os.db")
 
             fallback = config.get("storage", {}).get("fallback_path", "")
             if fallback:
                 fb_path = Path(fallback).expanduser()
                 db_dir = fb_path / "db"
                 db_dir.mkdir(parents=True, exist_ok=True)
-                return str(db_dir / "memnai.db")
+                return str(db_dir / "agentmem_os.db")
 
         except Exception:
             pass
 
     # 4. Universal fallback
-    default = Path.home() / ".memnai" / "memnai.db"
+    default = Path.home() / ".agentmem_os" / "agentmem_os.db"
     default.parent.mkdir(parents=True, exist_ok=True)
     return str(default)
 

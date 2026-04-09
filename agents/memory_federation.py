@@ -76,7 +76,7 @@ from typing import List, Optional, Dict, Any, Callable
 
 from loguru import logger
 
-from memnai.db.models import (
+from agentmem_os.db.models import (
     Summary, Session, FederatedMemoryEntry, MemoryAccessLog
 )
 

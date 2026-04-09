@@ -1,6 +1,6 @@
 storage:
-  base_path: "/Volumes/Sahith_SSD/MemNAI/"
-  fallback_path: "~/.memnai_fallback/"
+  base_path: "/Volumes/Sahith_SSD/AgentMem-OS/"
+  fallback_path: "~/.agentmem_os_fallback/"
   warn_on_fallback: true
   sync_on_reconnect: true
 

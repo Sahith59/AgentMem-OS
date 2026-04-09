@@ -4,26 +4,26 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 
 import pytest
 import uuid
-from memnai.storage.manager import StorageManager
-from memnai.storage.store import ConversationStore
+from agentmem_os.storage.manager import StorageManager
+from agentmem_os.storage.store import ConversationStore
 
 def test_storage_manager_fallback():
     dummy_config = {
         "storage": {
-            "base_path": "/dummy_volume/memnai/",
-            "fallback_path": "~/.memnai_fallback/",
+            "base_path": "/dummy_volume/agentmem_os/",
+            "fallback_path": "~/.agentmem_os_fallback/",
             "warn_on_fallback": False
         }
     }
-    
+
     import yaml
     with open("dummy_config.yaml", "w") as f:
         yaml.dump(dummy_config, f)
-        
+
     sm = StorageManager(config_path="dummy_config.yaml")
-    
+
     assert sm.is_fallback_active() is True
-    assert sm.active_path == os.path.expanduser("~/.memnai_fallback/")
+    assert sm.active_path == os.path.expanduser("~/.agentmem_os_fallback/")
     os.remove("dummy_config.yaml")
 
 def test_branch_creation():

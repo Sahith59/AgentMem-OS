@@ -4,13 +4,13 @@ import logging
 
 class StorageManager:
     """
-    Manages base paths for the MemNAI platform.
+    Manages base paths for the AgentMem OS platform.
     """
     def __init__(self, config_path="config.yaml"):
         self.config_path = config_path
         self.config = self._load_config()
-        self.base_path = os.path.expanduser(self.config.get("storage", {}).get("base_path", "~/.memnai/"))
-        self.fallback_path = os.path.expanduser(self.config.get("storage", {}).get("fallback_path", "~/.memnai_fallback/"))
+        self.base_path = os.path.expanduser(self.config.get("storage", {}).get("base_path", "~/.agentmem_os/"))
+        self.fallback_path = os.path.expanduser(self.config.get("storage", {}).get("fallback_path", "~/.agentmem_os_fallback/"))
         self.warn_on_fallback = self.config.get("storage", {}).get("warn_on_fallback", True)
         self.active_path = self._resolve_active_path()
 
@@ -21,7 +21,7 @@ class StorageManager:
             return yaml.safe_load(f)
 
     def _resolve_active_path(self):
-        if self.base_path == os.path.expanduser("~/.memnai/"):
+        if self.base_path == os.path.expanduser("~/.agentmem_os/"):
             return self.base_path
 
         if os.path.exists(self.base_path):

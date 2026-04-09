@@ -8,10 +8,10 @@ from rich.console import Console
 from rich.table import Table
 import os
 
-from memnai.storage.manager import StorageManager
-from memnai.storage.store import ConversationStore
-from memnai.storage.sync import SSDSync
-from memnai.db.models import Turn, Session
+from agentmem_os.storage.manager import StorageManager
+from agentmem_os.storage.store import ConversationStore
+from agentmem_os.storage.sync import SSDSync
+from agentmem_os.db.models import Turn, Session
 
 app = typer.Typer(help="MemNAI CLI - Local-First AI Memory Framework")
 console = Console()
@@ -63,7 +63,7 @@ def pull(from_session: str = typer.Option(..., "--from", help="Session to pull f
     """
     Semantically search a past session and preview the context to inject.
     """
-    from memnai.db.chroma_client import ChromaManager
+    from agentmem_os.db.chroma_client import ChromaManager
     cm = ChromaManager()
     results = cm.search(from_session, query, top_k=3)
     
@@ -91,8 +91,8 @@ def cost_report():
     """
     Displays an aggregated report of API costs across all sessions.
     """
-    from memnai.db.database import get_session
-    from memnai.db.models import CostLog
+    from agentmem_os.db.database import get_session
+    from agentmem_os.db.models import CostLog
     from sqlalchemy import func
     
     db = get_session()
@@ -149,7 +149,7 @@ def branch_list(session_id: str = typer.Option(..., "--session", help="Root sess
     """
     Shows a tree of all branches originating from or related to the given session.
     """
-    from memnai.storage.store import ConversationStore
+    from agentmem_os.storage.store import ConversationStore
     store = ConversationStore()
     
     try:
@@ -188,8 +188,8 @@ def chat(session: str = typer.Option(..., "--session", help="Session ID to open/
     import warnings
     warnings.filterwarnings("ignore", category=RuntimeWarning)
     
-    from memnai.llm.adapters import UniversalAdapter
-    from memnai.storage.store import ConversationStore
+    from agentmem_os.llm.adapters import UniversalAdapter
+    from agentmem_os.storage.store import ConversationStore
     import builtins
     
     store = ConversationStore()

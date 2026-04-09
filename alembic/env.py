@@ -27,8 +27,8 @@ from alembic import context
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import the app's engine and models
-from memnai.db.engine import engine, DB_PATH
-from memnai.db.models import Base
+from agentmem_os.db.engine import engine, DB_PATH
+from agentmem_os.db.models import Base
 
 # Alembic config object
 config = context.config

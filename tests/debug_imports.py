@@ -1,12 +1,12 @@
 print("Starting imports...")
 print("Importing config...")
-import memnai.config
+import agentmem_os.config
 print("Importing StorageManager...")
-from memnai.storage.manager import StorageManager
+from agentmem_os.storage.manager import StorageManager
 print("Importing db models...")
-from memnai.db.models import Turn, Session
+from agentmem_os.db.models import Turn, Session
 print("Importing ConversationStore...")
-from memnai.storage.store import ConversationStore
+from agentmem_os.storage.store import ConversationStore
 print("Importing SummarizationEngine...")
-from memnai.llm.summarizer import SummarizationEngine
+from agentmem_os.llm.summarizer import SummarizationEngine
 print("All imports successful.")

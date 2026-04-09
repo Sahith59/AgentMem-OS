@@ -36,7 +36,7 @@ from typing import Dict, List, Optional, Tuple
 
 from loguru import logger
 
-from memnai.db.models import AgentTrustScore
+from agentmem_os.db.models import AgentTrustScore
 
 
 # Trust update hyperparameter

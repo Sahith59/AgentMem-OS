@@ -135,7 +135,7 @@ class ProceduralMemory:
         """
         db = self.get_db()
         try:
-            from memnai.db.models import Turn, ProceduralPattern
+            from agentmem_os.db.models import Turn, ProceduralPattern
 
             turns = (
                 db.query(Turn)
@@ -246,7 +246,7 @@ class ProceduralMemory:
 
         db = self.get_db()
         try:
-            from memnai.db.models import ProceduralPattern
+            from agentmem_os.db.models import ProceduralPattern
 
             # Match by trigger type; order by confidence × support_count
             patterns = (
@@ -363,7 +363,7 @@ class ProceduralMemory:
         """Mine patterns from all sessions for an agent. Returns {session_id: patterns_saved}."""
         db = self.get_db()
         try:
-            from memnai.db.models import Session
+            from agentmem_os.db.models import Session
             sessions = db.query(Session).filter(
                 Session.agent_id == agent_id,
                 Session.is_archived == False,
@@ -381,7 +381,7 @@ class ProceduralMemory:
         """Promote a high-confidence pattern to be shared across all agents."""
         db = self.get_db()
         try:
-            from memnai.db.models import ProceduralPattern
+            from agentmem_os.db.models import ProceduralPattern
             p = db.query(ProceduralPattern).filter(ProceduralPattern.id == pattern_id).first()
             if p and p.confidence >= 0.8:
                 p.is_global = True

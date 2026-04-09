@@ -29,9 +29,9 @@ from typing import List, Optional
 
 from loguru import logger
 
-from memnai.db.models import Session, Turn
-from memnai.db.engine import get_session
-from memnai.llm.token_counter import TokenCounter
+from agentmem_os.db.models import Session, Turn
+from agentmem_os.db.engine import get_session
+from agentmem_os.llm.token_counter import TokenCounter
 
 
 class ConversationStore:
@@ -277,7 +277,7 @@ class ConversationStore:
         """
         db = get_session()
         try:
-            from memnai.db.models import Session  # noqa: F811
+            from agentmem_os.db.models import Session  # noqa: F811
             session = db.query(Session).filter(
                 Session.session_id == session_id
             ).first()
@@ -321,31 +321,31 @@ class ConversationStore:
 
     def _get_redis(self):
         if self._redis is None:
-            from memnai.cache.redis_client import RedisCache
+            from agentmem_os.cache.redis_client import RedisCache
             self._redis = RedisCache()
         return self._redis
 
     def _get_summarizer(self):
         if self._summarizer is None:
-            from memnai.llm.summarizer import SummarizationEngine
+            from agentmem_os.llm.summarizer import SummarizationEngine
             self._summarizer = SummarizationEngine()
         return self._summarizer
 
     def _get_chroma(self):
         if self._chroma is None:
-            from memnai.db.chroma_client import ChromaManager
+            from agentmem_os.db.chroma_client import ChromaManager
             self._chroma = ChromaManager()
         return self._chroma
 
     def _get_scorer(self):
         if self._scorer is None:
-            from memnai.llm.importance_scorer import MemoryImportanceScorer
+            from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
             self._scorer = MemoryImportanceScorer()
         return self._scorer
 
     def _get_engine(self):
         if self._engine is None:
-            from memnai.llm.consolidation_engine import SleepConsolidationEngine
+            from agentmem_os.llm.consolidation_engine import SleepConsolidationEngine
             self._engine = SleepConsolidationEngine(
                 get_db_session=get_session,
                 summarizer=self._get_summarizer(),
@@ -356,13 +356,13 @@ class ConversationStore:
 
     def _get_kg(self):
         if self._kg is None:
-            from memnai.db.knowledge_graph import EntityKnowledgeGraph
+            from agentmem_os.db.knowledge_graph import EntityKnowledgeGraph
             self._kg = EntityKnowledgeGraph(get_session)
         return self._kg
 
     def _get_proc(self):
         if self._proc is None:
-            from memnai.llm.procedural_memory import ProceduralMemory
+            from agentmem_os.llm.procedural_memory import ProceduralMemory
             self._proc = ProceduralMemory(get_session, self._get_summarizer())
         return self._proc
 

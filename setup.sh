@@ -134,10 +134,10 @@ step "Installing dev tools..."
 pip install pytest pytest-asyncio pytest-cov black ruff --quiet \
     && ok "pytest + dev tools" || warn "Some dev tools not installed"
 
-# ─── Install the memnai package itself ───────────────────────────────────────
-step "Installing memnai package (editable mode)..."
+# ─── Install the agentmem_os package itself ───────────────────────────────────────
+step "Installing agentmem_os package (editable mode)..."
 pip install -e . --no-build-isolation --quiet \
-    && ok "memnai package installed (editable)" \
+    && ok "agentmem_os package installed (editable)" \
     || warn "Editable install skipped — package importable from this directory"
 
 # ─── Ollama check ────────────────────────────────────────────────────────────
@@ -170,14 +170,14 @@ if [ ! -f ".env" ]; then
 # All entries are OPTIONAL — system works fully with just Ollama (free, local)
 
 # Local Config
-MEMNAI_DB_PATH=~/.memnai/memnai.db
-MEMNAI_VECTOR_PATH=~/.memnai/vectors
-MEMNAI_LOG_LEVEL=INFO
+AGENTMEM_OS_DB_PATH=~/.agentmem_os/agentmem_os.db
+AGENTMEM_OS_VECTOR_PATH=~/.agentmem_os/vectors
+AGENTMEM_OS_LOG_LEVEL=INFO
 
 # Ollama (default — free, runs locally)
 OLLAMA_BASE_URL=http://localhost:11434
-MEMNAI_DEFAULT_LLM=ollama/llama3.2:3b
-MEMNAI_EMBEDDING_MODEL=ollama/nomic-embed-text
+AGENTMEM_OS_DEFAULT_LLM=ollama/llama3.2:3b
+AGENTMEM_OS_EMBEDDING_MODEL=ollama/nomic-embed-text
 
 # Optional: Groq (free tier, much faster than Ollama)
 # GROQ_API_KEY=gsk_...
@@ -228,7 +228,7 @@ echo "  Setup complete!"
 echo ""
 echo "  Activate:  source venv/bin/activate"
 echo "  Run tests: pytest tests/test_phase3_algorithms.py"
-echo "  Start API: uvicorn memnai.api.routes:app --reload"
+echo "  Start API: uvicorn agentmem_os.api.app:app --reload"
 echo ""
 echo "  ⚠️  warnings above = optional deps (system still fully works)"
 echo "  ❌  errors above   = check output and re-run that pip install"
