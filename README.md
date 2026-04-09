@@ -294,5 +294,3 @@ REDIS_URL=redis://localhost:6379  # Default Redis location
 MIT License — see `LICENSE` file.
 
 ---
-
-*Built with ❤️ for the NeurIPS 2026 Memory & Cognition Workshop.*
