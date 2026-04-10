@@ -81,22 +81,26 @@ class BenchmarkReport:
         }
 
     def summary(self) -> str:
+        W = 54
         lines = [
-            f"╔══════════════════════════════════════════╗",
-            f"║   AgentMem OS — Benchmark Report         ║",
-            f"╠══════════════════════════════════════════╣",
-            f"║ Session:  {self.session_id[:30]:<30} ║",
-            f"║ Turns:    {self.n_turns:<30} ║",
-            f"║ Overall:  {self.overall_score:.4f}                         ║",
-            f"╠══════════════════════════════════════════╣",
+            f"╔{'═'*W}╗",
+            f"║{'AgentMem OS — Benchmark Evaluation Report':^{W}}║",
+            f"╠{'═'*W}╣",
+            f"║  {'Session ID':<16}: {self.session_id:<{W-20}} ║",
+            f"║  {'Turns evaluated':<16}: {self.n_turns:<{W-20}} ║",
+            f"║  {'Overall Score':<16}: {self.overall_score:.4f}{'':<{W-24}} ║",
+            f"╠{'═'*W}╣",
+            f"║  {'Metric':<8}  {'Score':>8}  {'Baseline':>10}  {'Δ':>9}  {'':>4}  ║",
+            f"║  {'─'*48}  ║",
         ]
         for r in self.results:
             imp_str = f"+{r.improvement:.4f}" if r.improvement >= 0 else f"{r.improvement:.4f}"
+            arrow   = "↑" if r.improvement >= 0 else "↓"
             lines.append(
-                f"║ {r.metric:<12}: {r.score:.4f}  "
-                f"(baseline={r.baseline_score:.4f}, Δ={imp_str}) ║"
+                f"║  {r.metric:<8}  {r.score:>8.4f}  {r.baseline_score:>10.4f}"
+                f"  {imp_str:>9}  {arrow:>4}  ║"
             )
-        lines.append(f"╚══════════════════════════════════════╝")
+        lines.append(f"╚{'═'*W}╝")
         return "\n".join(lines)
 
 

@@ -261,6 +261,31 @@ ok("ChromaDB replaced with TF-IDF semantic retriever (searches ALL stored turns)
 store._check_and_compress = lambda session_id: None
 ok("Background compression disabled (BLAS thread-safety; Step 6 calls it explicitly)")
 
+# ── Token tracking setup ──────────────────────────────────────────────────────
+# We intercept every assembler.assemble() call to record:
+#   - agentmem_tokens : tokens AgentMem OS actually sent to the LLM
+#   - naive_tokens    : tokens a naive system (full history) would have sent
+# This produces the "with vs without AgentMem OS" cost comparison for the paper.
+
+def _approx_tokens(text: str) -> int:
+    """Fast token approximation: ~4 chars per token (GPT/Claude tokenizers)."""
+    return max(1, len(text) // 4)
+
+_token_log = []      # list of dicts, one per conversation turn
+_all_turn_texts = [] # accumulates raw turn content for naive baseline
+
+_orig_assemble = ContextAssembler.assemble
+
+def _tracked_assemble(self, session_id, query, **kwargs):
+    """Wrapper that records assembled token count without double-calling."""
+    assembled = _orig_assemble(self, session_id, query, **kwargs)
+    _last_assembled[0] = _approx_tokens(assembled)
+    return assembled
+
+_last_assembled = [0]
+ContextAssembler.assemble = _tracked_assemble
+ok("Token tracking enabled (captures per-turn with-vs-without AgentMem OS)")
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # STEP 5 — Multi-Turn Conversation (25 turns)
@@ -331,11 +356,29 @@ for i, user_msg in enumerate(CONVERSATION):
     print(f"\n  Turn {turn_num:>2}/{len(CONVERSATION)}")
     info(f"User: {user_msg[:75]}{'...' if len(user_msg) > 75 else ''}")
 
+    # Naive token count = ALL text exchanged so far (full history concatenated).
+    # This is what a system without memory management would send on every call.
+    _all_turn_texts.append(user_msg)
+    naive_tokens_this_turn = sum(_approx_tokens(t) for t in _all_turn_texts)
+
     t0 = time.time()
     try:
+        _last_assembled[0] = 0   # reset before this turn's assemble() call
         store.save_turn(SESSION_ID, "user", user_msg)
         reply = adapter.send_message(SESSION_ID, user_msg, model=MODEL)
         store.save_turn(SESSION_ID, "assistant", reply)
+
+        agentmem_tokens = _last_assembled[0]
+        _all_turn_texts.append(reply)   # add reply to naive history too
+
+        _token_log.append({
+            "turn": turn_num,
+            "agentmem_tokens": agentmem_tokens,
+            "naive_tokens": naive_tokens_this_turn,
+            "savings_pct": round(
+                100 * (1 - agentmem_tokens / max(1, naive_tokens_this_turn)), 1
+            ),
+        })
 
         latency = round(time.time() - t0, 2)
         turn_latencies.append(latency)
@@ -816,6 +859,151 @@ except Exception as e:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# STEP 11 — Token Savings: With vs Without AgentMem OS
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# Key paper metric: how many tokens does AgentMem OS save vs a naive system
+# that concatenates the full conversation history on every call?
+#
+# Without AgentMem OS: token count grows linearly each turn (O(N²) total cost).
+# With AgentMem OS:    assembled context stays flat thanks to compression + retrieval.
+
+section("STEP 11 — Token Savings: AgentMem OS vs Naive Full History")
+
+# Methodology (for paper & interviews):
+#   - Token count approximation: len(text) // 4  (4 chars/token — GPT/Claude standard)
+#   - Naive baseline: sum of ALL turns so far concatenated (what you'd send without memory)
+#   - AgentMem OS:   output of ContextAssembler.assemble() — the 4-tier retrieved context
+#   - Cost model:    Claude Haiku 4.5 input price ≈ $0.80/MTok  (conservative; output excluded)
+#   - Early-turn overhead is EXPECTED: AgentMem always sends rich context (KG + procedural +
+#     summaries). Savings emerge after the crossover point (~turn 10) when naive history
+#     grows large enough to exceed our bounded assembled context.
+#   - Paper metric:  long-horizon savings (turn 10+) and cumulative savings across all turns.
+
+# Approximate cost per million INPUT tokens (Haiku 4.5, as of April 2026)
+_COST_PER_MTK = 0.80   # USD per million tokens (input only)
+
+if _token_log:
+    try:
+        import statistics as _stats
+
+        agentmem_vals = [e["agentmem_tokens"] for e in _token_log]
+        naive_vals    = [e["naive_tokens"]    for e in _token_log]
+
+        # ── Find crossover turn (first turn where we start saving) ────────────
+        crossover_turn = None
+        for entry in _token_log:
+            if entry["savings_pct"] > 0:
+                crossover_turn = entry["turn"]
+                break
+
+        # ── Per-turn comparison table ─────────────────────────────────────────
+        sample_turns = {1, 5, 10, 15, 20, 25}
+        total_agentmem    = sum(agentmem_vals)
+        total_naive       = sum(naive_vals)
+        total_saved_tok   = total_naive - total_agentmem
+        total_savings_pct = round(100 * total_saved_tok / max(1, total_naive), 1)
+
+        lh_entries     = [e for e in _token_log if e["turn"] >= 10]
+        lh_agentmem    = sum(e["agentmem_tokens"] for e in lh_entries)
+        lh_naive       = sum(e["naive_tokens"]    for e in lh_entries)
+        lh_saved_tok   = lh_naive - lh_agentmem
+        lh_savings_pct = round(100 * lh_saved_tok / max(1, lh_naive), 1)
+        lh_avg_savings = round(_stats.mean(e["savings_pct"] for e in lh_entries), 1) if lh_entries else 0
+
+        cost_agentmem = total_agentmem * _COST_PER_MTK / 1_000_000
+        cost_naive    = total_naive    * _COST_PER_MTK / 1_000_000
+        cost_saved    = cost_naive - cost_agentmem
+        peak_savings  = _token_log[-1]["savings_pct"]
+
+        # Cost at scale projections (10K sessions/day)
+        _scale = 10_000
+        cost_agentmem_scale = cost_agentmem * _scale
+        cost_naive_scale    = cost_naive    * _scale
+        cost_saved_scale    = cost_saved    * _scale
+
+        W = 62
+        print(f"\n  ╔{'═'*W}╗")
+        print(f"  ║{'AgentMem OS — Token & Cost Efficiency Report':^{W}}║")
+        print(f"  ╠{'═'*W}╣")
+        print(f"  ║  {'Turn':>4}   {'w/ AgentMem OS':>14}   {'w/o AgentMem OS':>15}   {'Savings':>7}    ║")
+        print(f"  ║  {'─'*56}    ║")
+        for entry in _token_log:
+            if entry["turn"] in sample_turns:
+                s = entry["savings_pct"]
+                arrow = "↑" if s > 0 else "·"
+                print(
+                    f"  ║  {entry['turn']:>4}   "
+                    f"{entry['agentmem_tokens']:>14,}   "
+                    f"{entry['naive_tokens']:>15,}   "
+                    f"{s:>6.1f}%{arrow}   ║"
+                )
+        print(f"  ╠{'═'*W}╣")
+        print(f"  ║{'── Cumulative  (25 turns, 1 session) ──':^{W}}║")
+        print(f"  ║  {'':60}  ║")
+        print(f"  ║  {'System':<24}  {'Tokens':>12}   {'Cost (USD)':>12}   {'':4}  ║")
+        print(f"  ║  {'─'*56}    ║")
+        print(f"  ║  {'w/ AgentMem OS':<24}  {total_agentmem:>12,}   ${cost_agentmem:>11.6f}         ║")
+        print(f"  ║  {'w/o AgentMem OS':<24}  {total_naive:>12,}   ${cost_naive:>11.6f}         ║")
+        print(f"  ║  {'Saved':<24}  {total_saved_tok:>12,}   ${cost_saved:>11.6f}  ({total_savings_pct:.1f}%) ║")
+        print(f"  ║  {'':60}  ║")
+        print(f"  ╠{'═'*W}╣")
+        print(f"  ║{'── At Scale  (10,000 sessions / day) ──':^{W}}║")
+        print(f"  ║  {'':60}  ║")
+        print(f"  ║  {'w/ AgentMem OS':<24}  {'':>12}   ${cost_agentmem_scale:>11.2f} / day      ║")
+        print(f"  ║  {'w/o AgentMem OS':<24}  {'':>12}   ${cost_naive_scale:>11.2f} / day      ║")
+        print(f"  ║  {'Saved':<24}  {'':>12}   ${cost_saved_scale:>11.2f} / day      ║")
+        print(f"  ║  {'':60}  ║")
+        print(f"  ╠{'═'*W}╣")
+        print(f"  ║{'── Long-Horizon Efficiency  (Turn ≥ 10) ──':^{W}}║")
+        print(f"  ║  {'':60}  ║")
+        print(f"  ║  {'Avg token reduction per turn':<40}: {lh_avg_savings:>6.1f}%         ║")
+        print(f"  ║  {'Total reduction (T≥10)':<40}: {lh_savings_pct:>6.1f}%         ║")
+        print(f"  ║  {'Peak reduction (final turn)':<40}: {peak_savings:>6.1f}%         ║")
+        if crossover_turn:
+            print(f"  ║  {'Savings begin at turn':<40}: {crossover_turn:>6}           ║")
+        print(f"  ║  {'':60}  ║")
+        print(f"  ╚{'═'*W}╝")
+        print()
+
+        RESULTS["token_savings"] = {
+            "methodology": (
+                "Token count: len(text)//4 (4 chars/token, GPT/Claude standard). "
+                "Naive baseline = all prior turns concatenated. "
+                "AgentMem OS = ContextAssembler.assemble() output. "
+                f"Cost model: ${_COST_PER_MTK}/MTok input (Haiku 4.5)."
+            ),
+            "total_agentmem_tokens"      : total_agentmem,
+            "total_naive_tokens"         : total_naive,
+            "total_saved_tokens"         : total_saved_tok,
+            "total_savings_pct"          : total_savings_pct,
+            "longhoriz_savings_pct"      : lh_savings_pct,
+            "longhoriz_avg_per_turn"     : lh_avg_savings,
+            "peak_savings_pct"           : peak_savings,
+            "crossover_turn"             : crossover_turn,
+            "cost_agentmem_usd"          : round(cost_agentmem, 6),
+            "cost_naive_usd"             : round(cost_naive, 6),
+            "cost_saved_usd"             : round(cost_saved, 6),
+            "cost_saved_10k_sessions_day": round(cost_saved_scale, 4),
+            "cost_model"                 : f"${_COST_PER_MTK}/MTok input (Claude Haiku 4.5)",
+            "per_turn"                   : _token_log,
+        }
+
+        # Save to JSON for paper figures
+        savings_path = Path(__file__).parent.parent / "benchmarks" / "token_savings.json"
+        import json as _json
+        with open(savings_path, "w") as _f:
+            _json.dump(RESULTS["token_savings"], _f, indent=2)
+        ok(f"Saved → benchmarks/token_savings.json")
+
+    except Exception as e:
+        warn(f"Token savings analysis failed: {e}")
+        import traceback; traceback.print_exc()
+else:
+    warn("No token log entries — token tracking may not have fired during Step 5")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # FINAL SUMMARY
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -825,50 +1013,61 @@ bench        = RESULTS.get("benchmark", {})
 results_list = bench.get("results", [])
 metric_scores = {r["metric"]: r for r in results_list}
 
-print(f"""
-  Session ID      : {RESULTS.get('session_id', 'N/A')}
-  Model           : {MODEL}
-  Recall score    : {RESULTS.get('recall_score', 0):.0%}  ({sum(RESULTS.get('recall_detail', {}).values())}/{len(PROBE_RECALLS)} facts)
-  KG entities     : {RESULTS.get('kg_entities', 0)}
-  Patterns mined  : {RESULTS.get('patterns_mined', 0)}
-""")
+W = 54
+print(f"\n  ╔{'═'*W}╗")
+print(f"  ║{'AgentMem OS — Final Evaluation Summary':^{W}}║")
+print(f"  ╠{'═'*W}╣")
+print(f"  ║  {'Session ID':<22}: {RESULTS.get('session_id','N/A'):<{W-26}} ║")
+print(f"  ║  {'Model':<22}: {'claude-haiku-4-5':<{W-26}} ║")
+print(f"  ║  {'Memory Recall':<22}: {RESULTS.get('recall_score',0):.0%}  ({sum(RESULTS.get('recall_detail',{}).values())}/{len(PROBE_RECALLS)} grounding facts){'':<2} ║")
+print(f"  ║  {'KG Entities':<22}: {RESULTS.get('kg_entities',0):<{W-26}} ║")
+print(f"  ║  {'Procedural Patterns':<22}: {RESULTS.get('patterns_mined',0):<{W-26}} ║")
 
 cost = RESULTS.get("cost", {})
 if cost:
-    print(f"  {'─'*42}")
-    print(f"  Cost & Token Efficiency (paper metric)")
-    print(f"  {'─'*42}")
-    print(f"  API calls       : {cost.get('n_calls', 0)}")
-    print(f"  Input tokens    : {cost.get('input_tokens', 0):,}")
-    print(f"  Output tokens   : {cost.get('output_tokens', 0):,}")
-    print(f"  Cached tokens   : {cost.get('cached_tokens', 0):,}")
-    print(f"  Session cost    : ${cost.get('cost_usd', 0):.4f}")
-    print(f"  Cache savings   : {cost.get('cache_savings_pct', 0):.1f}%  ← cite this in paper")
-    print()
+    print(f"  ╠{'═'*W}╣")
+    print(f"  ║{'API Cost Analysis':^{W}}║")
+    print(f"  ║  {'API calls':<22}: {cost.get('n_calls',0):<{W-26}} ║")
+    print(f"  ║  {'Input tokens':<22}: {cost.get('input_tokens',0):>{W-26},} ║")
+    print(f"  ║  {'Output tokens':<22}: {cost.get('output_tokens',0):>{W-26},} ║")
+    print(f"  ║  {'Cached tokens':<22}: {cost.get('cached_tokens',0):>{W-26},} ║")
+    print(f"  ║  {'Session cost':<22}: ${cost.get('cost_usd',0):.4f}{'':<{W-31}} ║")
+    print(f"  ║  {'Prompt cache savings':<22}: {cost.get('cache_savings_pct',0):.1f}%{'':<{W-28}} ║")
 
-if metric_scores:
-    print(f"  {'Metric':<8}  {'Ours':>8}  {'Baseline':>10}  {'Δ':>8}")
-    print(f"  {'─'*42}")
-    for metric in ("CRS", "TES", "LCS"):
-        if metric in metric_scores:
-            r   = metric_scores[metric]
-            imp = r["improvement"]
-            imp_str = f"+{imp:.4f}" if imp >= 0 else f"{imp:.4f}"
-            status = GREEN + "↑" + RESET if imp >= 0 else YELLOW + "↓" + RESET
-            print(f"  {metric:<8}  {r['score']:>8.4f}  {r['baseline_score']:>10.4f}  {imp_str:>8}  {status}")
-        else:
-            print(f"  {metric:<8}  {'—':>8}  {'—':>10}  {'N/A':>8}")
-    print()
+print(f"  ╠{'═'*W}╣")
+print(f"  ║{'Benchmark Metrics':^{W}}║")
+print(f"  ║  {'Metric':<8}  {'Score':>8}  {'Baseline':>10}  {'Δ':>9}  {'':>4}  ║")
+print(f"  ║  {'─'*48}  ║")
+for metric in ("CRS", "TES", "LCS"):
+    if metric in metric_scores:
+        r   = metric_scores[metric]
+        imp = r["improvement"]
+        imp_str = f"+{imp:.4f}" if imp >= 0 else f"{imp:.4f}"
+        arrow   = GREEN + "↑" + RESET if imp >= 0 else YELLOW + "↓" + RESET
+        print(f"  ║  {metric:<8}  {r['score']:>8.4f}  {r['baseline_score']:>10.4f}  {imp_str:>9}  {arrow:>4}  ║")
+    else:
+        print(f"  ║  {metric:<8}  {'—':>8}  {'—':>10}  {'N/A':>9}  {'':>4}  ║")
+
+tok = RESULTS.get("token_savings", {})
+if tok:
+    print(f"  ╠{'═'*W}╣")
+    print(f"  ║{'Token & Cost Efficiency vs Naive Full-History':^{W}}║")
+    print(f"  ║  {'System':<22}  {'Tokens':>10}  {'Cost (USD)':>12}  ║")
+    print(f"  ║  {'─'*48}  ║")
+    print(f"  ║  {'w/ AgentMem OS':<22}  {tok.get('total_agentmem_tokens',0):>10,}  ${tok.get('cost_agentmem_usd',0):>11.6f}  ║")
+    print(f"  ║  {'w/o AgentMem OS':<22}  {tok.get('total_naive_tokens',0):>10,}  ${tok.get('cost_naive_usd',0):>11.6f}  ║")
+    print(f"  ║  {'Saved':<22}  {tok.get('total_saved_tokens',0):>10,}  ${tok.get('cost_saved_usd',0):>11.6f}  ║")
+    print(f"  ║  {'─'*48}  ║")
+    print(f"  ║  {'Cumulative reduction':<34}: {tok.get('total_savings_pct',0):>6.1f}%           ║")
+    print(f"  ║  {'Long-horizon reduction (T≥10)':<34}: {tok.get('longhoriz_savings_pct',0):>6.1f}%           ║")
+
+print(f"  ╚{'═'*W}╝\n")
 
 recall = RESULTS.get("recall_score", 0)
 if recall >= 0.8:
-    print(f"  {GREEN}{BOLD}✓ All systems operational. AgentMem OS passes E2E test.{RESET}")
+    print(f"  {GREEN}{BOLD}✓  AgentMem OS — End-to-End Evaluation Passed{RESET}")
 elif recall >= 0.6:
-    print(f"  {YELLOW}{BOLD}~ Good result. Memory recall {recall:.0%} — system is working.{RESET}")
+    print(f"  {YELLOW}{BOLD}~  Evaluation complete. Memory recall {recall:.0%}.{RESET}")
 else:
-    print(f"  {RED}{BOLD}✗ Low recall ({recall:.0%}). Check ContextAssembler + ChromaDB logs.{RESET}")
-
-print()
-if _embed_backend != "ollama":
-    print(f"  {YELLOW}Tip: start Ollama + pull nomic-embed-text for best CRS scores.{RESET}")
+    print(f"  {RED}{BOLD}✗  Low recall ({recall:.0%}). Review ContextAssembler configuration.{RESET}")
 print()
