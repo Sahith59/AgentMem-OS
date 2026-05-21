@@ -1,0 +1,90 @@
+[
+  {
+    "baseline": "AGENTMEM_OS",
+    "label": "AgentMem OS \u2014 Full System (all 4 tiers)",
+    "mode": "ours",
+    "metrics": {
+      "CRS": 0.121,
+      "TES": 0.5355,
+      "LCS": 1.0
+    },
+    "tokens": {
+      "savings_pct": 66.1,
+      "cost": 0.0272,
+      "naive_cost": 0.0802
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  },
+  {
+    "baseline": "FULL_HISTORY",
+    "label": "Full History \u2014 All turns, no compression",
+    "mode": "full_history",
+    "metrics": {
+      "CRS": 0.1176,
+      "TES": 0.0,
+      "LCS": 1.0
+    },
+    "tokens": {
+      "savings_pct": -2.5,
+      "cost": 0.0858,
+      "naive_cost": 0.0837
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  },
+  {
+    "baseline": "NAIVE_RAG",
+    "label": "Naive RAG \u2014 TF-IDF retrieval only",
+    "mode": "naive_rag",
+    "metrics": {
+      "CRS": 0.1093,
+      "TES": 0.4754,
+      "LCS": 0.8
+    },
+    "tokens": {
+      "savings_pct": 92.6,
+      "cost": 0.0061,
+      "naive_cost": 0.0815
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": false
+    }
+  },
+  {
+    "baseline": "RECENT_ONLY",
+    "label": "Recent-Only \u2014 Sliding window, last 10",
+    "mode": "recent_only",
+    "metrics": {
+      "CRS": 0.1191,
+      "TES": 0.4972,
+      "LCS": 0.0
+    },
+    "tokens": {
+      "savings_pct": 62.8,
+      "cost": 0.0317,
+      "naive_cost": 0.0853
+    },
+    "recall": {
+      "sahith": false,
+      "neurips 2026": false,
+      "sqlite": false,
+      "procedural": false,
+      "neurips": false
+    }
+  }
+]

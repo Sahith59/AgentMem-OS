@@ -1,0 +1,44 @@
+[
+  {
+    "variant": "FULL",
+    "label": "Full AgentMem OS (all tiers)",
+    "turns": 49,
+    "metrics": {
+      "CRS": 0.0757,
+      "TES": 0.5058,
+      "LCS": 1.0
+    },
+    "tokens": {
+      "savings_pct": 81.3
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true,
+      "crs": true
+    }
+  },
+  {
+    "variant": "RECENT_ONLY",
+    "label": "Recent-only (last 10 turns, no mem)",
+    "turns": 49,
+    "metrics": {
+      "CRS": 0.0996,
+      "TES": 0.4543,
+      "LCS": 0.1667
+    },
+    "tokens": {
+      "savings_pct": 79.8
+    },
+    "recall": {
+      "sahith": false,
+      "neurips 2026": false,
+      "sqlite": false,
+      "procedural": false,
+      "neurips": false,
+      "crs": true
+    }
+  }
+]

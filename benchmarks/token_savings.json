@@ -1,168 +1,168 @@
 {
   "methodology": "Token count: len(text)//4 (4 chars/token, GPT/Claude standard). Naive baseline = all prior turns concatenated. AgentMem OS = ContextAssembler.assemble() output. Cost model: $0.8/MTok input (Haiku 4.5).",
-  "total_agentmem_tokens": 190952,
-  "total_naive_tokens": 391078,
-  "total_saved_tokens": 200126,
-  "total_savings_pct": 51.2,
-  "longhoriz_savings_pct": 57.1,
-  "longhoriz_avg_per_turn": 47.1,
-  "peak_savings_pct": 81.0,
+  "total_agentmem_tokens": 201368,
+  "total_naive_tokens": 420657,
+  "total_saved_tokens": 219289,
+  "total_savings_pct": 52.1,
+  "longhoriz_savings_pct": 58.3,
+  "longhoriz_avg_per_turn": 48.8,
+  "peak_savings_pct": 81.7,
   "crossover_turn": 12,
-  "cost_agentmem_usd": 0.152762,
-  "cost_naive_usd": 0.312862,
-  "cost_saved_usd": 0.160101,
-  "cost_saved_10k_sessions_day": 1601.008,
+  "cost_agentmem_usd": 0.161094,
+  "cost_naive_usd": 0.336526,
+  "cost_saved_usd": 0.175431,
+  "cost_saved_10k_sessions_day": 1754.312,
   "cost_model": "$0.8/MTok input (Claude Haiku 4.5)",
   "per_turn": [
     {
       "turn": 1,
-      "agentmem_tokens": 293,
+      "agentmem_tokens": 291,
       "naive_tokens": 17,
-      "savings_pct": -1623.5
+      "savings_pct": -1611.8
     },
     {
       "turn": 2,
-      "agentmem_tokens": 869,
-      "naive_tokens": 300,
-      "savings_pct": -189.7
+      "agentmem_tokens": 984,
+      "naive_tokens": 358,
+      "savings_pct": -174.9
     },
     {
       "turn": 3,
-      "agentmem_tokens": 1743,
-      "naive_tokens": 733,
-      "savings_pct": -137.8
+      "agentmem_tokens": 1795,
+      "naive_tokens": 802,
+      "savings_pct": -123.8
     },
     {
       "turn": 4,
-      "agentmem_tokens": 2730,
-      "naive_tokens": 1243,
-      "savings_pct": -119.6
+      "agentmem_tokens": 2805,
+      "naive_tokens": 1323,
+      "savings_pct": -112.0
     },
     {
       "turn": 5,
-      "agentmem_tokens": 3276,
-      "naive_tokens": 1768,
-      "savings_pct": -85.3
+      "agentmem_tokens": 3437,
+      "naive_tokens": 1856,
+      "savings_pct": -85.2
     },
     {
       "turn": 6,
-      "agentmem_tokens": 4381,
-      "naive_tokens": 2349,
-      "savings_pct": -86.5
+      "agentmem_tokens": 4844,
+      "naive_tokens": 2620,
+      "savings_pct": -84.9
     },
     {
       "turn": 7,
-      "agentmem_tokens": 4725,
-      "naive_tokens": 3506,
-      "savings_pct": -34.8
+      "agentmem_tokens": 5895,
+      "naive_tokens": 4302,
+      "savings_pct": -37.0
     },
     {
       "turn": 8,
-      "agentmem_tokens": 7079,
-      "naive_tokens": 4838,
-      "savings_pct": -46.3
+      "agentmem_tokens": 7237,
+      "naive_tokens": 5739,
+      "savings_pct": -26.1
     },
     {
       "turn": 9,
-      "agentmem_tokens": 7382,
-      "naive_tokens": 6668,
-      "savings_pct": -10.7
+      "agentmem_tokens": 9112,
+      "naive_tokens": 7763,
+      "savings_pct": -17.4
     },
     {
       "turn": 10,
-      "agentmem_tokens": 7333,
-      "naive_tokens": 7279,
-      "savings_pct": -0.7
+      "agentmem_tokens": 8719,
+      "naive_tokens": 8634,
+      "savings_pct": -1.0
     },
     {
       "turn": 11,
-      "agentmem_tokens": 9381,
-      "naive_tokens": 9154,
-      "savings_pct": -2.5
+      "agentmem_tokens": 11127,
+      "naive_tokens": 10737,
+      "savings_pct": -3.6
     },
     {
       "turn": 12,
-      "agentmem_tokens": 10269,
-      "naive_tokens": 12336,
-      "savings_pct": 16.8
+      "agentmem_tokens": 11392,
+      "naive_tokens": 14177,
+      "savings_pct": 19.6
     },
     {
       "turn": 13,
-      "agentmem_tokens": 16510,
-      "naive_tokens": 15766,
-      "savings_pct": -4.7
+      "agentmem_tokens": 16190,
+      "naive_tokens": 17421,
+      "savings_pct": 7.1
     },
     {
       "turn": 14,
-      "agentmem_tokens": 14028,
-      "naive_tokens": 19018,
-      "savings_pct": 26.2
+      "agentmem_tokens": 16881,
+      "naive_tokens": 20402,
+      "savings_pct": 17.3
     },
     {
       "turn": 15,
-      "agentmem_tokens": 17219,
-      "naive_tokens": 22235,
-      "savings_pct": 22.6
+      "agentmem_tokens": 17987,
+      "naive_tokens": 23703,
+      "savings_pct": 24.1
     },
     {
       "turn": 16,
-      "agentmem_tokens": 21357,
-      "naive_tokens": 26257,
-      "savings_pct": 18.7
+      "agentmem_tokens": 18124,
+      "naive_tokens": 27750,
+      "savings_pct": 34.7
     },
     {
       "turn": 17,
-      "agentmem_tokens": 14686,
-      "naive_tokens": 26423,
-      "savings_pct": 44.4
+      "agentmem_tokens": 14773,
+      "naive_tokens": 27957,
+      "savings_pct": 47.2
     },
     {
       "turn": 18,
-      "agentmem_tokens": 11251,
-      "naive_tokens": 26604,
-      "savings_pct": 57.7
+      "agentmem_tokens": 11465,
+      "naive_tokens": 28091,
+      "savings_pct": 59.2
     },
     {
       "turn": 19,
-      "agentmem_tokens": 8220,
-      "naive_tokens": 26880,
-      "savings_pct": 69.4
+      "agentmem_tokens": 9148,
+      "naive_tokens": 28509,
+      "savings_pct": 67.9
     },
     {
       "turn": 20,
-      "agentmem_tokens": 5375,
-      "naive_tokens": 27155,
-      "savings_pct": 80.2
+      "agentmem_tokens": 5424,
+      "naive_tokens": 28796,
+      "savings_pct": 81.2
     },
     {
       "turn": 21,
-      "agentmem_tokens": 2517,
-      "naive_tokens": 27334,
-      "savings_pct": 90.8
+      "agentmem_tokens": 2081,
+      "naive_tokens": 28873,
+      "savings_pct": 92.8
     },
     {
       "turn": 22,
-      "agentmem_tokens": 3384,
-      "naive_tokens": 28191,
-      "savings_pct": 88.0
+      "agentmem_tokens": 3040,
+      "naive_tokens": 29938,
+      "savings_pct": 89.8
     },
     {
       "turn": 23,
-      "agentmem_tokens": 4369,
-      "naive_tokens": 30034,
-      "savings_pct": 85.5
+      "agentmem_tokens": 5102,
+      "naive_tokens": 31826,
+      "savings_pct": 84.0
     },
     {
       "turn": 24,
-      "agentmem_tokens": 6350,
-      "naive_tokens": 32280,
-      "savings_pct": 80.3
+      "agentmem_tokens": 7162,
+      "naive_tokens": 34310,
+      "savings_pct": 79.1
     },
     {
       "turn": 25,
-      "agentmem_tokens": 6225,
-      "naive_tokens": 32710,
-      "savings_pct": 81.0
+      "agentmem_tokens": 6353,
+      "naive_tokens": 34753,
+      "savings_pct": 81.7
     }
   ]
 }
