@@ -32,6 +32,9 @@ from loguru import logger
 from agentmem_os.db.models import Session, Turn
 from agentmem_os.db.engine import get_session
 from agentmem_os.llm.token_counter import TokenCounter
+from agentmem_os.memory.conflict_detector import ConflictDetector
+
+_conflict_detector = ConflictDetector()
 
 
 class ConversationStore:
@@ -135,6 +138,15 @@ class ConversationStore:
             daemon=True,
         ).start()
 
+        # Conflict detection (background — only on user turns)
+        if role == "user":
+            turn_id = turn.id
+            threading.Thread(
+                target=_conflict_detector.check_and_resolve,
+                args=(session_id, turn_id, content),
+                daemon=True,
+            ).start()
+
         # Compression check (background — non-blocking)
         threading.Thread(
             target=self._check_and_compress,
@@ -161,7 +173,10 @@ class ConversationStore:
 
         turns = (
             self.db.query(Turn)
-            .filter(Turn.session_id == session_id)
+            .filter(
+                Turn.session_id == session_id,
+                Turn.is_active == True,   # exclude soft-deleted (contradicted) turns
+            )
             .order_by(Turn.id.desc())
             .limit(last_n)
             .all()

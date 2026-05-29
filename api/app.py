@@ -76,6 +76,10 @@ class BranchRequest(BaseModel):
     parent_id: str
     branch_name: str
 
+class ForgetRequest(BaseModel):
+    session_id: str
+    about: str   # topic to forget, e.g. "python" or "Google"
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Existing endpoints
@@ -120,6 +124,56 @@ async def storage_status():
         "active_path": manager.active_path,
         "is_fallback": manager.is_fallback_active()
     }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Phase 1: Conflict Detection — explicit forget + conflict status
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.post("/memory/forget")
+async def forget_topic(req: ForgetRequest):
+    """
+    Soft-delete all active user turns in session_id whose content is
+    topically similar to `about`. Returns the number of turns forgotten.
+    """
+    from agentmem_os.memory.conflict_detector import forget_about
+    n = forget_about(req.session_id, req.about)
+    return {"status": "ok", "turns_forgotten": n, "topic": req.about}
+
+
+@app.get("/memory/conflicts/{session_id}")
+async def list_conflicts(session_id: str):
+    """
+    Return all soft-deleted turns (contradicted facts) for a session.
+    Useful for debugging and for the Memory Inspector UI.
+    """
+    db = get_session()
+    try:
+        from agentmem_os.db.models import Turn as TurnModel
+        inactive = (
+            db.query(TurnModel)
+            .filter(
+                TurnModel.session_id == session_id,
+                TurnModel.is_active == False,
+            )
+            .order_by(TurnModel.id.asc())
+            .all()
+        )
+        return {
+            "session_id": session_id,
+            "contradicted_turns": [
+                {
+                    "id": t.id,
+                    "content": t.content,
+                    "contradicted_by": t.contradicted_by,
+                    "created_at": str(t.created_at),
+                }
+                for t in inactive
+            ],
+            "count": len(inactive),
+        }
+    finally:
+        db.close()
 
 
 # ─────────────────────────────────────────────────────────────────────────────

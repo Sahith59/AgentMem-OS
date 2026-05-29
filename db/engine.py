@@ -156,6 +156,30 @@ def init_db() -> None:
     After the first run, use Alembic to apply schema changes instead.
     """
     Base.metadata.create_all(bind=engine)
+    _migrate_phase1()
+
+
+def _migrate_phase1() -> None:
+    """
+    Safe additive migration for Phase 1 (Conflict Detection) columns.
+    ALTER TABLE ADD COLUMN is idempotent in SQLite — silently skipped if
+    the column already exists (OperationalError caught and ignored).
+    """
+    import sqlite3 as _sqlite3
+    try:
+        conn = _sqlite3.connect(DB_PATH)
+        for col, definition in [
+            ("is_active",       "INTEGER NOT NULL DEFAULT 1"),
+            ("contradicted_by", "INTEGER REFERENCES turns(id)"),
+        ]:
+            try:
+                conn.execute(f"ALTER TABLE turns ADD COLUMN {col} {definition}")
+                conn.commit()
+            except _sqlite3.OperationalError:
+                pass  # column already exists
+        conn.close()
+    except Exception:
+        pass
 
 
 def get_db_info() -> dict:

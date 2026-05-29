@@ -99,6 +99,10 @@ class Turn(Base):
     semantic_novelty = Column(Float, default=0.0)          # distance from existing summaries
     is_compressed    = Column(Boolean, default=False)       # True once included in a Summary
 
+    # Phase 1: Conflict Detection
+    is_active        = Column(Boolean, default=True)        # False = superseded by a later fact
+    contradicted_by  = Column(Integer, ForeignKey("turns.id"), nullable=True)  # FK to the turn that supersedes this one
+
     session = relationship("Session", back_populates="turns")
 
 
