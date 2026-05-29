@@ -1,5 +1,5 @@
 import litellm
-from agentmem_os.db.database import get_session
+from agentmem_os.db.engine import get_session
 from agentmem_os.db.models import CostLog
 from agentmem_os.llm.context_assembler import ContextAssembler
 

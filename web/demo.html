@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AgentMem OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+/* ─── Design tokens ─────────────────────────────────────────────────── */
+:root {
+  --bg:         #F0F4FB;
+  --glass:      rgba(255,255,255,0.74);
+  --glass-md:   rgba(255,255,255,0.88);
+  --glass-hi:   rgba(255,255,255,0.95);
+  --spec-top:   inset 0 1px 0 rgba(255,255,255,0.95);
+  --spec-bot:   inset 0 -1px 0 rgba(0,0,0,0.04);
+  --shadow-sm:  0 2px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
+  --blur-sm:    blur(20px) saturate(160%);
+  --blur-md:    blur(40px) saturate(180%);
+  --blur-lg:    blur(60px) saturate(200%);
+  --border:     rgba(255,255,255,0.72);
+  --border-dk:  rgba(0,0,0,0.07);
+  --blue:       #0077ED;
+  --blue-l:     #3B9EF8;
+  --blue-bg:    rgba(0,119,237,0.08);
+  --teal:       #00B4D8;
+  --teal-bg:    rgba(0,180,216,0.08);
+  --green:      #30B050;
+  --green-bg:   rgba(48,176,80,0.08);
+  --amber:      #E09000;
+  --amber-bg:   rgba(224,144,0,0.08);
+  --red:        #E53935;
+  --text:       #111827;
+  --text-2:     #4B5563;
+  --text-3:     #9CA3AF;
+  --text-4:     rgba(0,0,0,0.28);
+  --r:          14px;
+  --r-lg:       20px;
+  --r-xl:       26px;
+  --ff-display: 'Instrument Sans', sans-serif;
+  --ff-body:    'Instrument Sans', sans-serif;
+  --ff-mono:    'JetBrains Mono', monospace;
+  --spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  font-family: var(--ff-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
+
+/* ─── Background ─────────────────────────────────────────────────────── */
+.bg {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden;
+  background: linear-gradient(135deg, #EEF6FF 0%, #F5F0FF 35%, #E8F8F2 70%, #FFF8EC 100%);
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(72px); animation: drift 12s ease-in-out infinite;
+  pointer-events: none; mix-blend-mode: multiply;
+}
+.orb-1 { width: 520px; height: 520px; background: rgba(186,230,255,0.55); top: -120px; left: -80px; animation-delay: 0s; }
+.orb-2 { width: 400px; height: 400px; background: rgba(153,246,228,0.45); bottom: -60px; right: 80px; animation-delay: -4s; }
+.orb-3 { width: 360px; height: 360px; background: rgba(254,215,170,0.45); bottom: 60px; left: 30%; animation-delay: -8s; }
+.orb-4 { width: 280px; height: 280px; background: rgba(196,221,255,0.50); top: 40%; right: -60px; animation-delay: -2s; }
+@keyframes drift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(24px,-16px) scale(1.04); }
+  66%      { transform: translate(-16px,20px) scale(0.97); }
+}
+
+/* ─── Glass mixin ─────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md), var(--spec-top), var(--spec-bot);
+}
+.glass-hi {
+  background: var(--glass-hi);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg), var(--spec-top);
+}
+
+/* ─── App shell ───────────────────────────────────────────────────────── */
+#root { position: relative; z-index: 1; }
+.app { display: flex; flex-direction: column; height: 100vh; }
+
+/* ─── Header ─────────────────────────────────────────────────────────── */
+.header {
+  height: 54px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 18px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: var(--blur-lg);
+  -webkit-backdrop-filter: var(--blur-lg);
+  border-bottom: 1px solid var(--border-dk);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 20px rgba(0,0,0,0.04);
+  z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, #0077ED, #00C6FB);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display); font-weight: 700; font-size: 14px; color: white; letter-spacing: -0.3px;
+  box-shadow: 0 2px 10px rgba(0,119,237,0.35), 0 1px 3px rgba(0,0,0,0.12);
+}
+.logo-text {
+  font-family: var(--ff-display); font-weight: 700; font-size: 16px;
+  color: var(--text); letter-spacing: -0.4px;
+}
+.logo-text em { font-style: normal; color: var(--blue); }
+.header-pill {
+  font-family: var(--ff-mono); font-size: 9px; font-weight: 500;
+  color: var(--teal); background: var(--teal-bg);
+  border: 1px solid rgba(0,180,216,0.18);
+  padding: 3px 9px; border-radius: 20px; letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.header-right { display: flex; align-items: center; gap: 14px; }
+.hmetric { font-family: var(--ff-mono); font-size: 10px; color: var(--text-3); }
+.hmetric b { color: var(--blue); font-weight: 500; }
+.hmetric .g { color: var(--green); }
+.hmetric .t { color: var(--teal); }
+.status-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--glass); border: 1px solid var(--border-dk);
+  border-radius: 20px; padding: 4px 10px;
+  font-family: var(--ff-mono); font-size: 10px; color: var(--text-3);
+  box-shadow: var(--shadow-sm), var(--spec-top);
+}
+.dot-live {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  box-shadow: 0 0 0 3px rgba(48,176,80,0.15);
+  animation: pulse-live 2.2s ease-in-out infinite;
+}
+.dot-off { background: var(--red); box-shadow: 0 0 0 3px rgba(229,57,53,0.15); animation: none; }
+@keyframes pulse-live {
+  0%,100% { box-shadow: 0 0 0 2px rgba(48,176,80,0.15); }
+  50%      { box-shadow: 0 0 0 5px rgba(48,176,80,0.25), 0 0 8px rgba(48,176,80,0.2); }
+}
+
+/* ─── Body ───────────────────────────────────────────────────────────── */
+.body { flex: 1; display: flex; overflow: hidden; min-height: 0; gap: 0; }
+
+/* ─── Chat area ──────────────────────────────────────────────────────── */
+.chat-area {
+  flex: 3; display: flex; flex-direction: column; min-width: 0;
+  border-right: 1px solid var(--border-dk);
+}
+.split-labels {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border-dk); flex-shrink: 0;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(12px);
+}
+.split-label {
+  padding: 9px 16px; display: flex; align-items: center; gap: 8px;
+}
+.split-label:first-child { border-right: 1px solid var(--border-dk); }
+.label-tag {
+  font-family: var(--ff-display); font-weight: 700; font-size: 11px;
+  letter-spacing: -0.2px;
+}
+.label-tag.mem { color: var(--blue); }
+.label-tag.plain { color: var(--text-3); }
+.label-badge {
+  font-family: var(--ff-mono); font-size: 9px; font-weight: 400;
+  padding: 2px 7px; border-radius: 20px;
+}
+.label-badge.mem {
+  background: var(--blue-bg); color: var(--blue);
+  border: 1px solid rgba(0,119,237,0.15);
+}
+.label-badge.plain {
+  background: rgba(0,0,0,0.04); color: var(--text-3);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.live-pip {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); margin-left: auto;
+  animation: pip-glow 2s ease-in-out infinite;
+}
+@keyframes pip-glow {
+  0%,100% { box-shadow: 0 0 0 2px rgba(0,119,237,0.12); opacity: 0.8; }
+  50%      { box-shadow: 0 0 0 5px rgba(0,119,237,0.2), 0 0 10px rgba(0,119,237,0.15); opacity: 1; }
+}
+
+/* ─── Messages ───────────────────────────────────────────────────────── */
+.msgs-row {
+  flex: 1; display: grid; grid-template-columns: 1fr 1fr;
+  overflow: hidden; min-height: 0;
+}
+.msgs-col {
+  overflow-y: auto; padding: 16px 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.msgs-col.mem-col { border-right: 1px solid var(--border-dk); }
+.empty-hint {
+  margin: auto; text-align: center; padding: 32px 20px;
+}
+.empty-icon {
+  width: 48px; height: 48px; border-radius: 14px; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.empty-icon.em { background: var(--blue-bg); }
+.empty-icon.pl { background: rgba(0,0,0,0.04); }
+.empty-title { font-family: var(--ff-display); font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.empty-title.em { color: var(--blue); }
+.empty-title.pl { color: var(--text-3); }
+.empty-desc { font-size: 11px; color: var(--text-3); line-height: 1.6; }
+
+/* ─── Bubbles ─────────────────────────────────────────────────────────── */
+.bubble-row { display: flex; animation: drop-in 0.4s var(--spring) both; }
+.bubble-row.user { justify-content: flex-end; }
+.bubble-row.asst { justify-content: flex-start; }
+@keyframes drop-in {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); filter: blur(3px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+.bubble {
+  max-width: 90%; padding: 10px 14px; border-radius: var(--r-lg);
+  font-size: 13px; line-height: 1.6;
+}
+.bubble.user-b {
+  background: linear-gradient(135deg, #0077ED, #3B9EF8);
+  color: white;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0,119,237,0.28), 0 1px 4px rgba(0,0,0,0.1);
+}
+.bubble.mem-b {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,119,237,0.1);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1);
+  color: var(--text);
+  backdrop-filter: var(--blur-sm);
+}
+.bubble.plain-b {
+  background: rgba(245,246,250,0.9);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  color: var(--text-2);
+}
+.thinking-row { display: flex; }
+.thinking {
+  display: flex; gap: 5px; align-items: center;
+  padding: 11px 15px;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(0,119,237,0.1);
+  border-radius: var(--r-lg); border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  animation: drop-in 0.3s var(--spring) both;
+}
+.think-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--blue-l);
+}
+.think-dot:nth-child(1) { animation: bounce-dot 1.3s 0s ease-in-out infinite; }
+.think-dot:nth-child(2) { animation: bounce-dot 1.3s 0.18s ease-in-out infinite; }
+.think-dot:nth-child(3) { animation: bounce-dot 1.3s 0.36s ease-in-out infinite; }
+@keyframes bounce-dot {
+  0%,100% { transform: scale(0.7); opacity: 0.4; }
+  45%      { transform: scale(1.3); opacity: 1; }
+}
+
+/* ─── Markdown rendering ──────────────────────────────────────────────── */
+.md { font-family: var(--ff-body); font-size: 13px; line-height: 1.7; }
+.md p { margin: 0 0 8px; }
+.md p:last-child { margin-bottom: 0; }
+.md strong { font-weight: 700; color: inherit; }
+.bubble.user-b .md strong { color: rgba(255,255,255,0.95); }
+.md em { font-style: italic; }
+.md h1,.md h2,.md h3,.md h4 {
+  font-family: var(--ff-display); font-weight: 700;
+  margin: 12px 0 6px; line-height: 1.3;
+}
+.md h1 { font-size: 17px; }
+.md h2 { font-size: 15px; }
+.md h3 { font-size: 13px; }
+.md ul,.md ol { padding-left: 18px; margin: 6px 0; }
+.md li { margin: 3px 0; }
+.md blockquote {
+  border-left: 3px solid var(--blue-l);
+  margin: 8px 0; padding: 6px 12px;
+  background: var(--blue-bg);
+  border-radius: 0 8px 8px 0;
+  color: var(--text-2);
+  font-size: 12.5px;
+}
+.bubble.user-b .md blockquote { border-left-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+.md code.inline-code {
+  font-family: var(--ff-mono); font-size: 11.5px; font-weight: 500;
+  background: rgba(0,119,237,0.09); color: var(--blue);
+  padding: 1.5px 5px; border-radius: 5px;
+  border: 1px solid rgba(0,119,237,0.12);
+}
+.bubble.user-b .md code.inline-code {
+  background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.95);
+  border-color: rgba(255,255,255,0.2);
+}
+.bubble.plain-b .md code.inline-code { background: rgba(0,0,0,0.05); color: #374151; border-color: rgba(0,0,0,0.08); }
+
+/* ─── IDE-style code block ────────────────────────────────────────────── */
+.code-block {
+  margin: 10px 0; border-radius: 12px; overflow: hidden;
+  background: #FAFBFF;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  font-size: 12.5px;
+}
+.bubble.user-b .code-block { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.2); }
+.code-header {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 12px;
+  background: rgba(0,0,0,0.025);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.bubble.user-b .code-header { background: rgba(255,255,255,0.1); border-bottom-color: rgba(255,255,255,0.15); }
+.traffic { display: flex; gap: 5px; }
+.td { width: 10px; height: 10px; border-radius: 50%; }
+.td-r { background: #FF5F57; }
+.td-y { background: #FEBC2E; }
+.td-g { background: #28C840; }
+.code-lang {
+  font-family: var(--ff-mono); font-size: 9px; font-weight: 500;
+  color: rgba(0,0,0,0.3); letter-spacing: 0.5px; margin-left: 4px; text-transform: lowercase;
+}
+.bubble.user-b .code-lang { color: rgba(255,255,255,0.4); }
+.copy-btn {
+  margin-left: auto;
+  font-family: var(--ff-mono); font-size: 9px; font-weight: 400;
+  color: var(--text-3); background: none; border: none; cursor: pointer;
+  padding: 2px 6px; border-radius: 4px;
+  transition: all 0.15s;
+}
+.copy-btn:hover { background: rgba(0,0,0,0.06); color: var(--text-2); }
+.bubble.user-b .copy-btn { color: rgba(255,255,255,0.45); }
+.bubble.user-b .copy-btn:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
+.code-block pre {
+  margin: 0; padding: 12px 14px; overflow-x: auto;
+  background: transparent;
+}
+.code-block pre code {
+  font-family: var(--ff-mono); font-size: 12px; line-height: 1.7;
+  color: #1E293B; white-space: pre; display: block;
+}
+.bubble.user-b .code-block pre code { color: rgba(255,255,255,0.9); }
+
+/* ─── Input bar ───────────────────────────────────────────────────────── */
+.input-bar {
+  padding: 11px 14px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border-top: 1px solid var(--border-dk);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
+  flex-shrink: 0;
+}
+.input-row { display: flex; gap: 8px; align-items: center; }
+.model-select {
+  background: var(--glass); border: 1px solid var(--border-dk);
+  border-radius: 10px; padding: 7px 10px;
+  font-family: var(--ff-mono); font-size: 10px; color: var(--text-2);
+  outline: none; cursor: pointer;
+  box-shadow: var(--shadow-sm), var(--spec-top);
+  transition: box-shadow 0.2s;
+}
+.model-select:focus { box-shadow: 0 0 0 3px rgba(0,119,237,0.15), var(--shadow-sm); }
+.input-field {
+  flex: 1; background: var(--glass);
+  border: 1px solid var(--border-dk); border-radius: 12px;
+  padding: 10px 16px;
+  font-family: var(--ff-body); font-size: 13px; color: var(--text);
+  outline: none;
+  box-shadow: var(--shadow-sm), var(--spec-top);
+  transition: all 0.2s var(--ease-out);
+  backdrop-filter: var(--blur-sm);
+}
+.input-field::placeholder { color: var(--text-4); }
+.input-field:focus {
+  border-color: rgba(0,119,237,0.35);
+  box-shadow: 0 0 0 4px rgba(0,119,237,0.1), var(--shadow-sm), var(--spec-top);
+}
+.send-btn {
+  height: 40px; padding: 0 20px;
+  background: linear-gradient(135deg, #0077ED, #3B9EF8);
+  border: none; border-radius: 12px; cursor: pointer;
+  font-family: var(--ff-display); font-weight: 700; font-size: 12px;
+  color: white; letter-spacing: 0.4px;
+  box-shadow: 0 4px 14px rgba(0,119,237,0.32), 0 1px 4px rgba(0,0,0,0.1);
+  transition: all 0.22s var(--spring);
+}
+.send-btn:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 6px 20px rgba(0,119,237,0.42); }
+.send-btn:active { transform: translateY(0) scale(0.98); }
+.send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; background: #9CA3AF; }
+.reset-btn {
+  height: 40px; padding: 0 14px;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; cursor: pointer;
+  font-family: var(--ff-display); font-weight: 600; font-size: 11px;
+  color: var(--text-3); letter-spacing: 0.4px;
+  transition: all 0.18s var(--ease-out); white-space: nowrap;
+}
+.reset-btn:hover { border-color: var(--red); color: var(--red); background: rgba(229,57,53,0.05); }
+.reset-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ─── Right panel ─────────────────────────────────────────────────────── */
+.right-panel { flex: 2; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.panel-tabs {
+  display: flex; border-bottom: 1px solid var(--border-dk);
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(12px); flex-shrink: 0;
+}
+.panel-tab {
+  flex: 1; padding: 12px 8px;
+  font-family: var(--ff-display); font-size: 11px; font-weight: 700;
+  color: var(--text-3); background: none; border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer; transition: all 0.2s; letter-spacing: 0.2px;
+}
+.panel-tab:hover { color: var(--text-2); }
+.panel-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.panel-body { flex: 1; overflow: hidden; display: flex; flex-direction: column; min-height: 0; padding: 14px; }
+
+/* ─── Memory Inspector ────────────────────────────────────────────────── */
+.inspector { display: flex; flex-direction: column; gap: 10px; height: 100%; min-height: 0; }
+.budget-card {
+  border-radius: var(--r-lg); padding: 13px 15px; flex-shrink: 0;
+  background: var(--glass-md); border: 1px solid var(--border-dk);
+  box-shadow: var(--shadow-sm), var(--spec-top);
+  backdrop-filter: var(--blur-sm);
+}
+.budget-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+.budget-label { font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); letter-spacing: 1px; text-transform: uppercase; }
+.budget-val { font-family: var(--ff-mono); font-size: 12px; font-weight: 500; }
+.budget-track { height: 5px; background: rgba(0,0,0,0.06); border-radius: 5px; overflow: hidden; margin-bottom: 7px; }
+.budget-fill { height: 100%; border-radius: 5px; transition: width 1s var(--ease-out); }
+.budget-sub { display: flex; justify-content: space-between; font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); }
+.tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; flex-shrink: 0; }
+.tier-card {
+  padding: 10px 12px; border-radius: var(--r);
+  border: 1px solid; background: var(--glass);
+  backdrop-filter: var(--blur-sm);
+  box-shadow: var(--shadow-sm), var(--spec-top);
+  transition: transform 0.2s var(--spring), box-shadow 0.2s;
+}
+.tier-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md), var(--spec-top); }
+.tier-top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.tier-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.tier-name { font-family: var(--ff-display); font-size: 9px; font-weight: 700; letter-spacing: 0.4px; flex: 1; }
+.tier-n { font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); }
+.tier-track { height: 2px; background: rgba(0,0,0,0.06); border-radius: 2px; overflow: hidden; }
+.tier-fill { height: 100%; border-radius: 2px; transition: width 0.8s var(--ease-out); }
+.tc-blue  { border-color: rgba(0,119,237,0.15); background: linear-gradient(135deg, rgba(0,119,237,0.04), rgba(59,158,248,0.04)); }
+.tc-teal  { border-color: rgba(0,180,216,0.15); background: linear-gradient(135deg, rgba(0,180,216,0.04), rgba(0,200,200,0.04)); }
+.tc-green { border-color: rgba(48,176,80,0.15);  background: linear-gradient(135deg, rgba(48,176,80,0.04), rgba(48,200,100,0.04)); }
+.tc-amber { border-color: rgba(224,144,0,0.15);  background: linear-gradient(135deg, rgba(224,144,0,0.04), rgba(245,158,11,0.04)); }
+
+/* ─── Sub tabs ────────────────────────────────────────────────────────── */
+.sub-tabs { display: flex; gap: 4px; flex-shrink: 0; }
+.sub-tab {
+  padding: 5px 11px; border-radius: 8px;
+  font-family: var(--ff-display); font-size: 10px; font-weight: 700;
+  color: var(--text-3); background: none; border: 1px solid transparent;
+  cursor: pointer; transition: all 0.15s var(--spring);
+}
+.sub-tab:hover { color: var(--text-2); background: rgba(0,0,0,0.04); }
+.sub-tab.on {
+  background: var(--blue-bg); color: var(--blue);
+  border-color: rgba(0,119,237,0.18);
+}
+
+/* ─── Memory list ─────────────────────────────────────────────────────── */
+.mem-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; min-height: 0; }
+.mem-item {
+  padding: 9px 12px; border-radius: var(--r);
+  background: var(--glass-hi); border: 1px solid var(--border-dk);
+  box-shadow: var(--shadow-sm), var(--spec-top);
+  animation: slide-in 0.25s var(--spring) both;
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.mem-head { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.role-pill {
+  font-family: var(--ff-mono); font-size: 9px; font-weight: 500;
+  padding: 2px 6px; border-radius: 5px;
+}
+.rp-user { background: var(--blue-bg); color: var(--blue); }
+.rp-assistant { background: rgba(0,0,0,0.05); color: var(--text-3); }
+.rp-ep1 { background: var(--teal-bg); color: var(--teal); }
+.rp-ep2 { background: var(--green-bg); color: var(--green); }
+.rp-ep3 { background: var(--amber-bg); color: var(--amber); }
+.mem-tok { font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); }
+.mem-imp { font-family: var(--ff-mono); font-size: 9px; color: var(--amber); margin-left: auto; }
+.mem-txt { font-size: 11.5px; color: var(--text-2); line-height: 1.5; }
+.conf-track { height: 2px; background: rgba(0,0,0,0.06); border-radius: 2px; margin-top: 7px; overflow: hidden; }
+.conf-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--amber), #F59E0B); transition: width 0.6s var(--ease-out); }
+.conf-sub { display: flex; justify-content: space-between; font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); margin-top: 3px; }
+.empty-note { text-align: center; padding: 28px 16px; font-size: 11.5px; color: var(--text-3); line-height: 1.6; }
+
+/* ─── Knowledge Graph ─────────────────────────────────────────────────── */
+.kg-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.kg-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-shrink: 0; }
+.kg-stat-row { display: flex; gap: 12px; }
+.kg-s { font-family: var(--ff-mono); font-size: 10px; color: var(--text-3); }
+.kg-s span { color: var(--blue); }
+.kg-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; flex-shrink: 0; }
+.leg { display: flex; align-items: center; gap: 4px; font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); }
+.leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+.kg-canvas {
+  flex: 1; min-height: 0; border-radius: var(--r-lg); overflow: hidden;
+  background: rgba(248,250,254,0.85);
+  border: 1px solid var(--border-dk);
+  box-shadow: var(--shadow-md), var(--spec-top);
+  backdrop-filter: var(--blur-sm);
+  position: relative;
+}
+.kg-empty {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; font-size: 11px; color: var(--text-3); text-align: center;
+}
+#kg-svg { width: 100%; height: 100%; }
+.node circle { cursor: pointer; transition: r 0.2s; }
+.node text { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #9CA3AF; pointer-events: none; }
+.link { stroke-opacity: 0.25; }
+
+/* ─── Simulation panel ────────────────────────────────────────────────── */
+.sim-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; overflow-y: auto; }
+.sim-intro { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 28px 20px; gap: 14px; }
+.sim-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--blue-bg); display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0,119,237,0.12);
+}
+.sim-title { font-family: var(--ff-display); font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+.sim-desc { font-size: 12px; color: var(--text-2); line-height: 1.65; max-width: 280px; }
+.sim-persona-preview {
+  background: var(--blue-bg); border: 1px solid rgba(0,119,237,0.12);
+  border-radius: 10px; padding: 10px 14px; text-align: left; width: 100%;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.sim-persona-label { font-family: var(--ff-mono); font-size: 9px; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; }
+.sim-persona-text { font-size: 11px; color: var(--text-2); line-height: 1.5; }
+.sim-run-btn {
+  height: 42px; padding: 0 28px; width: 100%;
+  background: linear-gradient(135deg, #0077ED, #3B9EF8);
+  border: none; border-radius: 12px; cursor: pointer;
+  font-family: var(--ff-display); font-weight: 700; font-size: 13px; color: white;
+  box-shadow: 0 4px 14px rgba(0,119,237,0.32);
+  transition: all 0.22s var(--spring);
+}
+.sim-run-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,119,237,0.42); }
+
+.sim-progress-wrap { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.sim-progress-label { font-family: var(--ff-mono); font-size: 10px; color: var(--text-3); }
+.sim-progress-track { height: 3px; background: rgba(0,0,0,0.06); border-radius: 2px; }
+.sim-progress-fill { height: 100%; background: linear-gradient(90deg,#0077ED,#00B4D8); border-radius: 2px; transition: width 0.4s var(--ease-out); }
+.sim-log { display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto; }
+.sim-log-turn { background: rgba(255,255,255,0.7); border: 1px solid var(--border-dk); border-radius: 10px; padding: 10px 12px; }
+.sim-log-user { font-size: 11px; font-weight: 600; color: var(--blue); margin-bottom: 4px; }
+.sim-log-mem { font-size: 10px; color: var(--text-2); line-height: 1.5; }
+
+.sim-results { padding: 14px; display: flex; flex-direction: column; gap: 14px; }
+.sim-score-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.sim-score-card { text-align: center; padding: 14px 20px; border-radius: 14px; flex: 1; }
+.sim-score-card.mem { background: var(--blue-bg); border: 1px solid rgba(0,119,237,0.12); }
+.sim-score-card.plain { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.07); }
+.sim-score-pct { font-family: var(--ff-display); font-size: 32px; font-weight: 700; letter-spacing: -1px; }
+.sim-score-name { font-size: 11px; font-weight: 600; color: var(--text); margin-top: 2px; }
+.sim-score-sub { font-size: 9px; color: var(--text-3); font-family: var(--ff-mono); }
+.sim-score-vs { font-family: var(--ff-mono); font-size: 10px; color: var(--text-3); }
+
+.sim-fact-grid { display: flex; flex-direction: column; gap: 5px; }
+.sim-fact-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.sim-fact-label { font-size: 11px; color: var(--text-2); flex: 1; }
+.sim-fact-badge { font-family: var(--ff-mono); font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 6px; }
+.sim-fact-badge.hit { background: rgba(48,176,80,0.1); color: var(--green); }
+.sim-fact-badge.miss { background: rgba(229,57,53,0.08); color: var(--red); }
+
+.sim-recall-block { background: rgba(248,250,254,0.9); border: 1px solid var(--border-dk); border-radius: 10px; padding: 12px; }
+.sim-recall-title { font-family: var(--ff-mono); font-size: 9px; color: var(--blue); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+.sim-recall-text { font-size: 11px; color: var(--text-2); line-height: 1.6; }
+
+/* ─── Status bar ──────────────────────────────────────────────────────── */
+.status-bar {
+  height: 30px; display: flex; align-items: center; padding: 0 18px; gap: 20px;
+  border-top: 1px solid var(--border-dk);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: var(--blur-md);
+  flex-shrink: 0;
+}
+.st-item { display: flex; align-items: center; gap: 5px; }
+.st-pip { width: 5px; height: 5px; border-radius: 50%; }
+.st-lbl { font-family: var(--ff-mono); font-size: 9px; color: var(--text-3); }
+.st-lbl b { font-weight: 500; color: var(--text-2); }
+.st-credit { margin-left: auto; font-family: var(--ff-mono); font-size: 9px; color: var(--text-4); }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+</div>
+<div id="root"></div>
+
+<script>
+// Configure marked with custom renderer for IDE-style code blocks
+(function setupMarked() {
+  const renderer = new marked.Renderer();
+
+  renderer.code = function(code, language) {
+    const lang = language || '';
+    const escaped = code
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return `<div class="code-block">
+      <div class="code-header">
+        <span class="traffic">
+          <span class="td td-r"></span>
+          <span class="td td-y"></span>
+          <span class="td td-g"></span>
+        </span>
+        <span class="code-lang">${lang}</span>
+        <button class="copy-btn" onclick="(function(btn){
+          var code=btn.closest('.code-block').querySelector('pre code').textContent;
+          navigator.clipboard.writeText(code).then(function(){
+            btn.textContent='Copied!';
+            setTimeout(function(){btn.textContent='Copy'},1600);
+          });
+        })(this)">Copy</button>
+      </div>
+      <pre><code>${escaped}</code></pre>
+    </div>`;
+  };
+
+  renderer.codespan = function(code) {
+    return `<code class="inline-code">${code}</code>`;
+  };
+
+  marked.setOptions({ renderer, breaks: true, gfm: true });
+})();
+
+function parseMarkdown(text) {
+  try { return marked.parse(text || ''); }
+  catch(e) { return text || ''; }
+}
+</script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+const API = "";
+
+const TYPE_COLOR = {
+  ORG:     "#0077ED",
+  PERSON:  "#30B050",
+  TECH:    "#E09000",
+  GPE:     "#00B4D8",
+  LOC:     "#F97316",
+  PRODUCT: "#7C3AED",
+  WORK_OF_ART: "#E53935",
+  EVENT:   "#0891B2",
+  UNKNOWN: "#64748B",
+  default: "#64748B",
+};
+
+/* ── Markdown bubble ──────────────────────────────────────────────── */
+function MD({ html, cls }) {
+  return <div className={`md ${cls||''}`} dangerouslySetInnerHTML={{__html: html}} />;
+}
+
+/* ── Budget meter ─────────────────────────────────────────────────── */
+function Budget({ budget }) {
+  if (!budget) return null;
+  const pct = budget.pct || 0;
+  const color = pct > 80 ? '#E53935' : pct > 55 ? '#E09000' : '#30B050';
+  return (
+    <div className="budget-card">
+      <div className="budget-top">
+        <span className="budget-label">Context Budget</span>
+        <span className="budget-val" style={{color}}>{pct}%</span>
+      </div>
+      <div className="budget-track">
+        <div className="budget-fill" style={{width:`${pct}%`,background:`linear-gradient(90deg,${color}88,${color})`}}/>
+      </div>
+      <div className="budget-sub">
+        <span>{(budget.used||0).toLocaleString()} tokens used</span>
+        <span>{(budget.total||0).toLocaleString()} budget</span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Tier grid ────────────────────────────────────────────────────── */
+function TierGrid({ tiers }) {
+  const cfg = [
+    {key:'working',   cls:'tc-blue',  pip:'#0077ED', fill:'#0077ED', name:'T1 WORKING'},
+    {key:'episodic',  cls:'tc-teal',  pip:'#00B4D8', fill:'#00B4D8', name:'T2 EPISODIC'},
+    {key:'semantic',  cls:'tc-green', pip:'#30B050', fill:'#30B050', name:'T3 SEMANTIC'},
+    {key:'procedural',cls:'tc-amber', pip:'#E09000', fill:'#E09000', name:'T4 PROCEDURE'},
+  ];
+  return (
+    <div className="tier-grid">
+      {cfg.map(c => {
+        const count = tiers?.[c.key]?.count || 0;
+        const pct = Math.min(100, (count / 20) * 100);
+        return (
+          <div key={c.key} className={`tier-card ${c.cls}`}>
+            <div className="tier-top">
+              <div className="tier-pip" style={{background:c.pip, boxShadow:`0 0 6px ${c.pip}55`}}/>
+              <span className="tier-name" style={{color:c.pip}}>{c.name}</span>
+              <span className="tier-n">{count}</span>
+            </div>
+            <div className="tier-track">
+              <div className="tier-fill" style={{width:`${pct}%`, background:c.fill}}/>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── Memory Inspector ─────────────────────────────────────────────── */
+function Inspector({ sessionId }) {
+  const [data, setData] = useState(null);
+  const [tab, setTab] = useState('episodic');
+
+  useEffect(() => {
+    if (!sessionId) return;
+    const load = () => fetch(`${API}/demo/memory/${sessionId}`).then(r=>r.json()).then(setData).catch(()=>{});
+    load();
+    const id = setInterval(load, 4000);
+    return () => clearInterval(id);
+  }, [sessionId]);
+
+  return (
+    <div className="inspector">
+      <Budget budget={data?.budget}/>
+      <TierGrid tiers={data?.tiers}/>
+      <div className="sub-tabs">
+        {['episodic','semantic','procedural'].map(t => (
+          <button key={t} className={`sub-tab ${tab===t?'on':''}`} onClick={()=>setTab(t)}>
+            {t.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <div className="mem-list">
+        {tab==='episodic' && (() => {
+          const items = (data?.tiers?.episodic?.turns||[]).slice(-12).reverse();
+          if (!items.length) return <p className="empty-note">Episodic turns appear as the conversation grows.<br/>Every message is stored and importance-scored.</p>;
+          return items.map((t,i) => (
+            <div key={i} className="mem-item">
+              <div className="mem-head">
+                <span className={`role-pill rp-${t.role}`}>{t.role}</span>
+                <span className="mem-tok">{t.tokens}tok</span>
+                {t.importance > 0 && <span className="mem-imp">↑ {t.importance.toFixed(2)}</span>}
+              </div>
+              <p className="mem-txt">{t.content}</p>
+            </div>
+          ));
+        })()}
+        {tab==='semantic' && (() => {
+          const items = data?.tiers?.semantic?.summaries||[];
+          if (!items.length) return <p className="empty-note">DBSCAN summaries appear after consolidation.<br/>Triggered at ~70% memory pressure.</p>;
+          return items.map((s,i) => (
+            <div key={i} className="mem-item">
+              <div className="mem-head">
+                <span className={`role-pill rp-ep${s.level}`}>L{s.level} {s.level_name}</span>
+                <span className="mem-tok">turns {s.turn_range}</span>
+                {s.cluster_id != null && <span className="mem-imp">cluster {s.cluster_id}</span>}
+              </div>
+              <p className="mem-txt">{s.content}</p>
+            </div>
+          ));
+        })()}
+        {tab==='procedural' && (() => {
+          const items = data?.tiers?.procedural?.patterns||[];
+          if (!items.length) return <p className="empty-note">Behavioral patterns mined from ≥4 turns.<br/>trigger → action pairs with confidence scores.</p>;
+          return items.map((p,i) => (
+            <div key={i} className="mem-item">
+              <div className="mem-head">
+                <span className="role-pill" style={{background:'rgba(224,144,0,0.1)',color:'#E09000'}}>{p.trigger}</span>
+                <span style={{fontSize:9,color:'var(--text-3)',fontFamily:'var(--ff-mono)'}}>→</span>
+                <span style={{fontSize:9,color:'var(--text-2)',fontFamily:'var(--ff-mono)'}}>{p.action}</span>
+                <span className="mem-imp">{(p.confidence*100).toFixed(0)}%</span>
+              </div>
+              <div className="conf-track"><div className="conf-fill" style={{width:`${p.confidence*100}%`}}/></div>
+              <div className="conf-sub"><span>confidence</span><span>{p.support_count} obs.</span></div>
+            </div>
+          ));
+        })()}
+      </div>
+    </div>
+  );
+}
+
+/* ── Knowledge Graph (D3) ─────────────────────────────────────────── */
+function KGPanel() {
+  const svgRef   = useRef(null);
+  const simRef   = useRef(null);
+  const sigRef   = useRef('');   // last rendered signature — skip re-draw if unchanged
+  const [stats, setStats] = useState({nodes:0, edges:0});
+
+  const render = useCallback((data) => {
+    const el = svgRef.current;
+    if (!el || !data.nodes?.length) return;
+
+    // Skip rebuild if topology hasn't changed
+    const sig = data.nodes.map(n=>n.id).sort().join('|') + '::' + data.edges.length;
+    if (sig === sigRef.current && simRef.current) return;
+    sigRef.current = sig;
+    simRef.current?.stop();
+
+    let { width:W, height:H } = el.getBoundingClientRect();
+    if (!W || !H) { const p = el.parentElement?.getBoundingClientRect(); W = p?.width||600; H = p?.height||500; }
+
+    d3.select(el).selectAll('*').remove();
+    const svg = d3.select(el).attr('width', W).attr('height', H);
+
+    // Clone arrays — D3 mutates source/target fields in-place
+    const nodes = data.nodes.map(n => ({...n, x: W/2 + (Math.random()-0.5)*60, y: H/2 + (Math.random()-0.5)*60}));
+    const edges = data.edges.map(e => ({source: e.source, target: e.target, weight: e.weight || 1}));
+
+    // Track which node IDs have at least one edge
+    const connectedIds = new Set(edges.flatMap(e => [e.source, e.target]));
+
+    const r = d => 6 + Math.min(10, Math.log1p(d.count || 1) * 2.8);
+
+    const sim = d3.forceSimulation(nodes)
+      .force('link',      d3.forceLink(edges).id(d=>d.id).distance(80).strength(0.7))
+      .force('charge',    d3.forceManyBody().strength(-300))
+      .force('center',    d3.forceCenter(W/2, H/2))
+      .force('collision', d3.forceCollide(d => r(d) + 16))
+      .alphaDecay(0.02);
+    simRef.current = sim;
+
+    // Pre-settle layout before first paint so nothing starts in a corner
+    for (let i = 0; i < 150; i++) sim.tick();
+
+    // Zoom + pan
+    const g = svg.append('g');
+    svg.call(d3.zoom().scaleExtent([0.2, 5]).on('zoom', e => g.attr('transform', e.transform)));
+
+    // ── Edges ─────────────────────────────────────────────────────────────
+    const link = g.append('g').selectAll('line').data(edges).enter().append('line')
+      .attr('stroke', d => {
+        const s = typeof d.source === 'object' ? d.source : nodes.find(n=>n.id===d.source);
+        return TYPE_COLOR[s?.type] || '#64748B';
+      })
+      .attr('stroke-opacity', 0.7)
+      .attr('stroke-width', d => Math.min(5, 1.5 + (d.weight||1) * 0.4));
+
+    // ── Nodes ─────────────────────────────────────────────────────────────
+    const node = g.append('g').selectAll('g').data(nodes).enter().append('g')
+      .attr('class', 'node')
+      .call(d3.drag()
+        .on('start', (e,d) => { if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+        .on('drag',  (e,d) => { d.fx=e.x; d.fy=e.y; })
+        .on('end',   (e,d) => { if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; })
+      );
+
+    node.append('circle')
+      .attr('r', r)
+      .attr('fill',         d => TYPE_COLOR[d.type] || TYPE_COLOR.default)
+      .attr('fill-opacity', d => connectedIds.has(d.id) ? 0.90 : 0.40)
+      .attr('stroke',       d => connectedIds.has(d.id) ? '#fff' : (TYPE_COLOR[d.type] || '#64748B'))
+      .attr('stroke-width', d => connectedIds.has(d.id) ? 2 : 1.5)
+      .attr('stroke-dasharray', d => connectedIds.has(d.id) ? null : '4,3');
+
+    // Labels for all nodes; isolated nodes get dimmer text
+    node.append('text')
+      .text(d => d.id.length > 18 ? d.id.slice(0,18)+'…' : d.id)
+      .attr('dy', d => r(d) + 13)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '10px')
+      .attr('font-weight', d => connectedIds.has(d.id) ? '600' : '400')
+      .attr('fill', d => connectedIds.has(d.id) ? '#334155' : '#94A3B8')
+      .attr('font-family', "'Instrument Sans', sans-serif")
+      .attr('pointer-events', 'none');
+
+    // Native tooltip on hover
+    node.append('title').text(d => {
+      const ec = edges.filter(e => (e.source?.id??e.source)===d.id||(e.target?.id??e.target)===d.id).length;
+      return ec > 0
+        ? `${d.id} · ${d.type} · ${d.count} mentions · ${ec} edge${ec!==1?'s':''}`
+        : `${d.id} · ${d.type} · ${d.count} mention${d.count!==1?'s':''} · no co-occurrences yet`;
+    });
+
+    // ── Tick ──────────────────────────────────────────────────────────────
+    const tick = () => {
+      link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+          .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      node.attr('transform', d=>`translate(${d.x},${d.y})`);
+    };
+    tick();
+    sim.on('tick', tick).restart();
+  }, []);
+
+  useEffect(() => {
+    const load = () =>
+      fetch(`${API}/demo/kg/agentmem-demo`).then(r => r.json()).then(data => {
+        setStats({nodes: data.nodes?.length || 0, edges: data.edges?.length || 0});
+        render(data);
+      }).catch(() => {});
+    const raf = requestAnimationFrame(() => load());
+    const id  = setInterval(load, 10000);   // poll every 10s (up from 8s)
+    return () => { cancelAnimationFrame(raf); clearInterval(id); simRef.current?.stop(); };
+  }, [render]);
+
+  return (
+    <div className="kg-panel">
+      <div className="kg-meta">
+        <div className="kg-stat-row">
+          <span className="kg-s"><span>{stats.nodes}</span> nodes</span>
+          <span className="kg-s"><span>{stats.edges}</span> edges</span>
+        </div>
+      </div>
+      <div className="kg-legend">
+        {Object.entries(TYPE_COLOR).filter(([k])=>k!=='default'&&k!=='UNKNOWN').map(([k,c])=>(
+          <div key={k} className="leg"><div className="leg-dot" style={{background:c}}/>{k}</div>
+        ))}
+        <div className="leg"><div className="leg-dot" style={{background:'#64748B'}}/><span style={{color:'#94A3B8'}}>OTHER</span></div>
+        <div className="leg" style={{marginLeft:8,borderLeft:'1px solid var(--border)',paddingLeft:8}}>
+          <div style={{width:8,height:8,borderRadius:'50%',border:'2px dashed #94A3B8',flexShrink:0}}/>
+          <span style={{color:'#94A3B8',fontSize:10}}>no co-occurrence yet</span>
+        </div>
+      </div>
+      <div className="kg-canvas">
+        {stats.nodes===0 && (
+          <div className="kg-empty">
+            <div style={{fontSize:32,opacity:0.3}}>◎</div>
+            <div>Entity graph appears after NER extraction</div>
+            <div style={{fontSize:10}}>Send a few messages to build the graph</div>
+          </div>
+        )}
+        <svg ref={svgRef} id="kg-svg"/>
+      </div>
+    </div>
+  );
+}
+
+/* ── Split Chat ───────────────────────────────────────────────────── */
+function SplitChat({ onUpdate, onModelChange }) {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [model, setModel] = useState('anthropic/claude-haiku-4-5-20251001');
+  const [turnPairs, setTurnPairs] = useState(0);  // number of user messages sent
+  const memRef = useRef(null);
+  const plainRef = useRef(null);
+
+  // Plain LLM window limit (must match backend _PLAIN_WINDOW / 2)
+  const PLAIN_LIMIT = 10;  // turn-pairs before Plain starts forgetting
+
+  const reset = async () => {
+    if (!window.confirm('Clear all conversation history and memory? This cannot be undone.')) return;
+    setResetting(true);
+    try {
+      await fetch(`${API}/demo/reset`, { method: 'POST' });
+      setMessages([]);
+      setTurnPairs(0);
+      if (onUpdate) onUpdate(null);
+    } finally {
+      setResetting(false);
+    }
+  };
+
+  const scroll = () => setTimeout(() => {
+    memRef.current?.scrollTo({top:99999,behavior:'smooth'});
+    plainRef.current?.scrollTo({top:99999,behavior:'smooth'});
+  }, 80);
+
+  const send = async (e) => {
+    e?.preventDefault();
+    if (!input.trim() || loading) return;
+    const text = input; setInput(''); setLoading(true);
+    setMessages(p => [...p, {role:'user', content:text, html:parseMarkdown(text), side:'both'}]);
+    scroll();
+    try {
+      const res = await fetch(`${API}/demo/compare`, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({message:text, model, agentmem_session:'agentmem-demo', plain_session:'plain-demo'})
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      setMessages(p => [...p,
+        {role:'assistant', content:data.agentmem?.reply||'', html:parseMarkdown(data.agentmem?.reply||''), side:'agentmem'},
+        {role:'assistant', content:data.plain?.reply||'',    html:parseMarkdown(data.plain?.reply||''),    side:'plain'},
+      ]);
+      if (onUpdate) onUpdate(data.agentmem);
+      // turn_count is total rows; /2 gives user-message pairs
+      const tp = Math.floor((data.agentmem?.turn_count || 0) / 2);
+      setTurnPairs(tp);
+    } catch(err) {
+      const errHtml = parseMarkdown(`**Error:** ${err.message}`);
+      setMessages(p => [...p,
+        {role:'assistant', content:'error', html:errHtml, side:'agentmem'},
+        {role:'assistant', content:'error', html:errHtml, side:'plain'},
+      ]);
+    } finally { setLoading(false); scroll(); }
+  };
+
+  const memMsgs   = messages.filter(m=>m.side==='both'||m.side==='agentmem');
+  const plainMsgs = messages.filter(m=>m.side==='both'||m.side==='plain');
+
+  return (
+    <div style={{display:'flex',flexDirection:'column',height:'100%'}}>
+      <div className="split-labels">
+        <div className="split-label">
+          <div className="live-pip"/>
+          <span className="label-tag mem">AgentMem OS</span>
+          <span className="label-badge mem">4-tier memory + persistence</span>
+        </div>
+        <div className="split-label">
+          <span className="label-tag plain">Plain LLM</span>
+          <span className="label-badge plain">no cross-session memory</span>
+        </div>
+      </div>
+
+      {/* ── Memory advantage progress banner ── */}
+      {turnPairs > 0 && (() => {
+        const pct = Math.min(turnPairs / PLAIN_LIMIT, 1);
+        const isOver = turnPairs >= PLAIN_LIMIT;
+        const barColor = isOver ? '#22c55e' : pct > 0.6 ? '#f59e0b' : '#0077ED';
+        const bgColor  = isOver ? 'rgba(34,197,94,0.08)' : pct > 0.6 ? 'rgba(245,158,11,0.08)' : 'rgba(0,119,237,0.06)';
+        const bdColor  = isOver ? 'rgba(34,197,94,0.25)' : pct > 0.6 ? 'rgba(245,158,11,0.22)' : 'rgba(0,119,237,0.18)';
+        return (
+          <div style={{
+            margin:'0 0 6px 0', padding:'8px 14px', borderRadius:10,
+            background: bgColor, border: `1px solid ${bdColor}`,
+            display:'flex', alignItems:'center', gap:10, flexShrink:0,
+          }}>
+            <div style={{flex:1}}>
+              <div style={{display:'flex',justifyContent:'space-between',marginBottom:4,fontSize:11}}>
+                <span style={{fontWeight:600, color: isOver ? '#16a34a' : 'var(--text-1)'}}>
+                  {isOver
+                    ? `✓ AgentMem advantage active — Plain LLM has lost ${turnPairs - PLAIN_LIMIT} turn${turnPairs - PLAIN_LIMIT !== 1 ? 's' : ''} of context`
+                    : `${turnPairs} / ${PLAIN_LIMIT} turns — AgentMem advantage activates at turn ${PLAIN_LIMIT}`}
+                </span>
+                <span style={{color:'var(--text-3)', fontSize:10}}>
+                  {isOver ? 'AgentMem: all turns | Plain: last 10 only' : `${PLAIN_LIMIT - turnPairs} turns until Plain LLM starts forgetting`}
+                </span>
+              </div>
+              <div style={{height:4, background:'var(--border)', borderRadius:2, overflow:'hidden'}}>
+                <div style={{
+                  height:'100%', width:`${pct*100}%`, background: barColor,
+                  borderRadius:2, transition:'width 0.5s ease, background 0.4s'
+                }}/>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      <div className="msgs-row">
+        <div className="msgs-col mem-col" ref={memRef}>
+          {memMsgs.length===0 ? (
+            <div className="empty-hint">
+              <div className="empty-icon em">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0077ED" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+              </div>
+              <div className="empty-title em">AgentMem OS</div>
+              <div className="empty-desc">Persistent 4-tier memory.<br/>Context grows richer with every turn.</div>
+            </div>
+          ) : memMsgs.map((m,i) => (
+            <div key={i} className={`bubble-row ${m.role}`}>
+              <div className={`bubble ${m.role==='user'?'user-b':'mem-b'}`}>
+                <MD html={m.html} cls={m.role==='user'?'user-md':''}/>
+              </div>
+            </div>
+          ))}
+          {loading && <div className="thinking-row"><div className="thinking"><div className="think-dot"/><div className="think-dot"/><div className="think-dot"/></div></div>}
+        </div>
+
+        <div className="msgs-col" ref={plainRef}>
+          {plainMsgs.length===0 ? (
+            <div className="empty-hint">
+              <div className="empty-icon pl">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div className="empty-title pl">Plain LLM</div>
+              <div className="empty-desc">No memory. No context.<br/>Every message seen in isolation.</div>
+            </div>
+          ) : plainMsgs.map((m,i) => (
+            <div key={i} className={`bubble-row ${m.role}`}>
+              <div className={`bubble ${m.role==='user'?'user-b':'plain-b'}`}>
+                <MD html={m.html}/>
+              </div>
+            </div>
+          ))}
+          {loading && (
+            <div className="thinking-row">
+              <div className="thinking" style={{border:'1px solid rgba(0,0,0,0.06)'}}>
+                {[0,1,2].map(i=><div key={i} className="think-dot" style={{background:'#9CA3AF'}}/>)}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="input-bar">
+        <div className="input-row">
+          <select className="model-select" value={model} onChange={e=>{setModel(e.target.value); onModelChange?.(e.target.value);}}>
+            <option value="anthropic/claude-haiku-4-5-20251001">Claude Haiku 4.5</option>
+            <option value="anthropic/claude-sonnet-4-6">Claude Sonnet 4.6</option>
+            <option value="groq/llama-3.1-8b-instant">Llama 3.1 (Groq)</option>
+          </select>
+          <input className="input-field" value={input} onChange={e=>setInput(e.target.value)}
+            placeholder="Send a message — watch AgentMem OS remember while the plain LLM forgets…"
+            disabled={loading}
+            onKeyDown={e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } }}
+          />
+          <button className="reset-btn" onClick={reset} disabled={loading||resetting} title="Clear all memory and start fresh">
+            {resetting ? '...' : 'RESET'}
+          </button>
+          <button className="send-btn" onClick={send} disabled={!input.trim()||loading}>SEND</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Simulation Panel ─────────────────────────────────────────────── */
+function SimPanel({ model }) {
+  const [phase, setPhase] = useState('idle'); // idle | running | done
+  const [turns, setTurns] = useState([]);
+  const [score, setScore] = useState(null);
+  const [recall, setRecall] = useState(null);
+  const [persona, setPersona] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [statusMsg, setStatusMsg] = useState('');
+  const logRef = useRef(null);
+
+  const run = async () => {
+    setPhase('running'); setTurns([]); setScore(null); setRecall(null);
+    setProgress(0); setPersona(''); setStatusMsg('Seeding conversation turns...');
+    let completed = false;
+    try {
+      const res = await fetch(`${API}/demo/simulate`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ scenario:'default', model, session_id:'sim-session' }),
+      });
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(`HTTP ${res.status}: ${txt.slice(0,200)}`);
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop(); // keep incomplete trailing line
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          let evt;
+          try { evt = JSON.parse(line); } catch(_) { continue; }
+          if (evt.type === 'turn') {
+            setTurns(prev => [...prev, { user: evt.user, agentmem: evt.assistant }]);
+            setProgress(evt.progress);
+            setStatusMsg(`Seeding turn ${evt.index + 1} of ${evt.total}...`);
+            logRef.current?.scrollTo({ top: 99999, behavior: 'smooth' });
+          } else if (evt.type === 'recall_start') {
+            setProgress(92);
+            setStatusMsg('Running AgentMem recall test...');
+          } else if (evt.type === 'agentmem_recall') {
+            setProgress(96);
+            setStatusMsg('Running Plain LLM recall test...');
+          } else if (evt.type === 'done') {
+            setPersona(evt.persona);
+            setRecall(evt.recall);
+            setScore(evt.score);
+            setProgress(100);
+            setStatusMsg('');
+            setPhase('done');
+            completed = true;
+          } else if (evt.type === 'error') {
+            throw new Error(evt.message);
+          }
+        }
+      }
+    } catch(e) {
+      setPhase('idle');
+      setStatusMsg('');
+      alert('Simulation error: ' + e.message);
+      return;
+    }
+    if (!completed) { setPhase('idle'); setStatusMsg(''); }
+  };
+
+  const reset = () => { setPhase('idle'); setTurns([]); setScore(null); setRecall(null); setProgress(0); setStatusMsg(''); };
+
+  return (
+    <div className="sim-panel">
+      {phase === 'idle' && (
+        <div className="sim-intro">
+          <div className="sim-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0077ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <div className="sim-title">Memory Stress Test</div>
+          <div className="sim-desc">
+            Plants 20 facts across 100 conversation turns (name, employer, role, location, education, framework, hobbies, and more). Facts are seeded early — most fall outside any sliding window. Both systems then answer a recall prompt. AgentMem OS has the full stored history. The plain LLM has only the last 8 turn-pairs — how most real chatbots work.
+            <br/><br/>
+            <span style={{color:'var(--text-3)',fontSize:11}}>
+              <b>How it works:</b> The 100 turns are a standardised benchmark scenario inserted directly into the database (no per-turn LLM calls — this keeps cost low and results reproducible). The recall test at the end makes two real API calls — one for each system — and scores keyword presence across 20 facts. Results may vary slightly per run depending on the model's phrasing.
+            </span>
+          </div>
+          <div className="sim-persona-preview">
+            <span className="sim-persona-label">Persona</span>
+            <span className="sim-persona-text">Jordan Lee — ML Engineer at Stripe, PyTorch, fraud detection, Stanford, SF, hates JS, rock climber</span>
+          </div>
+          <button className="sim-run-btn" onClick={run}>Run Simulation</button>
+        </div>
+      )}
+
+      {phase === 'running' && (
+        <div className="sim-progress-wrap">
+          <div className="sim-progress-label">{statusMsg || `Running ${progress}%`}</div>
+          <div className="sim-progress-track"><div className="sim-progress-fill" style={{width:`${progress}%`}}/></div>
+          <div className="sim-log" ref={logRef}>
+            {turns.map((t,i) => (
+              <div key={i} className="sim-log-turn">
+                <div className="sim-log-user">{t.user}</div>
+                <div className="sim-log-mem">{t.agentmem?.slice(0,100)}{t.agentmem?.length>100?'…':''}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {phase === 'done' && score && (
+        <div className="sim-results">
+          <div className="sim-score-row">
+            <div className="sim-score-card mem">
+              <div className="sim-score-pct" style={{color:'#0077ED'}}>{score.agentmem.pct}%</div>
+              <div className="sim-score-name">AgentMem OS</div>
+              <div className="sim-score-sub">full stored history (100 turns)</div>
+            </div>
+            <div className="sim-score-vs">vs</div>
+            <div className="sim-score-card plain">
+              <div className="sim-score-pct" style={{color:'#9CA3AF'}}>{score.plain.pct}%</div>
+              <div className="sim-score-name">Plain LLM</div>
+              <div className="sim-score-sub">sliding window (last 16 rows)</div>
+            </div>
+          </div>
+
+          <div className="sim-fact-grid">
+            {score.agentmem.facts.map((f,i) => (
+              <div key={i} className="sim-fact-row">
+                <span className="sim-fact-label">{f.label}</span>
+                <span className={`sim-fact-badge ${f.recalled?'hit':'miss'}`}>{f.recalled?'Recalled':'Missed'}</span>
+                <span className={`sim-fact-badge ${score.plain.facts[i]?.recalled?'hit':'miss'}`} style={{opacity:0.7}}>{score.plain.facts[i]?.recalled?'Recalled':'Missed'}</span>
+              </div>
+            ))}
+          </div>
+
+          {recall && (
+            <div className="sim-recall-block">
+              <div className="sim-recall-title">AgentMem Recall Response</div>
+              <div className="sim-recall-text">{recall.agentmem?.slice(0,400)}{recall.agentmem?.length>400?'…':''}</div>
+            </div>
+          )}
+
+          <button className="reset-btn" style={{marginTop:12,width:'100%',justifyContent:'center'}} onClick={reset}>Run Again</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── Benchmarks Panel ─────────────────────────────────────────────── */
+function BenchmarksPanel() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API}/demo/benchmarks`)
+      .then(r => r.json())
+      .then(d => { setData(d); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div style={{padding:24,color:'var(--text-3)',fontSize:13}}>Loading benchmark data…</div>;
+  if (!data) return <div style={{padding:24,color:'var(--red)',fontSize:13}}>Failed to load benchmarks.</div>;
+
+  const h2h     = data.head_to_head || [];
+  const ablation = data.ablation || [];
+  const e2e      = data.e2e || null;
+
+  const metricBar = (val, max, color) => {
+    const pct = Math.round((val / max) * 100);
+    return <div style={{display:'flex',alignItems:'center',gap:6}}>
+      <div style={{flex:1,height:6,background:'var(--border)',borderRadius:3,overflow:'hidden'}}>
+        <div style={{height:'100%',width:`${pct}%`,background:color,borderRadius:3,transition:'width 0.4s'}}/>
+      </div>
+      <span style={{fontSize:11,color:'var(--text-3)',minWidth:42,textAlign:'right'}}>{val.toFixed(4)}</span>
+    </div>;
+  };
+
+  const recallDots = (recall) => Object.values(recall || {}).map((hit,i) =>
+    <span key={i} style={{
+      display:'inline-block',width:8,height:8,borderRadius:'50%',marginRight:2,
+      background: hit ? '#22c55e' : '#ef4444',
+      title: hit ? '✓' : '✗'
+    }}/>
+  );
+
+  const sysColor = {
+    AGENTMEM_OS: '#0077ED',
+    MEMGPT: '#7c3aed',
+    LANGCHAIN_SUMMARY: '#d97706',
+    ZEP: '#16a34a',
+    RECENT_ONLY: '#6b7280',
+  };
+
+  return (
+    <div style={{padding:'16px 20px',overflowY:'auto',height:'100%',fontSize:13}}>
+
+      {/* ── E2E Production Benchmark (eval_harness.py — most rigorous) ── */}
+      {e2e && (() => {
+        const scores = {};
+        (e2e.results || []).forEach(r => { scores[r.metric] = r; });
+        const overall = e2e.overall_score;
+        return (
+          <div style={{marginBottom:28,background:'rgba(0,119,237,0.05)',border:'1px solid rgba(0,119,237,0.2)',borderRadius:12,padding:'14px 16px'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
+              <div>
+                <div style={{fontSize:11,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',color:'var(--blue)',marginBottom:4}}>
+                  E2E Production Benchmark — eval_harness.py
+                </div>
+                <div style={{fontSize:11,color:'var(--text-3)',lineHeight:1.5}}>
+                  Real embeddings · DBSCAN compression · explicit QA recall · {e2e.n_turns} turns
+                  <span style={{marginLeft:8,fontSize:10,background:'rgba(0,119,237,0.1)',borderRadius:4,padding:'2px 6px',color:'var(--blue)'}}>
+                    cite this in your paper
+                  </span>
+                </div>
+              </div>
+              <div style={{textAlign:'right',flexShrink:0}}>
+                <div style={{fontSize:24,fontWeight:800,color:'var(--blue)',lineHeight:1}}>{(overall*100).toFixed(1)}%</div>
+                <div style={{fontSize:10,color:'var(--text-3)'}}>overall score</div>
+              </div>
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'8px 16px'}}>
+              {['CRS','TES','LCS'].map(k => {
+                const r = scores[k];
+                if (!r) return null;
+                return (
+                  <div key={k} style={{background:'var(--surface)',borderRadius:8,padding:'10px 12px',border:'1px solid var(--border)'}}>
+                    <div style={{fontSize:10,fontWeight:700,color:'var(--text-3)',marginBottom:6,textTransform:'uppercase',letterSpacing:'0.06em'}}>{k}</div>
+                    <div style={{fontSize:20,fontWeight:800,color:'var(--blue)',lineHeight:1,marginBottom:4}}>{r.score.toFixed(4)}</div>
+                    <div style={{fontSize:10,color:'var(--text-3)'}}>baseline {r.baseline_score.toFixed(4)} · <span style={{color:'#22c55e'}}>+{r.improvement.toFixed(4)}</span></div>
+                    <div style={{height:4,background:'var(--border)',borderRadius:2,marginTop:8,overflow:'hidden'}}>
+                      <div style={{height:'100%',width:`${Math.round(r.score*100)}%`,background:'var(--blue)',borderRadius:2}}/>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{marginTop:10,fontSize:11,color:'var(--text-3)'}}>
+              Session: <code style={{fontSize:10}}>{e2e.session_id}</code> · Model: <code style={{fontSize:10}}>{e2e.model}</code>
+              <span style={{marginLeft:12,fontSize:10,color:'var(--text-3)'}}>
+                Note: CRS uses dense embeddings (higher absolute values than TF-IDF in the tables below)
+              </span>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* ── Head-to-head ── */}
+      <div style={{marginBottom:28}}>
+        <div style={{fontSize:11,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',
+                     color:'var(--text-3)',marginBottom:14}}>
+          Head-to-Head Comparison — AgentMem OS vs Baselines
+        </div>
+        <div style={{fontSize:11,color:'var(--text-3)',marginBottom:12,lineHeight:1.5}}>
+          25-turn benchmark · real Claude API calls · CRS/TES/LCS metrics
+          <span style={{marginLeft:8,fontSize:10,background:'rgba(0,0,0,0.06)',borderRadius:4,padding:'2px 6px',color:'var(--text-3)'}}>
+            pre-computed — re-run via <code style={{fontSize:10}}>python3 benchmarks/head_to_head.py</code>
+          </span>
+        </div>
+
+        {h2h.length === 0 ? (
+          <div style={{color:'var(--text-3)',fontSize:12}}>No data — run <code>python3 benchmarks/head_to_head.py</code></div>
+        ) : h2h.map((r, idx) => {
+          const m = r.metrics;
+          const isOurs = r.system === 'AGENTMEM_OS';
+          const col = sysColor[r.system] || '#888';
+          return (
+            <div key={idx} style={{
+              marginBottom:10,
+              background: isOurs ? 'rgba(0,119,237,0.06)' : 'var(--surface)',
+              border: isOurs ? '1px solid rgba(0,119,237,0.25)' : '1px solid var(--border)',
+              borderRadius:10,
+              padding:'10px 14px',
+            }}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:8}}>
+                <div style={{display:'flex',alignItems:'center',gap:8}}>
+                  <div style={{width:10,height:10,borderRadius:'50%',background:col,flexShrink:0}}/>
+                  <span style={{fontWeight:600,color:isOurs?'var(--blue)':'var(--text-1)',fontSize:13}}>
+                    {r.label}
+                  </span>
+                  {isOurs && <span style={{fontSize:10,background:'var(--blue)',color:'#fff',
+                    borderRadius:4,padding:'1px 6px',fontWeight:700}}>OUR SYSTEM</span>}
+                </div>
+                <div style={{display:'flex',gap:8,alignItems:'center'}}>
+                  <span style={{fontSize:11,color:'var(--text-3)'}}>Probes:</span>
+                  {recallDots(r.recall)}
+                  <span style={{fontSize:11,color:'var(--text-3)',marginLeft:4}}>
+                    {m.tok_savings > 0 ? `${m.tok_savings}% saved` : `${Math.abs(m.tok_savings)}% overhead`}
+                  </span>
+                </div>
+              </div>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'4px 16px'}}>
+                <div>
+                  <div style={{fontSize:10,color:'var(--text-3)',marginBottom:3}}>CRS — Context Retrieval</div>
+                  {metricBar(m.CRS, 0.35, col)}
+                </div>
+                <div>
+                  <div style={{fontSize:10,color:'var(--text-3)',marginBottom:3}}>TES — Token Efficiency</div>
+                  {metricBar(m.TES, 0.65, col)}
+                </div>
+                <div>
+                  <div style={{fontSize:10,color:'var(--text-3)',marginBottom:3}}>LCS — Long-horizon Recall</div>
+                  {metricBar(m.LCS, 1.0, col)}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── Metric legend ── */}
+      <div style={{
+        background:'var(--surface)',border:'1px solid var(--border)',borderRadius:10,
+        padding:'10px 14px',marginBottom:28,fontSize:12,color:'var(--text-2)',lineHeight:1.7
+      }}>
+        <div style={{fontWeight:700,color:'var(--text-1)',marginBottom:6,fontSize:11,
+                     letterSpacing:'0.06em',textTransform:'uppercase'}}>Metric Definitions</div>
+        <div><b>CRS</b> — Context Retrieval Score: TF-IDF similarity between assembled context and probe questions. Higher = more topically aligned context.</div>
+        <div><b>TES</b> — Token Efficiency Score: √(compression_ratio × entity_preservation). Higher = better compression without losing key facts.</div>
+        <div><b>LCS</b> — Long-horizon recall Score: fraction of long-horizon probe questions correctly answered (1.0 = 5/5 probes).</div>
+        <div style={{marginTop:4,color:'var(--text-3)'}}>Probe dots = per-probe recall (green ✓ / red ✗). Token savings = reduction vs naive full-history.</div>
+      </div>
+
+      {/* ── Ablation table ── */}
+      <div>
+        <div style={{fontSize:11,fontWeight:700,letterSpacing:'0.08em',textTransform:'uppercase',
+                     color:'var(--text-3)',marginBottom:14}}>
+          Ablation Study — Component Contribution
+        </div>
+        <div style={{fontSize:11,color:'var(--text-3)',marginBottom:10}}>
+          Each variant disables one system component to measure its individual contribution.
+        </div>
+        <div style={{overflowX:'auto'}}>
+          <table style={{width:'100%',borderCollapse:'collapse',fontSize:12}}>
+            <thead>
+              <tr style={{borderBottom:'1px solid var(--border)'}}>
+                {['Variant','CRS','TES','LCS','Tok Savings','ΔCRS','ΔTES','ΔLCS'].map(h => (
+                  <th key={h} style={{textAlign:'left',padding:'6px 8px',color:'var(--text-3)',
+                                      fontWeight:600,fontSize:11}}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ablation.map((r, idx) => {
+                const m = r.metrics;
+                const isFull = r.variant === 'FULL';
+                const fullRow = ablation.find(x => x.variant === 'FULL');
+                const delta = (key) => fullRow
+                  ? (m[key].ours - fullRow.metrics[key].ours).toFixed(3)
+                  : '—';
+                const dColor = (v) => {
+                  const n = parseFloat(v);
+                  return n < -0.01 ? '#ef4444' : n > 0.01 ? '#22c55e' : 'var(--text-3)';
+                };
+                return (
+                  <tr key={idx} style={{
+                    borderBottom:'1px solid var(--border)',
+                    background: isFull ? 'rgba(0,119,237,0.04)' : 'transparent'
+                  }}>
+                    <td style={{padding:'6px 8px',fontWeight:isFull?700:400,
+                                color:isFull?'var(--blue)':'var(--text-1)'}}>
+                      {r.variant}{isFull && ' ◄'}
+                    </td>
+                    <td style={{padding:'6px 8px',fontFamily:'monospace'}}>{m.CRS.ours.toFixed(4)}</td>
+                    <td style={{padding:'6px 8px',fontFamily:'monospace'}}>{m.TES.ours.toFixed(4)}</td>
+                    <td style={{padding:'6px 8px',fontFamily:'monospace'}}>{m.LCS.ours.toFixed(4)}</td>
+                    <td style={{padding:'6px 8px',fontFamily:'monospace'}}>{r.tokens.savings_pct}%</td>
+                    {isFull ? (
+                      <><td colSpan={3} style={{padding:'6px 8px',color:'var(--text-3)',fontSize:11}}>reference</td></>
+                    ) : (
+                      <>
+                        {['CRS','TES','LCS'].map(k => (
+                          <td key={k} style={{padding:'6px 8px',fontFamily:'monospace',
+                                              color:dColor(delta(k))}}>
+                            {parseFloat(delta(k)) > 0 ? '+' : ''}{delta(k)}
+                          </td>
+                        ))}
+                      </>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
+/* ── App root ─────────────────────────────────────────────────────── */
+function App() {
+  const [tab, setTab] = useState('memory');
+  const [stats, setStats] = useState(null);
+  const [apiOk, setApiOk] = useState(null);
+  const [chatModel, setChatModel] = useState('anthropic/claude-haiku-4-5-20251001');
+
+  useEffect(() => {
+    fetch(`${API}/storage/status`).then(()=>setApiOk(true)).catch(()=>setApiOk(false));
+  }, []);
+
+  return (
+    <div className="app">
+      <header className="header">
+        <div className="logo">
+          <div className="logo-mark">A</div>
+          <span className="logo-text">Agent<em>Mem</em> OS</span>
+          <span className="header-pill">Research Demo</span>
+        </div>
+        <div className="header-right">
+          {stats && <>
+            <span className="hmetric"><b>{stats.context_tokens?.toLocaleString()}</b> ctx</span>
+            <span className="hmetric"><b className="g">{stats.turn_count}</b> turns</span>
+            <span className="hmetric"><b className="t">{stats.summary_count}</b> summaries</span>
+          </>}
+          <div className="status-pill">
+            <div className={`dot-live ${apiOk===false?'dot-off':''}`}/>
+            <span>{apiOk===null?'connecting…':apiOk?'API live':'API offline'}</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="body">
+        <div className="chat-area">
+          <SplitChat onUpdate={setStats} onModelChange={setChatModel}/>
+        </div>
+        <div className="right-panel">
+          <div className="panel-tabs">
+            <button className={`panel-tab ${tab==='memory'?'active':''}`} onClick={()=>setTab('memory')}>Memory Inspector</button>
+            <button className={`panel-tab ${tab==='kg'?'active':''}`} onClick={()=>setTab('kg')}>Knowledge Graph</button>
+            <button className={`panel-tab ${tab==='sim'?'active':''}`} onClick={()=>setTab('sim')}>Simulation</button>
+            <button className={`panel-tab ${tab==='bench'?'active':''}`} onClick={()=>setTab('bench')}>Benchmarks</button>
+          </div>
+          <div className="panel-body">
+            {tab==='memory' ? <Inspector sessionId="agentmem-demo"/>
+             : tab==='kg'   ? <KGPanel/>
+             : tab==='sim'  ? <SimPanel model={chatModel}/>
+             :                <BenchmarksPanel/>}
+          </div>
+        </div>
+      </div>
+
+      <div className="status-bar">
+        {[
+          {pip:'#0077ED', t:'T1', d:'Redis'},
+          {pip:'#00B4D8', t:'T2', d:'SQLite episodic'},
+          {pip:'#30B050', t:'T3', d:'ChromaDB + DBSCAN'},
+          {pip:'#E09000', t:'T4', d:'Procedural'},
+        ].map(s=>(
+          <div key={s.t} className="st-item">
+            <div className="st-pip" style={{background:s.pip, boxShadow:`0 0 5px ${s.pip}66`}}/>
+            <span className="st-lbl"><b>{s.t}</b> {s.d}</span>
+          </div>
+        ))}
+        <span className="st-credit">NeurIPS 2026 · Sahith Reddy Thummala</span>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

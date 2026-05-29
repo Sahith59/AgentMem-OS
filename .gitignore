@@ -47,6 +47,9 @@ logs/
 .DS_Store
 ._*
 
+# Local session memory (not for repo)
+CONTEXT.md
+
 # Legacy symlink (old package name)
 memnai
 

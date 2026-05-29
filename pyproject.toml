@@ -62,6 +62,7 @@ dev = [
 
 [project.scripts]
 agentmem-os = "agentmem_os.cli.main:app"
+agentmem-os-mcp = "agentmem_os.mcp_server.server:main"
 
 [project.urls]
 Repository = "https://github.com/sahith0904/agentmem-os"
@@ -77,6 +78,7 @@ packages = [
     "agentmem_os.cli",
     "agentmem_os.db",
     "agentmem_os.llm",
+    "agentmem_os.mcp_server",
     "agentmem_os.storage",
 ]
 

@@ -1,0 +1,97 @@
+[
+  {
+    "system": "AGENTMEM_OS",
+    "label": "AgentMem OS (4-tier)",
+    "metrics": {
+      "CRS": 0.0917,
+      "TES": 0.5355,
+      "LCS": 1.0,
+      "tok_savings": 65.7,
+      "cost": 0.0345,
+      "naive_cost": 0.1004
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  },
+  {
+    "system": "MEMGPT",
+    "label": "MemGPT (archival memory)",
+    "metrics": {
+      "CRS": 0.2923,
+      "TES": 0.0,
+      "LCS": 1.0,
+      "tok_savings": 1.8,
+      "cost": 0.0414,
+      "naive_cost": 0.0421
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  },
+  {
+    "system": "LANGCHAIN_SUMMARY",
+    "label": "LangChain ConversationSummaryMemory",
+    "metrics": {
+      "CRS": 0.1169,
+      "TES": 0.5688,
+      "LCS": 1.0,
+      "tok_savings": 61.8,
+      "cost": 0.0356,
+      "naive_cost": 0.0933
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  },
+  {
+    "system": "ZEP",
+    "label": "Zep (BM25 + entity graph)",
+    "metrics": {
+      "CRS": 0.205,
+      "TES": 0.0,
+      "LCS": 1.0,
+      "tok_savings": 68.3,
+      "cost": 0.0304,
+      "naive_cost": 0.0958
+    },
+    "recall": {
+      "sahith": true,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  },
+  {
+    "system": "RECENT_ONLY",
+    "label": "Sliding window (last 10 turns)",
+    "metrics": {
+      "CRS": 0.1918,
+      "TES": 0.4869,
+      "LCS": 0.8,
+      "tok_savings": 34.5,
+      "cost": 0.0659,
+      "naive_cost": 0.1006
+    },
+    "recall": {
+      "sahith": false,
+      "neurips 2026": true,
+      "sqlite": true,
+      "procedural": true,
+      "neurips": true
+    }
+  }
+]
