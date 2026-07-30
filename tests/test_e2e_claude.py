@@ -807,11 +807,18 @@ try:
     )
 
     info("Running full evaluation...")
+    # Pass the same fixed grounding-fact questions used for LCS as CRS's
+    # probe set too, instead of relying on run_full_eval()'s generic
+    # last-N-turns fallback. This session's actual "probe" queries are the
+    # 5 grounding-fact questions above, not whatever happens to be the most
+    # recent turns when eval runs — using a fixed, meaningful set here is
+    # what makes n_queries (and therefore the CRS score) stable run to run.
     report = evaluator.run_full_eval(
         session_id=SESSION_ID,
         store=store,
         assembler=assembler,
         model=MODEL,
+        sample_queries=[q for q, _ in _EXPLICIT_QA],
     )
 
     # ── FIX: TES — retry directly if eval harness DB session missed summary ───

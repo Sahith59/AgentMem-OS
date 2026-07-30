@@ -413,12 +413,28 @@ class AgentMemEvaluator:
             logger.warning(f"[Eval] Too few turns ({n_turns}) for meaningful evaluation.")
             return report
 
-        # Default sample queries from recent turns
+        # Default sample queries from recent turns. Callers that already
+        # know a fixed, meaningful probe set (e.g. explicit grounding-fact
+        # questions) should pass sample_queries directly rather than rely
+        # on this fallback — see test_e2e_claude.py for an example. This
+        # fallback exists for generic callers with no such set available.
+        #
+        # Sample from a wider window (last 20 turns, not 5) and take up to
+        # 5, not 3: the previous last-5-turns/[:3] slice meant the actual
+        # n_queries depended on incidental user/assistant turn-count parity
+        # in that narrow window — as few as 2 user turns could land there,
+        # producing a small, session-timing-dependent sample. One run with
+        # n_queries=2 showed a negative CRS improvement purely from this,
+        # while a same-methodology run with different turn parity showed
+        # +0.19 — the sample composition was driving the sign, not the
+        # system. A wider window with a larger target count is strictly
+        # more stable without requiring a caller-specific fixed query list.
         if not sample_queries:
-            sample_queries = [
-                t["content"][:100] for t in all_turns[-5:]
+            user_turns_recent = [
+                t["content"][:150] for t in all_turns[-20:]
                 if t["role"] == "user"
-            ][:3]
+            ]
+            sample_queries = user_turns_recent[-5:]
 
         # ── CRS: Context Relevance ────────────────────────────────────────────
         if sample_queries:
