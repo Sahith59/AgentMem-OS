@@ -59,6 +59,9 @@ dev = [
     "black>=24.10.0",
     "ruff>=0.7.0",
 ]
+benchmarks = [
+    "openai>=1.0",  # benchmarks/qa_accuracy_eval.py generator+judge only
+]
 
 [project.scripts]
 agentmem-os = "agentmem_os.cli.main:app"
