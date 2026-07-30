@@ -226,8 +226,9 @@ async def compare_chat(req: CompareRequest):
         db.commit()
 
     def _get_history(db: _sqlite3.Connection, session_id: str, limit: int = 100) -> list:
+        # is_active=1 filters out soft-deleted (contradicted) turns
         rows = db.execute(
-            "SELECT role, content FROM turns WHERE session_id=? ORDER BY id ASC",
+            "SELECT role, content FROM turns WHERE session_id=? AND is_active=1 ORDER BY id ASC",
             (session_id,),
         ).fetchall()
         return [{"role": r, "content": c} for r, c in rows[-limit:]]
@@ -242,7 +243,13 @@ async def compare_chat(req: CompareRequest):
         agentmem_history = _get_history(_db, req.agentmem_session, limit=100)
         agentmem_tokens = sum(len(t["content"].split()) for t in agentmem_history)
 
-        if not agentmem_history or agentmem_history[0]["role"] != "user":
+        # Anthropic requires the message list to start with a user turn.
+        # When a user turn is soft-deleted (contradicted), the next turn may be
+        # an assistant turn — trim leading assistant turns rather than wiping
+        # all context, which would lose the Go preference established later.
+        while agentmem_history and agentmem_history[0]["role"] != "user":
+            agentmem_history.pop(0)
+        if not agentmem_history:
             agentmem_history = [{"role": "user", "content": req.message}]
 
         try:
@@ -253,17 +260,36 @@ async def compare_chat(req: CompareRequest):
 
         _save_turn(_db, req.agentmem_session, "assistant", agentmem_reply)
 
-        # ── KG ingestion — fire in background thread so it doesn't block ─
-        # compare_chat uses raw sqlite3 (bypasses store.save_turn), so we
-        # manually trigger KG extraction for the agentmem session here.
+        # ── Background tasks: KG ingestion + conflict detection ─────────
+        # compare_chat uses raw sqlite3 (bypasses store.save_turn), so both
+        # background tasks must be triggered manually here.
         import threading as _threading
-        def _run_kg():
+        from agentmem_os.memory.conflict_detector import ConflictDetector as _CD
+
+        # Get the new user turn ID for conflict detection
+        _new_turn_id = _db.execute(
+            "SELECT id FROM turns WHERE session_id=? AND role='user' ORDER BY id DESC LIMIT 1",
+            (req.agentmem_session,)
+        ).fetchone()
+        _new_turn_id = _new_turn_id[0] if _new_turn_id else None
+
+        def _run_background():
             try:
                 store._ingest_kg(req.agentmem_session, None, req.message)
                 store._ingest_kg(req.agentmem_session, None, agentmem_reply)
             except Exception:
                 pass
-        _threading.Thread(target=_run_kg, daemon=True).start()
+            if _new_turn_id:
+                try:
+                    # Pass db_path so detector uses raw sqlite3 — avoids
+                    # StaticPool WAL snapshot issue with cross-connection commits
+                    _CD().check_and_resolve(
+                        req.agentmem_session, _new_turn_id, req.message,
+                        db_path=_DB_PATH,
+                    )
+                except Exception:
+                    pass
+        _threading.Thread(target=_run_background, daemon=True).start()
 
         # ── Plain LLM side — bounded sliding window (last 20 turns) ─────
         # The plain LLM gets only the most recent context window — how most

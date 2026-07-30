@@ -211,15 +211,72 @@ class ConflictDetector:
         session_id: str,
         new_turn_id: int,
         new_content: str,
+        db_path: Optional[str] = None,
     ) -> int:
         """
         Compare new_content against the last LOOKBACK active user turns
         in session_id. For each pair that shares an entity AND has a polarity
         flip, soft-delete the older turn.
 
+        db_path: when set, uses a raw sqlite3 connection instead of SQLAlchemy.
+                 Required when called from compare_chat (raw sqlite3 writes) to
+                 avoid the StaticPool WAL snapshot issue where the SQLAlchemy
+                 connection doesn't see commits from a separate raw connection.
+
         Returns the number of turns deactivated.
         """
-        # Only analyse user turns — assistants don't assert user facts
+        if db_path:
+            return self._check_sqlite(session_id, new_turn_id, new_content, db_path)
+        return self._check_sqlalchemy(session_id, new_turn_id, new_content)
+
+    def _check_sqlite(
+        self, session_id: str, new_turn_id: int, new_content: str, db_path: str
+    ) -> int:
+        """Raw sqlite3 path — same connection sees its own committed writes."""
+        import sqlite3 as _sqlite3
+        conn = _sqlite3.connect(db_path)
+        deactivated = 0
+        try:
+            rows = conn.execute(
+                "SELECT id, content FROM turns "
+                "WHERE session_id=? AND role='user' AND is_active=1 AND id!=? "
+                "ORDER BY id DESC LIMIT ?",
+                (session_id, new_turn_id, self.LOOKBACK),
+            ).fetchall()
+
+            for turn_id, old_content in rows:
+                if not _entity_overlap(old_content, new_content):
+                    continue
+                similarity = _tfidf_cosine(old_content, new_content)
+                if similarity < self.TOPIC_THRESHOLD:
+                    continue
+                flipped, category = _has_polarity_flip(old_content, new_content)
+                if not flipped:
+                    continue
+
+                conn.execute(
+                    "UPDATE turns SET is_active=0, contradicted_by=? WHERE id=?",
+                    (new_turn_id, turn_id),
+                )
+                deactivated += 1
+                logger.info(
+                    f"[ConflictDetector] Contradiction ({category}): "
+                    f"turn {turn_id} superseded by turn {new_turn_id} "
+                    f"in session {session_id!r} (similarity={similarity:.3f})"
+                )
+
+            if deactivated:
+                conn.commit()
+        except Exception as e:
+            logger.warning(f"[ConflictDetector] sqlite3 error: {e}")
+        finally:
+            conn.close()
+        return deactivated
+
+    def _check_sqlalchemy(
+        self, session_id: str, new_turn_id: int, new_content: str
+    ) -> int:
+        """SQLAlchemy path — used when turns were saved via store.save_turn()."""
         db = get_session()
         deactivated = 0
         try:
@@ -238,22 +295,15 @@ class ConflictDetector:
 
             for prior in prior_turns:
                 old_content = prior.content
-
-                # Gate 1: entity overlap (fast, ~0ms)
                 if not _entity_overlap(old_content, new_content):
                     continue
-
-                # Gate 2: topic similarity threshold
                 similarity = _tfidf_cosine(old_content, new_content)
                 if similarity < self.TOPIC_THRESHOLD:
                     continue
-
-                # Gate 3: polarity flip check
                 flipped, category = _has_polarity_flip(old_content, new_content)
                 if not flipped:
                     continue
 
-                # Confirmed contradiction — soft-delete the older turn
                 prior.is_active = False
                 prior.contradicted_by = new_turn_id
                 deactivated += 1
