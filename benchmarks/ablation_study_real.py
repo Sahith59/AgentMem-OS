@@ -56,42 +56,9 @@ from agentmem_os.storage.store import ConversationStore  # noqa: E402
 from agentmem_os.llm.context_assembler import ContextAssembler  # noqa: E402
 from agentmem_os.llm.procedural_memory import ProceduralMemory  # noqa: E402
 from agentmem_os.db.engine import get_session as get_db  # noqa: E402
+from real_code_utils import install_tfidf_chroma  # noqa: E402
 
-
-# ── Swap ChromaDB for TF-IDF (same pattern as tests/test_e2e_claude.py) ────
-class _TfIdfRetriever:
-    """Drop-in replacement for ChromaDB — TF-IDF semantic search over SQLite turns."""
-
-    def search(self, session_id, query, top_k=5):
-        from agentmem_os.db.models import Turn
-        db = get_db()
-        try:
-            rows = (
-                db.query(Turn)
-                .filter(Turn.session_id == session_id)
-                .order_by(Turn.id.asc())
-                .all()
-            )
-            contents = [r.content for r in rows if r.content]
-        finally:
-            db.close()
-
-        if len(contents) < 3:
-            return contents
-
-        from sklearn.feature_extraction.text import TfidfVectorizer
-        from sklearn.metrics.pairwise import cosine_similarity
-
-        vec = TfidfVectorizer(max_features=512, sublinear_tf=True, min_df=1)
-        matrix = vec.fit_transform(contents)
-        q_vec = vec.transform([query])
-        sims = cosine_similarity(q_vec, matrix)[0]
-        top_idx = sims.argsort()[-top_k:][::-1]
-        return [contents[i] for i in top_idx if sims[i] > 0.01]
-
-
-_tfidf = _TfIdfRetriever()
-ContextAssembler._get_chroma = lambda self: _tfidf
+install_tfidf_chroma(ContextAssembler)
 
 
 VARIANTS = [
