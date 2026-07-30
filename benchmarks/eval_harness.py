@@ -135,8 +135,8 @@ class ContextRelevanceEvaluator:
         """
         try:
             q_emb = np.array(self.get_embedding(query))
-            ctx_emb = np.array(self.get_embedding(assembled_context[:2000]))
-            rand_emb = np.array(self.get_embedding(random_context[:2000]))
+            ctx_emb = np.array(self.get_embedding(self._truncate_for_embedding(assembled_context)))
+            rand_emb = np.array(self.get_embedding(self._truncate_for_embedding(random_context)))
 
             ours_score = float(self._cosine(q_emb, ctx_emb))
             base_score = float(self._cosine(q_emb, rand_emb))
@@ -156,6 +156,24 @@ class ContextRelevanceEvaluator:
                 "context_length": len(assembled_context),
             }
         )
+
+    # Embedding backends here (Ollama nomic-embed-text: 8192-token window;
+    # sentence-transformers MiniLM: internally truncates around 256 tokens)
+    # can't safely take ContextAssembler's full ~76.8k-token budget in one
+    # call, so some cap is genuinely necessary. It must not be a head-slice,
+    # though: the real ContextAssembler places [SYSTEM] and [SEMANTIC MEMORY]
+    # first and [RECENT TURNS] last (see llm/context_assembler.py), so a
+    # head-slice at 2000 chars was scoring CRS against system-prompt
+    # boilerplate and never reaching semantic/KG/procedural/recent content —
+    # the exact bug class documented in X-MemoryArch's own README (a 1200-char
+    # head-truncation there discarded 58% of every session before extraction).
+    _EMBED_CHAR_CAP = 4000
+
+    def _truncate_for_embedding(self, text: str) -> str:
+        """Tail-biased truncation — keeps the most query-relevant sections."""
+        if len(text) <= self._EMBED_CHAR_CAP:
+            return text
+        return text[-self._EMBED_CHAR_CAP:]
 
     def _cosine(self, a: np.ndarray, b: np.ndarray) -> float:
         denom = np.linalg.norm(a) * np.linalg.norm(b)
@@ -208,10 +226,15 @@ class TokenEfficiencyEvaluator:
         tokens_comp = self.token_counter.count(compressed_text)
         tokens_naive = self.token_counter.count(naive_text)
 
-        # Compression ratio (ours)
-        comp_ratio = 1.0 - (tokens_comp / max(1, tokens_orig))
+        # Compression ratio (ours). Clamped to [0,1] — if a "compressed"
+        # summary ever ends up longer than the original (e.g. a verbose
+        # LLM-generated summary of a short exchange), an unclamped ratio
+        # goes negative and (comp_ratio * preservation) ** 0.5 below
+        # returns a Python complex number instead of raising, silently
+        # corrupting every downstream consumer of this score.
+        comp_ratio = max(0.0, min(1.0, 1.0 - (tokens_comp / max(1, tokens_orig))))
         # Baseline: naive keeps newest N%, same fraction
-        naive_ratio = 1.0 - (tokens_naive / max(1, tokens_orig))
+        naive_ratio = max(0.0, min(1.0, 1.0 - (tokens_naive / max(1, tokens_orig))))
 
         # Entity preservation rate
         orig_entities = self._get_entities(original_text)
