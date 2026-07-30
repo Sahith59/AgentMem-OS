@@ -49,6 +49,8 @@ logs/
 
 # Local session memory (not for repo)
 CONTEXT.md
+ROADMAP_PRIVATE.md
+LAUNCH_ROADMAP.md
 
 # Legacy symlink (old package name)
 memnai
