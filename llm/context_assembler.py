@@ -59,12 +59,19 @@ class ContextAssembler:
         query: str,
         system_prompt: str = "You are MemNAI, an AI assistant with persistent memory.",
         agent_id: str = None,
+        disable: frozenset = frozenset(),
     ) -> str:
         """
         Build the full context string for the given session and query.
 
         Each section is capped at its token budget.
         Sections are labelled with XML-style tags for easy parsing in evaluations.
+
+        disable: optional set of tier names to skip — {"semantic", "global",
+        "procedural"}. Exists so ablation studies can exercise this real
+        assembler directly instead of a hand-rolled simulation of it — see
+        benchmarks/ablation_study_real.py. Defaults to empty (all tiers on),
+        so this has no effect on any existing caller.
         """
         store = self._get_store()
         session = store.get_or_create_session(session_id)
@@ -87,45 +94,48 @@ class ContextAssembler:
             sections.append(snap_section)
 
         # ── Section 3: Semantic Memory (ChromaDB MMR retrieval) ──────────────
-        try:
-            chroma = self._get_chroma()
-            chunks = chroma.search(session_id, query, top_k=5)
-            if chunks:
-                sem_text = "\n---\n".join(chunks)
-                sem_section = self._fit_to_budget(
-                    sem_text, self.allocations["semantic"], "[SEMANTIC MEMORY]"
-                )
-                sections.append(sem_section)
-        except Exception as e:
-            logger.debug(f"[ContextAssembler] Semantic retrieval skipped: {e}")
+        if "semantic" not in disable:
+            try:
+                chroma = self._get_chroma()
+                chunks = chroma.search(session_id, query, top_k=5)
+                if chunks:
+                    sem_text = "\n---\n".join(chunks)
+                    sem_section = self._fit_to_budget(
+                        sem_text, self.allocations["semantic"], "[SEMANTIC MEMORY]"
+                    )
+                    sections.append(sem_section)
+            except Exception as e:
+                logger.debug(f"[ContextAssembler] Semantic retrieval skipped: {e}")
 
         # ── Section 4: Global Map (Entity Knowledge Graph) ───────────────────
-        try:
-            kg = self._get_kg()
-            world_model = kg.get_relevant_subgraph(
-                query=query,
-                agent_id=agent_id,
-                top_k=12,
-            )
-            if world_model:
-                kg_section = self._fit_to_budget(
-                    world_model, self.allocations["global"], "[WORLD MODEL]"
+        if "global" not in disable:
+            try:
+                kg = self._get_kg()
+                world_model = kg.get_relevant_subgraph(
+                    query=query,
+                    agent_id=agent_id,
+                    top_k=12,
                 )
-                sections.append(kg_section)
-        except Exception as e:
-            logger.debug(f"[ContextAssembler] Knowledge graph skipped: {e}")
+                if world_model:
+                    kg_section = self._fit_to_budget(
+                        world_model, self.allocations["global"], "[WORLD MODEL]"
+                    )
+                    sections.append(kg_section)
+            except Exception as e:
+                logger.debug(f"[ContextAssembler] Knowledge graph skipped: {e}")
 
         # ── Section 5: Procedural Memory (Behavioral Patterns) ───────────────
-        try:
-            pm = self._get_procedural()
-            patterns = pm.get_relevant_patterns(query, agent_id=agent_id, top_k=3)
-            if patterns:
-                proc_section = self._fit_to_budget(
-                    patterns, self.allocations["procedural"], "[BEHAVIORAL PATTERNS]"
-                )
-                sections.append(proc_section)
-        except Exception as e:
-            logger.debug(f"[ContextAssembler] Procedural memory skipped: {e}")
+        if "procedural" not in disable:
+            try:
+                pm = self._get_procedural()
+                patterns = pm.get_relevant_patterns(query, agent_id=agent_id, top_k=3)
+                if patterns:
+                    proc_section = self._fit_to_budget(
+                        patterns, self.allocations["procedural"], "[BEHAVIORAL PATTERNS]"
+                    )
+                    sections.append(proc_section)
+            except Exception as e:
+                logger.debug(f"[ContextAssembler] Procedural memory skipped: {e}")
 
         # ── Section 6: Recent Turns (Episodic — always last) ─────────────────
         turns = store.get_history(session_id, last_n=20)
