@@ -23,8 +23,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _tier_lib import (  # noqa: E402
     G, R, Y, E, ok, warn, hdr, sub,
     SLEEP_THRESH,
-    tok, tfidf_cosine, extract_summary, tes,
-    assemble_context, call_claude,
+    tok, extract_summary, tes,
+    assemble_context, call_claude, crs_from_probe_contexts,
 )
 
 for _p in [Path('.'), Path('..'), Path('../..')]:
@@ -114,6 +114,7 @@ def run_variant(client, vname, label, flags):
     n_tok = 0
     b_tok = 0
     sleep_sum = None
+    probe_contexts = {}  # {turn_index: (query, assembled_context)} — for CRS
 
     for i, msg in enumerate(CONVERSATION_50):
         turn_num = i + 1
@@ -124,6 +125,8 @@ def run_variant(client, vname, label, flags):
             print(f"    → Sleep consolidation at T{turn_num}")
 
         ctx = assemble_context(turns, msg, flags, sleep_sum)
+        if i in PROBE_RECALLS_50:
+            probe_contexts[i] = (msg, ctx)
         naive = sum(tok(t["content"]) for t in turns) + tok(msg)
         ours = tok(ctx) + tok(msg)
         n_tok += ours
@@ -153,9 +156,7 @@ def run_variant(client, vname, label, flags):
     user_turns = [t for t in turns if t["role"] == "user"]
     compressed = sleep_sum if sleep_sum else " ".join(t["content"] for t in user_turns[-max(1, int(len(user_turns) * .7)):])
     tes_v = tes(user_turns, compressed)
-    probe_qs = [CONVERSATION_50[i] for i in sorted(PROBE_RECALLS_50)]
-    our_ctx = (sleep_sum or "") + " " + " ".join(t["content"] for t in turns[-10:])
-    crs = round(sum(tfidf_cosine(q, our_ctx) for q in probe_qs) / len(probe_qs), 4)
+    crs = crs_from_probe_contexts(probe_contexts)
     sub("Results")
     print(f"    LCS  : {lcs:.4f}  recall={sum(recall.values())}/{len(PROBE_RECALLS_50)}")
     print(f"    TES  : {tes_v:.4f}")

@@ -273,6 +273,59 @@ def assemble_context(turns: list, query: str, flags: dict,
     return "\n\n".join(parts)
 
 
+# ── CRS scoring from actual assembled context ────────────────────────────────
+
+def crs_from_probe_contexts(probe_contexts: dict) -> float:
+    """
+    Score CRS using the ACTUAL assembled context at each probe turn, not a
+    reconstruction from raw turn history after the fact.
+
+    probe_contexts: {turn_index: (query, assembled_context_string)}, captured
+    at the moment each probe turn's context was built and sent to the model.
+
+    This is what makes CRS sensitive to which tier is disabled in a given
+    ablation variant. The original approach scored
+    tfidf_cosine(query, sleep_summary + last-10-raw-turns) for every variant
+    — since NO_KG/NO_PROC/NO_SLEEP don't change the last-10-raw-turns text
+    at all, CRS came out byte-identical across those variants regardless of
+    which tier was actually disabled, which structurally can't detect any
+    of those tiers' contribution.
+    """
+    if not probe_contexts:
+        return 0.0
+    scores = [tfidf_cosine(q, ctx) for q, ctx in probe_contexts.values()]
+    return round(sum(scores) / len(scores), 4)
+
+
+def patch_baselines_from_recent_only(results: list, variant_key: str = "variant") -> None:
+    """
+    Replace each variant's fabricated LCS/CRS baseline with the RECENT_ONLY
+    variant's own measured score from the same run, in place.
+
+    The original hardcoded `lcs_base = 0.70` was a constant, identical
+    across every variant and every run, never actually measured. RECENT_ONLY
+    already IS the empirical "no persistent memory" floor computed in the
+    same batch — using its real score instead of a magic number makes the
+    baseline honest and internally consistent with what CRS/LCS's own
+    baseline is supposed to represent (naive/no-memory performance).
+
+    RECENT_ONLY's own entry is left pointing at itself (baseline == its own
+    score, delta == 0) since there's no more-naive floor within the set to
+    compare it against.
+    """
+    recent = next((r for r in results if r.get(variant_key) == "RECENT_ONLY"), None)
+    if recent is None:
+        return
+    recent_lcs = recent["metrics"]["LCS"]["ours"]
+    recent_crs = recent["metrics"]["CRS"]["ours"]
+    for r in results:
+        m = r["metrics"]
+        m["LCS"]["baseline"] = recent_lcs
+        m["LCS"]["delta"] = round(m["LCS"]["ours"] - recent_lcs, 4)
+        m["CRS"]["baseline"] = recent_crs
+        m["CRS"]["delta"] = round(m["CRS"]["ours"] - recent_crs, 4)
+
+
 # ── Claude API call ───────────────────────────────────────────────────────────
 
 def call_claude(client, context: str, user_msg: str, max_tokens: int = 512) -> tuple[str, int, int]:

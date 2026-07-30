@@ -31,7 +31,7 @@ from _tier_lib import (  # noqa: E402
     COST_PER_MTOK, SLEEP_THRESH,
     CONVERSATION, PROBE_RECALLS,
     tok, tfidf_cosine, extract_summary, tes,
-    assemble_context, call_claude,
+    assemble_context, call_claude, crs_from_probe_contexts,
 )
 
 for _p in [Path('.'), Path('..'), Path('../..')]:
@@ -84,6 +84,7 @@ def run_baseline(client, name, label, mode):
     sub("Running 25-turn conversation...")
     turns = []
     recall = {}
+    probe_contexts = {}  # {turn_index: (query, assembled_context)} — for CRS
     n_tok = 0
     b_tok = 0
     sleep_sum = None
@@ -98,6 +99,8 @@ def run_baseline(client, name, label, mode):
             print(f"    → Sleep consolidation at T{turn_num}")
 
         ctx = build_context(turns, msg, mode, sleep_sum)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (msg, ctx)
         naive = sum(tok(t["content"]) for t in turns) + tok(msg)
         ours = tok(ctx) + tok(msg)
         n_tok += ours
@@ -134,9 +137,11 @@ def run_baseline(client, name, label, mode):
     else:  # ours
         compressed = sleep_sum if sleep_sum else " ".join(t["content"] for t in user_turns)
     tes_v = tes(user_turns, compressed)
-    probe_qs = [CONVERSATION[i] for i in sorted(PROBE_RECALLS)]
-    our_ctx = (sleep_sum or "") + " " + " ".join(t["content"] for t in turns[-10:])
-    crs = round(sum(tfidf_cosine(q, our_ctx) for q in probe_qs) / len(probe_qs), 4)
+    # Scored against the actual per-mode assembled context (the previous
+    # version used sleep_sum + raw turns regardless of mode, so CRS came
+    # out identical for AGENTMEM_OS/FULL_HISTORY/NAIVE_RAG/RECENT_ONLY no
+    # matter how differently each mode actually built its context).
+    crs = crs_from_probe_contexts(probe_contexts)
 
     sub("Results")
     cost = round(n_tok / 1_000_000 * COST_PER_MTOK, 4)

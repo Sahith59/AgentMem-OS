@@ -22,11 +22,12 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _tier_lib import (  # noqa: E402
-    R, E, ok, warn, hdr, sub,
+    R, E, ok, hdr, sub,
     SLEEP_THRESH,
     CONVERSATION, PROBE_RECALLS,
-    tok, tfidf_cosine, extract_summary, tes, tes_naive,
+    tok, extract_summary, tes, tes_naive,
     assemble_context, call_claude,
+    crs_from_probe_contexts, patch_baselines_from_recent_only,
 )
 
 for _p in [Path('.'), Path('..'), Path('../..')]:
@@ -52,6 +53,7 @@ def run_variant(client, vname, label, flags, run_id):
     print(f"  [{vname}] run {run_id}", end="", flush=True)
     turns = []
     recall = {}
+    probe_contexts = {}  # {turn_index: (query, assembled_context)} — for CRS
     n_tok = 0
     b_tok = 0
     sleep_sum = None
@@ -63,6 +65,8 @@ def run_variant(client, vname, label, flags, run_id):
             sleep_sum = extract_summary(old[:int(len(old) * .6)])
 
         ctx = assemble_context(turns, msg, flags, sleep_sum)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (msg, ctx)
         naive = sum(tok(t["content"]) for t in turns) + tok(msg)
         ours = tok(ctx) + tok(msg)
         n_tok += ours
@@ -86,17 +90,15 @@ def run_variant(client, vname, label, flags, run_id):
         " ".join(t["content"] for t in user_turns[-max(1, int(len(user_turns) * .7)):])
     tes_ours = tes(user_turns, compressed)
     tes_b = tes_naive(user_turns)
-    probe_qs = [CONVERSATION[i] for i in sorted(PROBE_RECALLS)]
-    our_ctx = (sleep_sum or "") + " " + " ".join(t["content"] for t in turns[-10:])
-    crs = round(sum(tfidf_cosine(q, our_ctx) for q in probe_qs) / len(probe_qs), 4)
-    mid = len(turns) // 2
-    base_ctx = " ".join(t["content"] for t in turns[max(0, mid - 2):mid + 3])
-    crs_b = round(sum(tfidf_cosine(q, base_ctx) for q in probe_qs) / len(probe_qs), 4)
+    # CRS scored from the actual assembled context per probe turn (Group B
+    # fix); LCS/CRS baselines are patched from RECENT_ONLY's own measured
+    # score for this run in main(), not a hardcoded 0.70.
+    crs = crs_from_probe_contexts(probe_contexts)
 
     return {"variant": vname, "run": run_id,
-            "metrics": {"CRS": {"ours": crs, "baseline": crs_b},
+            "metrics": {"CRS": {"ours": crs, "baseline": 0.0},
                         "TES": {"ours": tes_ours, "baseline": tes_b},
-                        "LCS": {"ours": lcs, "baseline": 0.70}},
+                        "LCS": {"ours": lcs, "baseline": 0.0}},
             "tokens": {"savings_pct": sav}}
 
 
@@ -116,29 +118,27 @@ def main():
         sys.exit(1)
 
     bench_dir = Path(__file__).parent
-    # Load existing run 1
-    run1_path = bench_dir / "ablation_results.json"
-    if run1_path.exists():
-        run1 = json.loads(run1_path.read_text())
-        for r in run1:
-            r["run"] = 1
-        all_runs = run1
-        ok("Loaded run 1 from ablation_results.json")
-    else:
-        warn(f"ablation_results.json not found — will run from scratch ({TARGET_RUNS} runs)")
-        all_runs = []
 
-    first_new_run = 2 if all_runs else 1
-    n_new = (TARGET_RUNS - 1) if all_runs else TARGET_RUNS
+    # NOTE: this intentionally does NOT load/append to the old
+    # ablation_results.json — that file was produced by the pre-fix
+    # ablation_study.py (hardcoded LCS baseline, tier-blind CRS) and its
+    # numbers aren't compatible with runs produced after the Group B fixes.
+    # Every run here is fresh, all TARGET_RUNS of them.
+    all_runs = []
+    print(f"\n  Running {TARGET_RUNS} run(s) × {len(VARIANTS)} variants × {len(CONVERSATION)} turns")
+    print(f"  Est. cost: ~${TARGET_RUNS * len(VARIANTS) * 0.31:.2f}\n")
 
-    print(f"\n  Running {n_new} new run(s) × {len(VARIANTS)} variants × {len(CONVERSATION)} turns")
-    print(f"  Est. cost: ~${n_new * len(VARIANTS) * 0.31:.2f}\n")
-
-    for run_id in range(first_new_run, first_new_run + n_new):
+    for run_id in range(1, TARGET_RUNS + 1):
         sub(f"Run {run_id}")
+        run_results = []
         for vname, label, flags in VARIANTS:
             r = run_variant(client, vname, label, flags, run_id)
-            all_runs.append(r)
+            run_results.append(r)
+        # Patch this run's LCS/CRS baselines from ITS OWN RECENT_ONLY
+        # result — baselines must not leak across runs, since each run's
+        # RECENT_ONLY score is itself noisy (real API calls).
+        patch_baselines_from_recent_only(run_results)
+        all_runs.extend(run_results)
 
     # Save all runs
     multi_path = bench_dir / "ablation_multi_run.json"
@@ -146,7 +146,7 @@ def main():
     ok(f"All runs → {multi_path}")
 
     # Compute mean +/- std per variant
-    total_runs = first_new_run + n_new - 1
+    total_runs = TARGET_RUNS
     stats = {}
     for vname, _, _ in VARIANTS:
         runs = [r for r in all_runs if r["variant"] == vname]

@@ -36,8 +36,9 @@ from _tier_lib import (  # noqa: E402
     G, R, Y, E, ok, warn, info, hdr, sub,
     COST_PER_MTOK, SLEEP_THRESH,
     CONVERSATION, PROBE_RECALLS,
-    tok, tfidf_cosine, extract_summary, tes, tes_naive,
+    tok, extract_summary, tes, tes_naive,
     assemble_context, call_claude,
+    crs_from_probe_contexts, patch_baselines_from_recent_only,
 )
 
 # ── Locate .env (walk up from this file's location) ───────────────────────────
@@ -68,6 +69,7 @@ def run_variant(client, variant_name: str, label: str, flags: dict) -> dict:
 
     turns = []          # full history: {role, content}
     recall_hits = {}
+    probe_contexts = {}  # {turn_index: (query, assembled_context)} — for CRS
     naive_tok_total = 0
     ours_tok_total = 0
     token_log = []
@@ -87,6 +89,8 @@ def run_variant(client, variant_name: str, label: str, flags: dict) -> dict:
 
         # ── Assemble context for this variant ─────────────────────────────────
         context = assemble_context(turns, user_msg, flags, sleep_summary)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (user_msg, context)
 
         # ── Naive token count (full raw history) ──────────────────────────────
         naive_tok = sum(tok(t["content"]) for t in turns) + tok(user_msg)
@@ -123,7 +127,9 @@ def run_variant(client, variant_name: str, label: str, flags: dict) -> dict:
 
     # ── LCS ───────────────────────────────────────────────────────────────────
     lcs_ours = round(sum(recall_hits.values()) / len(PROBE_RECALLS), 4)
-    lcs_base = 0.70    # deterministic recent-8 baseline
+    # baseline is patched in main() from the RECENT_ONLY variant's own
+    # measured score for this run — see patch_baselines_from_recent_only()
+    lcs_base = 0.0
 
     # ── TES ───────────────────────────────────────────────────────────────────
     user_turns = [t for t in turns if t["role"] == "user"]
@@ -136,17 +142,12 @@ def run_variant(client, variant_name: str, label: str, flags: dict) -> dict:
     tes_base = tes_naive(user_turns)
 
     # ── CRS ───────────────────────────────────────────────────────────────────
-    probe_qs = [CONVERSATION[i] for i in sorted(PROBE_RECALLS)]
-    # Our context: sleep summary + last 10 turns text
-    our_ctx = (sleep_summary or "") + " " + " ".join(
-        t["content"] for t in turns[-10:])
-    crs_ours = round(sum(tfidf_cosine(q, our_ctx) for q in probe_qs)
-                      / len(probe_qs), 4)
-    # Baseline: middle-5-turns only
-    mid = len(turns) // 2
-    base_ctx = " ".join(t["content"] for t in turns[max(0, mid - 2):mid + 3])
-    crs_base = round(sum(tfidf_cosine(q, base_ctx) for q in probe_qs)
-                      / len(probe_qs), 4)
+    # Scored against the ACTUAL context assembled for each probe turn (which
+    # differs by variant's flags), not a reconstruction from raw turn text
+    # that's identical regardless of which tier is disabled. Baseline is
+    # patched in main() from RECENT_ONLY, same as LCS.
+    crs_ours = crs_from_probe_contexts(probe_contexts)
+    crs_base = 0.0
 
     # ── Token savings ─────────────────────────────────────────────────────────
     tok_savings = round(100 * (1 - ours_tok_total / max(1, naive_tok_total)), 1)
@@ -154,9 +155,13 @@ def run_variant(client, variant_name: str, label: str, flags: dict) -> dict:
     cost_naive = round(naive_tok_total / 1_000_000 * COST_PER_MTOK, 4)
 
     sub("Results")
-    print(f"    CRS : {crs_ours:.4f}  (base {crs_base:.4f},  Δ {crs_ours-crs_base:+.4f})")
+    # CRS/LCS baselines aren't known yet — they're patched in from
+    # RECENT_ONLY's own measured score once every variant has run (see
+    # patch_baselines_from_recent_only() in main()), so only "ours" is
+    # meaningful to print here.
+    print(f"    CRS : {crs_ours:.4f}  (baseline finalized after RECENT_ONLY runs)")
     print(f"    TES : {tes_ours:.4f}  (base {tes_base:.4f},  Δ {tes_ours-tes_base:+.4f})")
-    print(f"    LCS : {lcs_ours:.4f}  (base {lcs_base:.4f},  Δ {lcs_ours-lcs_base:+.4f})")
+    print(f"    LCS : {lcs_ours:.4f}  (baseline finalized after RECENT_ONLY runs)")
     print(f"    Tok : {tok_savings:+.1f}% savings  "
           f"(${cost_ours:.4f} vs ${cost_naive:.4f} naive)")
 
@@ -219,6 +224,10 @@ def main():
             warn(f"Variant {vname} crashed: {ex}")
             import traceback
             traceback.print_exc()
+
+    # ── Patch in real baselines (RECENT_ONLY's own measured LCS/CRS from
+    #    this same run) in place of the old hardcoded 0.70 constant ──────────
+    patch_baselines_from_recent_only(results)
 
     # ── Save JSON ─────────────────────────────────────────────────────────────
     out_dir = Path(__file__).parent

@@ -38,7 +38,7 @@ from _tier_lib import (  # noqa: E402
     MODEL, COST_PER_MTOK,
     CONVERSATION, PROBE_RECALLS,
     tok, entities, tfidf_cosine, bm25_score, extract_summary, tes,
-    assemble_context, call_claude,
+    assemble_context, call_claude, crs_from_probe_contexts,
 )
 
 for _p in [Path('.'), Path('..'), Path('../..')]:
@@ -54,13 +54,17 @@ RECENT_WIN     = 10   # Recent-only baseline
 
 
 def _compute_metrics(turns: list, recall_hits: dict, compressed_text: str,
-                      naive_tok_total: int, ours_tok_total: int) -> dict:
+                      naive_tok_total: int, ours_tok_total: int,
+                      probe_contexts: dict) -> dict:
     user_turns = [t for t in turns if t["role"] == "user"]
     lcs = round(sum(recall_hits.values()) / len(PROBE_RECALLS), 4)
     tes_v = tes(user_turns, compressed_text)
-    probe_qs = [CONVERSATION[i] for i in sorted(PROBE_RECALLS)]
-    our_ctx = compressed_text + " " + " ".join(t["content"] for t in turns[-8:])
-    crs = round(sum(tfidf_cosine(q, our_ctx) for q in probe_qs) / len(probe_qs), 4)
+    # Scored against each system's actual assembled context per probe turn.
+    # The previous version scored every one of the 5 systems (AgentMem OS,
+    # MemGPT, LangChain, Zep, Recent-Only) against compressed_text + the
+    # same generic last-8-raw-turns text, rather than what that system
+    # actually built and sent to the model.
+    crs = crs_from_probe_contexts(probe_contexts)
     tok_savings = round(100 * (1 - ours_tok_total / max(1, naive_tok_total)), 1)
     cost = round(ours_tok_total / 1_000_000 * COST_PER_MTOK, 4)
     naive_cost = round(naive_tok_total / 1_000_000 * COST_PER_MTOK, 4)
@@ -77,6 +81,7 @@ def _compute_metrics(turns: list, recall_hits: dict, compressed_text: str,
 def run_agentmem(client) -> dict:
     hdr("SYSTEM 1: AgentMem OS — Full 4-Tier System")
     turns, recall_hits = [], {}
+    probe_contexts = {}
     sleep_summary = None
     naive_tok_total = ours_tok_total = 0
 
@@ -87,6 +92,8 @@ def run_agentmem(client) -> dict:
             info(f"Sleep consolidation at turn {i+1}")
 
         ctx = assemble_context(turns, user_msg, {}, sleep_summary)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (user_msg, ctx)
         naive_tok = sum(tok(t["content"]) for t in turns) + tok(user_msg)
         ours_tok = tok(ctx) + tok(user_msg)
         naive_tok_total += naive_tok
@@ -113,7 +120,7 @@ def run_agentmem(client) -> dict:
 
     compressed = sleep_summary or " ".join(t["content"] for t in
                                             [t for t in turns if t["role"] == "user"][-8:])
-    m = _compute_metrics(turns, recall_hits, compressed, naive_tok_total, ours_tok_total)
+    m = _compute_metrics(turns, recall_hits, compressed, naive_tok_total, ours_tok_total, probe_contexts)
     sub("Results")
     print(f"    CRS={m['CRS']:.4f}  TES={m['TES']:.4f}  LCS={m['LCS']:.4f}  savings={m['tok_savings']}%")
     return {"system": "AGENTMEM_OS", "label": "AgentMem OS (4-tier)", "metrics": m,
@@ -133,6 +140,7 @@ def run_memgpt(client) -> dict:
     hdr("SYSTEM 2: MemGPT — Main Context + Archival Memory")
     turns, archival = [], []
     recall_hits = {}
+    probe_contexts = {}
     naive_tok_total = ours_tok_total = 0
 
     for i, user_msg in enumerate(CONVERSATION):
@@ -158,6 +166,8 @@ def run_memgpt(client) -> dict:
         parts.append("[MAIN CONTEXT]\n" +
                       "\n".join(f"[{t['role'].upper()}]: {t['content']}" for t in turns))
         ctx = "\n\n".join(parts)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (user_msg, ctx)
 
         naive_tok = sum(tok(t["content"]) for t in turns + archival) + tok(user_msg)
         ours_tok = tok(ctx) + tok(user_msg)
@@ -186,7 +196,7 @@ def run_memgpt(client) -> dict:
     compressed = " ".join(t["content"] for t in archival) + \
                  " ".join(t["content"] for t in turns if t["role"] == "user")
     m = _compute_metrics(turns + archival, recall_hits, compressed,
-                          naive_tok_total, ours_tok_total)
+                          naive_tok_total, ours_tok_total, probe_contexts)
     sub("Results")
     print(f"    CRS={m['CRS']:.4f}  TES={m['TES']:.4f}  LCS={m['LCS']:.4f}  savings={m['tok_savings']}%")
     return {"system": "MEMGPT", "label": "MemGPT (archival memory)", "metrics": m,
@@ -224,6 +234,7 @@ def run_langchain_summary(client) -> dict:
     hdr("SYSTEM 3: LangChain ConversationSummaryMemory")
     turns, summary = [], None
     recall_hits = {}
+    probe_contexts = {}
     naive_tok_total = ours_tok_total = 0
 
     for i, user_msg in enumerate(CONVERSATION):
@@ -243,6 +254,8 @@ def run_langchain_summary(client) -> dict:
             parts.append("[RECENT CONVERSATION]\n" +
                           "\n".join(f"[{t['role'].upper()}]: {t['content']}" for t in recent))
         ctx = "\n\n".join(parts)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (user_msg, ctx)
 
         naive_tok = sum(tok(t["content"]) for t in turns) + tok(user_msg)
         ours_tok = tok(ctx) + tok(user_msg)
@@ -270,7 +283,7 @@ def run_langchain_summary(client) -> dict:
 
     compressed = (summary or "") + " ".join(t["content"] for t in
                   [t for t in turns if t["role"] == "user"][-5:])
-    m = _compute_metrics(turns, recall_hits, compressed, naive_tok_total, ours_tok_total)
+    m = _compute_metrics(turns, recall_hits, compressed, naive_tok_total, ours_tok_total, probe_contexts)
     sub("Results")
     print(f"    CRS={m['CRS']:.4f}  TES={m['TES']:.4f}  LCS={m['LCS']:.4f}  savings={m['tok_savings']}%")
     return {"system": "LANGCHAIN_SUMMARY", "label": "LangChain ConversationSummaryMemory",
@@ -292,6 +305,7 @@ def run_zep(client) -> dict:
     all_turns = []   # full store (BM25 index)
     entity_graph = {}  # entity → mention count
     recall_hits = {}
+    probe_contexts = {}
     naive_tok_total = ours_tok_total = 0
 
     for i, user_msg in enumerate(CONVERSATION):
@@ -320,6 +334,8 @@ def run_zep(client) -> dict:
             parts.append("[RECENT CONTEXT]\n" +
                           "\n".join(f"[{t['role'].upper()}]: {t['content']}" for t in recent))
         ctx = "\n\n".join(parts)
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (user_msg, ctx)
 
         naive_tok = sum(tok(t["content"]) for t in all_turns) + tok(user_msg)
         ours_tok = tok(ctx) + tok(user_msg)
@@ -351,7 +367,7 @@ def run_zep(client) -> dict:
 
     user_turns = [t for t in all_turns if t["role"] == "user"]
     compressed = " ".join(t["content"] for t in user_turns)
-    m = _compute_metrics(all_turns, recall_hits, compressed, naive_tok_total, ours_tok_total)
+    m = _compute_metrics(all_turns, recall_hits, compressed, naive_tok_total, ours_tok_total, probe_contexts)
     sub("Results")
     print(f"    CRS={m['CRS']:.4f}  TES={m['TES']:.4f}  LCS={m['LCS']:.4f}  savings={m['tok_savings']}%")
     return {"system": "ZEP", "label": "Zep (BM25 + entity graph)", "metrics": m,
@@ -365,12 +381,15 @@ def run_zep(client) -> dict:
 def run_recent_only(client) -> dict:
     hdr("SYSTEM 5: Recent-Only Baseline (sliding window)")
     turns, recall_hits = [], {}
+    probe_contexts = {}
     naive_tok_total = ours_tok_total = 0
 
     for i, user_msg in enumerate(CONVERSATION):
         recent = turns[-RECENT_WIN*2:]
         ctx = ("[SYSTEM]\nYou are a helpful AI assistant.\n\n[RECENT CONTEXT]\n" +
                "\n".join(f"[{t['role'].upper()}]: {t['content']}" for t in recent))
+        if i in PROBE_RECALLS:
+            probe_contexts[i] = (user_msg, ctx)
 
         naive_tok = sum(tok(t["content"]) for t in turns) + tok(user_msg)
         ours_tok = tok(ctx) + tok(user_msg)
@@ -398,7 +417,7 @@ def run_recent_only(client) -> dict:
 
     user_turns = [t for t in turns if t["role"] == "user"]
     compressed = " ".join(t["content"] for t in user_turns[-RECENT_WIN:])
-    m = _compute_metrics(turns, recall_hits, compressed, naive_tok_total, ours_tok_total)
+    m = _compute_metrics(turns, recall_hits, compressed, naive_tok_total, ours_tok_total, probe_contexts)
     sub("Results")
     print(f"    CRS={m['CRS']:.4f}  TES={m['TES']:.4f}  LCS={m['LCS']:.4f}  savings={m['tok_savings']}%")
     return {"system": "RECENT_ONLY", "label": "Sliding window (last 10 turns)", "metrics": m,
