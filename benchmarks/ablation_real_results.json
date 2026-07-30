@@ -1,0 +1,52 @@
+[
+  {
+    "variant": "FULL",
+    "label": "Full real system (all tiers)",
+    "disable": [],
+    "metrics": {
+      "CRS": 0.2543
+    }
+  },
+  {
+    "variant": "NO_SEMANTIC",
+    "label": "w/o Semantic Retrieval (real Tier 3)",
+    "disable": [
+      "semantic"
+    ],
+    "metrics": {
+      "CRS": 0.0716
+    }
+  },
+  {
+    "variant": "NO_KG",
+    "label": "w/o Entity Knowledge Graph (real)",
+    "disable": [
+      "global"
+    ],
+    "metrics": {
+      "CRS": 0.2692
+    }
+  },
+  {
+    "variant": "NO_PROC",
+    "label": "w/o Procedural Memory (real)",
+    "disable": [
+      "procedural"
+    ],
+    "metrics": {
+      "CRS": 0.2772
+    }
+  },
+  {
+    "variant": "RECENT_ONLY",
+    "label": "All 3 optional tiers disabled",
+    "disable": [
+      "global",
+      "procedural",
+      "semantic"
+    ],
+    "metrics": {
+      "CRS": 0.0899
+    }
+  }
+]
