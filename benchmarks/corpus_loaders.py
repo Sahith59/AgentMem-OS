@@ -55,6 +55,17 @@ class MemEntry:
 class QueryEntry:
     question: str
     gold_keys: list          # list[gold_key] — all session IDs that answer this
+    scope_keys: list = field(default_factory=list)
+    # every session ID that should be searched to answer this question (the
+    # "haystack") — a superset of gold_keys. For LoCoMo this is every
+    # session in the same conversation; for LongMemEval it's the dataset's
+    # own haystack_session_ids. Needed for QA-accuracy eval (Group E): the
+    # model must find the answer among a real haystack, not be handed only
+    # the gold sessions directly.
+    gold_answer: str = ""
+    # the actual answer text, for QA-accuracy scoring (retrieve->generate->
+    # judge). Empty for questions without one — callers doing QA-accuracy
+    # eval should filter those out (see qa_accuracy_eval.py).
 
 
 @dataclass
@@ -99,6 +110,7 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
             # Map dia_id -> session_key within this conversation, to resolve
             # QA evidence (turn-level) into session-level gold keys.
             dia_to_session = {}
+            conv_session_ids = []  # every session_id ingested for this conv — the haystack scope
 
             for sk in session_keys:
                 turns_raw = conv_data[sk]
@@ -130,6 +142,7 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
                     "content": session_content, "search_text": session_content,
                     "gold_key": session_id, "turns": structured_turns,
                 })
+                conv_session_ids.append(session_id)
 
             for qa in conv["qa"]:
                 evidence = qa.get("evidence", [])
@@ -143,7 +156,9 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
                 })
                 if not gold_sessions:
                     continue
-                qs.append({"question": qa["question"], "gold_keys": gold_sessions})
+                qs.append({"question": qa["question"], "gold_keys": gold_sessions,
+                           "scope_keys": list(conv_session_ids),
+                           "gold_answer": str(qa.get("answer", ""))})
         return {"memories": mems, "queries": qs}
 
     raw = _cached(cache, _build)
@@ -203,9 +218,11 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
         qs = []
         for item in data:
             ans_ids = item.get("answer_session_ids", [])
-            if not ans_ids:
+            if not ans_ids or not item.get("answer"):
                 continue
-            qs.append({"question": item["question"], "gold_keys": ans_ids})
+            qs.append({"question": item["question"], "gold_keys": ans_ids,
+                       "scope_keys": item.get("haystack_session_ids", []),
+                       "gold_answer": str(item["answer"])})
         return {"memories": mems, "queries": qs}
 
     raw = _cached(cache, _build)
