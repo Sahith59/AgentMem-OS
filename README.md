@@ -86,15 +86,34 @@ patterns = pm.get_relevant_patterns("explain research methodology", agent_id=Non
 
 ## Benchmark Metrics
 
-Three novel metrics designed for memory-augmented LLM evaluation:
+> ### A note on these metrics — read this before the numbers
+> CRS, TES, and LCS below are **internal proxy metrics** for retrieval
+> relevance, compression quality, and long-horizon recall. They are **not**
+> the metric family Mem0, Zep, and similar systems publish — those report
+> **QA accuracy** (retrieve → generate an answer → an LLM judge scores
+> answer correctness against a gold answer). Proxy metrics like ours and
+> QA accuracy are not directly comparable, and we make **no "beats Mem0" or
+> similar claim** anywhere in this repo. A QA-accuracy harness that
+> targets exactly that comparable methodology exists —
+> [`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py),
+> evaluated against real [LoCoMo](https://arxiv.org/abs/2402.17753) and
+> [LongMemEval](https://arxiv.org/abs/2410.10813) data via real ingestion
+> and retrieval (not a simulation — see
+> [`benchmarks/ablation_study_real.py`](benchmarks/ablation_study_real.py)
+> for the same standard applied to the ablation study). It has not been run
+> at scale yet; we're deferring that real-money run until the system is
+> otherwise end-to-end ready, and will publish results (or a clear
+> "results pending" note) here once it has.
+
+Three metrics used for internal tier-ablation and development iteration:
 
 ### CRS — Context Relevance Score
-Measures how relevant the assembled memory context is to the current query vs. a random baseline context.
+Measures how relevant the assembled memory context is to the current query vs. a baseline context.
 
 ```
 CRS = cosine_sim(embed(query), embed(assembled_context))
       vs.
-      cosine_sim(embed(query), embed(random_context))
+      cosine_sim(embed(query), embed(baseline_context))
 ```
 
 ### TES — Token Efficiency Score
@@ -114,6 +133,17 @@ Measures whether the agent can answer factual questions about things said K turn
 LCS = (facts correctly recalled with AgentMem OS) / (total facts seeded)
 baseline = (facts recalled with recent-only context)
 ```
+
+**Reproducing these numbers:** see [`benchmarks/`](benchmarks/) for every
+script that produces a number in this repo.
+[`benchmarks/ablation_study_real.py`](benchmarks/ablation_study_real.py)
+and [`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py) run
+against the real package; a few older scripts in the same directory
+(`ablation_study.py`, `head_to_head.py`, `phase1_multi_run.py`,
+`phase2_long_horizon.py`, `phase3_baselines.py`) are self-contained
+architecture *simulations* used for fast iteration, not real integrations
+with the real package or with the competitor systems they name — their
+own module docstrings say so explicitly.
 
 ---
 
@@ -208,7 +238,10 @@ python tests/test_e2e_claude.py
 - Step 9: Measures token cost and prompt caching savings
 - Step 10: Evaluates CRS / TES / LCS against baselines
 
-**Example output:**
+**Example output format** (illustrative — not a claimed current result; the
+methodology behind CRS/TES/LCS was revised for known measurement bugs, and
+these specific numbers predate that revision and haven't been
+regenerated yet):
 ```
 ╔══════════════════════════════════════════════════╗
 ║   AgentMem OS — Benchmark Report                 ║
@@ -264,7 +297,7 @@ Prompt caching works because AgentMem OS always places the system context (assem
 
 ## Research Context
 
-This project is being developed as part of PhD research on persistent memory architectures for LLM agents. The NeurIPS 2026 workshop paper will include:
+This project is being developed as part of PhD research on persistent memory architectures for LLM agents. The paper targets [AAMAS 2027](https://warwick.ac.uk/fac/sci/dcs/aamas2027/calls/) and will include:
 
 - Formal definitions of CRS, TES, and LCS metrics
 - Ablation study: individual contribution of each memory tier
@@ -281,6 +314,7 @@ ANTHROPIC_API_KEY=sk-ant-...      # Required for Claude models
 GROQ_API_KEY=gsk_...              # Optional: free fallback
 OLLAMA_BASE_URL=http://localhost:11434   # Optional: local embeddings
 REDIS_URL=redis://localhost:6379  # Default Redis location
+OPENAI_API_KEY=sk-...             # Optional: only for benchmarks/qa_accuracy_eval.py
 ```
 
 ---
