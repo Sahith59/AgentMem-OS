@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 """
+DEPRECATED — behavioral simulation, not a real integration or a real
+ablation of AgentMem OS. Superseded by benchmarks/ablation_study_real.py
+(exercises the real ContextAssembler) and benchmarks/real_baseline_eval.py
+(real Mem0/Graphiti/Letta/LangMem comparisons). Kept only for historical
+reference — do not cite these numbers. See LAUNCH_ROADMAP.md Phase 2.
+
 AgentMem OS — Ablation Study
 =============================
 Self-contained simulation: zero dependency on agentmem_os.* internals.
@@ -18,9 +24,9 @@ not the real ContextAssembler — see ablation_study_real.py for an ablation
 that exercises the real package. Shared helpers live in _tier_lib.py.
 
 Usage (from ANY directory — .env auto-located):
-    python3 benchmarks/ablation_study.py
+    python3 benchmarks/deprecated_proxy_sim/ablation_study.py
 
-Results: benchmarks/ablation_results.json
+Results: benchmarks/deprecated_proxy_sim/ablation_results.json
 Cost:    ~6 x $0.31 ~= $1.86
 """
 
@@ -31,7 +37,7 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # _tier_lib.py lives one level up
 from _tier_lib import (  # noqa: E402
     G, R, Y, E, ok, warn, info, hdr, sub,
     COST_PER_MTOK, SLEEP_THRESH,

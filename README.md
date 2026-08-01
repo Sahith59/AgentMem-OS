@@ -138,12 +138,13 @@ baseline = (facts recalled with recent-only context)
 script that produces a number in this repo.
 [`benchmarks/ablation_study_real.py`](benchmarks/ablation_study_real.py)
 and [`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py) run
-against the real package; a few older scripts in the same directory
-(`ablation_study.py`, `head_to_head.py`, `phase1_multi_run.py`,
-`phase2_long_horizon.py`, `phase3_baselines.py`) are self-contained
-architecture *simulations* used for fast iteration, not real integrations
-with the real package or with the competitor systems they name — their
-own module docstrings say so explicitly.
+against the real package. Older scripts kept only for historical
+reference — self-contained architecture *simulations*, not real
+integrations with the real package or the competitor systems they name —
+live in
+[`benchmarks/deprecated_proxy_sim/`](benchmarks/deprecated_proxy_sim/);
+their own module docstrings say so explicitly. Do not cite numbers from
+that directory.
 
 ---
 

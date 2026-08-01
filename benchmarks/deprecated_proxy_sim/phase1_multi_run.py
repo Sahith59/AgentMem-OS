@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """
-Phase 1 — Multi-Run Ablation (Runs 2-N)
-========================================
-Runs the 6-variant ablation N-1 more times and combines with run 1
-(ablation_results.json) to produce mean +/- std across N runs.
+DEPRECATED — behavioral simulation, not a real ablation of AgentMem OS.
+Superseded by benchmarks/ablation_study_real.py. Kept only for historical
+reference — do not cite these numbers. See LAUNCH_ROADMAP.md Phase 2.
 
-Output: benchmarks/ablation_multi_run.json   (all N runs + statistics)
-        benchmarks/ablation_summary_stats.json (mean +/- std per variant)
+Phase 1 — Multi-Run Ablation (Runs 1-N, fresh each invocation)
+================================================================
+Runs the 6-variant ablation N times to produce mean +/- std across N runs.
+
+Output: benchmarks/deprecated_proxy_sim/ablation_multi_run.json   (all N runs + statistics)
+        benchmarks/deprecated_proxy_sim/ablation_summary_stats.json (mean +/- std per variant)
 
 Usage:
-    python3 benchmarks/phase1_multi_run.py
+    python3 benchmarks/deprecated_proxy_sim/phase1_multi_run.py
 """
 
 import os
@@ -20,7 +23,7 @@ import statistics
 from pathlib import Path
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # _tier_lib.py lives one level up
 from _tier_lib import (  # noqa: E402
     R, E, ok, hdr, sub,
     SLEEP_THRESH,

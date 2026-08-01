@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 """
+DEPRECATED — behavioral simulation, not a real test of AgentMem OS.
+Kept only for historical reference — do not cite these numbers. See
+LAUNCH_ROADMAP.md Phase 2. (No direct real-code replacement yet — the
+50-turn long-horizon scenario isn't covered by ablation_study_real.py
+or real_baseline_eval.py, both of which use the 25-turn conversation;
+a real long-horizon test is unscheduled future work, not silently
+dropped.)
+
 Phase 2 — Long-Horizon Test (50 turns)
 =======================================
 Tests FULL system vs RECENT_ONLY over 50 turns with probes at
 turns 35, 40, 45, 48, 50 — facts seeded in the first 5 turns.
 This stresses the memory system far beyond the standard 25-turn benchmark.
 
-Output: benchmarks/long_horizon_results.json
+Output: benchmarks/deprecated_proxy_sim/long_horizon_results.json
 
 Usage:
-    python3 benchmarks/phase2_long_horizon.py
+    python3 benchmarks/deprecated_proxy_sim/phase2_long_horizon.py
 """
 
 import os
@@ -19,7 +27,7 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # _tier_lib.py lives one level up
 from _tier_lib import (  # noqa: E402
     G, R, Y, E, ok, warn, hdr, sub,
     SLEEP_THRESH,

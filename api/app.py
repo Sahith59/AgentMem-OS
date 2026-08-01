@@ -835,19 +835,42 @@ async def reset_demo(agentmem_session: str = "agentmem-demo", plain_session: str
 
 @app.get("/demo/benchmarks")
 async def get_benchmarks():
-    """Return all benchmark results: ablation, head-to-head, and E2E eval harness."""
+    """
+    Return all benchmark results: ablation, head-to-head, and E2E eval harness.
+
+    Response shape for ablation/head_to_head/e2e/baseline is unchanged
+    (backward compatible with the existing demo frontend) — each key still
+    holds the raw JSON contents directly. A new `_provenance` key describes
+    which of those came from benchmarks/deprecated_proxy_sim/ — self-contained
+    architecture simulations, not real integrations with the real AgentMem OS
+    package or with the named competitor systems (see LAUNCH_ROADMAP.md
+    Phase 2) — versus tests/test_e2e_claude.py, which does exercise the real
+    package. Not yet surfaced in the UI; available for a future update.
+    """
     bench_dir = Path(__file__).parent.parent / "benchmarks"
+    sim_dir = bench_dir / "deprecated_proxy_sim"
     result = {}
-    for key, fname in [("ablation",    "ablation_results.json"),
-                        ("head_to_head","head_to_head_results.json"),
-                        ("baseline",    "baseline_comparison.json"),
-                        ("e2e",         "latest_report.json")]:
-        p = bench_dir / fname
+    provenance = {}
+    for key, fname, subdir, simulated in [
+        ("ablation",     "ablation_results.json",      sim_dir,   True),
+        ("head_to_head", "head_to_head_results.json",  sim_dir,   True),
+        ("baseline",     "baseline_comparison.json",   sim_dir,   True),
+        ("e2e",          "latest_report.json",         bench_dir, False),
+    ]:
+        p = subdir / fname
         if p.exists():
             with open(p) as f:
                 result[key] = _json.load(f)
+            provenance[key] = {
+                "simulated": simulated,
+                "note": ("Self-contained architecture simulation, not a real "
+                         "integration — see LAUNCH_ROADMAP.md Phase 2."
+                         if simulated else
+                         "Real end-to-end run against the actual AgentMem OS package."),
+            }
         else:
             result[key] = None
+    result["_provenance"] = provenance
     return result
 
 

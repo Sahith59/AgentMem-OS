@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 """
+DEPRECATED — behavioral simulation, not real integrations. Superseded by
+benchmarks/real_baseline_eval.py, which runs real Mem0/Graphiti/Letta/
+LangMem libraries instead of simulating their published architectures.
+Kept only for historical reference — do not cite these numbers. See
+LAUNCH_ROADMAP.md Phase 2.
+
 AgentMem OS — Head-to-Head Comparison
 =======================================
 Evaluates AgentMem OS against three industry baseline systems on the same
@@ -8,9 +14,7 @@ Evaluates AgentMem OS against three industry baseline systems on the same
 Baselines are behavioral simulations that faithfully replicate each system's
 published memory architecture — same model (claude-haiku-4-5), same conversation,
 same scoring function. Each system makes real API calls. These are NOT real
-integrations with the MemGPT/LangChain/Zep libraries — see
-benchmarks/deprecated_proxy_sim/ notes and LAUNCH_ROADMAP.md Phase 2 for the
-plan to replace this with real library calls.
+integrations with the MemGPT/LangChain/Zep libraries.
 
 Systems compared:
   AGENTMEM_OS          — Full 4-tier system (all tiers active)
@@ -19,10 +23,10 @@ Systems compared:
   ZEP                  — BM25 + entity-aware retrieval with recent context window
   RECENT_ONLY          — Sliding window baseline (last 10 turns)
 
-Output: benchmarks/head_to_head_results.json
+Output: benchmarks/deprecated_proxy_sim/head_to_head_results.json
 
 Usage:
-    python3 benchmarks/head_to_head.py
+    python3 benchmarks/deprecated_proxy_sim/head_to_head.py
 """
 
 import os
@@ -32,7 +36,7 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # _tier_lib.py lives one level up
 from _tier_lib import (  # noqa: E402
     G, R, Y, E, ok, warn, info, hdr, sub,
     MODEL, COST_PER_MTOK,

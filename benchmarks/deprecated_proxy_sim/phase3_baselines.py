@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """
+DEPRECATED — behavioral simulation, not real integrations. FULL_HISTORY
+and RECENT_ONLY here are legitimate naive baselines in spirit but this
+script doesn't touch the real AgentMem OS package; NAIVE_RAG is a
+simulated proxy, not a real RAG library. Superseded by
+benchmarks/real_baseline_eval.py for anything citable. Kept only for
+historical reference. See LAUNCH_ROADMAP.md Phase 2.
+
 Phase 3 — Baseline Comparison
 ===============================
 Compares AgentMem OS (FULL) against three external baselines over 25 turns:
@@ -12,10 +19,10 @@ Compares AgentMem OS (FULL) against three external baselines over 25 turns:
                   Simulates a plain retrieval-augmented system without our tiers.
   RECENT_ONLY   — Sliding window last 10 turns (most common simple baseline)
 
-Output: benchmarks/baseline_comparison.json
+Output: benchmarks/deprecated_proxy_sim/baseline_comparison.json
 
 Usage:
-    python3 benchmarks/phase3_baselines.py
+    python3 benchmarks/deprecated_proxy_sim/phase3_baselines.py
 """
 
 import os
@@ -25,7 +32,7 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # _tier_lib.py lives one level up
 from _tier_lib import (  # noqa: E402
     G, R, Y, E, ok, warn, hdr, sub,
     COST_PER_MTOK, SLEEP_THRESH,
