@@ -157,6 +157,7 @@ def init_db() -> None:
     """
     Base.metadata.create_all(bind=engine)
     _migrate_phase1()
+    _migrate_temporal_kg()
 
 
 def _migrate_phase1() -> None:
@@ -174,6 +175,40 @@ def _migrate_phase1() -> None:
         ]:
             try:
                 conn.execute(f"ALTER TABLE turns ADD COLUMN {col} {definition}")
+                conn.commit()
+            except _sqlite3.OperationalError:
+                pass  # column already exists
+        conn.close()
+    except Exception:
+        pass
+
+
+def _migrate_temporal_kg() -> None:
+    """
+    Safe additive migration for the Temporal Knowledge Graph columns
+    (LAUNCH_ROADMAP.md Phase 6 Priority 2, ported from X-MemoryArch's
+    graph_builder.py). Same idempotent ALTER-TABLE idiom as _migrate_phase1.
+    """
+    import sqlite3 as _sqlite3
+    try:
+        conn = _sqlite3.connect(DB_PATH)
+        for col, definition in [
+            ("last_confirmed_at", "DATETIME"),
+        ]:
+            try:
+                conn.execute(f"ALTER TABLE kg_nodes ADD COLUMN {col} {definition}")
+                conn.commit()
+            except _sqlite3.OperationalError:
+                pass  # column already exists
+        for col, definition in [
+            ("relation_type", "VARCHAR DEFAULT 'CO_OCCURS'"),
+            ("confidence",    "FLOAT DEFAULT 0.5"),
+            ("valid_from",    "DATETIME"),
+            ("valid_until",   "DATETIME"),
+            ("superseded_by", "INTEGER REFERENCES kg_edges(id)"),
+        ]:
+            try:
+                conn.execute(f"ALTER TABLE kg_edges ADD COLUMN {col} {definition}")
                 conn.commit()
             except _sqlite3.OperationalError:
                 pass  # column already exists

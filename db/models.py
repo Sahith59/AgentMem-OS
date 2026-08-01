@@ -179,12 +179,29 @@ class KnowledgeGraphNode(Base):
     mention_count = Column(Integer, default=1)
     first_seen  = Column(DateTime, default=datetime.utcnow)
     last_seen   = Column(DateTime, default=datetime.utcnow)
+    # Temporal KG (LAUNCH_ROADMAP.md Phase 6 Priority 2, ported from
+    # X-MemoryArch's graph_builder.py): last time this entity was confirmed
+    # by a NEW typed-relation edge, distinct from last_seen (which updates
+    # on every co-occurrence mention, typed or not).
+    last_confirmed_at = Column(DateTime, nullable=True)
 
 
 class KnowledgeGraphEdge(Base):
     """
-    A co-occurrence relationship between two entities.
-    Weight increases every time both appear in the same turn.
+    A relationship between two entities.
+
+    Two edge families, per X-MemoryArch's graph_builder.py (LAUNCH_ROADMAP.md
+    Phase 6 Priority 2):
+      CO_OCCURS (relation_type default) — accumulates forever, weight counts
+        co-occurrence, never superseded. Historical co-occurrence is a
+        permanent fact even after the entities' relationship changes.
+      Typed relations (WORKS_AT / LIVES_AT / STUDIES_AT) — bi-temporally
+        supersedable: when a NEW typed edge arrives for the same
+        (source_id, relation_type), the previous active edge (valid_until
+        IS NULL) gets valid_until set to the new edge's valid_from and
+        superseded_by pointed at the new edge's id. Deterministic — same
+        (subject, relation_type) match, later timestamp wins, zero LLM
+        calls, matching conflict_detector.py's existing zero-LLM design.
     """
     __tablename__ = "kg_edges"
 
@@ -194,6 +211,11 @@ class KnowledgeGraphEdge(Base):
     weight      = Column(Float, default=1.0)               # co-occurrence count
     session_id  = Column(String, nullable=True)
     last_updated = Column(DateTime, default=datetime.utcnow)
+    relation_type = Column(String, default="CO_OCCURS")    # CO_OCCURS | WORKS_AT | LIVES_AT | STUDIES_AT
+    confidence    = Column(Float, default=0.5)             # 0.5 co-occurrence, 0.80-0.90 typed
+    valid_from    = Column(DateTime, nullable=True)         # when this fact became true
+    valid_until   = Column(DateTime, nullable=True)         # NULL = currently active
+    superseded_by = Column(Integer, ForeignKey("kg_edges.id"), nullable=True)
 
 
 # ──────────────────────────────────────────────────────────────────────────────
