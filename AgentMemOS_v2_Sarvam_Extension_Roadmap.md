@@ -121,17 +121,30 @@ Production serving's air-gapped mode (stretch goal only) → multimodal ingestio
 
 ---
 
-## 7. Parallel outreach — start now, not after Phase 6 (new, from Codex's review)
+## 7. Outreach — staged plan, starting from zero (updated 2026-08-01)
 
-Codex's sharpest pushback: the plan as written was "build for ~10 weeks, then launch and hope to be noticed." Given the actual stakes here — the goal isn't a shipped feature, it's a job — that's too passive and too slow. Do these in parallel with the build, starting this week, not after:
+Codex's sharpest pushback on the earlier version of this plan: "build for ~10 weeks, then launch and hope to be noticed" is too passive given the actual stakes. Confirmed with the founder: no existing LinkedIn/X posting habit, no existing warm contacts at Sarvam or in Indian AI/ML — outreach channels get built from scratch, in parallel with the product, not after it. Founder's own call on pacing: **the Sarvam-facing push leads daily attention; the AAMAS paper track (MFP harness paid run, Table writing) fills the gaps around it**, not the reverse.
 
-- **Apply to relevant Sarvam roles directly now.** Don't wait for the full roadmap to ship before applying — the build strengthens an application in progress, it doesn't need to precede it.
-- **Ask for 2-3 warm referrals** from any Indian AI/infra/multilingual-NLP contacts you have, even loose ones — a short note plus a link to whatever's demoable that week.
-- **Post build-in-public updates on LinkedIn/X weekly**, one concrete artifact each time (Temporal KG demo → cross-lingual alias precision/recall table → X-CRS number → Sarvam voice demo). Visibility compounds *before* the repo looks finished, not after — a polished repo nobody sees until October is worse than a rough one with weekly visible progress.
-- **Open a GitHub issue/discussion comparing your cross-lingual KG work against Graphiti's own cited open gaps** (#1141 etc.), framed as contribution/collaboration, not a takedown. This is the single sharpest, most specific artifact to eventually put in front of a Sarvam engineer, or any engineer in this space.
-- **Direct, narrow outreach to specific Sarvam engineers** once you have anything real to show: "I built a local-first cross-lingual memory demo using your APIs — would value 10 minutes of technical critique," not a cold "hire me." Reference the exact capability, not a generic pitch.
+Because there's no existing audience to post into, the first artifacts matter more than usual — each one needs to stand on its own with zero prior credibility to borrow from. Sequenced so nothing waits on something slower:
 
-I can't do the applying/networking part for you, but I can help you draft the outreach messages, the weekly build-log posts, and the GitHub discussion post whenever you're ready for those.
+### Stage A — this week (Aug 1–8), $0, starts immediately, nothing blocks anything else
+
+1. **Apply directly to relevant open Sarvam roles today**, via their careers page. Doesn't wait on any of the below — application/interview timelines run weeks regardless, so starting now buys runway rather than losing it. Reference the GitHub repo as "actively building, recent commits" even before the demo is polished; a visibly active repo is itself a signal.
+2. **Post the GitHub discussion comparing this project's cross-lingual entity-resolution numbers against Graphiti's own open, unresolved issues** (#1141, #1380, #312, #434) — framed as contribution/collaboration, not a takedown. This can go out *today*: the real precision/recall numbers already exist (`cross_lingual_kg_eval_results.json`), no demo video or README rewrite needed first. This is the single strongest artifact available right now precisely because it's a measured result compared against a named, funded competitor's own admitted gap — not a claim, a fact with a citation.
+3. **Create the LinkedIn (and optionally X) presence now if it doesn't exist, and post #1 today** — a short, honest "building this in public, here's why" post linking the GitHub discussion from #2. Starting from zero means the first posts won't get much reach, and that's fine and expected — the goal this week is starting the habit and having a visible history by the time anyone checks the profile, not going viral. Calibrate expectations against this project's own staged trust-signal targets (see `agentmem_os_gtm_positioning.md` in project memory): 1–3 unsolicited mentions is a *Month 1* target, not a Week 1 one.
+
+### Stage B — next 1–2 weeks (Aug 8–22), still $0
+
+4. **Wire the validated τ=0.90 threshold (+ a secondary check for the Chennai/China-class gap) into the live KG**, then build the actual end-to-end demo through the real product: a fact stored in Hindi, correctly recalled when queried in English — the single most visually compelling proof point per §6. This is the technical work that turns Stage A's "here's a number" artifact into "here's it actually working."
+5. **Rewrite the README** to lead with that demo, the benchmark table (X-CRS alongside CRS/TES/LCS), and an explicit "built on Sarvam" section — per §6's Phase 6 deliverables, pulled forward because the outreach in Stage C needs somewhere credible to land a click.
+6. **Weekly build-log posts continue**, one concrete artifact each time — this week's is the live demo, not just the eval script's numbers.
+
+### Stage C — once the demo + README are real (roughly Aug 22 onward, adjust based on actual pace, not the calendar)
+
+7. **Direct, narrow outreach to specific Sarvam engineers** — likely the Agentic/Orchestration or Sarvam Studio teams first, per the original job-role mapping in §1 of this doc's history. With zero warm network, this is cold outreach, so the message needs to lead with the concrete artifact, not the ask: *"I built a local-first cross-lingual memory demo that solves [the exact Graphiti gap], using your APIs — here's a 90-second demo — would value your technical feedback."* Not "hire me." The demo does the selling; the message just gets it in front of the right person.
+8. Continue weekly posts, layer in the Sarvam API integration (Phase 3, needs budget) once funds arrive — voice-in/voice-out closes the loop and gives Stage C's outreach an even stronger follow-up artifact.
+
+**What I can do directly, whenever you're ready for each:** draft the GitHub discussion post (Stage A.2), draft the first build-in-public post (Stage A.3), draft the Sarvam outreach message template (Stage C.7), and do the README rewrite (Stage B.5) myself since that's pure engineering/writing work, not something only you can do. Applying and actually clicking "post" are yours.
 
 ---
 
