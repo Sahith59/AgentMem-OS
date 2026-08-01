@@ -13,6 +13,7 @@ from benchmarks.adapters.recent_only_adapter import RecentOnlyAdapter
 from benchmarks.adapters.mem0_adapter import Mem0Adapter
 from benchmarks.adapters.graphiti_adapter import GraphitiAdapter
 from benchmarks.adapters.letta_adapter import LettaAdapter
+from benchmarks.adapters.langmem_adapter import LangMemAdapter
 
 ADAPTERS: dict[str, type[MemoryAdapter]] = {
     "agentmem_os": AgentMemAdapter,
@@ -20,6 +21,7 @@ ADAPTERS: dict[str, type[MemoryAdapter]] = {
     "mem0": Mem0Adapter,
     "graphiti": GraphitiAdapter,
     "letta": LettaAdapter,
+    "langmem": LangMemAdapter,
 }
 
 

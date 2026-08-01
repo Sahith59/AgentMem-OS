@@ -1,0 +1,12 @@
+# Isolated venv requirements for the LangMem baseline adapter
+# (benchmarks/adapters/langmem_subprocess_worker.py).
+#
+# Isolated from the main venv because langmem pulls its own langgraph
+# dependency tree, likely incompatible with this repo's pinned
+# langchain==0.3.9 — see LAUNCH_ROADMAP.md Phase 2 Task 21. Bootstrap
+# with setup_venvs.sh.
+
+langmem>=0.0.10
+langgraph>=0.2.0
+langchain-openai>=0.2.0
+openai>=1.0

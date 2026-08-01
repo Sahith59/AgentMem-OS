@@ -20,6 +20,7 @@ these need local infra a plain `pytest tests/` run won't always have:
   - letta: Letta server reachable at localhost:8283 (same docker compose file).
     Only exercises agent create/list/delete — not passages.create/search,
     which need an embedding provider configured server-side and are not $0.
+  - langmem: benchmarks/adapters/.venv-langmem (bootstrap: setup_venvs.sh)
 """
 import os
 import socket
@@ -91,6 +92,18 @@ def test_letta_adapter_protocol_smoke():
     """
     from benchmarks.adapters.registry import get_adapter
     adapter = get_adapter("letta")
+    adapter.setup()
+    try:
+        adapter.reset("pytest-smoke-ns")
+    finally:
+        adapter.teardown()
+
+
+@pytest.mark.skipif(not (ADAPTERS_DIR / ".venv-langmem").exists(),
+                     reason="benchmarks/adapters/.venv-langmem not bootstrapped — run setup_venvs.sh")
+def test_langmem_adapter_protocol_smoke():
+    from benchmarks.adapters.registry import get_adapter
+    adapter = get_adapter("langmem")
     adapter.setup()
     try:
         adapter.reset("pytest-smoke-ns")
