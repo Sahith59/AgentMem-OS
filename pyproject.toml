@@ -77,6 +77,7 @@ packages = [
     "agentmem_os.agents",
     "agentmem_os.api",
     "agentmem_os.benchmarks",
+    "agentmem_os.benchmarks.adapters",
     "agentmem_os.cache",
     "agentmem_os.cli",
     "agentmem_os.db",

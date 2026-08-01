@@ -1,0 +1,27 @@
+"""
+System-name-string -> adapter-class lookup for real_baseline_eval.py, so
+new adapters can be added without touching the orchestrator.
+
+Competitor adapters (mem0/graphiti/letta/langmem) register here as they're
+built (Phase 2.3-2.6) — only agentmem_os and recent_only exist so far.
+"""
+from __future__ import annotations
+
+from benchmarks.adapters.base import MemoryAdapter
+from benchmarks.adapters.agentmem_adapter import AgentMemAdapter
+from benchmarks.adapters.recent_only_adapter import RecentOnlyAdapter
+
+ADAPTERS: dict[str, type[MemoryAdapter]] = {
+    "agentmem_os": AgentMemAdapter,
+    "recent_only": RecentOnlyAdapter,
+}
+
+
+def get_adapter(name: str) -> MemoryAdapter:
+    try:
+        cls = ADAPTERS[name]
+    except KeyError:
+        raise ValueError(
+            f"Unknown adapter '{name}'. Registered: {sorted(ADAPTERS)}"
+        ) from None
+    return cls()
