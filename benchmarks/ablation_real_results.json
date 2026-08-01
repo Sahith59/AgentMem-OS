@@ -4,7 +4,7 @@
     "label": "Full real system (all tiers)",
     "disable": [],
     "metrics": {
-      "CRS": 0.2523
+      "CRS": 0.2737
     }
   },
   {
@@ -14,7 +14,7 @@
       "semantic"
     ],
     "metrics": {
-      "CRS": 0.0712
+      "CRS": 0.086
     }
   },
   {
@@ -24,7 +24,7 @@
       "global"
     ],
     "metrics": {
-      "CRS": 0.2694
+      "CRS": 0.2971
     }
   },
   {
@@ -34,7 +34,7 @@
       "procedural"
     ],
     "metrics": {
-      "CRS": 0.2799
+      "CRS": 0.3059
     }
   },
   {

@@ -91,6 +91,8 @@ client = openai.OpenAI(api_key=api_key)
 
 from agentmem_os.storage.store import ConversationStore  # noqa: E402
 from agentmem_os.llm.context_assembler import ContextAssembler  # noqa: E402
+from agentmem_os.agents.namespace_manager import AgentNamespaceManager  # noqa: E402
+from agentmem_os.db.engine import get_session as get_db  # noqa: E402
 from agentmem_os.db.models import Turn  # noqa: E402
 
 install_tfidf_chroma(ContextAssembler)
@@ -156,6 +158,7 @@ print(f"QA-accuracy eval: {args.dataset}, {len(items)} questions "
 
 store = ConversationStore()
 assembler = ContextAssembler()
+_namespace_mgr = AgentNamespaceManager(get_db)
 _ingested = set()
 _ingest_lock = threading.Lock()
 
@@ -173,6 +176,13 @@ def ensure_scope_ingested(scope_keys: list) -> str:
             return sid
         _ingested.add(sid)
     store.get_or_create_session(sid, name=f"{args.dataset}-scope")
+    # Required before any KG ingestion — kg_nodes.agent_id has a FK to
+    # agent_namespaces.agent_id, and agent_id=sid (not None) needs a
+    # matching row or every insert fails with IntegrityError. Also keeps
+    # each haystack scope's KG/procedural pool isolated from every other
+    # scope's — see benchmarks/adapters/agentmem_adapter.py's module
+    # docstring for the two bugs this sidesteps.
+    _namespace_mgr.ensure_agent_exists(sid)
     for mkey in scope_keys:
         mem = mem_by_id.get(mkey)
         if not mem or not mem.turns:
@@ -189,7 +199,7 @@ def ensure_scope_ingested(scope_keys: list) -> str:
         try:
             for turn in mem.turns:
                 if turn.get("content"):
-                    store._ingest_kg(sid, None, turn["content"])
+                    store._ingest_kg(sid, sid, turn["content"])
         except Exception as e:
             print(f"  [warn] KG ingestion failed for {mkey}: {e}")
     return sid
@@ -197,7 +207,7 @@ def ensure_scope_ingested(scope_keys: list) -> str:
 
 def retrieve_context(scope_keys: list, question: str) -> str:
     sid = ensure_scope_ingested(scope_keys)
-    return assembler.assemble(sid, question)
+    return assembler.assemble(sid, question, agent_id=sid)
 
 
 def run_one(it) -> dict:

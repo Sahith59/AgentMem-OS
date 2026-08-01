@@ -55,6 +55,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from agentmem_os.storage.store import ConversationStore  # noqa: E402
 from agentmem_os.llm.context_assembler import ContextAssembler  # noqa: E402
 from agentmem_os.llm.procedural_memory import ProceduralMemory  # noqa: E402
+from agentmem_os.agents.namespace_manager import AgentNamespaceManager  # noqa: E402
 from agentmem_os.db.engine import get_session as get_db  # noqa: E402
 from real_code_utils import install_tfidf_chroma  # noqa: E402
 
@@ -77,10 +78,18 @@ def ingest_conversation(store: ConversationStore, session_id: str) -> None:
     Persist CONVERSATION into a fresh session synchronously — real SQLite
     writes, real KG entity/edge extraction, real pattern mining, no
     daemon-thread timing dependency.
+
+    Uses session_id as agent_id throughout (each variant gets its own
+    uuid-suffixed session_id, so this also gives each variant an isolated
+    KG/procedural pool — see agentmem_adapter.py's module docstring for the
+    two bugs this sidesteps: agent_id=None pools every namespace's KG/
+    procedural data together, and kg_nodes.agent_id has a FK to
+    agent_namespaces.agent_id that a non-null agent_id must satisfy).
     """
     from agentmem_os.db.models import Turn
 
     store.get_or_create_session(session_id, name="ablation-real")
+    AgentNamespaceManager(get_db).ensure_agent_exists(session_id)
 
     for role, content in [
         pair for msg in CONVERSATION for pair in
@@ -91,7 +100,7 @@ def ingest_conversation(store: ConversationStore, session_id: str) -> None:
         store.db.add(turn)
         store.db.commit()
         try:
-            store._ingest_kg(session_id, None, content)
+            store._ingest_kg(session_id, session_id, content)
         except Exception as e:
             warn(f"KG ingestion failed for a turn: {e}")
 
@@ -99,7 +108,7 @@ def ingest_conversation(store: ConversationStore, session_id: str) -> None:
     # real system (mine_patterns() vs. save_turn()) — run it explicitly so
     # the NO_PROC variant has something real to disable.
     pm = ProceduralMemory(get_db)
-    n_patterns = pm.mine_patterns(session_id)
+    n_patterns = pm.mine_patterns(session_id, agent_id=session_id)
     if n_patterns == 0:
         warn("mine_patterns() found 0 patterns for this conversation — "
              "NO_PROC will legitimately show no CRS difference from FULL.")
@@ -109,7 +118,7 @@ def run_variant(assembler: ContextAssembler, session_id: str, disable: frozenset
     probe_contexts = {}
     for i in sorted(PROBE_RECALLS):
         query = CONVERSATION[i]
-        ctx = assembler.assemble(session_id, query, disable=disable)
+        ctx = assembler.assemble(session_id, query, agent_id=session_id, disable=disable)
         probe_contexts[i] = (query, ctx)
     crs = crs_from_probe_contexts(probe_contexts)
     return {"crs": crs}

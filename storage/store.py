@@ -59,6 +59,18 @@ class ConversationStore:
         self._kg      = None    # lazy (EntityKnowledgeGraph)
         self._proc    = None    # lazy (ProceduralMemory)
 
+    def delete_session(self, session_id: str) -> None:
+        """
+        Remove a session and its turns entirely — used by benchmark
+        harnesses (benchmarks/adapters/agentmem_adapter.py) to reset a
+        namespace between runs. Does not touch KG nodes/edges or
+        procedural patterns, which are agent-scoped rather than
+        session-scoped and outlive any single session by design.
+        """
+        self.db.query(Turn).filter(Turn.session_id == session_id).delete()
+        self.db.query(Session).filter(Session.session_id == session_id).delete()
+        self.db.commit()
+
     # ──────────────────────────────────────────────────────────────────────────
     # Session Management
     # ──────────────────────────────────────────────────────────────────────────
