@@ -175,6 +175,26 @@ I didn't find anything in its review I disagreed with — all five points are in
 
 ---
 
-## 12. What I'd do next
+## 12. All three $0 items — done, with real results (2026-08-01)
 
-Tell me which of the three $0 items in §11 to start with (or all three, in some order), and I'll begin. Everything else — Sarvam API work, paid eval runs — waits for your go-ahead on spend, whenever that is.
+Built and verified all three, in the order: Temporal KG port → MFP evaluation harness → cross-lingual entity-alias precision/recall. Each surfaced real bugs before producing trustworthy numbers — noted here because the bugs themselves are informative, not just the fixes.
+
+**Temporal KG** (`db/knowledge_graph.py`, `db/models.py`): bi-temporal `KnowledgeGraphEdge` schema (relation_type/confidence/valid_from/valid_until/superseded_by) live, typed relation extraction (WORKS_AT/LIVES_AT/STUDIES_AT) reusing `conflict_detector.py`'s own vocabulary, deterministic supersession, `as_of` point-in-time retrieval. `tests/test_temporal_kg.py`, 5/5 passing. Found and fixed 4 real bugs along the way — the most important: a single stated fact ("X works at Y") could never actually surface in retrieval at all, because the subgraph BFS gated traversal on a co-occurrence-frequency threshold that a one-off typed relation could never clear. See the commit message for the other three.
+
+**MFP evaluation harness** (`benchmarks/mfp_eval.py`): exercises the real `AgentTrustNetwork`/`MemoryFederationProtocol`/`AgentNamespaceManager` classes directly — the paper's actual critical-path item, not started before this. Real, sensible, non-degenerate numbers: trust-weighting has a large, honest effect (0.951 vs 0.625 retrieval precision without it); the trust trajectory correctly shows an adversarial agent's trust declining 0.50→0.27 over rounds (the system learns); a correctly-preloaded static-tier baseline scores slightly *above* dynamic trust in this particular scenario, which is a genuine finding worth a paper footnote (static tiers don't pay a learning cost if someone already got the assignment right — the real test dynamic trust wins is when a static tier is *wrong* or an agent's behavior *changes* after assignment, not tested yet). Also fixed `trust_network.py`'s docstring/code mismatch (50/50 vs. the actual 70/30 blend) — the exact thing the main roadmap flagged as needing resolution before Section 3 gets written.
+
+**Cross-lingual entity-alias resolution** (`benchmarks/cross_lingual_kg_eval.py`): hand-labeled 10 real-world entities × English/Hindi/Tamil (30 positive pairs) plus 6 hard negatives specifically targeting Codex's named failure modes (polysemous brand names, similar-sounding-but-different places, same-surname-different-person), embedded with `intfloat/multilingual-e5-small` (local, ~470MB one-time download, $0). **Real result: best F1 at τ=0.90 (precision 0.762, recall 0.533)** — genuinely usable, but with an honest, specific gap: "Chennai" vs. "China" still incorrectly merges even at that threshold (similarity 0.901), and recall at the precision-safe threshold leaves nearly half of genuine cross-lingual matches undetected. **This is the finding to lead with, not hide**: cosine-threshold merging alone gets you most of the way, not all of it — a secondary signal (entity-type agreement, or the Wikidata QID anchoring §3 already mentioned) is a real next step before calling this solved, not a hypothetical one. This number is *more* credible for being imperfect — a suspiciously clean 1.0/1.0 result would be the one to distrust.
+
+**Cost incurred: $0.** New local dependency: `sentence-transformers` (pulls `torch`, CPU-only, ~470MB model download) — added to `requirements.txt`/`pyproject.toml`'s `benchmarks` extra, scoped to this project's own venv, not a global install.
+
+---
+
+## 13. What I'd do next
+
+The three $0 foundations are in place. Real next steps, in rough priority order:
+1. **Wire the validated threshold into the live KG** — a `same_as` alias-merge step in `db/knowledge_graph.py` using τ=0.90 plus a secondary check for the Chennai/China-class failure mode (e.g. require entity-type agreement, or hold out any pair whose similarity sits in the ambiguous 0.85-0.92 band for a QID-anchor tiebreak instead of auto-merging).
+2. **X-CRS metric** — same fact stored in one language, recall accuracy when queried in another, now measurable end to end since the KG foundation exists.
+3. **MFP harness paid run** — needs your go-ahead on spend; the harness itself is done and free to re-run as many more free iterations as useful before that.
+4. Whenever you're ready to spend: Phase 2's competitor-baseline pilot, Sarvam API integration (Phase 3), and the MFP harness's real run all become unblocked at once.
+
+Tell me which to start on, or say go and I'll pick the highest-leverage one.

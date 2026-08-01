@@ -1,0 +1,101 @@
+{
+  "model": "intfloat/multilingual-e5-small",
+  "n_positive_pairs": 30,
+  "n_hard_negatives": 6,
+  "n_easy_negatives": 594,
+  "table": [
+    {
+      "threshold": 0.7,
+      "precision": 0.049,
+      "recall": 1.0,
+      "f1": 0.0935,
+      "tp": 30,
+      "fp_hard": 6,
+      "fp_easy": 576,
+      "fn": 0
+    },
+    {
+      "threshold": 0.75,
+      "precision": 0.0647,
+      "recall": 1.0,
+      "f1": 0.1215,
+      "tp": 30,
+      "fp_hard": 6,
+      "fp_easy": 428,
+      "fn": 0
+    },
+    {
+      "threshold": 0.8,
+      "precision": 0.1351,
+      "recall": 1.0,
+      "f1": 0.2381,
+      "tp": 30,
+      "fp_hard": 6,
+      "fp_easy": 186,
+      "fn": 0
+    },
+    {
+      "threshold": 0.85,
+      "precision": 0.4219,
+      "recall": 0.9,
+      "f1": 0.5745,
+      "tp": 27,
+      "fp_hard": 5,
+      "fp_easy": 32,
+      "fn": 3
+    },
+    {
+      "threshold": 0.9,
+      "precision": 0.7619,
+      "recall": 0.5333,
+      "f1": 0.6275,
+      "tp": 16,
+      "fp_hard": 1,
+      "fp_easy": 4,
+      "fn": 14
+    },
+    {
+      "threshold": 0.95,
+      "precision": 1.0,
+      "recall": 0.2,
+      "f1": 0.3333,
+      "tp": 6,
+      "fp_hard": 0,
+      "fp_easy": 0,
+      "fn": 24
+    }
+  ],
+  "hard_negative_detail": [
+    {
+      "reason": "polysemous brand name vs. the common Hindi/Sanskrit word it's built from",
+      "similarity": 0.8804,
+      "still_merges_at_or_below": 0.85
+    },
+    {
+      "reason": "similar-sounding but different real place (Bangalore vs. Bengal)",
+      "similarity": 0.8586,
+      "still_merges_at_or_below": 0.85
+    },
+    {
+      "reason": "similar-sounding but different real place (India vs. Indiana)",
+      "similarity": 0.8747,
+      "still_merges_at_or_below": 0.85
+    },
+    {
+      "reason": "same surname, different real person",
+      "similarity": 0.8336,
+      "still_merges_at_or_below": 0.8
+    },
+    {
+      "reason": "similar-sounding but different place (Chennai vs. China)",
+      "similarity": 0.901,
+      "still_merges_at_or_below": 0.9
+    },
+    {
+      "reason": "two large but unrelated Indian entities",
+      "similarity": 0.8666,
+      "still_merges_at_or_below": 0.85
+    }
+  ],
+  "recommended_threshold": 0.9
+}
