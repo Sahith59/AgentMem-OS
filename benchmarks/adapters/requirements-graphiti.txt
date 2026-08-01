@@ -1,0 +1,8 @@
+# Isolated venv requirements for the Graphiti baseline adapter
+# (benchmarks/adapters/graphiti_subprocess_worker.py). Graphiti is Zep's
+# open-source temporal-KG core — see LAUNCH_ROADMAP.md Phase 2 Task 15.
+# Bootstrap with setup_venvs.sh. Needs Neo4j running (docker-compose.baselines.yml).
+
+graphiti-core>=0.11.0
+neo4j>=5.26
+openai>=1.0

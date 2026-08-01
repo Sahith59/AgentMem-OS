@@ -20,6 +20,15 @@ import pytest
 
 from benchmarks.adapters.registry import get_adapter, ADAPTERS
 
+# Adapters that run fully in-process/local with zero external API calls —
+# safe for a full ingest+retrieve roundtrip in CI with no cost, no venv,
+# no Docker service. mem0/graphiti/letta/langmem all make real LLM/
+# embedding calls on ingest_session (that's the point — testing each
+# system's own extraction), so they're deliberately excluded here and get
+# their own protocol-only (setup/reset/teardown, no ingest) smoke tests
+# instead — see each adapter's own test file.
+FREE_LOCAL_ADAPTERS = [n for n in sorted(ADAPTERS) if n in ("agentmem_os", "recent_only")]
+
 TOY_TURNS_A = [
     {"role": "user", "content": "My name is Priya and I live in Austin."},
     {"role": "assistant", "content": "Nice to meet you, Priya."},
@@ -37,7 +46,7 @@ TOY_TURNS_B = [
 ]
 
 
-@pytest.mark.parametrize("adapter_name", sorted(ADAPTERS))
+@pytest.mark.parametrize("adapter_name", FREE_LOCAL_ADAPTERS)
 def test_adapter_ingest_and_retrieve_roundtrip(adapter_name):
     adapter = get_adapter(adapter_name)
     adapter.setup()

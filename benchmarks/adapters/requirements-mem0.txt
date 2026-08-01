@@ -1,0 +1,10 @@
+# Isolated venv requirements for the Mem0 baseline adapter
+# (benchmarks/adapters/mem0_subprocess_worker.py).
+#
+# Isolated from the main venv because mem0ai pulls its own chromadb pin
+# that's likely newer than this repo's chromadb==0.5.20 — see
+# LAUNCH_ROADMAP.md Phase 2 Task 10. Bootstrap with setup_venvs.sh.
+
+mem0ai>=0.1.0
+chromadb>=0.5.0
+openai>=1.0

@@ -1,0 +1,48 @@
+# Local services needed by two of the four competitor adapters
+# (LAUNCH_ROADMAP.md Phase 2, Tasks 14 + 18):
+#   - neo4j: backing graph store for graphiti_adapter.py
+#   - letta: archival-memory server for letta_adapter.py (SQLite-backed,
+#     no Postgres needed)
+#
+# mem0_adapter.py and langmem_adapter.py need no service here — they run
+# in isolated venvs (see setup_venvs.sh) with local Chroma / in-process
+# stores instead.
+#
+# Usage:
+#   docker compose -f benchmarks/docker-compose.baselines.yml up -d
+#   docker compose -f benchmarks/docker-compose.baselines.yml down
+
+services:
+  neo4j:
+    image: neo4j:5.26
+    container_name: agentmem_bench_neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/benchmarkpassword
+      - NEO4J_PLUGINS=["apoc"]
+    ports:
+      - "7474:7474"   # HTTP browser UI
+      - "7687:7687"   # Bolt protocol (used by graphiti_subprocess_worker.py)
+    volumes:
+      - agentmem_bench_neo4j_data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-O", "/dev/null", "-q", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  letta:
+    image: letta/letta:latest
+    container_name: agentmem_bench_letta
+    ports:
+      - "8283:8283"
+    volumes:
+      - agentmem_bench_letta_data:/root/.letta
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8283/v1/health/"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  agentmem_bench_neo4j_data:
+  agentmem_bench_letta_data:
