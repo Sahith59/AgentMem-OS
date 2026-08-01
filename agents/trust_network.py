@@ -19,9 +19,10 @@ Trust Initialization:
 
 Trust Propagation (Transitive Trust):
     If A trusts B with 0.9, and B trusts C with 0.8:
-    A's indirect trust in C = direct_trust(A,C) × 0.5 +
-                              transitive_trust(A→B→C) × 0.5
-    (capped at max direct trust to prevent runaway propagation)
+    A's indirect trust in C = direct_trust(A,C) × 0.7 +
+                              transitive_trust(A→B→C) × 0.3
+    (direct experience dominates; transitive is a minority correction,
+    not an equal-weight blend — capped at [MIN_TRUST, MAX_TRUST])
 
 Research contribution:
     No prior LLM memory work models inter-agent credibility as a directed

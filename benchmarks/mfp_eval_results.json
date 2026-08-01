@@ -1,0 +1,530 @@
+[
+  {
+    "variant": "FULL",
+    "retrieval_precision": 0.9509,
+    "n_retrieval_events": 224,
+    "trust_trajectory": [
+      {
+        "round": 0,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 1,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 2,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 3,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 4,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 5,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 6,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 7,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 8,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 9,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 10,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 11,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 12,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 13,
+        "avg_trust_in_noisy_agent": 0.272
+      }
+    ],
+    "fork_result": {
+      "parent_agent_id": "planner-bot",
+      "child_agent_id": "planner-bot-specialist",
+      "fork_depth": 1,
+      "summaries_inherited": 1,
+      "patterns_inherited": 0,
+      "inherited_context_tokens": 19,
+      "inherited_matches_own_topic": true
+    },
+    "final_pool_stats": {
+      "total_entries": 8,
+      "active_entries": 7,
+      "retired_entries": 1,
+      "avg_access_count": 31.86,
+      "by_agent": {
+        "researcher-bot": 1,
+        "coder-bot": 1,
+        "reviewer-bot": 1,
+        "planner-bot": 1,
+        "noisy-bot": 3
+      },
+      "by_level": {
+        "L3": 7
+      }
+    }
+  },
+  {
+    "variant": "NO_TRUST",
+    "retrieval_precision": 0.625,
+    "n_retrieval_events": 224,
+    "trust_trajectory": [
+      {
+        "round": 0,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 1,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 2,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 3,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 4,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 5,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 6,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 7,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 8,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 9,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 10,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 11,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 12,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 13,
+        "avg_trust_in_noisy_agent": 0.5
+      }
+    ],
+    "fork_result": {
+      "parent_agent_id": "planner-bot",
+      "child_agent_id": "planner-bot-specialist",
+      "fork_depth": 1,
+      "summaries_inherited": 1,
+      "patterns_inherited": 0,
+      "inherited_context_tokens": 19,
+      "inherited_matches_own_topic": true
+    },
+    "final_pool_stats": {
+      "total_entries": 8,
+      "active_entries": 8,
+      "retired_entries": 0,
+      "avg_access_count": 28.0,
+      "by_agent": {
+        "researcher-bot": 1,
+        "coder-bot": 1,
+        "reviewer-bot": 1,
+        "planner-bot": 1,
+        "noisy-bot": 4
+      },
+      "by_level": {
+        "L3": 8
+      }
+    }
+  },
+  {
+    "variant": "STATIC_TIER_TRUST",
+    "retrieval_precision": 0.9598,
+    "n_retrieval_events": 224,
+    "trust_trajectory": [
+      {
+        "round": 0,
+        "avg_trust_in_noisy_agent": 0.45
+      },
+      {
+        "round": 1,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 2,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 3,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 4,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 5,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 6,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 7,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 8,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 9,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 10,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 11,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 12,
+        "avg_trust_in_noisy_agent": 0.2736
+      },
+      {
+        "round": 13,
+        "avg_trust_in_noisy_agent": 0.2736
+      }
+    ],
+    "fork_result": {
+      "parent_agent_id": "planner-bot",
+      "child_agent_id": "planner-bot-specialist",
+      "fork_depth": 1,
+      "summaries_inherited": 1,
+      "patterns_inherited": 0,
+      "inherited_context_tokens": 19,
+      "inherited_matches_own_topic": true
+    },
+    "final_pool_stats": {
+      "total_entries": 8,
+      "active_entries": 7,
+      "retired_entries": 1,
+      "avg_access_count": 31.86,
+      "by_agent": {
+        "researcher-bot": 1,
+        "coder-bot": 1,
+        "reviewer-bot": 1,
+        "planner-bot": 1,
+        "noisy-bot": 3
+      },
+      "by_level": {
+        "L3": 7
+      }
+    }
+  },
+  {
+    "variant": "NO_DECAY",
+    "retrieval_precision": 0.9509,
+    "n_retrieval_events": 224,
+    "trust_trajectory": [
+      {
+        "round": 0,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 1,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 2,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 3,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 4,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 5,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 6,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 7,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 8,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 9,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 10,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 11,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 12,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 13,
+        "avg_trust_in_noisy_agent": 0.272
+      }
+    ],
+    "fork_result": {
+      "parent_agent_id": "planner-bot",
+      "child_agent_id": "planner-bot-specialist",
+      "fork_depth": 1,
+      "summaries_inherited": 1,
+      "patterns_inherited": 0,
+      "inherited_context_tokens": 19,
+      "inherited_matches_own_topic": true
+    },
+    "final_pool_stats": {
+      "total_entries": 8,
+      "active_entries": 8,
+      "retired_entries": 0,
+      "avg_access_count": 28.0,
+      "by_agent": {
+        "researcher-bot": 1,
+        "coder-bot": 1,
+        "reviewer-bot": 1,
+        "planner-bot": 1,
+        "noisy-bot": 4
+      },
+      "by_level": {
+        "L3": 8
+      }
+    }
+  },
+  {
+    "variant": "NO_FORK_INHERITANCE",
+    "retrieval_precision": 0.9509,
+    "n_retrieval_events": 224,
+    "trust_trajectory": [
+      {
+        "round": 0,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 1,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 2,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 3,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 4,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 5,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 6,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 7,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 8,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 9,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 10,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 11,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 12,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 13,
+        "avg_trust_in_noisy_agent": 0.272
+      }
+    ],
+    "fork_result": {
+      "parent_agent_id": "planner-bot",
+      "child_agent_id": "planner-bot-specialist",
+      "fork_depth": 1,
+      "summaries_inherited": 0,
+      "patterns_inherited": 0,
+      "inherited_context_tokens": 0,
+      "inherited_matches_own_topic": false
+    },
+    "final_pool_stats": {
+      "total_entries": 8,
+      "active_entries": 7,
+      "retired_entries": 1,
+      "avg_access_count": 31.86,
+      "by_agent": {
+        "researcher-bot": 1,
+        "coder-bot": 1,
+        "reviewer-bot": 1,
+        "planner-bot": 1,
+        "noisy-bot": 3
+      },
+      "by_level": {
+        "L3": 7
+      }
+    }
+  },
+  {
+    "variant": "INHERIT_ALL_LEVELS",
+    "retrieval_precision": 0.9509,
+    "n_retrieval_events": 224,
+    "trust_trajectory": [
+      {
+        "round": 0,
+        "avg_trust_in_noisy_agent": 0.5
+      },
+      {
+        "round": 1,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 2,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 3,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 4,
+        "avg_trust_in_noisy_agent": 0.304
+      },
+      {
+        "round": 5,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 6,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 7,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 8,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 9,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 10,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 11,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 12,
+        "avg_trust_in_noisy_agent": 0.272
+      },
+      {
+        "round": 13,
+        "avg_trust_in_noisy_agent": 0.272
+      }
+    ],
+    "fork_result": {
+      "parent_agent_id": "planner-bot",
+      "child_agent_id": "planner-bot-specialist",
+      "fork_depth": 1,
+      "summaries_inherited": 1,
+      "patterns_inherited": 0,
+      "inherited_context_tokens": 19,
+      "inherited_matches_own_topic": true
+    },
+    "final_pool_stats": {
+      "total_entries": 8,
+      "active_entries": 7,
+      "retired_entries": 1,
+      "avg_access_count": 31.86,
+      "by_agent": {
+        "researcher-bot": 1,
+        "coder-bot": 1,
+        "reviewer-bot": 1,
+        "planner-bot": 1,
+        "noisy-bot": 3
+      },
+      "by_level": {
+        "L3": 7
+      }
+    }
+  }
+]
