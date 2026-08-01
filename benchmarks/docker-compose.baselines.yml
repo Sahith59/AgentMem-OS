@@ -33,6 +33,11 @@ services:
   letta:
     image: letta/letta:latest
     container_name: agentmem_bench_letta
+    environment:
+      # Needed for letta_adapter.py's ingest_session (real embedding calls
+      # on real conversation turns) — unset is fine for agent create/
+      # delete/list, which don't touch an embedding provider.
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
     ports:
       - "8283:8283"
     volumes:

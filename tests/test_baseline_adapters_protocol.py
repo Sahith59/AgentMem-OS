@@ -17,6 +17,9 @@ these need local infra a plain `pytest tests/` run won't always have:
   - mem0: benchmarks/adapters/.venv-mem0 (bootstrap: setup_venvs.sh)
   - graphiti: .venv-graphiti + Neo4j reachable at bolt://localhost:7687
     (bootstrap: docker compose -f benchmarks/docker-compose.baselines.yml up -d)
+  - letta: Letta server reachable at localhost:8283 (same docker compose file).
+    Only exercises agent create/list/delete — not passages.create/search,
+    which need an embedding provider configured server-side and are not $0.
 """
 import os
 import socket
@@ -35,6 +38,14 @@ ADAPTERS_DIR = Path(__file__).resolve().parent.parent / "benchmarks" / "adapters
 def _neo4j_reachable() -> bool:
     try:
         with socket.create_connection(("localhost", 7687), timeout=1):
+            return True
+    except OSError:
+        return False
+
+
+def _letta_reachable() -> bool:
+    try:
+        with socket.create_connection(("localhost", 8283), timeout=1):
             return True
     except OSError:
         return False
@@ -60,6 +71,26 @@ def test_mem0_adapter_protocol_smoke():
 def test_graphiti_adapter_protocol_smoke():
     from benchmarks.adapters.registry import get_adapter
     adapter = get_adapter("graphiti")
+    adapter.setup()
+    try:
+        adapter.reset("pytest-smoke-ns")
+    finally:
+        adapter.teardown()
+
+
+@pytest.mark.skipif(not _letta_reachable(),
+                     reason="Letta server not reachable at localhost:8283 — "
+                            "run docker compose -f benchmarks/docker-compose.baselines.yml up -d")
+def test_letta_adapter_protocol_smoke():
+    """
+    Only exercises agent create/list/delete (setup+reset+teardown) — real
+    calls to our own local Docker container, no embedding provider
+    involved, so this stays $0 regardless of whether OPENAI_API_KEY is
+    configured. ingest_session/retrieve (passages.create/search) are
+    deliberately not exercised here — see letta_adapter.py's docstring.
+    """
+    from benchmarks.adapters.registry import get_adapter
+    adapter = get_adapter("letta")
     adapter.setup()
     try:
         adapter.reset("pytest-smoke-ns")

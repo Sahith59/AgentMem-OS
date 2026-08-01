@@ -30,6 +30,8 @@ langchain-ollama==0.2.1   # Local Ollama embeddings (free)
 anthropic>=0.40.0         # Direct Anthropic SDK (used by LiteLLM)
 openai>=1.0               # benchmarks/qa_accuracy_eval.py generator+judge only —
                            # deliberately not Claude, see that script's docstring
+letta-client>=1.12.0      # benchmarks/adapters/letta_adapter.py — thin httpx client,
+                           # talks to a real Letta server (docker-compose.baselines.yml)
 
 # --- Caching ---
 redis==5.2.1
