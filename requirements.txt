@@ -28,12 +28,12 @@ langchain-core==0.3.21
 langchain-community==0.3.9
 langchain-ollama==0.2.1   # Local Ollama embeddings (free)
 anthropic>=0.40.0         # Direct Anthropic SDK (used by LiteLLM)
-openai>=1.0               # benchmarks/qa_accuracy_eval.py generator+judge only —
-                           # deliberately not Claude, see that script's docstring
-letta-client>=1.12.0      # benchmarks/adapters/letta_adapter.py — thin httpx client,
-                           # talks to a real Letta server (docker-compose.baselines.yml)
-sentence-transformers>=5.6.0  # benchmarks/cross_lingual_kg_eval.py — local multilingual
-                           # embeddings (intfloat/multilingual-e5-small), zero API calls
+
+# --- Benchmarks/eval-only deps (openai, letta-client, sentence-transformers,
+#     which pulls torch) live in pyproject.toml's `benchmarks` extra, not
+#     here — they're not needed to run AgentMem OS itself, only to run the
+#     competitor-comparison and cross-lingual eval scripts in benchmarks/.
+#     Install with: pip install -e ".[benchmarks]"
 
 # --- Caching ---
 redis==5.2.1

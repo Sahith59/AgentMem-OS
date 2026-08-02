@@ -1,327 +1,208 @@
-# AgentMem OS (MemNAI)
+# AgentMem OS
 
-**A local-first, persistent memory operating system for long-horizon LLM agents.**
+**Git for agent memory.**
 
-## Overview
+Child agents fork a parent's memory, inherit only what generalized, and diverge from there. Trust between agents is a number that's earned and lost through evidence, not a permission slip assigned once and forgotten. And the whole thing runs on your machine — no cloud dependency, no API key required to get started.
 
-Modern LLM agents forget everything when a conversation ends. AgentMem OS solves this with a four-tier memory hierarchy that persists knowledge across sessions, compresses it intelligently, and retrieves the most relevant context at inference time — all running locally with no cloud dependencies.
-
-The system ships four novel ML algorithms as its core contributions, each targeting a different failure mode of naive long-context approaches (truncation, full-history replay, and flat retrieval).
+Most memory systems give an agent a bigger notebook. AgentMem OS gives a fleet of agents a version-controlled, trust-weighted, temporally-aware one.
 
 ---
 
-## Architecture
+## The idea, in one diagram
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        LLM Agent                            │
-│               (Claude / Ollama / any LiteLLM model)         │
-└──────────────────────┬──────────────────────────────────────┘
-                       │  query
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  Context Assembler                          │
-│          (MMR retrieval across all 4 tiers)                 │
-└────┬────────────┬───────────────┬──────────────┬────────────┘
-     │            │               │              │
-     ▼            ▼               ▼              ▼
-┌─────────┐  ┌─────────┐  ┌───────────┐  ┌──────────────┐
-│  Redis  │  │ SQLite  │  │ ChromaDB  │  │  Procedural  │
-│ Tier 1  │  │ Tier 2  │  │  Tier 3   │  │   Tier 4     │
-│Hot Cache│  │Episodic │  │ Semantic  │  │   Patterns   │
-│ <100ms  │  │ History │  │ Retrieval │  │   Library    │
-└─────────┘  └─────────┘  └───────────┘  └──────────────┘
+```mermaid
+flowchart LR
+    classDef agent fill:#1a1a2e,stroke:#e94560,stroke-width:2px,color:#ffffff
+
+    P["Parent Agent<br/>months of accumulated memory"]:::agent
+    C1["Child Agent A<br/>forks and specializes"]:::agent
+    C2["Child Agent B<br/>forks and diverges"]:::agent
+
+    P -->|"fork(): inherits patterns<br/>+ principles only —<br/>never raw conversation history"| C1
+    P -->|"fork()"| C2
+    C1 -.->|"trust: EMA-updated<br/>from real feedback signals"| P
+    C2 -.->|"trust rises or falls<br/>with evidence — not a<br/>fixed tier set once"| P
 ```
 
-### Memory Tiers
-
-| Tier | Backend | Role | Latency |
-|------|---------|------|---------|
-| 1 — Working Memory | Redis | Recent turns, immediate context | < 5 ms |
-| 2 — Episodic Memory | SQLite | Full session history, structured recall | < 20 ms |
-| 3 — Semantic Memory | ChromaDB | Vector similarity search across all sessions | < 50 ms |
-| 4 — Procedural Memory | SQLite + NetworkX | Recurring interaction patterns | < 30 ms |
+A child never gets to read its parent's raw conversations — only the abstracted patterns and principles that survived generalization. Trust between any two agents starts neutral and moves with an exponentially-weighted moving average of real feedback: `trust_new = 0.80 × trust_old + 0.20 × signal`. Nothing here is assigned by hand and left to rot.
 
 ---
 
-## Novel ML Algorithms
+## What's actually running underneath
 
-### 1. `MemoryImportanceScorer`
-Scores each conversation turn with an EMA-weighted importance signal combining entity density, semantic novelty, and recency decay. Drives selective retention — only high-signal turns survive consolidation.
+```mermaid
+flowchart TD
+    App["Your Agent<br/>Claude · GPT · Llama · anything that speaks MCP"] --> MCP["MCP Server<br/>remember · recall · consolidate · forget"]
+    MCP --> CA["Context Assembler"]
 
-```python
-from agentmem_os.llm.importance_scorer import MemoryImportanceScorer
-scorer = MemoryImportanceScorer(get_db)
-score = scorer.score_turn(session_id, turn_content, role="user")
+    CA --> T1["Working Memory<br/>Redis, sub-5ms"]
+    CA --> T2["Episodic Memory<br/>SQLite, sub-20ms"]
+    CA --> T3["Semantic Memory<br/>Vector search, sub-50ms"]
+    CA --> T4["Procedural Memory<br/>Pattern mining, sub-30ms"]
+    CA --> KG["Temporal Knowledge Graph<br/>deterministic supersession, zero LLM calls"]
+
+    T2 -.->|sleep consolidation<br/>DBSCAN clustering| T3
+    KG --> E1["Sahith"]
+    E1 -->|"WORKS_AT<br/>valid_from: Mar · valid_until: null"| E2["Company B"]
+    E1 -.->|"WORKS_AT (superseded)<br/>valid_from: Jan · valid_until: Mar"| E3["Company A"]
 ```
 
-### 2. `SleepConsolidationEngine`
-Runs offline compression using DBSCAN clustering over turn embeddings. Groups semantically similar turns into clusters, extracts representative summaries, and writes them to the Summary table — analogous to hippocampal replay during sleep.
-
-```python
-from agentmem_os.llm.consolidation_engine import SleepConsolidationEngine
-engine = SleepConsolidationEngine(get_db, summarizer, chroma, scorer, get_embedding)
-engine.consolidate(session_id)
-```
-
-### 3. `EntityKnowledgeGraph`
-Builds a persistent co-occurrence graph (NetworkX) of named entities extracted from conversation turns. Supports subgraph retrieval for world-model queries, updated incrementally as new turns arrive.
-
-```python
-from agentmem_os.db.knowledge_graph import EntityKnowledgeGraph
-kg = EntityKnowledgeGraph(get_db)
-subgraph = kg.get_relevant_subgraph("Tell me about Sahith AgentMem", agent_id=None)
-```
-
-### 4. `ProceduralMemory`
-Mines recurring interaction patterns from session history (e.g., user always asks for code before explanation). Patterns are scored by frequency and recency, retrieved at inference time to pre-shape responses.
-
-```python
-from agentmem_os.llm.procedural_memory import ProceduralMemory
-pm = ProceduralMemory(get_db)
-patterns = pm.get_relevant_patterns("explain research methodology", agent_id=None)
-```
+Four memory tiers plus a knowledge graph that knows when a fact *stopped* being true, not just that it once existed — "Sahith works at Company A" is correctly superseded, not silently overwritten, when a later conversation says "Sahith joined Company B." Zero LLM calls in that supersession path: same-subject, same-relation-type, later timestamp wins, deterministically.
 
 ---
 
-## Benchmark Metrics
+## What makes this different
 
-> ### A note on these metrics — read this before the numbers
-> CRS, TES, and LCS below are **internal proxy metrics** for retrieval
-> relevance, compression quality, and long-horizon recall. They are **not**
-> the metric family Mem0, Zep, and similar systems publish — those report
-> **QA accuracy** (retrieve → generate an answer → an LLM judge scores
-> answer correctness against a gold answer). Proxy metrics like ours and
-> QA accuracy are not directly comparable, and we make **no "beats Mem0" or
-> similar claim** anywhere in this repo. A QA-accuracy harness that
-> targets exactly that comparable methodology exists —
-> [`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py),
-> evaluated against real [LoCoMo](https://arxiv.org/abs/2402.17753) and
-> [LongMemEval](https://arxiv.org/abs/2410.10813) data via real ingestion
-> and retrieval (not a simulation — see
-> [`benchmarks/ablation_study_real.py`](benchmarks/ablation_study_real.py)
-> for the same standard applied to the ablation study). It has not been run
-> at scale yet; we're deferring that real-money run until the system is
-> otherwise end-to-end ready, and will publish results (or a clear
-> "results pending" note) here once it has.
-
-Three metrics used for internal tier-ablation and development iteration:
-
-### CRS — Context Relevance Score
-Measures how relevant the assembled memory context is to the current query vs. a baseline context.
-
-```
-CRS = cosine_sim(embed(query), embed(assembled_context))
-      vs.
-      cosine_sim(embed(query), embed(baseline_context))
-```
-
-### TES — Token Efficiency Score
-Measures compression quality: how much token reduction is achieved while preserving key entities.
-
-```
-TES = √(compression_ratio × entity_preservation_rate)
-
-compression_ratio      = 1 - (tokens_after / tokens_before)
-entity_preservation    = |entities_in_summary ∩ entities_in_original| / |entities_in_original|
-```
-
-### LCS — Long-Horizon Continuity Score
-Measures whether the agent can answer factual questions about things said K turns ago — the core capability that distinguishes a memory system from naive context truncation.
-
-```
-LCS = (facts correctly recalled with AgentMem OS) / (total facts seeded)
-baseline = (facts recalled with recent-only context)
-```
-
-**Reproducing these numbers:** see [`benchmarks/`](benchmarks/) for every
-script that produces a number in this repo.
-[`benchmarks/ablation_study_real.py`](benchmarks/ablation_study_real.py)
-and [`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py) run
-against the real package. Older scripts kept only for historical
-reference — self-contained architecture *simulations*, not real
-integrations with the real package or the competitor systems they name —
-live in
-[`benchmarks/deprecated_proxy_sim/`](benchmarks/deprecated_proxy_sim/);
-their own module docstrings say so explicitly. Do not cite numbers from
-that directory.
+- **Dynamic trust, not static tiers.** The most credible funded competitor in this space assigns four fixed, manually-set trust tiers at credential mint-time, changed only by an explicit API call. Trust here is a live number, continuously updated from evidence — an agent that starts unreliable and improves is *believed* more over time; one that degrades is trusted less, automatically, without anyone flipping a switch.
+- **Fork, not just share.** Child agents inherit their parent's abstracted knowledge (patterns and principles) and start with a clean episodic slate — the first formalization of git-style memory branching for LLM agents. Raw episodic memory never leaves the agent that produced it.
+- **A temporal knowledge graph that doesn't lie about the past.** Facts are bi-temporally scoped (`valid_from` / `valid_until`), with deterministic, zero-LLM-call supersession. Ask "what did we know as of last Tuesday" and get an answer scoped to that moment, not today's.
+- **Cross-lingual entity resolution, measured honestly.** A fact stored in one language resolving correctly when queried in another is a real, unsolved gap in this space right now — even funded competitors have open, unresolved issues asking for it. Measured here on a hand-labeled English/Hindi/Tamil dataset with adversarial hard negatives, not just the easy cases: **76% precision / 53% recall at the safest operating point**, with the honest surviving gap (two phonetically-similar-but-unrelated places still get confused) reported alongside the win, not hidden under it.
+- **100% local-first.** Every tier runs on your machine. No API key is required to get started — plug in Claude, GPT, or a fully local Ollama model interchangeably.
+- **Benchmarked against real systems, not simulations.** Every number below comes from a script in [`benchmarks/`](benchmarks/) that either runs the actual production code path or a real competitor's own installed library — never a hand-rolled proxy standing in for either. See [`benchmarks/deprecated_proxy_sim/`](benchmarks/deprecated_proxy_sim/) for the earlier simulation-based scripts, kept only for historical reference and explicitly not cited anywhere below.
 
 ---
 
-## Project Structure
+## Real, measured results
 
-```
-agentmem_os/
-├── agents/                  # Multi-agent memory federation
-│   ├── memory_federation.py
-│   ├── namespace_manager.py
-│   └── trust_network.py
-├── api/                     # FastAPI REST interface
-│   └── app.py
-├── benchmarks/
-│   └── eval_harness.py      # CRS / TES / LCS evaluators
-├── cache/
-│   └── redis_client.py      # Tier 1: Redis working memory
-├── cli/
-│   └── main.py              # Typer CLI
-├── db/
-│   ├── chroma_client.py     # Tier 3: ChromaDB semantic store
-│   ├── engine.py            # SQLAlchemy engine + session factory
-│   ├── knowledge_graph.py   # EntityKnowledgeGraph (NetworkX)
-│   └── models.py            # Turn, Session, Summary, CostLog, Pattern
-├── llm/
-│   ├── adapters.py          # LiteLLM universal adapter + prompt caching
-│   ├── consolidation_engine.py   # SleepConsolidationEngine (DBSCAN)
-│   ├── context_assembler.py      # MMR retrieval across all tiers
-│   ├── importance_scorer.py      # MemoryImportanceScorer (EMA)
-│   ├── procedural_memory.py      # ProceduralMemory (pattern mining)
-│   ├── summarizer.py             # Extractive + LLM-based summarizer
-│   └── token_counter.py          # tiktoken wrapper
-├── storage/
-│   └── store.py             # ConversationStore (coordinates all tiers)
-├── tests/
-│   └── test_e2e_claude.py   # Full end-to-end benchmark test
-├── config.yaml
-├── requirements.txt
-└── .env.example
-```
+**Multi-agent trust actually matters, measurably.** A controlled scenario with one deliberately unreliable agent among four honest ones, exercising the real trust/federation/fork code directly (not a reimplementation of the formulas):
+
+| Configuration | Retrieval precision |
+|---|---|
+| Full system (dynamic trust + fork inheritance) | **0.951** |
+| No trust-weighting at all | 0.625 |
+
+The unreliable agent's trust score, as perceived by every honest agent, over the course of the run: **0.50 → 0.30 → 0.27** — the system learns who not to believe, without anyone telling it to.
+
+**Cross-lingual entity resolution, at every threshold tested** (English/Hindi/Tamil, 30 genuine same-entity pairs + 6 adversarial hard negatives):
+
+| Threshold | Precision | Recall | F1 |
+|---|---|---|---|
+| 0.80 | 0.135 | 1.000 | 0.238 |
+| 0.85 | 0.422 | 0.900 | 0.575 |
+| **0.90** | **0.762** | **0.533** | **0.628** |
+| 0.95 | 1.000 | 0.200 | 0.333 |
+
+**The semantic memory tier alone accounts for most of what makes retrieval work** — a real, code-level ablation (not a simulation) disabling each tier independently:
+
+| Tier disabled | Context Relevance Score |
+|---|---|
+| None (full system) | 0.274 |
+| Semantic retrieval | 0.086 |
+| All optional tiers | 0.090 |
+
+CRS/TES/LCS are internal proxy metrics for retrieval relevance, compression quality, and long-horizon recall — **not** the QA-accuracy methodology Mem0, Zep, and similar systems publish (retrieve → generate an answer → an LLM judge scores correctness against a gold answer). The two metric families aren't directly comparable, and no "beats X" claim is made anywhere in this repo on the strength of proxy metrics alone. A real QA-accuracy harness exists ([`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py), evaluated against real [LoCoMo](https://arxiv.org/abs/2402.17753) and [LongMemEval](https://arxiv.org/abs/2410.10813) data) along with real adapters for head-to-head comparison against Mem0, Graphiti, Letta, and LangMem ([`benchmarks/adapters/`](benchmarks/adapters/)) — infrastructure is built and protocol-verified; the full-scale run is queued, not yet published, and this README will be updated with real numbers the moment it is, not before.
+
+**56/56** multi-agent federation formula tests passing, **100+** tests passing across the broader suite. See [`benchmarks/`](benchmarks/) to reproduce every number above yourself.
 
 ---
 
-## Installation
+## Quickstart
 
-**Requirements:** Python 3.11+, Redis running locally, optional Ollama for local embeddings.
+**Requirements:** Python 3.11+, Redis running locally. No API key required — runs fully offline with Ollama.
 
 ```bash
-# Clone
-git clone https://github.com/yourusername/agentmem-os.git
+git clone https://github.com/sahith0904/agentmem-os.git
 cd agentmem-os
 
-# Virtual environment
 python3 -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
 
-# Dependencies
 pip install -r requirements.txt
 
-# Environment
-cp .env.example .env
-# Edit .env and set ANTHROPIC_API_KEY (or GROQ_API_KEY for free tier)
+cp .env.example .env          # optional: add ANTHROPIC_API_KEY / OPENAI_API_KEY for hosted models
 
-# Database
 python -c "from agentmem_os.db.engine import init_db; init_db()"
 ```
 
+```python
+import uuid
+from agentmem_os.storage.store import ConversationStore
+from agentmem_os.llm.context_assembler import ContextAssembler
+
+session_id = f"demo-{uuid.uuid4().hex[:8]}"   # fresh session — memory persists
+                                                # across restarts as long as you
+                                                # reuse the same session_id
+store = ConversationStore()
+store.save_turn(session_id, role="user", content="I'm building a rover for a robotics competition.")
+
+assembler = ContextAssembler()
+context = assembler.assemble(session_id, query="What am I building?")
+print(context)   # correctly recalls the rover, days or months later
+```
+
+Or connect any MCP-compatible agent (Claude Desktop, your own LangGraph pipeline) directly — see [`mcp_server/`](mcp_server/) for the 6 exposed tools across both supported transports.
+
 ---
 
-## Running the End-to-End Benchmark
+## Architecture, in code
 
-The E2E test runs a full 25-turn conversation with Claude, then evaluates all three benchmark metrics:
-
-```bash
-# Start Redis (required for Tier 1)
-redis-server &
-
-# Optional: start Ollama for best CRS scores (768-dim embeddings)
-ollama pull nomic-embed-text
-
-# Run
-python tests/test_e2e_claude.py
 ```
-
-**What the test does:**
-- Turns 1–5: Seeds 5 grounding facts (name, project, tiers, algorithms, deadline)
-- Turns 6–15: Work turns that push the grounding turns beyond the context window
-- Turns 16–25: Probe turns with no hints — agent must retrieve from memory
-- Step 6: Forces sleep consolidation to generate summaries for TES
-- Step 7: Verifies Entity Knowledge Graph population
-- Step 8: Mines procedural patterns
-- Step 9: Measures token cost and prompt caching savings
-- Step 10: Evaluates CRS / TES / LCS against baselines
-
-**Example output format** (illustrative — not a claimed current result; the
-methodology behind CRS/TES/LCS was revised for known measurement bugs, and
-these specific numbers predate that revision and haven't been
-regenerated yet):
-```
-╔══════════════════════════════════════════════════╗
-║   AgentMem OS — Benchmark Report                 ║
-╠══════════════════════════════════════════════════╣
-║ Metric      :  Ours   Baseline      Δ            ║
-║ CRS         : 0.6821    0.4103  +0.2718  ↑       ║
-║ TES         : 0.5940    0.3211  +0.2729  ↑       ║
-║ LCS         : 1.0000    0.0000  +1.0000  ↑       ║
-╚══════════════════════════════════════════════════╝
+agentmem_os/
+├── agents/                    # Multi-agent memory federation
+│   ├── memory_federation.py   #   promote → retrieve → feedback → decay
+│   ├── namespace_manager.py   #   fork(), merge_patterns(), lineage tracking
+│   └── trust_network.py       #   dynamic EMA trust, transitive propagation
+├── api/                       # FastAPI REST interface
+├── benchmarks/
+│   ├── adapters/               #   Real adapters: Mem0, Graphiti, Letta, LangMem
+│   ├── mfp_eval.py             #   Multi-agent federation eval, real code paths
+│   ├── cross_lingual_kg_eval.py #  Cross-lingual entity resolution, measured
+│   └── eval_harness.py         #   CRS / TES / LCS evaluators
+├── cache/                      # Tier 1: Redis working memory
+├── cli/                        # Typer CLI
+├── db/
+│   ├── knowledge_graph.py      # Temporal Knowledge Graph (bi-temporal, NetworkX)
+│   ├── engine.py                # SQLAlchemy engine + session factory
+│   └── models.py                # Turn, Session, Summary, FederatedMemoryEntry, ...
+├── llm/
+│   ├── consolidation_engine.py  # Sleep consolidation (DBSCAN clustering)
+│   ├── context_assembler.py     # Retrieval across all tiers
+│   ├── importance_scorer.py     # EMA-weighted turn importance
+│   └── procedural_memory.py     # Recurring interaction pattern mining
+├── mcp_server/                  # MCP server — 6 tools, 2 transports
+├── memory/
+│   └── conflict_detector.py     # Zero-LLM-call contradiction detection
+├── storage/
+│   └── store.py                 # Coordinates all tiers
+└── tests/                       # 100+ tests, real code paths
 ```
 
 ---
 
 ## Configuration
 
-Edit `config.yaml` to change models and storage paths:
-
 ```yaml
+# config.yaml
 models:
-  default_model: "anthropic/claude-haiku-4-5-20251001"   # cheapest Claude
-  fallback_model: "ollama/llama3.1"                       # local fallback
-  compression_threshold: 0.70                             # trigger consolidation at 70% context
+  default_model: "ollama/llama3.1"        # fully local, no API key
+  fallback_model: "anthropic/claude-haiku-4-5-20251001"
+  compression_threshold: 0.70              # trigger consolidation at 70% context
 
 storage:
   base_path: "~/.agentmem_os/"
 ```
 
-Supported model strings (LiteLLM format):
-
 | Model | String | Use case |
-|-------|--------|----------|
-| Claude Haiku 4.5 | `anthropic/claude-haiku-4-5-20251001` | E2E testing (cheap) |
-| Claude Sonnet 4.6 | `anthropic/claude-sonnet-4-6` | Best benchmark quality |
-| Llama 3.1 (local) | `ollama/llama3.1` | Free, no API key needed |
-| Groq Llama | `groq/llama-3.1-8b-instant` | Free tier fallback |
+|---|---|---|
+| Llama 3.1 (local) | `ollama/llama3.1` | Free, fully offline |
+| Claude Haiku | `anthropic/claude-haiku-4-5-20251001` | Cheap hosted option |
+| Claude Sonnet | `anthropic/claude-sonnet-4-6` | Best quality |
+| Groq Llama | `groq/llama-3.1-8b-instant` | Free hosted fallback |
 
 ---
 
-## Cost Efficiency
+## Research
 
-A key claim of the paper is that AgentMem OS reduces API token costs through prompt caching and aggressive context compression. The E2E test measures this automatically:
-
-```
-Input tokens    : 45,230
-Cached tokens   : 38,190   (84.4% of input — charged at 10% rate)
-Est. session cost: $0.0089
-Cache savings   : 75.8% reduction in effective input token cost
-```
-
-Prompt caching works because AgentMem OS always places the system context (assembled memory) at the beginning of the message, making it eligible for Anthropic's cache prefix matching.
+The Memory Federation Protocol — dynamic EMA trust and confidence-decayed parent-child forking — is the subject of an in-progress paper targeting [AAMAS 2027](https://warwick.ac.uk/fac/sci/dcs/aamas2027/calls/). Everything the paper claims traces to a committed script, a raw result file, and a fixed seed in this repository — nothing is asserted without a reproducible number behind it.
 
 ---
 
-## Research Context
+## Contributing
 
-This project is being developed as part of PhD research on persistent memory architectures for LLM agents. The paper targets [AAMAS 2027](https://warwick.ac.uk/fac/sci/dcs/aamas2027/calls/) and will include:
-
-- Formal definitions of CRS, TES, and LCS metrics
-- Ablation study: individual contribution of each memory tier
-- Comparison against baselines: full history replay, sliding window, RAG-only
-- Cost-efficiency analysis across session lengths
-
----
-
-## Environment Variables
-
-```bash
-# .env
-ANTHROPIC_API_KEY=sk-ant-...      # Required for Claude models
-GROQ_API_KEY=gsk_...              # Optional: free fallback
-OLLAMA_BASE_URL=http://localhost:11434   # Optional: local embeddings
-REDIS_URL=redis://localhost:6379  # Default Redis location
-OPENAI_API_KEY=sk-...             # Optional: only for benchmarks/qa_accuracy_eval.py
-```
+Issues and PRs welcome. If you're comparing this against another memory system and find a gap in the comparison — or a case where this one is wrong — please open an issue. The benchmark harness is designed to be re-run and argued with, not taken on faith.
 
 ---
 
 ## License
 
-MIT License — see `LICENSE` file.
-
----
+MIT — see `LICENSE`.

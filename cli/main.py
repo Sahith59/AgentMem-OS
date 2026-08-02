@@ -13,7 +13,7 @@ from agentmem_os.storage.store import ConversationStore
 from agentmem_os.storage.sync import SSDSync
 from agentmem_os.db.models import Turn, Session
 
-app = typer.Typer(help="MemNAI CLI - Local-First AI Memory Framework")
+app = typer.Typer(help="AgentMem OS CLI - Local-First AI Memory Framework")
 console = Console()
 
 @app.command()
@@ -27,7 +27,7 @@ def storage_status():
     sync.check_and_sync()
     
     console.print()
-    console.print("[bold cyan]MemNAI Storage Status[/bold cyan]")
+    console.print("[bold cyan]AgentMem OS Storage Status[/bold cyan]")
     
     table = Table(show_header=False, box=None)
     table.add_column("Property", style="dim")
@@ -106,7 +106,7 @@ def cost_report():
             func.sum(CostLog.cached_tokens).label('total_cached')
         ).group_by(CostLog.session_id).all()
         
-        console.print("\n[bold cyan]MemNAI Cost Report (Global)[/bold cyan]")
+        console.print("\n[bold cyan]AgentMem OS Cost Report (Global)[/bold cyan]")
         
         if not results:
             console.print("[dim]No API calls logged yet.[/dim]\n")

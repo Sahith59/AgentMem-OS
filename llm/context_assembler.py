@@ -57,7 +57,7 @@ class ContextAssembler:
         self,
         session_id: str,
         query: str,
-        system_prompt: str = "You are MemNAI, an AI assistant with persistent memory.",
+        system_prompt: str = "You are an AI assistant with persistent memory, powered by AgentMem OS.",
         agent_id: str = None,
         disable: frozenset = frozenset(),
     ) -> str:
