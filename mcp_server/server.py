@@ -249,6 +249,17 @@ async def handle_call_tool(name: str, arguments: dict) -> list[types.TextContent
                 text=json.dumps({"error": f"Unknown tool: {name}"}),
             )]
     except Exception as e:
+        # Roll back the shared store's session before answering: a DB error
+        # mid-handler otherwise leaves the long-lived session dirty, and
+        # every later call — any tool — dies with PendingRollbackError
+        # until the server restarts. One failed call must stay one failed
+        # call. (Caught live: intermittent PendingRollbackError cascades in
+        # the MCP test file, different victim test each run.)
+        if _store is not None:
+            try:
+                _store.db.rollback()
+            except Exception:
+                pass
         return [types.TextContent(
             type="text",
             text=json.dumps({"error": f"Error in {name}: {e!r}"}),
