@@ -1,5 +1,7 @@
 # AgentMem OS
 
+[![CI](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml/badge.svg)](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml)
+
 **Git for agent memory.**
 
 Child agents fork a parent's memory, inherit only what generalized, and diverge from there. Trust between agents is a number that's earned and lost through evidence, not a permission slip assigned once and forgotten. And the whole thing runs on your machine — no cloud dependency, no API key required to get started.
@@ -56,7 +58,7 @@ Four memory tiers plus a knowledge graph that knows when a fact *stopped* being 
 - **Dynamic trust, not static tiers.** The most credible funded competitor in this space assigns four fixed, manually-set trust tiers at credential mint-time, changed only by an explicit API call. Trust here is a live number, continuously updated from evidence — an agent that starts unreliable and improves is *believed* more over time; one that degrades is trusted less, automatically, without anyone flipping a switch.
 - **Fork, not just share.** Child agents inherit their parent's abstracted knowledge (patterns and principles) and start with a clean episodic slate — the first formalization of git-style memory branching for LLM agents. Raw episodic memory never leaves the agent that produced it.
 - **A temporal knowledge graph that doesn't lie about the past.** Facts are bi-temporally scoped (`valid_from` / `valid_until`), with deterministic, zero-LLM-call supersession. Ask "what did we know as of last Tuesday" and get an answer scoped to that moment, not today's.
-- **Cross-lingual entity resolution, measured honestly.** A fact stored in one language resolving correctly when queried in another is a real, unsolved gap in this space right now — even funded competitors have open, unresolved issues asking for it. Measured here on a hand-labeled English/Hindi/Tamil dataset with adversarial hard negatives, not just the easy cases: **76% precision / 53% recall at the safest operating point**, with the honest surviving gap (two phonetically-similar-but-unrelated places still get confused) reported alongside the win, not hidden under it.
+- **Cross-lingual entity resolution, measured honestly.** A fact stored in one language resolving correctly when queried in another is a real, unsolved gap in this space right now — even funded competitors have open, unresolved issues asking for it. Measured here on a hand-labeled English/Hindi/Tamil dataset with adversarial hard negatives, not just the easy cases: **76% precision / 53% recall at the safest operating point**, with the honest surviving gap (two phonetically-similar-but-unrelated places still get confused) reported alongside the win, not hidden under it. And it's not just an eval script — the measured threshold is **wired into the live knowledge graph**: a Hindi query lands on memory stored in English, via non-destructive `ALIAS_OF` edges that can add retrieval reach but never corrupt a fact.
 - **100% local-first.** Every tier runs on your machine. No API key is required to get started — plug in Claude, GPT, or a fully local Ollama model interchangeably.
 - **Benchmarked against real systems, not simulations.** Every number below comes from a script in [`benchmarks/`](benchmarks/) that either runs the actual production code path or a real competitor's own installed library — never a hand-rolled proxy standing in for either. See [`benchmarks/deprecated_proxy_sim/`](benchmarks/deprecated_proxy_sim/) for the earlier simulation-based scripts, kept only for historical reference and explicitly not cited anywhere below.
 
@@ -82,6 +84,8 @@ The unreliable agent's trust score, as perceived by every honest agent, over the
 | **0.90** | **0.762** | **0.533** | **0.628** |
 | 0.95 | 1.000 | 0.200 | 0.333 |
 
+τ = 0.90 (the measured F1-optimal) ships as the live default in [`db/entity_aliases.py`](db/entity_aliases.py): an Indic-script mention only enters the graph when it embedding-matches an entity the graph already knows, and the link is stored as a non-destructive `ALIAS_OF` edge carrying its cosine similarity — never a node merge, so a false alias adds retrieval noise but can never corrupt or delete a fact. Optional install (pulls torch): `pip install -e ".[multilingual]"`.
+
 **The semantic memory tier alone accounts for most of what makes retrieval work** — a real, code-level ablation (not a simulation) disabling each tier independently:
 
 | Tier disabled | Context Relevance Score |
@@ -90,9 +94,23 @@ The unreliable agent's trust score, as perceived by every honest agent, over the
 | Semantic retrieval | 0.086 |
 | All optional tiers | 0.090 |
 
-CRS/TES/LCS are internal proxy metrics for retrieval relevance, compression quality, and long-horizon recall — **not** the QA-accuracy methodology Mem0, Zep, and similar systems publish (retrieve → generate an answer → an LLM judge scores correctness against a gold answer). The two metric families aren't directly comparable, and no "beats X" claim is made anywhere in this repo on the strength of proxy metrics alone. A real QA-accuracy harness exists ([`benchmarks/qa_accuracy_eval.py`](benchmarks/qa_accuracy_eval.py), evaluated against real [LoCoMo](https://arxiv.org/abs/2402.17753) and [LongMemEval](https://arxiv.org/abs/2410.10813) data) along with real adapters for head-to-head comparison against Mem0, Graphiti, Letta, and LangMem ([`benchmarks/adapters/`](benchmarks/adapters/)) — infrastructure is built and protocol-verified; the full-scale run is queued, not yet published, and this README will be updated with real numbers the moment it is, not before.
+CRS/TES/LCS are internal proxy metrics for retrieval relevance, compression quality, and long-horizon recall — **not** the QA-accuracy methodology Mem0, Zep, and similar systems publish (retrieve → generate an answer → an LLM judge scores correctness against a gold answer). The two metric families aren't directly comparable, and no "beats X" claim is made anywhere in this repo on the strength of proxy metrics alone.
 
-**56/56** multi-agent federation formula tests passing, **100+** tests passing across the broader suite. See [`benchmarks/`](benchmarks/) to reproduce every number above yourself.
+**Real QA-accuracy head-to-head — pilot scale (n=30, fixed seed 42), run on real [LoCoMo](https://arxiv.org/abs/2402.17753) data.** Every system answered the same 30 questions with the same generator (gpt-4o-mini), the same judge (gpt-4o), and the same extraction model where applicable — real libraries, not simulations:
+
+| System | LoCoMo QA-accuracy |
+|---|---|
+| **AgentMem OS** | **30.0%** |
+| Mem0 (OSS, gpt-4o-mini extraction) | 26.7% |
+| Letta (archival-memory scoping*) | 6.7% |
+| LangMem | 6.7% |
+| Recent-turns-only floor | 0.0% |
+
+AgentMem OS on [LongMemEval](https://arxiv.org/abs/2410.10813) (oracle split, n=30): **46.7%**. Raw per-question outputs for every row: [`benchmarks/reports/`](benchmarks/reports/) and [`benchmarks/qa_accuracy_locomo.json`](benchmarks/qa_accuracy_locomo.json). *Letta is deliberately scoped to archival-memory retrieval only; the disclosure travels inside its result file. Graphiti's run is in progress (its per-message LLM extraction ingests ~100× slower than the others) and will be added when it lands.
+
+Two caveats, stated before anyone else can state them: **(1)** n=30 is a pilot, not a full run — the full 690-question LoCoMo and 500-question LongMemEval runs are the next milestone, and these numbers may move. **(2)** Published vendor numbers (e.g. Mem0's 91.6–92.5% LoCoMo) are far higher than what Mem0's own open-source library scores inside this harness — consistent with the [public dispute](https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/) between Zep and Mem0 over this benchmark's methodology. That gap is exactly why every number in this table ships with its raw output file, its harness source, and a fixed seed: run it yourself.
+
+**56/56** multi-agent federation formula tests passing, **125+** tests passing across the broader suite. See [`benchmarks/`](benchmarks/) to reproduce every number above yourself.
 
 ---
 
@@ -101,13 +119,15 @@ CRS/TES/LCS are internal proxy metrics for retrieval relevance, compression qual
 **Requirements:** Python 3.11+, Redis running locally. No API key required — runs fully offline with Ollama.
 
 ```bash
-git clone https://github.com/sahith0904/agentmem-os.git
-cd agentmem-os
+git clone https://github.com/Sahith59/AgentMem-OS.git
+cd AgentMem-OS
 
 python3 -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
 
 pip install -r requirements.txt
+pip install -e . --no-deps
+python -m spacy download en_core_web_sm
 
 cp .env.example .env          # optional: add ANTHROPIC_API_KEY / OPENAI_API_KEY for hosted models
 
@@ -188,6 +208,13 @@ storage:
 | Claude Haiku | `anthropic/claude-haiku-4-5-20251001` | Cheap hosted option |
 | Claude Sonnet | `anthropic/claude-sonnet-4-6` | Best quality |
 | Groq Llama | `groq/llama-3.1-8b-instant` | Free hosted fallback |
+
+Cross-lingual entity aliasing (optional — `pip install -e ".[multilingual]"`):
+
+| Env var | Default | Meaning |
+|---|---|---|
+| `AGENTMEM_OS_CROSS_LINGUAL` | `1` | Set `0` to disable even when installed |
+| `AGENTMEM_OS_CROSS_LINGUAL_TAU` | `0.90` | Measured F1-optimal; `0.95` = zero measured false positives, much lower recall |
 
 ---
 

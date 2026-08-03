@@ -62,7 +62,10 @@ dev = [
 benchmarks = [
     "openai>=1.0",  # benchmarks/qa_accuracy_eval.py generator+judge only
     "letta-client>=1.12.0",  # benchmarks/adapters/letta_adapter.py — talks to a real Letta server
-    "sentence-transformers>=5.6.0",  # benchmarks/cross_lingual_kg_eval.py — local multilingual embeddings
+    "sentence-transformers>=5.5.0",  # benchmarks/cross_lingual_kg_eval.py — local multilingual embeddings (5.5.1 is the verified-working version; the earlier >=5.6.0 pin was never actually tested)
+]
+multilingual = [
+    "sentence-transformers>=5.5.0",  # db/entity_aliases.py — live cross-lingual entity aliasing (pulls torch; core install stays torch-free without it)
 ]
 
 [project.scripts]
@@ -70,7 +73,7 @@ agentmem-os = "agentmem_os.cli.main:app"
 agentmem-os-mcp = "agentmem_os.mcp_server.server:main"
 
 [project.urls]
-Repository = "https://github.com/sahith0904/agentmem-os"
+Repository = "https://github.com/Sahith59/AgentMem-OS"
 Paper = "https://arxiv.org/abs/xxxx.xxxxx"
 
 [tool.setuptools]
