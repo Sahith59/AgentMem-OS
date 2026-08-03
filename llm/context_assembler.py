@@ -97,11 +97,22 @@ class ContextAssembler:
         if "semantic" not in disable:
             try:
                 chroma = self._get_chroma()
-                chunks = chroma.search(session_id, query, top_k=5)
+                # Budget-aware retrieval depth. top_k=5 was a hardcoded
+                # constant that left the 20% semantic budget ~99% unused on
+                # long histories (measured live on LoCoMo: ~470 of 76,800
+                # budgeted tokens used, gold evidence in 0/30 contexts).
+                # Fetch enough to fill the allocation and let the budget cap
+                # trim — head-keeping, so the best-ranked chunks survive.
+                # ChromaManager.search clamps to collection size, so a large
+                # top_k is safe for small live sessions.
+                approx_chunk_tokens = 60  # short conversational turns dominate
+                top_k = max(5, min(200, self.allocations["semantic"] // approx_chunk_tokens))
+                chunks = chroma.search(session_id, query, top_k=top_k)
                 if chunks:
                     sem_text = "\n---\n".join(chunks)
                     sem_section = self._fit_to_budget(
-                        sem_text, self.allocations["semantic"], "[SEMANTIC MEMORY]"
+                        sem_text, self.allocations["semantic"], "[SEMANTIC MEMORY]",
+                        keep="head",
                     )
                     sections.append(sem_section)
             except Exception as e:
@@ -184,19 +195,27 @@ class ContextAssembler:
     # Utilities
     # ──────────────────────────────────────────────────────────────────────────
 
-    def _fit_to_budget(self, text: str, token_budget: int, label: str) -> str:
+    def _fit_to_budget(self, text: str, token_budget: int, label: str, keep: str = "tail") -> str:
         """
         Truncate text to fit within token_budget.
         Uses character-level proxy (1 token ≈ 4 chars) for fast truncation,
         then verifies with tiktoken.
+
+        keep: which end survives truncation. "tail" (default) suits
+        chronological content — most recent last. "head" suits RANKED
+        content (semantic retrieval, best chunk first): tail-keeping there
+        would silently drop the best-scoring chunks and keep the worst.
         """
         if not text or not text.strip():
             return ""
 
+        def _cut(t: str, n: int) -> str:
+            return t[-n:] if keep == "tail" else t[:n]
+
         # Fast path: estimate via character count
         char_budget = token_budget * 4
         if len(text) > char_budget:
-            text = text[-char_budget:]   # keep most recent (tail)
+            text = _cut(text, char_budget)
 
         # Verify with token counter
         if self.counter.count(text) > token_budget:
@@ -204,11 +223,11 @@ class ContextAssembler:
             lo, hi = 0, len(text)
             while lo < hi - 10:
                 mid = (lo + hi) // 2
-                if self.counter.count(text[-mid:]) <= token_budget:
+                if self.counter.count(_cut(text, mid)) <= token_budget:
                     lo = mid
                 else:
                     hi = mid
-            text = text[-lo:]
+            text = _cut(text, lo)
 
         # Wrap with section label
         return f"<{label.strip('<>')}>\n{text.strip()}\n</{label.strip('<>')}>"
