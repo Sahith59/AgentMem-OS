@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+          pip install pytest pytest-asyncio
+          python -m spacy download en_core_web_sm
+
+      - name: Tests
+        run: |
+          # test_e2e_claude.py is EXCLUDED on purpose: it makes real,
+          # paid Anthropic API calls at pytest COLLECTION time, not just
+          # when run — never let it into a broad sweep.
+          #
+          # Script-style files (own __main__ runners, module-level
+          # sys.exit) run directly. Everything else runs per-file in a
+          # separate pytest process: several files share module-level
+          # engine/Redis singletons and are order-flaky within a single
+          # process (each file is verified stable in isolation).
+          #
+          # Adapter protocol tests self-skip here — their prerequisites
+          # (per-adapter venvs, Neo4j, a Letta server) don't exist in CI.
+          # Cross-lingual model tests self-skip too: CI installs the core,
+          # torch-free dependency set on purpose.
+          set -e
+          for f in tests/test_*.py; do
+            case "$f" in
+              tests/test_e2e_claude.py)
+                continue ;;
+              tests/test_conflict_detection.py|tests/test_phase4_multiagent.py)
+                python "$f" ;;
+              *)
+                python -m pytest "$f" -q ;;
+            esac
+          done
