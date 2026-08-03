@@ -52,6 +52,11 @@ scipy==1.14.1             # Cosine similarity, statistical tools
 
 # --- Knowledge Graph ---
 networkx==3.4.2           # Entity co-occurrence graph
+# spaCy powers the KG's primary NER path (db/knowledge_graph.py). It was
+# never listed here — local envs happened to have it, and the code's silent
+# regex fallback masked the gap until CI's fresh install exposed it. Model:
+# python -m spacy download en_core_web_sm (see README quickstart).
+spacy>=3.8,<4
 
 # --- Utilities ---
 pyyaml==6.0.2             # config.yaml parsing
