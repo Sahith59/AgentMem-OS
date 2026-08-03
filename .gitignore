@@ -69,3 +69,6 @@ htmlcov/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Private running notes (living status doc, not for repo)
+RUNNING_NOTES.md
