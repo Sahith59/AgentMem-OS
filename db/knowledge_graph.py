@@ -170,12 +170,21 @@ class EntityKnowledgeGraph:
         Called automatically by ConversationStore.save_turn().
         """
         entities = self._extract_entities(content)
-        if not entities:
-            return 0
 
         db = self.get_db()
         try:
             from agentmem_os.db.models import KnowledgeGraphNode, KnowledgeGraphEdge
+
+            # Cross-lingual: Indic-script tokens the English NER can't
+            # reliably see (verified: en_core_web_sm catches बेंगलुरु as GPE
+            # in one sentence, misses गूगल entirely in another) only become
+            # entities when they alias-match an already-known entity at τ —
+            # so common Hindi/Tamil words never flood the graph.
+            entities, alias_pending = self._augment_with_script_aliases(
+                db, entities, content, agent_id
+            )
+            if not entities:
+                return 0
 
             # Upsert nodes
             node_ids = {}
@@ -230,11 +239,17 @@ class EntityKnowledgeGraph:
                     src_txt = text_a if id_a < id_b else text_b
                     tgt_txt = text_b if id_a < id_b else text_a
 
+                    # relation_type IS NULL — CO_OCCURS rows persist with a
+                    # NULL relation_type. Without this filter, .first() can
+                    # grab a typed WORKS_AT/ALIAS_OF edge between the same
+                    # node pair and silently increment ITS weight, corrupting
+                    # a fact edge's semantics with co-occurrence counts.
                     edge = (
                         db.query(KnowledgeGraphEdge)
                         .filter(
                             KnowledgeGraphEdge.source_id == src,
                             KnowledgeGraphEdge.target_id == tgt,
+                            KnowledgeGraphEdge.relation_type.is_(None),
                         )
                         .first()
                     )
@@ -265,7 +280,8 @@ class EntityKnowledgeGraph:
             # reloads fresh instead of silently missing the new/superseded
             # edge (see _ingest_typed_relations' own docstring).
             typed_changed = self._ingest_typed_relations(db, node_ids, content, agent_id, session_id)
-            if typed_changed:
+            alias_changed = self._ingest_alias_edges(db, node_ids, alias_pending, agent_id, session_id)
+            if typed_changed or alias_changed:
                 self._graph.clear()
 
             db.commit()
@@ -353,6 +369,186 @@ class EntityKnowledgeGraph:
 
         return changed
 
+    def _augment_with_script_aliases(
+        self, db, entities: List[Tuple[str, str]], content: str, agent_id: Optional[str],
+    ) -> Tuple[List[Tuple[str, str]], List[Tuple[str, str, float]]]:
+        """
+        Alias-gated cross-lingual extraction (db/entity_aliases.py).
+
+        Two cases feed alias_pending [(new_text, existing_text, similarity)]:
+          • Indic-script tokens NER missed — become ("token", "FOREIGN")
+            entities ONLY if they alias-match a known entity at τ. A token
+            matching nothing is dropped, deliberately: without multilingual
+            NER we can't tell a new Hindi entity from a common Hindi word,
+            so we only link mentions of entities the graph already knows.
+          • Indic-script entities NER did catch (gets a node regardless) —
+            still checked so the ALIAS_OF edge to the other-script node
+            gets created.
+
+        No-op (returns inputs unchanged) when the resolver is disabled or
+        the multilingual extra isn't installed.
+        """
+        resolver = self._get_alias_resolver()
+        if resolver is None or not resolver.enabled:
+            return entities, []
+
+        from agentmem_os.db.entity_aliases import contains_indic
+        from agentmem_os.db.models import KnowledgeGraphNode
+
+        ner_texts = {t for t, _ in entities}
+        script_missed = [
+            t for t in resolver.extract_script_tokens(content) if t not in ner_texts
+        ]
+        script_caught = [t for t in ner_texts if contains_indic(t)]
+        if not script_missed and not script_caught:
+            return entities, []
+
+        rows = (
+            db.query(KnowledgeGraphNode.entity_text)
+            .filter(KnowledgeGraphNode.agent_id == agent_id)
+            .all()
+        )
+        # Same-turn Indic NER spans are excluded from the candidate pool —
+        # they haven't passed the gate themselves yet, and letting them
+        # serve as anchors would let junk bootstrap junk ('की' gating in
+        # by matching NER's hallucinated 'की मीटिंग' span). DB rows stay:
+        # any stored Indic node already passed the gate when it was new.
+        candidates = {r[0] for r in rows} | {t for t in ner_texts if not contains_indic(t)}
+
+        alias_pending: List[Tuple[str, str, float]] = []
+        for tok in script_missed:
+            matches = resolver.find_aliases(tok, candidates - {tok})
+            if matches:
+                entities.append((tok, "FOREIGN"))
+                alias_pending.append((tok, matches[0][0], matches[0][1]))
+        for tok in script_caught:
+            matches = resolver.find_aliases(tok, candidates - {tok})
+            if matches:
+                alias_pending.append((tok, matches[0][0], matches[0][1]))
+            else:
+                # en_core_web_sm's entity spans over Indic text are noise in
+                # BOTH directions (verified: misses गूगल entirely, tags
+                # 'की मीटिंग' as an entity). With resolution on, an Indic
+                # span that matches nothing at τ is dropped like any other
+                # unmatched script token — an NER tag doesn't exempt it.
+                entities = [(t, ty) for (t, ty) in entities if t != tok]
+
+        return entities, alias_pending
+
+    def _ingest_alias_edges(
+        self, db, node_ids: Dict[str, int],
+        alias_pending: List[Tuple[str, str, float]],
+        agent_id: Optional[str], session_id: str,
+    ) -> bool:
+        """
+        Persist ALIAS_OF edges for the pairs _augment_with_script_aliases
+        matched. Non-destructive by design: both nodes stay, the edge
+        carries the cosine similarity in its confidence column, and
+        ALIAS_OF is deliberately NOT in SUPERSEDABLE_RELATIONS — aliases
+        don't expire, and _load_graph_from_db keeps them while BFS
+        traverses them unconditionally (typed-edge rule), so retrieval
+        needs no changes to follow them.
+
+        Returns True if anything was written — caller invalidates the
+        in-memory cache, same contract as _ingest_typed_relations (and for
+        the same reason: writing DB-only while the cache diverges is the
+        exact bug class that shipped once already).
+        """
+        if not alias_pending:
+            return False
+
+        from agentmem_os.db.models import KnowledgeGraphEdge, KnowledgeGraphNode
+
+        now = datetime.utcnow()
+        changed = False
+        for new_text, existing_text, sim in alias_pending:
+            src_id = node_ids.get(new_text)
+            tgt_id = node_ids.get(existing_text)
+            if tgt_id is None:
+                row = (
+                    db.query(KnowledgeGraphNode)
+                    .filter(
+                        KnowledgeGraphNode.entity_text == existing_text,
+                        KnowledgeGraphNode.agent_id == agent_id,
+                    )
+                    .first()
+                )
+                tgt_id = row.id if row else None
+            if src_id is None or tgt_id is None or src_id == tgt_id:
+                continue
+
+            a, b = (src_id, tgt_id) if src_id < tgt_id else (tgt_id, src_id)
+            exists = (
+                db.query(KnowledgeGraphEdge)
+                .filter(
+                    KnowledgeGraphEdge.source_id == a,
+                    KnowledgeGraphEdge.target_id == b,
+                    KnowledgeGraphEdge.relation_type == "ALIAS_OF",
+                )
+                .first()
+            )
+            if exists:
+                continue
+
+            db.add(KnowledgeGraphEdge(
+                source_id=a, target_id=b, weight=1.0, session_id=session_id,
+                relation_type="ALIAS_OF", confidence=sim,
+                valid_from=now, valid_until=None,
+            ))
+            changed = True
+
+        return changed
+
+    def _get_alias_resolver(self):
+        """Lazy, exception-safe — None when the multilingual extra is absent."""
+        try:
+            from agentmem_os.db.entity_aliases import get_alias_resolver
+            return get_alias_resolver()
+        except Exception:
+            return None
+
+    def _alias_seed_fallback(
+        self, query: str, query_entities: List[Tuple[str, str]],
+        agent_id: Optional[str], graph: nx.Graph,
+    ) -> Set[str]:
+        """
+        Node keys to seed for Indic-script query mentions that have no
+        exact node in the graph. Empty set when the resolver is off or
+        nothing qualifies — the caller's behavior is then identical to
+        the pre-cross-lingual code path.
+        """
+        resolver = self._get_alias_resolver()
+        if resolver is None or not resolver.enabled:
+            return set()
+
+        from agentmem_os.db.entity_aliases import contains_indic
+
+        pending = [
+            t for t, _ in query_entities
+            if contains_indic(t) and not graph.has_node(f"{agent_id}:{t}")
+        ]
+        for tok in resolver.extract_script_tokens(query):
+            if not graph.has_node(f"{agent_id}:{tok}") and tok not in pending:
+                pending.append(tok)
+        if not pending:
+            return set()
+
+        prefix = f"{agent_id}:"
+        node_texts = {
+            data.get("text")
+            for key, data in graph.nodes(data=True)
+            if str(key).startswith(prefix) and data.get("text")
+        }
+        if not node_texts:
+            return set()
+
+        seeds = set()
+        for tok in pending:
+            matches = resolver.find_aliases(tok, node_texts)
+            if matches:
+                seeds.add(f"{agent_id}:{matches[0][0]}")
+        return seeds
+
     def get_relevant_subgraph(
         self,
         query: str,
@@ -392,9 +588,6 @@ class EntityKnowledgeGraph:
 
         # Find query entities
         query_entities = self._extract_entities(query)
-        if not query_entities:
-            # Fallback: return top-k most mentioned entities
-            return self._top_entities_summary(agent_id, top_k, graph=graph)
 
         # Build seed nodes from query
         seed_nodes = set()
@@ -403,7 +596,15 @@ class EntityKnowledgeGraph:
             if graph.has_node(node_key):
                 seed_nodes.add(node_key)
 
+        # Cross-lingual seed fallback: an Indic-script mention with no
+        # exact node (NER-missed, or stored under another language) seeds
+        # the best alias-matched node instead — a Hindi query lands on
+        # memory stored in English. Latin-script query text never enters
+        # this path, so English-query behavior is unchanged.
+        seed_nodes |= self._alias_seed_fallback(query, query_entities, agent_id, graph)
+
         if not seed_nodes:
+            # Fallback: return top-k most mentioned entities
             return self._top_entities_summary(agent_id, top_k, graph=graph)
 
         # BFS expansion up to max_hops
@@ -559,6 +760,7 @@ class EntityKnowledgeGraph:
           [WORLD MODEL]
           Entities: Alice (PERSON, 12×), FastAPI (PRODUCT, 5×)
           Relationships: Alice ↔ Bob (8×), Alice ↔ FastAPI (3×)
+          Aliases: Google = गूगल
           Facts: Alice WORKS_AT City Hospital (since 2026-03-01)
 
         Typed relations (WORKS_AT/LIVES_AT/STUDIES_AT) get their own "Facts"
@@ -586,6 +788,7 @@ class EntityKnowledgeGraph:
         edges_seen = set()
         edge_parts = []
         fact_parts = []
+        alias_parts = []
         for nk in node_keys:
             for neighbor in graph.neighbors(nk):
                 if neighbor in node_keys:
@@ -601,6 +804,8 @@ class EntityKnowledgeGraph:
                         valid_from = edata.get("valid_from")
                         since = f" (since {valid_from.date()})" if valid_from else ""
                         fact_parts.append((valid_from, f"{a_text} {rtype} {b_text}{since}"))
+                    elif rtype == "ALIAS_OF":
+                        alias_parts.append(f"{a_text} = {b_text}")
                     else:
                         weight = edata.get("weight", 1)
                         edge_parts.append(f"{a_text} ↔ {b_text} ({int(weight)}×)")
@@ -608,6 +813,9 @@ class EntityKnowledgeGraph:
         if edge_parts:
             edge_parts.sort(key=lambda x: -int(x.split("(")[1].split("×")[0]))
             lines.append("Relationships: " + ", ".join(edge_parts[:10]))
+
+        if alias_parts:
+            lines.append("Aliases: " + ", ".join(alias_parts[:10]))
 
         if fact_parts:
             fact_parts.sort(key=lambda x: x[0] or datetime.min, reverse=True)
