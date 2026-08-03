@@ -200,10 +200,17 @@ def ensure_scope_ingested(adapter, mem_by_id: dict, ingested: set, lock: threadi
     return sid
 
 
+_retrieve_lock = threading.Lock()
+
+
 def run_one(adapter, mem_by_id: dict, ingested: set, lock: threading.Lock, system: str, it) -> dict:
     sid = ensure_scope_ingested(adapter, mem_by_id, ingested, lock, system, it.scope_keys)
     try:
-        retrieved = adapter.retrieve(sid, it.question, top_k=args.top_k)
+        # Serialized: adapters holding a single DB session (agentmem_os)
+        # are not safe for concurrent retrieval; the slow part — the two
+        # OpenAI calls below — stays parallel.
+        with _retrieve_lock:
+            retrieved = adapter.retrieve(sid, it.question, top_k=args.top_k)
     except Exception as e:
         return {"question": it.question, "gold_answer": it.gold_answer,
                 "predicted": "", "correct": False, "error": f"retrieve failed: {e}"}
@@ -251,6 +258,23 @@ def run_system(system: str, items: list, mem_by_id: dict, out_path: Path) -> dic
 
     try:
         if todo:
+            # Serial pre-ingestion — same thread-safety bug class caught
+            # live in qa_accuracy_eval.py (see its comment): single-session
+            # adapters can't be ingested from racing workers, and a worker
+            # could otherwise retrieve from a scope another worker was
+            # still halfway through ingesting.
+            unique_scopes = []
+            seen_scopes = set()
+            for it in todo:
+                s = _scope_session_id(system, it.scope_keys)
+                if s not in seen_scopes:
+                    seen_scopes.add(s)
+                    unique_scopes.append(it.scope_keys)
+            print(f"  Ingesting {len(unique_scopes)} unique scopes (serial)...")
+            for i, sk in enumerate(unique_scopes, 1):
+                ensure_scope_ingested(adapter, mem_by_id, ingested, lock, system, sk)
+                if i % 5 == 0 or i == len(unique_scopes):
+                    print(f"    {i}/{len(unique_scopes)} scopes", flush=True)
             with ThreadPoolExecutor(max_workers=args.workers) as pool:
                 futs = {pool.submit(run_one, adapter, mem_by_id, ingested, lock, system, it): it for it in todo}
                 for f in as_completed(futs):

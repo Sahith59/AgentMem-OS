@@ -117,7 +117,7 @@ Is the predicted answer correct? Reply with exactly one word: CORRECT or INCORRE
 def gen_answer(context: str, question: str) -> str:
     r = client.chat.completions.create(
         model=args.gen_model, max_tokens=80, temperature=0,
-        messages=[{"role": "user", "content": GEN_PROMPT.format(context=context[:8000], question=question)}],
+        messages=[{"role": "user", "content": GEN_PROMPT.format(context=context[:24000], question=question)}],
     )
     return (r.choices[0].message.content or "").strip()
 
@@ -210,8 +210,15 @@ def retrieve_context(scope_keys: list, question: str) -> str:
     return assembler.assemble(sid, question, agent_id=sid)
 
 
+_retrieve_lock = threading.Lock()
+
+
 def run_one(it) -> dict:
-    ctx = retrieve_context(it.scope_keys, it.question)
+    # Retrieval is serialized: ContextAssembler reads through shared
+    # single-session stores, and SQLAlchemy sessions are not thread-safe.
+    # The slow part — the two OpenAI network calls — stays parallel.
+    with _retrieve_lock:
+        ctx = retrieve_context(it.scope_keys, it.question)
     pred = gen_answer(ctx, it.question) if ctx.strip() else "I don't know"
     ok = judge(it.question, it.gold_answer, pred)
     return {"question": it.question, "gold_answer": it.gold_answer,
@@ -256,6 +263,27 @@ def main():
         _checkpoint()
         print(f"QA accuracy = {correct/max(1,done):.3f} ({correct}/{done})")
         return
+
+    # Ingest every unique scope serially BEFORE the thread pool. The shared
+    # ConversationStore holds ONE SQLAlchemy session and sessions are not
+    # thread-safe — with ingestion inside the workers, racing threads
+    # interleaved duplicate INSERTs into a single flush, hit IntegrityError,
+    # and the poisoned session then failed every later question
+    # (PendingRollbackError cascade — observed live: 26/30 questions lost,
+    # and the 4 survivors answered from a broken store). Ingestion is local
+    # and $0, so serializing it costs seconds, not money.
+    unique_scopes = []
+    seen_scopes = set()
+    for it in todo:
+        sid = _scope_session_id(it.scope_keys)
+        if sid not in seen_scopes:
+            seen_scopes.add(sid)
+            unique_scopes.append(it.scope_keys)
+    print(f"Ingesting {len(unique_scopes)} unique haystack scopes (serial, $0)...")
+    for i, sk in enumerate(unique_scopes, 1):
+        ensure_scope_ingested(sk)
+        if i % 5 == 0 or i == len(unique_scopes):
+            print(f"  {i}/{len(unique_scopes)} scopes ingested", flush=True)
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futs = {pool.submit(run_one, it): it for it in todo}

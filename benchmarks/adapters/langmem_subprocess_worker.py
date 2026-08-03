@@ -83,7 +83,16 @@ def handle(req: dict) -> dict:
         top_k = req.get("top_k", 10)
         manager, _ = _get_manager(namespace)
         items = manager.search(query=query, limit=top_k)
-        texts = [item.value.get("content", str(item.value)) for item in items]
+        # item.value is a langmem pydantic Memory model (has .content), not
+        # a dict — .get() AttributeError'd on every retrieve and silently
+        # zeroed the whole system's score. Handle both shapes.
+        texts = []
+        for item in items:
+            v = item.value
+            if isinstance(v, dict):
+                texts.append(v.get("content", str(v)))
+            else:
+                texts.append(getattr(v, "content", str(v)))
         return {"ok": True, "result": texts[:top_k]}
 
     if op == "shutdown":

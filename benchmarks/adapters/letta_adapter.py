@@ -42,11 +42,18 @@ class LettaAdapter(MemoryAdapter):
     name = "letta"
 
     def __init__(self, base_url: str | None = None,
-                 model: str = "letta/letta-free",
-                 embedding: str = "letta/letta-free"):
+                 model: str | None = None,
+                 embedding: str | None = None):
         self._base_url = base_url or os.environ.get("LETTA_BASE_URL", "http://localhost:8283")
-        self._model = model
-        self._embedding = embedding
+        # With an OpenAI key available, default to the SAME extraction/
+        # embedding models every other adapter uses (see module docstring —
+        # the comparison must not be confounded by model quality). Without
+        # a key, fall back to letta-free so the $0 protocol checks still run.
+        _has_key = bool(os.environ.get("OPENAI_API_KEY"))
+        self._model = model or ("openai/gpt-4o-mini" if _has_key else "letta/letta-free")
+        self._embedding = embedding or (
+            "openai/text-embedding-3-small" if _has_key else "letta/letta-free"
+        )
         self._client = None
         self._agent_ids: dict = {}  # namespace -> agent_id
 

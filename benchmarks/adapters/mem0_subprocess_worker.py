@@ -72,8 +72,24 @@ def handle(req: dict) -> dict:
         namespace = req["namespace"]
         turns = req["turns"]
         mem = _get_memory(namespace)
-        messages = [{"role": t.get("role", "user"), "content": t.get("content", "")}
-                    for t in turns if t.get("content")]
+        # LoCoMo turns carry the SPEAKER'S NAME as the role ("Caroline"),
+        # and mem0 2.x silently parses unknown roles into nothing, then
+        # embeds the resulting empty string — OpenAI 400s on every single
+        # session (reproduced directly against mem0 2.0.14). Fold the
+        # speaker into the content instead: who-said-what is real evidence
+        # for LoCoMo questions, so it must be preserved, just not as the
+        # chat role.
+        VALID_ROLES = {"user", "assistant", "system"}
+        messages = []
+        for t in turns:
+            content = t.get("content", "")
+            if not content:
+                continue
+            role = t.get("role", "user")
+            if role not in VALID_ROLES:
+                content = f"{role}: {content}"
+                role = "user"
+            messages.append({"role": role, "content": content})
         if messages:
             mem.add(messages, user_id=namespace)
         return {"ok": True}
