@@ -34,7 +34,7 @@ Fix: ensure_agent_exists(namespace) before any ingestion.
 from __future__ import annotations
 
 from benchmarks.adapters.base import MemoryAdapter
-from benchmarks.real_code_utils import install_tfidf_chroma
+from benchmarks.real_code_utils import install_best_chroma
 
 
 class AgentMemAdapter(MemoryAdapter):
@@ -43,6 +43,7 @@ class AgentMemAdapter(MemoryAdapter):
     def __init__(self):
         self._store = None
         self._assembler = None
+        self.retrieval_backend = None  # "dense" | "tfidf", set in setup()
 
     def setup(self) -> None:
         from agentmem_os.storage.store import ConversationStore
@@ -50,7 +51,8 @@ class AgentMemAdapter(MemoryAdapter):
         from agentmem_os.agents.namespace_manager import AgentNamespaceManager
         from agentmem_os.db.engine import get_session
 
-        install_tfidf_chroma(ContextAssembler)
+        self.retrieval_backend = install_best_chroma(ContextAssembler)
+        print(f"  agentmem_os semantic retrieval backend: {self.retrieval_backend}")
         self._store = ConversationStore()
         self._assembler = ContextAssembler()
         self._namespace_mgr = AgentNamespaceManager(get_session)

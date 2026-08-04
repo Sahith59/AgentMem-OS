@@ -52,7 +52,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from corpus_loaders import load_locomo, load_longmemeval  # noqa: E402
-from real_code_utils import install_tfidf_chroma  # noqa: E402
+from real_code_utils import install_best_chroma  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -95,7 +95,8 @@ from agentmem_os.agents.namespace_manager import AgentNamespaceManager  # noqa: 
 from agentmem_os.db.engine import get_session as get_db  # noqa: E402
 from agentmem_os.db.models import Turn  # noqa: E402
 
-install_tfidf_chroma(ContextAssembler)
+RETRIEVAL_BACKEND = install_best_chroma(ContextAssembler)
+print(f"Semantic retrieval backend: {RETRIEVAL_BACKEND}")
 
 GEN_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
 
@@ -253,6 +254,7 @@ def main():
         out_path.write_text(json.dumps({
             "dataset": args.dataset, "gen_model": args.gen_model,
             "judge_model": args.judge_model, "n_questions": len(items),
+            "retrieval_backend": RETRIEVAL_BACKEND,
             "qa_accuracy": round(correct / max(1, done), 4),
             "correct": correct, "total": done,
             "results": results,

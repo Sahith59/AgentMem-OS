@@ -140,6 +140,16 @@ class EntityAliasResolver:
         return out
 
 
+def get_shared_encoder():
+    """
+    The raw shared SentenceTransformer, or None when the multilingual
+    extra isn't installed. Exists so other consumers of the same model
+    (llm/multi_vector_retrieval.py) reuse one loaded instance instead of
+    duplicating ~120MB of weights in RAM.
+    """
+    return get_alias_resolver()._get_model()
+
+
 _resolver: Optional[EntityAliasResolver] = None
 _resolver_lock = threading.Lock()
 
