@@ -86,15 +86,7 @@ The unreliable agent's trust score, as perceived by every honest agent, over the
 
 τ = 0.90 (the measured F1-optimal) ships as the live default in [`db/entity_aliases.py`](db/entity_aliases.py): an Indic-script mention only enters the graph when it embedding-matches an entity the graph already knows, and the link is stored as a non-destructive `ALIAS_OF` edge carrying its cosine similarity — never a node merge, so a false alias adds retrieval noise but can never corrupt or delete a fact. Optional install (pulls torch): `pip install -e ".[multilingual]"`.
 
-**The semantic memory tier alone accounts for most of what makes retrieval work** — a real, code-level ablation (not a simulation) disabling each tier independently:
-
-| Tier disabled | Context Relevance Score |
-|---|---|
-| None (full system) | 0.274 |
-| Semantic retrieval | 0.086 |
-| All optional tiers | 0.090 |
-
-CRS/TES/LCS are internal proxy metrics for retrieval relevance, compression quality, and long-horizon recall — **not** the QA-accuracy methodology Mem0, Zep, and similar systems publish (retrieve → generate an answer → an LLM judge scores correctness against a gold answer). The two metric families aren't directly comparable, and no "beats X" claim is made anywhere in this repo on the strength of proxy metrics alone.
+A real, code-level ablation (committed in [`benchmarks/ablation_real_results.json`](benchmarks/ablation_real_results.json)) shows the semantic tier is load-bearing: disabling it collapses internal context-relevance roughly **3×**. Internal proxy metrics like that one stay out of this README's tables on purpose — they have no external reference point, and no claim in this repo rests on them. Everything below is the QA-accuracy methodology the field actually publishes.
 
 **Real QA-accuracy head-to-head — pilot scale (n=30, fixed seed 42), run on real [LoCoMo](https://arxiv.org/abs/2402.17753) data.** Every system answered the same 30 questions with the same generator (gpt-4o-mini), the same judge (gpt-4o), and the same extraction model where applicable — real libraries, not simulations:
 
