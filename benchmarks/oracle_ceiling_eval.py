@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+"""
+Oracle-ceiling diagnostic — the experiment that tells you whether to invest
+in RETRIEVAL or in ANSWERING, instead of guessing.
+
+Skips retrieval entirely and hands the answerer the raw text of every
+session in the question's own haystack (the gold sessions are guaranteed to
+be in there). Whatever it scores is the ceiling any retrieval system can
+reach with this answerer, judge, and dataset:
+
+  • ceiling >> our score  -> retrieval is the bottleneck; invest there.
+  • ceiling ~= our score  -> retrieval is already finding what matters;
+                            the remaining gap is answering/judging, and
+                            better retrieval CANNOT help.
+
+This is the same class of check that found X-MemoryArch's 1,200-char
+truncation bug in 10 minutes after weeks of blind prompt tuning
+(PHASE5_NOTES.md, Lesson 43: "ALWAYS run failure analysis before
+optimizing").
+
+Usage:
+    python3 benchmarks/oracle_ceiling_eval.py --dataset longmemeval --n 30
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from corpus_loaders import load_locomo, load_longmemeval  # noqa: E402
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT))
+
+for _p in [REPO_ROOT, REPO_ROOT.parent]:
+    _env = _p / ".env"
+    if _env.exists():
+        for line in _env.read_text().splitlines():
+            if "=" in line and not line.strip().startswith("#"):
+                k, _, v = line.partition("=")
+                os.environ.setdefault(k.strip(), v.strip())
+        break
+
+ap = argparse.ArgumentParser()
+ap.add_argument("--dataset", choices=["locomo", "longmemeval"], required=True)
+ap.add_argument("--n", type=int, default=30)
+ap.add_argument("--gen-model", default="gpt-4o-mini")
+ap.add_argument("--judge-model", default="gpt-4o")
+ap.add_argument("--cap", type=int, default=24000, help="chars of oracle context")
+ap.add_argument("--workers", type=int, default=4)
+ap.add_argument("--seed", type=int, default=42)
+args = ap.parse_args()
+
+import openai  # noqa: E402
+
+client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+
+REASONING_PROMPT = """You answer a question about a user's own past conversations. You are given memories from those conversations, some tagged with dates.{today_line}
+
+Memories:
+{context}
+
+Question: {question}
+
+Reason carefully before answering:
+- Find the specific fact(s) in the memories that bear on the question.
+- DATES / DURATIONS ("how many days ago", "how long since", "between X and Y", "most recent"): locate the exact date(s) and compute the difference, counting carefully.
+- COUNTS / TOTALS ("how many", "total", "in total"): find EVERY relevant item across ALL memories and add them up. Do not stop at the first one.
+- UPDATES ("currently", "now", "most recently", "switched"): prefer the latest-dated fact over earlier ones.
+- If the memories genuinely do not contain the information, do not guess — say it was not mentioned.
+
+Think step by step, then end with exactly one final line:
+ANSWER: <the shortest possible answer: a name, number, date, or short phrase; or "not mentioned">"""
+
+JUDGE_PROMPT = """You are grading whether a predicted answer to a question is correct, given the gold answer. Be lenient about phrasing, formatting, and extra words — judge only whether the predicted answer conveys the same factual information as the gold answer.
+
+Question: {question}
+Gold answer: {gold}
+Predicted answer: {pred}
+
+Is the predicted answer correct? Reply with exactly one word: CORRECT or INCORRECT."""
+
+
+def _chat(model, prompt, max_tokens):
+    r = client.chat.completions.create(
+        model=model, max_tokens=max_tokens, temperature=0,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return (r.choices[0].message.content or "").strip()
+
+
+def run_one(it, mem_by_id):
+    # Gold sessions first, then the rest of the haystack — with a char cap,
+    # ordering by relevance-we-already-know keeps the ceiling a true ceiling
+    # instead of an artifact of which sessions the cap happened to keep.
+    gold = [k for k in it.scope_keys if k in it.gold_keys]
+    rest = [k for k in it.scope_keys if k not in it.gold_keys]
+    parts = []
+    for key in gold + rest:
+        mem = mem_by_id.get(key)
+        if mem and mem.content:
+            parts.append(f"--- {mem.title} ---\n{mem.content}")
+    context = "\n\n".join(parts)[:args.cap]
+
+    today = getattr(it, "question_date", "") or ""
+    out = _chat(args.gen_model, REASONING_PROMPT.format(
+        context=context, question=it.question,
+        today_line=f"\nToday's date is {today}." if today else ""), 700)
+    m = re.search(r"ANSWER:\s*(.+)", out, re.IGNORECASE | re.DOTALL)
+    pred = (m.group(1).strip() if m else out).split("\n")[0].strip()
+
+    verdict = _chat(args.judge_model, JUDGE_PROMPT.format(
+        question=it.question, gold=it.gold_answer, pred=pred), 5).upper()
+    ok = "CORRECT" in verdict and "INCORRECT" not in verdict
+    return {"question": it.question, "gold_answer": it.gold_answer,
+            "predicted": pred, "correct": ok,
+            "question_type": getattr(it, "question_type", "")}
+
+
+def main():
+    ds = (load_locomo if args.dataset == "locomo" else load_longmemeval)(
+        n_queries=args.n, seed=args.seed)
+    mem_by_id = {m.mid: m for m in ds.memories}
+    items = [q for q in ds.queries if q.gold_answer and q.scope_keys]
+    print(f"Oracle ceiling: {args.dataset}, {len(items)} questions, "
+          f"answerer={args.gen_model}, judge={args.judge_model}, cap={args.cap} chars")
+
+    results, correct = [], 0
+    lock = threading.Lock()
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        futs = [pool.submit(run_one, it, mem_by_id) for it in items]
+        for f in as_completed(futs):
+            try:
+                r = f.result()
+            except Exception as e:
+                print(f"  [error] {e}")
+                continue
+            with lock:
+                results.append(r)
+                correct += int(r["correct"])
+
+    n = len(results)
+    by_type = {}
+    for r in results:
+        t = r.get("question_type") or "unknown"
+        b = by_type.setdefault(t, {"correct": 0, "total": 0})
+        b["total"] += 1
+        b["correct"] += int(r["correct"])
+    for t, b in sorted(by_type.items()):
+        b["accuracy"] = round(b["correct"] / max(1, b["total"]), 4)
+        print(f"  {t:32s} {b['accuracy']:.3f}  ({b['correct']}/{b['total']})")
+
+    out_path = Path(__file__).parent / f"oracle_ceiling_{args.dataset}.json"
+    out_path.write_text(json.dumps({
+        "dataset": args.dataset, "gen_model": args.gen_model,
+        "judge_model": args.judge_model, "cap_chars": args.cap,
+        "oracle_ceiling": round(correct / max(1, n), 4),
+        "correct": correct, "total": n, "by_question_type": by_type,
+        "results": results,
+    }, indent=2))
+
+    print(f"\n{'=' * 60}")
+    print(f"ORACLE CEILING — {args.dataset}: {correct/max(1,n):.3f}  ({correct}/{n})")
+    print("  No retrieval — gold sessions handed directly to the answerer.")
+    print("  Any retrieval system's score on this setup is bounded by this.")
+    print(f"  Results -> {out_path}")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()

@@ -49,6 +49,82 @@ class MemEntry:
     # raw per-turn structure for adapters that need to run their own
     # extraction over individual turns rather than one joined blob
     # (see LAUNCH_ROADMAP.md Phase 2 — real baseline adapters)
+    facts: list = field(default_factory=list)
+    # LLM-extracted, date-grounded atomic memories for this session, when a
+    # cache is present — see attach_extracted_memories(). Empty otherwise.
+
+
+EXTRACTED_DIR = Path(__file__).resolve().parent / "extracted_memories"
+
+# LLM-extracted memory caches, keyed by dataset. Produced by X-MemoryArch
+# (github.com/Sahith59/X-MemoryArch, same author) with Claude Sonnet
+# (LoCoMo) / Haiku (LongMemEval) and released here so this benchmark is
+# reproducible at $0 instead of requiring every runner to pay for their own
+# extraction pass. Format: {session_id: [{"memory": str, "session_date":
+# str|None, "memory_type": str, ...}, ...]} — session_id matches the ids
+# these loaders build, so the join is exact.
+_EXTRACTED_FILES = {
+    "LoCoMo": "rich_memories_sonnet_LoCoMo.json",
+    "LongMemEval": "rich_memories_haiku_LongMemEval.json",
+}
+
+
+def attach_extracted_memories(ds: "BenchDataset") -> int:
+    """
+    Populate MemEntry.facts from the extracted-memory cache for this
+    dataset. Returns how many sessions got facts (0 if no cache is
+    present — callers then fall back to raw turns).
+
+    Why this exists: storage granularity is the single biggest measured
+    lever in this problem — X-MemoryArch's own conclusion after a full
+    phase of experiments was "the biggest lever is what you store, not how
+    you retrieve it", and AgentMem OS was storing raw dialogue turns while
+    every competitor in the harness (mem0, langmem, letta) runs its own LLM
+    extraction at ingest. Feeding raw turns to one system and extracted
+    facts to the others is not a fair comparison; this closes that gap.
+    """
+    fname = _EXTRACTED_FILES.get(ds.name)
+    if not fname:
+        return 0
+    path = EXTRACTED_DIR / fname
+    if not path.exists():
+        return 0
+
+    cache = json.loads(path.read_text())
+    hits = 0
+    for mem in ds.memories:
+        records = cache.get(mem.mid)
+        if not records:
+            continue
+        mem.facts = [
+            {
+                "content": r["memory"],
+                "date": r.get("session_date"),
+                "type": r.get("memory_type", "state"),
+            }
+            for r in records
+            if r.get("memory")
+        ]
+        if mem.facts:
+            hits += 1
+    return hits
+
+
+def facts_as_turns(mem: "MemEntry") -> list:
+    """
+    A session's extracted facts in the {"role", "content"} shape every
+    adapter's ingest_session already speaks, so switching granularity needs
+    no adapter changes. Dates are prefixed into the text (not dropped into
+    metadata no retriever reads) because temporal grounding in the memory
+    string itself is what makes "when/how long ago" questions answerable.
+    """
+    out = []
+    for f in mem.facts:
+        text = f["content"]
+        if f.get("date") and f["date"] not in text:
+            text = f"[{f['date']}] {text}"
+        out.append({"role": "user", "content": text})
+    return out
 
 
 @dataclass
@@ -66,6 +142,16 @@ class QueryEntry:
     # the actual answer text, for QA-accuracy scoring (retrieve->generate->
     # judge). Empty for questions without one — callers doing QA-accuracy
     # eval should filter those out (see qa_accuracy_eval.py).
+    question_date: str = ""
+    # the "today" the question is asked relative to. LongMemEval ships this
+    # per question and 133/500 of its questions are temporal-reasoning
+    # ("how many days ago did I meet Emma?"). Without it those questions are
+    # UNANSWERABLE no matter how good retrieval is — measured: the oracle
+    # answerer replied "not mentioned" to every one of them. Never drop it.
+    question_type: str = ""
+    # LongMemEval's own category label, kept so results can be broken down
+    # per category instead of hiding a 30-question preference-following
+    # subtask inside a factual-QA average.
 
 
 @dataclass
@@ -132,9 +218,12 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
                 # Full session context, capped at 6,000 chars (max raw
                 # session is 5,867) — NOT the original 1,200-char cap that
                 # discarded 58% of every session. See module docstring.
-                session_content = "\n".join(lines)[:6000]
                 session_id = f"c{conv_idx}_{sk}"
                 date_val = conv_data.get(f"{sk}_date", "")
+                # Same reason as LongMemEval: the date has to live IN the
+                # retrievable text, not only in the title.
+                header = f"Session dated {date_val}\n" if date_val else ""
+                session_content = (header + "\n".join(lines))[:6000]
                 title = f"Conv{conv_idx+1} {sk}" + (f" ({date_val})" if date_val else "")
 
                 mems.append({
@@ -158,7 +247,9 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
                     continue
                 qs.append({"question": qa["question"], "gold_keys": gold_sessions,
                            "scope_keys": list(conv_session_ids),
-                           "gold_answer": str(qa.get("answer", ""))})
+                           "gold_answer": str(qa.get("answer", "")),
+                           "question_date": "",  # LoCoMo ships no per-question date
+                           "question_type": f"category_{qa.get('category', '?')}"})
         return {"memories": mems, "queries": qs}
 
     raw = _cached(cache, _build)
@@ -195,22 +286,38 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
         for item in data:
             ids = item.get("haystack_session_ids", [])
             sessions = item.get("haystack_sessions", [])
-            for sid, turns_raw in zip(ids, sessions):
+            dates = item.get("haystack_dates", [])
+            for i, (sid, turns_raw) in enumerate(zip(ids, sessions)):
                 if sid in sess_map:
                     continue
+                # The session's own date, stamped onto every turn. Temporal
+                # questions ("how many days ago...") are answerable only if
+                # each memory carries WHEN it happened — a date sitting in
+                # loader metadata that never reaches the retrieved text is
+                # the same as no date at all.
+                sdate = dates[i] if i < len(dates) else ""
                 lines = []
                 structured_turns = []
-                for turn in turns_raw[:20]:  # cap at 20 turns/session
+                for turn in turns_raw[:40]:  # was 20 — measured: gold evidence sat past it
                     role = turn.get("role", "?")
-                    content = (turn.get("content", "") or "")[:300]
-                    lines.append(f"{role.capitalize()}: {content}")
-                    structured_turns.append({"role": role, "content": content})
-                sess_map[sid] = {"content": "\n".join(lines), "turns": structured_turns}
+                    content = (turn.get("content", "") or "")[:800]  # was 300
+                    stamped = f"[{sdate}] {content}" if sdate else content
+                    lines.append(f"{role.capitalize()}: {stamped}")
+                    structured_turns.append({"role": role, "content": stamped})
+                header = f"Session dated {sdate}\n" if sdate else ""
+                sess_map[sid] = {
+                    "content": header + "\n".join(lines),
+                    "turns": structured_turns,
+                    "date": sdate,
+                }
 
         mems = []
         for sid, payload in sess_map.items():
+            title = f"Session {sid[:16]}"
+            if payload.get("date"):
+                title += f" ({payload['date']})"
             mems.append({
-                "mid": sid, "title": f"Session {sid[:16]}",
+                "mid": sid, "title": title,
                 "content": payload["content"], "search_text": payload["content"],
                 "gold_key": sid, "turns": payload["turns"],
             })
@@ -222,7 +329,9 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
                 continue
             qs.append({"question": item["question"], "gold_keys": ans_ids,
                        "scope_keys": item.get("haystack_session_ids", []),
-                       "gold_answer": str(item["answer"])})
+                       "gold_answer": str(item["answer"]),
+                       "question_date": item.get("question_date", ""),
+                       "question_type": item.get("question_type", "")})
         return {"memories": mems, "queries": qs}
 
     raw = _cached(cache, _build)

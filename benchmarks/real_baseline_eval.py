@@ -51,6 +51,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import os
 import sys
 import threading
@@ -84,6 +85,8 @@ ap.add_argument("--judge-model", default="gpt-4o")
 ap.add_argument("--top-k", type=int, default=10)
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
+                 help="answer layer applied identically to EVERY system")
 ap.add_argument("--dry-run-cost", action="store_true",
                  help="ingest/retrieve/generate/judge on just 3 questions per system, "
                       "sum actual generate+judge token usage, project full-run cost, "
@@ -124,13 +127,35 @@ ADAPTER_DISCLOSURES = {
                      "system, something in the harness is broken, not the memory system."),
 }
 
-GEN_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
+SIMPLE_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
 
 Memories:
 {context}
 
 Question: {question}
 Answer:"""
+
+# Date-anchored chain-of-thought answer layer, identical to
+# qa_accuracy_eval.py's. Measured here: LongMemEval 0.467 -> 0.533 on the
+# same 30 questions and the same retrieval. Applied identically to EVERY
+# system in the comparison — an answer layer that only one system gets is
+# not a memory-system benchmark, it's a prompt benchmark.
+REASONING_PROMPT = """You answer a question about a user's own past conversations. You are given memories from those conversations, some tagged with dates.{today_line}
+
+Memories:
+{context}
+
+Question: {question}
+
+Reason carefully before answering:
+- Find the specific fact(s) in the memories that bear on the question.
+- DATES / DURATIONS ("how many days ago", "how long since", "between X and Y", "most recent"): locate the exact date(s) and compute the difference, counting carefully.
+- COUNTS / TOTALS ("how many", "total", "in total"): find EVERY relevant item across ALL memories and add them up. Do not stop at the first one.
+- UPDATES ("currently", "now", "most recently", "switched"): prefer the latest-dated fact over earlier ones.
+- If the memories genuinely do not contain the information, do not guess — say it was not mentioned.
+
+Think step by step, then end with exactly one final line:
+ANSWER: <the shortest possible answer: a name, number, date, or short phrase; or "not mentioned">"""
 
 JUDGE_PROMPT = """You are grading whether a predicted answer to a question is correct, given the gold answer. Be lenient about phrasing, formatting, and extra words — judge only whether the predicted answer conveys the same factual information as the gold answer.
 
@@ -150,15 +175,27 @@ _PRICE_PER_1K = {
 }
 
 
-def gen_answer(context: str, question: str) -> str:
+def gen_answer(context: str, question: str, today: str = "") -> str:
+    reasoning = args.answerer == "reasoning"
+    if reasoning:
+        prompt = REASONING_PROMPT.format(
+            context=context[:24000], question=question,
+            today_line=f"\nToday's date is {today}." if today else "")
+    else:
+        prompt = SIMPLE_PROMPT.format(context=context[:24000], question=question)
     r = client.chat.completions.create(
-        model=args.gen_model, max_tokens=80, temperature=0,
-        messages=[{"role": "user", "content": GEN_PROMPT.format(context=context[:8000], question=question)}],
+        model=args.gen_model, max_tokens=700 if reasoning else 80, temperature=0,
+        messages=[{"role": "user", "content": prompt}],
     )
     with _cost_lock:
         _cost_totals["prompt_tokens"] += r.usage.prompt_tokens
         _cost_totals["completion_tokens"] += r.usage.completion_tokens
-    return (r.choices[0].message.content or "").strip()
+    out = (r.choices[0].message.content or "").strip()
+    if reasoning:
+        # Score the final ANSWER line only — never the chain-of-thought.
+        m = re.search(r"ANSWER:\s*(.+)", out, re.IGNORECASE | re.DOTALL)
+        out = (m.group(1).strip() if m else out).split("\n")[0].strip()
+    return out
 
 
 def judge(question: str, gold: str, pred: str) -> bool:
@@ -215,7 +252,7 @@ def run_one(adapter, mem_by_id: dict, ingested: set, lock: threading.Lock, syste
         return {"question": it.question, "gold_answer": it.gold_answer,
                 "predicted": "", "correct": False, "error": f"retrieve failed: {e}"}
     context = "\n".join(str(r) for r in retrieved)
-    pred = gen_answer(context, it.question) if context.strip() else "I don't know"
+    pred = gen_answer(context, it.question, getattr(it, "question_date", "")) if context.strip() else "I don't know"
     ok = judge(it.question, it.gold_answer, pred)
     return {"question": it.question, "gold_answer": it.gold_answer,
             "predicted": pred, "correct": ok}
@@ -250,7 +287,8 @@ def run_system(system: str, items: list, mem_by_id: dict, out_path: Path) -> dic
         out_path.write_text(json.dumps({
             "system": system, "dataset": args.dataset,
             "gen_model": args.gen_model, "judge_model": args.judge_model,
-            "n_questions": len(items), "qa_accuracy": round(correct / max(1, done), 4),
+            "n_questions": len(items), "answerer": args.answerer,
+            "qa_accuracy": round(correct / max(1, done), 4),
             "correct": correct, "total": done,
             "disclosures": ADAPTER_DISCLOSURES.get(system, ""),
             "results": results,

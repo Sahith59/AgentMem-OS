@@ -45,13 +45,16 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from corpus_loaders import load_locomo, load_longmemeval  # noqa: E402
+from corpus_loaders import (  # noqa: E402
+    load_locomo, load_longmemeval, attach_extracted_memories, facts_as_turns,
+)
 from real_code_utils import install_best_chroma  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -73,6 +76,12 @@ ap.add_argument("--gen-model", default="gpt-4o-mini")
 ap.add_argument("--judge-model", default="gpt-4o")
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--memory-source", choices=["extracted", "raw"], default="extracted",
+                 help="what gets stored: LLM-extracted atomic memories (default, "
+                      "matches what every competitor stores) or raw dialogue turns")
+ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
+                 help="answer layer: reasoning (date-anchored CoT + aggregation + "
+                      "calibrated abstention) or simple (naive one-shot)")
 args = ap.parse_args()
 
 try:
@@ -98,13 +107,37 @@ from agentmem_os.db.models import Turn  # noqa: E402
 RETRIEVAL_BACKEND = install_best_chroma(ContextAssembler)
 print(f"Semantic retrieval backend: {RETRIEVAL_BACKEND}")
 
-GEN_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
+SIMPLE_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
 
 Memories:
 {context}
 
 Question: {question}
 Answer:"""
+
+# The answer layer. A naive one-shot answerer is where this benchmark's
+# scores actually die: retrieval can surface the right session and the
+# model still fails "how many days between X and Y", "how many N in total",
+# and "you never told me that". Ported from X-MemoryArch's measured result
+# (same author): identical retrieval, naive answerer 0.334 -> reasoning
+# answerer 0.630 on LongMemEval-S. Applied to EVERY system in the
+# head-to-head, never only to ours.
+REASONING_PROMPT = """You answer a question about a user's own past conversations. You are given memories from those conversations, some tagged with dates.{today_line}
+
+Memories:
+{context}
+
+Question: {question}
+
+Reason carefully before answering:
+- Find the specific fact(s) in the memories that bear on the question.
+- DATES / DURATIONS ("how many days ago", "how long since", "between X and Y", "most recent"): locate the exact date(s) and compute the difference, counting carefully.
+- COUNTS / TOTALS ("how many", "total", "in total"): find EVERY relevant item across ALL memories and add them up. Do not stop at the first one.
+- UPDATES ("currently", "now", "most recently", "switched"): prefer the latest-dated fact over earlier ones.
+- If the memories genuinely do not contain the information, do not guess — say it was not mentioned.
+
+Think step by step, then end with exactly one final line:
+ANSWER: <the shortest possible answer: a name, number, date, or short phrase; or "not mentioned">"""
 
 JUDGE_PROMPT = """You are grading whether a predicted answer to a question is correct, given the gold answer. Be lenient about phrasing, formatting, and extra words — judge only whether the predicted answer conveys the same factual information as the gold answer.
 
@@ -115,12 +148,25 @@ Predicted answer: {pred}
 Is the predicted answer correct? Reply with exactly one word: CORRECT or INCORRECT."""
 
 
-def gen_answer(context: str, question: str) -> str:
+def gen_answer(context: str, question: str, today: str = "") -> str:
+    reasoning = args.answerer == "reasoning"
+    if reasoning:
+        prompt = REASONING_PROMPT.format(
+            context=context[:24000], question=question,
+            today_line=f"\nToday's date is {today}." if today else "")
+    else:
+        prompt = SIMPLE_PROMPT.format(context=context[:24000], question=question)
     r = client.chat.completions.create(
-        model=args.gen_model, max_tokens=80, temperature=0,
-        messages=[{"role": "user", "content": GEN_PROMPT.format(context=context[:24000], question=question)}],
+        model=args.gen_model, max_tokens=700 if reasoning else 80, temperature=0,
+        messages=[{"role": "user", "content": prompt}],
     )
-    return (r.choices[0].message.content or "").strip()
+    out = (r.choices[0].message.content or "").strip()
+    if reasoning:
+        # Everything before "ANSWER:" is chain-of-thought — the judge must
+        # score the final line only, or verbose reasoning gets graded.
+        m = re.search(r"ANSWER:\s*(.+)", out, re.IGNORECASE | re.DOTALL)
+        out = (m.group(1).strip() if m else out).split("\n")[0].strip()
+    return out
 
 
 def judge(question: str, gold: str, pred: str) -> bool:
@@ -143,6 +189,15 @@ if args.dataset == "locomo":
     ds = load_locomo(n_queries=args.n, seed=args.seed)
 else:
     ds = load_longmemeval(n_queries=args.n, seed=args.seed)
+
+MEMORY_SOURCE = args.memory_source
+if MEMORY_SOURCE == "extracted":
+    hits = attach_extracted_memories(ds)
+    if hits:
+        print(f"  extracted memories attached to {hits}/{len(ds.memories)} sessions")
+    else:
+        print("  no extraction cache found — falling back to raw turns")
+        MEMORY_SOURCE = "raw"
 
 mem_by_id = {m.mid: m for m in ds.memories}
 items = [q for q in ds.queries if q.gold_answer and q.scope_keys]
@@ -186,9 +241,12 @@ def ensure_scope_ingested(scope_keys: list) -> str:
     _namespace_mgr.ensure_agent_exists(sid)
     for mkey in scope_keys:
         mem = mem_by_id.get(mkey)
-        if not mem or not mem.turns:
+        if not mem:
             continue
-        for turn in mem.turns:
+        units = facts_as_turns(mem) if (MEMORY_SOURCE == "extracted" and mem.facts) else mem.turns
+        if not units:
+            continue
+        for turn in units:
             content = turn.get("content", "")
             if not content:
                 continue
@@ -198,7 +256,7 @@ def ensure_scope_ingested(scope_keys: list) -> str:
             store.db.add(t)
         store.db.commit()
         try:
-            for turn in mem.turns:
+            for turn in units:
                 if turn.get("content"):
                     store._ingest_kg(sid, sid, turn["content"])
         except Exception as e:
@@ -220,10 +278,11 @@ def run_one(it) -> dict:
     # The slow part — the two OpenAI network calls — stays parallel.
     with _retrieve_lock:
         ctx = retrieve_context(it.scope_keys, it.question)
-    pred = gen_answer(ctx, it.question) if ctx.strip() else "I don't know"
+    pred = gen_answer(ctx, it.question, getattr(it, "question_date", "")) if ctx.strip() else "I don't know"
     ok = judge(it.question, it.gold_answer, pred)
     return {"question": it.question, "gold_answer": it.gold_answer,
-            "predicted": pred, "correct": ok}
+            "predicted": pred, "correct": ok,
+            "question_type": getattr(it, "question_type", "")}
 
 
 def main():
@@ -255,6 +314,8 @@ def main():
             "dataset": args.dataset, "gen_model": args.gen_model,
             "judge_model": args.judge_model, "n_questions": len(items),
             "retrieval_backend": RETRIEVAL_BACKEND,
+            "memory_source": MEMORY_SOURCE,
+            "answerer": args.answerer,
             "qa_accuracy": round(correct / max(1, done), 4),
             "correct": correct, "total": done,
             "results": results,
