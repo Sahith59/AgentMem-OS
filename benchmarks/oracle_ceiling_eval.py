@@ -33,6 +33,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lme_judge import build_judge_prompt, parse_judge_verdict, is_abstention  # noqa: E402
 from corpus_loaders import load_locomo, load_longmemeval  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -160,9 +161,12 @@ def run_one(it, mem_by_id):
     m = re.search(r"ANSWER:\s*(.+)", out, re.IGNORECASE | re.DOTALL)
     pred = (m.group(1).strip() if m else out).split("\n")[0].strip()
 
-    verdict = _chat(args.judge_model, JUDGE_PROMPT.format(
-        question=it.question, gold=it.gold_answer, pred=pred), 5).upper()
-    ok = "CORRECT" in verdict and "INCORRECT" not in verdict
+    # Official per-question-type judge (benchmarks/lme_judge.py). A single
+    # generic prompt scored preference/abstention/temporal categories wrongly.
+    verdict = _chat(args.judge_model, build_judge_prompt(
+        getattr(it, "question_type", ""), it.question, it.gold_answer, pred,
+        abstention=is_abstention(getattr(it, "question_id", ""))), 5)
+    ok = parse_judge_verdict(verdict)
     # Whether this question's own gold sessions survived the cap. A "ceiling"
     # computed over questions whose evidence was truncated away is not a
     # ceiling — it must be reported, not averaged in silently.

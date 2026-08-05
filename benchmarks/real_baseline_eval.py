@@ -60,6 +60,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lme_judge import build_judge_prompt, parse_judge_verdict, is_abstention  # noqa: E402
 from corpus_loaders import load_locomo, load_longmemeval  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -235,16 +236,13 @@ def gen_answer(context: str, question: str, today: str = "") -> str:
     return out
 
 
-def judge(question: str, gold: str, pred: str) -> bool:
-    r = _chat_with_retry(client, args.judge_model, JUDGE_PROMPT.format(
-        question=question, gold=gold, pred=pred), 5)
+def judge(question: str, gold: str, pred: str, qtype: str = "", qid: str = "") -> bool:
+    r = _chat_with_retry(client, args.judge_model, build_judge_prompt(
+        qtype, question, gold, pred, abstention=is_abstention(qid)), 5)
     with _cost_lock:
         _cost_totals["prompt_tokens"] += r.usage.prompt_tokens
         _cost_totals["completion_tokens"] += r.usage.completion_tokens
-    out = (r.choices[0].message.content or "").strip().upper()
-    if "INCORRECT" in out:
-        return False
-    return "CORRECT" in out
+    return parse_judge_verdict(r.choices[0].message.content or "")
 
 
 def _scope_session_id(system: str, scope_keys: list) -> str:
@@ -288,7 +286,8 @@ def run_one(adapter, mem_by_id: dict, ingested: set, lock: threading.Lock, syste
                 "predicted": "", "correct": False, "error": f"retrieve failed: {e}"}
     context = "\n".join(str(r) for r in retrieved)
     pred = gen_answer(context, it.question, getattr(it, "question_date", "")) if context.strip() else "I don't know"
-    ok = judge(it.question, it.gold_answer, pred)
+    ok = judge(it.question, it.gold_answer, pred,
+               getattr(it, "question_type", ""), getattr(it, "question_id", ""))
     return {"question": it.question, "gold_answer": it.gold_answer,
             "predicted": pred, "correct": ok}
 

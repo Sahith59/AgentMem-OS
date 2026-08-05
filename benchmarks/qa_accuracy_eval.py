@@ -55,6 +55,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from corpus_loaders import (  # noqa: E402
     load_locomo, load_longmemeval, attach_extracted_memories, facts_as_turns,
 )
+from lme_judge import build_judge_prompt, parse_judge_verdict, is_abstention  # noqa: E402
 from real_code_utils import install_best_chroma  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -206,14 +207,10 @@ def gen_answer(context: str, question: str, today: str = "") -> str:
     return out
 
 
-def judge(question: str, gold: str, pred: str) -> bool:
-    r = _chat_with_retry(client, args.judge_model, JUDGE_PROMPT.format(
-        question=question, gold=gold, pred=pred), 5)
-    out = (r.choices[0].message.content or "").strip().upper()
-    # "INCORRECT" contains "CORRECT" as a substring — must check INCORRECT first.
-    if "INCORRECT" in out:
-        return False
-    return "CORRECT" in out
+def judge(question: str, gold: str, pred: str, qtype: str = "", qid: str = "") -> bool:
+    r = _chat_with_retry(client, args.judge_model, build_judge_prompt(
+        qtype, question, gold, pred, abstention=is_abstention(qid)), 5)
+    return parse_judge_verdict(r.choices[0].message.content or "")
 
 
 # ── Load dataset via the ported, bug-fixed loaders (raw turns, not
@@ -314,7 +311,8 @@ def run_one(it) -> dict:
     with _retrieve_lock:
         ctx = retrieve_context(it.scope_keys, it.question)
     pred = gen_answer(ctx, it.question, getattr(it, "question_date", "")) if ctx.strip() else "I don't know"
-    ok = judge(it.question, it.gold_answer, pred)
+    ok = judge(it.question, it.gold_answer, pred,
+               getattr(it, "question_type", ""), getattr(it, "question_id", ""))
     return {"question": it.question, "gold_answer": it.gold_answer,
             "predicted": pred, "correct": ok,
             "question_type": getattr(it, "question_type", "")}

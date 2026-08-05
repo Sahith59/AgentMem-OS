@@ -148,6 +148,10 @@ class QueryEntry:
     # ("how many days ago did I meet Emma?"). Without it those questions are
     # UNANSWERABLE no matter how good retrieval is — measured: the oracle
     # answerer replied "not mentioned" to every one of them. Never drop it.
+    question_id: str = ""
+    # LongMemEval's own id. Ids ending in "_abs" are ABSTENTION questions
+    # (30 of 500) — the official judge scores those with a different prompt
+    # entirely: correct means recognizing the question is unanswerable.
     question_type: str = ""
     # LongMemEval's own category label, kept so results can be broken down
     # per category instead of hiding a 30-question preference-following
@@ -379,7 +383,8 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
                        "scope_keys": item.get("haystack_session_ids", []),
                        "gold_answer": str(item["answer"]),
                        "question_date": item.get("question_date", ""),
-                       "question_type": item.get("question_type", "")})
+                       "question_type": item.get("question_type", ""),
+                       "question_id": item.get("question_id", "")})
         return {"memories": mems, "queries": qs}
 
     raw = _cached(cache, _build)
