@@ -76,6 +76,9 @@ ap.add_argument("--gen-model", default="gpt-4o-mini")
 ap.add_argument("--judge-model", default="gpt-4o")
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
+                 help="LongMemEval haystack: oracle (evidence sessions only) or s "
+                      "(~40 sessions/question, the split vendor numbers use)")
 ap.add_argument("--memory-source", choices=["extracted", "raw"], default="extracted",
                  help="what gets stored: LLM-extracted atomic memories (default, "
                       "matches what every competitor stores) or raw dialogue turns")
@@ -188,7 +191,7 @@ print(f"Loading {args.dataset}...")
 if args.dataset == "locomo":
     ds = load_locomo(n_queries=args.n, seed=args.seed)
 else:
-    ds = load_longmemeval(n_queries=args.n, seed=args.seed)
+    ds = load_longmemeval(n_queries=args.n, seed=args.seed, split=args.lme_split)
 
 MEMORY_SOURCE = args.memory_source
 if MEMORY_SOURCE == "extracted":

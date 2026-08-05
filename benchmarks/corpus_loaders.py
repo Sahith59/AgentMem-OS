@@ -170,16 +170,59 @@ def _cached(path: Path, fn):
     return result
 
 
-def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> BenchDataset:
+# LoCoMo category id -> what the questions in it ACTUALLY are, measured from
+# the released data rather than copied from the ecosystem's labels.
+#
+# The Mem0-derived harness that Memobase, Backboard, Hindsight and others all
+# forked maps 1->single_hop, 2->temporal, 3->multi_hop, 4->open_domain. That
+# mapping is wrong for 1, 3 and 4, and it is checkable in one pass over the
+# evidence field: the LoCoMo paper defines multi-hop as needing several
+# sessions and single-hop as answerable from one.
+#
+#   cat 1: n=282, mean 2.68 evidence sessions, 95.4% span >1 session -> MULTI-HOP
+#   cat 2: n=321, mean 1.10,                    8.8%                 -> temporal (correct)
+#   cat 3: n= 96, mean 1.75,                   34.8%                 -> open-domain/commonsense
+#   cat 4: n=841, mean 1.00,                    0.1%                 -> SINGLE-HOP
+#   cat 5: n=446 adversarial — no usable ground truth, excluded by everyone
+#
+# Cross-check: the paper puts open-domain at 3.9% of the set, which cannot be
+# the 841-question column; single-hop is the largest category, which it must be.
+LOCOMO_CATEGORY_NAMES = {
+    1: "multi_hop",
+    2: "temporal",
+    3: "open_domain",
+    4: "single_hop",
+    5: "adversarial",
+}
+
+# Categories 1-4 = 1,540 questions, the pool every published LoCoMo number
+# uses (category 5 excluded for missing ground truth). Default to it so our
+# numbers are comparable; pass a narrower set to evaluate the hard subset.
+LOCOMO_DEFAULT_CATEGORIES = (1, 2, 3, 4)
+
+
+def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42,
+                 categories: tuple = LOCOMO_DEFAULT_CATEGORIES) -> BenchDataset:
     """
-    LoCoMo (Maharana et al., ACL 2024) — 10 long-term conversations, up to
-    35 sessions each, 1,540 QA pairs across single-hop/multi-hop/temporal/
-    open-domain categories. Category filter here keeps 1/2/3 (matches the
-    upstream script's scope), matching the categories that have clean
-    session-level evidence mapping.
+    LoCoMo (Maharana et al., ACL 2024).
+
+    Note what the public release actually is: the paper describes 50
+    conversations / 7,512 questions, but `data/locomo10.json` — the only
+    released file, and the basis of every published LoCoMo number in
+    existence — holds **10 conversations / 1,986 questions**. Paper baselines
+    and vendor numbers are therefore not comparable to each other.
+
+    categories: which question categories to keep. Defaults to (1,2,3,4) =
+    1,540 questions, the industry-standard pool. This loader previously kept
+    only (1,2,3) = 699 questions, which silently EXCLUDED category 4 — the
+    841 single-hop questions that are the easiest bulk of the set (0.1% span
+    more than one session). Numbers produced under that filter are measured
+    on a substantially harder subset and must never be compared against a
+    1,540-question number.
     """
     print("  Loading LoCoMo...")
-    cache = cache_dir / "locomo.json"
+    cats_tag = "".join(str(c) for c in sorted(categories))
+    cache = cache_dir / (f"locomo_c{cats_tag}.json")
 
     def _build():
         url = "https://raw.githubusercontent.com/snap-research/locomo/main/data/locomo10.json"
@@ -237,7 +280,7 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
                 evidence = qa.get("evidence", [])
                 if not evidence:
                     continue
-                if qa.get("category", 99) not in (1, 2, 3):
+                if qa.get("category", 99) not in categories:
                     continue
                 gold_sessions = list({
                     f"c{conv_idx}_{dia_to_session[e]}"
@@ -249,7 +292,8 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
                            "scope_keys": list(conv_session_ids),
                            "gold_answer": str(qa.get("answer", "")),
                            "question_date": "",  # LoCoMo ships no per-question date
-                           "question_type": f"category_{qa.get('category', '?')}"})
+                           "question_type": LOCOMO_CATEGORY_NAMES.get(
+                               qa.get("category"), f"category_{qa.get('category', '?')}")})
         return {"memories": mems, "queries": qs}
 
     raw = _cached(cache, _build)
@@ -261,7 +305,8 @@ def load_locomo(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> 
     return BenchDataset("LoCoMo", mems, sampled)
 
 
-def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42) -> BenchDataset:
+def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42,
+                      split: str = "oracle") -> BenchDataset:
     """
     LongMemEval (ICLR 2026) — 500 questions over freely-scalable synthetic
     chat histories, 5 core abilities (information extraction, multi-session
@@ -272,12 +317,15 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
     before citing provenance in the paper (see LAUNCH_ROADMAP.md Phase 1
     risk notes).
     """
-    print("  Loading LongMemEval (oracle)...")
-    cache = cache_dir / "longmemeval.json"
+    if split not in ("oracle", "s"):
+        raise ValueError(f"split must be 'oracle' or 's', got {split!r}")
+    print(f"  Loading LongMemEval ({split})...")
+    cache = cache_dir / (f"longmemeval.json" if split == "oracle" else "longmemeval_s.json")
 
     def _build():
+        fname = "longmemeval_oracle.json" if split == "oracle" else "longmemeval_s_cleaned.json"
         url = ("https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/"
-               "resolve/main/longmemeval_oracle.json")
+               f"resolve/main/{fname}")
         r = requests.get(url, timeout=60, allow_redirects=True)
         r.raise_for_status()
         data = r.json()
@@ -339,5 +387,7 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
     all_qs = [QueryEntry(**q) for q in raw["queries"]]
     rng = random.Random(seed)
     sampled = rng.sample(all_qs, min(n_queries, len(all_qs)))
-    print(f"    {len(mems):,} sessions  ·  {len(sampled):,} queries (of {len(all_qs):,})")
+    avg_scope = sum(len(q.scope_keys) for q in sampled) / max(1, len(sampled))
+    print(f"    {len(mems):,} sessions  ·  {len(sampled):,} queries (of {len(all_qs):,})"
+          f"  ·  {avg_scope:.1f} sessions/question haystack")
     return BenchDataset("LongMemEval", mems, sampled)

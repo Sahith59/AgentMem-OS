@@ -85,6 +85,9 @@ ap.add_argument("--judge-model", default="gpt-4o")
 ap.add_argument("--top-k", type=int, default=10)
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
+                 help="LongMemEval haystack: oracle (evidence sessions only) or s "
+                      "(~40 sessions/question, the split vendor numbers use)")
 ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
                  help="answer layer applied identically to EVERY system")
 ap.add_argument("--dry-run-cost", action="store_true",
@@ -391,7 +394,7 @@ def run_dry_run_cost(items: list, mem_by_id: dict):
 def main():
     print(f"Loading {args.dataset}...")
     ds = load_locomo(n_queries=args.n, seed=args.seed) if args.dataset == "locomo" \
-        else load_longmemeval(n_queries=args.n, seed=args.seed)
+        else load_longmemeval(n_queries=args.n, seed=args.seed, split=args.lme_split)
 
     mem_by_id = {m.mid: m for m in ds.memories}
     items = [q for q in ds.queries if q.gold_answer and q.scope_keys]

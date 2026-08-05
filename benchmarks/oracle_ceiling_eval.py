@@ -55,6 +55,9 @@ ap.add_argument("--judge-model", default="gpt-4o")
 ap.add_argument("--cap", type=int, default=24000, help="chars of oracle context")
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
+                 help="LongMemEval haystack: oracle (evidence sessions only) or s "
+                      "(~40 sessions/question, the split vendor numbers use)")
 args = ap.parse_args()
 
 import openai  # noqa: E402
@@ -124,8 +127,8 @@ def run_one(it, mem_by_id):
 
 
 def main():
-    ds = (load_locomo if args.dataset == "locomo" else load_longmemeval)(
-        n_queries=args.n, seed=args.seed)
+    ds = load_locomo(n_queries=args.n, seed=args.seed) if args.dataset == "locomo" \
+        else load_longmemeval(n_queries=args.n, seed=args.seed, split=args.lme_split)
     mem_by_id = {m.mid: m for m in ds.memories}
     items = [q for q in ds.queries if q.gold_answer and q.scope_keys]
     print(f"Oracle ceiling: {args.dataset}, {len(items)} questions, "
