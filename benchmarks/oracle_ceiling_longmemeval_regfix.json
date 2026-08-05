@@ -1,0 +1,320 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o",
+  "judge_model": "gpt-4o",
+  "cap_chars": 40000,
+  "oracle_ceiling": 0.9167,
+  "correct": 33,
+  "total": 36,
+  "attempted": 36,
+  "gold_truncated_count": 0,
+  "ceiling_untruncated_only": 0.9167,
+  "complete": true,
+  "by_question_type": {
+    "single-session-user": {
+      "correct": 11,
+      "total": 12,
+      "accuracy": 0.9167
+    },
+    "temporal-reasoning": {
+      "correct": 12,
+      "total": 14,
+      "accuracy": 0.8571
+    },
+    "knowledge-update": {
+      "correct": 10,
+      "total": 10,
+      "accuracy": 1.0
+    }
+  },
+  "results": [
+    {
+      "question": "Where does my sister Emily live?",
+      "gold_answer": "Denver",
+      "predicted": "Denver",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "What was the date on which I attended the first BBQ event in June?",
+      "gold_answer": "June 3rd",
+      "predicted": "2023/06/03",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many playlists do I have on Spotify?",
+      "gold_answer": "20",
+      "predicted": "20 playlists.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many short stories have I written since I started writing regularly?",
+      "gold_answer": "seven",
+      "predicted": "7 short stories.",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many skeins of worsted weight yarn did I find in my stash?",
+      "gold_answer": "17",
+      "predicted": "17 skeins",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many engineers do I lead when I just started my new role as Senior Software Engineer? How many engineers do I lead now?",
+      "gold_answer": "When you just started your new role as Senior Software Engineer, you led 4 engineers. Now, you lead 5 engineers",
+      "predicted": "Initially 4 engineers; now 5 engineers.",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many days ago did I harvest my first batch of fresh herbs from the herb garden kit?",
+      "gold_answer": "3 days ago. 4 days (including the last day) is also acceptable.",
+      "predicted": "3 days ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?",
+      "gold_answer": "one week",
+      "predicted": "1 week.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How long did I wait for the decision on my asylum application?",
+      "gold_answer": "over a year",
+      "predicted": "Over a year.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "I mentioned an investment for a competition four weeks ago? What did I buy?",
+      "gold_answer": "I got my own set of sculpting tools.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "What did I buy for my sister's birthday gift?",
+      "gold_answer": "a yellow dress",
+      "predicted": "Yellow dress and a pair of matching earrings.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "Where did I attend the Imagine Dragons concert?",
+      "gold_answer": "Xfinity Center",
+      "predicted": "Xfinity Center.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "How long did it take me to assemble the IKEA bookshelf?",
+      "gold_answer": "4 hours",
+      "predicted": "4 hours.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "Which vehicle did I take care of first in February, the bike or the car?",
+      "gold_answer": "bike",
+      "predicted": "The bike.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many days had passed since I started taking ukulele lessons when I decided to take my acoustic guitar to the guitar tech for servicing?",
+      "gold_answer": "24 days. 25 days (including the last day) is also acceptable.",
+      "predicted": "24 days.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "Where did I attend for my study abroad program?",
+      "gold_answer": "University of Melbourne in Australia",
+      "predicted": "University of Melbourne.",
+      "correct": false,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "predicted": "The company's annual charity soccer tournament.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "What was my personal best time in the charity 5K run?",
+      "gold_answer": "25 minutes and 50 seconds (or 25:50)",
+      "predicted": "25:50",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "What time do I wake up on Tuesdays and Thursdays?",
+      "gold_answer": "6:45 AM",
+      "predicted": "6:45 AM on Tuesdays and Thursdays.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many days had passed between the day I bought a gift for my brother's graduation ceremony and the day I bought a birthday gift for my best friend?",
+      "gold_answer": "7 days. 8 days (including the last day) is also acceptable.",
+      "predicted": "7 days.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "I mentioned visiting a museum two months ago. Did I visit with a friend or not?",
+      "gold_answer": "No, you did not visit with a friend.",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "What play did I attend at the local community theater?",
+      "gold_answer": "The Glass Menagerie",
+      "predicted": "The Glass Menagerie.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "What was my previous frequent flyer status on United Airlines before I got the current status?",
+      "gold_answer": "Premier Silver",
+      "predicted": "Premier Silver.",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "What company is Rachel, an old colleague from my previous company, currently working at?",
+      "gold_answer": "TechCorp",
+      "predicted": "TechCorp.",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "Which project did I start first, the Ferrari model or the Japanese Zero fighter plane model?",
+      "gold_answer": "Japanese Zero fighter plane model",
+      "predicted": "The Japanese Zero fighter plane model was started first.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "Where am I planning to stay for my birthday trip to Hawaii?",
+      "gold_answer": "Oahu",
+      "predicted": "Oahu",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "Where is the painting 'Ethereal Dreams' by Emma Taylor currently hanging?",
+      "gold_answer": "in my bedroom",
+      "predicted": "In the user's bedroom, above their bed.",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "What type of bulb did I replace in my bedside lamp?",
+      "gold_answer": "Philips LED bulb",
+      "predicted": "Philips LED bulb.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+      "gold_answer": "You increased the limit (from one cup to two cups)",
+      "predicted": "Increased to two cups.",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+      "gold_answer": "Samsung Galaxy S22",
+      "predicted": "Samsung Galaxy S22",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many different species of birds have I seen in my local park?",
+      "gold_answer": "32",
+      "predicted": "32",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many bikes do I own?",
+      "gold_answer": "three",
+      "predicted": "3",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many bikes do I currently own?",
+      "gold_answer": "4",
+      "predicted": "4",
+      "correct": true,
+      "question_type": "knowledge-update",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many months ago did I attend the photography workshop?",
+      "gold_answer": "3",
+      "predicted": "3 months ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "How many weeks ago did I meet up with my aunt and receive the crystal chandelier?",
+      "gold_answer": "4",
+      "predicted": "4 weeks ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning",
+      "gold_truncated": false
+    },
+    {
+      "question": "What game did I finally beat last weekend?",
+      "gold_answer": "Dark Souls 3 DLC",
+      "predicted": "Dark Souls 3 DLC.",
+      "correct": true,
+      "question_type": "single-session-user",
+      "gold_truncated": false
+    }
+  ]
+}

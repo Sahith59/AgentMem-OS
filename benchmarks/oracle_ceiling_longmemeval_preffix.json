@@ -1,0 +1,102 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o",
+  "judge_model": "gpt-4o",
+  "cap_chars": 40000,
+  "oracle_ceiling": 0.9,
+  "correct": 9,
+  "total": 10,
+  "attempted": 10,
+  "gold_truncated_count": 0,
+  "ceiling_untruncated_only": 0.9,
+  "complete": true,
+  "by_question_type": {
+    "single-session-preference": {
+      "correct": 9,
+      "total": 10,
+      "accuracy": 0.9
+    }
+  },
+  "results": [
+    {
+      "question": "I've been struggling with my slow cooker recipes. Any advice on getting better results?",
+      "gold_answer": "The user would prefer responses that provide tips and advice specifically tailored to their slow cooker experiences, utilizing their recent success with beef stew and interest in making yogurt in the slow cooker. They might not prefer general slow cooker recipes or advice unrelated to their specific experiences and interests.",
+      "predicted": "To improve your slow cooker recipes, try experimenting with different cuisines and flavors, such as Lentil Curry or Roasted Vegetable Stew. When making yogurt, use a thermometer to ensure the milk reaches the ideal temperature for the cultures to grow.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "What should I serve for dinner this weekend with my homegrown ingredients?",
+      "gold_answer": "The user would prefer dinner suggestions that incorporate their homegrown cherry tomatoes and herbs like basil and mint, highlighting recipes that showcase their garden produce. They might not prefer suggestions that do not utilize these specific ingredients or do not emphasize the use of homegrown elements.",
+      "predicted": "Prepare a Caprese Salad with your cherry tomatoes and basil, and a mint and basil pesto for pasta or grilled chicken.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "I was thinking of trying a new coffee creamer recipe. Any recommendations?",
+      "gold_answer": "The user would prefer responses that suggest variations on their existing almond milk, vanilla extract, and honey creamer recipe or new ideas that align with their goals of reducing sugar intake and saving money. They might not prefer responses that recommend commercial creamer products or recipes that are high in sugar or expensive.",
+      "predicted": "You might consider experimenting with alternative sweeteners like stevia or monk fruit to make your coffee creamer healthier. Also, try using unsweetened, organic almond milk and adjust the amount of sweetener to taste for a healthier option.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+      "gold_answer": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+      "predicted": "Consider hotels in Miami with unique features and great views, like The Setai, 1 Hotel South Beach, or The Ritz-Carlton, South Beach, which align with your previous preferences for hotels with stunning views and unique amenities.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+      "gold_answer": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+      "predicted": "Check Eventbrite and Meetup for cultural events or language exchange gatherings this weekend, as these platforms often list events related to language diversity and cultural exchange, which align with your interests.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "I was thinking about rearranging the furniture in my bedroom this weekend. Any tips?",
+      "gold_answer": "The user would prefer responses that take into account their existing plans to replace the bedroom dresser and their interest in mid-century modern style, suggesting furniture layouts that accommodate the new dresser and incorporate elements of this design aesthetic. They might not prefer general furniture arrangement tips or suggestions that do not consider their specific design preferences.",
+      "predicted": "Consider arranging your bedroom furniture to highlight your new mid-century modern walnut dresser as a focal point, incorporating clean lines and organic shapes for a cohesive look.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "I\u2019m a bit anxious about getting around Tokyo. Do you have any helpful tips?",
+      "gold_answer": "The user would prefer responses that utilize their existing resources, such as their Suica card and TripIt app, to provide personalized tips for navigating Tokyo's public transportation. They might not prefer general tips or recommendations that do not take into account their prior preparations.",
+      "predicted": "Use your Suica card for easy access to public transport, and consider using apps like TripIt to organize your travel plans. For specific routes, like to Tsukiji Fish Market, follow step-by-step guides to ensure a smooth journey.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "Can you recommend a show or movie for me to watch tonight?",
+      "gold_answer": "The user would prefer recommendations for stand-up comedy specials on Netflix, especially those that are known for their storytelling. They may not prefer recommendations for other genres or platforms.",
+      "predicted": "Watch Hasan Minhaj's \"Homecoming King\" on Netflix for its strong storytelling and comedic insights.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "Can you suggest some activities that I can do in the evening?",
+      "gold_answer": "The user would prefer suggestions that involve relaxing activities that can be done in the evening, preferably before 9:30 pm. They would not prefer suggestions that involve using their phone or watching TV, as these activities have been affecting their sleep quality.",
+      "predicted": "Consider a short meditation session, reading a book, or deep breathing exercises to help you unwind and prepare for sleep by 9:30 pm.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    },
+    {
+      "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+      "gold_answer": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+      "predicted": "Consider exploring conferences like CVPR, MICCAI, or NeurIPS for recent publications on deep learning in medical image analysis, as they often feature the latest research in areas you're interested in, such as multi-modal image fusion and explainable AI.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "gold_truncated": false
+    }
+  ]
+}

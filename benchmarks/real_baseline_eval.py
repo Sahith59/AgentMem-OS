@@ -158,8 +158,9 @@ Reason carefully before answering:
 - UPDATES ("currently", "now", "most recently", "switched"): prefer the latest-dated fact over earlier ones.
 - If the memories genuinely do not contain the information, do not guess — say it was not mentioned.
 
-Think step by step, then end with exactly one final line:
-ANSWER: <the shortest possible answer: a name, number, date, or short phrase; or "not mentioned">"""
+Think step by step, then end with exactly one final line starting with "ANSWER: ".
+- For factual questions (who/what/when/where/how many): the ANSWER line is the shortest possible answer — a name, number, date, or short phrase; or "not mentioned" if the memories do not contain it.
+- If the question asks for advice, suggestions, recommendations, or ideas: the ANSWER line is one or two sentences that respond helpfully and make specific use of what the memories say about the user — their preferences, past activities, possessions, and plans. Never answer "not mentioned" to an advice question; use whatever relevant user context the memories contain."""
 
 JUDGE_PROMPT = """You are grading whether a predicted answer to a question is correct, given the gold answer. Be lenient about phrasing, formatting, and extra words — judge only whether the predicted answer conveys the same factual information as the gold answer.
 

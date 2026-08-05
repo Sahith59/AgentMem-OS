@@ -64,6 +64,12 @@ ap.add_argument("--cap", type=int, default=40000,
                       "(~6k tokens, in line with Mem0's ~7k and Zep's 1.6k).")
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--types", default="",
+                 help="comma-separated question_type filter (e.g. single-session-preference) "
+                      "— cheap targeted validation of a fix instead of a full rerun")
+ap.add_argument("--out-suffix", default="",
+                 help="suffix for the output file so a targeted run never overwrites the "
+                      "canonical full-run artifact")
 ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
                  help="LongMemEval haystack: oracle (evidence sessions only) or s "
                       "(~40 sessions/question, the split vendor numbers use)")
@@ -87,8 +93,9 @@ Reason carefully before answering:
 - UPDATES ("currently", "now", "most recently", "switched"): prefer the latest-dated fact over earlier ones.
 - If the memories genuinely do not contain the information, do not guess — say it was not mentioned.
 
-Think step by step, then end with exactly one final line:
-ANSWER: <the shortest possible answer: a name, number, date, or short phrase; or "not mentioned">"""
+Think step by step, then end with exactly one final line starting with "ANSWER: ".
+- For factual questions (who/what/when/where/how many): the ANSWER line is the shortest possible answer — a name, number, date, or short phrase; or "not mentioned" if the memories do not contain it.
+- If the question asks for advice, suggestions, recommendations, or ideas: the ANSWER line is one or two sentences that respond helpfully and make specific use of what the memories say about the user — their preferences, past activities, possessions, and plans. Never answer "not mentioned" to an advice question; use whatever relevant user context the memories contain."""
 
 JUDGE_PROMPT = """You are grading whether a predicted answer to a question is correct, given the gold answer. Be lenient about phrasing, formatting, and extra words — judge only whether the predicted answer conveys the same factual information as the gold answer.
 
@@ -183,6 +190,10 @@ def main():
         else load_longmemeval(n_queries=args.n, seed=args.seed, split=args.lme_split)
     mem_by_id = {m.mid: m for m in ds.memories}
     items = [q for q in ds.queries if q.gold_answer and q.scope_keys]
+    if args.types:
+        wanted = {t.strip() for t in args.types.split(",")}
+        items = [q for q in items if getattr(q, "question_type", "") in wanted]
+        print(f"  type filter {sorted(wanted)} -> {len(items)} questions")
     print(f"Oracle ceiling: {args.dataset}, {len(items)} questions, "
           f"answerer={args.gen_model}, judge={args.judge_model}, cap={args.cap} chars")
 
@@ -225,7 +236,7 @@ def main():
         print(f"  Ceiling over the {len(clean)} untruncated questions only: {c_acc:.3f} "
               f"<- the honest upper bound")
 
-    out_path = Path(__file__).parent / f"oracle_ceiling_{args.dataset}.json"
+    out_path = Path(__file__).parent / f"oracle_ceiling_{args.dataset}{args.out_suffix}.json"
     out_path.write_text(json.dumps({
         "dataset": args.dataset, "gen_model": args.gen_model,
         "judge_model": args.judge_model, "cap_chars": args.cap,
