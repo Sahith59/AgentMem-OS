@@ -2,13 +2,42 @@
   "dataset": "longmemeval",
   "gen_model": "gpt-4o-mini",
   "judge_model": "gpt-4o",
-  "n_questions": 30,
-  "retrieval_backend": "tfidf",
-  "memory_source": "raw",
-  "answerer": "reasoning",
-  "qa_accuracy": 0.6667,
-  "correct": 20,
+  "cap_chars": 24000,
+  "oracle_ceiling": 0.8333,
+  "correct": 25,
   "total": 30,
+  "by_question_type": {
+    "single-session-user": {
+      "correct": 5,
+      "total": 6,
+      "accuracy": 0.8333
+    },
+    "temporal-reasoning": {
+      "correct": 10,
+      "total": 12,
+      "accuracy": 0.8333
+    },
+    "knowledge-update": {
+      "correct": 2,
+      "total": 2,
+      "accuracy": 1.0
+    },
+    "multi-session": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0
+    },
+    "single-session-assistant": {
+      "correct": 2,
+      "total": 2,
+      "accuracy": 1.0
+    },
+    "single-session-preference": {
+      "correct": 0,
+      "total": 2,
+      "accuracy": 0.0
+    }
+  },
   "results": [
     {
       "question": "Where did I go on a week-long trip with my family?",
@@ -20,15 +49,8 @@
     {
       "question": "How many days passed between the day I attended the gardening workshop and the day I planted the tomato saplings?",
       "gold_answer": "6 days. 7 days (including the last day) is also acceptable.",
-      "predicted": "6",
+      "predicted": "6 days",
       "correct": true,
-      "question_type": "temporal-reasoning"
-    },
-    {
-      "question": "How many days had passed between the 'Walk for Hunger' event and the 'Coastal Cleanup' event?",
-      "gold_answer": "14 days. 8 days (including the last day) is also acceptable.",
-      "predicted": "13",
-      "correct": false,
       "question_type": "temporal-reasoning"
     },
     {
@@ -39,24 +61,24 @@
       "question_type": "temporal-reasoning"
     },
     {
-      "question": "What type of camera lens did I purchase most recently?",
-      "gold_answer": "a 70-200mm zoom lens",
-      "predicted": "50mm prime lens",
-      "correct": false,
-      "question_type": "knowledge-update"
+      "question": "How many days had passed between the 'Walk for Hunger' event and the 'Coastal Cleanup' event?",
+      "gold_answer": "14 days. 8 days (including the last day) is also acceptable.",
+      "predicted": "14 days",
+      "correct": true,
+      "question_type": "temporal-reasoning"
     },
     {
-      "question": "How many movie festivals that I attended?",
-      "gold_answer": "I attended four movie festivals.",
-      "predicted": "2",
-      "correct": false,
-      "question_type": "multi-session"
+      "question": "What type of camera lens did I purchase most recently?",
+      "gold_answer": "a 70-200mm zoom lens",
+      "predicted": "70-200mm zoom lens",
+      "correct": true,
+      "question_type": "knowledge-update"
     },
     {
       "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
       "gold_answer": "$400,000",
-      "predicted": "$350,000",
-      "correct": false,
+      "predicted": "$400,000",
+      "correct": true,
       "question_type": "knowledge-update"
     },
     {
@@ -67,10 +89,17 @@
       "question_type": "temporal-reasoning"
     },
     {
+      "question": "How many movie festivals that I attended?",
+      "gold_answer": "I attended four movie festivals.",
+      "predicted": "4",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
       "question": "How many total pieces of writing have I completed since I started writing again three weeks ago, including short stories, poems, and pieces for the writing challenge?",
       "gold_answer": "23",
-      "predicted": "22",
-      "correct": false,
+      "predicted": "23",
+      "correct": true,
       "question_type": "multi-session"
     },
     {
@@ -83,16 +112,9 @@
     {
       "question": "What brand of shampoo do I currently use?",
       "gold_answer": "Trader Joe's",
-      "predicted": "Trader Joe's lavender scented shampoo",
+      "predicted": "Lavender scented shampoo from Trader Joe's",
       "correct": true,
       "question_type": "single-session-user"
-    },
-    {
-      "question": "What percentage of the countryside property's price is the cost of the renovations I plan to do on my current house?",
-      "gold_answer": "10%",
-      "predicted": "10%",
-      "correct": true,
-      "question_type": "multi-session"
     },
     {
       "question": "I wanted to follow up on our previous conversation about fracking in the Marcellus Shale region. You mentioned that some states require fracking companies to monitor groundwater quality at nearby wells before drilling and for a certain period after drilling is complete. Can you remind me which state you mentioned as an example that has this requirement?",
@@ -109,32 +131,11 @@
       "question_type": "single-session-user"
     },
     {
-      "question": "How many months before my anniversary did Rachel get engaged?",
-      "gold_answer": "2",
-      "predicted": "2 months",
+      "question": "What percentage of the countryside property's price is the cost of the renovations I plan to do on my current house?",
+      "gold_answer": "10%",
+      "predicted": "10%",
       "correct": true,
-      "question_type": "temporal-reasoning"
-    },
-    {
-      "question": "How long have I been working before I started my current job at NovaTech?",
-      "gold_answer": "4 years and 9 months",
-      "predicted": "5 years",
-      "correct": false,
-      "question_type": "temporal-reasoning"
-    },
-    {
-      "question": "Which event happened first, the meeting with Rachel or the pride parade?",
-      "gold_answer": "The meeting with Rachel",
-      "predicted": "Meeting with Rachel",
-      "correct": true,
-      "question_type": "temporal-reasoning"
-    },
-    {
-      "question": "How many charity events did I participate in before the 'Run for the Cure' event?",
-      "gold_answer": "4",
-      "predicted": "3",
-      "correct": false,
-      "question_type": "temporal-reasoning"
+      "question_type": "multi-session"
     },
     {
       "question": "I was thinking about rearranging the furniture in my bedroom this weekend. Any tips?",
@@ -144,16 +145,30 @@
       "question_type": "single-session-preference"
     },
     {
+      "question": "How long have I been working before I started my current job at NovaTech?",
+      "gold_answer": "4 years and 9 months",
+      "predicted": "4 years and 9 months",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many charity events did I participate in before the 'Run for the Cure' event?",
+      "gold_answer": "4",
+      "predicted": "2",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which event happened first, the meeting with Rachel or the pride parade?",
+      "gold_answer": "The meeting with Rachel",
+      "predicted": "meeting with Rachel",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
       "question": "How many days did it take for my iPad case to arrive after I bought it?",
       "gold_answer": "The information provided is not enough. You did not mention buying an iPad case.",
       "predicted": "not mentioned",
-      "correct": true,
-      "question_type": "multi-session"
-    },
-    {
-      "question": "How many online courses have I completed in total?",
-      "gold_answer": "5",
-      "predicted": "5",
       "correct": true,
       "question_type": "multi-session"
     },
@@ -165,37 +180,9 @@
       "question_type": "single-session-assistant"
     },
     {
-      "question": "How many bikes do I own?",
-      "gold_answer": "three",
-      "predicted": "3 bikes",
-      "correct": true,
-      "question_type": "single-session-user"
-    },
-    {
-      "question": "How long is my daily commute to work?",
-      "gold_answer": "45 minutes each way",
-      "predicted": "45 minutes each way",
-      "correct": true,
-      "question_type": "single-session-user"
-    },
-    {
-      "question": "How long was I in Japan for?",
-      "gold_answer": "two weeks",
-      "predicted": "Two weeks",
-      "correct": true,
-      "question_type": "single-session-user"
-    },
-    {
-      "question": "How much money did I raise for charity in total?",
-      "gold_answer": "$3,750",
-      "predicted": "3750",
-      "correct": true,
-      "question_type": "multi-session"
-    },
-    {
-      "question": "How many days passed between the day I started watering my herb garden and the day I harvested my first batch of fresh herbs?",
-      "gold_answer": "24 days. 25 days (including the last day) is also acceptable.",
-      "predicted": "24",
+      "question": "How many months before my anniversary did Rachel get engaged?",
+      "gold_answer": "2",
+      "predicted": "2 months",
       "correct": true,
       "question_type": "temporal-reasoning"
     },
@@ -207,6 +194,48 @@
       "question_type": "temporal-reasoning"
     },
     {
+      "question": "How many online courses have I completed in total?",
+      "gold_answer": "5",
+      "predicted": "5",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How long is my daily commute to work?",
+      "gold_answer": "45 minutes each way",
+      "predicted": "90 minutes",
+      "correct": false,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How long was I in Japan for?",
+      "gold_answer": "two weeks",
+      "predicted": "14 days",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many bikes do I own?",
+      "gold_answer": "three",
+      "predicted": "3",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many days passed between the day I started watering my herb garden and the day I harvested my first batch of fresh herbs?",
+      "gold_answer": "24 days. 25 days (including the last day) is also acceptable.",
+      "predicted": "24",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much money did I raise for charity in total?",
+      "gold_answer": "$3,750",
+      "predicted": "$3,750",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
       "question": "I've been feeling like my chocolate chip cookies need something extra. Any advice?",
       "gold_answer": "The user would prefer responses that build upon their previous experimentation with turbinado sugar, suggesting ingredients or techniques that complement its richer flavor. They might not prefer generic cookie-making advice or suggestions that don't take into account their existing use of turbinado sugar.",
       "predicted": "not mentioned",
@@ -216,7 +245,7 @@
     {
       "question": "How many months have passed since I participated in two charity events in a row, on consecutive days?",
       "gold_answer": "2",
-      "predicted": "not mentioned",
+      "predicted": "1 month",
       "correct": false,
       "question_type": "temporal-reasoning"
     }

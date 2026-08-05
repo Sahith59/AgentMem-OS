@@ -88,21 +88,28 @@ The unreliable agent's trust score, as perceived by every honest agent, over the
 
 A real, code-level ablation (committed in [`benchmarks/ablation_real_results.json`](benchmarks/ablation_real_results.json)) shows the semantic tier is load-bearing: disabling it collapses internal context-relevance roughly **3×**. Internal proxy metrics like that one stay out of this README's tables on purpose — they have no external reference point, and no claim in this repo rests on them. Everything below is the QA-accuracy methodology the field actually publishes.
 
-**Real QA-accuracy head-to-head — pilot scale (n=30, fixed seed 42), run on real [LoCoMo](https://arxiv.org/abs/2402.17753) data.** Every system answered the same 30 questions with the same generator (gpt-4o-mini), the same judge (gpt-4o), and the same extraction model where applicable — real libraries, not simulations:
+**Real QA-accuracy head-to-head — pilot scale (n=30, fixed seed 42), on real [LongMemEval](https://arxiv.org/abs/2410.10813) (oracle split).** Every system answered the same 30 questions, with the same retrieval budget, the same answer layer, the same generator (gpt-4o-mini) and the same judge (gpt-4o) — real libraries, not simulations:
 
-| System | LoCoMo QA-accuracy |
+| System | LongMemEval QA-accuracy |
 |---|---|
-| **AgentMem OS** | **30.0%** |
-| Mem0 (OSS, gpt-4o-mini extraction) | 26.7% |
-| Letta (archival-memory scoping*) | 6.7% |
-| LangMem | 6.7% |
-| Recent-turns-only floor | 0.0% |
+| **AgentMem OS** | **76.7%** |
+| Letta (archival-memory scoping*) | 66.7% |
+| Mem0 (OSS, gpt-4o-mini extraction) | 56.7% |
+| LangMem | 36.7% |
+| Recent-turns-only floor | 33.3% |
+| *Oracle ceiling — no retrieval at all* | *83.3%* |
 
-AgentMem OS on [LongMemEval](https://arxiv.org/abs/2410.10813) (oracle split, n=30): **46.7%**. Raw per-question outputs for every row: [`benchmarks/reports/`](benchmarks/reports/) and [`benchmarks/qa_accuracy_locomo.json`](benchmarks/qa_accuracy_locomo.json). *Letta is deliberately scoped to archival-memory retrieval only; the disclosure travels inside its result file.
+That last row is the number most benchmark tables leave out, and it's the one that makes the rest interpretable. It hands the answerer the gold sessions **directly, with retrieval switched off** — so it is the maximum score *any* memory system can reach against this data, answerer, and judge. AgentMem OS reaches **92% of that ceiling**. A memory system's job is to find the right memory; measuring it without knowing what perfect retrieval would score tells you nothing about whether a gap is the system's fault or the benchmark's.
+
+Publishing that ceiling caught three real bugs in **this repo's own harness**: LongMemEval ships a per-question reference date (`question_date`) and per-session dates (`haystack_dates`) that the loader silently dropped, and sessions were truncated to 20 turns × 300 chars. Every "how many days ago…" question — 27% of the dataset — was unanswerable by construction. Fixing the loader moved the ceiling from 46.7% to 83.3% and this system from 46.7% to 76.7%, with **zero changes to the memory system itself**. If your harness has never been ceiling-tested, its numbers are unvalidated — ours were, and they were wrong.
+
+**On [LoCoMo](https://arxiv.org/abs/2402.17753)** an earlier pilot under the old naive answer layer scored AgentMem OS 30.0% / Mem0 26.7% / Letta 6.7% / LangMem 6.7% / floor 0.0%. Those numbers predate the loader fixes and the date-anchored answer layer above and are **not** comparable to this table — LoCoMo is queued for a clean re-run under the current configuration, and this README will carry it once it exists.
+
+Raw per-question outputs for every row: [`benchmarks/reports/`](benchmarks/reports/), [`benchmarks/qa_accuracy_longmemeval.json`](benchmarks/qa_accuracy_longmemeval.json), [`benchmarks/oracle_ceiling_longmemeval.json`](benchmarks/oracle_ceiling_longmemeval.json). *Letta is deliberately scoped to archival-memory retrieval only; the disclosure travels inside its result file.
 
 **Graphiti's row is absent for a reason worth stating plainly:** after **21+ hours** its per-message LLM extraction pipeline had still not finished ingesting the same 30-question haystack every other system ingested in minutes (AgentMem OS: ~40 seconds, locally, at $0), and the run was stopped. That asymmetry — thousands of sequential LLM calls at ingestion time versus local extraction — is itself a finding. A parallelized re-run is planned, and its accuracy number will be added here when it exists, not before.
 
-Two caveats, stated before anyone else can state them: **(1)** n=30 is a pilot, not a full run — the full 690-question LoCoMo and 500-question LongMemEval runs are the next milestone, and these numbers may move. **(2)** Published vendor numbers (e.g. Mem0's 91.6–92.5% LoCoMo) are far higher than what Mem0's own open-source library scores inside this harness — consistent with the [public dispute](https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/) between Zep and Mem0 over this benchmark's methodology. That gap is exactly why every number in this table ships with its raw output file, its harness source, and a fixed seed: run it yourself.
+Two caveats, stated before anyone else can state them: **(1)** n=30 is a pilot, not a full run — the full 500-question LongMemEval and 690-question LoCoMo runs are the next milestone, and these numbers may move. **(2)** Every system here scores below its own published number, including ours. Vendor benchmarks are typically run by the vendor, on the vendor's harness, with the vendor's tuning of every competitor — a setup [Zep and Mem0 have publicly accused each other over](https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/). This table makes the opposite trade: one harness, one answer layer, one judge, identical for everyone, with the ceiling published so you can see how much of the gap is the systems and how much is the measurement. Every number ships with its raw per-question output and a fixed seed. Run it yourself; that's the point.
 
 **56/56** multi-agent federation formula tests passing, **125+** tests passing across the broader suite. See [`benchmarks/`](benchmarks/) to reproduce every number above yourself.
 

@@ -1,0 +1,194 @@
+{
+  "system": "agentmem_os",
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o-mini",
+  "judge_model": "gpt-4o",
+  "n_questions": 30,
+  "answerer": "reasoning",
+  "qa_accuracy": 0.7667,
+  "correct": 23,
+  "total": 30,
+  "disclosures": "",
+  "results": [
+    {
+      "question": "Where did I go on a week-long trip with my family?",
+      "gold_answer": "Hawaii",
+      "predicted": "Hawaii",
+      "correct": true
+    },
+    {
+      "question": "How many days before I bought my iPad did I attend the Holiday Market?",
+      "gold_answer": "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad.",
+      "predicted": "not mentioned",
+      "correct": true
+    },
+    {
+      "question": "How many days passed between the day I attended the gardening workshop and the day I planted the tomato saplings?",
+      "gold_answer": "6 days. 7 days (including the last day) is also acceptable.",
+      "predicted": "6",
+      "correct": true
+    },
+    {
+      "question": "How many days had passed between the 'Walk for Hunger' event and the 'Coastal Cleanup' event?",
+      "gold_answer": "14 days. 8 days (including the last day) is also acceptable.",
+      "predicted": "14 days",
+      "correct": true
+    },
+    {
+      "question": "What type of camera lens did I purchase most recently?",
+      "gold_answer": "a 70-200mm zoom lens",
+      "predicted": "50mm prime lens",
+      "correct": false
+    },
+    {
+      "question": "How many movie festivals that I attended?",
+      "gold_answer": "I attended four movie festivals.",
+      "predicted": "3",
+      "correct": false
+    },
+    {
+      "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
+      "gold_answer": "$400,000",
+      "predicted": "$400,000",
+      "correct": true
+    },
+    {
+      "question": "How many days ago did I meet Emma?",
+      "gold_answer": "9 days ago. 10 days (including the last day) is also acceptable.",
+      "predicted": "9 days ago",
+      "correct": true
+    },
+    {
+      "question": "How many total pieces of writing have I completed since I started writing again three weeks ago, including short stories, poems, and pieces for the writing challenge?",
+      "gold_answer": "23",
+      "predicted": "23",
+      "correct": true
+    },
+    {
+      "question": "What brand of shampoo do I currently use?",
+      "gold_answer": "Trader Joe's",
+      "predicted": "Lavender scented shampoo from Trader Joe's",
+      "correct": true
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about fracking in the Marcellus Shale region. You mentioned that some states require fracking companies to monitor groundwater quality at nearby wells before drilling and for a certain period after drilling is complete. Can you remind me which state you mentioned as an example that has this requirement?",
+      "gold_answer": "Pennsylvania",
+      "predicted": "Pennsylvania",
+      "correct": true
+    },
+    {
+      "question": "Who became a parent first, Rachel or Alex?",
+      "gold_answer": "Alex",
+      "predicted": "Alex",
+      "correct": true
+    },
+    {
+      "question": "I was thinking about rearranging the furniture in my bedroom this weekend. Any tips?",
+      "gold_answer": "The user would prefer responses that take into account their existing plans to replace the bedroom dresser and their interest in mid-century modern style, suggesting furniture layouts that accommodate the new dresser and incorporate elements of this design aesthetic. They might not prefer general furniture arrangement tips or suggestions that do not consider their specific design preferences.",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "How many months before my anniversary did Rachel get engaged?",
+      "gold_answer": "2",
+      "predicted": "2 months",
+      "correct": true
+    },
+    {
+      "question": "What did I buy for my sister's birthday gift?",
+      "gold_answer": "a yellow dress",
+      "predicted": "ANSWER: Yellow dress and a pair of earrings",
+      "correct": true
+    },
+    {
+      "question": "What percentage of the countryside property's price is the cost of the renovations I plan to do on my current house?",
+      "gold_answer": "10%",
+      "predicted": "10%",
+      "correct": true
+    },
+    {
+      "question": "How long have I been working before I started my current job at NovaTech?",
+      "gold_answer": "4 years and 9 months",
+      "predicted": "4 years and 9 months",
+      "correct": true
+    },
+    {
+      "question": "Which event happened first, the meeting with Rachel or the pride parade?",
+      "gold_answer": "The meeting with Rachel",
+      "predicted": "Meeting with Rachel",
+      "correct": true
+    },
+    {
+      "question": "How many online courses have I completed in total?",
+      "gold_answer": "5",
+      "predicted": "5",
+      "correct": true
+    },
+    {
+      "question": "How many charity events did I participate in before the 'Run for the Cure' event?",
+      "gold_answer": "4",
+      "predicted": "3",
+      "correct": false
+    },
+    {
+      "question": "I was going through our previous conversation about atmospheric correction methods, and I wanted to confirm - you mentioned that 6S, MAJA, and Sen2Cor are all algorithms for atmospheric correction of remote sensing images. Can you remind me which one is implemented in the SIAC_GEE tool?",
+      "gold_answer": "The 6S algorithm is implemented in the SIAC_GEE tool.",
+      "predicted": "6S",
+      "correct": true
+    },
+    {
+      "question": "How many bikes do I own?",
+      "gold_answer": "three",
+      "predicted": "3",
+      "correct": true
+    },
+    {
+      "question": "How many days did it take for my iPad case to arrive after I bought it?",
+      "gold_answer": "The information provided is not enough. You did not mention buying an iPad case.",
+      "predicted": "not mentioned",
+      "correct": true
+    },
+    {
+      "question": "How long is my daily commute to work?",
+      "gold_answer": "45 minutes each way",
+      "predicted": "90 minutes",
+      "correct": false
+    },
+    {
+      "question": "How much money did I raise for charity in total?",
+      "gold_answer": "$3,750",
+      "predicted": "$3,750",
+      "correct": true
+    },
+    {
+      "question": "How long was I in Japan for?",
+      "gold_answer": "two weeks",
+      "predicted": "14 days",
+      "correct": true
+    },
+    {
+      "question": "How many days passed between the day I started watering my herb garden and the day I harvested my first batch of fresh herbs?",
+      "gold_answer": "24 days. 25 days (including the last day) is also acceptable.",
+      "predicted": "24",
+      "correct": true
+    },
+    {
+      "question": "I've been feeling like my chocolate chip cookies need something extra. Any advice?",
+      "gold_answer": "The user would prefer responses that build upon their previous experimentation with turbinado sugar, suggesting ingredients or techniques that complement its richer flavor. They might not prefer generic cookie-making advice or suggestions that don't take into account their existing use of turbinado sugar.",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "How many months have passed since I participated in two charity events in a row, on consecutive days?",
+      "gold_answer": "2",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "Which item did I purchase first, the dog bed for Max or the training pads for Luna?",
+      "gold_answer": "Training pads for Luna",
+      "predicted": "training pads for Luna",
+      "correct": true
+    }
+  ]
+}
