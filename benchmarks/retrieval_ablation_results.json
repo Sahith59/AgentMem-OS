@@ -1,0 +1,86 @@
+{
+  "dataset": "longmemeval",
+  "split": "s",
+  "n": 60,
+  "top_k": 40,
+  "variants": {
+    "baseline": {
+      "gold_recall": 0.9667,
+      "gold_density": 0.1958,
+      "session_spread": 20.45,
+      "by_type": {
+        "knowledge-update": 1.0,
+        "multi-session": 1.0,
+        "single-session-assistant": 1.0,
+        "single-session-preference": 1.0,
+        "single-session-user": 0.833,
+        "temporal-reasoning": 1.0
+      }
+    },
+    "session": {
+      "gold_recall": 0.65,
+      "gold_density": 0.3572,
+      "session_spread": 2.93,
+      "by_type": {
+        "knowledge-update": 0.9,
+        "multi-session": 0.556,
+        "single-session-assistant": 1.0,
+        "single-session-preference": 0.667,
+        "single-session-user": 0.5,
+        "temporal-reasoning": 0.643
+      }
+    },
+    "hybrid3": {
+      "gold_recall": 0.6667,
+      "gold_density": 0.3548,
+      "session_spread": 3.0,
+      "by_type": {
+        "knowledge-update": 0.9,
+        "multi-session": 0.556,
+        "single-session-assistant": 1.0,
+        "single-session-preference": 0.667,
+        "single-session-user": 0.583,
+        "temporal-reasoning": 0.643
+      }
+    },
+    "hybrid5": {
+      "gold_recall": 0.7333,
+      "gold_density": 0.2725,
+      "session_spread": 5.0,
+      "by_type": {
+        "knowledge-update": 0.9,
+        "multi-session": 0.722,
+        "single-session-assistant": 1.0,
+        "single-session-preference": 0.667,
+        "single-session-user": 0.667,
+        "temporal-reasoning": 0.643
+      }
+    },
+    "hybrid8": {
+      "gold_recall": 0.8333,
+      "gold_density": 0.2342,
+      "session_spread": 8.0,
+      "by_type": {
+        "knowledge-update": 1.0,
+        "multi-session": 0.833,
+        "single-session-assistant": 1.0,
+        "single-session-preference": 0.667,
+        "single-session-user": 0.833,
+        "temporal-reasoning": 0.714
+      }
+    },
+    "hyb5+rec": {
+      "gold_recall": 0.75,
+      "gold_density": 0.2696,
+      "session_spread": 5.0,
+      "by_type": {
+        "knowledge-update": 1.0,
+        "multi-session": 0.722,
+        "single-session-assistant": 1.0,
+        "single-session-preference": 0.667,
+        "single-session-user": 0.667,
+        "temporal-reasoning": 0.643
+      }
+    }
+  }
+}
