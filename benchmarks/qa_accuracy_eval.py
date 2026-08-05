@@ -83,6 +83,12 @@ ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
 ap.add_argument("--memory-source", choices=["extracted", "raw"], default="extracted",
                  help="what gets stored: LLM-extracted atomic memories (default, "
                       "matches what every competitor stores) or raw dialogue turns")
+ap.add_argument("--types", default="",
+                 help="comma-separated question_type filter — validate a fix on the "
+                      "affected slice for cents instead of re-running everything")
+ap.add_argument("--out-suffix", default="",
+                 help="output-file suffix so a slice run never overwrites (or resumes "
+                      "from) the canonical full-run artifact")
 ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
                  help="answer layer: reasoning (date-anchored CoT + aggregation + "
                       "calibrated abstention) or simple (naive one-shot)")
@@ -234,6 +240,10 @@ if MEMORY_SOURCE == "extracted":
 
 mem_by_id = {m.mid: m for m in ds.memories}
 items = [q for q in ds.queries if q.gold_answer and q.scope_keys]
+if args.types:
+    _wanted = {t.strip() for t in args.types.split(",")}
+    items = [q for q in items if getattr(q, "question_type", "") in _wanted]
+    print(f"  type filter {sorted(_wanted)} -> {len(items)} questions")
 print(f"QA-accuracy eval: {args.dataset}, {len(items)} questions "
       f"(of {len(ds.queries)} sampled — some lack a scope or answer), "
       f"gen={args.gen_model}, judge={args.judge_model}")
@@ -247,6 +257,18 @@ print(f"QA-accuracy eval: {args.dataset}, {len(items)} questions "
 
 store = ConversationStore()
 assembler = ContextAssembler()
+# The gen prompt hard-caps context at 24,000 chars (~6k tokens) for cost
+# parity with what competitors feed their answerers (Mem0 ~7k tokens, Zep
+# 1.6k). The assembler's DEFAULT allocations assume a 128k window and build
+# a ~69k-char context — so the cap used to do the real selection, keeping
+# whatever happened to be first. Rank order made that accidentally safe;
+# chronological presentation made it catastrophic (earliest-dated survived,
+# gold evidence was cut — measured: temporal/multi-session collapsed to
+# 0.13 on the slice gate). Declare the true budget so RANK selects within
+# ~18k chars of semantic evidence and chronology only orders what the
+# model actually sees.
+assembler.allocations["semantic"] = 4500   # tokens ≈ 18k chars
+assembler.allocations["recent"] = 1200     # tokens ≈ last-20-turns tail
 _namespace_mgr = AgentNamespaceManager(get_db)
 _ingested = set()
 _ingest_lock = threading.Lock()
@@ -264,6 +286,16 @@ def ensure_scope_ingested(scope_keys: list) -> str:
         if sid in _ingested:
             return sid
         _ingested.add(sid)
+    # Idempotent across PROCESSES, not just this run: if the scope's session
+    # already holds turns in the DB (e.g. a slice re-run reusing the full
+    # run's scratch DB), re-ingesting would DOUBLE every turn and poison
+    # retrieval. Skip instead — same data, 39 minutes saved.
+    _db = get_db()
+    try:
+        if _db.query(Turn).filter(Turn.session_id == sid).count() > 0:
+            return sid
+    finally:
+        _db.close()
     store.get_or_create_session(sid, name=f"{args.dataset}-scope")
     # Required before any KG ingestion — kg_nodes.agent_id has a FK to
     # agent_namespaces.agent_id, and agent_id=sid (not None) needs a
@@ -320,7 +352,7 @@ def run_one(it) -> dict:
 
 
 def main():
-    out_path = Path(__file__).parent / f"qa_accuracy_{args.dataset}.json"
+    out_path = Path(__file__).parent / f"qa_accuracy_{args.dataset}{args.out_suffix}.json"
 
     # Resume support: skip questions already judged in a prior (possibly
     # interrupted) run against the same output file.

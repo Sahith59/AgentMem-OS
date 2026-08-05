@@ -109,6 +109,19 @@ class ContextAssembler:
                 top_k = max(5, min(200, self.allocations["semantic"] // approx_chunk_tokens))
                 chunks = chroma.search(session_id, query, top_k=top_k)
                 if chunks:
+                    # Rank decides WHAT survives; time decides HOW it reads.
+                    # Retrieval returns chunks in similarity order — a shuffle
+                    # of moments from many different days. Temporal questions
+                    # ("how many days between X and Y") and aggregation
+                    # questions ("how many N in total") are the two worst
+                    # measured categories, and both need evidence laid out
+                    # the way a person recounts it: chronologically. So the
+                    # budget is filled by rank, then the SURVIVORS are
+                    # reordered by their date stamps. No-ops gracefully when
+                    # chunks carry no parseable dates.
+                    chunks = self._order_evidence(
+                        chunks, self.allocations["semantic"]
+                    )
                     sem_text = "\n---\n".join(chunks)
                     sem_section = self._fit_to_budget(
                         sem_text, self.allocations["semantic"], "[SEMANTIC MEMORY]",
@@ -194,6 +207,46 @@ class ContextAssembler:
     # ──────────────────────────────────────────────────────────────────────────
     # Utilities
     # ──────────────────────────────────────────────────────────────────────────
+
+    _EVIDENCE_DATE_RE = None  # compiled lazily
+
+    def _order_evidence(self, chunks: list, token_budget: int) -> list:
+        """
+        Fill the token budget from the RANKED chunk list, then sort the
+        survivors chronologically by their leading "[<date>]" stamp.
+
+        Selection stays rank-based (the best evidence must survive the
+        budget); only presentation changes. Dates in the "[YYYY/MM/DD ...]"
+        form sort correctly as strings. If fewer than half the chunks carry
+        a parseable date (e.g. corpora whose turns aren't date-stamped),
+        the original ranked order is returned untouched — reordering by
+        mostly-missing keys would be noise, not chronology.
+        """
+        import re as _re
+        if ContextAssembler._EVIDENCE_DATE_RE is None:
+            ContextAssembler._EVIDENCE_DATE_RE = _re.compile(r"^\[([^\]]+)\]")
+
+        char_budget = token_budget * 4
+        picked, used = [], 0
+        for c in chunks:
+            if used >= char_budget and picked:
+                break
+            picked.append(c)
+            used += len(c) + 5
+
+        dated = 0
+        keys = []
+        for i, c in enumerate(picked):
+            m = ContextAssembler._EVIDENCE_DATE_RE.match(c)
+            if m:
+                dated += 1
+                keys.append((m.group(1), i))
+            else:
+                keys.append(("~undated", i))  # "~" sorts after digits — undated last, stable
+        if dated < max(2, len(picked) // 2):
+            return picked
+        keys.sort()
+        return [picked[i] for _, i in keys]
 
     def _fit_to_budget(self, text: str, token_budget: int, label: str, keep: str = "tail") -> str:
         """
