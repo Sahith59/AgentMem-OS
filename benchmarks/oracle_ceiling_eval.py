@@ -52,7 +52,15 @@ ap.add_argument("--dataset", choices=["locomo", "longmemeval"], required=True)
 ap.add_argument("--n", type=int, default=30)
 ap.add_argument("--gen-model", default="gpt-4o-mini")
 ap.add_argument("--judge-model", default="gpt-4o")
-ap.add_argument("--cap", type=int, default=24000, help="chars of oracle context")
+ap.add_argument("--cap", type=int, default=40000,
+                 help="chars of oracle context. Default 40k, NOT the 24k the retrieval "
+                      "harnesses use: measured on LongMemEval _s, a question's gold "
+                      "sessions total a mean 12.7k chars but reach 39.4k, and at a 24k "
+                      "cap 12/150 questions lost their own gold evidence — understating "
+                      "the ceiling by up to 8 points. A ceiling must be generous by "
+                      "construction or it is not a ceiling. Retrieval systems are "
+                      "deliberately NOT given this budget; they keep the realistic 24k "
+                      "(~6k tokens, in line with Mem0's ~7k and Zep's 1.6k).")
 ap.add_argument("--workers", type=int, default=4)
 ap.add_argument("--seed", type=int, default=42)
 ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
@@ -155,9 +163,15 @@ def run_one(it, mem_by_id):
     verdict = _chat(args.judge_model, JUDGE_PROMPT.format(
         question=it.question, gold=it.gold_answer, pred=pred), 5).upper()
     ok = "CORRECT" in verdict and "INCORRECT" not in verdict
+    # Whether this question's own gold sessions survived the cap. A "ceiling"
+    # computed over questions whose evidence was truncated away is not a
+    # ceiling — it must be reported, not averaged in silently.
+    gold_chars = sum(len(mem_by_id[k].content) + len(mem_by_id[k].title) + 10
+                     for k in gold if k in mem_by_id)
     return {"question": it.question, "gold_answer": it.gold_answer,
             "predicted": pred, "correct": ok,
-            "question_type": getattr(it, "question_type", "")}
+            "question_type": getattr(it, "question_type", ""),
+            "gold_truncated": gold_chars > args.cap}
 
 
 def main():
@@ -198,12 +212,25 @@ def main():
         b["accuracy"] = round(b["correct"] / max(1, b["total"]), 4)
         print(f"  {t:32s} {b['accuracy']:.3f}  ({b['correct']}/{b['total']})")
 
+    trunc = [r for r in results if r.get("gold_truncated")]
+    clean = [r for r in results if not r.get("gold_truncated")]
+    if trunc:
+        c_acc = sum(r["correct"] for r in clean) / max(1, len(clean))
+        print(f"\n  {len(trunc)}/{n} questions had gold evidence exceed the "
+              f"{args.cap:,}-char cap.")
+        print(f"  Ceiling over the {len(clean)} untruncated questions only: {c_acc:.3f} "
+              f"<- the honest upper bound")
+
     out_path = Path(__file__).parent / f"oracle_ceiling_{args.dataset}.json"
     out_path.write_text(json.dumps({
         "dataset": args.dataset, "gen_model": args.gen_model,
         "judge_model": args.judge_model, "cap_chars": args.cap,
         "oracle_ceiling": round(correct / max(1, n), 4),
         "correct": correct, "total": n, "attempted": len(items),
+        "gold_truncated_count": sum(1 for r in results if r.get("gold_truncated")),
+        "ceiling_untruncated_only": round(
+            sum(r["correct"] for r in results if not r.get("gold_truncated"))
+            / max(1, sum(1 for r in results if not r.get("gold_truncated"))), 4),
         "complete": n == len(items), "by_question_type": by_type,
         "results": results,
     }, indent=2))
