@@ -178,6 +178,43 @@ _PRICE_PER_1K = {
 }
 
 
+
+# OpenAI TPM limits are per-organization and low on standard accounts (measured
+# on this one: gpt-4o = 30,000 TPM, gpt-4o-mini = 200,000 TPM). A 6k-token
+# answerer call x 4 workers bursts past 30k instantly. Without backoff, calls
+# fail, questions are silently dropped, and the harness reports a confident
+# score computed from whatever survived — a 150-question run once finished with
+# 4 answers and printed an "oracle ceiling" from them. Retry, and make the
+# completion rate impossible to miss.
+_MODEL_TPM = {"gpt-4o": 30_000, "gpt-4o-mini": 200_000}
+
+
+def safe_workers(model: str, requested: int) -> int:
+    """Worker count that won't burst past the model's TPM limit."""
+    if _MODEL_TPM.get(model, 200_000) <= 30_000:
+        return min(requested, 2)
+    return requested
+
+
+def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
+    import time as _t
+    import openai as _o
+    last = None
+    for attempt in range(tries):
+        try:
+            return client.chat.completions.create(
+                model=model, max_tokens=max_tokens, temperature=0,
+                messages=[{"role": "user", "content": prompt}],
+            )
+        except _o.RateLimitError as e:
+            last = e
+            _t.sleep(min(2 ** attempt, 60))
+        except Exception as e:
+            last = e
+            _t.sleep(2)
+    raise RuntimeError(f"{model}: gave up after {tries} attempts ({last})")
+
+
 def gen_answer(context: str, question: str, today: str = "") -> str:
     reasoning = args.answerer == "reasoning"
     if reasoning:
@@ -186,10 +223,7 @@ def gen_answer(context: str, question: str, today: str = "") -> str:
             today_line=f"\nToday's date is {today}." if today else "")
     else:
         prompt = SIMPLE_PROMPT.format(context=context[:24000], question=question)
-    r = client.chat.completions.create(
-        model=args.gen_model, max_tokens=700 if reasoning else 80, temperature=0,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    r = _chat_with_retry(client, args.gen_model, prompt, 700 if reasoning else 80)
     with _cost_lock:
         _cost_totals["prompt_tokens"] += r.usage.prompt_tokens
         _cost_totals["completion_tokens"] += r.usage.completion_tokens
@@ -202,10 +236,8 @@ def gen_answer(context: str, question: str, today: str = "") -> str:
 
 
 def judge(question: str, gold: str, pred: str) -> bool:
-    r = client.chat.completions.create(
-        model=args.judge_model, max_tokens=5, temperature=0,
-        messages=[{"role": "user", "content": JUDGE_PROMPT.format(question=question, gold=gold, pred=pred)}],
-    )
+    r = _chat_with_retry(client, args.judge_model, JUDGE_PROMPT.format(
+        question=question, gold=gold, pred=pred), 5)
     with _cost_lock:
         _cost_totals["prompt_tokens"] += r.usage.prompt_tokens
         _cost_totals["completion_tokens"] += r.usage.completion_tokens
@@ -316,7 +348,7 @@ def run_system(system: str, items: list, mem_by_id: dict, out_path: Path) -> dic
                 ensure_scope_ingested(adapter, mem_by_id, ingested, lock, system, sk)
                 if i % 5 == 0 or i == len(unique_scopes):
                     print(f"    {i}/{len(unique_scopes)} scopes", flush=True)
-            with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            with ThreadPoolExecutor(max_workers=safe_workers(args.gen_model, args.workers)) as pool:
                 futs = {pool.submit(run_one, adapter, mem_by_id, ingested, lock, system, it): it for it in todo}
                 for f in as_completed(futs):
                     try:

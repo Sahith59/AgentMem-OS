@@ -90,11 +90,45 @@ Predicted answer: {pred}
 Is the predicted answer correct? Reply with exactly one word: CORRECT or INCORRECT."""
 
 
+
+# OpenAI TPM limits are per-organization and low on standard accounts (measured
+# on this one: gpt-4o = 30,000 TPM, gpt-4o-mini = 200,000 TPM). A 6k-token
+# answerer call x 4 workers bursts past 30k instantly. Without backoff, calls
+# fail, questions are silently dropped, and the harness reports a confident
+# score computed from whatever survived — a 150-question run once finished with
+# 4 answers and printed an "oracle ceiling" from them. Retry, and make the
+# completion rate impossible to miss.
+_MODEL_TPM = {"gpt-4o": 30_000, "gpt-4o-mini": 200_000}
+
+
+def safe_workers(model: str, requested: int) -> int:
+    """Worker count that won't burst past the model's TPM limit."""
+    if _MODEL_TPM.get(model, 200_000) <= 30_000:
+        return min(requested, 2)
+    return requested
+
+
+def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
+    import time as _t
+    import openai as _o
+    last = None
+    for attempt in range(tries):
+        try:
+            return client.chat.completions.create(
+                model=model, max_tokens=max_tokens, temperature=0,
+                messages=[{"role": "user", "content": prompt}],
+            )
+        except _o.RateLimitError as e:
+            last = e
+            _t.sleep(min(2 ** attempt, 60))
+        except Exception as e:
+            last = e
+            _t.sleep(2)
+    raise RuntimeError(f"{model}: gave up after {tries} attempts ({last})")
+
+
 def _chat(model, prompt, max_tokens):
-    r = client.chat.completions.create(
-        model=model, max_tokens=max_tokens, temperature=0,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    r = _chat_with_retry(client, model, prompt, max_tokens)
     return (r.choices[0].message.content or "").strip()
 
 
@@ -136,7 +170,7 @@ def main():
 
     results, correct = [], 0
     lock = threading.Lock()
-    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+    with ThreadPoolExecutor(max_workers=safe_workers(args.gen_model, args.workers)) as pool:
         futs = [pool.submit(run_one, it, mem_by_id) for it in items]
         for f in as_completed(futs):
             try:
@@ -149,6 +183,11 @@ def main():
                 correct += int(r["correct"])
 
     n = len(results)
+    attempted = len(items)
+    if n < attempted:
+        print(f"\n!! INCOMPLETE RUN: {n}/{attempted} questions returned "
+              f"({attempted - n} failed). Scores below are NOT valid — "
+              f"re-run before using them.")
     by_type = {}
     for r in results:
         t = r.get("question_type") or "unknown"
@@ -164,7 +203,8 @@ def main():
         "dataset": args.dataset, "gen_model": args.gen_model,
         "judge_model": args.judge_model, "cap_chars": args.cap,
         "oracle_ceiling": round(correct / max(1, n), 4),
-        "correct": correct, "total": n, "by_question_type": by_type,
+        "correct": correct, "total": n, "attempted": len(items),
+        "complete": n == len(items), "by_question_type": by_type,
         "results": results,
     }, indent=2))
 
