@@ -127,16 +127,24 @@ def safe_workers(model: str, requested: int) -> int:
 def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
     import time as _t
     import openai as _o
+    kwargs = {"model": model, "messages": [{"role": "user", "content": prompt}]}
+    if model.startswith(("gpt-5", "o1", "o3", "o4")):
+        # These models reject max_tokens and non-default temperature, and
+        # spend completion tokens on internal reasoning before any visible
+        # output — a tight cap yields empty answers, so give headroom.
+        kwargs["max_completion_tokens"] = max(max_tokens * 6, 4000)
+    else:
+        kwargs["max_tokens"] = max_tokens
+        kwargs["temperature"] = 0
     last = None
     for attempt in range(tries):
         try:
-            return client.chat.completions.create(
-                model=model, max_tokens=max_tokens, temperature=0,
-                messages=[{"role": "user", "content": prompt}],
-            )
+            return client.chat.completions.create(**kwargs)
         except _o.RateLimitError as e:
             last = e
             _t.sleep(min(2 ** attempt, 60))
+        except _o.BadRequestError:
+            raise  # malformed request — retrying can't fix it
         except Exception as e:
             last = e
             _t.sleep(2)

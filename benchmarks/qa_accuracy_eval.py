@@ -83,6 +83,13 @@ ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
 ap.add_argument("--memory-source", choices=["extracted", "raw"], default="extracted",
                  help="what gets stored: LLM-extracted atomic memories (default, "
                       "matches what every competitor stores) or raw dialogue turns")
+ap.add_argument("--context-chars", type=int, default=24000,
+                 help="chars of assembled context fed to the answerer. 24k (~6k tokens) "
+                      "was chosen for cost parity with compressed-memory systems, but "
+                      "raw-turn memory carries less information per char — measured: at "
+                      "24k, multi-session questions see only 77% of their gold sessions; "
+                      "at 40k, 90%+. Always DISCLOSE this with results; it is part of "
+                      "the operating point, like Mem0's top-200 or Zep's 1.6k tokens.")
 ap.add_argument("--types", default="",
                  help="comma-separated question_type filter — validate a fix on the "
                       "affected slice for cents instead of re-running everything")
@@ -180,16 +187,24 @@ def safe_workers(model: str, requested: int) -> int:
 def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
     import time as _t
     import openai as _o
+    kwargs = {"model": model, "messages": [{"role": "user", "content": prompt}]}
+    if model.startswith(("gpt-5", "o1", "o3", "o4")):
+        # These models reject max_tokens and non-default temperature, and
+        # spend completion tokens on internal reasoning before any visible
+        # output — a tight cap yields empty answers, so give headroom.
+        kwargs["max_completion_tokens"] = max(max_tokens * 6, 4000)
+    else:
+        kwargs["max_tokens"] = max_tokens
+        kwargs["temperature"] = 0
     last = None
     for attempt in range(tries):
         try:
-            return client.chat.completions.create(
-                model=model, max_tokens=max_tokens, temperature=0,
-                messages=[{"role": "user", "content": prompt}],
-            )
+            return client.chat.completions.create(**kwargs)
         except _o.RateLimitError as e:
             last = e
             _t.sleep(min(2 ** attempt, 60))
+        except _o.BadRequestError:
+            raise  # malformed request — retrying can't fix it
         except Exception as e:
             last = e
             _t.sleep(2)
@@ -200,10 +215,10 @@ def gen_answer(context: str, question: str, today: str = "") -> str:
     reasoning = args.answerer == "reasoning"
     if reasoning:
         prompt = REASONING_PROMPT.format(
-            context=context[:24000], question=question,
+            context=context[:args.context_chars], question=question,
             today_line=f"\nToday's date is {today}." if today else "")
     else:
-        prompt = SIMPLE_PROMPT.format(context=context[:24000], question=question)
+        prompt = SIMPLE_PROMPT.format(context=context[:args.context_chars], question=question)
     r = _chat_with_retry(client, args.gen_model, prompt, 700 if reasoning else 80)
     out = (r.choices[0].message.content or "").strip()
     if reasoning:
@@ -267,7 +282,7 @@ assembler = ContextAssembler()
 # 0.13 on the slice gate). Declare the true budget so RANK selects within
 # ~18k chars of semantic evidence and chronology only orders what the
 # model actually sees.
-assembler.allocations["semantic"] = 4500   # tokens ≈ 18k chars
+assembler.allocations["semantic"] = int(args.context_chars * 0.79 // 4)
 assembler.allocations["recent"] = 1200     # tokens ≈ last-20-turns tail
 _namespace_mgr = AgentNamespaceManager(get_db)
 _ingested = set()
@@ -380,6 +395,7 @@ def main():
             "dataset": args.dataset, "gen_model": args.gen_model,
             "judge_model": args.judge_model, "n_questions": len(items),
             "retrieval_backend": RETRIEVAL_BACKEND,
+            "context_chars": args.context_chars,
             "memory_source": MEMORY_SOURCE,
             "answerer": args.answerer,
             "qa_accuracy": round(correct / max(1, done), 4),

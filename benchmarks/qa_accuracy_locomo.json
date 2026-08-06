@@ -3,14 +3,35 @@
   "gen_model": "gpt-4o-mini",
   "judge_model": "gpt-4o",
   "n_questions": 30,
-  "qa_accuracy": 0.2333,
-  "correct": 7,
+  "retrieval_backend": "tfidf",
+  "memory_source": "raw",
+  "answerer": "reasoning",
+  "qa_accuracy": 0.2,
+  "correct": 6,
   "total": 30,
   "results": [
     {
+      "question": "When did Gina mention Shia Labeouf?",
+      "gold_answer": " 23 July, 2023",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "When did Caroline go to the LGBTQ conference?",
+      "gold_answer": "10 July 2023",
+      "predicted": "two days ago",
+      "correct": false
+    },
+    {
       "question": "What sports does John like besides basketball?",
       "gold_answer": "surfing",
-      "predicted": "I don't know.",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "What has Maria done to feel closer to her faith?",
+      "gold_answer": "Join a local church, buy a cross necklace",
+      "predicted": "Joined a nearby church.",
       "correct": false
     },
     {
@@ -20,21 +41,9 @@
       "correct": true
     },
     {
-      "question": "When did Caroline go to the LGBTQ conference?",
-      "gold_answer": "10 July 2023",
-      "predicted": "Two days ago.",
-      "correct": false
-    },
-    {
-      "question": "When did Gina mention Shia Labeouf?",
-      "gold_answer": " 23 July, 2023",
-      "predicted": "I don't know.",
-      "correct": false
-    },
-    {
       "question": "How many hikes has Joanna been on?",
       "gold_answer": "Four",
-      "predicted": "I don't know.",
+      "predicted": "not mentioned",
       "correct": false
     },
     {
@@ -44,64 +53,100 @@
       "correct": false
     },
     {
-      "question": "Did Jon and Gina both participate in dance competitions?",
-      "gold_answer": "Yes",
-      "predicted": "Yes.",
-      "correct": true
-    },
-    {
-      "question": "What has Maria done to feel closer to her faith?",
-      "gold_answer": "Join a local church, buy a cross necklace",
-      "predicted": "She joined a nearby church.",
-      "correct": false
-    },
-    {
-      "question": "When did Jon start to go to the gym?",
-      "gold_answer": "March, 2023",
-      "predicted": "Last week.",
-      "correct": false
-    },
-    {
-      "question": "What recurring issue frustrates Sam at the grocery store?",
-      "gold_answer": "Malfunctioning self-checkout machines.",
-      "predicted": "Self-checkout machines being broken.",
-      "correct": true
-    },
-    {
-      "question": "Which country did James book tickets for in July 2022?",
-      "gold_answer": "Canada",
-      "predicted": "I don't know.",
-      "correct": false
-    },
-    {
       "question": "Does Evan live close to a beach or mountains?",
       "gold_answer": "beach",
       "predicted": "Mountains",
       "correct": false
     },
     {
-      "question": "When did Caroline go to a pride parade during the summer?",
-      "gold_answer": "The week before 3 July 2023",
-      "predicted": "Last Friday.",
+      "question": "When did Jon start to go to the gym?",
+      "gold_answer": "March, 2023",
+      "predicted": "not mentioned",
       "correct": false
     },
     {
-      "question": "When did Melanie go camping in June?",
-      "gold_answer": "The week before 27 June 2023",
-      "predicted": "I don't know.",
+      "question": "Did Jon and Gina both participate in dance competitions?",
+      "gold_answer": "Yes",
+      "predicted": "Yes",
+      "correct": true
+    },
+    {
+      "question": "What recurring issue frustrates Sam at the grocery store?",
+      "gold_answer": "Malfunctioning self-checkout machines.",
+      "predicted": "self-checkout machines being broken",
+      "correct": true
+    },
+    {
+      "question": "Which country did James book tickets for in July 2022?",
+      "gold_answer": "Canada",
+      "predicted": "not mentioned",
       "correct": false
     },
     {
       "question": "When did Joanna make a chocolate tart with raspberries?",
       "gold_answer": "5 October, 2022",
-      "predicted": "I don't know.",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "When did Caroline go to a pride parade during the summer?",
+      "gold_answer": "The week before 3 July 2023",
+      "predicted": "not mentioned",
       "correct": false
     },
     {
       "question": "Do Jon and Gina start businesses out of what they love?",
       "gold_answer": "Yes",
-      "predicted": "Yes.",
+      "predicted": "Yes",
       "correct": true
+    },
+    {
+      "question": "What animal do both Nate and Joanna like?",
+      "gold_answer": "Turtles.",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "When did Melanie go camping in June?",
+      "gold_answer": "The week before 27 June 2023",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "How does Evan spend his time with his bride after the wedding?",
+      "gold_answer": "family get-together, honeymoon in Canada to see snowy landscapes, ski, taste local cuisine and do some snowshoeing",
+      "predicted": "honeymoon activities (skiing, local dishes)",
+      "correct": false
+    },
+    {
+      "question": "Would Caroline pursue writing as a career option?",
+      "gold_answer": "LIkely no; though she likes reading, she wants to be a counselor",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "What is the recurring dream that Sam keeps having?",
+      "gold_answer": "he's flying over a cityscape.",
+      "predicted": "flying over skyscrapers",
+      "correct": true
+    },
+    {
+      "question": "What kind of classes has James joined?",
+      "gold_answer": "game design course, cooking classes",
+      "predicted": "Online programming group, chess club, gaming and programming course.",
+      "correct": false
+    },
+    {
+      "question": "How long did it take for Joanna to finish writing her book?",
+      "gold_answer": "four months",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "What shared activities do Dave and Calvin have?",
+      "gold_answer": "Working on cars",
+      "predicted": "Music and car enthusiasm",
+      "correct": false
     },
     {
       "question": "Which pet did Jolene adopt first - Susie or Seraphim?",
@@ -110,81 +155,39 @@
       "correct": true
     },
     {
-      "question": "What animal do both Nate and Joanna like?",
-      "gold_answer": "Turtles.",
-      "predicted": "Turtles",
-      "correct": true
-    },
-    {
-      "question": "How does Evan spend his time with his bride after the wedding?",
-      "gold_answer": "family get-together, honeymoon in Canada to see snowy landscapes, ski, taste local cuisine and do some snowshoeing",
-      "predicted": "Skiing, trying local dishes, and enjoying breathtaking views.",
-      "correct": false
-    },
-    {
-      "question": "Would Caroline pursue writing as a career option?",
-      "gold_answer": "LIkely no; though she likes reading, she wants to be a counselor",
-      "predicted": "I don't know.",
-      "correct": false
-    },
-    {
-      "question": "Who was the new addition to Nate's family in May 2022?",
-      "gold_answer": "Max",
-      "predicted": "I don't know.",
-      "correct": false
-    },
-    {
-      "question": "What is the recurring dream that Sam keeps having?",
-      "gold_answer": "he's flying over a cityscape.",
-      "predicted": "Flying over skyscrapers.",
-      "correct": true
-    },
-    {
-      "question": "What shared activities do Dave and Calvin have?",
-      "gold_answer": "Working on cars",
-      "predicted": "Music and car projects.",
-      "correct": false
-    },
-    {
-      "question": "What kind of classes has James joined?",
-      "gold_answer": "game design course, cooking classes",
-      "predicted": "I don't know.",
-      "correct": false
-    },
-    {
-      "question": "How long did it take for Joanna to finish writing her book?",
-      "gold_answer": "four months",
-      "predicted": "I don't know.",
-      "correct": false
-    },
-    {
       "question": "When did James' mother and her friend visit him?",
       "gold_answer": "October 19, 2022",
-      "predicted": "Two days ago.",
-      "correct": false
-    },
-    {
-      "question": "Which ailment does Sam have to face due to his weight?",
-      "gold_answer": "gastritis",
-      "predicted": "Serious health risk.",
+      "predicted": "two days ago",
       "correct": false
     },
     {
       "question": "What kind of writing does Tim do?",
       "gold_answer": "comments on favorite books in a fantasy literature forum, articles on fantasy novels, studying characters, themes, and making book recommendations, writing a fantasy novel",
-      "predicted": "Articles about fantasy novels.",
+      "predicted": "Writing articles about fantasy novels.",
       "correct": false
     },
     {
       "question": "When is Melanie planning on going camping?",
       "gold_answer": "June 2023",
-      "predicted": "Next month.",
+      "predicted": "next month",
+      "correct": false
+    },
+    {
+      "question": "Who was the new addition to Nate's family in May 2022?",
+      "gold_answer": "Max",
+      "predicted": "not mentioned",
+      "correct": false
+    },
+    {
+      "question": "Which ailment does Sam have to face due to his weight?",
+      "gold_answer": "gastritis",
+      "predicted": "not mentioned",
       "correct": false
     },
     {
       "question": "What exercises has John done?",
       "gold_answer": "Weight training, Circuit training, Kickboxing, yoga",
-      "predicted": "Weight training.",
+      "predicted": "weight training, fire-fighting exercises",
       "correct": false
     }
   ]
