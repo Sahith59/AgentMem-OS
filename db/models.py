@@ -350,7 +350,13 @@ class ConsolidationLog(Base):
     tokens_after        = Column(Integer, default=0)
     compression_ratio   = Column(Float, default=0.0)       # tokens_after / tokens_before
     duration_seconds    = Column(Float, default=0.0)
-    triggered_by        = Column(String, default="scheduled")  # 'scheduled' | 'threshold' | 'manual'
+    triggered_by        = Column(String, default="scheduled")  # 'scheduled' | 'threshold' | 'manual' | 'consolidation_v2'
+    # Consolidation v2 audit honesty (G3 S2-R2 M4 + R1-M7): the row must
+    # never imply full coverage it didn't have, and what the engine threw
+    # away must survive the process.
+    truncated_chars     = Column(Integer, default=0)
+    rejected_count      = Column(Integer, default=0)
+    rejections_json     = Column(Text, nullable=True)   # WHAT was thrown away (R3-M5)
     timestamp           = Column(DateTime, default=datetime.utcnow)
 
 

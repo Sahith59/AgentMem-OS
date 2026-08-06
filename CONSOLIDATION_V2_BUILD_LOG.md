@@ -36,7 +36,7 @@ compute (v1: session-end; phase 2: idle-time aggregate/tally passes) + profile t
 |---|---|---|---|---|---|
 | 0 | Implementation research + design freeze | — | — | founder review | research agent RUNNING (launched 2026-08-06) |
 | 1 | SemanticFact schema + storage + CRUD | ✅ 52/52, 100% cov | ✅ real data | **R6 PASS** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
-| 2 | Consolidation engine rewrite (distillation) | ☐ | ☐ | ☐ | — |
+| 2 | Consolidation engine rewrite (distillation) | ✅ 97/97, 98% cov | ✅ real-model 20/4 | **R6 PASS-WITH-NOTES** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
 | 3 | KG integration (facts→entities/edges, provenance) | ☐ | ☐ | ☐ | — |
 | 4 | Per-fact supersession | ☐ | ☐ | ☐ | — |
 | 5 | Facts-first retrieval wiring + $0 diagnostics | ☐ | ☐ | ☐ | — |
@@ -54,6 +54,35 @@ Gate F 500 → cross-lingual/Sarvam only after we compete with current competito
 - 2026-08-06: Scope confirmed (this doc); write-time integration excluded with reasons.
 
 ## Stage records
+
+### Stage 2 — Consolidation engine v2 — **[SUPERSEDED: R1-era record kept for history; current state lives in the appended 'G3 rounds record' at the END of this file. The G2 numbers below (42 facts/6 events/21% junk) are PRE-FIX and no longer true.]**
+
+Built: `llm/consolidation_v2.py` — session-end distillation: schema-constrained
+llama3.1 extraction (grammar-forced JSON), semantic validator (calendar dates,
+session-date anchoring, vague-quantifier-where-source-had-numbers), citations,
+ONE atomic batch (extraction runs BEFORE the txn — never holds the write lock).
+G1: `tests/test_consolidation_v2.py` 8/8 — dead-LLM loud+zero-writes, junk
+rejected (Mem0 #4573 class), batch abort atomic (#1826 class), idempotent
+re-consolidation, session-date fallback, prompt anchors session date not today.
+G2 (real llama3.1, ORACLE-SELECTED rollercoaster sessions — no noise, no
+retrieval): 42 facts created, 0 rejected. **[CORRECTED after G3 R1 falsified
+this record's first draft:]** counting rows gives 6 events, not the gold 10 —
+reaching 10 still needs "three times" parsed from text (per-event count fields
+are an open fix); ~21% of the 42 are assistant knowledge the validator never
+catches; 2 facts cite zero turns and 19.8% of citation edges are unsupported
+(structural: token-overlap over user turns only); the earlier "July point not
+interval" wart was a MISDIAGNOSIS of the smoke's own printout — the store
+holds the correct month interval. **Tier 2-4 semantic dedup is NOT BUILT**
+(exact-hash + numeric/date/type guards only); Stage-1 F7's planned-event
+handling is NOT BUILT (both now explicit, were undisclosed).
+
+**G3 round 1: BLOCKED — 5 blockers, 8 majors** (junk/assistant-knowledge gate
+absent; citation truth; 5 false docstring claims; record falsehoods above;
+oracle-framing). Verified good under attack: SIGKILL-atomicity, concurrent
+same-session consolidation (loud loser, zero dupes), 16-way parallel writes
+480/480 at 60x margin under the Stage-1 constraints, schema-constrained output
+across 13 real sessions, prompt-injection resisted. Fix pass next; stage stays
+OPEN and UNCOMMITTED.
 
 ### Stage 1 — SemanticFact schema + storage (G1 ✅, G2 ✅, G3 in progress, 2026-08-06)
 
@@ -253,3 +282,102 @@ handling — plus primary web sources. Headlines:
     persistence, junk extraction from tool noise, race duplicates, pagination
     double-count, half-committed consolidation transactions...) — these seed the G1
     failure-path test suites for every stage.
+
+
+### Stage 2 — G3 rounds record (APPENDED 08-06 after two prior in-place
+writes SILENTLY NO-OP'D on string mismatches — the R2/R3 critics were right
+that this record was stale; log writes are now grep-verified)
+
+**R1 BLOCKED (5B/8M):** support gate absent in practice, citation truth,
+5 false docstring claims, record falsehoods, oracle framing. Fixed same day.
+**R2 BLOCKED (4B/8M):** gate fixture-deep (tool numbers rode incidental
+words), citations kept lowest ids, 4 fixes untripwired, stamp hijack, retype
+deleted true facts, silent token clamp, dishonest audit row. Fixed: numbers-
+in-user-evidence rule, strength-ranked disclosed citations, 10 tripwires,
+header-only stamps, retype-to-state, prompt_eval_count readback, persisted
+truncated_chars/rejected_count.
+**R3 BLOCKED (4B/7M):** the R2 numbers rule DESTROYED true user facts (12.5%
+random / 83% plan-heavy — it stripped user-stated dates from evidence before
+checking; surface-form lottery: "3 times" rejected, "three times" accepted);
+stamp scan role-blind (hijack from user turn 2; real fix measured FREE:
+0/19,195 corpus stamps outside system-role line 0); retype-to-state collided
+with the state hash and silently merged different plan dates (Stage-1 F3
+revert); this record itself missing (write no-op).
+
+**R3 resolutions (fix pass below):** numbers gate rebuilt on VALUES (raw user
+evidence, comma-normalization, word-numeral mapping three→3, fact's own
+t_occurred digits excluded, session-year exemption REMOVED, truthful
+rejection message); stamp scan system-role-header-only with hijack test at
+turn 2; planned events KEPT as events with "planned?" warning — NO retype
+(hash corruption) — **FOUNDER DECISIONS OPEN: F7 planned-event storage policy
++ DESIGN §5.1 undated-fact default (built: NULL; design: session date)**;
+cap-disclosure only for accepted facts; rejection REASONS persisted
+(rejections_json, additive migration, narrow except, reported); provenance
+adds user_turns_resolved; no-question-echo prompt rule (model-side,
+disclosed); tripwires for the 3 green mutations.
+
+
+**R4 BLOCKED (4B/6M) — R3 damage verified repaired (plans 0/19, randsess 4.7%
+all-true, lottery gone in named forms, retype fix decisive). New: word-numeral
+SUBSTRING matching manufactured numbers in 51.5% of sessions; own-t_occurred
+exclusion let tool numbers ride the model's stamp; stamp gate skipped only
+user-role (assistant could hijack); stale R1-era record unsuperseded.
+R4 resolutions: whole-word numeral regexes BOTH sides; fact-side word numerals
+checked (twelve→12 rejects); date exemption SHAPE-scoped to date literals in
+fact text; system-role-only stamps (tripwired vs assistant); honest no-
+evidence rejection reason; migration table-absent honesty + duplicate-column-
+only swallow; unicode tokens (same-script Hindi sessions accept — CANONICAL-
+ENGLISH-OVER-HINDI REMAINS OPEN, Gate E); provenance user_turns_resolved
+asserted; cap-disclosure only for accepted; comma + strip-half tripwires;
+notes combine.
+**Fresh artifacts: 88/88 tests; smoke 20 facts / 4 coaster events (3+1+3+3
+with counts+citations intact); rejections persisted.** R5 dispatched.
+
+**R5 BLOCKED (3B/5M) — R4's four blockers verified dead; the numbers gate
+blocked a FIFTH time on surface-form spellings: the date regex orphaned
+digits ("February 2023" → phantom "23", 2 true facts destroyed on the same
+sample where R4 had zero), glued units were invisible ("16GB" tool fact
+STORED by the real model), and inline user-line timestamps licensed ~5
+values per session for tool facts to ride.
+R5 resolutions — the CLASS exit the critic prescribed, built once:
+`_quantity_values()` — ONE numeric-mention parser used on BOTH sides:
+digit runs incl. glued units/decimals (no trailing-boundary lottery),
+whole-word numerals, comma + zero-pad normalization; complete-date-
+expression spans (month-year form matched longest-first — no orphans);
+inline stamps stripped from user evidence before licensing; per-turn
+licensing + exempted-digit audit recorded in the report (numbers_audit);
+true-cause reasons ordered before the numbers message. Tokenizer rebuilt
+split-based so Devanagari words stay whole — the Hindi gate now functions
+BOTH directions (user-grounded fact accepted, assistant knowledge rejected,
+tested). Migration raise-path, user_turns-excludes-assistant, and stamp-
+window tripwires added (R5-M3 all four).
+**REQUIRED RECALL ARTIFACT (critic's rule: no gate change ships without
+it): the critic's own 10-random-real-session probe, re-run post-fix —
+43 candidates, 2 rejected (4.7%), BOTH true rejections; the two facts R5
+measured as false rejections are now accepted. Smoke: 20 facts / 4 coaster
+events, citations intact. 96/96 tests.**
+Disclosed residuals (not hidden in claims): word-numeral map ends at
+twelve (above-twelve counts unchecked, ~0.2% corpus prevalence); "one"
+idiom licensing (~1.5%, accept-direction only); canonical-English-over-
+Hindi support (Gate E); relative-date resolver; month-day-form counts
+after month words. R6 dispatched.
+
+**R6: PASS-WITH-NOTES — STAGE 2 G3 CLOSED (0 blockers).** The critic
+independently reproduced the recall artifact (43/2, both true) AND ran a
+fresh 30-session generalization probe at a different seed: **156 candidates,
+4 rejected (2.6%), all four TRUE** — including the textbook vendor-number
+case ("5 GB of free iCloud storage"). Licensing audit truthful at scale
+(37/37 values resolve to real same-session user turns). Notes landed before
+commit: tokenizer tripwire asserts on _tokens() output; false retype comment
+fixed; dead regex removed; tuple docstring arity corrected.
+**Disclosed limitations of record (Stage 3+ / Gate E backlog):** concurrent
+same-text consolidation aborts the losing batch LOUDLY (Stage-1 design,
+non-corrupting — callers retry); the gate grounds number VALUES not
+PREDICATES ("38 questions" passed via user-typed "19/38"); support gate
+inert for non-space-delimited scripts (CJK — matters for cross-lingual
+claims, Gate E scope); word-numeral map ends at twelve; "one"-idiom
+licensing affects both directions; model-side relative-date resolution
+wrong ~50% (deterministic resolver queued); Tier 2-3 semantic dedup and
+per-event count fields are SEPARATE build items, not part of this stage's
+claims. **FOUNDER DECISIONS still open: F7 planned events; §5.1 undated
+default.**

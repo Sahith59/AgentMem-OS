@@ -265,6 +265,27 @@ def _migrate_semantic_tier() -> dict:
     conn = None
     try:
         conn = _sqlite3.connect(DB_PATH)
+        import sqlite3 as _sq
+        added = []
+        clog = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' "
+            "AND name='consolidation_log'").fetchone() is not None
+        if not clog:
+            report["consolidation_log_columns"] = "table absent (create_all creates it)"
+        else:
+            for col in ("truncated_chars INTEGER DEFAULT 0",
+                        "rejected_count INTEGER DEFAULT 0",
+                        "rejections_json TEXT"):
+                try:
+                    conn.execute(f"ALTER TABLE consolidation_log ADD COLUMN {col}")
+                    added.append(col.split()[0])
+                except _sq.OperationalError as col_err:
+                    # R4-M4: duplicate-column is the ONLY acceptable case
+                    if "duplicate column" not in str(col_err):
+                        raise
+            conn.commit()
+            report["consolidation_log_columns"] = (
+                f"added {added}" if added else "verified")
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_kg_edges_active "
             "ON kg_edges(source_id, relation_type) "

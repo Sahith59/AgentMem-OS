@@ -609,10 +609,11 @@ class SemanticFactStore:
             if fact is None:
                 raise ValueError(f"fact {fact_id} not found")
             cited = list(fact.source_turn_ids or [])
-            found = []
+            found, user_found = [], []
             if cited:
-                found = [t.id for t in
-                         session.query(Turn).filter(Turn.id.in_(cited)).all()]
+                rows = session.query(Turn).filter(Turn.id.in_(cited)).all()
+                found = [t.id for t in rows]
+                user_found = [t.id for t in rows if t.role == "user"]
             return {
                 "fact_id": fact.id,
                 "fact_text": fact.fact_text,
@@ -621,7 +622,13 @@ class SemanticFactStore:
                                            or [fact.source_session_id]),
                 "source_turn_ids": cited,
                 "turns_resolved": found,
-                "citations_intact": set(found) == set(cited),
+                "user_turns_resolved": user_found,   # R3-M3: ranked evidence
+                                                     # spans roles; USER
+                                                     # grounding shown apart
+                # Three-state (Stage-2 G3-R1 B2): an empty citation set is
+                # "uncited", never a clean bill of health.
+                "citations_intact": ("uncited" if not cited
+                                     else set(found) == set(cited)),
                 "extraction_model": fact.extraction_model,
                 "langs": list(fact.langs or [fact.lang_source]),
                 "mention_count": fact.mention_count,

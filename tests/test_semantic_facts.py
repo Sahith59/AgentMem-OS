@@ -814,7 +814,7 @@ def test_cross_process_race_falls_back_to_reaffirmation(store, monkeypatch):
 def test_provenance_with_no_citations(store):
     f, _ = _add(store, "An uncited fact.")
     p = store.provenance(f.id)
-    assert p["citations_intact"] is True and p["source_turn_ids"] == []
+    assert p["citations_intact"] == "uncited" and p["source_turn_ids"] == []
 
 
 # ── Transactional batching (G3 finding 14) ───────────────────────────────────
