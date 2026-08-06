@@ -17,7 +17,8 @@ Additional:
 from datetime import datetime
 from sqlalchemy import (
     Column, String, Integer, Float, DateTime,
-    ForeignKey, Text, Boolean, JSON
+    ForeignKey, Text, Boolean, JSON,
+    Index, UniqueConstraint, text as sql_text,
 )
 from sqlalchemy.orm import declarative_base, relationship
 
@@ -130,6 +131,98 @@ class Summary(Base):
     created_at      = Column(DateTime, default=datetime.utcnow)
 
     session = relationship("Session", back_populates="summaries")
+
+
+class SemanticFact(Base):
+    """
+    An atomic, tri-temporally dated, individually-cited fact distilled from
+    episodic turns by the consolidation engine (Consolidation v2 — see
+    CONSOLIDATION_V2_DESIGN.md). The true semantic tier: Summary compresses
+    text; this stores KNOWLEDGE.
+
+    Atomic = one proposition, self-contained referents, numbers/dates kept
+    verbatim (never merged with a fact whose numbers differ — the counts are
+    the point). Transitions ("switched from X to Y") are NOT written into
+    fact text; they are reconstructed at read time by walking the
+    superseded_by chain (Mem0 writes them into the text because it has no
+    chain to walk — we do).
+
+    Three timestamps (tri-temporal — "bi-temporal" is Zep's two-time term,
+    don't borrow it):
+      t_occurred  — when the thing happened (event date if stated, else the
+                    session date), sortable "YYYY/MM/DD" text, partial
+                    "YYYY/MM" allowed, nullable
+      t_mentioned — when the user said it (session date) — the ONLY valid
+                    anchor for resolving "last week"-style references
+      t_ingested  — when we recorded it (transaction time)
+
+    superseded_by/superseded_at: invalidate-don't-delete. superseded_at is
+    OUR decision time, kept separate from validity (Graphiti's
+    expired_at-vs-invalid_at split, verified from its source).
+
+    mention_count/last_confirmed_at: re-affirmation strengthens the one row
+    instead of duplicating it (the bloat class behind Mem0 issue #4573's
+    97.8%-junk audit).
+
+    scope_key: non-null dedup scope (agent_id or user_id or "global") so the
+    UNIQUE(scope_key, normalized_hash) constraint is the FINAL dedup
+    authority even under concurrent writers (SQLite treats NULLs as distinct
+    in unique constraints, so a nullable column can't serve — Mem0's TOCTOU
+    duplicate race, issue #6531, is the failure mode this closes).
+    """
+    __tablename__ = "semantic_facts"
+
+    id                = Column(Integer, primary_key=True, autoincrement=True)
+    agent_id          = Column(String, ForeignKey("agent_namespaces.agent_id"), nullable=True)
+    user_id           = Column(String, nullable=True)
+    scope_key         = Column(String, nullable=False, default="global")
+
+    fact_text         = Column(Text, nullable=False)
+    fact_type         = Column(String, nullable=False)     # event | state | preference | identity
+    # Event dating as an explicit interval: a full date is a point
+    # (t_occurred_end NULL); a month-only date stores its first and last day
+    # so lexical range queries can never drop it ("2023/10" sorting before
+    # "2023/10/01" was G3 finding 8).
+    t_occurred        = Column(String, nullable=True)      # sortable "YYYY/MM/DD"
+    t_occurred_end    = Column(String, nullable=True)      # NULL = point in time
+    t_mentioned       = Column(String, nullable=False)     # sortable "YYYY/MM/DD"
+    t_ingested        = Column(DateTime, default=datetime.utcnow)
+
+    source_session_id  = Column(String, ForeignKey("sessions.session_id"), nullable=False)
+    source_session_ids = Column(JSON, default=list)        # ALL sessions that affirmed this fact
+    source_turn_ids    = Column(JSON, default=list)        # citations — every fact traceable
+    entities          = Column(JSON, default=list)         # entity strings; KG linking in Stage 3
+    lang_source       = Column(String, default="en")       # language of FIRST source
+    langs             = Column(JSON, default=list)         # all source languages (cross-lingual)
+    extraction_model  = Column(String, nullable=False)     # disclosure, per honesty rules
+
+    normalized_hash   = Column(String, nullable=False)     # sha256 of normalized fact_text
+    mention_count     = Column(Integer, nullable=False, default=1, server_default=sql_text("1"))
+    last_confirmed_at = Column(DateTime, default=datetime.utcnow)
+
+    superseded_by     = Column(Integer, ForeignKey("semantic_facts.id"), nullable=True)
+    superseded_at     = Column(DateTime, nullable=True)    # when WE invalidated it
+
+    __table_args__ = (
+        UniqueConstraint("scope_key", "normalized_hash", name="uq_facts_scope_hash"),
+        # Partial index for the hot "current facts" path. SQLite's planner
+        # matches the predicate TEXTUALLY — every query on this path must
+        # say `superseded_by IS NULL` literally or the index silently
+        # goes unused (slow, not wrong; sqlite.org/partialindex.html).
+        Index(
+            "idx_facts_current", "scope_key", "fact_type", "t_occurred",
+            sqlite_where=sql_text("superseded_by IS NULL"),
+        ),
+        # Serves the no-fact_type default read path (G3 finding 9: without
+        # this, the default current_facts() full-scanned + temp-sorted).
+        Index(
+            "idx_facts_current_all", "scope_key", "t_occurred",
+            sqlite_where=sql_text("superseded_by IS NULL"),
+        ),
+        Index("idx_facts_mentioned", "scope_key", "t_mentioned"),
+        Index("idx_facts_valid_range", "scope_key", "t_occurred", "t_ingested"),
+        Index("idx_facts_source_session", "source_session_id"),
+    )
 
 
 # ──────────────────────────────────────────────────────────────────────────────

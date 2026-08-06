@@ -14,7 +14,9 @@ Design decisions:
   - Path resolved: AGENTMEM_OS_DB_PATH env → config.yaml → ~/.agentmem_os/agentmem_os.db
   - check_same_thread=False — background threads (consolidation engine,
     KG ingestion) access DB from threads other than the main thread
-  - StaticPool — single shared connection, correct for SQLite
+  - QueuePool (default) — exclusive connection per checked-out Session;
+    the earlier StaticPool single-shared-connection design destroyed
+    concurrent writes (see the pooling comment at the engine definition)
   - WAL journal mode — allows concurrent background reads + main thread writes
   - foreign_keys=ON — enforces FK constraints (SQLite disables by default)
   - expire_on_commit=False — prevents DetachedInstanceError in background threads
@@ -27,7 +29,8 @@ from pathlib import Path
 
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.pool import StaticPool
+# (poolclass deliberately not imported/overridden — see the pooling
+# comment above the engine; default QueuePool is a measured decision)
 
 from agentmem_os.db.models import Base
 
@@ -91,10 +94,30 @@ def _resolve_db_path() -> str:
 DB_PATH = _resolve_db_path()
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
+# Pooling (changed 2026-08-06, Consolidation v2 Stage 1 G3 rounds 2-3):
+# StaticPool shared ONE DBAPI connection across every Session in the
+# process. Measured consequence: a concurrent reader closing its session
+# issued a ROLLBACK on the shared connection and destroyed a writer's
+# uncommitted work — 202 of 300 semantic-fact writes lost, and even two
+# plain Turn writers lost 45/300 with commit() reporting success. The
+# default QueuePool checks each Session out an EXCLUSIVE connection
+# (same isolation as one-connection-per-session), SQLite WAL provides
+# reader/writer isolation, and busy_timeout serializes concurrent writers
+# at the database. QueuePool over NullPool is a measured decision (R3
+# N11): identical zero-loss result on the concurrency attack, ~4.6x the
+# throughput of NullPool's per-session connection churn (9.2k vs 1.9k
+# ops/s), which matters in per-turn ingestion loops. In-memory DBs are
+# NOT supported by this module (the raw-sqlite3 migrations below connect
+# by path and would see a different database).
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
+    connect_args={"check_same_thread": False, "timeout": 30},
+    # Explicit ceiling (R4-4): 5 pooled + 10 overflow = 15 concurrent live
+    # sessions; a 16th blocks up to 30s then TimeoutErrors. Store sessions
+    # are short-lived; long-held caller-batch sessions (Stage 2) must stay
+    # well under this or raise it deliberately.
+    pool_size=5,
+    max_overflow=10,
     echo=False,   # flip to True to log every SQL statement during debugging
 )
 
@@ -112,6 +135,9 @@ def _set_sqlite_pragmas(dbapi_connection, connection_record):
     cursor.execute("PRAGMA journal_mode=WAL")
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.execute("PRAGMA synchronous=NORMAL")
+    # Concurrent writers meet at the DB lock — wait instead of failing
+    # fast with "database is locked".
+    cursor.execute("PRAGMA busy_timeout=30000")
     cursor.close()
 
 
@@ -158,6 +184,7 @@ def init_db() -> None:
     Base.metadata.create_all(bind=engine)
     _migrate_phase1()
     _migrate_temporal_kg()
+    _migrate_semantic_tier()
 
 
 def _migrate_phase1() -> None:
@@ -215,6 +242,107 @@ def _migrate_temporal_kg() -> None:
         conn.close()
     except Exception:
         pass
+
+
+def _migrate_semantic_tier() -> dict:
+    """
+    Consolidation v2 companion migration. Three jobs, all LOUD (G3 findings
+    12-13 — the silent except-pass idiom hid a migration that had never run):
+
+      1. Retrofit the kg_edges active-edge partial index (columns existed
+         since the Temporal KG port; no index ever served the lookup).
+      2. VERIFY semantic_facts carries its dedup constraint + partial
+         indexes. SQLite cannot ALTER TABLE ADD CONSTRAINT, so a
+         semantic_facts table that exists WITHOUT uq_facts_scope_hash can
+         never be repaired in place — that is a RuntimeError, not a shrug:
+         the operator must migrate the rows to a rebuilt table.
+      3. Report what happened.
+    """
+    import sqlite3 as _sqlite3
+    from loguru import logger as _logger
+
+    report = {"kg_edges_index": "unknown", "semantic_facts": "unknown"}
+    conn = None
+    try:
+        conn = _sqlite3.connect(DB_PATH)
+        conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_kg_edges_active "
+            "ON kg_edges(source_id, relation_type) "
+            "WHERE valid_until IS NULL"
+        )
+        conn.commit()
+        report["kg_edges_index"] = "present"
+
+        table_exists = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='semantic_facts'"
+        ).fetchone() is not None
+        if not table_exists:
+            report["semantic_facts"] = "absent (create_all will create it)"
+        else:
+            # Verify the dedup constraint BY ITS COLUMNS — SQLite names
+            # constraint indexes 'sqlite_autoindex_*', never by constraint
+            # name, and "some autoindex exists" proves nothing (G3 round 2,
+            # B2: a UNIQUE(fact_text) table sailed through the old check
+            # with dedup completely unenforced).
+            has_dedup_unique = False
+            # r = (seq, name, unique, origin, partial): require unique AND
+            # NOT partial — a partial unique index enforces nothing for
+            # rows outside its predicate (R3 N5: a UNIQUE ... WHERE
+            # superseded_by IS NULL index accepted duplicate live rows'
+            # history and still read as "verified").
+            for name in [r[1] for r in conn.execute(
+                    "PRAGMA index_list('semantic_facts')")
+                    if r[2] == 1 and r[4] == 0]:
+                cols = [c[2] for c in conn.execute(f"PRAGMA index_info('{name}')")]
+                if sorted(cols) == ["normalized_hash", "scope_key"]:
+                    has_dedup_unique = True
+                    break
+            if not has_dedup_unique:
+                raise RuntimeError(
+                    "semantic_facts exists WITHOUT a UNIQUE index on "
+                    "(scope_key, normalized_hash). SQLite cannot add "
+                    "constraints in place — rebuild the table: create "
+                    "semantic_facts_new via create_all, copy rows, drop old, "
+                    "rename. Refusing to run with dedup unenforced."
+                )
+            index_names = {r[0] for r in conn.execute(
+                "SELECT name FROM sqlite_master WHERE type='index' "
+                "AND tbl_name='semantic_facts'")}
+            required = {"idx_facts_current", "idx_facts_current_all",
+                        "idx_facts_mentioned"}
+            missing = required - index_names
+            if missing:
+                _logger.warning(
+                    f"[migrate] semantic_facts missing indexes {missing} — "
+                    "recreating on the DB being migrated")
+                # Repair the DB this function is inspecting — NOT the
+                # module-level engine, which may point elsewhere (G3 round
+                # 2, B3: the old code mutated the production DB while
+                # leaving the target unrepaired).
+                from sqlalchemy import create_engine as _ce
+                from agentmem_os.db.models import SemanticFact
+                repair_engine = _ce(f"sqlite:///{DB_PATH}")
+                try:
+                    for idx in SemanticFact.__table__.indexes:
+                        if idx.name in missing:
+                            idx.create(bind=repair_engine)
+                finally:
+                    repair_engine.dispose()
+            report["semantic_facts"] = "verified"
+        _logger.info(f"[migrate] semantic tier: {report}")
+        return report
+    except RuntimeError:
+        raise
+    except Exception as e:
+        # Loud and fatal: a migration that cannot run means the schema
+        # state is UNKNOWN — running anyway risks silent duplicate facts
+        # (the old warn-and-continue here was except:pass wearing a hat).
+        raise RuntimeError(
+            f"semantic tier migration failed against {DB_PATH}: {e}"
+        ) from e
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 def get_db_info() -> dict:

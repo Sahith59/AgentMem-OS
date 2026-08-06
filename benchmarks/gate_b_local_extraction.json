@@ -1,0 +1,181 @@
+{
+ "model": "llama3.1:latest",
+ "sessions": {
+  "answer_ec904b3c_1": {
+   "session_date": "2023/05/21",
+   "facts": [
+    "The user is working on a project that involves analyzing customer data [mentioned: 2023/05/21]",
+    "The user has experience with data analysis from their Marketing Research class project, where they led the data analysis team and did a comprehensive market analysis for a new product launch [mentioned: 2023/05/21]",
+    "The user has had some experience with data visualization from their Marketing Research class project, where they had to create reports and presentations to communicate their findings to stakeholders [mentioned: 2023/05/21]"
+   ]
+  },
+  "answer_ec904b3c_4": {
+   "session_date": "2023/05/24",
+   "facts": [
+    "The user participated in a case competition hosted by a consulting firm [mentioned: 2023/05/24]",
+    "The user had to analyze a business case and present recommendations to a panel of judges [mentioned: 2023/05/24]",
+    "The user is looking for data visualization tools to make their presentation more engaging [mentioned: 2023/05/24]",
+    "The user started with Tableau and Power BI as options for data visualization tools [mentioned: 2023/05/24]",
+    "The user plans to create a dashboard in Tableau for their case competition presentation [mentioned: 2023/05/24]",
+    "The user is trying to visualize key metrics for their team's analysis and recommendations [mentioned: 2023/05/24]"
+   ]
+  },
+  "answer_ec904b3c_3": {
+   "session_date": "2023/05/25",
+   "facts": [
+    "The user presented a poster on their research on the effects of social media influencers on consumer purchasing decisions at an academic conference on consumer psychology [mentioned: 2023/05/25]",
+    "The user is looking to expand on their previous research on the topic of social media influencers and consumer behavior [mentioned: 2023/05/25]",
+    "The user has read a systematic review by Hussain and Ali (2020) titled \"Influence of Social Media Influencers on Consumer Purchase Decisions: A Systematic Review\" [mentioned: 2023/05/25]",
+    "The user is interested in the credibility and trust factors mentioned in the systematic review by Hussain and Ali (2020) [mentioned: 2023/05/25]",
+    "The user has asked for more information on how social media influencers establish credibility with their followers [mentioned: 2023/05/25]",
+    "The user is interested in learning more about the role of authenticity in establishing credibility among social media influencers [mentioned: 2023/05/25]",
+    "The user wants to know how consumers perceive authenticity in influencer marketing [mentioned: 2023/05/25]",
+    "The user has asked for information on how social identity theory can explain the effectiveness of social media influencer marketing [mentioned: 2023/05/25]",
+    "The user is interested in learning more about how influencers can leverage social identity to build a stronger connection with their audience [mentioned: 2023/05/25]"
+   ]
+  },
+  "answer_ec904b3c_2": {
+   "session_date": "2023/05/29",
+   "facts": [
+    "The user is working on a solo project for their Data Mining class [mentioned: 2023/05/29]",
+    "The user is using Python and R to build predictive models [mentioned: 2023/05/29]",
+    "The user has been trying to improve their feature engineering skills [mentioned: 2023/05/29]",
+    "The user is working with customer purchase data for their project [mentioned: 2023/05/29]",
+    "The user is interested in applying techniques from the conversation to their customer purchase data [mentioned: 2023/05/29]",
+    "The user has a professor and classmates they will be presenting their findings to [mentioned: 2023/05/29]"
+   ]
+  },
+  "answer_da3c1266_3": {
+   "session_date": "2023/07/21",
+   "facts": [
+    "The user is considering pursuing a certification in digital marketing. [mentioned: 2023/07/21]",
+    "The user has narrowed down their options to two digital marketing certification programs. [mentioned: 2023/07/21]",
+    "One of the programs focuses on SEO and content marketing, while the other is more comprehensive and covers a broader range of topics. [mentioned: 2023/07/21]",
+    "The user's goal for obtaining a digital marketing certification is to enhance their skills and make themselves more competitive in the job market. [mentioned: 2023/07/21]",
+    "The user has some experience in social media marketing, but is unsure which program would be a better fit. [mentioned: 2023/07/21]",
+    "The user wants to know more about the job prospects and salary ranges for digital marketing professionals with these certifications. [mentioned: 2023/07/21]",
+    "The user plans to attend their alma mater's annual alumni reunion in a few weeks to network with people in the industry and potentially learn more about job opportunities. [mentioned: 2023/07/21]",
+    "The user will update their LinkedIn profile, prepare an elevator pitch, research attendees beforehand, bring business cards, and follow up with people they meet afterwards for the alumni reunion. [mentioned: 2023/07/21]",
+    "The user is considering reaching out to Dr. Smith, their favorite professor from their undergraduate days, who will be receiving a lifetime achievement award during the event. [mentioned: 2023/07/21]"
+   ]
+  },
+  "answer_da3c1266_4": {
+   "session_date": "2023/07/21",
+   "facts": [
+    "The user is considering digital marketing certification programs [mentioned: 2023/07/21]",
+    "The user has a nephew named Jack who graduated from eighth grade last month [mentioned: 2023/07/21]",
+    "The user missed their nephew's graduation ceremony due to personal reasons [mentioned: 2023/07/21]",
+    "The user is interested in the Digital Marketing Certified Associate (DMCA) by Digital Marketing Institute [mentioned: 2023/07/21]",
+    "The user has heard good things about the Digital Marketing Institute [mentioned: 2023/07/21]",
+    "The user's goals align with the practical approach to digital marketing offered by the DMCA program [mentioned: 2023/07/21]"
+   ]
+  },
+  "answer_da3c1266_1": {
+   "session_date": "2023/07/21",
+   "facts": [
+    "The user is considering certification programs in digital marketing [mentioned: 2023/07/21]",
+    "The user has a little cousin named Emma who graduated from preschool about two months ago [mentioned: 2023/07/21]",
+    "The user is thinking of exploring the HubSpot Inbound Marketing Certification [mentioned: 2023/07/21]",
+    "The user plans to start with the Google Digital Garage course to get a solid foundation in digital marketing [mentioned: 2023/07/21]",
+    "The user has heard great things about the HubSpot Inbound Marketing Certification but thinks it might be challenging as a starting point for someone new to digital marketing [mentioned: 2023/07/21]",
+    "The user is considering pursuing more advanced certifications like the HubSpot Inbound Marketing Certification after completing the Google Digital Garage course [mentioned: 2023/07/21]",
+    "The user has heard that the HubSpot Inbound Marketing Certification assumes prior knowledge of digital marketing concepts [mentioned: 2023/07/21]",
+    "The user is interested in learning about average salary increases after completing a digital marketing certification program [mentioned: 2023/07/21]",
+    "According to various sources, including certification providers and industry reports, the HubSpot Inbound Marketing Certification can lead to a 15-20% salary increase [mentioned: 2023/07/21]",
+    "The user is considering the Google Digital Garage course as a free resource to gain a broad understanding of digital marketing concepts [mentioned: 2023/07/21]"
+   ]
+  },
+  "answer_da3c1266_5": {
+   "session_date": "2023/07/21",
+   "facts": [
+    "The user is considering pursuing a certification in digital marketing [mentioned: 2023/07/21]",
+    "The user has narrowed down their options to two programs [mentioned: 2023/07/21]",
+    "One of the programs the user is considering is offered by HubSpot [mentioned: 2023/07/21]",
+    "The other program the user is considering is offered by the Digital Marketing Institute [mentioned: 2023/07/21]",
+    "The HubSpot program is free [mentioned: 2023/07/21]",
+    "The Digital Marketing Institute program costs around $5,000 [mentioned: 2023/07/21]",
+    "The user attended their colleague Alex's graduation from a leadership development program at work a few weeks ago [mentioned: 2023/07/21]"
+   ]
+  },
+  "answer_da3c1266_2": {
+   "session_date": "2023/07/21",
+   "facts": [
+    "The user is considering pursuing a certification in digital marketing [mentioned: 2023/07/21]",
+    "The user has a best friend named Rachel who graduated with a master's degree [mentioned: 2023/07/21]",
+    "The user attended their best friend Rachel's master's degree graduation ceremony a couple of weeks ago [mentioned: 2023/07/21]",
+    "The user is interested in the Digital Marketing Certified Associate program from Digital Marketing Institute and the Certified Digital Marketing Professional program from American Marketing Association [mentioned: 2023/07/21]",
+    "The user's goal for pursuing a certification in digital marketing is to enhance their current role and potentially move into a more senior position [mentioned: 2023/07/21]",
+    "The user has a budget constraint when considering the two programs [mentioned: 2023/07/21]",
+    "The user wants to know about job prospects and salary ranges for digital marketing professionals with these certifications [mentioned: 2023/07/21]",
+    "The user is leaning towards the Digital Marketing Certified Associate program from Digital Marketing Institute due to its potential to enhance their current role and increase their salary [mentioned: 2023/07/21]",
+    "The user has a full-time job and wants to allocate 3-4 months to complete the DMCA program [mentioned: 2023/07/21]",
+    "The user can fit in 5-6 hours of study per week, with most productivity in the morning [mentioned: 2023/07/21]"
+   ]
+  },
+  "answer_6350aa4f_1": {
+   "session_date": "2023/11/04",
+   "facts": [
+    "The user attended Halloween Horror Nights at Universal Studios Hollywood [mentioned: 2023/11/04]",
+    "The user rode the Revenge of the Mummy rollercoaster three times in a row on October 15th, 2023 [mentioned: 2023/11/04]"
+   ]
+  },
+  "answer_6350aa4f_2": {
+   "session_date": "2023/11/04",
+   "facts": [
+    "The user has visited Knott's Berry Farm [mentioned: 2023/11/04]",
+    "The user rode the Xcelerator rollercoaster at Knott's Berry Farm on October 8th [mentioned: 2023/11/04]",
+    "The user is planning to attend the Halloween Horror Nights event at Universal Studios Hollywood on October 15th [mentioned: 2023/11/04]",
+    "The user has attended the Halloween Horror Nights event before [mentioned: 2023/11/04]",
+    "The user won an award for \"Best Adult Costume\" at the Mickey's Halloween Party event at Disneyland on September 24th [mentioned: 2023/11/04]"
+   ]
+  },
+  "answer_6350aa4f_3": {
+   "session_date": "2023/11/04",
+   "facts": [
+    "The user rode Space Mountain: Ghost Galaxy three times at Disneyland on 2023/09/24 [mentioned: 2023/11/04]",
+    "The user is planning to visit Disneyland's Halloween events [mentioned: 2023/11/04]",
+    "The user is considering attending Mickey's Halloween Party on a weekday instead of a weekend [mentioned: 2023/11/04]",
+    "The user wants to know if there will be special food options available during the party [mentioned: 2023/11/04]",
+    "The user is interested in purchasing exclusive Halloween-themed merchandise during the party [mentioned: 2023/11/04]"
+   ]
+  },
+  "answer_6350aa4f_4": {
+   "session_date": "2023/11/04",
+   "facts": [
+    "The user rode 3 rollercoasters in one night at SeaWorld San Diego in July [mentioned: 2023/11/04]",
+    "The user interacted with a dolphin up close at SeaWorld San Diego during the Summer Nights event [mentioned: 2023/11/04]",
+    "The user has visited SeaWorld San Diego [mentioned: 2023/11/04]"
+   ]
+  },
+  "answer_5fcca8bc_2": {
+   "session_date": "2023/04/19",
+   "facts": [
+    "The user is planning to stay in the US for a semester abroad [mentioned: 2023/04/19]",
+    "The user has been attending pre-departure orientation sessions at their home university every Friday since 3/27 [mentioned: 2023/04/19]",
+    "The user already has a laptop and a portable Wi-Fi hotspot [mentioned: 2023/04/19]",
+    "The user is planning to stay in touch with family and friends back home using international calls and messaging services [mentioned: 2023/04/19]"
+   ]
+  },
+  "answer_5fcca8bc_1": {
+   "session_date": "2023/04/19",
+   "facts": [
+    "The user is planning to attend the University of California, Berkeley [mentioned: 2023/04/19]",
+    "The user submitted their application to the exchange program on February 10th [mentioned: 2023/04/19]",
+    "The user got accepted into the exchange program on March 20th [mentioned: 2023/04/19]",
+    "The user has already booked a flight to San Francisco, scheduled to depart on August 15th [mentioned: 2023/04/19]",
+    "The user's flight is scheduled to arrive in the US before the official move-in date at UC Berkeley [mentioned: 2023/04/19]",
+    "The user has already applied for a visa and had an interview at the US embassy on April 25th [mentioned: 2023/04/19]",
+    "The user is required to have health insurance that meets the university's minimum requirements, including medical expenses of at least $100,000 per accident or illness [mentioned: 2023/04/19]",
+    "The user has been taking an intensive English language course on weekends since March [mentioned: 2023/04/19]",
+    "The user is planning to join the university's photography club [mentioned: 2023/04/19]",
+    "The user is planning to volunteer at the local animal shelter [mentioned: 2023/04/19]"
+   ]
+  }
+ },
+ "questions": [
+  "How many projects have I led or am currently leading?",
+  "How many graduation ceremonies have I attended in the past three months?",
+  "How many times did I ride rollercoasters across all the events I attended from July to October?",
+  "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?"
+ ]
+}

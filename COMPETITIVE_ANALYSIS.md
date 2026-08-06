@@ -177,6 +177,36 @@ embedding ±6–11 pts · split choice ~28 pts.** The protocol dominates the sys
 
 ---
 
+## 4b. Consolidation-style systems (audited 2026-08-05 — the representation lane we are entering)
+
+Systems that distill raw conversation into higher-level memory, audited at the
+representation level (papers read directly, not abstracts):
+
+| System | Distilled unit | Citations to source? | Supersession? | Cross-lingual? | Published score |
+|---|---|---|---|---|---|
+| **TiMem** (ACL Findings 2026) | hierarchical free-text summaries (turns→summaries→persona tree) | not documented | implicit tree order only | none mentioned | **76.88% LongMemEval `_s`**, 75.30% LoCoMo |
+| Nemori (arXiv 2508.03341) | free-text "insights" (key,text) | none described | whole-insight replace | none mentioned | claims SOTA-at-publication on LoCoMo/LME |
+| SeCom (ICLR 2025) | topic segments (not facts) | n/a | n/a | none | evidence vs turn/session/summary granularity |
+| Generative Agents (UIST 2023) | narrative reflections | no | no | no | believability eval only, no QA |
+| Zep/Graphiti | KG edges, bi-temporal valid_at/invalid_at | YES (episode lists, blogged) | YES (invalidate-don't-delete) | none documented | 71.2% `_s` |
+| Mem0 (OSS v3) | write-time facts | UNVERIFIED | **regressed to ADD-only** (issues #4896/#4956/#5867 open) | none documented | self-reported 94.4/66.88 paper |
+| Letta sleep-time | free-text memory blocks | UNVERIFIED | rethink_memory() rewrite | none documented | — |
+
+**Honest takes we bind ourselves to:**
+- **TiMem beats our current 66.0% on the identical `_s` split (76.88%).** It exists,
+  it's open source, and any consolidation work we publish gets compared to it by us
+  first. Consolidation-as-a-category is established literature (Nemori, SeCom,
+  TiMem, Honcho's "dream-time") — we claim no priority on the category.
+- What no surveyed system does: structured, individually-dated, individually-cited
+  ATOMIC facts (all use narrative text or graph edges); a separate, functioning
+  bi-temporal per-attribute profile tier (Zep: same graph substrate; Letta:
+  free-text; Mem0: designed it, currently broken in shipped OSS); and write-time
+  cross-lingual canonicalization (no publicly documented claimant — re-verified
+  against non-English docs before we publish that sentence).
+- Never claimable: "first bi-temporal memory" (Zep's paper title), "first with
+  provenance" (Zep ships + blogs it), "first per-attribute supersession" (Mem0's
+  design intent).
+
 ## 5. Where AgentMem OS actually stands
 
 **Current measured position** (LongMemEval **`oracle`**, n=30, seed 42, identical
