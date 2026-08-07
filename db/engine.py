@@ -185,6 +185,7 @@ def init_db() -> None:
     _migrate_phase1()
     _migrate_temporal_kg()
     _migrate_semantic_tier()
+    _migrate_stage3()
 
 
 def _migrate_phase1() -> None:
@@ -360,6 +361,338 @@ def _migrate_semantic_tier() -> dict:
         # (the old warn-and-continue here was except:pass wearing a hat).
         raise RuntimeError(
             f"semantic tier migration failed against {DB_PATH}: {e}"
+        ) from e
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+def _merge_duplicate_kg_nodes(conn) -> dict:
+    """
+    Collapse kg_nodes rows that share (coalesce(agent_id,''), entity_text)
+    into the lowest-id row so uq_kg_nodes_scope_text can be created.
+    Split out of _migrate_stage3 so tests can drive it against a
+    synthetic-duplicate DB directly (our dev DB has zero dup groups —
+    verified 2026-08-06 over 10,911 nodes — this path exists for
+    arbitrary user DBs and must be exercised by tests, not by luck).
+
+    Per group: edges (kg_edges AND semantic_fact_entities links — the
+    raw connection runs with FKs off, so forgetting the link table
+    orphans fact links silently, G3 R2 minor) re-pointed to the keeper;
+    self-loops the re-pointing produced are dropped; keeper absorbs
+    mention_count sums and the latest last_seen/last_confirmed_at.
+    CO_OCCURS pair dedup is then delegated to the GLOBAL
+    _merge_duplicate_co_occurs_edges pass (G3 R2 M3: re-pointing does
+    not preserve src<tgt ordering — keeper=min(id) makes INVERSION the
+    common case, and a per-group ordered GROUP BY missed exactly the
+    pairs this merge creates; the global pass canonicalizes ordering
+    first, so it sees them all — for BOTH undirected families, ALIAS_OF
+    included: R3 M3 measured an inverted ALIAS_OF pair defeating the
+    linker's ordered exists-check and duplicating the edge). DIRECTIONAL
+    typed edges (WORKS_AT/LIVES_AT/STUDIES_AT) are left as-is —
+    direction is their meaning, and supersession chains reference their
+    ids with valid_from/valid_until disambiguating.
+    """
+    groups = conn.execute(
+        "SELECT coalesce(agent_id,''), entity_text, min(id), count(*), "
+        "sum(coalesce(mention_count, 1)) FROM kg_nodes "
+        "GROUP BY 1, 2 HAVING count(*) > 1"
+    ).fetchall()
+    merged_nodes = 0
+    has_link_table = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' "
+        "AND name='semantic_fact_entities'").fetchone() is not None
+    for scope, text_, keeper, n, mention_sum in groups:
+        losers = [r[0] for r in conn.execute(
+            "SELECT id FROM kg_nodes WHERE coalesce(agent_id,'') = ? "
+            "AND entity_text = ? AND id != ?", (scope, text_, keeper))]
+        ph = ",".join("?" * len(losers))
+        conn.execute(f"UPDATE kg_edges SET source_id = ? WHERE source_id IN ({ph})",
+                     [keeper] + losers)
+        conn.execute(f"UPDATE kg_edges SET target_id = ? WHERE target_id IN ({ph})",
+                     [keeper] + losers)
+        conn.execute("DELETE FROM kg_edges WHERE source_id = ? AND target_id = ?",
+                     (keeper, keeper))
+        if has_link_table:
+            # A fact linked to BOTH a loser and the keeper would
+            # collide with uq_fact_entity on re-point — drop the loser
+            # row (same link, same fact, same entity identity).
+            conn.execute(
+                f"DELETE FROM semantic_fact_entities WHERE node_id IN ({ph}) "
+                f"AND fact_id IN (SELECT fact_id FROM semantic_fact_entities "
+                f"WHERE node_id = ?)", losers + [keeper])
+            conn.execute(
+                f"UPDATE semantic_fact_entities SET node_id = ? "
+                f"WHERE node_id IN ({ph})", [keeper] + losers)
+        conn.execute(
+            "UPDATE kg_nodes SET mention_count = ?, "
+            "last_seen = (SELECT max(last_seen) FROM kg_nodes "
+            "  WHERE coalesce(agent_id,'') = ? AND entity_text = ?), "
+            "last_confirmed_at = (SELECT max(last_confirmed_at) FROM kg_nodes "
+            "  WHERE coalesce(agent_id,'') = ? AND entity_text = ?) "
+            "WHERE id = ?",
+            (mention_sum, scope, text_, scope, text_, keeper))
+        conn.execute(f"DELETE FROM kg_nodes WHERE id IN ({ph})", losers)
+        merged_nodes += len(losers)
+    conn.commit()
+    merged_edges = _merge_duplicate_co_occurs_edges(conn) if groups else 0
+    return {"groups": len(groups), "nodes_removed": merged_nodes,
+            "co_occurs_edges_merged": merged_edges}
+
+
+def _merge_duplicate_co_occurs_edges(conn) -> int:
+    """
+    Repair for a REAL measured corruption (Stage-3 G3 R1): the turn
+    path's CO_OCCURS lookup filtered relation_type IS NULL while the ORM
+    default wrote the string 'CO_OCCURS' — so instead of incrementing
+    weight it created a NEW edge per co-occurrence (1,979 duplicate
+    pairs in the dev DB), and the in-memory loader's add_edge() then
+    kept only the LAST row's weight. The lookup is fixed; this merges
+    the damage: duplicate (source,target) CO_OCCURS pairs (both storage
+    shapes) collapse into the lowest-id row with weights SUMMED and the
+    newest last_updated kept; duplicate ALIAS_OF pairs keep the highest
+    confidence. Idempotent (second run finds nothing).
+
+    Every row this function deletes is FIRST copied into
+    kg_edges_dedup_backup (G3 R3 M2: this runs as an import-time
+    migration against whatever DB resolves — a destructive repair with
+    no pre-state is unrecoverable if a future bug miscounts; the backup
+    is the pre-state, kept until an operator drops it deliberately).
+    """
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS kg_edges_dedup_backup "
+        "AS SELECT * FROM kg_edges WHERE 0")
+    # Schema-drift guard (R4-M4, reproduced): CREATE..AS SELECT froze
+    # the backup's columns at creation time; after a later ALTER TABLE
+    # kg_edges ADD COLUMN, the INSERT..SELECT * below would raise and —
+    # because init_db runs at import — make the whole package
+    # unimportable on exactly the DBs that have duplicates. On drift:
+    # preserve the old backup under a versioned name, recreate fresh.
+    live_cols = [c[1] for c in conn.execute("PRAGMA table_info(kg_edges)")]
+    bak_cols = [c[1] for c in conn.execute(
+        "PRAGMA table_info(kg_edges_dedup_backup)")]
+    if bak_cols != live_cols:
+        n = 1
+        while conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                (f"kg_edges_dedup_backup_old{n}",)).fetchone():
+            n += 1
+        conn.execute(f"ALTER TABLE kg_edges_dedup_backup "
+                     f"RENAME TO kg_edges_dedup_backup_old{n}")
+        conn.execute("CREATE TABLE kg_edges_dedup_backup "
+                     "AS SELECT * FROM kg_edges WHERE 0")
+    _CO = "(relation_type IS NULL OR relation_type = 'CO_OCCURS')"
+    # Canonicalize ordering FIRST (G3 R2 M3 + R3 M3): CO_OCCURS and
+    # ALIAS_OF are UNDIRECTED — ingest writes src<tgt, but node-merge
+    # re-pointing (and any historical writer) can leave inverted rows;
+    # (a,b) and (b,a) are the SAME pair, an ordered GROUP BY treats
+    # them as two, and the linker's ordered ALIAS_OF exists-check
+    # duplicates against an inverted row (measured). SQLite UPDATE
+    # reads the pre-update row values, so this swap is safe.
+    conn.execute(
+        f"UPDATE kg_edges SET source_id = target_id, target_id = source_id "
+        f"WHERE source_id > target_id "
+        f"AND ({_CO} OR relation_type = 'ALIAS_OF')")
+    # Exact-duplicate ALIAS_OF pairs collapse to the lowest id, keeping
+    # the highest confidence (an alias link's strength is its best
+    # measured similarity; there is no additive weight semantic here).
+    for src, tgt in conn.execute(
+            "SELECT source_id, target_id FROM kg_edges "
+            "WHERE relation_type = 'ALIAS_OF' "
+            "GROUP BY source_id, target_id HAVING count(*) > 1").fetchall():
+        keep_edge, best = conn.execute(
+            "SELECT min(id), max(confidence) FROM kg_edges WHERE "
+            "source_id = ? AND target_id = ? AND relation_type = 'ALIAS_OF'",
+            (src, tgt)).fetchone()
+        conn.execute(
+            "INSERT INTO kg_edges_dedup_backup SELECT * FROM kg_edges "
+            "WHERE source_id = ? AND target_id = ? "
+            "AND relation_type = 'ALIAS_OF' AND id != ?",
+            (src, tgt, keep_edge))
+        conn.execute(
+            "DELETE FROM kg_edges WHERE source_id = ? AND target_id = ? "
+            "AND relation_type = 'ALIAS_OF' AND id != ?",
+            (src, tgt, keep_edge))
+        conn.execute("UPDATE kg_edges SET confidence = ? WHERE id = ?",
+                     (best, keep_edge))
+    merged = 0
+    for src, tgt in conn.execute(
+            f"SELECT source_id, target_id FROM kg_edges WHERE {_CO} "
+            f"GROUP BY source_id, target_id HAVING count(*) > 1").fetchall():
+        keep_edge, total, latest = conn.execute(
+            f"SELECT min(id), sum(weight), max(last_updated) FROM kg_edges "
+            f"WHERE source_id = ? AND target_id = ? AND {_CO}",
+            (src, tgt)).fetchone()
+        conn.execute(
+            f"INSERT INTO kg_edges_dedup_backup SELECT * FROM kg_edges "
+            f"WHERE source_id = ? AND target_id = ? AND {_CO} AND id != ?",
+            (src, tgt, keep_edge))
+        conn.execute(
+            f"DELETE FROM kg_edges WHERE source_id = ? AND target_id = ? "
+            f"AND {_CO} AND id != ?", (src, tgt, keep_edge))
+        # weight summed AND the newest last_updated kept — "no
+        # information lost" must include the recency column (G3 R2 minor).
+        conn.execute("UPDATE kg_edges SET weight = ?, last_updated = ? "
+                     "WHERE id = ?", (total, latest, keep_edge))
+        merged += 1
+    conn.commit()
+    return merged
+
+
+def _migrate_stage3() -> dict:
+    """
+    Consolidation v2 Stage 3 migration (fact→entity linking +
+    event_status). Same discipline as _migrate_semantic_tier: verify by
+    INSPECTION (PRAGMA index columns, never index names alone), repair
+    the DB at DB_PATH, absent-table honesty, loud on anything
+    unexpected.
+
+      1. consolidation_log.entities_linked column.
+      2. semantic_facts.event_status column + deterministic backfill for
+         pre-Stage-3 events (t_occurred > t_mentioned → 'planned', else
+         'occurred' — both columns already stored, no guessing).
+      3. Verify semantic_fact_entities carries UNIQUE(fact_id, node_id) —
+         without it concurrent linkers dup-link and the constraint
+         fallback in the linker dead-codes. Unrepairable in place →
+         RuntimeError, same as the facts dedup constraint.
+      4. kg_nodes uq_kg_nodes_scope_text unique index; existing
+         duplicate rows go through _merge_duplicate_kg_nodes first.
+    """
+    import re as _re
+    import sqlite3 as _sqlite3
+    from loguru import logger as _logger
+
+    report = {}
+    conn = None
+    try:
+        # timeout matches the app engine's busy_timeout (G3 R2 minor:
+        # the default 5s raw connection raced a 30s app writer during
+        # the multi-second repair pass).
+        conn = _sqlite3.connect(DB_PATH, timeout=30)
+
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
+                        "AND name='consolidation_log'").fetchone() is None:
+            report["consolidation_log"] = "table absent (create_all creates it)"
+        else:
+            added_cols = []
+            for col in ("entities_linked INTEGER DEFAULT 0",
+                        "link_failure TEXT"):
+                try:
+                    conn.execute(f"ALTER TABLE consolidation_log "
+                                 f"ADD COLUMN {col}")
+                    added_cols.append(col.split()[0])
+                except _sqlite3.OperationalError as e:
+                    if "duplicate column" not in str(e):
+                        raise
+            conn.commit()
+            report["consolidation_log"] = (
+                f"added {added_cols}" if added_cols else "verified")
+
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
+                        "AND name='semantic_facts'").fetchone() is None:
+            report["event_status"] = "table absent (create_all creates it)"
+        else:
+            try:
+                conn.execute("ALTER TABLE semantic_facts "
+                             "ADD COLUMN event_status TEXT")
+                conn.commit()
+                added = True
+            except _sqlite3.OperationalError as e:
+                if "duplicate column" not in str(e):
+                    raise
+                added = False
+            backfilled = conn.execute(
+                "UPDATE semantic_facts SET event_status = CASE "
+                "WHEN t_occurred IS NOT NULL AND t_occurred > t_mentioned "
+                "THEN 'planned' ELSE 'occurred' END "
+                "WHERE fact_type = 'event' AND event_status IS NULL"
+            ).rowcount
+            conn.commit()
+            report["event_status"] = (
+                f"{'added' if added else 'verified'}, "
+                f"backfilled {backfilled} event rows")
+
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
+                        "AND name='semantic_fact_entities'").fetchone() is None:
+            report["semantic_fact_entities"] = "absent (create_all creates it)"
+        else:
+            has_link_unique = False
+            for name in [r[1] for r in conn.execute(
+                    "PRAGMA index_list('semantic_fact_entities')")
+                    if r[2] == 1 and r[4] == 0]:
+                cols = [c[2] for c in conn.execute(f"PRAGMA index_info('{name}')")]
+                if sorted(cols) == ["fact_id", "node_id"]:
+                    has_link_unique = True
+                    break
+            if not has_link_unique:
+                raise RuntimeError(
+                    "semantic_fact_entities exists WITHOUT a UNIQUE index "
+                    "on (fact_id, node_id). SQLite cannot add constraints "
+                    "in place — rebuild the table (create new via "
+                    "create_all, copy rows, drop, rename). Refusing to run "
+                    "with link dedup unenforced.")
+            report["semantic_fact_entities"] = "verified"
+
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
+                        "AND name='kg_edges'").fetchone() is None:
+            report["co_occurs_dedup"] = "table absent (create_all creates it)"
+        else:
+            merged_pairs = _merge_duplicate_co_occurs_edges(conn)
+            report["co_occurs_dedup"] = (
+                f"merged {merged_pairs} duplicate pairs" if merged_pairs
+                else "clean")
+
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
+                        "AND name='kg_nodes'").fetchone() is None:
+            report["kg_nodes_unique"] = "table absent (create_all creates it)"
+        else:
+            # Verify by the index's OWN SQL, never its name (G3 R1 M1 —
+            # the name-only check accepted a scope-blind
+            # UNIQUE(entity_text) impostor that permanently rejected a
+            # second agent's nodes while reporting "verified"; same
+            # lesson as the semantic_facts autoindex check above).
+            # Expression indexes don't expose columns through PRAGMA
+            # index_info, so the sqlite_master.sql text is the artifact.
+            row = conn.execute(
+                "SELECT sql FROM sqlite_master WHERE type='index' "
+                "AND name='uq_kg_nodes_scope_text'").fetchone()
+            sql_norm = ""
+            if row and row[0]:
+                sql_norm = _re.sub(r"\s+", "", row[0].lower().replace('"', "'"))
+            # EXACT normalized-DDL equality, not substring presence (G3
+            # R2 M2: a substring test "verified" an index with an extra
+            # trailing id column — unique over nothing — and one with a
+            # WHERE agent_id IS NOT NULL clause that left NULL-scope
+            # rows unguarded; any extra text must fail equality).
+            good = sql_norm == (
+                "createuniqueindexuq_kg_nodes_scope_text"
+                "onkg_nodes(coalesce(agent_id,''),entity_text)")
+            if row is not None and good:
+                report["kg_nodes_unique"] = "verified"
+            else:
+                if row is not None:
+                    conn.execute("DROP INDEX uq_kg_nodes_scope_text")
+                    conn.commit()
+                ddl = ("CREATE UNIQUE INDEX uq_kg_nodes_scope_text "
+                       "ON kg_nodes(coalesce(agent_id, ''), entity_text)")
+                rebuilt = "rebuilt (wrong shape)" if row is not None else "created"
+                try:
+                    conn.execute(ddl)
+                    conn.commit()
+                    report["kg_nodes_unique"] = rebuilt
+                except _sqlite3.IntegrityError:
+                    merge = _merge_duplicate_kg_nodes(conn)
+                    conn.execute(ddl)   # loud if it STILL fails
+                    conn.commit()
+                    report["kg_nodes_unique"] = f"{rebuilt} after merge {merge}"
+
+        _logger.info(f"[migrate] stage 3: {report}")
+        return report
+    except RuntimeError:
+        raise
+    except Exception as e:
+        raise RuntimeError(
+            f"stage 3 migration failed against {DB_PATH}: {e}"
         ) from e
     finally:
         if conn is not None:

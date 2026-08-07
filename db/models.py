@@ -187,11 +187,27 @@ class SemanticFact(Base):
     t_occurred_end    = Column(String, nullable=True)      # NULL = point in time
     t_mentioned       = Column(String, nullable=False)     # sortable "YYYY/MM/DD"
     t_ingested        = Column(DateTime, default=datetime.utcnow)
+    # Event-status axis (F7, founder-resolved 2026-08-06). Events only:
+    # 'occurred' (default — the extractor contract says events already
+    # happened) or 'planned' (deterministic: occurrence start > session
+    # date at mention time); 'cancelled' reserved for Stage 4 judgment;
+    # NULL for non-events. An ENUM, not a boolean — RFC 5545 STATUS and
+    # schema.org eventStatus both rejected booleans for exactly this
+    # axis. NOT part of the dedup hash; a post-date re-affirmation
+    # upgrades planned→occurred, never the reverse. This is an
+    # event-status axis, NOT a validity/transaction time — do not
+    # describe it with temporal-DB vocabulary.
+    event_status      = Column(String, nullable=True)
 
     source_session_id  = Column(String, ForeignKey("sessions.session_id"), nullable=False)
     source_session_ids = Column(JSON, default=list)        # ALL sessions that affirmed this fact
     source_turn_ids    = Column(JSON, default=list)        # citations — every fact traceable
-    entities          = Column(JSON, default=list)         # entity strings; KG linking in Stage 3
+    # Display/inspection cache ONLY: the surfaces NER found in the fact
+    # text, INDEPENDENT of link success (a skipped Indic surface still
+    # appears here — it IS a mention). The query path for "facts about
+    # X" is the semantic_fact_entities join table (Stage 3); SQLite
+    # cannot index JSON array membership.
+    entities          = Column(JSON, default=list)
     lang_source       = Column(String, default="en")       # language of FIRST source
     langs             = Column(JSON, default=list)         # all source languages (cross-lingual)
     extraction_model  = Column(String, nullable=False)     # disclosure, per honesty rules
@@ -222,6 +238,51 @@ class SemanticFact(Base):
         Index("idx_facts_mentioned", "scope_key", "t_mentioned"),
         Index("idx_facts_valid_range", "scope_key", "t_occurred", "t_ingested"),
         Index("idx_facts_source_session", "source_session_id"),
+    )
+
+
+class SemanticFactEntity(Base):
+    """
+    Fact→entity link (Consolidation v2, Stage 3): which KG nodes a
+    semantic fact mentions. The QUERY path for "facts about entity X" —
+    SemanticFact.entities (JSON) is a display cache only, because SQLite
+    cannot index array membership (one index entry per ROW, ever; the
+    author's own words on the official forum — a json_each() lookup is a
+    full scan at any scale).
+
+    Links point at the SURFACE-form node, never an alias-canonical node
+    (deliberate divergence from Graphiti's uuid_map rewiring, which is
+    safe there only because its dedup MERGES nodes). Our τ=0.90 alias
+    resolver has a measured false positive (Chennai/China 0.9010) —
+    canonical-linking would hard-wire that error class into fact
+    provenance. Cross-lingual unity comes from ALIAS_OF traversal at
+    read time instead; a false alias stays inspectable retrieval noise,
+    never silent misattribution.
+
+    linked_via: 'ner' (spaCy on canonical fact text) or 'alias'
+    (Indic-script surface admitted through the alias gate); confidence
+    is the admitting cosine similarity for 'alias' links, NULL for 'ner'.
+    Provenance is deliberately turn-granular (the fact's
+    source_turn_ids) — no mention offsets, matching what even the
+    deepest surveyed system (Graphiti) records.
+    """
+    __tablename__ = "semantic_fact_entities"
+
+    id           = Column(Integer, primary_key=True, autoincrement=True)
+    fact_id      = Column(Integer, ForeignKey("semantic_facts.id"), nullable=False)
+    node_id      = Column(Integer, ForeignKey("kg_nodes.id"), nullable=False)
+    surface_text = Column(String, nullable=False)
+    linked_via   = Column(String, nullable=False, default="ner")  # 'ner' | 'alias'
+    confidence   = Column(Float, nullable=True)
+    created_at   = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        # Dedup authority for concurrent linkers (same discipline as
+        # uq_facts_scope_hash): losing an insert race falls back to
+        # "link already exists".
+        UniqueConstraint("fact_id", "node_id", name="uq_fact_entity"),
+        # Reverse direction: "facts mentioning node N".
+        Index("idx_fact_entities_node", "node_id", "fact_id"),
     )
 
 
@@ -277,6 +338,22 @@ class KnowledgeGraphNode(Base):
     # by a NEW typed-relation edge, distinct from last_seen (which updates
     # on every co-occurrence mention, typed or not).
     last_confirmed_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        # Stage 3: node identity is (scope, text) and must be enforced at
+        # the DATABASE — the read-then-write upserts here are the same
+        # race class the fact store fixed in Stage 1 (and Graphiti issue
+        # #1331's). agent_id is nullable and SQLite treats NULLs as
+        # DISTINCT in unique indexes, so the index goes through
+        # coalesce(agent_id,'') — same reason semantic_facts carries a
+        # non-null scope_key. Existing DBs get this index (with a
+        # dedup-merge fallback) via _migrate_stage3 in engine.py.
+        Index(
+            "uq_kg_nodes_scope_text",
+            sql_text("coalesce(agent_id, '')"), sql_text("entity_text"),
+            unique=True,
+        ),
+    )
 
 
 class KnowledgeGraphEdge(Base):
@@ -357,6 +434,14 @@ class ConsolidationLog(Base):
     truncated_chars     = Column(Integer, default=0)
     rejected_count      = Column(Integer, default=0)
     rejections_json     = Column(Text, nullable=True)   # WHAT was thrown away (R3-M5)
+    # Stage 3: NEW fact→entity link rows written this run (re-affirmed
+    # facts whose links already exist contribute 0 — this counts writes,
+    # not link coverage). G3 R1 M2: the count alone cannot distinguish
+    # "nothing needed linking" from "linking was suspended by a failure",
+    # so the failure itself is PERSISTED alongside it — recoverable
+    # metadata (link_missing() sweeps) must never mean invisible.
+    entities_linked     = Column(Integer, default=0)
+    link_failure        = Column(Text, nullable=True)   # NULL = clean run
     timestamp           = Column(DateTime, default=datetime.utcnow)
 
 

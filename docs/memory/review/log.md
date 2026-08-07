@@ -733,3 +733,589 @@ G3 PASSES with notes; the numbers gate is closed as a class after five rounds.**
 correctness hole in shipped behavior; M1 is test quality, M2 is disclosure. Founder: F7 and DESIGN §5.1
 still need decisions, and the two undisclosed residuals (value-not-predicate grounding; CJK inertness)
 should reach the Stage-2 record before any claim is written from it.
+
+## 2026-08-06 — Critics — Consolidation v2 Stage 3 (KG integration), G3 ROUND 1 — **BLOCK**
+
+**Claim reviewed:** "Stage 3 shipped: fact→entity linking, event_status (F7), NER refactor, migration;
+G1 146/146 across 4 files, 100% coverage on db/fact_entities.py + db/semantic_facts.py; G2 smoke green."
+**Method:** read every changed file + the new one; ran the scoped suite (test_fact_entities,
+test_consolidation_v2, test_semantic_facts, test_temporal_kg — NEVER a broad pytest); line + branch
+coverage; 16-mutation sweep against a scratch COPY of the repo (repo never touched); 10 probes in
+scratchpad/s3r1 (p1_sweep, p2_index, p3_merge, p4_lock, p5_danda, p6/p6b_scope, p8/p8b_identity,
+p10_reaffirm, pa_lock, pd_status, ppoison, prace, pprev, ph_cost); read-only inspection of the
+founder's dev DB; RE-RAN the real G2 smoke end to end (llama3.1 + spaCy + e5-small).
+
+**Reproduced honestly (state plainly):** 146/146 (33/48/60/5 — exactly the claimed split); 100% LINE
+coverage on both files; G2 smoke reproduces to the digit — 20 facts, 25 links, 18 nodes, **25 real join
+rows**, log rows 25, link_failure None, गूगल admitted at cosine 0.9506, facts_for_entity('गूगल') ==
+facts_for_entity('Google') on that fixture. The caller-batch precondition is REAL: measured that a
+RE-AFFIRMED add_fact takes the write lock before linking (outside writer free before, blocked after).
+Migration backfill CASE vs `_event_status` agree on 10/10 interval forms (0 mismatches). Mutation sweep
+14/16 caught. The smoke does not import db/engine (no production-DB side effect) — checked explicitly.
+
+**Verdict: BLOCK — 3 blockers, 5 majors, 13 minors.**
+
+- **B1 (blocker) — ~87–89 s of DB-WIDE write lock inside the caller batch, violating the file's own
+  stated rule.** `_link_in_session` calls `_plan_surfaces` (fact_entities.py:181) AFTER add_fact has
+  taken the SQLite write lock; the first Indic surface hits `resolver.enabled` (fact_entities.py:247),
+  which LOADS sentence-transformers (network calls to HF included). Measured, fresh process: model load
+  87.29 s / 87.07 s; p4_lock at 1,001 nodes = **89.09 s of held lock**, and the competing writer FAILED
+  with "database is locked". busy_timeout is 30 s, so every other writer in the system dies.
+  consolidation_v2.py:389-391 states the rule ("no model compute while any write lock is held that this
+  loop controls") and fact_entities.py:178-180 acknowledges the hazard and then does it anyway.
+  Embedding itself is cheap (0.7 ms/text; ~8 s at the founder's 10,911 nodes) — the load is the killer.
+  The store-owned path is CLEAN (planning happens before any write); only the caller-batch path is hit.
+- **B2 (blocker) — the CO_OCCURS weight merge is inert on production-shaped rows; its test is a rubber
+  stamp.** engine.py:405-418 filters `relation_type IS NULL`. Real edges carry 'CO_OCCURS':
+  **34,905/34,905 in the founder's dev DB, 0 NULL.** p3_merge, same duplicate group, both shapes:
+  production shape → `co_occurs_edges_merged: 0`, two rows survive, the undirected loader keeps 4.0
+  instead of 6.0 (silent weight loss); NULL shape → merged to 6.0. The only test
+  (tests/test_fact_entities.py:507-511) inserts NULL because its `_OLD_SCHEMA` kg_edges has no default.
+  The build log records "CO_OCCURS weights SUMMED … leaving two rows would silently drop weight" as a
+  PINNED failure path — that protection does not exist for real data. (Context: the dev DB already holds
+  1,979 duplicate CO_OCCURS pairs.) Stage-2 R2 lesson repeat: fixture cannot produce the failure.
+- **B3 (blocker) — link_missing starves permanently and its documented drain loop never terminates.**
+  fact_entities.py:436-443 selects zero-join facts `ORDER BY id LIMIT n`; a fact whose NER finds nothing
+  never gains a join row, so it is a permanent candidate. Measured on REAL G2 output: **5 of 23 facts
+  (22%) have zero extractable surfaces.** p1_sweep with 12 such facts + 1 linkable one at limit=10:
+  4 consecutive runs return swept=10, links_created=0, and the linkable fact is NEVER reached.
+  Docstring line 428 says "rerun until swept=0 to drain" — swept never reaches 0. The module's claim
+  (lines 32-35) that link_missing "makes the recoverability claim true" is false at scale.
+
+- **M1 (major) — the migration verifies kg_nodes uniqueness by INDEX NAME ONLY**, contradicting its own
+  docstring ("verify by INSPECTION (PRAGMA index columns, never index names alone)", engine.py:437-440).
+  engine.py:525-526 matches r[1] == "uq_kg_nodes_scope_text". p2_index: a DB carrying
+  `CREATE UNIQUE INDEX uq_kg_nodes_scope_text ON kg_nodes(entity_text)` (scope-BLIND) reports
+  `kg_nodes_unique: verified` while agent-B's "Google" is permanently rejected. Same class as G3 R2-B2,
+  which this very docstring cites. Fix: read `sqlite_master.sql` (functional indexes have NULL columns
+  in PRAGMA index_info, which is exactly why name-matching was chosen — say so and check the SQL text).
+- **M2 (major) — the persisted audit row cannot distinguish "linking suspended by failure" from a clean
+  re-affirmation.** `entities_linked` counts only NEW join rows; link_failure is NOT a column. p10:
+  run 2 of the same session logs `summaries_generated=0, entities_linked=0, link_failure=None` — byte
+  identical to a run where linking blew up on fact 1. consolidation_v2.py:418-419 claims "the count
+  mismatch is visible in the log row"; there is no expected count in the row to mismatch against.
+- **M3 (major) — one-hop ALIAS_OF traversal breaks the cross-lingual unity claim with 2+ Indic
+  variants.** Real resolver, p8b: node "Chennai"; the tokenizer produces both "चेन्नई।" (sentence-final)
+  and "चेन्नई"; the second aliases to the FIRST (cos 0.9715 > 0.9324 to Chennai), forming a CHAIN.
+  `facts_for_entity('Chennai')` then returns 1 of the 2 Hindi facts — silently. fact_entities.py:361-372
+  expands exactly one hop. The build log's "facts_for_entity('गूगल') == facts_for_entity('Google') ==
+  all 3 facts — the cross-lingual unity claim, demonstrated" holds only for the single-variant fixture.
+- **M4 (major) — node identity is case-SENSITIVE while surface dedup is casefold; undisclosed in the new
+  read API.** Measured on the founder's real KG: **164 of 10,747 groups (1.5%) are case variants**
+  ("The Big Island"/"the Big Island", "Turkey"/"turkey"). p8: two facts, surfaces "Google"/"google" →
+  two nodes, `facts_for_entity('Google')` returns 1 of 2; `facts_for_entity('google')` returns [].
+- **M5 (major) — the F7 'planned' marker is materially unreachable through the real pipeline, and the
+  disclosed boundary understates it.** The extraction prompt (consolidation_v2.py:519) orders PLANS to
+  be typed "state", **and its own example carries a DATE** ("The user plans to attend X on DATE" is a
+  state, never an event). The record discloses only "…with no date extracts as an undated state". In the
+  reproduced G2 run: **0 of 23 facts carry 'planned'** (7 events, all 'occurred'), while 3 plan-facts
+  ("planning to serve", "plans to use", "wants to buy") were typed state → no marker. The marker fires
+  only when the model DISOBEYS the prompt. The founder must be told this plainly.
+
+**Minors:** (m1) U+0964/0965 danda and Devanagari digits are inside `_INDIC_TOKEN_RE` (0900–0D7F), so
+"चेन्नई।"/"है।"/"२०२३" are surfaces; measured cosine cost 0.9506→0.9398 (Google) and 0.9543→0.9324
+(Chennai) — 22–43% of the τ margin — and it manufactures the duplicate node behind M3. Turn-path parity
+is genuine (both share the defect). (m2) FALSE PARITY COMMENT: fact_entities.py:254-256 says same-batch
+surfaces never anchor "same as the turn path", but knowledge_graph.py:528 DOES add same-turn non-Indic
+NER texts to the candidate pool — the fact path is strictly narrower (recall loss in the first
+cross-lingual session; the G2 smoke had to consolidate an English anchor session first). (m3) TWO
+UNTRIPWIRED behaviors: deleting `.nullslast()` (fact_entities.py:391) and flipping `if link_failure is
+None` (consolidation_v2.py:422) to `if True` both leave the suite GREEN — the failure POLICY of record
+has no test. (m4) the cross-process race test does not observe a collision: with a TIGHTER two-phase
+barrier the retry path fired 1/10 (prace); the shipped test's barrier is looser and its assertions hold
+whether or not a race occurs. End state was correct 10/10 — the mechanism is fine, the record's "real
+2-OS-process race … pinned" is not what the test pins. (m5) dead `self._nlp = None`
+(knowledge_graph.py:264) after the module-level refactor — REPEAT of the logged "delete the mechanism's
+vocabulary too" class. (m6) the DB-poisoned batch raises PendingRollbackError at the NEXT add_fact, not
+"at commit" as the comment says, and the captured link_failure string is discarded on that path (0
+facts, 0 links, 0 log rows — verified loud, ppoison). (m7) `_merge_duplicate_kg_nodes` never re-points
+semantic_fact_entities and runs on a raw sqlite3 conn with FK enforcement OFF → orphan link rows if ever
+reached with links present; low reachability, undisclosed in the docstring's enumeration. (m8) reversed
+(a,b)/(b,a) CO_OCCURS pairs are never merged although the loader is undirected — **0 reversed pairs in
+the real DB, corpus-absent, recorded so a future round does not re-litigate it.** (m9) "100% coverage"
+is LINE coverage; branch coverage is 99% (1 partial in fact_entities: 116->115; 4 in semantic_facts) —
+say which. (m10) `SemanticFact.entities` display cache stores SKIPPED surfaces that were never linked
+(उपयोगकर्ता/में/काम), so the JSON cache and the join table disagree. (m11) facts_for_entity materializes
+every fact_id into an IN(...) list before applying `limit`; this build tolerates ≥200k variables, a
+stock SQLITE_MAX_VARIABLE_NUMBER=999 build breaks at 999 facts per entity. (m12) "log rows agree 25=25"
+is tautological (both sides are the same in-process variable); the load-bearing number printed on the
+same line — 25 REAL join rows — is the one to cite. (m13) the smoke uses legacy `Query.get()` (two
+deprecation warnings inside the evidence artifact).
+
+**Must change to pass:** B1 (move resolver warm-up/planning outside the held write lock — or refuse the
+Indic path inside a caller batch), B2 (match CO_OCCURS by value, not NULL; rebuild the test fixture on
+production-shaped rows), B3 (bound/advance the sweep — cursor by id, or mark swept facts — and fix the
+"rerun until swept=0" instruction), M1 (verify the index by its SQL text), M2 (persist link_failure or
+an expected count), M3 (transitive closure or disclose one-hop in all three places that claim
+cross-lingual unity: fact_entities.py:13-17, models.py:253-255, DESIGN correction 3), M4 (normalize or
+disclose), M5 (correct the founder-facing boundary + report 0/23). Minors m2/m3/m5/m9/m12 are repeats of
+logged classes and should land in the same round.
+
+**Refs:** db/fact_entities.py:4-5,13-17,32-35,178-181,231,247,250-258,254-256,361-372,391,428,436-443;
+db/engine.py:383-386,405-418,437-440,520-542; llm/consolidation_v2.py:389-391,414-422,519;
+db/knowledge_graph.py:264,528; db/models.py:253-255,337-350;
+tests/test_fact_entities.py:396-425,436-440,499-536; CONSOLIDATION_V2_BUILD_LOG.md:411-455.
+Harnesses: scratchpad/s3r1/ (boot, p1_sweep, p2_index, p3_merge, p4_lock, p5_danda, p6_scope, p6b_scope,
+p8_identity, p8b_chain, p10_reaffirm, pa_lock, pd_status, ppoison, prace, pprev, ph_cost, sweep/1/3,
+runmut, smoke_rerun.log).
+
+**Who needs to know:** Dev-Head (all findings; B1-B3 + M1-M5 before the gate reopens; m2/m3/m5 are
+repeats of already-logged classes). Bosses: **Stage 3 G3 round 1 BLOCKS** — the G1/G2 numbers are honest
+and reproduce exactly, but three shipped mechanisms do not do what the record says they do. Founder:
+F7's 'planned' marker fired 0/23 on the real corpus because the prompt types plans as states — a
+founder-requested feature is effectively dormant; and the cross-lingual unity claim needs the one-hop
+caveat before it appears in any public claim.
+
+## 2026-08-06 — Critics — Consolidation v2 Stage 3 (KG integration), G3 ROUND 2 — **BLOCK**
+
+**Claim reviewed:** "R1's 3 blockers + 5 majors + minors all fixed; 156 tests green across the 4 scoped
+files; the migration now REPAIRS data (global CO_OCCURS pair merge, weights summed, no information
+lost)."
+**Method (mutate the fixes, not the feature):** re-read every changed file; reran the scoped suite and
+line+branch coverage; 6 probe harnesses in scratchpad/s3r2 (p_lock, p_read, p_fk, p_mig, p_rev, p_misc,
+p_loader) including an instrumented WRITE-LOCK probe that attempts a real competing write from an
+independent connection at every resolver touch; ran the migration against a COPY of the founder's dev DB
+(source opened read-only, never mutated); mentally reverted each R1-repro test.
+
+**Reproduced honestly — the fixes that hold.** B1 is CLOSED and measured: on the engine path all 6
+resolver touches report the competing writer FREE, the store-owned sweep the same, and the in-batch
+control reports BLOCKED (probe is sensitive). B2 is CLOSED and the repair is real on the founder's data:
+dev-DB copy 34,905 → 32,194 CO_OCCURS rows, sum(weight) 35,051.0 → 35,051.0 (exact), loader-visible
+total 32,340 → 35,051 (**2,711 units of weight recovered**), idempotent (rerun 0), 3.99 s. B3 CLOSED
+(cursor terminates; the repro genuinely fails if reverted). M2 CLOSED (persisted + a real suspension
+tripwire). M3 CLOSED inside the depth cap; no cross-agent fact leak (scope_key backstop measured). M5
+disclosed plainly. **156/156 reproduced**; coverage reproduced: 100% LINE / 99% branch (fact_entities
+partials 125->124, 436->451) — the restated claim is accurate. Minors verified: danda excluded,
+false-parity comment corrected, nullslast + suspension tripwires real, dead `self._nlp` gone, smoke's
+three-way assert present.
+
+**Verdict: BLOCK — 1 blocker, 5 majors, 14 minors.**
+
+- **B1 (blocker) — the M4 fix REGRESSED exact-text reads.** fact_entities.py:416-422 replaced the exact
+  seed predicate with `func.lower(entity_text) == entity_text.lower()`. SQLite's `lower()` folds ASCII
+  ONLY; Python's folds Unicode. Measured on the founder's KG: **11 distinct entity_texts** where the two
+  disagree (`Übermensch`, `Συγνώμη`, `IDÅSEN`, `Ruben Östlund`, `the Champs-Élysées`, …). Probe p_read
+  P1: node stored EXACTLY as the query text, real link row → `facts_for_entity('Übermensch')` returns
+  **[] on 4/4**. A read that previously worked now silently answers "no facts about this entity" — a
+  false-empty in the deliverable's read API. Fix: OR the exact predicate with the folded one (keeps the
+  index usable for the exact leg) and disclose that folding is ASCII-only.
+
+- **M1 (major) — plan→apply admits an UNGATED Indic node.** `_link_in_session` (fact_entities.py:238-257)
+  creates the surface node FIRST and only then looks for the anchor. p_read P3: anchor deleted between
+  plan and apply → node created, no ALIAS_OF edge, no skip recorded. That falsifies the invariant
+  `_plan_surfaces` relies on (lines 310-313: "every stored Indic node already passed this gate") — the
+  junk node then becomes an anchor candidate. Reachable: `POST /demo/reset` (api/app.py:813) purges every
+  agent_id-NULL node. P4: the same happens when a plan computed for agent A is applied with
+  `agent_id='Z'` — the plan carries no scope and apply validates nothing. Fix: resolve the anchor before
+  creating the node for `via=='alias'`; skip + record when absent.
+- **M2 (major) — the index check is a SUBSTRING test, not a shape test** (engine.py:583-593). p_mig:
+  `…ON kg_nodes(coalesce(agent_id,''), entity_text) WHERE agent_id IS NOT NULL` → report **"verified"**,
+  two NULL-scope duplicates INSERT fine; `…(coalesce(agent_id,''), entity_text, id)` → **"verified"**,
+  duplicates allowed in every scope. Same class as R1-M1, and the new test pins only the one impostor I
+  named. Fix: reuse the partial-index flag this file already reads (PRAGMA index_list r[4], line 549) +
+  index_info column count, or compare the normalized DDL for EQUALITY.
+- **M3 (major) — `_merge_duplicate_kg_nodes` manufactures the shape its own repair cannot see.**
+  engine.py:399-402 re-points edges without re-ordering src<tgt; since keeper = min(id), an edge
+  (X, loser) with X > keeper becomes REVERSED — the common case. p_rev: nodes 1/7 dup + edges (1,3,2.0),
+  (3,7,5.0) → after migration (1,3,2.0) and (3,1,5.0), report `co_occurs_edges_merged: 0` and
+  `co_occurs_dedup: 'clean'`, loader keeps 5.0 of a true 7.0. The fixture (tests/test_fact_entities.py:
+  548-563) is arranged so re-pointing never inverts — third instance of "the fixture cannot produce the
+  failure" in this arc. Fix: normalize orientation on re-point; group both merges by (min,max).
+- **M4 (major) — Stage 3's new FK breaks an existing product endpoint.**
+  `semantic_fact_entities.node_id → kg_nodes.id` with foreign_keys=ON: p_fk reproduces `POST /demo/reset`
+  (api/app.py:807-813) failing with `IntegrityError: FOREIGN KEY constraint failed` → HTTP 500, once any
+  global-scope fact is linked. Latent only because nothing wires Stage 2/3 into api/cli/mcp yet —
+  certain the moment it is wired.
+- **M5 (major) — the B1 guard is one-sided.** `plan_surfaces(…, db=<caller session>)`
+  (fact_entities.py:131-154) will load the model under a caller's write lock; only its docstring says
+  don't. `link_fact` raises a loud ValueError for the same mistake. Zero in-repo callers pass db= —
+  close the door or make it loud; no test would catch the regression.
+
+**Minors:** (m1) closure depth cap truncates SILENTLY — 14-node chain returns 11/14 facts, no log
+(fact_entities.py:436). (m2) `_merge_duplicate_kg_nodes` still never re-points semantic_fact_entities and
+runs with FK enforcement OFF (R1 m7 unfixed, still not in the docstring's enumeration). (m3) "no
+information lost" is over-stated: the keeper keeps the EARLIEST last_updated (all 1,979 dev groups
+differ) and drops later rows' session_id — verified inert (neither column has any reader), so say that
+instead. (m4) Devanagari digits (U+0966-096F) are still surfaces (entity_aliases.py:53) — R1 m1 named
+them alongside the danda. (m5) the build log's last line promises "Smoke re-run against the fixed engine
+below"; the file ENDS there (527 lines) and no smoke artifact exists in the repo — paste it or drop the
+claim. (m6) the 3.99 s repair runs inside ONE write transaction at IMPORT time on a raw sqlite3
+connection with the 5.0 s DEFAULT timeout while app connections use busy_timeout=30000 — a competing
+writer holding the lock >5 s turns `import agentmem_os.db.engine` into a RuntimeError. (m7) the in-memory
+loader collapses CO_OCCURS and ALIAS_OF on the same pair (measured: w=12.0 replaced by w=1.0) and
+ingest_turn creates BOTH for every alias pair — same "add_edge overwrites" mechanism the repair exists
+for. (m8) `linked_via` accepts any string ('TYPO' persisted) though models.py documents 'ner'|'alias'.
+(m9) "visits every unlinked fact exactly once" is per DRAIN: SemanticFact.id is INTEGER PRIMARY KEY
+without AUTOINCREMENT, so a reused rowid below the cursor waits for the next drain. (m10) R1 m6 unfixed
+— consolidation_v2.py:440-442 still says a poisoned batch raises "at commit"; it raises at the next
+add_fact. (m11) R1 m10 unfixed — the display cache still stores SKIPPED surfaces (उपयोगकर्ता/में/काम/
+करता/है measured again). (m12) R1 m11 now also applies to the closure's node_ids IN(...) list. (m13)
+RUNNING_NOTES.md (the founder-facing status doc) still has no Stage-3 entry — the two things the founder
+must know before the next product start (the 1,979-pair repair fires at import; 'planned' fired 0/23)
+live only in the build log. (m14) nothing in cli/, api/, mcp_server/ calls link_missing or
+facts_for_entity — the recovery drain and read API are Python-only entry points today.
+
+**Test quality:** the R1-repro tests are genuine, not rubber stamps — reverting the cursor makes
+test_sweep_cursor… hit its `rounds < 10` guard; reverting closure→one-hop makes the चेन्नई chain test
+fail on the middle node's fact; reverting the merge to IS-NULL-only makes the repair report "clean"
+instead of "merged 1 duplicate pairs". The two new tripwires (nullslast, suspension `calls["n"] == 1`)
+both fail when their mechanism is removed.
+
+**Must change to pass:** B1 (restore exact match — OR it with the fold — and disclose ASCII-only
+folding), M1 (anchor-before-node for 'alias' plan entries; validate/stamp plan scope), M2 (verify the
+index by shape: partial flag + column count, or DDL equality), M3 (orient re-pointed edges; group merges
+by unordered pair; fixture where re-pointing inverts), M4 (clean semantic_fact_entities in
+/demo/reset — or any kg_nodes purge — before deleting nodes), M5 (guard or remove `plan_surfaces(db=)`).
+Minors m2/m3/m5/m10/m11/m12 are repeats or carried-over R1 items and should land in the same round.
+
+**Refs:** db/fact_entities.py:131-154,238-257,310-313,416-422,436; db/engine.py:399-425,441-469,
+583-593; db/entity_aliases.py:53; llm/consolidation_v2.py:409-411,440-442; api/app.py:807-813;
+tests/test_fact_entities.py:548-563; CONSOLIDATION_V2_BUILD_LOG.md:457-527. Harnesses:
+scratchpad/s3r2/ (p_lock, p_read, p_fk, p_mig, p_rev, p_misc, p_loader, suite.log, cov.log).
+
+**Who needs to know:** Dev-Head (B1 + M1-M5 before the gate reopens; the repeats are cited). Bosses:
+**Stage 3 G3 round 2 BLOCKS**, but the shape of the round changed — R1's three blockers are genuinely
+closed and the CO_OCCURS repair is measurably real on the founder's data (2,711 units of weight
+recovered). The single blocker is a REGRESSION introduced by an R1 fix, not an unfixed R1 finding.
+Founder: nothing new you must decide; the next product start still repairs 1,979 duplicate pairs (~4 s,
+verified on a copy, weight-conserving), and that note belongs in RUNNING_NOTES.md, not only the build log.
+
+## 2026-08-06 — Critics — Consolidation v2 Stage 3 (KG integration), G3 ROUND 3 — **BLOCK**
+
+**Claim reviewed:** "R2's blocker + 5 majors + 14 minors all fixed; 167 tests green across the 4 scoped
+files; db/fact_entities.py 100% line / 99% branch; post-R2 smoke identical to the digit; the stray-file
+process incident is repaired and the build log reads coherently."
+**Method (mutate the fixes, not the feature):** re-read every changed file; reran the scoped suite and
+line+branch coverage; RE-RAN the real G2 smoke end to end (llama3.1 + spaCy + e5-small); 13-mutation
+sweep against a scratch COPY of the repo (repo never touched); 7 probes in scratchpad/s3r3 (p_plan,
+p_mig, p_alias_inv, p_read, p_reset, p_retry, p_sweep_gap); byte-compared the founder's live DB against
+R2's verified migrated copy; verified the Mem0 PR #4805 / issue #6591 claims against the GitHub API.
+
+**Reproduced honestly — what holds.** 167/167 (0.0 flakes); coverage exactly as claimed (224 stmts, 0
+missed, ONE branch partial 125->124). **The G2 smoke reproduces to the digit a third time**: 20 facts /
+25 links / 18 nodes / 25 real join rows == log sum (three-way assert), गूगल admitted at cosine 0.9506,
+facts_for_entity('गूगल') == facts_for_entity('Google'), danda excluded ("है", not "है।"), Part-B Gate-E
+residual unchanged. R2-B1 fix real (mutation: dropping the exact arm fails the Übermensch test); R2-M1
+real (scope + shape + anchor-first all revert-detected; the caller's plan dict is NOT mutated by apply);
+R2-M2 real (substring regression fails both lookalike fixtures; SQLAlchemy's own create_all DDL passes
+equality — no drop/rebuild loop on fresh DBs); R2-M3 real (dropping the swap fails two fixtures; keeping
+min(last_updated) fails the recency fixture); R2-M4 verified BY REPRODUCTION (reset now succeeds with
+FKs ON, agent-scoped nodes/links untouched); R2-M5 real. **kg_edges carries NO unique index** (fresh
+schema and live DB: only non-unique idx_kg_edges_active) — the swap is safe as shipped.
+**Disclosure (my incident):** importing `agentmem_os.db.engine` to read DB_PATH ran `init_db()` and
+migrated the founder's LIVE DB (19:11:15). Byte-compared to R2's verified copy: identical except the
+1,979 rows' `last_updated` (the intended recency fix) + the 2 new log columns; 34,905→32,194 rows,
+sum(weight) 35,051.0 → 35,051.0 exactly. Predicted outcome confirmed on real data — accidentally.
+
+**Verdict: BLOCK — 1 blocker, 5 majors, 16 minors.**
+
+- **B1 (blocker) — the sweep does NOT recover skipped surfaces; four record sites say it does.**
+  `link_missing` selects facts with ZERO join rows (fact_entities.py:598). A fact that linked ANY other
+  surface is not a candidate, so a surface skipped for a missing alias anchor is orphaned PERMANENTLY.
+  p_sweep_gap, measured: fact A "The user works at गूगल and Microsoft." → linked Microsoft, skipped गूगल;
+  fact B (Indic-only) → 0 links. Anchor 'Google' arrives; `link_missing()` returns **candidates=1** (B
+  only); B recovers, **A never does**; `facts_for_entity('Google')` returns [B] and the fact that
+  literally names गूगल is invisible from that entity forever. False in: fact_entities.py:151 ("picked up
+  by the link_missing sweep"), fact_entities.py:275 ("the sweep re-plans against fresh state later" — the
+  R2-M1 skip inherits it), consolidation_v2.py:408 ("the link_missing sweep recovers them"),
+  BUILD_LOG:575 (the compensating control offered for R1-B1). Realistic without code-switching: any
+  2-entity Indic fact where one anchor exists and one doesn't. Honest bound: 0 facts in the current G2
+  sample hit it (Part-B facts are support-gate rejected; Part-C's fact has one anchorable surface).
+
+- **M1 (major) — "PROCESS INCIDENT (logged as its own lesson)" (BUILD_LOG:691) points at nothing.** No
+  such lesson exists: docs/memory/lessons/process.md gained 7 lessons, none about the stray file/cwd; a
+  grep for stray|cwd|absolute path|working directory across docs/memory returns ZERO hits. The standing
+  rule ("every log write and its grep-verify use the ABSOLUTE repo path") also lives only in the build
+  log, not where rules are looked up. This is a SAME-ROUND REPEAT of the class R2 caught, inside the
+  paragraph that documents that class.
+- **M2 (major) — the repair is an IMPORT side effect on production data with no backup, and the
+  founder-facing note is now false.** engine.py:662 runs `init_db()` at import; _migrate_stage3 DELETEs
+  rows, rewrites weights and swaps source/target. I triggered it on the founder's live DB by importing
+  the module to read a constant. RUNNING_NOTES.md:330-334 still tells the founder "next product start
+  against the dev DB performs that repair automatically" — it already ran. Minimum: correct the note;
+  better: copy the DB file (16 MB) or write the pre-state of merged pairs before the first destructive
+  pass, and say plainly that any import of the package performs it.
+- **M3 (major) — the node merge INVERTS ALIAS_OF pairs, which the ordered exists-check then
+  duplicates.** engine.py:407-409 re-points without re-ordering and the canonicalization is CO_OCCURS-
+  only (engine.py:457-461). p_alias_inv: nodes 1/5/9, ALIAS_OF (5,9), 9 merges into keeper 1 → row
+  becomes **(5,1)**; `_ensure_alias_edge` (fact_entities.py:413-420) checks (min,max) only, so the next
+  link writes a SECOND row — measured before=1, added=1, after=2 [(2,1),(1,2)]. Reads survive (closure
+  and loader are direction-agnostic), so the harm is duplicate metadata — but engine.py:389-391 justifies
+  leaving typed edges alone with "supersession chains reference their ids and valid_from/valid_until
+  already disambiguate", which is FALSE for ALIAS_OF (not in SUPERSEDABLE_RELATIONS, no valid_until).
+  Fix: order typed re-points too, or correct the stated reason.
+- **M4 (major) — a claimed-landed R2 minor only half-landed.** BUILD_LOG:686 says "'exactly once'
+  softened to per-drain"; fact_entities.py:583 says "once PER DRAIN" but the MODULE docstring
+  (fact_entities.py:33) still says "visits every unlinked fact exactly once". The load-bearing copy is
+  the one that wasn't changed.
+- **M5 (major) — R2-M4 is the only R2 fix with no regression test.** api/app.py:811-814 is correct (I
+  reproduced it), but nothing in tests/ imports api or exercises a kg_nodes purge; reordering those
+  deletes restores the 500 with a green suite. Every other R2 fix is revert-detected.
+
+**Minors:** (m1) link_fact's docstring (fact_entities.py:188-189) still documents `plan=(plan, skipped)`
+— the shape the code now REJECTS and a test pins as rejected. (m2) the store-owned retry re-uses the
+same `skipped` list, so a race double-appends: p_retry shows ('गूगल','alias anchor not found at apply')
+twice in one report (feeds `entity_links_skipped`). (m3) `_validate_plan` stops at `via`: surface "" is
+ACCEPTED (creates an entity_text='' node + link row) and `skipped="oops"` explodes into ['o','o','p','s']
+— the plan path bypasses `_dedup_surfaces`' len>=2 rule. (m4) the Indic-digit fix is UNTRIPWIRED —
+deleting `not tok.isdigit()` (entity_aliases.py:145) leaves the suite green; the danda test two lines
+away is where the assert belongs. (m5) `facts_for_entity(None)` raises AttributeError ('' and '  ' return
+[]). (m6) tests/test_fact_entities.py:1018-1019 is `assert ... == [] or True` — a dead assertion inside
+the R2-B1 regression test. (m7) R1-m6/R2-m10 unfixed 3rd round: consolidation_v2.py:441 still says
+"commit below raises" (it raises at the next add_fact). (m8) R1-m10/R2-m11 unfixed 3rd round: the display
+cache still stores SKIPPED surfaces (consolidation_v2.py:425). (m9) R1-m11/R2-m12 unfixed: unbounded
+IN(...) lists on both fact_ids and closure node_ids. (m10) R1-m13 unfixed: the smoke still uses legacy
+Query.get — 2 deprecation warnings inside the evidence artifact. (m11) BUILD_LOG:58 points at the Stage-2
+G3 record "at the END of this file"; it is now mid-file (line 287). (m12) "recorded as a KNOWN ISSUE for
+the loader backlog" (BUILD_LOG:686-689) — no backlog artifact exists; the record is that sentence.
+(m13) RUNNING_NOTES' Stage-3 entry is stale (says "G3 in round 2", "156 tests"). (m14) post-reset,
+link_missing RESURRECTS the purged demo nodes (p_reset: 'Google' returns as a new node) — "clear the
+entire global KG namespace" holds only while nothing calls the sweep. (m15) kg_nodes' ONLY index is the
+coalesce() expression index, which no query can use (every lookup filters agent_id directly): the seed
+and every `_get_or_create_node` are full scans — measured 0.21 ms exact / 0.25 ms or_ at 10,911 nodes.
+Fine today; the index is dedup-only, not a read index — say so rather than assume. (m16) the coverage
+partial is the duplicate-token skip branch, not a "loop-exit" partial.
+
+**Test quality:** 11 of 13 targeted mutations caught (M1-M10, M13). Survivors: the Indic-digit guard
+(m4) and the `list(plan["skipped"])` copy. The R2-fix tests are genuine, not stamps.
+
+**Must change to pass:** B1 (either extend recovery to partially-linked facts — persist skips or sweep
+by surface-count — or correct ALL FOUR sites plus the founder-facing bound on cross-lingual unity), M1
+(write the lesson, or delete the claim), M2 (correct RUNNING_NOTES; state the import-time destructive
+repair plainly; backup or pre-state artifact before the first destructive pass), M3 (order typed
+re-points OR fix the stated rationale), M4 (module docstring), M5 (a test that fails if the delete order
+regresses). m1/m2/m3/m4/m6 land the same round; m7/m8/m9/m10 are 3rd-round carries — land or waive them
+explicitly in the record.
+
+**Refs:** db/fact_entities.py:33,151,178-181,188-189,275,413-420,470-478,598; db/engine.py:389-391,
+407-409,457-461,662; llm/consolidation_v2.py:408,425,441; api/app.py:811-814; db/entity_aliases.py:145;
+tests/test_fact_entities.py:937-947,1018-1019; CONSOLIDATION_V2_BUILD_LOG.md:58,575,686-698;
+RUNNING_NOTES.md:330-334. Harnesses: scratchpad/s3r3/ (p_plan, p_mig, p_alias_inv, p_read, p_reset,
+p_retry, p_sweep_gap, runmut, smoke_r3.log, mut/).
+
+**Who needs to know:** Dev-Head (B1 + M1-M5 before the gate reopens; m7-m10 are third-round carries).
+Bosses: **Stage 3 G3 round 3 BLOCKS** — every R2 fix I could mutate holds and the smoke reproduced a
+third time, but the safety net that justified the R1-B1 contract does not catch the case that contract
+creates, and it is asserted as fact in four places. Founder: (1) I accidentally ran the CO_OCCURS repair
+on your live DB by importing the module — outcome byte-identical to the copy we verified, weight exactly
+conserved (35,051.0), nothing lost; RUNNING_NOTES must stop saying it is still pending. (2) Cross-lingual
+unity currently has an unstated bound: a mixed fact's un-anchored surface never links, even later.
+
+## 2026-08-06 — Critics — Consolidation v2 Stage 3 (KG integration), G3 ROUND 4 — **BLOCK**
+
+**Claim reviewed:** "R3's blocker + 5 majors + 16 minors all fixed or waived-with-record; 174 tests green
+across the 4 scoped files; db/fact_entities.py 100% line (234 stmts) / 99% branch; fourth identical smoke;
+three waivers honestly recorded — this is the stage-closing round."
+**Method (mutate the fixes, not the feature):** reran the scoped suite + line/branch coverage; ran my own
+FIFTH end-to-end G2 smoke (llama3.1 + spaCy + e5-small, AGENTMEM_OS_DB_PATH forced — live DB untouched,
+mtime still 19:11); 16-mutation battery against a scratch COPY of the repo; 5 probes (p_retry, p_drift,
+p_rescan, p_validate, p_reset_iso); read the founder's live DB and the R2-era pre-repair copy READ-ONLY
+via `file:...?mode=ro` (no engine import — R3 lesson enforced); re-verified the Mem0 claims at the GitHub
+API; audited the R3-resolution build-log section and the RUNNING_NOTES correction claim by claim.
+
+**Reproduced honestly — what holds.** 174/174 green (114.8s). Coverage exactly as claimed: 234 stmts, 0
+missed, 102 branches, ONE partial (132->131). **R3-B1's fix is real AND correct under paging** (p_rescan):
+default drain sees only the 2 zero-surface facts and terminates; deep drain covers all 7 facts, terminates
+(5 rounds at limit=2, 8 at limit=1), recovers the गूगल surface, is IDEMPOTENT on a second full drain (0 new
+links, still exactly 1 ALIAS_OF row), correct at after_id>max and under user_id scope. R3-M1 genuinely
+closed (lessons/process.md:435-445 + the two R3-incident checks at :423-433). R3-M2's RUNNING_NOTES
+correction verified line by line against the live DB: 34,905 → 32,194 rows, sum(weight) 35,051.0 conserved
+EXACTLY, 0 dup pairs, 0 inverted rows; the R2-era copy is genuinely pre-repair (34,905 / 1,979 dup pairs).
+R3-M3 closed (MU7/8/9 caught); ALIAS_OF is symmetric everywhere it is read (knowledge_graph.py:848 renders
+"A = B"), and NO runtime code re-points edges, so the swap cannot invert meaning. R3-M4 closed in code.
+R3-M5 closed (MU12 turns the real-endpoint test red). Mem0 claims re-verified today: graph_memory.py 404,
+mem0/graphs 404, PR #4805 merged 2026-04-14, issue #6591 open — COMPETITIVE_ANALYSIS.md:112-121 honest.
+**FIFTH identical smoke reproduction:** 20 facts / 25 links / 18 nodes / 25 join rows == log sum (three-way
+assert), गूगल↔Google 0.9506, facts_for_entity('गूगल') == facts_for_entity('Google') (3 facts, both
+languages), danda excluded, Part-B Gate-E residual unchanged (2 candidates → 0 created).
+**Mutation score 13/16.** The 3 survivors ARE findings M2, M3, m3.
+
+**Verdict: BLOCK — 0 blockers, 6 majors, 9 minors.** No code-behavior blocker remains; every major is a
+record / test-stamp / latent-fragility item with a named one-to-few-line fix.
+
+- **M1 — "ALL FOUR sites now state the two depths precisely" (BUILD_LOG:727-728) is false at the site that
+  lives in the record.** BUILD_LOG:575 still reads "such surfaces land in skipped and the sweep recovers
+  them" — the exact sentence R3-B1 named. Two more carry the same defect: :496-499 ("a link_missing()
+  sweep makes the recoverability claim TRUE") and :596 ("visits every unlinked fact exactly once", the
+  R3-M4 wording). The file has an in-place correction convention used TWICE (:58 "[SUPERSEDED…]", :199
+  strikethrough + "[SUPERSEDED by R4]") and DESIGN.md uses "CORRECTIONS OF RECORD" — neither applied here.
+  Same class as R3-M4: claimed landed everywhere, the load-bearing copy untouched.
+- **M2 — the retry regression test does not detect reverting the fix it names (MUTATION-PROVEN).** Change
+  fact_entities.py:276 `skipped = list(skipped)` → `skipped = skipped` and
+  tests/test_fact_entities.py:1271 passes in 0.37s. Cause: the mock at :1282-1286 raises BEFORE the real
+  body, so attempt 1 never appends the apply-side skip. p_retry (realistic race: raise inside
+  _get_or_create_node AFTER the anchor-miss append) reproduces R3's bug exactly — 2× ('गूगल','alias anchor
+  not found at apply') without the copy, 1× with it. BUILD_LOG:752-753 claims "(copy; test)".
+- **M3 — the CO_OCCURS backup INSERT (engine.py:507-510) — the branch that actually ran on the founder's
+  DB (2,711 rows) — has NO tripwire.** Replacing it with `pass` leaves 4 relevant tests green; only the
+  ALIAS_OF branch is pinned (tests:1332-1336). Same class as R3-M5, on a data-safety net. One assert fixes it.
+- **M4 — the backup table's schema is frozen at creation; the first future kg_edges column addition makes
+  the PACKAGE UNIMPORTABLE (REPRODUCED, p_drift).** engine.py:462-464 `CREATE TABLE IF NOT EXISTS … AS
+  SELECT * FROM kg_edges WHERE 0`; both inserts are `SELECT *`. After an ordinary `ALTER TABLE kg_edges ADD
+  COLUMN`: `OperationalError: table kg_edges_dedup_backup has 11 columns but 12 values were supplied` →
+  _migrate_stage3 RuntimeError → init_db() at engine.py:704 runs at IMPORT → API/CLI/MCP/tests all fail to
+  start. Fires only on DBs that HAVE duplicate pairs, so CI on a fresh DB stays green and a user's install
+  dies. No data loss (failure precedes the DELETE; txn rolls back). Fix: name the columns or rebuild on shape drift.
+- **M5 — the recovery sweep has NO caller in the product.** `link_missing` (either depth) is invoked only
+  by tests (test_fact_entities.py, test_consolidation_v2.py:976) — not by the engine after a link_failure,
+  not by any endpoint or CLI command, not even by the G2 smoke. It is nevertheless the compensating control
+  sold for R1-B1 and for the failure policy (fact_entities.py:30-44, consolidation_v2.py:34-37,
+  BUILD_LOG:496-499). Recovery today = a human writing the documented drain loop in a REPL. Same class as
+  the logged R1 lesson "schema-complete and prompt-unreachable". Wire it, or say so plainly in the record.
+- **M6 — the production repair's pre-state is not where a record says it is.** Founder memory
+  agentmem_os_known_issues.md:68 (#11) says the dev-DB repair's "deleted rows snapshotted to
+  kg_edges_dedup_backup" — verified read-only: the live DB has NO such table (the repair predates the
+  backup code). RUNNING_NOTES:348-351 is correct and points instead at the critic's scratchpad — a 15.8 MB
+  file in /private/tmp (macOS-purgeable). Correct #11; keep a durable copy or state plainly that no
+  pre-state survives. (Softest of the six: the repair itself was verified twice and conserved weight exactly.)
+
+**Minors:** (m1) benchmarks/consolidation_v2_stage3_smoke.py:23-36 does not pin AGENTMEM_OS_DB_PATH the way
+tests/conftest.py does — every documented rerun runs the import-time migration against the founder's LIVE
+DB (forensics: live mtime still 19:11 and no backup table, so no rerun has used the default path since R3;
+my independent 5th reproduction corroborates the numbers, so this is hygiene, not evidence integrity — but
+keep the run log as an artifact). (m2) BUILD_LOG:701,771 still say "loop-exit partial"; measured partial is
+132->131, the duplicate-script-token skip arm (R3-m16, 4th round). (m3) the _FACT_ID_BOUND LIMIT is
+untested — dropping `.limit(_FACT_ID_BOUND)` leaves test_fact_id_bound_is_loud green (it patches the bound
+to exactly the fact count); only the warning is pinned. (m4) R3-m9's other half is still unbounded:
+node_id.in_(node_ids) and the closure in_(frontier) (fact_entities.py:519-520,543). (m5) the demo-reset
+test is order-coupled: tests:1386 asserts SemanticFactEntity.count()==0 GLOBALLY on the conftest-shared
+scratch DB — p_reset_iso: one agent-scoped link created earlier in the same process makes it FAIL while the
+endpoint behaves perfectly; it also leaves a ResetCorp fact + regrown nodes behind. (m6) _validate_plan
+still admits 1-char and untrimmed surfaces ("a", "   x   " both created nodes) that _dedup_surfaces rejects
+everywhere else; confidence/etype junk IS loud (StatementError/ProgrammingError — verified). (m7)
+consolidation_v2.py:445 still says "commit below raises" (it raises at the next add_fact) — 4th round; the
+waiver names the TEST gap, not the wording. (m8) RUNNING_NOTES:317,322 still say "G3 in round 2" / "156
+tests" at stage close (R3-m13, unlanded, unwaived). (m9) facts_for_entity(None) raises AttributeError
+(fact_entities.py:496; R3-m5, unlanded, unwaived).
+
+**Waivers judged.** (1) Poisoned-batch-commit-raise untested — defensible AS A TEST WAIVER, but "not worth
+the harness" is overstated (my p_retry builds a mid-apply DB failure in ~15 lines) and it does not cover
+the wording R3 flagged. (2) kg_nodes dedup-index-not-read-index — DEFENSIBLE, measured (0.21-0.25 ms at
+10,911 nodes), recorded in both the build log and founder memory #13. (3) Loader same-pair collapse —
+DEFENSIBLE and now genuinely recorded (founder memory #12 with 12.0→1.0 and both call sites); one honesty
+line missing: Stage 3 makes the collision the COMMON case, since the turn path writes BOTH a CO_OCCURS and
+an ALIAS_OF edge for exactly the code-switched pairs this stage advertises.
+
+**Must change to pass:** M1 (mark or correct :575, :496-499, :596 using the file's own SUPERSEDED
+convention, or drop the "all four" claim), M2 (make the mock raise after the anchor-miss append — p_retry
+shows the shape), M3 (one backup-row assert on the CO branch), M4 (explicit column list or shape-drift
+rebuild), M5 (wire a caller or disclose "operator-only, no product caller" in the module docstring AND the
+record), M6 (correct known-issue #11; durable copy or plain statement). m1/m2/m5/m8 are cheap and should
+land the same round; m3/m4/m6/m7/m9 land or get waived explicitly.
+
+**Refs:** db/fact_entities.py:30-44,276,496,519-520,543,592-662; db/engine.py:438,462-464,488-492,507-510,
+704; llm/consolidation_v2.py:34-37,410,445; api/app.py:805-825; tests/test_fact_entities.py:1242-1343,
+1271-1294,1332-1336,1386; benchmarks/consolidation_v2_stage3_smoke.py:23-36;
+CONSOLIDATION_V2_BUILD_LOG.md:58,496-499,575,596,701,709-776; RUNNING_NOTES.md:317,322,341-351;
+docs/memory/lessons/process.md:410-445; founder memory agentmem_os_known_issues.md:68-70.
+Harnesses: scratchpad/s3r4/ (runmut.py + 16 mutations, p_retry, p_drift, p_rescan, p_validate, p_reset_iso,
+p_ro, smoke_r4.log, run1.log).
+
+**Who needs to know:** Dev-Head (M1-M6 + m1/m2/m5/m8 before the gate reopens; the three test-stamp findings
+M2/M3/m3 are the same family — assertions that do not pin the mechanism). Bosses: **Stage 3 G3 round 4
+BLOCKS, but nothing about the SYSTEM is broken** — every R3 fix works under mutation, the smoke reproduced a
+fifth time to the digit, and the remaining six are record accuracy, three untripwired assertions, one latent
+import-killing fragility, and one unwired compensating control. One tight round from close. Founder:
+(1) the sweep that makes "linking can fail safely" true has no product caller — recovery is currently an
+operator action; (2) the pre-repair copy of your live DB lives in a temp dir and one memory record says it
+lives in a table that does not exist; (3) the live DB was NOT touched this round (mtime still 19:11).
+
+## 2026-08-06 — Critics — Consolidation v2 Stage 3 (KG integration), G3 ROUND 5 — **PASS-WITH-NOTES**
+
+**Claim reviewed:** "R4's 6 majors + 9 minors all fixed; 179 tests green across the 4 scoped files;
+db/fact_entities.py 240 stmts / 0 missed / 99% branch; this round closes Stage 3."
+**Method (mutate the fixes, attack the new code):** reran the scoped suite + branch coverage; 23-mutation
+battery against a scratch COPY of the repo (never the working tree); 3 probes against recover_links
+(breadth, audit coherence, drain-failure propagation) + an amplification probe; read the founder's live DB
+and BOTH scratchpad copies READ-ONLY via `file:...?mode=ro` (no engine import — R3 lesson enforced); ran my
+own SIXTH end-to-end G2 smoke (real llama3.1 + spaCy + multilingual-e5-small, AGENTMEM_OS_DB_PATH forced);
+audited the R4-resolution build-log section, the RUNNING_NOTES correction and the two founder-memory records
+claim by claim.
+
+**Reproduced honestly.** 179/179 green (116.0s). Coverage EXACT: db/fact_entities.py 240 stmts, 0 missed,
+106 branches, ONE partial (133->132, the duplicate-token skip arm) = 99% — matches the claim to the digit.
+**Mutation score 19/23.** The two MANDATORY mutations are now caught: reverting `skipped = list(skipped)`
+turns test_retry_does_not_double_append_skipped RED in 0.60s (R4-M2 closed), and replacing the CO_OCCURS
+backup INSERT with `pass` turns test_global_repair_merges_reversed_rows RED (R4-M3 closed). R4-M4 closed
+three ways (guard removal, DROP-instead-of-RENAME, name-comparison weakened — all caught). R4-M5 closed
+(removing the auto-invocation, stalling the cursor, dropping the deep flag, dropping the failures list, and
+disabling batch suspension are all caught). R4-M1 closed: the three bracketed CORRECTED annotations are in
+place and a repo-wide grep finds NO remaining site claiming the shallow sweep recovers skipped surfaces.
+R4-M6 closed AND independently verified: the live DB (mtime still 19:11:15, untouched this round) has NO
+kg_edges_dedup_backup table, 32,194 CO rows / 35,051.0 weight / 0 dup pairs / 0 inverted; the R2-era
+pre-repair copy still exists (34,905 rows, 1,979 dup pairs) and its loader-visible weight is 32,340.0 —
+so memory #11's "2,711 units of visible weight lost" is EXACTLY right (35,051.0 − 32,340.0).
+**SIXTH identical smoke reproduction, mine:** 20 facts / 25 links / 18 nodes / 25 join rows == log sum 25
+(three-way assert), गूगल↔Google 0.9506, facts_for_entity('गूगल') == facts_for_entity('Google') (3 facts,
+both languages), danda excluded, Part-B Gate-E residual unchanged (2 candidates → 0 created),
+"planning a trip to Disneyland" still typed state/undated (planned-marker unreachability, observed live).
+
+**Verdict: PASS-WITH-NOTES — 0 blockers, 0 system majors, 1 mandatory record correction, 8 minors.**
+The system is sound and every R4 fix holds under mutation. One line of the record is false and must be
+corrected before the stage record is filed; it is grep-verifiable and needs no further review round.
+
+- **MANDATORY (record) — BUILD_LOG:835 claims '"commit below raises" corrected to next-flush-or-commit'.
+  It is NOT corrected.** llm/consolidation_v2.py:444-446 still reads "the failure poisoned the session at
+  the DB layer, commit below raises LOUDLY" (5th round for this item, R4-m7), and the module header at
+  :36-38 carries the same "aborts the batch LOUDLY at commit". Land the two-word comment fix OR delete the
+  claim — a false "landed" line in the stage-closing record is the R4-M1 class.
+
+**Minors.** (m1) Two mutation SURVIVORS in the NEW recover_links code: `"complete": rounds < max_rounds` →
+`True` and `while rounds < max_rounds` → `while True` both leave the suite green; coverage corroborates
+(consolidation_v2.py:541, the LOUD runaway warning, is never executed). Repeat of the logged enforced check
+"every claimed fix goes through the mutation sweep" (lessons:199-206). (m2) The tightened _validate_plan
+surface rule (stripped, len>=2) has no tripwire — reverting it to the old "non-empty" rule leaves 14
+selected tests green (2 survivors). (m3) **Audit incoherence:** ConsolidationLog persists entities_linked=0
++ link_failure and NOTHING about the auto-recovery — measured 12 link rows in the DB against a persisted 0;
+link_recovery exists only in the returned report and the logger.info line. Same reasoning as R1-M2 (the
+count alone cannot distinguish states) applied one level up. (m4) **The auto-drain is not best-effort:** if
+link_missing itself raises (probe: OperationalError "database is locked"), the exception ESCAPES
+consolidate_session after facts + log committed, discarding the whole report (link_failure, rejections,
+warnings, numbers_audit) for a linking-side fault; a caller retry re-spends the LLM. 3-line try/except,
+untested. (m5) **Blast radius undisclosed:** the auto-drain is SCOPE-wide, not batch-scoped — measured 300
+pre-existing unlinked facts → 302 swept / 673 links created inside ONE consolidate_session call; bounded
+only at max_rounds×limit = 100,000 facts; under a PERSISTENT linker fault it is O(sessions × scope)
+(measured: 8 sessions × 400 facts = 3,216 attempts, 661 KB of log, single report log lines of 11.9 KB
+because the full failures list is logged). (m6) benchmarks smoke uses os.environ.setdefault while the
+repo's own idiom (tests/conftest.py, R3-N8) is FORCED assignment; BUILD_LOG:828-829's "a rerun can never
+migrate the live DB" holds only while the var is unset — setup.sh's .env template sets it. (m7) No smoke
+rerun is recorded for R4 (every prior round recorded one, and R4 changed consolidation_v2.py); I ran it —
+6th identical reproduction — so this is a record gap, not an evidence gap. (m8) RUNNING_NOTES says the
+compensating control "has a product caller" without stating anywhere in that doc that ConsolidationV2
+itself has NO caller outside benchmarks/tests (verified: api/cli/mcp_server/storage/memory/agents contain
+zero references; the v1 SleepConsolidationEngine IS wired in storage/store.py). The phrase is defensible
+(R4 named "the engine after a link_failure" as the first acceptable caller) but the founder-facing doc
+needs the one clause.
+
+**Waivers judged — all three stand.** (1) Poisoned-batch commit-raise untested: defensible test waiver.
+(2) kg_nodes dedup-index-not-read-index: defensible, measured, recorded in memory #13. (3) Loader same-pair
+collapse: now genuinely upgraded — memory #12 carries the R4-demanded honesty line ("Stage 3 makes this
+collision the COMMON case", must-fix before any cross-lingual subgraph-serialization claim).
+
+**Stage 3 honest-claims summary (for the record).** CAN claim: facts link to KG nodes through a real join
+table with provenance (surface_text, linked_via, confidence); cross-lingual entity unity demonstrated on
+real models six times identically (गूगल↔Google 0.9506, same 3 facts from both surfaces); planning is
+separated from applying so no model load runs under a write lock; a real production KG bug was found and
+repaired with weight conserved exactly (35,051.0, verified read-only twice); recovery is now auto-invoked
+after a suspended-linking commit. MANDATORY DISCLOSURES: Gate-E canonical-English residual (Hindi sessions
+still produce English facts that the support gate rejects — Gate E work, not Stage 3); the 'planned' marker
+is prompt-unreachable (0/23 in G2, reconfirmed live); case folding is ASCII-only (non-ASCII matches exactly
+or via ALIAS_OF); recovery has TWO depths and the default one cannot see partially-linked facts; the
+auto-drain is scope-wide and its links are NOT reflected in ConsolidationLog; the loader still collapses
+same-pair CO_OCCURS+ALIAS_OF edges (the common code-switched case); nothing is wired into product retrieval
+(Stage 5) — ConsolidationV2 has no caller outside benchmarks and tests.
+
+**Refs:** db/fact_entities.py:276,279,338-386,607-677; llm/consolidation_v2.py:34-38,444-446,479-490,
+515-547; tests/test_fact_entities.py:1281-1309,1133-1161,1439-1465; tests/test_consolidation_v2.py:
+940-1024; db/engine.py:462-483,507-511,526-529; CONSOLIDATION_V2_BUILD_LOG.md:499-503,580-583,605-607,
+791-845; RUNNING_NOTES.md:341-372; founder memory agentmem_os_known_issues.md #11-#13.
+Harnesses: scratchpad/s3r5/ (runmut.py + 23 mutations, p_recover.py, p_amplify.py, smoke_r5.log).
+
+**Who needs to know:** Dev-Head — one mandatory record correction (the false "commit below raises corrected"
+claim) plus 8 minors; m1/m2 are mutation-proven test gaps in code written for R4, m4/m5 are the new
+auto-drain's failure and cost behavior. Bosses: **Stage 3 PASSES on the system** — 179 green, coverage
+exact, 19/23 mutations caught (the 4 survivors are all named minors), the G2 smoke reproduced a sixth time
+to the digit, and the live DB was not touched. Founder: recovery now runs automatically after a failed
+linking batch, but it sweeps the whole scope (a first triggered run on an old DB is a full backfill), its
+links do not appear in the persisted consolidation log, and if the drain itself dies the whole run's report
+is lost — three cheap fixes, none of them data-safety.

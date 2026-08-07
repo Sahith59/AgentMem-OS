@@ -104,6 +104,118 @@ def _build_relation_patterns() -> List[Tuple["re.Pattern", str]]:
     return patterns
 
 
+# ──────────────────────────────────────────────────────────────────────────
+# Entity extraction — MODULE-LEVEL so every consumer (turn ingestion here,
+# the Stage-3 fact→entity linker in db/fact_entities.py) extracts from the
+# SAME NER configuration into the SAME entity space. A second extractor
+# with drifted TARGET_TYPES would silently split the node space in two.
+# ──────────────────────────────────────────────────────────────────────────
+
+_shared_nlp = None
+
+# Target entity types (unchanged from the original class-level extractor)
+_TARGET_TYPES = {
+    "PERSON", "ORG", "PRODUCT", "GPE",        # High signal
+    "WORK_OF_ART", "EVENT", "LANGUAGE",        # Medium signal
+    "FAC", "LOC",                              # Location
+}
+
+
+def _get_shared_nlp():
+    """Lazy-load the shared spaCy model (module-wide singleton — the
+    ~50MB pipeline must never load once per consumer)."""
+    global _shared_nlp
+    if _shared_nlp is None:
+        import spacy
+        try:
+            _shared_nlp = spacy.load("en_core_web_sm")
+        except OSError:
+            raise RuntimeError(
+                "spaCy model not found. Run: python -m spacy download en_core_web_sm"
+            )
+    return _shared_nlp
+
+
+def extract_entity_mentions(text: str) -> List[Tuple[str, str]]:
+    """
+    (entity_text, entity_type) pairs via spaCy NER, filtered to
+    _TARGET_TYPES, deduplicated casefold, regex heuristic fallback when
+    spaCy is unavailable. This IS the former
+    EntityKnowledgeGraph._extract_entities body, verbatim behavior.
+    """
+    try:
+        nlp = _get_shared_nlp()
+        doc = nlp(text[:5000])  # cap at 5k chars for speed
+        entities = []
+        seen = set()
+        for ent in doc.ents:
+            if ent.label_ in _TARGET_TYPES:
+                clean = ent.text.strip()
+                if len(clean) >= 2 and clean.lower() not in seen:
+                    seen.add(clean.lower())
+                    entities.append((clean, ent.label_))
+        return entities
+    except Exception:
+        return _extract_entities_regex_fallback(text)
+
+
+def _extract_entities_regex_fallback(text: str) -> List[Tuple[str, str]]:
+    """
+    Fallback entity extractor: finds capitalized word sequences as proxies
+    for named entities when spaCy is unavailable.
+
+    Handles two cases:
+      • Normal multi-word entities ("New York", "Sam Altman") — kept intact
+        as a single entity by the greedy match, deduplicated by first word.
+      • Pathological input ("Alice Alice Alice Google") — the greedy matcher
+        swallows everything into one string.  Detected by presence of repeated
+        words inside the match; handled by emitting each unique unseen word
+        as its own entity so deduplication still works correctly.
+    """
+    pattern = re.compile(r'\b([A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+)*)\b')
+    matches = pattern.findall(text)
+
+    stopwords = {"The", "This", "That", "With", "From", "When", "What"}
+    seen_words: set = set()
+    entities: List[Tuple[str, str]] = []
+
+    for m in matches:
+        if len(m) <= 2:
+            continue
+
+        words = m.split()
+        unique_words = list(dict.fromkeys(words))   # deduplicate, preserve order
+        is_pathological = len(unique_words) < len(words)
+
+        # Strip stopwords from the beginning of the match; if nothing useful
+        # remains (e.g. "The This That") skip the match entirely.
+        meaningful = [w for w in unique_words if w not in stopwords and len(w) > 2]
+        if not meaningful:
+            continue
+
+        if is_pathological:
+            # Greedy match ate repeated words (e.g. "Alice Alice Alice Google").
+            # Emit each unique, unseen, meaningful word as its own entity.
+            for word in meaningful:
+                if word not in seen_words:
+                    seen_words.add(word)
+                    entities.append((word, "UNKNOWN"))
+        else:
+            # Normal multi-word entity ("New York") or single word ("Alice").
+            # Filter if the lead word is a stopword; use first meaningful word
+            # as the canonical representative if needed.
+            canonical = next((w for w in words if w not in stopwords and len(w) > 2), None)
+            if canonical and canonical not in seen_words:
+                seen_words.update(words)
+                # Rebuild the entity from the first meaningful word onward
+                # so "The New York" becomes "New York", not "The New York".
+                start = words.index(canonical)
+                entity_text = " ".join(words[start:])
+                entities.append((entity_text, "UNKNOWN"))
+
+    return entities[:15]
+
+
 class RelationMention:
     __slots__ = ("subject", "relation_type", "object_", "confidence")
 
@@ -149,7 +261,6 @@ class EntityKnowledgeGraph:
 
     def __init__(self, get_db_session):
         self.get_db = get_db_session
-        self._nlp = None
         self._graph: nx.Graph = nx.Graph()  # In-memory graph; synced with DB
         self._loaded_agents: Set[str] = set()
 
@@ -239,17 +350,23 @@ class EntityKnowledgeGraph:
                     src_txt = text_a if id_a < id_b else text_b
                     tgt_txt = text_b if id_a < id_b else text_a
 
-                    # relation_type IS NULL — CO_OCCURS rows persist with a
-                    # NULL relation_type. Without this filter, .first() can
-                    # grab a typed WORKS_AT/ALIAS_OF edge between the same
-                    # node pair and silently increment ITS weight, corrupting
-                    # a fact edge's semantics with co-occurrence counts.
+                    # CO_OCCURS lookup must match BOTH storage shapes
+                    # (Stage-3 G3 R1 found the real bug): the ORM default
+                    # writes the STRING 'CO_OCCURS' on every insert —
+                    # 34,905/34,905 rows in the dev DB, zero NULL — so the
+                    # old IS-NULL-only filter never found the existing
+                    # edge and CREATED A NEW ROW PER CO-OCCURRENCE (1,979
+                    # duplicate pairs accumulated; the in-memory loader
+                    # then kept only the last row's weight). The filter
+                    # still excludes typed WORKS_AT/ALIAS_OF edges, whose
+                    # weight must never absorb co-occurrence counts.
                     edge = (
                         db.query(KnowledgeGraphEdge)
                         .filter(
                             KnowledgeGraphEdge.source_id == src,
                             KnowledgeGraphEdge.target_id == tgt,
-                            KnowledgeGraphEdge.relation_type.is_(None),
+                            (KnowledgeGraphEdge.relation_type.is_(None))
+                            | (KnowledgeGraphEdge.relation_type == "CO_OCCURS"),
                         )
                         .first()
                     )
@@ -662,89 +779,13 @@ class EntityKnowledgeGraph:
     # ──────────────────────────────────────────────────────────────────────────
 
     def _extract_entities(self, text: str) -> List[Tuple[str, str]]:
-        """
-        Extract (entity_text, entity_type) pairs using spaCy NER.
-        Filters to meaningful entity types only.
-        Falls back to regex heuristic if spaCy unavailable.
-        """
-        # Target entity types
-        TARGET_TYPES = {
-            "PERSON", "ORG", "PRODUCT", "GPE",        # High signal
-            "WORK_OF_ART", "EVENT", "LANGUAGE",        # Medium signal
-            "FAC", "LOC",                              # Location
-        }
-
-        try:
-            nlp = self._get_nlp()
-            doc = nlp(text[:5000])  # cap at 5k chars for speed
-            entities = []
-            seen = set()
-            for ent in doc.ents:
-                if ent.label_ in TARGET_TYPES:
-                    clean = ent.text.strip()
-                    if len(clean) >= 2 and clean.lower() not in seen:
-                        seen.add(clean.lower())
-                        entities.append((clean, ent.label_))
-            return entities
-
-        except Exception:
-            return self._extract_entities_regex(text)
+        """Delegates to the module-level shared extractor (Stage 3
+        refactor) — turn ingestion and the fact→entity linker must
+        extract into ONE entity space, byte-identically."""
+        return extract_entity_mentions(text)
 
     def _extract_entities_regex(self, text: str) -> List[Tuple[str, str]]:
-        """
-        Fallback entity extractor: finds capitalized word sequences as proxies
-        for named entities when spaCy is unavailable.
-
-        Handles two cases:
-          • Normal multi-word entities ("New York", "Sam Altman") — kept intact
-            as a single entity by the greedy match, deduplicated by first word.
-          • Pathological input ("Alice Alice Alice Google") — the greedy matcher
-            swallows everything into one string.  Detected by presence of repeated
-            words inside the match; handled by emitting each unique unseen word
-            as its own entity so deduplication still works correctly.
-        """
-        pattern = re.compile(r'\b([A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+)*)\b')
-        matches = pattern.findall(text)
-
-        stopwords = {"The", "This", "That", "With", "From", "When", "What"}
-        seen_words: set = set()
-        entities: List[Tuple[str, str]] = []
-
-        for m in matches:
-            if len(m) <= 2:
-                continue
-
-            words = m.split()
-            unique_words = list(dict.fromkeys(words))   # deduplicate, preserve order
-            is_pathological = len(unique_words) < len(words)
-
-            # Strip stopwords from the beginning of the match; if nothing useful
-            # remains (e.g. "The This That") skip the match entirely.
-            meaningful = [w for w in unique_words if w not in stopwords and len(w) > 2]
-            if not meaningful:
-                continue
-
-            if is_pathological:
-                # Greedy match ate repeated words (e.g. "Alice Alice Alice Google").
-                # Emit each unique, unseen, meaningful word as its own entity.
-                for word in meaningful:
-                    if word not in seen_words:
-                        seen_words.add(word)
-                        entities.append((word, "UNKNOWN"))
-            else:
-                # Normal multi-word entity ("New York") or single word ("Alice").
-                # Filter if the lead word is a stopword; use first meaningful word
-                # as the canonical representative if needed.
-                canonical = next((w for w in words if w not in stopwords and len(w) > 2), None)
-                if canonical and canonical not in seen_words:
-                    seen_words.update(words)
-                    # Rebuild the entity from the first meaningful word onward
-                    # so "The New York" becomes "New York", not "The New York".
-                    start = words.index(canonical)
-                    entity_text = " ".join(words[start:])
-                    entities.append((entity_text, "UNKNOWN"))
-
-        return entities[:15]
+        return _extract_entities_regex_fallback(text)
 
     # ──────────────────────────────────────────────────────────────────────────
     # Graph Serialization
@@ -963,13 +1004,6 @@ class EntityKnowledgeGraph:
             db.close()
 
     def _get_nlp(self):
-        """Lazy-load spaCy model."""
-        if self._nlp is None:
-            import spacy
-            try:
-                self._nlp = spacy.load("en_core_web_sm")
-            except OSError:
-                raise RuntimeError(
-                    "spaCy model not found. Run: python -m spacy download en_core_web_sm"
-                )
-        return self._nlp
+        """Delegates to the module-level shared model (Stage 3 refactor —
+        one ~50MB pipeline per process, not per consumer)."""
+        return _get_shared_nlp()

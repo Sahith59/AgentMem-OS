@@ -804,6 +804,18 @@ async def reset_demo(agentmem_session: str = "agentmem-demo", plain_session: str
 
         # Clear the entire global (agent_id IS NULL) KG namespace so no cross-session
         # entity bleed. All demo sessions share this namespace.
+        # Stage 3: fact→entity links reference kg_nodes with an enforced
+        # FK — they must go before the nodes (G3 R2 M4: this endpoint
+        # 500'd with a FOREIGN KEY error once any global-scope fact was
+        # linked). The facts themselves are NOT demo state and stay —
+        # consequence, by design: a later link_missing sweep re-creates
+        # nodes for the surviving facts' mentions. Reset purges the
+        # GRAPH, not the knowledge; regrowth from retained facts is the
+        # sweep doing its job (G3 R3 note, deliberate).
+        from agentmem_os.db.models import SemanticFactEntity
+        db.query(SemanticFactEntity).filter(SemanticFactEntity.node_id.in_(
+            db.query(KnowledgeGraphNode.id).filter(KnowledgeGraphNode.agent_id == None).scalar_subquery()
+        )).delete(synchronize_session=False)
         db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.source_id.in_(
             db.query(KnowledgeGraphNode.id).filter(KnowledgeGraphNode.agent_id == None).scalar_subquery()
         )).delete(synchronize_session=False)

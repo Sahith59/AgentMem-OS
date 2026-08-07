@@ -15,7 +15,7 @@ is solid. Companion docs: `CONSOLIDATION_V2_RESEARCH.md` (full research report),
 | 2 | Design + research | This doc; biology grounding; prior-art audit (TiMem found); claim boundaries | $0 | ✅ DONE 08-05 |
 | 3 | Gate A — facts contain the answers | Paid haiku extraction assembles hard-core answers raw turns can't; 8× denser | $0 | ✅ PASSED |
 | 4 | Gate B — local extractor quality | qwen2.5:14b 90.1% / llama3.1 91.2% number-preservation vs paid extraction | $0 | ✅ PASSED ×2 |
-| 5 | **BUILD the true semantic tier** (reordered 2026-08-06 per founder: build first, extract through the real pipeline after) | SemanticFact table + consolidation engine rewrite (distillation, not compression) + KG fed by facts through ALIAS_OF + per-fact supersession + facts-first retrieval + tests/smoke | $0, ~1 day dev | ⏳ FOUNDER GO |
+| 5 | **BUILD the true semantic tier** (reordered 2026-08-06 per founder: build first, extract through the real pipeline after) | SemanticFact table + consolidation engine rewrite (distillation, not compression) + KG fed by facts through ALIAS_OF + per-fact supersession + facts-first retrieval + tests/smoke | $0, ~1 day dev | 🔨 IN PROGRESS — Stage 1 (store) ✅ c774e9d · Stage 2 (engine) ✅ b6e7afc · Stage 3 (KG linking + event_status) in G2/G3 · Stages 4-6 (supersession judgment, retrieval, E2E) remain |
 | 6 | Cluster extraction — slice haystacks (3,631 sessions) through the REAL pipeline | The dataset for the proof, in the product's real schema; university GPU cluster (~<1h) — founder provides access; portable bundle prepped | $0 | after 5 |
 | 7 | Gate C-eval — 79q slice, real semantic tier as memory source | THE decision number: must beat raw turns' 0.519, else design is wrong → stop | ~$1.50 | ⏳ FOUNDER GATE |
 | 8 | Gate D — full 150 re-measure | New banked number vs 66.0% (and vs TiMem 76.88, honestly) | ~$3.50 | ⏳ FOUNDER GATE |
@@ -123,6 +123,21 @@ entities        — linked through the existing KG (ALIAS_OF-aware)
 lang_source     — original language of the source turn
 superseded_by   — nullable; per-fact supersession (generalizes SUPERSEDABLE_RELATIONS)
 ```
+**CORRECTIONS OF RECORD (2026-08-06, founder-resolved — the schema above
+is kept as written for history; the BUILT schema differs in three ways):**
+1. t_occurred's "else session date" is REVOKED — undated facts store
+   NULL. "When" is only ever a USER-STATED time; retrieval anchors on
+   t_mentioned. (§5.1 founder decision.)
+2. `event_status` column added (F7): events carry 'occurred' | 'planned'
+   ('planned' = occurrence start past the session date at mention time;
+   deterministic, single-sourced). Enum not boolean — RFC 5545 /
+   schema.org precedent; 'cancelled' reserved for Stage 4.
+3. `entities` (JSON) is a display cache ONLY; the query path is the
+   `semantic_fact_entities` join table (fact_id, node_id, surface_text,
+   linked_via, confidence — Stage 3), because SQLite cannot index JSON
+   array membership. Links point at the SURFACE-form node; cross-lingual
+   unity comes from ALIAS_OF traversal at read time (non-destructive by
+   design — τ=0.90 has a measured false positive).
 Every fact is inspectable end-to-end: fact → source turns → session. Nothing stored
 that cannot be traced. This is the transparency differentiator: publish the store.
 

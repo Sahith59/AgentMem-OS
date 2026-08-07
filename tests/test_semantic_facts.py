@@ -1050,3 +1050,90 @@ def test_migration_reports_on_healthy_db(tmp_path):
         assert "idx_kg_edges_active" in idx
     finally:
         eng.DB_PATH = original
+
+
+# ── Stage 3: event_status (F7, founder-resolved 2026-08-06) ──────────────────
+
+def test_event_defaults_to_occurred(store):
+    fact, _ = _add(store, "The user rode a rollercoaster.",
+                   fact_type="event", t_occurred="2023/05/19")
+    assert fact.event_status == "occurred"
+
+
+def test_planned_status_stored_when_passed(store):
+    fact, _ = _add(store, "The user attends the festival.",
+                   fact_type="event", t_occurred="2024/04/15",
+                   event_status="planned")
+    assert fact.event_status == "planned"
+
+
+def test_unknown_and_reserved_statuses_are_loud(store):
+    with pytest.raises(ValueError, match="event_status"):
+        _add(store, "The user attends the festival.", fact_type="event",
+             t_occurred="2024/04/15", event_status="bogus")
+    # 'cancelled' is Stage 4: a value the store accepts must have merge
+    # semantics, not reserved ones.
+    with pytest.raises(ValueError, match="Stage 4"):
+        _add(store, "The user attends the festival.", fact_type="event",
+             t_occurred="2024/04/15", event_status="cancelled")
+
+
+def test_status_on_non_event_is_loud(store):
+    with pytest.raises(ValueError, match="event axis"):
+        _add(store, "The user likes jazz.", fact_type="preference",
+             event_status="occurred")
+    # and non-events never get a default status
+    fact, _ = _add(store, "The user likes jazz.", fact_type="preference")
+    assert fact.event_status is None
+
+
+def test_status_not_in_dedup_hash_and_planned_upgrades(store):
+    # Same text + same event date, first stated BEFORE the date
+    # (planned), restated AFTER it (occurred): ONE row, upgraded.
+    f1, created = _add(store, "The user attends the SeaWorld festival.",
+                       fact_type="event", t_occurred="2024/04/15",
+                       t_mentioned="2024/04/01", event_status="planned")
+    assert created and f1.event_status == "planned"
+    f2, created2 = _add(store, "The user attends the SeaWorld festival.",
+                        fact_type="event", t_occurred="2024/04/15",
+                        t_mentioned="2024/04/20", event_status="occurred")
+    assert not created2
+    assert f2.id == f1.id
+    assert f2.event_status == "occurred"
+    assert f2.mention_count == 2
+
+
+def test_occurred_never_downgrades_to_planned(store):
+    f1, _ = _add(store, "The user attends the SeaWorld festival.",
+                 fact_type="event", t_occurred="2024/04/15",
+                 t_mentioned="2024/04/20", event_status="occurred")
+    f2, created = _add(store, "The user attends the SeaWorld festival.",
+                       fact_type="event", t_occurred="2024/04/15",
+                       t_mentioned="2024/04/01", event_status="planned")
+    assert not created
+    assert f2.event_status == "occurred"
+
+
+def test_null_status_row_backfills_on_reaffirmation(store, store_and_factory):
+    # A row written by pre-Stage-3 code against a migrated DB has
+    # event_status NULL — the next affirmation backfills it.
+    from agentmem_os.db.models import SemanticFact
+    _, SessionLocal, _ = store_and_factory
+    f1, _ = _add(store, "The user rode a rollercoaster.",
+                 fact_type="event", t_occurred="2023/05/19")
+    db = SessionLocal()
+    db.query(SemanticFact).filter(SemanticFact.id == f1.id).update(
+        {"event_status": None})
+    db.commit()
+    db.close()
+    f2, created = _add(store, "The user rode a rollercoaster.",
+                       fact_type="event", t_occurred="2023/05/19")
+    assert not created
+    assert f2.event_status == "occurred"
+
+
+def test_provenance_exposes_event_status(store):
+    fact, _ = _add(store, "The user attends the festival.",
+                   fact_type="event", t_occurred="2024/04/15",
+                   event_status="planned")
+    assert store.provenance(fact.id)["event_status"] == "planned"

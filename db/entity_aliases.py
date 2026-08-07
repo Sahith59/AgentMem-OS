@@ -45,7 +45,12 @@ _MODEL_NAME = "intfloat/multilingual-e5-small"
 # Devanagari (0900) through Malayalam (0D7F) — one contiguous block covering
 # Devanagari, Bengali, Gurmukhi, Gujarati, Odia, Tamil, Telugu, Kannada,
 # Malayalam. Two+ chars so stray combining marks never match alone.
-_INDIC_TOKEN_RE = re.compile("[\\u0900-\\u0D7F]{2,}")
+# Danda/double-danda (U+0964/0965) are PUNCTUATION inside that block and
+# are excluded (Stage-3 G3 R1): "है।" tokenizing WITH its danda cost
+# 22-43% of the τ margin in real similarity checks and manufactured
+# sentence-final duplicate nodes ("चेन्नई" vs "चेन्नई।") that then
+# alias-chained to each other instead of to the Latin anchor.
+_INDIC_TOKEN_RE = re.compile("[\\u0900-\\u0963\\u0966-\\u0D7F]{2,}")
 
 
 def contains_indic(text: str) -> bool:
@@ -130,11 +135,14 @@ class EntityAliasResolver:
 
     @staticmethod
     def extract_script_tokens(text: str) -> List[str]:
-        """Deduplicated Indic-script tokens in order of first appearance."""
+        """Deduplicated Indic-script tokens in order of first
+        appearance. Pure digit runs are dropped (G3 R2 minor: the Indic
+        block contains each script's digits — ०१२ etc. — and a numeral
+        is never an entity mention; str.isdigit() covers all of them)."""
         seen = set()
         out = []
         for tok in _INDIC_TOKEN_RE.findall(text):
-            if tok not in seen:
+            if tok not in seen and not tok.isdigit():
                 seen.add(tok)
                 out.append(tok)
         return out

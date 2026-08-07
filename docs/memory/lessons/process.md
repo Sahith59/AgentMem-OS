@@ -333,3 +333,170 @@ false rejections, and it surfaced the value-vs-predicate residual ("The user has
 licensed by the user typing "19 Question (19/38)") that the original sample never contained. **Check: when
 a gate was tuned against sample S, re-run S to audit the record's honesty AND run an independent S' to
 judge the fix. Passing only on S is indistinguishable from overfitting.**
+
+## 2026-08-06 — A default-valued column makes `IS NULL` a dead branch (Critics, Stage 3 R1)
+
+`_merge_duplicate_kg_nodes` merges duplicate co-occurrence edges `WHERE relation_type IS NULL`. The ORM
+column carries `default="CO_OCCURS"` and the ALTER TABLE carries `DEFAULT 'CO_OCCURS'` (SQLite backfills
+existing rows with it), so **34,905 of 34,905 real edges are 'CO_OCCURS' and none are NULL** — the
+branch cannot fire in production. The test passed because its hand-written `_OLD_SCHEMA` omits the
+default and its INSERT omits the column. **Enforced check:** before writing a predicate over a column,
+run `SELECT <col>, count(*) … GROUP BY 1` against the REAL database and put the distribution in the
+build log; a fixture's DDL is not the product's DDL, and a Python-side `default=` never reaches raw SQL.
+
+## 2026-08-06 — Moving the cheap compute out of the lock while the expensive compute stays in (Critics, S3 R1)
+
+Stage 3 deliberately moved spaCy NER before the batch transaction ("no model compute while any write
+lock is held") and then called the sentence-transformers ALIAS RESOLVER inside it. Measured: model load
+87.1–89.2 s per fresh process (with network calls to HF), all of it while the SQLite write lock is held,
+and a competing writer FAILED with "database is locked" (busy_timeout 30 s). Embedding was the cheap
+part (0.7 ms/text). The code comment even acknowledged "every ms of compute extends the hold".
+**Enforced check:** when a rule says "no X inside the lock", enumerate EVERY lazy initializer reachable
+from inside the lock (model loads, network clients, import-time singletons) and measure the lock hold
+with a competing writer — an unloaded singleton is compute that has not happened YET, not compute that
+was moved out.
+
+## 2026-08-06 — A recovery sweep ordered by id with a LIMIT starves behind its own permanent residue (Critics, S3 R1)
+
+`link_missing` selects facts with zero join rows `ORDER BY id LIMIT 500`. A fact whose NER finds nothing
+never gets a join row, so it is a permanent candidate — **22% of real facts (5/23 in the reproduced G2
+run)**. Measured: 12 entity-less facts at limit=10 make a linkable fact permanently unreachable across
+unlimited reruns, and the docstring's "rerun until swept=0 to drain" never terminates. **Enforced
+check:** any sweep whose candidate predicate can be permanently true for a row must either advance a
+cursor (id > last_seen) or record the attempt; and any "repeat until N=0" instruction must be proven to
+reach 0 on a corpus containing the no-op case.
+
+## 2026-08-06 — One-hop graph traversal is not entity unity (Critics, Stage 3 R1)
+
+The cross-lingual claim rests on expanding ALIAS_OF one hop from the seed node. Because the alias anchor
+is chosen by BEST similarity, a second Indic variant aliases to the FIRST variant (0.9715) rather than
+to the English node (0.9324), forming a chain — and the English query then silently returns 1 of 2
+facts. The second variant existed only because the tokenizer keeps the U+0964 danda ("चेन्नई।").
+**Enforced check:** when unity is implemented as N-hop traversal, test with THREE nodes in a chain, not
+two; and state the hop count in every sentence that promises unity.
+
+## 2026-08-06 — A feature can be schema-complete and prompt-unreachable (Critics, Stage 3 R1)
+
+F7 shipped exactly as the founder specified (enum column, single-source detector, merge matrix, 7 unit
+tests) — and fired **0 times in 23 real facts**, because the extraction prompt orders plans to be typed
+"state", its own example carrying a DATE. The disclosed boundary mentioned only UNDATED plans. The
+marker now depends on the model disobeying the prompt. **Enforced check:** for any new field whose value
+depends on upstream classification, grep the PROMPT (or the upstream rule) for the class that would
+produce it and report the real-corpus fire rate in the same paragraph as the "built" claim. A feature
+with a 0% fire rate on the target corpus is DORMANT, not DONE.
+
+## 2026-08-06 — A case-folding fix that REPLACES the exact predicate regresses exact matches (Critics, S3 R2)
+
+Fixing "reads go blind over casing" by swapping `col == q` for `lower(col) == q.lower()` looks strictly
+wider. It is not: SQLite's `lower()` folds **ASCII only**, Python's folds Unicode, so for any text
+carrying a non-ASCII uppercase letter the two sides can never meet — `facts_for_entity('Übermensch')`
+returned **[] on a node stored byte-identically**, measured 4/4, with **11 such entity_texts in the real
+KG** (`Συγνώμη`, `IDÅSEN`, `Ruben Östlund`, `the Champs-Élysées`, …). The fix converted a partial miss
+into a false-empty on a path that used to work. **Enforced check:** widen a match predicate with OR,
+never by replacement; and whenever a fix moves a comparison from Python into SQL (or back), test one
+input where the two languages' semantics differ — casing, collation, NULL ordering, integer division.
+
+## 2026-08-06 — A repair that rewrites keys must normalize them, or it manufactures what it cannot see (Critics, S3 R2)
+
+The node-dedup migration re-points `kg_edges.source_id/target_id` to the keeper without restoring the
+src<tgt convention every writer assumes. Because keeper = min(id), the common case INVERTS the pair, and
+both the in-group merge and the new global duplicate repair — which group by `(source_id, target_id)` —
+then report `merged 0` / `clean` while the undirected loader still keeps one row's weight. The test
+fixture's ids were arranged so re-pointing never inverts: **third instance in this arc of "the fixture
+cannot produce the failure"**. **Enforced check:** any UPDATE that rewrites a column participating in a
+canonical ordering must re-apply that ordering in the same statement, and its fixture must contain at
+least one row where the rewrite BREAKS the convention.
+
+## 2026-08-06 — A "zero rows" recovery sweep cannot recover a PARTIAL failure (Critics, Stage 3 R3)
+
+`link_missing` is the compensating control that justified moving alias planning outside the write lock:
+skipped surfaces "land in skipped and the sweep recovers them" (said in four places). Its candidate
+predicate is `NOT EXISTS(any join row)`. Measured: a fact linking Microsoft and skipping गूगल is not a
+candidate at all — the anchor arrives, the sweep reports `candidates=1` (the Indic-ONLY fact), and the
+mixed fact is orphaned permanently; `facts_for_entity('Google')` never returns it. The all-or-nothing
+predicate covers the failure the sweep was BUILT for (crash before linking) and misses the failure the
+new contract CREATES (per-surface skips). **Enforced check:** when a mechanism is offered as the
+compensating control for a blocker fix, run it against the exact residue THAT fix produces, not only
+against the failure it was originally written for — and state the predicate ("zero links", not "missing
+links") in every sentence that promises recovery.
+
+## 2026-08-06 — Importing a module to read a constant ran a destructive migration on the live DB (Critics, Stage 3 R3)
+
+`db/engine.py` ends with a bare `init_db()`, so `from agentmem_os.db.engine import DB_PATH` — typed by a
+READ-ONLY reviewer to find the DB path — executed the Stage-3 migration against the founder's production
+database: 2,711 CO_OCCURS rows deleted, 1,979 weights and timestamps rewritten, an index built. No
+backup, no dry-run, no confirmation; the only trace is one INFO log line. Outcome was benign (byte-
+identical to the copy verified the round before, sum(weight) conserved exactly) — by luck of prior
+verification, not by design. **Enforced check (reviewers):** never import the product's engine module
+in-process; resolve DB_PATH from config.yaml and open production DBs with `file:...?mode=ro` URIs only.
+**Enforced check (builders):** a migration that DELETEs rows or rewrites values must not run as an import
+side effect without first writing a recoverable pre-state.
+
+## 2026-08-06 — Log writes must target the ABSOLUTE repo path (stray-file incident)
+During Stage 3, the shell's working directory silently reset mid-session
+and two relative-path appends (`cat >> CONSOLIDATION_V2_BUILD_LOG.md`)
+CREATED a stray file one directory above the repo. The paired
+grep-verify passed because it checked the same wrong file — the
+verification inherited the defect it existed to catch. Caught only when
+the R2 critic found the repo log "pointing at nothing". Rule, standing:
+every log/notes write AND its grep-verify use the absolute repo path;
+a verify that shares the failure mode of the thing it verifies is not a
+verify. (Same family as Stage-2 R2's silently no-op'd in-place edits —
+the third member of the "verify the real artifact" lesson class.)
+
+## 2026-08-06 — A mock that raises BEFORE the body never exercises the fix (Critics, Stage 3 R4)
+
+`test_retry_does_not_double_append_skipped` was written to pin a real fix (copy the `skipped` list before
+apply, so a store-owned retry cannot double-append). Its fake `_link_in_session` raises the race error on
+call 1 *instead of* running the real body — so attempt 1 never appends anything and the copy is never
+needed. Measured: reverting `skipped = list(skipped)` leaves the test green in 0.37s, while a realistic
+harness (raise inside `_get_or_create_node` AFTER the anchor-miss append) reproduces the duplicate entry
+immediately. **Enforced check:** when the bug is "state carried from attempt 1 into attempt 2", the mock
+must fail LATE — after the state-producing step — or the test proves nothing. Every "fix + test" claim
+gets the revert run, not the green run.
+
+## 2026-08-06 — `CREATE TABLE AS SELECT * … WHERE 0` freezes a backup's schema forever (Critics, Stage 3 R4)
+
+A pre-state backup created as `CREATE TABLE IF NOT EXISTS x_backup AS SELECT * FROM t WHERE 0` and filled
+with `INSERT INTO x_backup SELECT * FROM t WHERE …` breaks permanently the first time `t` gains a column:
+"table x_backup has 11 columns but 12 values were supplied". When the migration runs as an import side
+effect, that OperationalError becomes a RuntimeError at `import`, i.e. the whole product stops starting —
+and only on databases that actually have rows to back up, so CI on a fresh DB stays green. **Enforced
+check:** backup/copy statements name their columns, or the table is rebuilt when its shape no longer
+matches the source. Reproduced, Stage 3 R4 (scratchpad p_drift).
+
+## 2026-08-06 — A compensating control needs a CALLER, not just a method (Critics, Stage 3 R4)
+
+A blocker fix was accepted because "the sweep recovers those later", and the sweep is real, correct, and
+tested — but `link_missing` is invoked nowhere outside tests: not by the engine after a link failure, not
+by any endpoint or CLI command, not by the smoke. Recovery therefore requires a human to open a REPL and
+write the documented drain loop. **Enforced check:** when a mechanism is offered as the compensating
+control for a risk, grep for its CALLERS in product code before accepting it; if there are none, the honest
+claim is "recoverable by an operator", never "recovered". (Sibling of the R1 lesson "a feature can be
+schema-complete and prompt-unreachable" — same defect, one layer up.)
+
+## 2026-08-06 — An auto-invoked compensating control inherits a blast radius nobody sized (Critics, S3 R5)
+
+R4 blocked because the recovery sweep had no caller. The fix auto-invoked it inside consolidate_session
+after a link_failure commit — correct, tested, mutation-caught. But the drain is scoped to
+(agent_id, user_id), not to the failed batch: measured, 300 pre-existing unlinked facts in scope turned one
+2-fact consolidation into a 302-fact / 673-link backfill inside the same call, bounded only at
+max_rounds×limit = 100,000 facts. Under a PERSISTENT linker fault it becomes O(sessions × scope): 8 sessions
+× 400 facts = 3,216 link attempts, 661 KB of log, and 11.9 KB single log lines because the whole failures
+list is embedded in the report that gets logged. And it is not best-effort — when the drain's own query
+raises (probe: OperationalError), the exception escapes consolidate_session AFTER the facts and log row
+committed, discarding the entire report of a run that succeeded. **Enforced check: when wiring a
+compensating control into an automatic path, state its worst-case work in the docstring, bound it to the
+unit that failed unless a wider sweep is intended, wrap it best-effort so a recovery fault cannot fail a
+committed run, and truncate any failure list that lands in a log line.**
+
+## 2026-08-06 — Code written to close a review finding must go through the same mutation sweep (Critics, S3 R5)
+
+The R4 fixes for the findings a critic NAMED were all mutation-proven (19/23 caught). The survivors were
+all in code the fix itself introduced: `"complete": rounds < max_rounds` → `True` and
+`while rounds < max_rounds` → `while True` both leave the suite green, and coverage confirms the LOUD
+runaway warning never executes. Same round, the tightened _validate_plan surface rule (stripped, len>=2)
+had no tripwire either — reverting it to the old rule left 14 selected tests green. This is the Stage-2 R3
+enforced check ("every claimed fix goes through the mutation sweep, not just the ones a previous round
+named") recurring one level up: **new code written to satisfy a reviewer is unreviewed code — mutate its
+own safety claims and honesty flags before calling the round closed.**

@@ -37,7 +37,7 @@ compute (v1: session-end; phase 2: idle-time aggregate/tally passes) + profile t
 | 0 | Implementation research + design freeze | — | — | founder review | research agent RUNNING (launched 2026-08-06) |
 | 1 | SemanticFact schema + storage + CRUD | ✅ 52/52, 100% cov | ✅ real data | **R6 PASS** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
 | 2 | Consolidation engine rewrite (distillation) | ✅ 97/97, 98% cov | ✅ real-model 20/4 | **R6 PASS-WITH-NOTES** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
-| 3 | KG integration (facts→entities/edges, provenance) | ☐ | ☐ | ☐ | — |
+| 3 | KG integration (facts→entities/edges, provenance) | ✅ 180 tests, 100% line cov | ✅ 6× identical real-model | **R5 PASS-WITH-NOTES** (R1-R4 ✗, each fixed) | ✅ DONE 08-06 |
 | 4 | Per-fact supersession | ☐ | ☐ | ☐ | — |
 | 5 | Facts-first retrieval wiring + $0 diagnostics | ☐ | ☐ | ☐ | — |
 | 6 | Full E2E smoke + final critic pass → BUILD READY | ☐ | ☐ | ☐ | — |
@@ -55,7 +55,7 @@ Gate F 500 → cross-lingual/Sarvam only after we compete with current competito
 
 ## Stage records
 
-### Stage 2 — Consolidation engine v2 — **[SUPERSEDED: R1-era record kept for history; current state lives in the appended 'G3 rounds record' at the END of this file. The G2 numbers below (42 facts/6 events/21% junk) are PRE-FIX and no longer true.]**
+### Stage 2 — Consolidation engine v2 — **[SUPERSEDED: R1-era record kept for history; current state lives in the appended Stage-2 'G3 rounds record' LATER IN this file (no longer the end — Stage 3's records follow it). The G2 numbers below (42 facts/6 events/21% junk) are PRE-FIX and no longer true.]**
 
 Built: `llm/consolidation_v2.py` — session-end distillation: schema-constrained
 llama3.1 extraction (grammar-forced JSON), semantic validator (calendar dates,
@@ -381,3 +381,519 @@ wrong ~50% (deterministic resolver queued); Tier 2-3 semantic dedup and
 per-event count fields are SEPARATE build items, not part of this stage's
 claims. **FOUNDER DECISIONS still open: F7 planned events; §5.1 undated
 default.**
+---
+
+## 2026-08-06 — FOUNDER DECISIONS RESOLVED (both) + Stage 3 GO
+
+Founder accepted both recommendations verbatim:
+
+**F7 — planned/future events: DEDICATED MARKER (schema field), built in
+Stage 3.** A future-dated event (t_occurred > session date at mention
+time) is stored as a dated event with `planned=1`. Detection is
+deterministic and single-sourced (one helper used by both the validator
+warning and the storage flag — no duplicated comparison logic). Merge
+rule on re-affirmation: `planned = planned AND incoming_planned` — any
+affirmation made at a time when the event date is no longer in the
+future turns the row into an occurrence claim (deterministic; occurrence
+JUDGMENT beyond this stays Stage 4 supersession territory). Boundary
+disclosed: only DATED facts can be flagged — "user plans to attend X"
+with no date extracts as an undated state and carries no marker.
+
+**§5.1 — undated facts: KEEP NULL (design doc's session-date default is
+REVOKED).** t_occurred stays NULL when no event date was stated —
+honest "we don't know when this happened"; retrieval anchors on
+t_mentioned. What "when" means in public claims: t_occurred is only ever
+a USER-STATED time, never an inferred one.
+
+Stage 3 (KG integration) GO given same message, same gates (G1/G2/G3),
+independent commit.
+
+---
+
+> RESTORED 2026-08-06 (content unchanged): the two blocks below-marked
+> sections — this design section and the later 'Post-R1 smoke rerun'
+> note — were originally appended to a STRAY file outside the repo
+> (the shell's working directory silently reset mid-session and the
+> relative-path append CREATED /Volumes/.../AgentMem-OS/CONSOLIDATION_
+> V2_BUILD_LOG.md one level up; the grep-verify passed because it
+> checked the same wrong file). Caught by G3 R2's 'points at nothing'
+> finding. New standing rule: every log write and its grep-verify use
+> the ABSOLUTE repo path.
+
+## STAGE 3 — KG integration (fact→entity linking + event_status) — started 2026-08-06
+
+### Research inputs (tech-researcher pass, sources verified in report)
+- **Join table over JSON is settled**: SQLite's author, on the official
+  forum, states array-membership indexing is structurally impossible
+  ("indexes are one-to-one... you are asking for many-to-one") — a
+  json_each() lookup is a full-scan at any scale. `SemanticFact.entities`
+  (JSON) demotes to a display/inspection cache; the query path is a new
+  `semantic_fact_entities` join table indexed both directions.
+- **Graphiti/Zep = fact-as-EDGE** (fact text lives on the RELATES_TO edge,
+  provenance = episode UUIDs only, NO mention spans — verified absence,
+  read in full from vendored source). We are fact-as-ROW + join links —
+  different representation, keep claims distinct. Graphiti/Zep count as
+  ONE data point (same engine) in any write-up.
+- **Mem0's OSS graph module NO LONGER EXISTS** (deleted in PR #4805; open
+  issue #6591 documents the drift, 11 days old). Any "Mem0 graph variant"
+  comparison in our docs is stale — re-verify at publish time. Noted for
+  COMPETITIVE_ANALYSIS.md.
+- **Graphiti's real bug classes to test against ours**: orphaned entities
+  invisible to cleanup (#1083), concurrent ingest racing on shared state
+  (#1331), dedup silently not firing (#875), batch dedup schema-fragile
+  (#879).
+- **Planned-event prior art**: NONE in Graphiti/Zep (verified absence —
+  their valid_at/invalid_at is truth-validity, not prospectiveness).
+  RFC 5545 (TENTATIVE|CONFIRMED|CANCELLED) and schema.org eventStatus
+  both independently chose a small ENUM over a boolean. Generative Agents
+  (Park et al. 2023) stores Plans as a distinct memory kind. Claim
+  wording when this ships: "no comparable mechanism found in the
+  strongest competitor examined" — NOT "following an established pattern".
+
+### Design decisions of record
+1. **`event_status` enum, not `planned` boolean** (upgrade of the
+   founder-approved "dedicated marker" — same semantics, RFC-5545/
+   schema.org precedent, spares a migration when Stage 4 needs
+   'cancelled'). Values: 'occurred' (default for every event — extractor
+   contract says events already happened), 'planned' (deterministic:
+   occurrence start > session date at mention time, same single-sourced
+   helper feeding the validator warning), NULL for non-events. NOT in
+   the dedup hash. Re-affirmation merge: planned→occurred when any
+   affirmation arrives post-date; never occurred→planned. Migration
+   backfills existing dated events deterministically from stored columns
+   (t_occurred > t_mentioned → planned). Boundary disclosed: undated
+   plans extract as states and carry no status.
+2. **Facts link to the SURFACE-form node, NOT the alias-canonical node**
+   — deliberate divergence from Graphiti's uuid_map pattern (research
+   rec 2). Graphiti canonical-links because its dedup MERGES nodes; our
+   ALIAS_OF design is non-destructive precisely because τ=0.90 has a
+   MEASURED false positive (Chennai/China 0.9010). Canonical-linking
+   would hard-wire that error class into fact provenance; surface-linking
+   keeps a false alias as inspectable retrieval noise (confidence on the
+   edge), never silent misattribution. Cross-lingual unity comes from
+   ALIAS_OF traversal in the read API.
+3. **Provenance ambition capped at turn granularity** (source_turn_ids;
+   even Graphiti stores episode-level only). Join rows carry
+   surface_text + linked_via ('ner'|'alias') + confidence — no mention
+   offsets, no role/relation column (deliberate: role extraction needs
+   parsing we don't do; an always-NULL column is dead schema; research
+   rec 10 declined, disclosed here).
+4. **Linker must CREATE nodes, not just link** — verified: the KG is fed
+   only via ConversationStore.save_turn background ingestion; benchmark
+   pipelines write Turn rows directly and bypass it. In the real Gate-C
+   pipeline the KG may be EMPTY; facts are the feeder. Node creation from
+   facts does NOT bump mention_count on existing nodes (turn-mention
+   counts must not be inflated by distilled restatements).
+5. **kg_nodes gets UNIQUE(coalesce(agent_id,''), entity_text)** — its
+   read-then-write upsert is the same race class Stage 1 fixed (and
+   Graphiti #1331's). Dev DB verified: 10,911 nodes, 0 dup groups, index
+   creates clean here; migration still carries a dedup-merge path
+   (re-point edges, sum mention_counts, drop self-loops, delete dups,
+   retry) for arbitrary DBs, exercised by a synthetic-dup test.
+6. **Failure policy**: fact storage NEVER fails because linking failed.
+   Links are recoverable metadata — per-fact savepoint isolation inside
+   the caller batch, failures counted in the report + ConsolidationLog
+   (new entities_linked column), and a `link_missing()` sweep makes the
+   recoverability claim TRUE (crash between facts-commit and link,
+   pre-Stage-3 backfill, Graphiti-#1083 orphan class).
+   **[CORRECTED R3-B1/R4: the DEFAULT sweep recovers UNLINKED FACTS
+   only; skipped surfaces on partially-linked facts need
+   link_missing(rescan_all=True). And per R4-M5 the sweep now has a
+   real product caller: consolidate_session auto-runs a bounded
+   default-depth drain after a link_failure commit.]**
+
+### Build surface
+models.py (SemanticFact.event_status, SemanticFactEntity, kg_nodes unique
+index, ConsolidationLog.entities_linked) · engine.py (_migrate_stage3:
+columns + backfill + table verify + index-with-merge-path) ·
+db/fact_entities.py (FactEntityLinker: link_fact, facts_for_entity,
+link_missing) · knowledge_graph.py (NER extraction refactored to a shared
+module-level function; class delegates — test_temporal_kg.py must stay
+green untouched) · db/semantic_facts.py (event_status param, validation,
+merge rule) · llm/consolidation_v2.py (single-sourced planned helper,
+pre-txn NER, in-txn linking, report/log fields).
+Out of scope (disclosed): retrieval assembly wiring (Stage 5), occurrence
+JUDGMENT / cancellation (Stage 4), role columns, mention spans, CJK NER.
+
+### Stage 3 — G1 + G2 record (2026-08-06)
+
+**G1: 146/146 tests across 4 files** (test_fact_entities.py NEW: 33;
+consolidation_v2: 48; semantic_facts: 60; temporal_kg: 5 untouched by the
+NER refactor). **Coverage 100% on db/fact_entities.py AND
+db/semantic_facts.py.** Failure paths pinned: real 2-OS-process node-
+creation race (unique index authority: 1 node, both links), store-owned
+retry-ONCE-then-loud, non-race IntegrityError never retried, synthetic-
+duplicate migration merge (edges re-pointed, self-loops dropped,
+CO_OCCURS weights SUMMED — the in-memory loader overwrites duplicate
+pairs, so leaving two rows would silently drop weight), unrepairable
+link table refused, event_status merge matrix (planned→occurred upgrade,
+never downgrade, NULL backfill-on-touch), Devanagari surface
+augmentation (caught mid-build: en_core_web_sm is BLIND to Devanagari —
+without script-token augmentation a Hindi fact got ZERO surfaces and the
+alias gate was never consulted; the fake resolver was made
+DISCRIMINATING after it initially matched every Hindi word and hid
+exactly this class).
+
+**G2 (real llama3.1 + real spaCy + real multilingual-e5-small,
+benchmarks/consolidation_v2_stage3_smoke.py):**
+- A. Rollercoaster gold sessions, full pipeline: 20 facts → 25 entity
+  links, 18 nodes, ConsolidationLog rows agree (25=25), link_failure
+  None. Disneyland timeline artifact: dated occurred events with intact
+  citations incl. "rode Space Mountain: Ghost Galaxy three times"
+  [2023/09/24], and "The user is planning a trip to Disneyland" typed
+  STATE undated → NO event marker (the disclosed F7 boundary, observed
+  live).
+- B. **MEASURED CONFIRMATION of the disclosed Stage-2 Gate-E residual:**
+  Hindi session → llama3.1 emitted canonical-ENGLISH facts (per design)
+  → support gate found zero stemmed overlap with Devanagari user turns →
+  both TRUE facts rejected as unsupported. Cross-lingual consolidation
+  needs translation-aware support evidence (Gate E work item, NOT Stage
+  3 scope — recorded, not papered over).
+- C. Gate-E write shape with the REAL resolver: English anchor session
+  consolidated first (Google node via real pipeline), then Hindi fact →
+  **गूगल admitted at cosine 0.9506 (τ=0.90), FOREIGN node + ALIAS_OF
+  edge + 'alias' link; उपयोगकर्ता/में/काम/करता/है। all correctly kept OUT
+  at τ. facts_for_entity('गूगल') == facts_for_entity('Google') == all 3
+  facts across both languages — the cross-lingual unity claim,
+  demonstrated.** (First run also proved the no-anchor NEGATIVE path:
+  with no English node present, everything Indic was refused — junk
+  cannot bootstrap junk.)
+
+G3 critic round 1 dispatched.
+
+### Stage 3 — G3 ROUND 1: BLOCK (3 blockers, 5 majors, 13 minors) → all fixed
+
+The critic independently reproduced every G1/G2 claim that was true
+(146/146, both 100% line coverages, the smoke to the digit, the
+caller-batch lock precondition, backfill↔helper agreement 10/10,
+mutation sweep 14/16) and then broke the rest. Resolutions:
+
+**B1 — ~87s of DB-WIDE WRITE LOCK during in-batch alias planning
+(measured: competing writer DIED on busy_timeout).** The first Indic
+surface loaded sentence-transformers inside the consolidation batch.
+Fixed as a CONTRACT, not a patch: planning (model load + embeddings) is
+now a separate read-only step — engine calls plan_surfaces() BEFORE the
+transaction and passes plan= into link_fact; caller-owned sessions
+REFUSE to plan in-session (loud ValueError), and a tripwire test
+asserts apply-with-plan never consults the resolver. Known disclosed
+consequence: same-batch anchors are invisible to pre-txn plans; such
+surfaces land in skipped and the sweep recovers them. **[CORRECTED
+R3-B1: recovery of SKIPPED surfaces requires the deep sweep,
+link_missing(rescan_all=True) — the default zero-link sweep cannot see
+a partially-linked fact.]**
+
+**B2 — the CO_OCCURS dedup-merge was INERT on production rows** (it
+matched relation_type IS NULL; the ORM default writes the STRING
+'CO_OCCURS' — 34,905/34,905 real rows; the test fixture omitted the
+default and rubber-stamped it). Both shapes now merge as one family;
+the fixture is production-shaped with one NULL row mixed in. **Digging
+here exposed a REAL pre-existing product bug: the turn path's CO_OCCURS
+lookup had the same NULL-vs-string mismatch, so it CREATED A NEW EDGE
+PER CO-OCCURRENCE instead of incrementing weight — 1,979 duplicate
+pairs accumulated in the dev DB, and the loader's add_edge() keeps only
+the last row's weight.** Lookup fixed (both shapes), tripwire test
+added (two ingests → one edge, weight 2), and the migration now runs a
+global, idempotent duplicate-pair repair (weights SUMMED into the
+lowest-id row — no information lost). NOTE FOR FOUNDER: next product
+start against the dev DB will repair those 1,979 pairs.
+
+**B3 — link_missing starved permanently** (zero-surface facts — 22% of
+the real G2 sample — are forever-candidates; LIMIT without a cursor
+re-swept them every call and never reached facts beyond the limit; the
+documented drain loop never terminated). Now cursor-paged (after_id /
+next_after_id); the drain visits every unlinked fact exactly once
+**[CORRECTED R3-M4: once PER DRAIN — rowids may recycle without
+AUTOINCREMENT; and per R3-B1 this default drain covers UNLINKED facts
+only, skipped surfaces need rescan_all=True]**;
+starvation repro pinned as a test with a termination guard.
+
+**M1** index verified by NAME only → now verified by its sqlite_master
+SQL (a scope-blind impostor with the right name gets dropped and
+rebuilt; test pins it). **M2** "linking suspended" was indistinguishable
+from "nothing to link" in the persisted audit → ConsolidationLog gains
+link_failure TEXT (persisted, migrated, tested). **M3** one-hop
+ALIAS_OF traversal returned SUBSETS through variant chains
+(चेन्नई—चेन्नई।—Chennai measured) → full closure, depth-capped; test
+walks the chain from all three surfaces. **M4** case-sensitive reads
+went blind over the KG's 164 real case-variant groups → read-side seeds
+are case-insensitive (node identity stays case-sensitive, turn-path
+parity, disclosed). **M5 — REACHABILITY OF 'planned', disclosed
+plainly: the extraction prompt types ALL plans as states (its own
+example carries a date), so the marker fires only when the model
+disobeys — 0/23 facts in the G2 sample carried 'planned'. The marker is
+a correctness safety net, not the primary plan representation. Whether
+dated plans should extract as planned EVENTS is a prompt-policy change
+that would alter measured Gate-B behavior — QUEUED AS A FOUNDER
+DECISION, not slipped in mid-arc.**
+
+Minors landed same round: danda/double-danda excluded from Indic script
+tokens (was costing 22-43% of τ margin and manufacturing M3's variant
+nodes — entity_aliases regex, shared with the turn path, tested); false
+parity comment corrected (linker anchor rule is deliberately STRICTER
+than the turn path's); nullslast tripwire (deleting it now fails a
+test); linking-suspension tripwire (flipping the guard now fails a
+test); dead self._nlp removed; smoke's log-vs-join check is now an
+ASSERT across three independent sources; coverage claim restated
+honestly: 100% LINE / 99% branch on both modules.
+
+Post-fix: 156 tests green across the 4 scoped files. Smoke re-run
+against the fixed engine below. R2 dispatched.
+
+**Post-R1 smoke rerun (fixed engine, plans pre-txn): identical artifacts
+to the digit** — 20 facts / 25 links / 18 nodes, three-way ASSERT
+(report == persisted log == join rows) passing, गूगल↔Google cosine
+0.9506, both-surface reads identical, danda no longer part of any
+script token (skip list shows है, not है।), Part-B Gate-E residual
+unchanged (disclosed).
+
+### Stage 3 — G3 ROUND 2: BLOCK (1 blocker, 5 majors, 14 minors) → all fixed
+
+R2 verified R1's three blockers CLOSED with measurement (B1: resolver
+instrumented, all 6 engine-path touches leave a competing writer FREE,
+control probe in-batch correctly BLOCKED; B2: repair run against a COPY
+of the dev DB — 34,905→32,194 rows, total weight exactly preserved,
+**2,711 units of loader-visible weight recovered**, idempotent; B3
+cursor terminates; fixes are revert-detected, not rubber stamps). Then
+it broke the new code. Resolutions:
+
+**R2-B1 — MY M4 FIX WAS THE REGRESSION: SQLite lower() folds ASCII
+ONLY** — the lower()==lower() seed turned byte-identical non-ASCII
+queries ('Übermensch', 11 real KG entity_texts) into silent empties.
+Fixed: exact-match arm restored alongside the ASCII case-fold arm
+(or_), ASCII-only folding DISCLOSED in the docstring, regression pinned
+with a non-ASCII read test. Lesson logged: a fix is a change like any
+other — R2's "mutate the fixes" pass exists because R1 fixes ship R2
+bugs.
+
+**R2-M1** plan→apply validated nothing: a stale plan whose alias anchor
+vanished ADMITTED AN UNGATED INDIC NODE (falsifying the gate
+invariant), and a plan for agent A applied under agent Z wrote into the
+wrong scope. Fixed: plan_surfaces returns a scope-stamped dict;
+link_fact validates shape+scope loudly (malformed via values can no
+longer reach linked_via); apply resolves the ANCHOR FIRST and skips the
+surface if it is gone ("alias anchor not found at apply") — junk
+resolver output now lands in skipped instead of creating a node.
+**R2-M2** index verification was a substring test (an extra trailing
+column or a WHERE clause still read "verified") → EXACT normalized-DDL
+equality; both lookalikes pinned as tests. **R2-M3** node-merge
+re-pointing INVERTS src<tgt ordering (keeper=min(id)) so the per-group
+ordered pair-dedup missed exactly the pairs the merge created (measured
+5.0-of-7.0 loss) → global pass canonicalizes undirected-pair ordering
+FIRST (SQLite UPDATE reads pre-update values), unordered grouping,
+reversed historical rows merge too; inversion fixture pinned — the
+THIRD "fixture cannot produce the failure" in this arc is recorded as a
+standing test-design lesson. **R2-M4** POST /demo/reset 500'd on the
+new FK once a global-scope fact was linked → link rows deleted before
+nodes (facts themselves are not demo state and stay). **R2-M5** the B1
+guard was one-sided (plan_surfaces accepted db=) → parameter REMOVED;
+signature pinned by test.
+
+Minors landed: closure truncation now WARNS (partial reads never
+silent); Indic DIGIT runs dropped from script tokens; migration
+connection timeout matched to the app's 30s; pair merge keeps
+max(last_updated) ("no information lost" now includes recency);
+node-merge re-points semantic_fact_entities too (raw conn runs FKs
+OFF — orphaned links pinned by test, collision rows dropped);
+"exactly once" softened to per-drain (rowid reuse); loader collapsing
+CO_OCCURS+ALIAS_OF on the same node pair (measured 12.0→1.0) recorded
+as a KNOWN ISSUE for the loader backlog (nx.Graph holds one edge per
+pair — MultiGraph surgery, not this stage).
+
+**PROCESS INCIDENT (logged as its own lesson): two build-log/notes
+appends LANDED IN A STRAY FILE one directory above the repo** — the
+shell cwd silently reset mid-session and relative-path appends CREATED
+/Volumes/.../AgentMem-OS/CONSOLIDATION_V2_BUILD_LOG.md; the grep-verify
+passed because it checked the same wrong file. Caught by R2's
+"points at nothing" finding. Content restored in place with a marked
+note; strays deleted. STANDING RULE: every log write AND its
+grep-verify use the ABSOLUTE repo path (this entry does).
+
+Post-fix: 167 tests green across the 4 scoped files; db/fact_entities.py
+100% line / 99% branch (one partial branch — the duplicate-token
+skip arm in surface dedup, not a loop exit [R4-m2 correction]). Smoke
+rerun below. R3
+dispatched.
+
+**Post-R2 smoke rerun (plan-dict engine path): artifacts identical to
+the digit again** — 20 facts / 25 links / 18 nodes, three-way assert
+passing, गूगल↔Google 0.9506, both-surface unity, Part-B Gate-E residual
+unchanged.
+
+### Stage 3 — G3 ROUND 3: BLOCK (1 blocker, 5 majors, 16 minors) → all fixed/waived-with-record
+
+R3 confirmed every R2 fix held under mutation (11/13 caught; the two
+"survivors" were the untripwired minors it then flagged), reproduced the
+smoke a third time to the digit, and verified the Mem0 claims against
+the GitHub API. **R3 also disclosed its own incident: importing the
+engine module in-process ran init_db and the duplicate-edge repair
+EXECUTED AGAINST THE LIVE DEV DB** — byte-compared to the R2-vetted
+copy: identical outcome, sum(weight) exactly conserved. The predicted
+repair, confirmed on real data, by accident. Two enforced checks logged
+in the lessons file (reviewers open production DBs read-only via URI;
+destructive import-time migrations must write a pre-state first).
+
+**R3-B1 — the recovery sweep could NOT recover skipped surfaces, and
+four record sites said it could.** The zero-link sweep never revisits a
+fact that linked ANY surface — a two-entity Indic fact whose anchor
+arrived late was orphaned from that entity FOREVER (reproduced).
+Fixed: link_missing gains rescan_all=True (re-plans every fact in
+scope against current graph state; idempotent by construction) and ALL
+FOUR sites now state the two depths precisely: default sweep = unlinked
+facts only; skipped-surface recovery = deep sweep. Repro pinned: the
+default sweep's blindness is ASSERTED as the documented bound, the deep
+sweep recovers the गूगल-and-Microsoft fact.
+
+**R3-M1** "logged as its own lesson" pointed at nothing → the
+stray-file lesson now actually written to docs/memory/lessons/
+process.md (the claim's own class — a reference is not a record).
+**R3-M2** RUNNING_NOTES still told the founder the repair was pending
+(it had already run, via R3's import) → corrected; AND the repair now
+snapshots every row it deletes into kg_edges_dedup_backup BEFORE
+deleting — a destructive import-time migration without pre-state is
+unrecoverable if a future bug miscounts. **R3-M3** node-merge inverted
+ALIAS_OF pairs and the ordered exists-check then DUPLICATED alias edges
+(measured 1→2); the "typed edges left as-is" rationale was false for
+ALIAS_OF → canonicalization now covers both undirected families,
+exact-duplicate ALIAS_OF pairs collapse keeping best confidence,
+rationale corrected (directional typed relations only), inversion test
+pinned with backup-row assertion. **R3-M4** module docstring still said
+"exactly once" → per-drain everywhere. **R3-M5** the demo-reset fix
+was the only R2 fix without a regression test → REAL-endpoint test
+added (TestClient POST /demo/reset with a linked global fact, FKs ON:
+200, nodes+links purged, fact survives).
+
+Minors landed: retry no longer double-appends apply-side skips (copy;
+test); _validate_plan rejects empty surfaces, anchor-less alias
+entries, malformed skipped entries (tests); Indic-digit filter
+tripwired; dead `or True` assertion replaced with the real ASCII-only
+disclosure pin; stale plan=(plan,skipped) docstring corrected;
+facts_for_entity IN() bounded at 30k with loud truncation (patchable,
+tested); smoke's legacy Query.get modernized; entities JSON display
+cache semantics documented (NER mentions independent of link success);
+demo-reset regrowth-via-sweep documented as deliberate; Stage-2
+"END of file" pointer corrected. Waived WITH RECORD: engine's
+poisoned-batch-raises-at-commit path untested (policy documented;
+deterministic construction not worth the harness); kg_nodes' unique
+index is a dedup index not a read index (reads measured 0.21-0.25ms at
+10.9k nodes — a read index is future work at scale); loader collapsing
+CO_OCCURS+ALIAS_OF on the same node pair (measured 12.0→1.0) is a
+PRE-EXISTING loader limitation (nx.Graph = one edge per pair) recorded
+in the known-issues memory — MultiGraph surgery is not this stage.
+
+Post-fix: 174 tests green across the 4 scoped files; db/fact_entities.py
+100% line / 99% branch (one partial branch — the duplicate-token skip
+arm [R4-m2 correction]). Smoke rerun below. R4 dispatched.
+
+**Post-R3 smoke rerun: fourth identical reproduction** — 20 facts / 25
+links / 18 nodes, three-way assert, गूगल↔Google 0.9506, both-surface
+unity intact.
+
+### Stage 3 — G3 ROUND 4: BLOCK (0 blockers, 6 majors, 9 minors) → all fixed
+
+R4 confirmed the SYSTEM sound: every R3 fix held under mutation (13/16
+— the 3 survivors were themselves R4 findings), fifth identical smoke
+reproduction (critic's own, env-pinned), suite/coverage claims exact,
+RUNNING_NOTES repair claim verified against the live DB READ-ONLY
+(sum(weight) conserved), Mem0 claims re-verified at the GitHub API. The
+six majors were record-accuracy, untripwired assertions, one latent
+fragility, and one missing caller:
+
+**R4-M1** the historical R1-B1/R1-B3 sections still stated the false
+sweep-recovery contract INSIDE the document that recorded its fix →
+bracketed CORRECTED annotations applied at all three sites (the
+SUPERSEDED convention this file already uses — history kept, never
+silently rewritten). **R4-M2** the retry-copy test could not detect
+reverting the copy (its mock raised BEFORE the real body — mutation-
+proven) → rebuilt: the first attempt now runs the REAL apply, mutates
+the shared list if uncopied, THEN loses the race. **R4-M3** the
+CO_OCCURS backup INSERT — the branch that deleted 2,711 rows on the
+real dev DB — had no tripwire → backup-content assertion added to the
+reversed-rows test. **R4-M4 (latent import-killer, reproduced)** the
+backup table's columns froze at creation; a future ALTER TABLE
+kg_edges ADD COLUMN would make INSERT..SELECT * raise inside the
+import-time migration — package unimportable on exactly the DBs with
+duplicates → schema-drift guard: stale backups are preserved under
+versioned names and recreated fresh; drift repro pinned. **R4-M5 (the
+sharpest finding: the compensating control had NO CALLER)** —
+link_missing existed only for tests; "recovery" was a human writing
+the drain loop in a REPL → ConsolidationV2.recover_links() is now the
+product-side drain (bounded, loud on runaway), AUTO-INVOKED after any
+link_failure commit; report carries link_recovery; engine tests assert
+the auto-drain actually relinks. **R4-M6** the founder-memory record
+claimed the dev-DB pre-repair rows were in kg_edges_dedup_backup —
+FALSE (the repair predates the backup mechanism; the only pre-state is
+the R3 critic's purgeable scratchpad copy) → memory corrected with the
+caveat stated plainly.
+
+Minors landed: smoke pins AGENTMEM_OS_DB_PATH before any import (a
+rerun can never migrate the live DB as a side effect); the bound test
+now proves TRUNCATION (three facts vs bound two — dropping .limit()
+turns it red); demo-reset test assertions scoped to its own artifacts
+(global counts on a shared scratch DB fail spuriously); _validate_plan
+surface rule matches _dedup_surfaces (stripped, len>=2);
+facts_for_entity(None/empty) raises loudly; closure node-set bounded
+(patchable, loud, tested); "commit below raises" corrected to
+next-flush-or-commit; coverage-partial wording corrected (duplicate-
+token skip arm, not loop exit); RUNNING_NOTES status corrected via
+append. Waiver 3 (loader same-pair collapse) upgraded with the honesty
+line R4 demanded: Stage 3 makes that collision the COMMON case for
+code-switched pairs — recorded in the known-issues memory as a
+must-fix-before-cross-lingual-serialization-claims.
+
+Post-fix: **179 tests green** across the 4 scoped files;
+db/fact_entities.py 100% line / 99% branch (duplicate-token skip arm).
+R5 dispatched as the final verify round.
+
+### Stage 3 — G3 ROUND 5: PASS-WITH-NOTES → STAGE 3 CLOSED (2026-08-06)
+
+R5 (final verify round): 179/179 reproduced, coverage exact, **sixth
+identical G2 smoke** (critic's own, env-pinned), live DB verified
+untouched, 19/23 mutations caught INCLUDING both R4 mandatories
+(retry-copy revert and backup-INSERT removal now turn tests red), all
+three CORRECTED annotations verified in place with a repo-wide grep
+finding no remaining false sweep claim, and memory #11's "2,711 units
+lost" independently re-derived from the pre-repair copy (35,051.0 −
+32,340.0). The one mandatory record correction (the "commit below
+raises" comment fix that MISSED its site — a false "landed" line, the
+R4-M1 class in its 5th appearance) is now actually landed at both
+sites. R5's recover_links findings landed with it: the auto-recovery
+is BEST-EFFORT (a recovery-side fault is recorded in the report, never
+destroys it — facts and log are already committed), recovered links
+are WRITTEN BACK into the persisted log row (audit coherence: 12 DB
+links against a persisted 0 was incoherent), the scope-wide drain cost
+is disclosed in the docstring, the runaway guard and complete-flag are
+tripwired, the smoke's env pin is FORCED not setdefault, and the
+_validate_plan surface rule has revert tests. Final: **180 tests
+green.** (R5's sixth smoke ran pre-final-notes; the final changes are
+recovery-path and comments only — the smoke path, where link_failure
+is None, is byte-identical.)
+
+**STAGE 3 HONEST CLAIMS OF RECORD (critic-approved wording):**
+CAN claim: facts link to KG nodes through an indexed join table with
+provenance (surface-form linking, never canonical); cross-lingual
+entity unity demonstrated on real models SIX times identically
+(गूगल↔Google at cosine 0.9506, both-surface reads equal, 5 common
+Hindi words kept out at τ in the same call); planning separated from
+applying so no model load ever runs under a write lock (measured:
+competing writer FREE on all engine-path resolver touches); a real
+production KG bug (duplicate CO_OCCURS edges) found, fixed, and
+repaired with total weight conserved exactly; event_status (F7) with
+deterministic detection and planned→occurred-only merges; recovery
+auto-invoked after a suspended-linking commit, best-effort, audited.
+MANDATORY DISCLOSURES alongside any of the above: Gate-E
+canonical-English residual (a Hindi session still consolidates 0 facts
+— the cross-lingual write proof is the store-level shape); the
+'planned' marker is prompt-unreachable in practice (0/23 — prompt
+types plans as states; extraction-policy change is a QUEUED FOUNDER
+DECISION); read-side case folding is ASCII-only; two recovery depths
+(the default sweep cannot see partially-linked facts; skipped surfaces
+need rescan_all=True); the in-memory loader collapses CO_OCCURS +
+ALIAS_OF on the same node pair and Stage 3 makes that the COMMON case
+for code-switched pairs (known issue, must fix before cross-lingual
+subgraph-serialization claims); NOTHING is wired into product
+retrieval yet — ConsolidationV2 has no caller outside benchmarks and
+tests (Stage 5's job).
+
+Stage table: Stage 3 ✅ DONE (G1 ✅ 180 tests / 100% line coverage on
+both core modules · G2 ✅ six identical real-model reproductions · G3 ✅
+R5 PASS-WITH-NOTES after R1-R4 each BLOCKED and fixed).

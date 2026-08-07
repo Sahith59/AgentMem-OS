@@ -109,6 +109,17 @@ labels categories by what they actually contain.
   same overall.
 - Independent reproductions: MaxiMem **73.8%**, Bench'd (OSS) **32.4%**, this repo
   **56.7%**, a filed reproduction issue **≈0.20**.
+- **2026-08-06 (verified live): Mem0's OSS graph module NO LONGER EXISTS.**
+  `mem0/memory/graph_memory.py` and the whole typed-relation `mem0/graphs/`
+  package were deleted in PR #4805 (v3 pipeline port); the OSS replacement
+  is spaCy entity extraction used only for retrieval boosting — no edges,
+  no graph. Open issue #6591 documents docs-vs-code drift over the removal.
+  The hosted Platform still sells "Graph Memory" (co-occurrence-inferred,
+  closed-source). **Consequence for our claims: the "Mem0 graph variant"
+  (J=68.44 above) refers to CODE THAT IS GONE from OSS — any comparison we
+  publish must say "Mem0 (paper, since-removed OSS graph)" or compare
+  against the closed platform, and this is mid-deprecation: RE-VERIFY at
+  publish time.**
 
 ### Zep / Graphiti ([arXiv 2501.13956](https://arxiv.org/abs/2501.13956))
 - **LongMemEval `_s`**: Zep **71.2%** (GPT-4o) vs full-context 60.2%; **63.8%**

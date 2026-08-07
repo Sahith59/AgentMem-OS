@@ -10,11 +10,13 @@ What exists in THIS file (G3 R1+R2 corrected; every line implemented):
                 grammar), zero-shot prompt; the server's actual
                 prompt_eval_count is read back and a context-window clamp
                 is REPORTED, never silent.
-  2. VALIDATE — calendar-real dates; future-dated events KEPT as dated
-                events with a "pending F7" warning (founder decision open;
-                retyping corrupted dedup identity, R3-B3);
-                unparseable dates drop the date and keep the fact;
-                vague-quantifier-vs-cited-digits WARNS, never rejects.
+  2. VALIDATE — calendar-real dates; future-dated events stored as dated
+                events with event_status='planned' (F7, founder-resolved
+                2026-08-06 — the marker replaced the "pending F7" warning;
+                retyping corrupted dedup identity, R3-B3, and stays
+                banned); unparseable dates drop the date and keep the
+                fact; vague-quantifier-vs-cited-digits WARNS, never
+                rejects.
   3. SUPPORT GATE — a fact is accepted only with USER-turn evidence:
                 stemmed-token overlap; ONE numeric-mention parser on
                 both sides (digits incl. glued units, decimals, word
@@ -23,17 +25,25 @@ What exists in THIS file (G3 R1+R2 corrected; every line implemented):
                 licensing recorded in the report (R2-B1..R5-B3).
                 Citations rank ALL roles by evidence strength before the
                 cap, and the cap is disclosed per fact.
-  4. WRITE    — one atomic caller-owned batch (extraction before the
-                transaction); ConsolidationLog rows persist truncation
-                and rejection counts (additive columns).
+  4. WRITE    — one atomic caller-owned batch (extraction AND entity NER
+                before the transaction); ConsolidationLog rows persist
+                truncation, rejection, and entity-link counts.
+  5. LINK     — Stage 3: accepted facts link to KG nodes through
+                FactEntityLinker inside the same batch (write-lock-held
+                check-then-insert; a linking failure never takes the
+                facts down — compute-level failures leave the batch
+                intact and link_missing() recovers unlinked facts
+                (skipped SURFACES need rescan_all=True — R3 B1); a
+                DB-level failure aborts the batch LOUDLY at the next
+                flush or commit, the Stage-1 contract).
 
 NOT built yet (disclosed, tracked in the build log): Tier 2-3 semantic
 dedup (embedding shortlist + batched LLM adjudication); per-event count
 fields ("three times" as count=3); deterministic relative-date resolution
 (the model resolves ~50% of relative dates wrong — measured, disclosed —
-a deterministic resolver is queued). Undated non-event facts store
-t_occurred=NULL, diverging from DESIGN §5.1's "else session date" —
-escalated to the founder with F7.
+a deterministic resolver is queued). Undated facts store t_occurred=NULL
+by FOUNDER DECISION (2026-08-06): DESIGN §5.1's session-date default is
+revoked — "when" is only ever a user-stated time.
 """
 
 import json
@@ -166,6 +176,33 @@ def _tokens(text: str) -> set:
             if t not in _STOP}
 
 
+def _event_status(fact_type: str, t_occ: str, session_date: str):
+    """F7 SINGLE SOURCE (founder-resolved 2026-08-06): the validator
+    warning and the stored marker MUST come from this one comparison —
+    two spellings of "is this future-dated?" is the drift class R3-B3
+    grew from. Events only; 'planned' when the occurrence START is past
+    the session date at mention time (a month interval overlapping the
+    session date is not clearly future → 'occurred'); undated events are
+    'occurred' per the extractor contract (events already happened).
+    Non-events: None.
+
+    REACHABILITY, disclosed plainly (G3 R1 M5): the extraction prompt
+    types ALL plans — dated or not — as 'state', so this marker fires
+    only when the model emits a future-dated EVENT against instruction.
+    Measured on the G2 sample: 0/23 facts carried 'planned'; three plan
+    facts were typed state per the prompt. The marker is a correctness
+    safety net for that disobedience class, not the primary plan
+    representation. Whether dated plans should instead extract as
+    planned EVENTS is a prompt-policy change that would alter measured
+    Gate-B extraction behavior — queued as a founder decision, not
+    slipped in mid-arc."""
+    if fact_type != "event":
+        return None
+    if t_occ and normalize_date(t_occ)[0] > session_date:
+        return "planned"
+    return "occurred"
+
+
 class ConsolidationV2:
     def __init__(self, get_db_session, model: str = DEFAULT_MODEL,
                  timeout: int = 600):
@@ -173,6 +210,8 @@ class ConsolidationV2:
         self.model = model
         self.timeout = timeout
         self.store = SemanticFactStore(get_db_session)
+        from agentmem_os.db.fact_entities import FactEntityLinker
+        self.linker = FactEntityLinker(get_db_session)
         self._last_prompt_eval = None
 
     # ── 1. Extraction ───────────────────────────────────────────────────────
@@ -225,16 +264,14 @@ class ConsolidationV2:
                 t_occ = raw_date
             except ValueError:
                 warns.append(f"unparseable t_occurred {raw_date!r} dropped")
-        # Stage-1 F7 (founder decision open): a future-dated EVENT is a
-        # plan. R1 stored it as occurred; R2's fix deleted it; R3's retype
-        # corrupted dedup identity. Current policy: KEEP as dated event +
-        # warning, pending the founder's call.
-        if (fact_type == "event" and t_occ
-                and normalize_date(t_occ)[0] > session_date):
-            # R3-B3: retyping to state silently merged different plan dates
-            # through the text-only state hash (Stage-1 F3 revert). Kept as
-            # a dated event + warning; storage policy is FOUNDER DECISION F7.
-            warns.append("future-dated event (planned?) — kept pending F7")
+        # F7 (founder-resolved 2026-08-06): a future-dated EVENT is a plan
+        # — stored as a dated event with event_status='planned'. History:
+        # R1 stored it as occurred; R2's fix deleted it; R3's retype
+        # corrupted dedup identity (R3-B3: the text-only state hash merged
+        # different plan dates — retyping stays banned). The warning and
+        # the stored marker share ONE detector, _event_status().
+        if _event_status(fact_type, t_occ, session_date) == "planned":
+            warns.append("future-dated event — stored event_status='planned' (F7)")
 
         # Support gate + citations (R2-B1/B2): score EVERY turn by stemmed
         # overlap; rank citations by strength, not turn id; require USER
@@ -360,21 +397,68 @@ class ConsolidationV2:
             if problems:
                 rejected.append((f, problems))
             else:
-                accepted.append((f, ftype, t_occ, cited))
+                # Stage 3: NER AND alias planning run BEFORE the batch
+                # transaction — same rule as extraction: no model
+                # compute while any write lock is held that this loop
+                # controls (G3 R1 B1: in-batch planning loaded the
+                # ~87s-cold alias model under the DB-wide write lock
+                # and killed a competing writer). plan_surfaces uses
+                # its own short READ session here. Known consequence,
+                # disclosed: an anchor node created later in THIS batch
+                # is invisible to plans made now — such surfaces land
+                # in skipped, recoverable ONLY by the
+                # link_missing(rescan_all=True) deep sweep — the
+                # default zero-link sweep cannot see a partially
+                # linked fact (R3 B1).
+                surfaces = self.linker.extract_surfaces(f["text"])
+                plan = self.linker.plan_surfaces(surfaces, agent_id=agent_id)
+                accepted.append((f, ftype, t_occ, cited, surfaces, plan))
 
-        created = reaffirmed = 0
+        created = reaffirmed = entities_linked = 0
+        link_skipped, link_failure = [], None
         batch = self.get_db()
         try:
-            for f, ftype, t_occ, cited in accepted:
-                _, was_created = self.store.add_fact(
+            for f, ftype, t_occ, cited, surfaces, plan in accepted:
+                fact, was_created = self.store.add_fact(
                     f["text"], fact_type=ftype,
                     t_mentioned=session_date, t_occurred=t_occ,
                     source_session_id=session_id, source_turn_ids=cited,
                     extraction_model=self.model, lang_source=lang_source,
-                    agent_id=agent_id, user_id=user_id, db=batch,
+                    agent_id=agent_id, user_id=user_id,
+                    event_status=_event_status(ftype, t_occ, session_date),
+                    entities=[s for s, _ in surfaces],   # display cache;
+                                                         # the join table
+                                                         # is the query path
+                    db=batch,
                 )
                 created += was_created
                 reaffirmed += (not was_created)
+                # Stage 3 linking, same batch (write lock already held by
+                # the add_fact flush/UPDATE above), APPLY-ONLY — the plan
+                # was computed before the transaction (B1). Failure
+                # policy of record: a linking exception never takes the
+                # FACTS down — after the first failure the rest of the
+                # batch skips linking, and the failure is PERSISTED in
+                # the log row (R1-M2: the count alone could not
+                # distinguish "suspended" from "nothing to link");
+                # link_missing() recovers later. If the failure poisoned
+                # the session at the DB layer, the NEXT flush or the
+                # commit raises LOUDLY (the next add_fact's flush hits
+                # it first when more facts follow) — the Stage-1 abort
+                # contract, callers retry.
+                if link_failure is None:
+                    try:
+                        rep = self.linker.link_fact(
+                            fact.id, plan=plan, agent_id=agent_id,
+                            session_id=session_id, db=batch)
+                        entities_linked += len(rep["linked"])
+                        link_skipped.extend(rep["skipped"])
+                    except Exception as e:
+                        link_failure = f"{type(e).__name__}: {e}"
+                        logger.warning(
+                            f"[ConsolidationV2] {session_id}: entity "
+                            f"linking failed on fact {fact.id} — linking "
+                            f"suspended for this batch: {link_failure}")
             batch.add(ConsolidationLog(
                 session_id=session_id, turns_processed=len(turn_data),
                 summaries_generated=created,
@@ -382,6 +466,8 @@ class ConsolidationV2:
                 rejected_count=len(rejected),          # persisted (R1-M7)
                 rejections_json=json.dumps(
                     [(str(f.get("text"))[:120], p) for f, p in rejected]),
+                entities_linked=entities_linked,       # NEW link rows only
+                link_failure=link_failure,             # persisted (R1-M2)
                 duration_seconds=(datetime.utcnow() - started).total_seconds(),
                 triggered_by="consolidation_v2",
             ))
@@ -391,6 +477,47 @@ class ConsolidationV2:
             raise
         finally:
             batch.close()
+
+        # R4-M5: the recovery sweep must have a PRODUCT caller, not
+        # live only in docstrings ("recovery today is a human writing
+        # the drain loop in a REPL"). After a suspended-linking commit,
+        # run the bounded default-depth drain for this scope — every
+        # fact whose linking was suspended has zero link rows and is
+        # exactly what the default sweep covers. (The suspended-run
+        # FIRST fact may hold partial links if it failed mid-apply;
+        # that residue needs the deep sweep — disclosed in the report.)
+        # BEST-EFFORT (R5): the facts and log row are already
+        # committed — a recovery-side fault must never destroy the
+        # report; it is recorded, not raised. Recovered links are
+        # written back into the persisted log row (R5: 12 links in the
+        # DB against a persisted 0 is an incoherent audit).
+        link_recovery = None
+        if link_failure is not None:
+            try:
+                link_recovery = self.recover_links(agent_id=agent_id,
+                                                   user_id=user_id)
+                if link_recovery["links_created"]:
+                    patch = self.get_db()
+                    try:
+                        row = (patch.query(ConsolidationLog)
+                               .filter(ConsolidationLog.session_id
+                                       == session_id)
+                               .order_by(ConsolidationLog.id.desc())
+                               .first())
+                        row.entities_linked = (
+                            (row.entities_linked or 0)
+                            + link_recovery["links_created"])
+                        row.link_failure = (
+                            f"{link_failure} | recovered "
+                            f"{link_recovery['links_created']} links "
+                            f"post-commit")
+                        patch.commit()
+                    finally:
+                        patch.close()
+            except Exception as e:
+                link_recovery = {"error": f"{type(e).__name__}: {e}"}
+                logger.warning(f"[ConsolidationV2] {session_id}: link "
+                               f"recovery itself failed: {e}")
 
         report = {
             "session_id": session_id, "turns": len(turn_data),
@@ -403,6 +530,10 @@ class ConsolidationV2:
             "prompt_tokens": prompt_tokens,
             "ctx_clamped": ctx_clamped,
             "session_date_note": date_note,
+            "entities_linked": entities_linked,     # Stage 3
+            "entity_links_skipped": link_skipped,   # (surface, reason)
+            "link_failure": link_failure,           # None = clean run
+            "link_recovery": link_recovery,         # auto-drain (R4-M5)
             "numbers_audit": numbers_audit,   # which values licensed by
                                               # which turns; exempted date
                                               # digits (R5-M5)
@@ -410,6 +541,44 @@ class ConsolidationV2:
         }
         logger.info(f"[ConsolidationV2] {report}")
         return report
+
+    def recover_links(self, agent_id: str = None, user_id: str = None,
+                      deep: bool = False, limit: int = 500,
+                      max_rounds: int = 200) -> dict:
+        """
+        The PRODUCT-side drain loop for the linker's recovery sweep
+        (R4-M5 — the compensating control must be callable, not a
+        docstring recipe). Cursor-drains link_missing to completion:
+        deep=False recovers unlinked facts (auto-invoked after a
+        link_failure commit); deep=True re-plans every fact in scope
+        (run after anchor-bearing ingests — recovers surfaces skipped
+        earlier). max_rounds is a runaway guard, LOUD when hit.
+        Cost disclosure (R5): the drain is SCOPE-wide, not batch-scoped
+        — under a persistent linker fault every auto-invocation
+        re-attempts all still-unlinked facts in the scope, O(sessions ×
+        scope) until the fault clears; the bound is max_rounds × limit.
+        """
+        cursor = rounds = swept = links = 0
+        failures = []
+        while rounds < max_rounds:
+            r = self.linker.link_missing(agent_id=agent_id, user_id=user_id,
+                                         limit=limit, after_id=cursor,
+                                         rescan_all=deep)
+            if r["candidates"] == 0:
+                break
+            cursor = r["next_after_id"]
+            swept += r["swept"]
+            links += r["links_created"]
+            failures.extend(r["failures"])
+            rounds += 1
+        else:
+            logger.warning(f"[ConsolidationV2] recover_links hit "
+                           f"max_rounds={max_rounds} — drain incomplete")
+        result = {"rounds": rounds, "swept": swept, "links_created": links,
+                  "failures": failures, "deep": deep,
+                  "complete": rounds < max_rounds}
+        logger.info(f"[ConsolidationV2] link recovery: {result}")
+        return result
 
     # ── Helpers ─────────────────────────────────────────────────────────────
 

@@ -197,9 +197,10 @@ def test_morphology_does_not_false_reject(env, monkeypatch):
     assert r["created"] == 1 and r["rejected"] == 0
 
 
-def test_planned_event_kept_dated_and_warned(env, monkeypatch):
-    # Stage-1 F7 OPEN: kept as a dated event + warning (retype corrupted
-    # the dedup identity, R3-B3). Two different plan dates = two rows.
+def test_planned_event_stored_with_status_marker(env, monkeypatch):
+    # F7 RESOLVED (2026-08-06): future-dated events stay dated events
+    # (retype corrupted dedup identity, R3-B3) and carry
+    # event_status='planned'. Two different plan dates = two rows.
     engine, SessionLocal = env
     monkeypatch.setattr(engine, "_llm", lambda p: {"facts": [
         {"text": "The user rode rollercoasters at the upcoming SeaWorld "
@@ -210,12 +211,15 @@ def test_planned_event_kept_dated_and_warned(env, monkeypatch):
          "t_occurred": "2025/04/21"}]})
     r = engine.consolidate_session("s1")
     assert r["created"] == 2                     # dates NOT merged
-    assert sum("pending F7" in w for _, w in r["warnings"]) == 2
+    assert sum("event_status='planned'" in w for _, w in r["warnings"]) == 2
     from agentmem_os.db.models import SemanticFact
     db = SessionLocal()
-    dates = {f.t_occurred for f in db.query(SemanticFact).all()}
+    facts = db.query(SemanticFact).all()
+    dates = {f.t_occurred for f in facts}
+    statuses = {f.event_status for f in facts}
     db.close()
     assert dates == {"2024/04/15", "2025/04/21"}
+    assert statuses == {"planned"}               # the marker, not just a warning
 
 
 def test_user_stated_dates_and_word_numerals_pass_numbers_gate(env, monkeypatch):
@@ -884,3 +888,154 @@ def test_lang_source_passthrough(env, monkeypatch):
     db = SessionLocal()
     assert all(f.lang_source == "hi" for f in db.query(SemanticFact).all())
     db.close()
+
+
+# ── Stage 3: event_status single source + entity linking wiring ──────────────
+
+def test_event_status_helper_single_source():
+    from agentmem_os.llm.consolidation_v2 import _event_status
+    # Non-events never carry the axis (undated plans extract as states —
+    # disclosed boundary).
+    assert _event_status("state", "2099/01/01", "2023/05/20") is None
+    assert _event_status("preference", None, "2023/05/20") is None
+    # Events: undated and past/present → occurred; strictly future → planned.
+    assert _event_status("event", None, "2023/05/20") == "occurred"
+    assert _event_status("event", "2023/05/19", "2023/05/20") == "occurred"
+    assert _event_status("event", "2023/05/20", "2023/05/20") == "occurred"
+    assert _event_status("event", "2023/05/21", "2023/05/20") == "planned"
+    # Month interval overlapping the session date is not clearly future.
+    assert _event_status("event", "2023/05", "2023/05/20") == "occurred"
+    assert _event_status("event", "2023/06", "2023/05/20") == "planned"
+
+
+def test_facts_link_to_kg_end_to_end(env, monkeypatch):
+    # The full Stage-3 wire: mock LLM, REAL spaCy NER on the fact text,
+    # real linker, one batch. Facts get entities (display cache), the
+    # join table gets rows, the log row records the count.
+    from agentmem_os.db.models import (
+        ConsolidationLog, KnowledgeGraphNode, SemanticFact,
+        SemanticFactEntity,
+    )
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: {"facts": [
+        {"text": "The user rode rollercoasters three times at SeaWorld.",
+         "fact_type": "event", "t_occurred": "2023/05/19"}]})
+    r = engine.consolidate_session("s1")
+    assert r["created"] == 1
+    assert r["link_failure"] is None
+    assert r["entities_linked"] >= 1          # SeaWorld at minimum
+    db = SessionLocal()
+    fact = db.query(SemanticFact).one()
+    links = db.query(SemanticFactEntity).all()
+    node_texts = {n.entity_text for n in db.query(KnowledgeGraphNode).all()}
+    log = db.query(ConsolidationLog).one()
+    db.close()
+    assert "SeaWorld" in (fact.entities or [])     # display cache filled
+    assert fact.event_status == "occurred"
+    assert len(links) == r["entities_linked"]
+    assert "SeaWorld" in node_texts
+    assert log.entities_linked == r["entities_linked"]
+
+
+def test_link_failure_never_takes_facts_down(env, monkeypatch):
+    # Compute-level linking failure: facts and the log row still commit,
+    # the failure is reported AND PERSISTED (G3 R1 M2 — the count alone
+    # cannot distinguish "suspended" from "nothing to link"), linking is
+    # suspended for the batch (the sweep recovers later). This is the
+    # failure POLICY of record — a regression here silently couples fact
+    # durability to linker health.
+    from agentmem_os.db.models import (
+        ConsolidationLog, SemanticFact, SemanticFactEntity,
+    )
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: GOOD)
+    calls = {"batch": 0, "recovery": 0}
+
+    def _boom(*a, **k):
+        # Batch calls carry db=; the auto-recovery sweep (R4-M5) runs
+        # store-owned calls — count them separately so the suspension
+        # tripwire stays sharp.
+        calls["batch" if k.get("db") is not None else "recovery"] += 1
+        raise RuntimeError("resolver exploded")
+
+    monkeypatch.setattr(engine.linker, "link_fact", _boom)
+    r = engine.consolidate_session("s1")
+    assert r["created"] == 2                   # facts survived
+    assert "resolver exploded" in r["link_failure"]
+    assert r["entities_linked"] == 0
+    # Suspension tripwire (G3 R1 minor: flipping `if link_failure is
+    # None` to `if True` left the suite green — now it can't): after
+    # the FIRST failure, the second fact must never attempt linking
+    # IN THE BATCH. The auto-recovery sweep then legitimately retries
+    # both facts (still broken here → recorded as failures, loudly).
+    assert calls["batch"] == 1
+    assert calls["recovery"] == 2
+    assert len(r["link_recovery"]["failures"]) == 2
+    db = SessionLocal()
+    facts = db.query(SemanticFact).count()
+    links = db.query(SemanticFactEntity).count()
+    log = db.query(ConsolidationLog).one()
+    db.close()
+    assert facts == 2 and links == 0
+    assert "resolver exploded" in log.link_failure   # persisted, not just reported
+    # And the sweep is the recovery path for exactly this state.
+    monkeypatch.undo()
+    swept = engine.linker.link_missing()
+    assert swept["swept"] == 2 and swept["failures"] == []
+
+
+def test_link_failure_triggers_automatic_recovery(env, monkeypatch):
+    # R4-M5: the recovery sweep must have a PRODUCT caller. A batch
+    # whose linking fails commits its facts, then consolidate_session
+    # auto-drains the default sweep — the suspended facts (zero links)
+    # come back linked without any human running a REPL loop.
+    from agentmem_os.db.models import SemanticFactEntity
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: GOOD)
+    real = engine.linker.link_fact
+    state = {"fail": True}
+
+    def _fail_in_batch_only(*a, **k):
+        if state["fail"] and k.get("db") is not None:
+            raise RuntimeError("resolver exploded")
+        return real(*a, **k)
+
+    monkeypatch.setattr(engine.linker, "link_fact", _fail_in_batch_only)
+    r = engine.consolidate_session("s1")
+    assert r["created"] == 2
+    assert "resolver exploded" in r["link_failure"]
+    assert r["link_recovery"] is not None
+    assert r["link_recovery"]["complete"] is True
+    assert r["link_recovery"]["links_created"] >= 1   # SeaWorld recovered
+    db = SessionLocal()
+    links = db.query(SemanticFactEntity).count()
+    db.close()
+    assert links == r["link_recovery"]["links_created"]
+
+
+def test_recover_links_deep_drain_terminates(env, monkeypatch):
+    from agentmem_os.llm.consolidation_v2 import ConsolidationV2
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: GOOD)
+    engine.consolidate_session("s1")
+    rec = engine.recover_links(deep=True, limit=1)
+    assert rec["complete"] is True
+    assert rec["deep"] is True
+    assert rec["swept"] >= 2          # every fact revisited, drain ended
+
+
+def test_recover_links_runaway_guard_is_loud(env, monkeypatch):
+    # R5 minor: the max_rounds guard and complete=False had no tripwire
+    # (coverage showed the warning line never executed).
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: GOOD)
+    engine.consolidate_session("s1")
+    from loguru import logger as _loguru
+    msgs = []
+    sink = _loguru.add(lambda m: msgs.append(str(m)), level="WARNING")
+    try:
+        rec = engine.recover_links(deep=True, limit=1, max_rounds=1)
+    finally:
+        _loguru.remove(sink)
+    assert rec["complete"] is False
+    assert any("max_rounds" in m for m in msgs)

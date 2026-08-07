@@ -49,6 +49,14 @@ from sqlalchemy.exc import IntegrityError
 
 FACT_TYPES = frozenset({"event", "state", "preference", "identity"})
 
+# Event-status axis (F7, founder-resolved 2026-08-06). 'cancelled' is
+# deliberately NOT accepted yet — it is Stage 4 judgment territory and a
+# value the store accepts must have defined merge semantics, not reserved
+# ones. Events default to 'occurred' (the extractor contract says events
+# already happened); 'planned' = future-dated at mention time. NOT part
+# of the dedup hash; re-affirmation upgrades planned→occurred only.
+EVENT_STATUSES = frozenset({"occurred", "planned"})
+
 # Concurrency model (G3 round 3): NO in-process lock. Every mutation is
 # either constraint-guarded (insert → unique constraint, race falls back to
 # re-affirmation), rowcount-guarded (supersede → conditional UPDATE), or
@@ -166,12 +174,19 @@ class SemanticFactStore:
         extraction_model: str = "unknown",
         agent_id: str = None,
         user_id: str = None,
+        event_status: str = None,
         db=None,
     ):
         """
         Insert a fact, or re-affirm the existing one if this scope already
         holds it. Returns (fact, created: bool). All validation happens
         BEFORE any write.
+
+        event_status (F7): events only — 'occurred' | 'planned'; None on
+        an event defaults to 'occurred' so the invariant "every event
+        carries a status" holds at the STORE, not by caller courtesy.
+        Non-events must pass None (a status on a preference is a caller
+        bug, loud).
         """
         from agentmem_os.db.models import SemanticFact
 
@@ -182,6 +197,17 @@ class SemanticFactStore:
         if source_turn_ids is not None and not all(
                 type(i) is int for i in source_turn_ids):
             raise ValueError("source_turn_ids must be a list of turn row ids (ints, not bools)")
+        if fact_type == "event":
+            if event_status is None:
+                event_status = "occurred"
+            elif event_status not in EVENT_STATUSES:
+                raise ValueError(
+                    f"event_status must be one of {sorted(EVENT_STATUSES)}, "
+                    f"got {event_status!r} ('cancelled' is Stage 4 — the "
+                    "store only accepts statuses whose merge semantics exist)")
+        elif event_status is not None:
+            raise ValueError(
+                f"event_status is an event axis; {fact_type!r} facts must not carry one")
         t_mentioned, _ = normalize_date(t_mentioned, allow_partial=False)
         t_occ_start = t_occ_end = None
         if t_occurred is not None:
@@ -202,7 +228,7 @@ class SemanticFactStore:
                     return self._reaffirm(
                         session, owns, existing, source_session_id,
                         source_turn_ids, entities, t_occ_start, t_occ_end,
-                        lang_source,
+                        lang_source, event_status,
                     ), False
 
                 fact = SemanticFact(
@@ -214,6 +240,7 @@ class SemanticFactStore:
                     t_occurred=t_occ_start,
                     t_occurred_end=t_occ_end,
                     t_mentioned=t_mentioned,
+                    event_status=event_status,
                     source_session_id=source_session_id,
                     source_session_ids=[source_session_id],
                     source_turn_ids=list(source_turn_ids or []),
@@ -262,7 +289,7 @@ class SemanticFactStore:
                     return self._reaffirm(
                         session, owns, existing, source_session_id,
                         source_turn_ids, entities, t_occ_start, t_occ_end,
-                        lang_source,
+                        lang_source, event_status,
                     ), False
                 if owns:
                     session.refresh(fact)
@@ -273,7 +300,8 @@ class SemanticFactStore:
 
     @staticmethod
     def _reaffirm(session, owns, fact, source_session_id, source_turn_ids,
-                  entities, t_occ_start, t_occ_end, lang_source):
+                  entities, t_occ_start, t_occ_end, lang_source,
+                  event_status=None):
         """
         Deterministic re-affirmation (R4-1/R5-1): a RELATIVE increment of
         mention_count acquires the SQLite write lock; the re-read and the
@@ -337,6 +365,17 @@ class SemanticFactStore:
         if fresh.t_occurred is None and t_occ_start is not None:
             values["t_occurred"] = t_occ_start
             values["t_occurred_end"] = t_occ_end
+        # F7 merge rule: planned→occurred only. A re-affirmation whose
+        # mention time is past the event date arrives as 'occurred' —
+        # the claim is no longer prospective from ANY source's view. The
+        # reverse (a pre-date restatement of an already-occurred claim)
+        # never downgrades. NULL on the row (pre-Stage-3 writer against
+        # a migrated DB) backfills from the incoming value.
+        if event_status is not None and fresh.fact_type == "event":
+            if fresh.event_status is None or (
+                    fresh.event_status == "planned"
+                    and event_status == "occurred"):
+                values["event_status"] = event_status
         (session.query(SemanticFact)
          .filter(SemanticFact.id == fact_id)
          .update(values, synchronize_session=False))
@@ -632,6 +671,7 @@ class SemanticFactStore:
                 "extraction_model": fact.extraction_model,
                 "langs": list(fact.langs or [fact.lang_source]),
                 "mention_count": fact.mention_count,
+                "event_status": fact.event_status,   # F7 axis (events only)
             }
         finally:
             if owns:
