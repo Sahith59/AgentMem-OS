@@ -18,6 +18,7 @@ Run:
   agentmem-os-mcp --transport sse --port 8765   (SSE, for web clients)
 """
 
+import asyncio
 import sys
 import os
 import json
@@ -106,7 +107,9 @@ async def handle_list_tools() -> list[types.Tool]:
             name="recall_memory",
             description=(
                 "Retrieve relevant memory context for a query from all 4 memory tiers: "
-                "episodic (exact turns), semantic (DBSCAN-compressed summaries), "
+                "episodic (exact turns), semantic — dated atomic FACTS first "
+                "(distilled by consolidate_session, supersession-aware, with change "
+                "history), then raw-turn semantic search as provenance/fallback — "
                 "entity KG (relationship graph), and procedural (behavioral patterns). "
                 "Returns a structured XML context block ready to prepend to any LLM prompt."
             ),
@@ -125,9 +128,47 @@ async def handle_list_tools() -> list[types.Tool]:
                         "type": "integer",
                         "description": "LLM context window size in tokens (default: 128000)",
                         "default": 128000
+                    },
+                    "agent_id": {
+                        "type": "string",
+                        "description": "Optional agent namespace — must match the agent_id used at consolidation for facts to be visible"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "description": "Optional user namespace (second axis of the fact scope)"
                     }
                 },
                 "required": ["session_id", "query"]
+            }
+        ),
+        types.Tool(
+            name="consolidate_session",
+            description=(
+                "Distill a session's turns into dated, atomic, cited semantic facts "
+                "(Consolidation v2): schema-constrained local-LLM extraction, entity "
+                "linking through the knowledge graph (cross-lingual ALIAS_OF), and "
+                "per-fact supersession judgment — new facts can mark old ones as "
+                "history, never deleting them. These facts are what recall_memory "
+                "surfaces first. Requires a local Ollama server; fails loudly (with "
+                "zero writes) when the LLM is unreachable."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "Session whose turns should be consolidated"
+                    },
+                    "agent_id": {
+                        "type": "string",
+                        "description": "Optional agent namespace the facts are stored under"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "description": "Optional user namespace (second axis of the fact scope)"
+                    }
+                },
+                "required": ["session_id"]
             }
         ),
         types.Tool(
@@ -243,6 +284,8 @@ async def handle_call_tool(name: str, arguments: dict) -> list[types.TextContent
             return await _get_patterns(**arguments)
         elif name == "summarize_session":
             return await _summarize_session(**arguments)
+        elif name == "consolidate_session":
+            return await _consolidate_session(**arguments)
         else:
             return [types.TextContent(
                 type="text",
@@ -300,6 +343,8 @@ async def _recall_memory(
     session_id: str,
     query: str,
     model_window: int = 128000,
+    agent_id: Optional[str] = None,
+    user_id: Optional[str] = None,
 ) -> list[types.TextContent]:
     store = _get_store()
 
@@ -317,7 +362,8 @@ async def _recall_memory(
 
     try:
         assembler = ContextAssembler(model_window=model_window)
-        context_xml = assembler.assemble(session_id, query)
+        context_xml = assembler.assemble(session_id, query,
+                                         agent_id=agent_id, user_id=user_id)
         token_estimate = len(context_xml) // 4
 
         result = {
@@ -338,6 +384,44 @@ async def _recall_memory(
             "recent_turns": turns,
         }
         return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+
+
+async def _consolidate_session(
+    session_id: str,
+    agent_id: Optional[str] = None,
+    user_id: Optional[str] = None,
+) -> list[types.TextContent]:
+    """ConsolidationV2's product caller (Stage 5). Fails loudly with
+    zero writes when the local LLM is unreachable — the engine's own
+    contract; this handler adds nothing to it and hides nothing."""
+    db = get_session()
+    try:
+        sess = db.query(DBSession).filter(
+            DBSession.session_id == session_id).first()
+        if not sess:
+            return [types.TextContent(
+                type="text",
+                text=json.dumps({"error": f"Session '{session_id}' not "
+                                          "found. Save some turns first."})
+            )]
+    finally:
+        db.close()
+
+    # Lazy import: the engine pulls the extraction/judgment stack; tool
+    # listing and unrelated calls must not pay for it.
+    from agentmem_os.llm.consolidation_v2 import ConsolidationV2
+
+    engine = ConsolidationV2(get_session)
+    # to_thread (G3 R1 m5): extraction + judgment is tens of seconds of
+    # synchronous LLM work — run inline it would freeze the entire MCP
+    # event loop, blocking every other tool call for the duration.
+    report = await asyncio.to_thread(
+        engine.consolidate_session, session_id,
+        agent_id=agent_id, user_id=user_id)
+    result = {"session_id": session_id, "agent_id": agent_id,
+              "user_id": user_id, **report}
+    return [types.TextContent(type="text", text=json.dumps(
+        result, indent=2, default=str))]
 
 
 async def _get_knowledge_graph(

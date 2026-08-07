@@ -2436,3 +2436,371 @@ Saturday** dinner reservations" can still mark a Friday lunch cancelled. It cann
 today — the extractor never produces the marker this gate needs, and none of this is wired into
 retrieval — and it is now written down as a known limit instead of being claimed safe. That last part is
 the whole difference between rounds 6-7 and this one.
+
+## 2026-08-07 — Critics — Consolidation v2 Stage 5 (facts-first retrieval wiring), ROUND 1 — **BLOCK**
+
+**Claim reviewed:** Stage 5 "G1 24 tests + 255 regression, G2 $0 diagnostics with two byte-identical
+runs, two real pre-existing bugs found and fixed" (CONSOLIDATION_V2_BUILD_LOG.md:1640-1837).
+**Method:** read llm/fact_retrieval.py, llm/context_assembler.py, db/fact_entities.py,
+db/semantic_facts.py, cache/redis_client.py, storage/store.py, tests/conftest.py,
+tests/test_fact_retrieval.py, benchmarks/facts_first_diagnostics.py, mcp_server/server.py in full;
+7 executed mutations via an importlib source-rewrite pytest plugin (scratch, repo untouched);
+5 live probes; one full rerun of the $0 diagnostics (local llama3.1 only, $0); full 255-test
+regression rerun. All runs env-pinned AGENTMEM_OS_DB_PATH=/tmp/critic-s5-r1/*, DISABLE_REDIS=1,
+COVERAGE_FILE scratch. Repo hashes + `git status` identical at start and end.
+
+**Verdict: BLOCK — 3 blockers, 7 majors, 5 minors/notes.**
+- S5-R1-B1 BLOCKER: budget truncation destroys the top-ranked fact. build_block picks by rank, sorts
+  chronological ASC, assembler head-truncates (context_assembler.py:125-126) -> the OLDEST facts
+  survive and the rank-0 CURRENT fact is cut mid-word. Measured: rank-0 "Rachel is currently working
+  at TechCorp as VP of Platform Engineering" rendered as "Rachel is cu" while three 2020 workshop
+  facts survived whole. Contradicts fact_retrieval.py:166 ("the best evidence must survive the
+  budget"). This is the SAME failure the repo already measured and fixed for chunks
+  (qa_accuracy_eval.py:277-284: "chronological presentation made it catastrophic ... collapsed to
+  0.13"). Transition lines are outside the budget accounting entirely (measured 1072 chars rendered
+  for char_budget=200, 5.4x), so overflow is the normal case, not an edge.
+- S5-R1-B2 BLOCKER: the get_history "fix" poisons the hot cache. len(cached)>=last_n means the
+  assembler's last_n=20 can NEVER hit a 10-turn cache, so every assemble re-runs the repopulate loop
+  (store.py:211-217) and duplicates turns. Modeled faithfully: a 5-turn session serves
+  mcp_server/server.py:377 (last_n=10) ['t1'..'t5','t1'..'t5'] — duplicated turns on a shipped tool.
+  Untestable by construction: conftest forces DISABLE_REDIS=1 for the whole suite.
+- S5-R1-B3 BLOCKER: byte-identity pin is mutation-green. MUT4a (sem_budget -= 5000 whenever the facts
+  tier runs) and MUT4b (empty block still enters the emit branch) both leave 24/24 GREEN, because
+  _FakeChroma ignores top_k and returns 2 tiny chunks. The exact drift class that moves the banked
+  66.0%/0.952 is invisible. Repeat of the logged lesson "An assertion that matches the mutant is not
+  a tripwire" (2026-08-06, Stage 2 R3).
+- Majors: fact_text newline + "[change history:" injection render as forged evidence lines (measured);
+  _query_surfaces cap drops 9/10 sub-word surfaces — the arm the G1 catch was added for; the Redis
+  root cause (session-id-only keys) is NOT fixed, only kill-switched, while the record says "FIXED";
+  Part B's "raw-turn path finds it NOWHERE" is structurally guaranteed (TechCorp count in
+  answer_b0f3dfff_1 is 0) and duplicates Part C; Part D's "27:12 stays visible / no false
+  supersession" has ZERO output backing it (the script never probes 27:12, never prints Part D's
+  supersession result); benchmarks/qa_accuracy_eval.py:349 is an affected live caller missing from
+  the impact analysis; "no model load can EVER sit under a database lock" is false (the e5 alias
+  model loads inside facts_for_entity's open session, reproduced on a Devanagari query).
+- What HELD: mutations 1/2/3/5 each kill exactly their named test and nothing else; every G2 number
+  reproduced EXACTLY on my rerun (6264==6264, 945, 900, 3463, 2631, facts-only=True,
+  history_visible=False, 25:50 present, 188 live Redis keys); 255 regression reproduced; the
+  cancelled-filter sibling sweep is closed on every live-fact reader except facts_as_of (disclosed);
+  the honest notes about the non-firing Rachel supersession and the killed 4/6 mutual proposal are
+  accurate to the audit rows.
+
+**Refs:** llm/fact_retrieval.py:39-43,102-108,182-210,212-225; llm/context_assembler.py:117-138,
+141-176,295-330; storage/store.py:173-218; cache/redis_client.py:18-28; tests/conftest.py:22;
+tests/test_fact_retrieval.py:234-256,259-269,281-291,348-385; benchmarks/facts_first_diagnostics.py:
+68-88,192-209; mcp_server/server.py:377,388-419; qa_accuracy_eval.py:277-285,349;
+CONSOLIDATION_V2_BUILD_LOG.md:1640-1837. Harnesses: /tmp/critic-s5-r1/ (mut/ = 7 mutation plugins +
+mutlib.py; probe1-5.py; diag_run1.log = my full $0 rerun).
+
+**Who needs to know:** **Dev-Head — do not ship.** B1 is a wrong-answer generator on the product's
+own headline question type and repeats a failure this repo already measured and fixed once. B2 is a
+regression this stage introduced into a shipped MCP tool. B3 means the load-bearing no-regress pin
+does not bear load. **Bosses —** the measurement half of Stage 5 is genuinely strong (every number
+reproduced exactly, determinism held across windows); the failure is in unbudgeted/untruncated
+rendering, cache side effects, and three claims written past their evidence. **Founder —** nothing
+here spends money and nothing is wired into a paid path yet; the honest notes in the record are
+honest. The problem is that under budget pressure the new facts block currently shows the STALE
+answer and cuts the current one, and the record states three Part-B/D results the diagnostic never
+measured.
+
+## 2026-08-07 — Critics — Consolidation v2 Stage 5, ROUND 2 (fix-pass re-review) — **BLOCK**
+
+**Claim reviewed:** "full fix pass for the R1 verdict has landed; 30 passed + 1 opt-in skip, 255
+regression green, diagnostics clean, five inline record corrections"
+(CONSOLIDATION_V2_BUILD_LOG.md:1839-1941).
+**Method:** re-read every changed file; 12 executed mutations (11 new against the FIXES + 2 R1 replays)
+via scratch source-rewrite plugins; 5 new probes incl. a 115-point budget sweep; full $0 diagnostics
+rerun diffed against my R1 run; 255-regression rerun; 30-test run. All env-pinned to
+/tmp/critic-s5-r2/*, DISABLE_REDIS=1. Repo hashes + `git status` unchanged.
+
+**Verdict: BLOCK — 1 blocker, 2 majors, 5 minors/notes.** (R1's 3 blockers: B2 and B3 CLEARED, B1 NOT.)
+- S5-R2-B1 BLOCKER: **B1 is not fixed — it recurs one layer down.** build_block now honours its CHAR
+  budget, but the assembler's constraint is TOKENS. Measured density of a rendered fact block:
+  3.68-3.84 chars/token, i.e. always < the 4.0 the `char_budget = sem_budget * 4` proxy assumes. So a
+  full block overshoots the TOKEN budget, `_fit_to_budget`'s binary search fires, head-keeping cuts the
+  newest = rank-0 fact. Swept semantic budgets 60..1200 step 10: **95 of 115 (83%) lose the rank-0
+  current fact.** Ordinary English facts, ordinary dates, no adversarial input, no chains.
+- S5-R2-B1a (same blocker, worse): **the new pin is a tautology that is green while the bug fires
+  inside it.** `test_truncation_cannot_delete_top_ranked_fact` asserts `"TechCorp" in out` — and all 30
+  filler facts contain "TechCorp". Ran its exact fixture at its exact budget (semantic=100):
+  `"TechCorp" in out` -> True (green) while `current.fact_text in out` -> False, section ending
+  `"[2024/12/31] (state) Rac"`. Second occurrence in this stage of the logged lesson "An assertion that
+  matches the mutant is not a tripwire" (2026-08-06 Stage 2 R3), which I cited in R1.
+- S5-R2-M1 MAJOR: the record states the pin "asserts surviving text ... through the real assembler at
+  semantic=100" (log:1856-1858). It does not, and the property is violated at that exact budget.
+- S5-R2-M2 MAJOR: G2 cannot see B1 — the diagnostics runs at default allocations (15360 tokens) where
+  the fact block never approaches the budget, so a clean diagnostics rerun is not evidence for B1.
+  Undisclosed. qa_accuracy_eval (~4740 tokens, named in the M6 correction as "MOST exposed to B1") sits
+  in the failing regime.
+- Minors: `break`-not-`continue` (no short-fact leapfrogging) is claimed in code + record and survives
+  mutation N2 unpinned; `_predecessor_targets` scope filter survives N8 unpinned (not claimed pinned —
+  note only); `_sanitize` residuals — zero-width space inside the marker (`[change​history:`)
+  bypasses `\s+` and renders visually identical to the real marker, bracket homoglyphs pass, and inline
+  (same-line) date/type forgery survives whitespace collapse; stale "10 turns" in
+  cache/redis_client.py:10 and storage/store.py:181 after max_turns became 20; the faithful fake's
+  pipeline executes immediately so an execute-ordering bug in replace_history would not be caught
+  (opt-in live test partially covers).
+- **CLEARED:** B2 (duplication gone at every session length; ≥20-turn sessions now hit 3/3 with 0
+  writes; residual = short sessions still never hit, correct results, undisclosed perf note only).
+  B3 (MUT4a now dies via chroma-calls inequality; MUT4b equivalence claim VERIFIED by code — 
+  `_fit_to_budget("")` returns "" and the section is never appended). M1 line-forgery, M2 interleave,
+  M7 docstring, m1/m2/m4/m5/n1/n2/n3 all verified. 10 of 12 mutations died under exactly their named
+  test. Diagnostics: exit 0, Part A 6264==6264, Part D now genuinely measures both 27:12 and 25:50 with
+  superseded=[] and the rendered lines; my R1-vs-R2 log diff shows every LLM output and every section
+  size byte-identical — determinism now holds across three independent windows. 255 regression + 30
+  tests reproduced.
+
+**Refs:** llm/fact_retrieval.py:44-68,195-263; llm/context_assembler.py:117-138,295-330;
+cache/redis_client.py:10,31-61; storage/store.py:173-220(181);
+tests/test_fact_retrieval.py:276-301(301),304-322,352-375,443-466,469-514;
+benchmarks/facts_first_diagnostics.py:76-100,212-245; CONSOLIDATION_V2_BUILD_LOG.md:1839-1941
+(1845-1859,1856-1858,1930-1933,1938-1941). Harnesses: /tmp/critic-s5-r2/ (mut/n1-n10; probe_tok.py,
+probe_sweep.py, probe_taut.py, probe_san.py, probe_cache.py; diag_run2.log + .norm diff vs R1).
+
+**Who needs to know:** **Dev-Head —** one blocker left, and it is R1-B1 unchanged in substance. The
+char-budget fix was the right idea applied in the wrong unit: build_block must budget in TOKENS
+(counter.count on the accumulating block) so `_fit_to_budget` never truncates the facts section at all,
+and the pin must assert a needle that exists ONLY in the rank-0 fact. Everything else you did this
+round is real and verified. **Bosses —** 2 of 3 blockers genuinely closed with mutation-proven pins;
+the remaining one is a unit mismatch, not a design flaw. **Founder —** the fix pass was honest work and
+the record corrections are accurate; the one thing still wrong is the same thing as last round — at a
+tight budget the assembled prompt can still show the stale answer and cut the current one, 83% of the
+budgets I swept — and the test written to catch that passes while it happens.
+
+## 2026-08-07 — Critics — Consolidation v2 Stage 5, ROUND 3 (fix-pass re-review) — **BLOCK (narrow)**
+
+**Claim reviewed:** "B1 fixed in the right unit; B1a pin rewritten; all eight R2 minors landed; 35
+passed + 1 opt-in skip; 255 green; record carries the FALSIFIED/CORRECTED strikes"
+(CONSOLIDATION_V2_BUILD_LOG.md:1943-2018).
+**Method:** re-read the rewritten build_block/_sanitize/store paths; 11 executed mutations (8 new
+against the R3 fix + N2/N8 replays + 1 invalidated and redone); 5 probes incl. my R2 115-budget sweep
+re-run against the real assembler, a 400-trial search for the re-count loop's precondition, and a
+5-point latency curve; third independent $0 diagnostics rerun diffed against my R2 run; 255 regression;
+36-test run. Env-pinned to /tmp/critic-s5-r3/*. Repo hashes + `git status` unchanged.
+
+**Verdict: BLOCK — 0 blockers, 2 majors, 4 minors/notes. R2-B1 and R2-B1a are CLOSED.**
+- **B1 CLOSED, verified independently.** My R2 sweep re-run against the real assembler: **0 of 115
+  budgets lose the rank-0 fact** (was 95/115). build_block never exceeded its token budget at any of
+  the 115; the `_fit_to_budget` char fast path (`len(text) > token_budget*4`) never tripped either —
+  the mirror hole I looked for does not occur, because chars/token stays at 3.7-3.8.
+- **B1a CLOSED.** Needle "Zephyrine Analytics" exists only in the rank-0 fact; assembler half asserts
+  `current.fact_text in out`; the new 58-budget sweep pin is real. Mutations MA (token count → len//4)
+  and MD (token_budget → sem_budget*4) both die on it.
+- S5-R3-M1 MAJOR: **the record's "m1 break-not-continue now PINNED" is false.** N2 (`break`→`continue`)
+  still leaves 35 passed. Measured cause: `test_fill_stops_at_first_nonfit_no_leapfrogging` uses
+  token_budget=30, but the alpha+gamma block costs 38 tokens — gamma is excluded by the BUDGET under
+  both branches. Discriminating budgets are 38..168; the test picked 30. **Third tautological pin in
+  this stage** and a repeat of a lesson I filed twice (2026-08-06 Stage 2 R3; 2026-08-07 S5 R2).
+  Fix: raise the budget to ~45 and assert gamma present under `continue`.
+- S5-R3-M2 MAJOR: **20x latency regression on the product read path, undisclosed.** The accumulating
+  `counter.count(candidate)` re-tokenizes the whole growing block once per candidate — quadratic.
+  Measured at the product default budget: 100 facts 53 ms, 200 facts 198 ms, 350 facts 586 ms,
+  **500 facts (= _LEXICAL_SCAN_CAP, the DESIGNED ceiling) 1150 ms/call**, vs 4.5 ms for a single count
+  of the final block (257x). Sits inside synchronous recall_memory. Trivially fixable by incremental
+  counting (count the new line + 1) with a single exact count at the end.
+- Minors: the post-sort re-count loop is unreachable in practice (fires at 0 of 115 budgets; 0 of 400
+  random orderings raise the sorted count above the fill-order count) so MB (remove it) and MC (drop
+  the NEWEST instead of lowest-ranked) are both mutation-green — the docstring and record describe it
+  as a working mechanism rather than an unreachable guard, and its central "never the newest" property
+  has no test; disclosed rank-0 exception measured at 318 tokens against a 20-token budget (15.9x,
+  contract-consistent, tail cut mid-word by the assembler); `_INLINE_STAMP_RE` rewrites legitimate
+  bracketed dates in fact text to parentheses (benign, information-preserving, undocumented in the
+  test); TokenCounter divergence checked — both sides construct `TokenCounter()` with the same default
+  (gpt-4o → cl100k_base), no divergence.
+- **Everything else verified fixed:** N8 now dies (scope-leak pin real), ME/MG/MF each die on
+  test_render_forgery_residuals_neutralized (zero-width strip, homoglyph bracket class, inline stamp
+  demotion), MH dies on test_repopulate_skipped_when_cache_already_correct, m4 stale comments gone, m5
+  fake pipeline buffers, n2 staleness disclosed, n3 ledgered. 9 of 11 mutations died under exactly
+  their named test. `cached = None` in the except block closes the NameError edge I looked for.
+  255 regression reproduced (348s). Diagnostics: exit 0, 6264==6264, and byte-identical to my R2 run
+  across every LLM output, section size and rendered metric line — determinism now holds across four
+  independent windows. The FALSIFIED R2 and CORRECTED R2 strikes are accurate as written.
+
+**Refs:** llm/fact_retrieval.py:58-83,209-277(252-262,268-276); llm/context_assembler.py:115-131;
+storage/store.py:173-227(190,222); cache/redis_client.py:10,39,47-67;
+tests/test_fact_retrieval.py:324-374,400-417(414); CONSOLIDATION_V2_BUILD_LOG.md:1943-2018(1993-1995).
+Harnesses: /tmp/critic-s5-r3/ (mut/ma,mb,mc,md,me,mf,mg,mh,n2,n8; probe_pins.py, probe_sweep3.py,
+probe_new.py, probe_perf.py; diag_run3.log + norm diff vs R2).
+
+**Who needs to know:** **Dev-Head —** the blocker is gone and I could not re-open it from any angle I
+tried. Two things stand between here and PASS, both small: change `token_budget=30` to ~45 in the
+leapfrogging pin (and assert gamma IS admitted under `continue`), and make the fill count incrementally
+so the designed 500-fact cap doesn't cost 1.15 s of tokenization per recall. Then correct the "now
+PINNED" sentence. **Bosses —** this is a narrow gate, not a rejection: the round did the hard thing
+right. I am holding only because a false "now PINNED" claim is the same class I blocked R2 for, and
+because a 20x read-path regression should not enter the record silently. **Founder —** the prompt no
+longer drops your current answer at any budget I could find, and I checked 115 of them plus every
+mutation I could think of against the fix itself.
+
+## 2026-08-07 — Critics — Consolidation v2 Stage 5, ROUND 4 (fix-pass re-review) — **BLOCK**
+
+**Claim reviewed:** "M1 pin now discriminates; M2 O(n²) fixed (24.3ms at cap); all four R3 minors
+landed; 38 passed + 1 opt-in skip; 255 green" (CONSOLIDATION_V2_BUILD_LOG.md:2030-2060).
+**Method:** 8 mutations against the new incremental fill and _trim_to_budget + N2/MB/MC replays; an
+output-equivalence probe over 58 budgets × 201 facts; perf re-measure at the 500-fact cap; two
+correctness sweeps (115 budgets × 501 facts, and 53 budgets to 15360) plus a worst-case content probe;
+255 regression; 39-test run. Env-pinned to /tmp/critic-s5-r4/*. Repo hashes + `git status` unchanged.
+
+**Verdict: BLOCK — 1 blocker. Everything else this round PASSED.**
+- S5-R4-B1 BLOCKER: **B1 has a third incarnation — `_fit_to_budget`'s CHAR fast path.**
+  `context_assembler.py:313-316` does `char_budget = token_budget*4; if len(text) > char_budget:
+  _cut(text, char_budget)` with keep="head", BEFORE the token check. build_block now guarantees TOKENS
+  but nothing constrains CHARS, so any block whose content exceeds 4 chars/token is head-cut and the
+  chronologically-newest = rank-0 fact is deleted. Measured on ordinary long-common-word English prose
+  (5.9 chars/token — no adversarial input, no rare tokens): **rank-0 lost at 9 of 9 budgets, including
+  qa_accuracy_eval's 4740 and the product default 15360**, with build_block's own contract intact at
+  every one (4738 tok ≤ 4740; 28047 chars > 18960 → 32% of the block discarded from the tail). Also
+  found organically at 6 of 115 budgets on a second fixture (4.13-4.20 chars/token).
+  **Why nothing caught it:** every fixture in the suite and in both of my prior sweeps measures
+  3.7-3.88 chars/token — just under the threshold. The sweep pin's filler is 3.88; ordinary prose is
+  5.87. The fixture's chars/token ratio was a hidden parameter of every sweep anyone ran, mine included
+  — my R3 "char fast path never trips, 0/115" was true of that fixture and false of the class.
+  This is the S4-R8 alternation lesson: `_fit_to_budget` has TWO cuts and four rounds have hardened one.
+- **M1 CLOSED:** N2 (`break`→`continue`) now DIES on test_fill_stops_at_first_nonfit_no_leapfrogging;
+  budget 45 sits in my measured discriminating band (38-168) and the positive control is real.
+- **M2 CLOSED:** re-measured at the 500-fact cap — 20.3 ms @15360, 16.2 ms @4740, 10.6 ms @1000 (record
+  says 24.3/17.6/9.6 — same class, machine noise), block ≤ budget at all three; ~56× better than R3's
+  1150 ms; scaling now roughly linear (6.3/9.7/27.4/21.7 ms at 100/200/350/500 facts).
+- **R3 minors CLOSED:** MB (trim removed) and MC (trim drops newest) both now DIE on
+  test_post_sort_trim_drops_lowest_ranked_never_newest, as does P4 (trim's guard inverted). m2/m3/n1
+  pins verified.
+- **P1/P2/P3/P5 survive but are MEASURED equivalent, not uncovered:** across 58 budgets × 201 facts,
+  dropping the +1 join term, never rejecting at the boundary, deliberately under-counting, and skipping
+  the drift reset each produce **0 output differences, 0 budget violations, 0 rank-0 losses**, and the
+  incremental fill admits exactly as many facts as a true exact fill at every budget (no recall traded
+  for speed). The estimate is genuinely a non-load-bearing fast path, as the docstring claims. P2 is
+  output-equivalent but destroys the perf fix, and nothing guards that — the record is the only guard.
+- 255 regression reproduced (346.8s). The [FALSIFIED R3] strike is accurate as written.
+
+**Refs:** llm/context_assembler.py:295-330(313-316) ← the blocker; llm/fact_retrieval.py:250-300;
+tests/test_fact_retrieval.py:324-374,400-420; CONSOLIDATION_V2_BUILD_LOG.md:2030-2060(2037-2043,
+2045-2054). Harnesses: /tmp/critic-s5-r4/ (mut/n2,mb,mc,p1-p5; probe_equiv.py, probe_perf4.py,
+probe_check.py, probe_char.py, probe_hi.py, probe_worst.py).
+
+**Who needs to know:** **Dev-Head —** one blocker, and it is B1's third gate. Close the ALTERNATION this
+time: make build_block satisfy BOTH constraints (tokens ≤ budget AND chars ≤ 4×budget), or give the
+facts section a `_fit_to_budget` path with the char fast path disabled. And add a fixture whose content
+measures >5 chars/token to the sweep pin — the suite currently cannot express this regime. **Bosses —**
+M1 and M2 are properly closed and the equivalent-mutant analysis came out clean under measurement; this
+round's work was good. The blocker is a sibling gate nobody had probed, including me. **Founder —** at
+the product's own default budget, with plain long-worded English facts, the assembled prompt still drops
+your current answer and keeps the stale ones. It is the same symptom as round 1, through a third
+mechanism.
+
+## 2026-08-07 — Critics — Consolidation v2 Stage 5, ROUND 5 (fix-pass re-review) — **BLOCK (one item)**
+
+**Claim reviewed:** "R4-B1 alternation closed; the R4 note's perf guard added; 40 passed + 1 opt-in
+skip; 255 green" (CONSOLIDATION_V2_BUILD_LOG.md:2077-2119).
+**Method:** 6 mutations against the new char accounting + P2 replay; both 115-budget sweeps (sub-4 and
+>5 ratio fixtures) and my exact R4 nine budgets through the real assembler; a q1/q2 differential; a
+low-ratio differential for P2; fresh-eyes hunt for a fourth incarnation across every cut between
+build_block and the final assembled string; 255 regression; 41-test run. Env-pinned to
+/tmp/critic-s5-r5/*. Repo hashes + `git status` unchanged.
+
+**Verdict: BLOCK — 0 blockers, 1 major, 3 notes. R4-B1 is CLOSED.**
+- **R4-B1 CLOSED, verified in BOTH regimes.** HIGH-ratio prose (block ratio 5.91 — the exact content
+  that failed 9/9 in R4): rank-0 lost **0 of 115** swept budgets and **0 of 9** including qa-eval's
+  4740 and the default 15360; the char gate never fires; tokens never over budget. Sub-4 entity-dense
+  fixture (3.99): same, 0/115 and 0/9. q3 (_CALLER_CHAR_FACTOR→8) and q4 (full revert to R4 token-only)
+  both DIE on test_rank0_survives_high_ratio_content. The ratio self-assertion in that pin is the right
+  answer to the hidden-parameter problem.
+- S5-R5-M1 MAJOR: **test_count_calls_stay_linear does not guard anything — P2 survives it**, contrary
+  to the record (:2114-2117). Measured cause: its fixture is 3.83 chars/token, where the NEW char break
+  fires at the same point as the token break, so correct code and P2 make **identical** call counts
+  (5 vs 5 at token_budget=60; 23 vs 23 at 600) against an assertion of `<= 30`. P2 is NOT an equivalent
+  mutant — on low-ratio content (1.76 chars/token) it is plainly discriminable: 7 vs 16, 11 vs 28,
+  19 vs 56, 35 vs 89 count calls, and 2× the facts admitted at fill. Fifth instance in this stage of a
+  fixture placing both branches on the same side of the deciding threshold, and the SECOND caused by
+  the chars/token hidden parameter I filed as a lesson in R4. Fix: low-ratio fixture (or a char cap put
+  out of reach) and a threshold between the two measured counts. Output is provably unaffected, so this
+  is a coverage + record-claim defect, not a user-visible one.
+- q1 (char break removed from fill) and q2 (char term removed from trim) survive individually but are
+  MEASURED EQUIVALENT — identical output at 5 budgets on 5.9-ratio content, neither exceeding the char
+  cap; q4 (both) dies. Redundant defense in depth, verified not argued.
+- **Fresh-eyes hunt for a fourth incarnation: none found.** `_fit_to_budget` is the only truncation
+  between build_block and the assembled string; the section join and the total_tokens log are
+  non-destructive; label wrapping adds ~14 tokens after the cut and never pushed the section over its
+  allocation in measurement; tiny model_window (100 → sem_alloc 12) hits only the DISCLOSED
+  single-oversized-rank-0 exception and stays rank-safe; qa_accuracy_eval's `context[:24000]`
+  (:218,221) is a HEAD-keep on a section order that puts SYSTEM+FACTS first, so it cuts RECENT TURNS,
+  not facts — undisclosed but not a facts hazard.
+- **SELF-CORRECTION:** my R3 and R4 entries state `TokenCounter("gpt-4o")` resolves to cl100k_base. It
+  resolves to **o200k_base** (`tiktoken.encoding_for_model('gpt-4o').name`). Counter parity between
+  retriever and assembler is unaffected (both construct `TokenCounter()` identically), but every
+  chars/token figure I have quoted this stage is an o200k measurement and my encoding name was wrong.
+- 255 regression reproduced (348.0s); 40 passed + 1 opt-in skip. Record sentences at :2079-2113 all
+  verify against my measurements.
+
+**Refs:** llm/fact_retrieval.py:57-63,268-330; llm/context_assembler.py:313-316;
+tests/test_fact_retrieval.py:446-469; benchmarks/qa_accuracy_eval.py:218,221;
+CONSOLIDATION_V2_BUILD_LOG.md:2077-2119(2114-2117). Harnesses: /tmp/critic-s5-r5/ (mut/q1-q4,p2;
+probe_main.py, probe_p2.py, probe_ratio.py, probe_final.py).
+
+**Who needs to know:** **Dev-Head —** the blocker is closed and I could not find a fourth incarnation
+from any cut on the path. One item stands: give test_count_calls_stay_linear a low-ratio fixture so the
+char break cannot mask the token break, tighten the bound, and correct the record sentence. That is the
+whole gate. **Bosses —** Stage 5's correctness work is done; this is a coverage-claim hold, the same
+class I blocked in R2 and R3, applied consistently. **Founder —** at every budget and both content
+regimes I could construct, the current answer now survives into the prompt. The thing still wrong is a
+test that guards a speed property and doesn't, plus one sentence in the record that says it does.
+
+## 2026-08-07 — Critics — Consolidation v2 Stage 5, ROUND 6 (fix-pass re-review) — **PASS-WITH-NOTES**
+
+**Claim reviewed:** "R5-M1 fixed with a self-asserting low-ratio fixture; n1/n2/n3 landed; 40 passed +
+1 opt-in skip; regression unchanged at 255" (CONSOLIDATION_V2_BUILD_LOG.md:2121-2167).
+**Method:** P2 replay against the new fixture; margin/stability probe across 6 budgets; reconciliation
+of the record's P2 figure; my own 255-regression receipt; 41-test run; full top-to-bottom read of the
+Stage 5 record (CONSOLIDATION_V2_BUILD_LOG.md:1640-2167) as the stage-closing sanity pass. Env-pinned
+to /tmp/critic-s5-r6/*. Repo hashes + `git status` unchanged.
+
+**Verdict: PASS-WITH-NOTES — 0 blockers, 0 majors, 6 notes (all record/comment hygiene; 3 are MY
+errors propagated into the record and code).**
+- **R5-M1 CLOSED and verified.** P2 now dies: `assert 119 <= 45`. Measured on the exact fixture —
+  sample line 125 chars / 101 tokens = **ratio 1.24** (self-assert < 2.5 holds with room), fixture char
+  total 6300 vs cap 6800 (8% headroom, and a breach fails LOUD via the self-assert, which is the point).
+  Separation is stable across budgets 1400-2500: correct branch **16/18/19/20/22/27** calls, P2
+  **108/121/119/117/113/103** — the bound 45 sits between with 1.7-2.8x margin on the correct side and
+  2.3-2.7x on the P2 side at every point. The self-asserting-fixture pattern is now the right default
+  for this class.
+- n1 (encoding dependence named at the constant + parity pin), n2 (qa_accuracy_eval's 24k HEAD-keep
+  recorded), n3 (my o200k self-correction recorded) all verified in place.
+- 255 regression reproduced on my own run (347.5s); 40 passed + 1 opt-in skip. The [FALSIFIED R5]
+  strike and the R5 fix-record numbers verify as written.
+- **STAGE-CLOSING RECORD PASS — 6 items to fix before the closing entry:**
+  1. :1962 "_fit_to_budget is now a guard rail, not the working cut" — FALSIFIED by R4-B1 (its CHAR
+     half was the working cut, 9/9 budgets) and never struck, unlike every other falsified sentence in
+     this document. It is TRUE today (verified: char gate fires 0/115 in both regimes), which is why
+     this is a note and not a major — but the strike discipline should be uniform.
+  2. llm/context_assembler.py:127 carries the same "guard rail, not the working cut" claim as a bare
+     fact. The coupling is documented at length on the retriever side (_CALLER_CHAR_FACTOR) and not at
+     all here — a future editor of _fit_to_budget's factor or keep direction would never see the
+     tripwire. This asymmetry is the shape that produced R4-B1.
+  3-5. MY cl100k error propagated into three live places the n3 note does not reach:
+     CONSOLIDATION_V2_BUILD_LOG.md:2059, llm/fact_retrieval.py:322 (_trim_to_budget docstring),
+     tests/test_fact_retrieval.py:539 (test docstring). All should read o200k_base.
+  6. No CURRENT-STATE line for Stage 5. Stages 1/3/4 each close with one ("CURRENT artifacts: 51/51
+     tests…", "Stage table: Stage 3 ✅ DONE…"); Stage 5's first-encountered count is still "G1: 24
+     tests" at :1767 with six later per-round Post-fix lines. A reader quoting the stage will quote 24.
+  Also: the record says "P2-emulated 129 calls"; I measure **119** under both plausible emulations
+  (token-boundary-only and boundary+no-char-break). Conclusion unaffected (bound 45, correct 19).
+  And benchmarks/facts_first_diagnostics.py:245-248 "caps in play (disclosed)" omits the char cap
+  (token_budget × _CALLER_CHAR_FACTOR), now a load-bearing cap on the block.
+
+**Refs:** tests/test_fact_retrieval.py:446-484,539; llm/fact_retrieval.py:57-67,322;
+llm/context_assembler.py:127; benchmarks/facts_first_diagnostics.py:245-248;
+CONSOLIDATION_V2_BUILD_LOG.md:1640-2167(1767,1962,2059,2148-2151). Harnesses: /tmp/critic-s5-r6/
+(mut/p2; probe_margin.py, probe_129.py).
+
+**Who needs to know:** **Dev-Head — Stage 5 passes.** Six rounds, and every blocker is closed with a
+mutation-proven pin: B1 in three incarnations (char fill, wrong unit, char fast path), B2 (cache
+poisoning), B3 (mutation-green no-regress pin), plus the forgery, scope-leak, perf and coverage
+findings. Nothing on my list is a code defect; the six items are record and comment hygiene, and three
+of them are mine to own. **Bosses —** I am passing this because the substance is verified, not because
+the loop is long: the last correctness sweep I could construct came back clean in both content regimes,
+the fresh-eyes hunt for a fourth truncation found none, and the pin I blocked on last round now kills
+its mutant with a 2.4x margin. **Founder —** the facts-first read path does what the record says it
+does: at every budget and both content regimes I could build, your current answer survives into the
+prompt, superseded and cancelled facts never appear, scope holds, and the renderer's evidence markers
+can no longer be forged from user text. The honest caveats that remain are the ones already written
+down — the entity-floor-only path for undated facts at scale, the single-oversized-fact exception, and
+the Redis ghost-key root cause still open as a ledger item.

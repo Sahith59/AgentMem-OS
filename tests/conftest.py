@@ -14,3 +14,9 @@ import tempfile
 # regardless of the inherited environment.
 os.environ["AGENTMEM_OS_DB_PATH"] = os.path.join(
     tempfile.mkdtemp(prefix="agentmem-test-"), "test.db")
+
+# Same guard, second channel (Stage 5 finding): Redis hot-cache keys are
+# session-id-only — no DB identity — so a test run against the live
+# localhost Redis reads GHOST turns from earlier runs and leaves its own
+# behind (188 stale keys observed). The DB pin above cannot cover this.
+os.environ["AGENTMEM_OS_DISABLE_REDIS"] = "1"

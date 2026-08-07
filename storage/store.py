@@ -178,10 +178,18 @@ class ConversationStore:
         try:
             redis = self._get_redis()
             cached = redis.get_history(session_id)
-            if cached:
+            # A cache hit may answer only when it can satisfy last_n
+            # (Stage 5 G2: RedisCache then held 10 turns, this call asks
+            # for 20 — serving warm hits anyway silently HALVED recall
+            # depth vs cold reads, 6264 vs 4960 chars for the identical
+            # assemble). max_turns now covers this read; the check stays
+            # as the contract. Known residual (G3 R2 n1): a session with
+            # fewer than last_n total turns can never hit and always
+            # falls through — correct results, wasted round-trips.
+            if cached and len(cached) >= last_n:
                 return cached[-last_n:]
         except Exception:
-            pass
+            cached = None
 
         turns = (
             self.db.query(Turn)
@@ -202,11 +210,18 @@ class ConversationStore:
             for t in reversed(turns)
         ]
 
-        # Repopulate Redis
+        # Repopulate Redis — REPLACE, never append: push_turn onto a
+        # warm list duplicated every cached turn on each fall-through
+        # (Stage 5 G3 R1 B2, measured), and the duplicates were then
+        # served to shallower readers as real history. Skip the write
+        # when the cache already holds exactly this answer (G3 R2 n1:
+        # short sessions fall through on every read — without this,
+        # each assemble paid delete + N×lpush + ltrim to write what
+        # was already there).
         try:
-            redis = self._get_redis()
-            for t in result:
-                redis.push_turn(session_id, t)
+            if cached != result:
+                redis = self._get_redis()
+                redis.replace_history(session_id, result)
         except Exception:
             pass
 

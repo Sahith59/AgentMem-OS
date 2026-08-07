@@ -39,7 +39,7 @@ compute (v1: session-end; phase 2: idle-time aggregate/tally passes) + profile t
 | 2 | Consolidation engine rewrite (distillation) | ✅ 97/97, 98% cov | ✅ real-model 20/4 | **R6 PASS-WITH-NOTES** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
 | 3 | KG integration (facts→entities/edges, provenance) | ✅ 180 tests, 100% line cov | ✅ 6× identical real-model | **R5 PASS-WITH-NOTES** (R1-R4 ✗, each fixed) | ✅ DONE 08-06 |
 | 4 | Per-fact supersession | ✅ 240 tests, 98% judge cov | ✅ real-corpus backfill supersession, critic-reproduced 4× | **R8 PASS-WITH-NOTES** (R1-R7 ✗, each fixed) | ✅ DONE 08-07 |
-| 5 | Facts-first retrieval wiring + $0 diagnostics | ☐ | ☐ | ☐ | — |
+| 5 | Facts-first retrieval wiring + $0 diagnostics | ✅ 41 tests (40+1 opt-in skip), 255 regression | ✅ real-corpus facts-first + 2 real pre-existing bugs found (Redis) | **R6 PASS-WITH-NOTES** (R1-R5 ✗, each fixed; 3 incarnations of the truncation bug killed) | ✅ DONE 08-07 |
 | 6 | Full E2E smoke + final critic pass → BUILD READY | ☐ | ☐ | ☐ | — |
 
 After Stage 6: founder provides university-cluster access → slice-haystack extraction
@@ -1636,3 +1636,631 @@ Stage table: Stage 4 ✅ DONE (G1 ✅ 240 tests / 98% judge coverage,
 LLM-body-only uncovered · G2 ✅ real-corpus supersession in backfill
 order + boundary + Part D, reproduced by the critic across four rounds
 · G3 ✅ R8 PASS-WITH-NOTES after R1-R7 each BLOCKED and fixed).
+
+## STAGE 5 — Facts-first retrieval wiring + $0 diagnostics — started 2026-08-07
+
+Founder GO 2026-08-07 (same triple-gate discipline, "never a happy path,
+brutally honest"). Scope, stated plainly (open-items ledger #6): NOTHING
+was wired into product retrieval — ConsolidationV2 had no caller outside
+benchmarks/tests and the live app answered from the old memory path.
+Stage 5 wires BOTH directions: the product read path retrieves FACTS
+first (design §5.3), and the product write path gains a real
+ConsolidationV2 caller. Plus the $0 diagnostics that measure the new
+path on real data without spending anything.
+
+### Design (frozen before code, decisions numbered for the critic)
+
+Product surfaces affected:
+- `llm/context_assembler.py` — the ONE assembler. The MCP server's
+  recall_memory calls it, AND `benchmarks/adapters/agentmem_adapter.py`
+  calls it (`assemble(namespace, query, agent_id=namespace)`) — so this
+  change flows into the Gate C path automatically. That makes D3's
+  no-regress property load-bearing for the banked numbers (66.0% / 0.952
+  knowledge-update were measured through this assembler with zero facts
+  in store).
+- `mcp_server/server.py` — new `consolidate_session` tool =
+  ConsolidationV2's first product caller. v1 `summarize_session`
+  (DBSCAN compression summaries) left untouched: different feature,
+  different table; retiring it is not this stage's call.
+- NOT touched: benchmark adapter, eval harness, api/app.py demo
+  endpoints (demo fact-inspector queued in ledger).
+
+D1. Fact ranking = lexical TF-IDF + entity-seeded KG reads, fused with
+    RRF (k=60, repo precedent in multi_vector_retrieval.py). Grounds:
+    the repo's own measured verdict — every dense/hybrid variant LOST
+    to plain TF-IDF on entity-heavy English questions, and "the next
+    lever is fact decomposition at ingestion, not a better ranker."
+    The entity arm reuses Stage 3's `facts_for_entity` (case-blind
+    seeds, ALIAS_OF closure) — the cross-lingual reach lexical cannot
+    have. Dense fact embeddings EXCLUDED from v1 (measured loser on
+    English; cross-lingual named-entity queries covered by the entity
+    arm; token-free cross-lingual queries with NO named entity are a
+    measured Gate-E gap, recorded, not silently claimed).
+D2. Presentation (the CPP-informed part — their finding: holding
+    retrieval fixed, presentation moved 0.36→0.61): facts render as a
+    dated, chronologically ascending block — `[date] (type) text` —
+    with `(planned)` markers and, when a fact superseded a predecessor,
+    the transition line (store.transition_text). The fact line IS the
+    highlighted evidence; raw-turn chunks below are the segments. The
+    full CPP evidence-highlighting slice test stays a Gate C-era
+    ledger item.
+D3. Budget: facts share the EXISTING 20% semantic allocation — facts
+    first, Chroma chunks fill the remainder. No other tier's budget
+    changes. ZERO facts in store ⇒ assembled output BYTE-IDENTICAL to
+    the pre-Stage-5 assembler (the no-regress guarantee; G1 pins it).
+    Boundary disclosed: a scope with thousands of facts would starve
+    chunk provenance within the section — revisit with Gate C data.
+D4. Provenance NOT rendered into the prompt (density is the measured
+    selling point — 8× fewer chars per unit of evidence; source ids
+    live in the store, inspectable end-to-end). Disclosed trade-off.
+D5. Scope: reads derive scope_key via the SAME make_scope_key used by
+    writes (read and write can never disagree). MCP recall_memory
+    passes agent_id=None today — single-tenant default, recorded.
+D6. Failure containment: fact-tier failure logs a WARNING (not the
+    debug-swallow the other tiers use) and falls through to the old
+    path — availability over completeness on the READ path; the write
+    path already persists its failures (link_failure/judge_failure).
+D7. Caps, all disclosed: lexical arm ranks the newest 500 current
+    facts (one fitted vectorizer per query, not per-pair); entity arm
+    bounded by Stage 3's closure caps; per-query fetch depth is
+    budget-aware like the chunk path. Diagnostics print every cap.
+D8. Cancelled facts stay excluded (current_facts default). Rendering
+    "X was cancelled" as knowledge is queued WITH the parked
+    plans-as-events decision (they only make sense together — today
+    cancellation is prompt-unreachable, 0/23 markers). facts_as_of's
+    missing cancellation-time axis stays deferred: the reader shipping
+    in Stage 5 is a current-facts view, not an as-of view.
+D9. B1 lesson honored: query NER/surface extraction runs BEFORE any DB
+    session opens; the retriever is strictly read-only; no model load
+    can ever sit under a write lock on this path.
+
+Deliverables: `llm/fact_retrieval.py` (FactRetriever), assembler
+wiring, MCP `consolidate_session` tool, `tests/test_fact_retrieval.py`
+(G1), `benchmarks/facts_first_diagnostics.py` ($0, env-pinned scratch
+DB, real local models only — no API spend anywhere in this stage).
+
+**[CORRECTED before build — D1 fusion dropped]** D1 as first written
+said RRF(k=60) fusion. The repo's own measurement argues against it:
+install_best_chroma's 6-variant table shows rank-fusing a weak signal
+into the strong lexical one DILUTED it (hybrid RRF bare turns 7/30 vs
+pure TF-IDF 11/30). Built instead: **lexical-primary, entity-floor** —
+facts ranked by TF-IDF cosine in the champion's exact configuration
+(max_features=512, sublinear_tf, floor 0.01); entity-linked facts the
+lexical arm missed are APPENDED after the lexical ranking (ordered by
+query-surface multiplicity, then recency) — they fill budget lexical
+left unclaimed and never displace or dilute a lexical hit. Cross-lingual
+reach is preserved: when lexical has zero hits (no shared tokens), the
+entity floor IS the ranking. No RRF anywhere in Stage 5.
+
+**Pre-build finding (latent bug, Stage 3 code):** `facts_for_entity`
+filters `superseded_by IS NULL` but not `event_status = 'cancelled'` —
+a judged-cancelled planned event has NO successor, so the entity read
+path would surface a voided claim as live knowledge. This is exactly
+the S4-R1-Ma3 class the Stage-4 `current_facts` filter exists to stop;
+the guard was added to one reader and not the other. No production data
+can trigger it today (cancellation is prompt-unreachable, operator-only
+writes), which is why Stage 4's gates never saw it: its G1 tests
+exercise `current_facts`, not the entity path. Fix at root this stage:
+`include_cancelled=False` parameter on `facts_for_entity`, same
+contract as `current_facts`, pinned in G1.
+
+### Stage 5 — G1 + G2 record (2026-08-07)
+
+**Built:** `llm/fact_retrieval.py` (FactRetriever: lexical-primary in
+the champion TF-IDF configuration, entity recall floor through Stage
+3's join table + ALIAS_OF closure, budget-fill by rank / render by
+chronology, transition lines via `transition_text`); assembler wiring
+(`[SEMANTIC FACTS]` claims the 20% semantic allocation first, chunks
+take the remainder, empty store ⇒ byte-identical output); MCP
+`consolidate_session` (ConsolidationV2's first product caller) +
+`recall_memory` scope passthrough; `facts_for_entity` root fix
+(include_cancelled=False, the S4-R1-Ma3 class on the entity path).
+G1 catch during build: bare-name queries ('Rachel') and merged
+name spans ('Rachel Priya') never reached the entity floor — NER
+needs sentence context and merges adjacent names. Fix:
+`_query_surfaces` unions NER surfaces, the turn path's regex
+fallback, and capitalized sub-words of multi-word spans; generosity
+is safe on the READ path because node existence gates admission (the
+write path stays strict — it CREATES nodes; this path only looks
+them up).
+
+**G1: 24 tests** (tests/test_fact_retrieval.py) incl. failure paths:
+facts-tier death → WARNING + raw fallback; disable={"facts"} skips
+the retriever entirely; budget starvation is loud (section absent);
+byte-identity pin; cancelled-via-entity pin; scope isolation; MCP
+unknown-session refusal + report passthrough. Regression: **255
+passed** across test_fact_entities, test_supersession,
+test_semantic_facts, test_consolidation_v2, test_mcp_server,
+test_eval_harness, test_agentmem_adapter (scoped files, never broad
+pytest — the standing e2e-cost rule).
+
+**G2 ($0 diagnostics, benchmarks/facts_first_diagnostics.py — real
+LongMemEval `_s` sessions, real llama3.1 extraction + judge, engine-
+backed store, champion TF-IDF chunk backend): TWO consecutive full
+runs BYTE-IDENTICAL (modulo scratch path).** Artifacts:
+
+- A. NO-REGRESS: empty fact store ⇒ assembled context byte-identical
+  with facts tier enabled vs disabled (6264 == 6264 chars).
+- B. Rachel knowledge-update (gold 'TechCorp'): answer present as a
+  dated fact in [SEMANTIC FACTS] (945 chars, first hit at char 900);
+  **the raw-turn path finds it NOWHERE** (its own 3463-char semantic
+  section misses it — the fact tier surfaces what turn retrieval
+  structurally cannot from a different session's context).
+- C. CROSS-SESSION REACH: recall from an unrelated session
+  (b10f3828_1) still surfaces TechCorp, facts-only=True — per-session
+  chunk search cannot do this at any budget; the scope-wide fact tier
+  is the only path.
+- D. Boundary (disclosed): the 5K metric — '25:50' surfaces as a
+  dated fact; the older 27:12 event stays visible too (events and
+  identity facts are excluded from judgment by design — no false
+  supersession, mild visible duplicate, newest-last chronology).
+
+**TWO REAL PRE-EXISTING BUGS FOUND AND FIXED (G2 doing its job —
+Part A FAILED on the first full run, 6264 vs 4960 chars, and the
+diff instrumentation traced it):**
+1. **Redis ghost keys**: the hot cache keys on session_id ONLY — no
+   DB identity — so any test/benchmark against a live localhost
+   Redis reads stale turns from EARLIER runs and writes its own (188
+   stale keys observed live, including the exact benchmark session
+   id in play). The scratch-DB pin cannot cover this channel. Fix:
+   `AGENTMEM_OS_DISABLE_REDIS=1` kill-switch in RedisCache (before
+   any connect), FORCED in tests/conftest.py and the diagnostics.
+2. **Warm-cache depth halving**: RedisCache trims to 10 turns but
+   `get_history(last_n=20)` served a cache hit anyway — cold reads
+   returned 20 turns, warm reads 10 (measured: identical assemble()
+   calls, 6264 chars cold vs 4960 warm). Every repeat-assembly on a
+   warm cache was silently shortchanged (RECENT TURNS grew 1327 →
+   2631 chars in Parts B/C after the fix). Fix in store.get_history:
+   a cache hit may answer only when it can satisfy last_n. Both
+   fixes pinned in G1 (kill-switch short-circuit; cache-contract).
+
+**Honest notes of record:**
+- The Rachel supersession did NOT fire in this window: the audit rows
+  show the gate OPEN (entity pool, shared_nodes=true, cosine 0.3688,
+  agrees=true) and the temp-0 LLM PROPOSING [] — while in Stage 4's
+  window the same pair superseded, critic-reproduced 4×. Ollama
+  temp-0 determinism holds within a machine state (two consecutive
+  Stage-5 runs byte-identical), not across windows/versions. The
+  retrieval layer under test surfaces the CURRENT answer either way;
+  supersession only adds the change-history annotation — hence
+  history_visible=False here, reported as measured.
+- Same artifact, other direction: judgments on facts 4/6 show the
+  LLM proposing a WRONG mutual supersession (Jason-collab ↔ Alex-
+  partnership) — its own reasoning admits they differ — and the
+  co-signal gate killing both ("similarity may never approve what
+  similarity admitted"). LLM proposes, gates decide, on real data.
+- The 10-turn/20-turn cache bug predates Stage 5 and may have
+  touched any prior measurement that assembled twice against a warm
+  cache on this machine; banked benchmark numbers should be
+  re-verified with AGENTMEM_OS_DISABLE_REDIS=1 at the next paid
+  re-run (Gate C) — queued in the open-items ledger, not silently
+  absorbed.
+
+### Stage 5 — G3 round 1: BLOCKED (3 blockers, 7 majors, 5 minors/notes) — fix pass record
+
+The critic executed 7 mutations, 5 probes, a full independent
+diagnostics rerun (every recorded number reproduced EXACTLY), and the
+255-test regression. What broke and what was done:
+
+**B1 (blocker) — truncation deleted the top-ranked fact.** build_block
+filled on bare fact_text lengths, re-sorted chronologically ascending,
+and the assembler's head-keeping cut the NEWEST — i.e. the rank-0
+current answer — while stale 2020 facts survived (critic-measured).
+Transition lines weren't budgeted at all (5.4× overshoot measured);
+qa_accuracy_eval had already measured this exact class for chunks
+(temporal collapsed to 0.13). FIX: rank fills against the FULL
+rendered line (transition included) and never exceeds char_budget;
+stop at first non-fit (no short-fact leapfrogging); one disclosed
+exception — the rank-0 fact is always included and if oversized the
+caller truncates that single line's tail, which is rank-safe. Pinned:
+test_truncation_cannot_delete_top_ranked_fact (rank-0 chronologically
+newest under 30 old facts, asserts surviving text at budget 300 AND
+through the real assembler at semantic=100),
+test_transition_lines_are_counted_against_the_budget.
+
+**B2 (blocker) — my own G2 cache fix was wrong twice.** With
+max_turns=10 and the new depth contract, the assembler's last_n=20
+could NEVER hit (L1 became a pure write amplifier), and the unchanged
+repopulate loop lpush'd onto warm lists — measured duplication
+['t1'..'t5','t1'..'t5'] served to shallower readers as real history.
+FIX: max_turns 10→20 (a cache must be at least as deep as the deepest
+read it claims to serve); repopulation REPLACES atomically
+(RedisCache.replace_history: delete+push+trim pipeline) instead of
+appending. Pinned with a FAITHFUL fake modeling lpush/ltrim/lrange/
+delete/pipeline (the first fake's push_turn was `pass` — poisoning
+was unmodelable by construction, the critic's exact charge):
+test_repopulate_replaces_never_duplicates,
+test_cache_depth_covers_the_assembler_read, plus an OPT-IN live-Redis
+test (db 9, unique key, cleanup; default-skipped per the no-live-
+infra rule) — test_live_redis_replace_semantics_opt_in.
+
+**B3 (blocker) — the byte-identity pin was mutation-green against
+sem_budget drift.** The fake chroma's chunks were tiny (nothing
+approached any budget) and its recorded calls were never asserted.
+FIX: chunks are budget-sized (truncation live) and the chroma CALLS —
+top_k derives from sem_budget — must be identical between facts-
+enabled and facts-disabled assemblies. The critic's MUT4a
+(sem_budget -= 5000) is now caught by calls inequality. MUT4b
+(`if block:`→`if True:`) is an EQUIVALENT mutant: _fit_to_budget("")
+returns "" and empty sections are never appended — no behavior
+change exists to pin; claimed as reasoned equivalence, not coverage.
+
+**M1** fact-line forgery (embedded newline forged a ranked line;
+embedded '[change history:' forged a supersession story): _sanitize
+collapses whitespace and neuters the marker case-insensitively at
+render. Pinned: test_render_forgery_neutralized. **M2** the
+8-surface cap spent itself on merged spans and dropped 9/10
+sub-words: sub-words now INTERLEAVE with their span and the cap is 24
+(surface probes are one indexed seed lookup each; Latin never
+embeds). Pinned: test_query_surfaces_interleave_spans_with_subwords.
+**M7** the "no model load can EVER sit under a database lock" claim
+was false (Indic alias fallback can cold-load the encoder inside an
+open READ session): claim rewritten to its true scope in the module
+docstring — WAL read lock, writers unblocked, Indic-only, disclosed.
+**m2** chunk starvation now logs (record wording matched to code).
+**m4** _predecessor_targets now scope-filters (defense in depth).
+**m5** MCP consolidate_session runs via asyncio.to_thread (was
+freezing the whole MCP event loop for tens of seconds). **n5** the
+kill-switch test sets its env explicitly and proves the switch (not a
+dead constructor) prevents the connect — both mutants now die. **n2**
+diagnostics docstring names the function it calls. **n3** diagnostics
+exits 1 on a Part A regression. **m1** offsets reported as
+within-section and labelled. **m3** undated-facts-rank-last cap
+consequence disclosed in the module docstring + ledger.
+
+**RECORD CORRECTIONS (inline, history kept):**
+- [CORRECTED R1 — M3] The G2 record's header "TWO REAL PRE-EXISTING
+  BUGS FOUND AND FIXED" over-claimed: bug 2 (depth) is fixed at root;
+  bug 1 (ghost keys) is CONTAINED by the kill-switch — the root cause
+  (session-id-only keys, no DB identity) remains open, now a named
+  ledger item. One root-cause fix + one containment, not two fixes.
+- [CORRECTED R1 — M4] Part B's "the raw-turn path finds it NOWHERE"
+  presented a STRUCTURAL impossibility as a measurement: the gold
+  string exists only in the OTHER gold session, so session-scoped
+  chunk retrieval could never find it from sids[0] at any budget.
+  It is the same axis Part C measures. The diagnostics now say so in
+  the output itself; the real claim is only that the fact tier DOES
+  surface it.
+- [CORRECTED R1 — M5] Part D's "27:12 stays visible / no false
+  supersession / newest-last" were asserted, not measured. Now
+  measured and printed: both metric lines render ([noted 2023/05/23]
+  (event) ... 27:12 / [noted 2023/05/30] (identity) ... 25:50),
+  superseded=[] printed per session, old value also present in
+  SEMANTIC MEMORY.
+- [CORRECTED R1 — M6] The affected-surfaces list omitted
+  benchmarks/qa_accuracy_eval.py — a live assemble() caller with the
+  TIGHTEST semantic budget (≈4740 tokens), i.e. the caller MOST
+  exposed to B1. Now listed; its runs get facts-first automatically.
+- [CORRECTED R1 — n1] D5's "MCP recall_memory passes agent_id=None
+  today" went stale within the same document — recall_memory now
+  accepts and passes agent_id/user_id (G1-pinned).
+
+Post-fix: **30 passed + 1 opt-in skip** in tests/test_fact_retrieval,
+**255 regression green**, diagnostics rerun clean (exit 0, Part A
+byte-identical 6264==6264, Part D lines printed, LLM outputs
+byte-identical to the pre-fix runs).
+
+### Stage 5 — G3 round 2: BLOCKED (1 blocker in 2 facets, 2 majors, 8 minors/notes) — fix pass record
+
+R1's B2 and B3 were CLEARED by the critic with mutation-proven pins
+(10 of its 12 mutations died under exactly their named test; the
+MUT4b equivalence claim was VERIFIED from code). What remained, and
+what was done:
+
+**R2-B1 (blocker) — the R1 fix was applied in the WRONG UNIT.**
+build_block honoured a CHAR budget via the chars≈tokens×4 proxy; the
+assembler truncates in TOKENS, and rendered fact blocks measure
+3.68–3.84 chars/token — always under 4 — so near-full blocks
+exceeded the token budget and head-keeping truncation deleted the
+chronologically-newest = rank-0 fact at **95 of 115 swept budgets
+(83%)**, ordinary English, no adversarial input. FIX: build_block now
+fills against TokenCounter.count of the accumulating block versus a
+TOKEN budget (the same counter the assembler cuts with), and because
+chronological re-ordering can move BPE boundaries, the sorted block
+is RE-COUNTED and the lowest-RANKED survivors dropped until it fits —
+never the newest. The assembler passes token_budget=sem_budget;
+_fit_to_budget is now a guard rail, not the working cut.
+**[FALSIFIED R4, struck retroactively at R6 for strike-discipline
+uniformity: R4-B1 proved _fit_to_budget's CHAR half WAS still the
+working cut at that point — rank-0 lost at 9/9 budgets. The sentence
+became true only after the R4 fix closed both units; today the char
+gate fires 0/115 in both regimes, critic-verified.]** Lesson
+minted (critic's words): **a proxy is a fast path, never a contract —
+fixing a budget in the wrong unit moves the failure, it doesn't
+remove it.**
+
+**R2-B1a (blocker facet) — the R1 pin was a tautology.**
+test_truncation_cannot_delete_top_ranked_fact asserted
+`"TechCorp" in out` while every filler contained "TechCorp" — the pin
+passed BECAUSE OF the failure state (current fact truncated to
+"Rac"), the second time this stage a replacement pin matched its
+mutant. **[FALSIFIED R2 — the R1 record sentence "Pinned: …asserts
+surviving text at budget 300 AND through the real assembler at
+semantic=100" was false on both halves: the assembler half asserted
+a shared brand token, and at semantic=100 the current fact did NOT
+survive.]** FIX: the fixture needle ("Zephyrine Analytics") now
+exists ONLY in the rank-0 fact; the assembler half asserts the FULL
+fact text; and a NEW sweep pin
+(test_rank0_survives_across_swept_budgets) asserts survival at all
+58 swept semantic budgets 60→1200 — one budget value proves nothing.
+Lesson minted: **write the pin's needle so it exists only in the
+thing you are protecting.**
+
+**[CORRECTED R2 — M2] The R1 fix-pass record cited the clean
+diagnostics rerun in its closing evidence.** G2 runs at the DEFAULT
+allocation (15,360 tokens ≈ 61,440 chars) against a store whose
+largest section is 3,192 chars — it structurally cannot reach B1's
+regime, so a clean G2 was never evidence about B1. Struck from the
+fix-evidence chain; G2's actual claims (no-regress byte-identity,
+cross-session reach, Part D measurement) stand on their own and were
+independently reproduced by the critic, exactly, in a third window.
+
+Minors landed: **m1** break-not-continue now PINNED
+(test_fill_stops_at_first_nonfit_no_leapfrogging — pins the fill
+mechanism under a controlled rank order, not TF-IDF coincidences).
+**m2/N8** _predecessor_targets scope filter now PINNED
+(test_predecessor_scope_filter_blocks_cross_scope_leak — raw
+cross-scope superseded_by write; ShadowCorp must not leak). **m3**
+_sanitize hardened + honestly re-scoped: zero-width chars stripped
+(ZWSP inside the marker bypassed \s+ while rendering visually
+identical), bracket homoglyphs added to the marker class, inline
+[YYYY/MM/DD] stamps demoted to parentheses so a mid-line stamp
+cannot impersonate the authoritative leading stamp; docstring now
+says LINE forgery is what died and names the disclosed residual —
+content-level lies are extraction-validation's problem, not the
+renderer's. Pinned: test_render_forgery_residuals_neutralized.
+**m4** both stale "10 turns" comments fixed. **m5** the fake redis
+pipeline now BUFFERS until execute() like redis-py. **n1** fixed AND
+pinned: repopulation is skipped when the cache already holds exactly
+this answer (short sessions were paying delete+N×lpush+ltrim per
+assemble to rewrite identical data —
+test_repopulate_skipped_when_cache_already_correct); the
+shorter-than-last_n never-hits residual stays disclosed in the code.
+**n2** the replace_history one-call staleness window disclosed in its
+docstring (SQLite authoritative; cache self-heals). **n3** the
+pre-existing pool-exhaustion find (assembler-per-recall ×
+ConversationStore-per-assembler holds a pooled session for life;
+critic exhausted QueuePool at 116 assemblers) is OUT of Stage 5's
+lane — ledgered as open item #27, founder-visible.
+
+Post-fix: **35 passed + 1 opt-in skip** in tests/test_fact_retrieval.
+
+### Stage 5 — G3 round 3: BLOCKED (0 blockers, 2 majors, 5 minors/notes) — fix pass record
+
+**R2-B1 and R2-B1a were CLOSED by the critic**: its own 115-budget
+sweep re-run against the real assembler found 0 rank-0 losses (was
+95/115), 0 blocks over token budget, and 0 blocks tripping
+_fit_to_budget's char fast path (the mirror hole it went hunting —
+rendered blocks at 3.7–3.8 chars/token never reach the ×4 gate).
+Mutations MA (count→len//4) and MD (budget×4 revert) both died on the
+sweep pin. Determinism now spans FOUR independent windows.
+
+**R3-M1 (major) — my break-not-continue pin was tautological. The
+THIRD tautological pin this stage.** Gamma was excluded by the BUDGET
+(a+c = 38 tokens > budget 30), not by the mechanism — the critic
+measured the discriminating band ([38..43+]) and the test sat outside
+it. **[FALSIFIED R3 — the R2 fix-record sentence "m1
+break-not-continue now PINNED" was false: mutation N2 stayed green.]**
+FIX: budget moved into the band (45) AND a POSITIVE CONTROL added —
+the test asserts a+c genuinely fits the budget (TokenCounter on the
+rendered lines) so gamma's absence can only be the break. Lesson
+minted (critic's words): **a pin whose fixture is excluded by the
+BUDGET, not by the mechanism, pins nothing.**
+
+**R3-M2 (major) — the R2 unit fix cost 20× on the read path,
+undisclosed.** Re-tokenizing the accumulating block per candidate was
+O(n²): measured 1150ms of pure tokenization at the module's OWN
+500-fact scan cap, inside synchronous recall. FIX: incremental fill —
+per-line token counts + 1 per join as the running estimate, ONE exact
+count only at the boundary, and the post-sort trim as the exact
+guarantee regardless of estimate error. RE-MEASURED at the cap:
+**24.3ms at budget 15360 (47× faster), 17.6ms at qa-eval's 4740,
+9.6ms at 1000; block tokens ≤ budget at every point.** Lesson
+(critic's words): **enforcing a budget in the right unit can cost you
+an order of magnitude — measure the fix's cost, not just its
+correctness.**
+
+Minors landed: **m1** the post-sort trim is now honestly labelled —
+with real o200k_base content [CORRECTED R6: originally written
+"cl100k" from the critic's R3 log; TokenCounter's gpt-4o default
+resolves to o200k_base — its own n3 correction] it fired at 0/115
+budgets and 0/400 random
+orderings (fill estimates are per-line sums real joins never
+exceeded), so it is documented as the exact-guarantee mechanism
+reachable when estimates UNDER-count, and its drop order is PINNED by
+a constructed inflating-counter test
+(test_post_sort_trim_drops_lowest_ranked_never_newest — the critic's
+MB/MC mutants now have a killing test instead of an unreachability
+excuse). **m2** the oversized-rank-0 exception now states its
+measured magnitude (15.9× at token_budget=20) in the docstring.
+**m3** _INLINE_STAMP_RE's rewrite of LEGITIMATE bracketed dates is
+documented by test (honest text: [2024/03/15]→(2024/03/15),
+unbracketed dates untouched). **n1** counter-unit parity pinned
+(test_token_counters_share_the_unit — the whole B1 fix rests on
+retriever and assembler counting in the same unit). **n2** the
+critic confirmed the cached-NameError edge closed.
+
+Post-fix: **38 passed + 1 opt-in skip**; **255 regression green**.
+
+### Stage 5 — G3 round 4: BLOCKED (1 blocker, 0 majors, 1 note) — fix pass record
+
+R3's M1 and M2 were CLOSED by the critic: N2 now dies (budget in the
+discriminating band + real positive control); the perf fix re-measured
+at 20.3/16.2/10.6ms (same class as our 24.3/17.6/9.6 — machine noise),
+~56× better than R3's 1150ms, curve no longer quadratic. MB/MC/P4 all
+die on the constructed-counter trim pin. The four incremental-estimate
+mutants (P1/P2/P3/P5) were proven EQUIVALENT BY MEASUREMENT — the
+critic ran both variants differentially over 58 budgets × 201 facts:
+0 output differences, 0 over-budget, 0 rank-0 losses, 0 recall cost.
+"Prove equivalence by measurement, not by argument" — its lesson, now
+ours too.
+
+**R4-B1 (blocker) — B1's THIRD incarnation, open since the stage's
+first commit: _fit_to_budget cuts TWICE, and the first cut is in
+CHARS.** The char fast path (len > tokens×4, keep="head") runs BEFORE
+the token check; ordinary long-common-word English prose measures
+~5.9 chars/token, so a block PERFECT in tokens was still head-cut —
+rank-0 lost at 9/9 budgets including qa-eval's 4740 and the default
+15360. Neither the suite nor the critic's own R3 sweep could see it:
+every fixture in play sat at ≤3.88 chars/token — the fixture's
+chars/token ratio was a HIDDEN PARAMETER of every sweep ever run.
+(The critic corrected its own R3 record on this: "the mirror hole
+does not occur" was true of a fixture and stated as true of the
+class.) This is the S4-R8 alternation lesson in a new shape: four
+rounds hardened one branch of a two-branch cut and never touched the
+other.
+
+FIX — close the alternation: build_block now satisfies BOTH
+constraints — tokens ≤ token_budget AND chars ≤ token_budget ×
+_CALLER_CHAR_FACTOR(=4) — chars tracked exactly in the fill (len is
+free), _trim_to_budget enforcing both units post-sort. The coupling
+to the assembler's factor is named at the constant with its tripwire.
+PINNED: test_rank0_survives_high_ratio_content — the fixture ASSERTS
+its own ratio > 4.5 before asserting survival (the hidden parameter
+made explicit, so it can never silently drift back under the
+threshold), then sweeps the critic's exact 9 failing budgets through
+the real assembler. Also pinned per the R4 note:
+test_count_calls_stay_linear guards the O(n) property itself (P2 was
+output-equivalent but silently reverted the whole perf fix — guard
+the call count, not the wall clock).
+
+Post-fix: **40 passed + 1 opt-in skip**; **255 regression green**.
+
+### Stage 5 — G3 round 5: BLOCKED (0 blockers, 1 major, 3 notes) — fix pass record
+
+**R4-B1 CLOSED by the critic**: both content regimes swept at 115
+budgets each (high-ratio 5.91 and sub-4 at 3.99) — 0 rank-0 losses, 0
+char-gate firings, 0 token overruns; the exact R4 9/9-failing content
+now survives at all nine budgets. q3 (factor 4→8) and q4 (full
+revert) both die on the new pin; q1/q2 (either single char mechanism
+removed) proven redundant-but-covered BY MEASUREMENT (identical
+output, q4 dies). The critic called the self-asserting-ratio fixture
+"a better fix than I asked for". Its fresh-eyes hunt for a FOURTH
+incarnation across every cut on the path found none (label wrapping,
+section join, model_window scaling, unit assumptions — all cleared;
+one downstream note below).
+
+**R5-M1 (major) — the O(n) guard guarded nothing: my own char break
+masked it.** The fixture sat at 3.83 chars/token, where the NEW char
+cap stops the fill before the token boundary either branch — P2 made
+IDENTICAL calls (5 vs 5). The fifth same-side-of-threshold fixture
+this stage, and the second caused by the chars/token hidden
+parameter. **[FALSIFIED R5 — the R4 fix-record sentence
+"test_count_calls_stay_linear guards the O(n) property itself" was
+false: P2 stayed green.]** P2 is NOT equivalent (critic-measured
+2-3× calls and 2× fill admissions on low-ratio content; outputs
+equal at every budget — coverage defect, not user-visible). FIX: the
+fixture is now digit-dense low-ratio content that SELF-ASSERTS both
+hidden parameters — ratio < 2.5 (token boundary decides, not chars)
+AND all 50 lines fit under the char cap (under P2 nothing stops the
+fill before the facts exhaust). Measured on the final fixture:
+correct branch 19 calls, P2-emulated 119-129 calls [CORRECTED R6:
+my emulation measured 129, the critic's two plausible emulations
+both measured 119 — the only number this stage that didn't reproduce
+exactly; conclusion unaffected, bound 45], bound 45 sits
+between with ≥2× margin on both sides. First sizing (60 lines) was
+caught by the fixture's OWN self-assert (7560 > 6800) — the
+self-asserting pattern paying for itself within the hour. Lesson
+minted (critic's words): **a new guard can MASK the mechanism an
+older test was written to observe.**
+
+Notes landed: **n1** the factor's safe-ratio dependence on
+TokenCounter's ENCODING (gpt-4o → o200k_base) is now named at the
+constant. **n2** qa_accuracy_eval's own 24,000-char post-assembly cut
+is a HEAD-keep with facts first — facts safe, RECENT TURNS can be
+crowded out at that cap; recorded here as the disclosure the
+affected-surfaces list owed. **n3** the critic corrected its own
+record: every chars/token figure this stage is an o200k_base
+measurement, not cl100k as its R3/R4 logs said — counter parity
+unaffected (both sides construct TokenCounter() identically, and
+that parity is pinned).
+
+Post-fix: **40 passed + 1 opt-in skip**; regression unchanged (255).
+
+### Stage 5 — G3 round 6: **PASS-WITH-NOTES** (0 blockers, 0 majors, 6 notes — all record/comment hygiene, three the critic's own)
+
+P2 died on the rebuilt guard (119 > 45); both hidden parameters
+measured (ratio 1.24, char headroom 8% failing LOUDLY on the
+self-assert); separation stable across six budgets (correct 16-27 vs
+mutant 103-121 — tokenizer drift would need to move one branch ~65%
+to break the bound). The critic's verdict, verbatim: **"I am passing
+on substance, not fatigue: the last correctness sweep I could
+construct came back clean in both regimes, the fresh-eyes hunt for a
+fourth truncation on the path found none, and the pin I blocked on
+last round now kills its mutant with a 2.4x margin across a budget
+band."** All six hygiene notes were landed before this closing entry
+(retroactive [FALSIFIED R4] strike; assembler-side coupling comment;
+three o200k corrections; the 119/129 reconciliation; the diagnostics
+caps line now names the char cap; this CURRENT-STATE block is note
+#6).
+
+---
+
+## STAGE 5 — HONEST CLAIMS OF RECORD (definitive; quote nothing about this stage without these)
+
+**What ships:** facts-first retrieval wired into the product —
+`llm/fact_retrieval.py` (lexical-primary TF-IDF in the measured
+champion configuration + entity-linked recall floor through Stage 3's
+join table with full ALIAS_OF closure; rank fills a DUAL-unit budget
+— tokens AND the caller's ×4 char gate — chronology orders only the
+survivors; transition lines render the change story; render
+vocabulary sanitized), the assembler's `[SEMANTIC FACTS]` section
+(facts claim the 20% semantic allocation first, chunks take the
+remainder), MCP `consolidate_session` (ConsolidationV2's first
+product caller, event-loop-safe) + scope passthrough on
+recall_memory, and `benchmarks/facts_first_diagnostics.py` ($0,
+env-isolated, exit-coded).
+
+**Mandatory disclosures:**
+1. ZERO facts in store ⇒ assembled output BYTE-IDENTICAL to the
+   pre-Stage-5 assembler (pinned incl. chroma-call equality; the
+   banked 66.0%/0.952 flow through this exact code path).
+2. Rank-0 survival under budget pressure is proven at 115 budgets ×
+   TWO content regimes (3.99 and 5.91 chars/token) + the nine
+   R4-failing budgets — after THREE incarnations of the same
+   truncation bug (chars-as-proxy, wrong unit, char fast path) each
+   found only by adversarial rounds. Disclosed exception: a single
+   oversized rank-0 line at tiny budgets (15.9× at 20 tokens) is
+   tail-truncated by the caller — rank-safe.
+3. Undated facts (structurally most preferences/identity) rank
+   through the entity floor ONLY once the 500-fact lexical scan cap
+   binds — ledger item #25.
+4. Real-corpus G2: the current answer ('TechCorp') surfaces as a
+   dated fact where session-scoped raw-turn retrieval STRUCTURALLY
+   cannot reach it (the answer lives in another session) — including
+   from an entirely unrelated session (facts-only=True). That is the
+   fact tier's claim; it is NOT a retrieval-quality comparison.
+5. The Rachel supersession did NOT fire in this stage's windows
+   (gates open, temp-0 LLM declined; fired in Stage 4's window,
+   critic-reproduced 4×) — Ollama temp-0 determinism holds WITHIN a
+   machine state (six consecutive byte-identical diagnostic runs
+   across critic and builder), not across windows. Retrieval
+   surfaces the current answer either way; supersession only adds
+   the change-history annotation.
+6. TWO real pre-existing bugs found by G2's byte-identity check:
+   Redis ghost keys (CONTAINED by AGENTMEM_OS_DISABLE_REDIS
+   kill-switch, forced in tests/diagnostics; root cause — no DB
+   identity in keys — OPEN, ledger #23) and warm-cache depth halving
+   (FIXED at root: max_turns 20, replace-not-append repopulation,
+   depth contract, skip-if-identical). Banked benchmark numbers owe
+   a Redis-disabled re-verification at Gate C — ledger #24.
+7. Render sanitization neuters this renderer's MACHINE VOCABULARY
+   (line structure incl. zero-width chars, history marker incl.
+   bracket homoglyphs, inline date stamps); fact CONTENT can still
+   say anything — that is extraction-validation's lane.
+8. Perf at the module's own 500-fact cap: ~20-24ms per build_block
+   (O(n) pinned by call-count guard). Pre-existing pool exhaustion
+   on long-lived MCP servers (~15 recalls) is NOT fixed — ledger
+   #27. The Indic alias fallback can still cold-load the encoder
+   inside an open READ session — disclosed, WAL read lock only.
+
+**CURRENT artifacts: 41 tests in tests/test_fact_retrieval.py (40
+passed + 1 opt-in live-Redis skip) · 255-test regression green across
+all seven touched surfaces · diagnostics deterministic and
+byte-identical across SIX consecutive runs (builder ×4, critic ×2+)
+· G3: six rounds, blocker trajectory 3→1→0→1→0→0, PASS-WITH-NOTES.**
+
+Stage table: Stage 5 ✅ DONE (G1 ✅ 41 tests · G2 ✅ real-corpus
+facts-first retrieval + 2 real pre-existing bugs found · G3 ✅ R6
+PASS-WITH-NOTES after R1-R5 each BLOCKED and fixed). Stage 6 (full
+E2E + final critic pass → BUILD READY) remains.

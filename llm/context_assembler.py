@@ -15,6 +15,12 @@ Budget allocation (60% of model window → leaves 40% for response):
 
 v1 had "global" as a 10% placeholder that was always skipped.
 v2 replaces it with EntityKnowledgeGraph (7%) + ProceduralMemory (3%).
+
+Stage 5 (Consolidation v2): the 20% semantic allocation is now
+facts-FIRST — dated atomic facts distilled by ConsolidationV2 claim the
+budget first ([SEMANTIC FACTS]), raw-turn chunk retrieval fills the
+remainder ([SEMANTIC MEMORY]) as provenance/fallback. With an empty
+fact store the output is byte-identical to the pre-facts assembler.
 """
 
 from loguru import logger
@@ -48,6 +54,7 @@ class ContextAssembler:
         self._chroma = None
         self._kg = None
         self._procedural = None
+        self._facts = None
 
     # ──────────────────────────────────────────────────────────────────────────
     # Public API
@@ -59,6 +66,7 @@ class ContextAssembler:
         query: str,
         system_prompt: str = "You are an AI assistant with persistent memory, powered by AgentMem OS.",
         agent_id: str = None,
+        user_id: str = None,
         disable: frozenset = frozenset(),
     ) -> str:
         """
@@ -67,11 +75,14 @@ class ContextAssembler:
         Each section is capped at its token budget.
         Sections are labelled with XML-style tags for easy parsing in evaluations.
 
-        disable: optional set of tier names to skip — {"semantic", "global",
-        "procedural"}. Exists so ablation studies can exercise this real
-        assembler directly instead of a hand-rolled simulation of it — see
-        benchmarks/ablation_study_real.py. Defaults to empty (all tiers on),
-        so this has no effect on any existing caller.
+        disable: optional set of tier names to skip — {"facts", "semantic",
+        "global", "procedural"}. Exists so ablation studies can exercise this
+        real assembler directly instead of a hand-rolled simulation of it —
+        see benchmarks/ablation_study_real.py. Defaults to empty (all tiers
+        on), so this has no effect on any existing caller.
+
+        user_id: second axis of the fact scope (make_scope_key) — the facts
+        tier reads with the SAME scope derivation consolidation writes with.
         """
         store = self._get_store()
         session = store.get_or_create_session(session_id)
@@ -93,8 +104,61 @@ class ContextAssembler:
             )
             sections.append(snap_section)
 
-        # ── Section 3: Semantic Memory (ChromaDB MMR retrieval) ──────────────
-        if "semantic" not in disable:
+        # ── Section 3a: Semantic FACTS (Stage 5 — facts first) ───────────────
+        # The semantic tier's primary representation: dated atomic facts
+        # distilled by ConsolidationV2, ranked lexical-primary with an
+        # entity-linked recall floor (llm/fact_retrieval.py). Facts and
+        # raw-turn chunks SHARE the semantic allocation — facts claim
+        # first, chunks fill the remainder. With zero facts in store the
+        # block is "" and everything below runs with the full allocation
+        # untouched: the assembled output is byte-identical to the
+        # pre-facts assembler (pinned in tests — the banked benchmark
+        # numbers were measured through this code path).
+        sem_budget = self.allocations["semantic"]
+        if "facts" not in disable:
+            try:
+                retriever = self._get_facts()
+                # TOKEN budget, not chars (G3 R2 B1): rendered fact
+                # blocks measure ~3.7-3.8 chars/token, so a chars=4×
+                # proxy overfilled and _fit_to_budget's head-keeping
+                # cut the chronologically-newest = rank-0 fact. The
+                # retriever enforces BOTH of _fit_to_budget's cuts —
+                # tokens AND the ×4 char fast path (G3 R4 B1: the char
+                # half was still the working cut on ~5.9 chars/token
+                # prose). COUPLING: changing _fit_to_budget's char
+                # factor or keep direction must revisit
+                # fact_retrieval._CALLER_CHAR_FACTOR — the high-ratio
+                # sweep pin goes red if they drift apart.
+                block = retriever.build_block(
+                    query, agent_id=agent_id, user_id=user_id,
+                    token_budget=sem_budget)
+                if block:
+                    facts_section = self._fit_to_budget(
+                        block, sem_budget, "[SEMANTIC FACTS]", keep="head")
+                    if facts_section:
+                        sections.append(facts_section)
+                        sem_budget = max(
+                            0, sem_budget - self.counter.count(facts_section))
+            except Exception as e:
+                # Deliberately WARNING, not the debug-swallow the other
+                # tiers use: a dead facts tier must not take recall down
+                # with it (raw-turn fallback below still answers), but it
+                # must never die silently either.
+                logger.warning(
+                    f"[ContextAssembler] Facts tier failed; falling back "
+                    f"to raw retrieval: {e}")
+
+        if "semantic" not in disable and sem_budget <= 0:
+            # Loud, not silent (G3 R1 m2): a facts block that consumed
+            # the whole semantic allocation starves raw-turn provenance
+            # entirely — legitimate, but the operator must be able to
+            # see it happened.
+            logger.info(
+                f"[ContextAssembler] session={session_id}: facts consumed "
+                f"the full semantic allocation; raw-turn provenance skipped")
+
+        # ── Section 3b: Semantic Memory (raw-turn provenance/fallback) ───────
+        if "semantic" not in disable and sem_budget > 0:
             try:
                 chroma = self._get_chroma()
                 # Budget-aware retrieval depth. top_k=5 was a hardcoded
@@ -106,7 +170,7 @@ class ContextAssembler:
                 # ChromaManager.search clamps to collection size, so a large
                 # top_k is safe for small live sessions.
                 approx_chunk_tokens = 60  # short conversational turns dominate
-                top_k = max(5, min(200, self.allocations["semantic"] // approx_chunk_tokens))
+                top_k = max(5, min(200, sem_budget // approx_chunk_tokens))
                 chunks = chroma.search(session_id, query, top_k=top_k)
                 if chunks:
                     # Rank decides WHAT survives; time decides HOW it reads.
@@ -120,11 +184,11 @@ class ContextAssembler:
                     # reordered by their date stamps. No-ops gracefully when
                     # chunks carry no parseable dates.
                     chunks = self._order_evidence(
-                        chunks, self.allocations["semantic"]
+                        chunks, sem_budget
                     )
                     sem_text = "\n---\n".join(chunks)
                     sem_section = self._fit_to_budget(
-                        sem_text, self.allocations["semantic"], "[SEMANTIC MEMORY]",
+                        sem_text, sem_budget, "[SEMANTIC MEMORY]",
                         keep="head",
                     )
                     sections.append(sem_section)
@@ -314,3 +378,10 @@ class ContextAssembler:
             from agentmem_os.db.engine import get_session
             self._procedural = ProceduralMemory(get_session)
         return self._procedural
+
+    def _get_facts(self):
+        if self._facts is None:
+            from agentmem_os.llm.fact_retrieval import FactRetriever
+            from agentmem_os.db.engine import get_session
+            self._facts = FactRetriever(get_session)
+        return self._facts

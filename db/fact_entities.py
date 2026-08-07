@@ -456,6 +456,7 @@ class FactEntityLinker:
     def facts_for_entity(self, entity_text: str, agent_id: str = None,
                          user_id: str = None, follow_aliases: bool = True,
                          fact_type: str = None, limit: int = 100,
+                         include_cancelled: bool = False,
                          db=None) -> list:
         """
         Live facts linked to an entity, timeline-ordered (t_occurred asc,
@@ -571,6 +572,14 @@ class FactEntityLinker:
                         SemanticFact.superseded_by.is_(None),
                         SemanticFact.scope_key == scope_key)
             )
+            if not include_cancelled:
+                # Stage 5 root fix (latent, found pre-build): a
+                # judged-cancelled planned event has NO successor, so
+                # the superseded_by filter alone keeps surfacing the
+                # voided claim as live — the exact S4-R1-Ma3 class
+                # current_facts already guards. Same contract here.
+                q = q.filter((SemanticFact.event_status.is_(None))
+                             | (SemanticFact.event_status != "cancelled"))
             if fact_type is not None:
                 q = q.filter(SemanticFact.fact_type == fact_type)
             # nullslast explicitly: SQLite's ASC default is NULLS FIRST,

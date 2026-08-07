@@ -780,3 +780,161 @@ before any `--cov` invocation, alongside the existing `AGENTMEM_OS_DB_PATH` rule
 read-only — coverage, profilers, caches, `--lf`/`.pytest_cache`, `__pycache__` — all write. Verify
 read-only by HASHING the files you care about and disclosing anything else you touched, rather than by
 asserting a clean session.
+
+## 2026-08-07 — Rank-based selection is undone by head-truncation of a chronologically-ordered block (Critics, S5 R1)
+**Evidence:** `FactRetriever.build_block` selects by RANK ("the best evidence must survive the budget",
+fact_retrieval.py:166), then sorts the survivors chronologically ASCENDING, and the assembler applies
+`_fit_to_budget(..., keep="head")`. Head-keeping on an ascending timeline keeps the OLDEST and cuts the
+NEWEST — which is where the rank-0 fact usually is on a knowledge-update question. Measured: 30 low-
+relevance 2020 facts + 1 rank-0 current fact at a 120-token allocation rendered three 2020 workshop lines
+in full and the current fact as `"Rachel is cu"`. The repo had ALREADY measured this exact class for the
+chunk path — qa_accuracy_eval.py:277-284, "Rank order made that accidentally safe; chronological
+presentation made it catastrophic (earliest-dated survived, gold evidence was cut ... collapsed to 0.13)"
+— and the new tier reintroduced it. Compounding: transition lines (`[change history: ...]`) are added
+AFTER the budget fill and never counted, so overflow is the default (1072 chars rendered for
+char_budget=200), and `build_block` always admits the first fact regardless of budget.
+**Rule (builders):** whenever selection order and presentation order differ, the truncation end must
+follow the PRESENTATION order, not the selection order — or the block must be built so it cannot
+overflow (count every character you will render, transition lines included). **(Reviewers):** for any
+"rank decides what survives" claim, build a fixture where the top-ranked item is LAST in presentation
+order, squeeze the budget, and assert on the surviving TEXT. A test that only asserts the section exists
+(`test_full_facts_block_starves_chunks_loudly`) cannot see this.
+
+## 2026-08-07 — A cache-depth guard that can never be satisfied turns the cache into a write amplifier (Critics, S5 R1)
+**Evidence:** `get_history` was fixed to `if cached and len(cached) >= last_n` so a 10-turn cache cannot
+answer `last_n=20`. Correct — but `RedisCache.max_turns` is 10 and the assembler's only call is
+`last_n=20`, so the hit is now IMPOSSIBLE, every call falls through to SQLite, and the unchanged
+repopulate loop (store.py:211-217) re-pushes turns into an already-warm list. Modeled on the real
+lpush/ltrim semantics: a 5-turn session's cache becomes `[t1..t5,t1..t5]`, and `mcp_server/server.py:377`
+(`last_n=10`) then serves ten turns with every turn duplicated. The fix's own test cannot see it: its
+`_FakeRedis.push_turn` is `pass` and `get_history` returns a constant list, so accumulation is
+unmodelable — and `tests/conftest.py` forces `AGENTMEM_OS_DISABLE_REDIS=1`, so no test in the suite ever
+exercises the real cache path.
+**Rule (builders):** when you add a precondition to a cache hit, check it against the cache's OWN
+capacity and the real callers' parameters — if capacity < the dominant caller's request, you have
+disabled the cache, and you must then also fix the write path it still triggers. **(Reviewers):** two
+fixes landing together where one (a kill-switch forced in conftest) removes the test suite's ability to
+observe the other is a structural blind spot, not two independent fixes — say so, and demand a fake that
+models the real data structure (lpush/ltrim/lrange), not one that returns a constant.
+
+## 2026-08-07 — A generosity fix that appends its candidates last is deleted first by the cap (Critics, S5 R1)
+**Evidence:** `_query_surfaces` was widened during G1 because bare 'Rachel' yields no NER surface and
+adjacent names merge into one 'Rachel Priya' span "that matches no node". The fix appends capitalized
+sub-words at the END of the list, and `retrieve` then takes `uniq_surfaces[:_QUERY_SURFACE_CAP]` (8).
+Measured on a 7-entity question: 17 surfaces, the 8 kept are the 5 merged multi-word spans (exactly the
+ones known not to resolve) + 2 single names + 'Rachel'; 9 of the 10 sub-word surfaces the fix exists to
+produce are dropped. No test touches the cap.
+**Rule:** a cap and an ordering are one decision. When you add a candidate source to fix a recall gap,
+place it in the ordering by its VALUE, not by where it was convenient to append, and pin the cap with a
+fixture that overflows it.
+
+## 2026-08-07 — Fixing a budget in the wrong UNIT moves the failure, it does not close it (Critics, S5 R2)
+**Evidence:** R1-B1 (head-truncation deleting the rank-0 fact) was fixed by making `build_block` fill
+against the full rendered line and never exceed `char_budget`. But the caller's real constraint is
+TOKENS: the assembler passes `char_budget = sem_budget * 4` and then calls
+`_fit_to_budget(block, sem_budget, ...)`, which token-counts and binary-search-truncates. Measured
+density of a rendered fact block (dates, brackets, type parens) is 3.68-3.84 chars/token — ALWAYS below
+the 4.0 the proxy assumes — so a block that exactly satisfies the char budget always overshoots the
+token budget. Swept semantic budgets 60..1200 step 10: 95/115 (83%) still lost the rank-0 fact, section
+ending mid-word (`"[2024/12/31] (state) Rac"`). The producer and the consumer of a budget must agree on
+the unit; a 4-chars-per-token proxy is a fast path, never a contract.
+**Rule (builders):** when two components share a budget, both must measure it with the SAME function.
+If the enforcing side counts tokens, the filling side must count tokens. **(Reviewers):** for any
+"never exceeds the budget" claim, sweep the budget across a wide range rather than testing one value —
+threshold bugs are intermittent by budget, and one passing value proves nothing.
+
+## 2026-08-07 — Write the pin's needle so it exists ONLY in the thing you are protecting (Critics, S5 R2)
+**Evidence:** `test_truncation_cannot_delete_top_ranked_fact` was written to prove the rank-0 CURRENT
+fact survives. Its fixture is 1 current fact ("Rachel is currently working at TechCorp.") + 30 fillers
+("Rachel attended **TechCorp** workshop session number i downtown."), and the assembler-half assertion
+is `assert "TechCorp" in out`. Every filler contains the needle. Ran the exact fixture at the exact
+budget: assertion True (green) while `current.fact_text in out` was False and the section ended
+`"[2024/12/31] (state) Rac"` — the pin is satisfied BY the failure state. This is the second time in one
+stage that a blocker's replacement pin was green while the blocker fired (cf. 2026-08-06 Stage 2 R3,
+"An assertion that matches the mutant is not a tripwire").
+**Rule (builders):** the needle in a survival test must be a string that appears in the protected item
+and NOWHERE else in the fixture — assert `subject.fact_text`, not a shared brand/entity token.
+**(Reviewers):** for every new pin, grep its needle against the rest of its own fixture before believing
+it; if any distractor contains the needle, the pin is decorative. Then run the fixture and assert the
+property directly, independent of the test's own assertion.
+
+## 2026-08-07 — A pin whose fixture is excluded by the BUDGET, not by the mechanism, pins nothing (Critics, S5 R3)
+**Evidence:** `test_fill_stops_at_first_nonfit_no_leapfrogging` was written to pin `break`-not-`continue`
+in build_block's fill: facts [alpha (short), beta (oversized), gamma (short)] at `token_budget=30`,
+asserting `"gamma" not in block`. Measured the fixture's real costs: alpha=19 tokens, gamma=19,
+alpha+gamma joined = 38. At budget 30 gamma cannot fit under EITHER branch, so `continue` produces the
+same block as `break` and the mutation survives with 35 passed. Discriminating budgets are 38..168; the
+test picked 30. Third tautological pin in one stage (cf. the "TechCorp" needle, S5 R2 B1a).
+**Rule (builders):** for any test asserting "X is excluded", first compute what X costs and prove the
+budget ADMITS it — the exclusion must come from the mechanism under test, never from the limit. Assert
+the positive control too ("under the reverted behaviour X WOULD appear").
+**(Reviewers):** never accept "now PINNED" on inspection. Run the mutation. If you cannot, compute the
+fixture's own arithmetic against its own threshold and show the assertion holds on both sides.
+
+## 2026-08-07 — Enforcing a budget in the right unit can cost you an order of magnitude (Critics, S5 R3)
+**Evidence:** Fixing a char-vs-token budget mismatch correctly (fill against `TokenCounter.count` of the
+accumulating block) made the fill O(n²) in tokenization: each candidate re-tokenizes the entire block
+built so far. Measured at the product default budget — 100 facts 53 ms, 200 facts 198 ms, 350 facts
+586 ms, 500 facts (the module's OWN `_LEXICAL_SCAN_CAP`) 1150 ms per call, against 4.5 ms for a single
+count of the final block. That sits inside a synchronous product read path, and 500 facts is the
+designed ceiling, not an outlier.
+**Rule (builders):** when you replace a cheap proxy with an exact measure inside a loop, make it
+INCREMENTAL (cost of the new item + join, one exact count at the end) and measure at your own declared
+cap before calling it done. **(Reviewers):** every correctness fix that moves work inside a loop earns a
+complexity question and a timing run at the component's own documented limit — a fix that is right and
+20x slower is a finding, not a footnote.
+
+## 2026-08-07 — A fixture's chars/token ratio is a hidden parameter of every budget sweep (Critics, S5 R4)
+**Evidence:** `_fit_to_budget` cuts TWICE — a char fast path (`len(text) > token_budget*4` → head-cut)
+and a token binary search. Three rounds of B1 fixes hardened the token side; nothing ever constrained
+chars. In R3 I probed the char gate explicitly and measured "0 of 115 budgets" — true, but only because
+that fixture's rendered lines measured 3.7-3.88 chars/token, just under the 4.0 threshold. Re-run with
+ordinary long-common-word English prose (5.87 chars/token, no rare tokens, no adversarial input), the
+gate fires at 9 of 9 budgets including the product default 15360 and qa_accuracy_eval's 4740, deleting
+the rank-0 current answer every time while build_block's token contract held exactly (4738 ≤ 4740).
+Every test in the suite sits on the safe side of a threshold nobody knew was a parameter.
+**Rule (builders):** when a budget is enforced through a proxy ratio, the fixture must straddle the
+ratio — include content ABOVE and BELOW it — or the sweep only proves the ratio you happened to pick.
+**(Reviewers):** before reporting "N of M budgets clean", measure the fixture's position relative to
+every threshold in the path and say what regime the number covers. A sweep over the wrong axis is a
+precise-looking zero. I reported one; it was true of the fixture and false of the class.
+
+## 2026-08-07 — Prove equivalence by measurement, not by argument, before excusing a live mutant (Critics, S5 R4)
+**Evidence:** Four mutations of the new incremental token estimate (drop the +1 join term, never reject
+at the boundary, deliberately under-count, skip the drift reset) all survived the suite. The tempting
+calls are both wrong: "unpinned, therefore a finding" and "the docstring says it's a fast path,
+therefore fine". Measured instead across 58 budgets × 201 facts: 0 output differences, 0 budget
+violations, 0 rank-0 losses, and identical fact counts versus a true exact fill. They are genuine
+equivalent mutants because the post-sort exact trim is the real guarantee — and that is now a measured
+claim with a harness behind it, not a reading of the comment.
+**Rule:** an equivalent-mutant excuse is only admissible with a differential harness that ran both
+variants over a real input range and found no observable difference. Otherwise it is an untested
+assumption wearing a design rationale.
+
+## 2026-08-07 — A new guard can MASK the mechanism an older test was written to observe (Critics, S5 R5)
+**Evidence:** `test_count_calls_stay_linear` was added to guard the O(n) tokenization property by
+killing the P2 mutant (boundary exact-count never rejects). In the same round a char break was added
+AHEAD of the token logic in the same loop. On the test's fixture (3.83 chars/token) the char break
+terminates the fill at the same point the token break would, so correct code and P2 produce IDENTICAL
+call counts — 5 vs 5 at token_budget=60, 23 vs 23 at 600 — against an assertion of `<= 30`. The mutant
+is not equivalent: on 1.76-chars/token content it is obvious (7 vs 16, 11 vs 28, 19 vs 56, 35 vs 89).
+The guard was written correctly and then blinded by a sibling fix landing in the same commit.
+**Rule (builders):** when you add an early-exit ahead of existing logic, re-run every mutation that the
+downstream logic's tests were written to kill — a guard that passes because something upstream now
+short-circuits is not passing. **(Reviewers):** on any round that adds a new gate to an existing loop,
+replay the PRIOR rounds' mutants, not just the current ones. This is the second time in one stage that
+the chars/token ratio decided whether a test could see anything at all; when a hidden parameter is
+found once, sweep every existing fixture against it rather than only the new one.
+
+## 2026-08-07 — A reviewer's own error propagates into code and record faster than its correction (Critics, S5 R6)
+**Evidence:** I asserted in R3 that `TokenCounter("gpt-4o")` resolves to cl100k_base; it resolves to
+o200k_base. By the time I caught it in R5, the wrong name had been copied into three live places —
+the build log's R3 fix record, `_trim_to_budget`'s docstring in shipping code, and a test docstring —
+because the team quotes reviewer measurements verbatim (correctly: that is what makes a record
+auditable). The R5 note recorded the correction in one place; the three original instances stayed.
+**Rule (reviewers):** when you state a fact the team will quote — an encoding name, a constant, a
+threshold, a measured ratio — verify it with a one-line probe before writing it, not after. When you
+later correct yourself, GREP the correction: list every file and line that carries the wrong version
+and name them individually, because a general "I was wrong about X" note does not reach the copies.
+**(Builders):** attribute quoted measurements to the round that produced them, so a later correction
+has a search key.
