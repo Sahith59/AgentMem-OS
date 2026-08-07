@@ -38,7 +38,7 @@ compute (v1: session-end; phase 2: idle-time aggregate/tally passes) + profile t
 | 1 | SemanticFact schema + storage + CRUD | ✅ 52/52, 100% cov | ✅ real data | **R6 PASS** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
 | 2 | Consolidation engine rewrite (distillation) | ✅ 97/97, 98% cov | ✅ real-model 20/4 | **R6 PASS-WITH-NOTES** (R1-R5 ✗, each fixed) | ✅ DONE 08-06 |
 | 3 | KG integration (facts→entities/edges, provenance) | ✅ 180 tests, 100% line cov | ✅ 6× identical real-model | **R5 PASS-WITH-NOTES** (R1-R4 ✗, each fixed) | ✅ DONE 08-06 |
-| 4 | Per-fact supersession | ☐ | ☐ | ☐ | — |
+| 4 | Per-fact supersession | ✅ 240 tests, 98% judge cov | ✅ real-corpus backfill supersession, critic-reproduced 4× | **R8 PASS-WITH-NOTES** (R1-R7 ✗, each fixed) | ✅ DONE 08-07 |
 | 5 | Facts-first retrieval wiring + $0 diagnostics | ☐ | ☐ | ☐ | — |
 | 6 | Full E2E smoke + final critic pass → BUILD READY | ☐ | ☐ | ☐ | — |
 
@@ -897,3 +897,742 @@ tests (Stage 5's job).
 Stage table: Stage 3 ✅ DONE (G1 ✅ 180 tests / 100% line coverage on
 both core modules · G2 ✅ six identical real-model reproductions · G3 ✅
 R5 PASS-WITH-NOTES after R1-R4 each BLOCKED and fixed).
+
+---
+
+## STAGE 4 — Per-fact supersession JUDGMENT — started 2026-08-06
+
+### Research inputs (tech-researcher pass; sources verified from vendored
+### source + live GitHub; full report in the session record)
+- **Graphiti (v0.29.3, read from vendored source): the reference shape.**
+  One LLM call per new edge against a ~10-20 shortlist (hybrid search),
+  small/cheap model by design (gpt-4.1-nano default), LLM only PROPOSES
+  — a deterministic layer decides DIRECTION by domain time (valid_at),
+  both directions checked, ingestion order explicitly not trusted
+  (their worked case: a 2005 marriage ingested after the 2024 divorce
+  must not supersede it).
+- **The schema-ordering finding (graphiti#1666): 46.7% → 93.3% on the
+  SAME small model, same eval, by putting a free-text reasoning field
+  BEFORE the decision arrays.** Premature field-commitment is a general
+  structured-output failure mode — directly transferable to our Ollama
+  format-grammar calls. Reasoning-first is NON-NEGOTIABLE here.
+- **Mem0: the cautionary tale on both sides.** v2's LLM
+  ADD/UPDATE/DELETE decision once spuriously DELETED a memory on a
+  0.99999-similar restatement (#1674 — the dangerous class, real); v3
+  removed the mechanism entirely and maintainers CLOSED the
+  restore request as not-planned (#4896) — stale duplicates accepted
+  as shippable (the mild class). Their update prompt still sits in the
+  repo, disconnected from the write path (verified from main).
+- **Small-model defensibility: llama3.1-8B alone is NOT defensible**
+  (7-8B zero-shot contradiction anchors 33.6-63.8%; no published eval
+  of this exact model/task shape; our own measured ~50% relative-date
+  error on the same model). Defensible only with: tight deterministic
+  shortlist + reasoning-first schema + a deterministic co-signal gate
+  + domain-time direction check.
+- **Temporal gap found in OUR schema:** we store superseded_at (decision
+  time) but NO domain-validity-end for states — Graphiti's invalid_at
+  has no equivalent on SemanticFact (the KG's valid_until proves the
+  pattern in-repo for 3 relations). Stage 4 adds it.
+- **Planned-event cancellation: NO prior art anywhere** (schema.org/RFC
+  5545 are publisher-DECLARED fields, never model-inferred). We would
+  be first to mechanize — built only as one attribute the general
+  judgment may update, never a bespoke detector; reachability disclosed
+  as gated on the parked plans-as-events prompt decision.
+
+### Design decisions of record
+1. **Shape: batched-shortlist, single-new-fact judgment** (Graphiti's
+   pattern). Shortlist = live facts, same scope_key, same fact_type,
+   sharing ≥1 entity node via semantic_fact_entities (Stage 3's join
+   table earning its keep), cap 12 ranked by most-recent t_mentioned,
+   cap disclosed per judgment. No candidates → NO LLM call.
+   **[CORRECTED (G2 + R2): THREE reserved pools — entity peers (cap
+   12) + lexical peers (TF-IDF≥0.25 over the newest 300 same-type
+   facts) + planned events (cap 4; entity-shared, or topically
+   filtered for entity-less facts — R2-B2 showed the unrestricted
+   fallback handed every entity-less fact 4 arbitrary plans).]**
+2. **Type scope, conservative by construction: states and preferences
+   ONLY.** identity excluded (highest cost-of-error — founder-visible
+   scope call, revisit after measurement); events excluded EXCEPT
+   planned→cancelled as an attribute update the judgment may propose.
+3. **The LLM only PROPOSES; deterministic gates DECIDE:**
+   (a) output ids must be in the shortlist (anything else dropped,
+   logged); (b) a deterministic co-signal must agree — the
+   conflict_detector contradiction-pair vocabulary OR its shipped
+   lexical-similarity signal (same-attribute evidence) — an LLM-only
+   verdict never acts; (c) DIRECTION is computed from DOMAIN time
+   (t_occurred start, fallback t_mentioned), both directions
+   considered: if the "old" fact is domain-later, the proposal applies
+   REVERSED (the out-of-order-session case); exact ties SKIP,
+   ambiguous is conservative; (d) supersede() remains the only writable
+   action — no delete path exists for the model to reach.
+   **[CORRECTED (R1+R2 — both (b) and (c) as written shipped broken
+   and were rebuilt): the gates of record are now (1) shortlist
+   membership, (2) TYPE guard (only same-type facts supersede; events
+   are cancellation candidates only), (3) INDEPENDENT co-signal —
+   node-guarded polarity flip, or the digit-aware metric-update signal
+   (masked-identical texts, aligned numbers, EXACTLY ONE value
+   differs), or bare cosine for entity-pool candidates only, plus a
+   cue-vocabulary + shared-subject gate on cancellations, (4)
+   interval-aware SAME-AXIS direction (overlap/touch = skip), (5) one
+   transaction for actions + audit row.]**
+4. **Reasoning-first output schema** (grammar-forced):
+   {"reasoning": …, "superseded_ids": […], "cancelled_ids": […]} —
+   the 46.7→93.3 finding applied verbatim.
+5. **Failure bias is structural: dangerous class blocked, mild class
+   degrades to today's shipped behavior.** A missed supersession leaves
+   a stale duplicate (Mem0 v3's accepted status quo, and Stage-1
+   history preserves everything anyway); a wrong supersession is
+   blocked by gates (b)+(c) and is REVERSIBLE even if it lands
+   (invalidate-don't-delete — superseded_by can be audited and undone
+   by an operator; nothing is destroyed).
+6. **Tri-temporal completed: SemanticFact gains t_invalid** (domain
+   time a state STOPPED being true; nullable sortable string), set at
+   supersession from the superseding fact's domain time — the KG's
+   valid_until pattern extended to facts; additive migration;
+   distinct from superseded_at (OUR decision time) and disclosed as
+   such. facts_as_of stays mention-axis (a different question,
+   documented); time-aware reads over t_invalid are Stage 5.
+7. **Every judgment is PERSISTED** — new supersession_judgments table:
+   fact judged, shortlist (with cap disclosure), co-signal results, raw
+   model output, actions applied, proposals dropped and WHY, model
+   name. Silent under-judgment ships undetected otherwise
+   (graphiti#1666's lesson); the inspectable-history story requires
+   showing why a supersession did or did not happen.
+8. **Wiring mirrors Stage 3's hard-won shape:** judgment runs AFTER the
+   consolidation batch commits (LLM compute NEVER under a write lock —
+   R1-B1's lesson is a standing law), best-effort (a judge fault is
+   recorded in the report, never destroys it), with a cursor-paged
+   recovery sweep (facts with no judgment row → judge), auto-invoked
+   on judge failure, product-callable (R4-M5's lesson: a compensating
+   control without a caller is a docstring).
+   **[CORRECTED (R1-B4): the sweep is product-callable
+   (recover_judgments) and deliberately NOT auto-invoked — a
+   scope-wide drain costs one LLM call per fact (the blast-radius
+   lesson); judge_failure is persisted and operators invoke the
+   drain. Bound: max_rounds × limit facts per call.]**
+9. **cancelled semantics (F7 completion):** EVENT_STATUSES grows
+   'cancelled'; only reachable transition is planned→cancelled via a
+   validated judgment; occurred never cancels; cancelled is terminal
+   for re-affirmation merges (disclosed). Store validates transitions;
+   the judge writes status through a guarded targeted update.
+   **[CORRECTED (R1/R2): EVENT_STATUSES (the add_fact INPUT set)
+   deliberately does NOT grow — input validation still refuses
+   'cancelled'; mark_event_cancelled() is the only writer, now behind
+   a cue-vocabulary + shared-subject deterministic gate (R2-B2). Live
+   reads exclude cancelled by default (include_cancelled opt-in);
+   facts_as_of has no cancellation-time axis, disclosed in its
+   docstring.]**
+10. **Additive to the scored path:** knowledge-update sits at 0.952 on
+    the old raw-turn path — untouched facts and all Stage 1-3 reads
+    keep working unchanged; the judge only ever ADDS supersession
+    links, t_invalid values, and audit rows.
+
+### Build surface
+llm/supersession.py (SupersessionJudge: shortlist, co-signal, LLM call,
+validation, direction, apply, sweep) · db/models.py (t_invalid,
+supersession_judgments table, EVENT_STATUSES+cancelled
+**[CORRECTED R3-Ma4: EVENT_STATUSES lives in db/semantic_facts.py and
+deliberately does NOT grow — mark_event_cancelled/
+reinstate_cancelled_event are the only status writers]**) ·
+db/semantic_facts.py (t_invalid param on supersede, transition
+validation, provenance exposure) · db/engine.py (_migrate_stage4
+additive) · llm/consolidation_v2.py (post-commit wiring + report/log
+fields + recover_judgments).
+Out of scope (disclosed): identity-fact judgment; time-aware retrieval
+over t_invalid (Stage 5); Tier 2-3 dedup adjudication (separate item,
+shares no code path yet); any prompt change to extraction (PARKED).
+
+### Stage 4 — G1 + G2 record (2026-08-06/07)
+
+**G1: 204/204 across 5 scoped files** (test_supersession.py NEW: 21;
+consolidation_v2: 54; fact_entities: 64; semantic_facts: 60;
+temporal_kg: 5) + the script-style conflict-detection suite at 100%
+after a ROOT-CAUSE fix G1 forced: the shared contradiction vocabulary
+could not see third-person "works at" (the KG typed-relation port had
+noticed this and patched around it LOCALLY months ago instead of fixing
+the source — the local patch is now redundant, noted in both places).
+Coverage: llm/supersession.py 96% (the only uncovered lines are the
+real-LLM HTTP body, G2's job — same disclosed pattern as the extraction
+engine). Failure paths pinned: out-of-shortlist/garbage proposals
+dropped loudly; co-signal disagreement blocks LLM-only verdicts;
+domain-time REVERSAL (the Josh case) and tie-skip; identity/events/
+superseded skip WITHOUT an LLM call; cancellation only reaches live
+planned events, guarded by the same rowcount pattern supersede()
+race-proves **[R4-Ma5 downgrade: the mark_event_cancelled rowcount
+guard itself is NOT race-proven — waived with record]**; cancelled is
+terminal
+against re-affirmation; t_invalid validated; judgment rows on every
+path incl. skips; poison-proof cursor sweep; engine wiring best-effort
+with persisted judge_failure and recover_judgments drain.
+
+**G1 caught one design flaw before any critic did:** a single capped
+shortlist pool let recent same-type peers CROWD OUT planned events —
+cancellation candidates could never be seen. Fixed as reserved pools
+(peer cap 12 + planned cap 4), both caps disclosed in the audit row.
+
+**G2 (real llama3.1 extraction + the judge's FIRST live runs,
+benchmarks/consolidation_v2_stage4_smoke.py):**
+- **The G2 gate did its job twice before passing.** Run 1: ZERO
+  supersessions — every judgment skipped "no candidates" because the
+  archetypal knowledge-update fact ("personal best 5K time") carries NO
+  named entity and the shortlist was entity-only. Graphiti's candidate
+  search is TEXT search; entity-only was our shortcut. Fixed: a third
+  reserved pool — lexical candidates (TF-IDF >= 0.25 against the newest
+  300 live same-type facts; window disclosed, older facts reachable via
+  entities only), pinned by tests. Run 2 exposed the second truth: the
+  5K "update" extracts as an EVENT, and events are excluded from
+  judgment BY DESIGN (occurrences never supersede) — the metric-update
+  class is a DISCLOSED boundary, not a silent miss, kept in the smoke
+  as its own labeled pass (all skips, 0 supersessions, correct).
+- **The demonstration case (employment question, real corpus, both
+  session orders): the machine works end to end.** Backfill order
+  produced a REAL supersession: "The user plans to catch up with Rachel
+  soon." [2023/05/23] superseded BY the domain-later restatement
+  [2023/05/26] — with the fact arriving LAST losing on DOMAIN time
+  (direction REVERSED exactly as designed; processing order did not
+  decide), t_invalid=2023/05/26, superseded_at stamped separately,
+  transition_text renders the change, facts_as_of(2023/05/23) still
+  shows the old fact at its own date.
+- **The gates visibly prevented model confusion:** in-order pass, the
+  model proposed a MUTUAL supersession (fact 4 -> 6 AND fact 6 -> 4,
+  same-day cross-topic follow-ups with Jason/Alex) — both dropped by
+  the domain-time tie gate; an incoherent bidirectional supersession
+  never reached the store. One candidate double-listed in both arrays
+  was dropped by the status guard. **[CORRECTED (R1/R2): the
+  double-listing claim was FALSE as written — pre-fix the candidate
+  was superseded AND cancelled with nothing dropped. Pinned behavior
+  now: the TYPE guard drops the supersession; a cancellation with a
+  cue and shared subject proceeds.]**
+- **Honest asymmetry, disclosed:** in-order=0 vs out-of-order=1
+  supersessions on the same sessions — the small model's judgment is
+  not symmetric across presentation orders (it declined the Rachel
+  pair in one order and proposed it in the other), and extraction
+  itself varied slightly between passes (Ollama nondeterminism at
+  temperature 0). Under-supersession in one order = the disclosed MILD
+  class (stale duplicate visible, history intact). This is exactly the
+  degradation the design chose over the dangerous class.
+
+G3 round 1 dispatched.
+
+### Stage 4 — G3 ROUND 1: BLOCK (4 blockers, 8 majors, 12 minors) → all fixed
+
+**The round's headline: the critic PIERCED THE CENTRAL SAFETY CLAIM
+twice** — over-supersession was possible through two independent paths,
+both reproduced with in-scope model output and passing gates. Exactly
+what adversarial rounds exist for. Resolutions:
+
+**R1-B1** a planned EVENT could supersede a true current STATE (the
+superseded loop had no type guard; the reserved planned pool — a G1
+fix — guaranteed the event was present, and future-dated always won on
+domain time) → TYPE GUARD: only same-fact_type facts supersede; events
+are cancellation candidates only; pinned. **[CORRECTION to the G2
+record above: the "double-listed candidate dropped by the status
+guard" claim was FALSE as written — pre-fix it was superseded first
+and cancelled second with nothing dropped. Post-fix behavior, pinned by
+test: the type guard drops the supersession and the cancellation
+legitimately proceeds.]** **R1-B2** the co-signal was VACUOUS for every
+lexical-pool candidate (admission cosine == agreement cosine, same
+pair, same constant — 'allergic to peanuts' invalidated by 'allergic to
+shellfish', the Mem0 #1674 class; and the 0.25 provenance comment cited
+a function that uses no cosine at all) → INDEPENDENCE RULE: similarity
+may never approve what similarity admitted; lexical candidates need a
+subject-guarded polarity flip OR the new METRIC-UPDATE signal (numbers
+differ + numbers-stripped texts >=0.7 cosine — the 'PB is X → is Y'
+replacement shape no vocabulary covers); bare cosine approves
+entity-pool candidates only; peanuts/shellfish pinned. **R1-B3**
+actions and audit row committed in SEPARATE transactions — a crash
+window left a supersession applied with NO judgment row and the fact
+unsweepable (superseded facts fail the sweep predicate) → ONE
+transaction for all surviving actions + the audit row (store refusals
+drop that action, roll back, retry the remainder — bounded, every
+exclusion recorded); audit-write failure now rolls actions back;
+pinned. **R1-B4** design bullet 8 claimed the judgment sweep was
+"auto-invoked" — FALSE (zero callers; only the log-row patch ran) →
+**[CORRECTED design decision 8: recover_judgments is PRODUCT-CALLABLE,
+deliberately NOT auto-invoked — a scope-wide drain is one LLM call per
+fact (the R5 blast-radius lesson); judge_failure is persisted and
+operators/schedulers invoke the drain]**.
+
+**Majors:** Ma1 bare polarity flip matched unrelated texts ('works at
+Google' vs 'left the party early') → subject guard via CONTENT-word
+overlap only (the capitalized-phrase entity proxy counts sentence-
+initial 'The' — measured — and was excluded); disclosed cost: an
+update naming only the new value loses its flip (mild class). Ma2
+domain comparison mixed time axes and ignored intervals (a
+month-interval fact could lose to a point INSIDE its own interval) →
+interval-aware strict-precedence, same-axis only, overlap=skip;
+pinned both directions. Ma3 'cancelled' had NO reader (current_facts/
+facts_overlapping returned voided events as live; "EVENT_STATUSES
+grows" was also false — input validation still refuses it, correctly)
+→ live reads exclude cancelled by default (include_cancelled opt-in);
+facts_as_of's no-cancellation-time-axis limit DISCLOSED in its
+docstring. Ma4 audit rows now carry per-candidate POOL provenance,
+domain intervals, mention dates, and the judgment's constants. Ma5
+skip reason no longer blames entities when three pools ran. Ma6
+fixture blindness: other-scope candidate made lexically identical so
+dropping the scope filter turns the test red. Ma7 the module-level
+conflict_detector import re-armed the import-time-migration trap (the
+critic's run migrated the production DB AGAIN — second incident of the
+class; additive-only, verified no data loss) → ALL conflict_detector
+imports made lazy. Ma8 tests/test_conflict_detection.py (a script,
+outside conftest protection) pins a scratch DB path before any import.
+
+Post-fix: 211 tests green across the 5 scoped files + conflict script
+100%. Smoke rerun next; R2 dispatched after.
+
+**Post-R1 smoke rerun (rebuilt gates): artifacts reproduce** — same
+Rachel supersession in backfill order (t_invalid=2023/05/26), same
+in-order=0/out-of-order=1 disclosed asymmetry, boundary case 0 as
+designed. The rebuilt co-signal did not cost the real demonstrated case.
+
+### Stage 4 — G3 ROUND 2: BLOCK (4 blockers, 8 majors, 12 minors) → all fixed
+
+Three of the four blockers lived INSIDE R1 fixes — the standing lesson
+that a fix is a change like any other, at full force. Resolutions:
+
+**R2-B1 — the metric-update signal was arithmetically vacuous**: the
+TF-IDF tokenizer never sees digits, so "numbers-stripped" similarity
+EQUALED plain similarity (20k randomized pairs, zero differences) —
+similarity approving what similarity admitted, again; '5K run 25:31'
+was superseded by '10K run 55:12' at cosine 1.000 → REBUILT
+digit-aware: number-MASKED texts must be EXACTLY identical, numeric
+positions align, and EXACTLY ONE normalized value may differ (two
+differing numbers means one is an identity component — a different
+race, not an update; '$2,000'/'$2000' and '70'/'70.0' normalize equal
+= restatement). All five critic repro pairs pinned; disclosed cost:
+simultaneous two-value updates missed (mild class). **R2-B2 —
+cancellation was a PURE LLM verdict and Ma3 multiplied its blast
+radius** ('prefers oat milk' cancelled a Tokyo flight the unrestricted
+planned-pool fallback had shown it) → deterministic gate, both halves
+required: cue vocabulary in the NEW text ('called off', 'cancelled',
+'fell through'…) AND a shared subject (entity node or content word);
+the entity-less planned pool is now TOPICALLY filtered; Tokyo pinned
+three ways (pool, cue, positive control). **R2-B3 — the Ma8 script
+guard had been injected INSIDE the module docstring and NEVER
+executed** (proven: an inherited env var migrated 17 tables; third
+incident of the class) → guard moved above the docstring and VERIFIED
+BY EXECUTION against a decoy path this time, not by reading the diff.
+**R2-B4 — content-word overlap was not a subject guard** ('studying at
+Stanford' LOST to 'left Stanford Stadium'; 'lives in Berlin' LOST to
+'moved from Berlin Hauptbahnhof') → the subject is now a SHARED ENTITY
+NODE from Stage 3's join table (real NER identity, one query for the
+whole shortlist); entity-less facts cannot flip at all — their only
+route is the strict metric signal. Stanford/Stadium pinned with a
+same-node positive control.
+
+**Majors:** cancelled-reader tests written (dropping either filter or
+flipping the default now fails); interval TOUCH pinned as ambiguous
+(< vs <= mutation red) and the occ-axis reversal branch executes under
+test; the five falsified design-decision lines carry INLINE CORRECTED
+annotations at the lines themselves (file convention), including the
+G2 record's false 'status guard' claim; cap tests no longer monkeypatch
+constants back to their defaults (the no-op-patch blindness) and the
+lexical window is pinned at defaults; the dead double-consumption guard
+removed (unreachable once the type guard precedes); the new signal got
+REAL-corpus-model exercise — smoke Part D: the digit-aware signal's
+first live run, REAL judge LLM, 25:31 → 23:15 superseded with
+t_invalid=2023/05/30 and the transition rendered (store-level, labeled
+honestly). **Minors disposition (every one, per R2's demand):** m1
+numeric normalization LANDED (in B1); m3 duplicate proposal ids
+collapse (pinned); m8 threshold provenance comment rewritten honestly
+(0.25 is OUR choice, 2.5x the shipped topic gate — the forget_about
+citation was wrong); m9 stripped_cosine dup field REPLACED by
+masked_equal/shared_nodes; m5 smoke result line no longer prints a
+criterion the run fails; m4 recover_judgments bound stated
+(max_rounds × limit); m2 multi-reversal audit wording, m6
+judge_failure newest-row patch, m7 success counters: WAIVED WITH
+RECORD (wording/plumbing, no correctness effect; newest-row patch
+shares the link-recovery pattern and its disclosed same-session
+caveat); m10 equivalent mutant acknowledged (not chased); m11
+facts_as_of cancelled-inclusion already disclosed in its docstring;
+m12 coverage now reported WITH its uncovered set.
+
+Post-fix: **220 tests green** across the 5 scoped files + conflict
+script 28/28 (guard execution-verified). Coverage llm/supersession.py:
+**98% — uncovered set is exactly lines 222-235, the real-LLM HTTP
+body** (G2's job, the standing disclosed pattern). Smoke: demonstration
++ boundary passes reproduce; NEW Part D exercises the rebuilt signal
+live. R3 dispatched.
+
+### Stage 4 — G3 ROUND 3: BLOCK (1 blocker, 8 majors, 12 minors) → all fixed
+
+R3 verified every headline number exact, caught all seven demanded
+mutations, and confirmed the round-2 rebuilds hold — then found the
+last tautology. Resolutions:
+
+**R3-B1 — the cancellation "shared subject" gate could not reject
+anything reachable** (the planned pool's admission test WAS the gate:
+same function, same pair — and a REAL llama3.1 run cancelled a
+climbing-competition plan over a gym-membership cancellation, 3/3
+deterministic, with no API back). Fixed two ways: (1) the BINDING gate
+— independent of pool admission, three deterministic requirements: a
+NON-NEGATED cue (the repo's own 40-char negation window, reused —
+R3-Ma6's 'did not cancel' now refuses), >=2 shared content words (one
+is topical coincidence), and the cue CLAUSE itself naming the plan;
+gym/climbing, negation, and clause-binding all pinned end-to-end.
+(2) reinstate_cancelled_event() — the store's only one-way destructive
+transition gets its shipped, guarded escape hatch (operator-invoked by
+design, never reachable from the judge).
+
+**Majors:** Ma1 the "dead" length check was NOT dead (a literal '#' in
+source text breaks equal-masks-imply-equal-counts — fuzz: 53/300k
+misaligned comparisons returning True) → restored, counterexample
+pinned; the lesson: my dead-code reasoning was itself an unverified
+claim. Ma2 interval touch pinned in BOTH directions. Ma3 the
+entity-node half now testable through the reachable path (binding gate
+pins). Ma4 the last falsified line (Build surface EVENT_STATUSES claim)
+inline-corrected. Ma5 the smoke RESULT line now states Part D is
+store-injected/hand-authored, and the honest-claims list records that
+THE METRIC SIGNAL HAS NEVER FIRED ON AN EXTRACTED FACT (the lexical
+pool produced zero real-corpus candidates in three consecutive
+rounds). Ma6 negation (in B1). Ma7 single-number pairs REFUSED —
+value-update vs identity-difference ('child is 7'→'4' vs 'apartment
+12B'→'14B') is deterministically undecidable and a real model proposed
+the apartment class 3/3; the 'rent is 1800'→'1900' miss is the chosen
+mild class, disclosed. Ma8 the stale _cosignal docstring (still
+describing the killed cosine design) rewritten.
+
+**Minors:** m1 European-decimal commas no longer collapse ('1,5' != 15
+— grouping-shape-only stripping, pinned); m4 boolean-id rejection
+pinned; m2/m3 pool and sweep live-filters pinned (superseded facts
+never shortlist, never sweep); m9 cue vocabulary extended
+(cancellation/cancels/calls off/backed out/pulled out/shelved); m7
+recover bounds stated numerically in both docstrings; m8 test renamed
+for what it pins; m5 rowcount-guard direct-race test WAIVED WITH
+RECORD (the guard is the same shipped pattern supersede() proves under
+its real 2-process test; constructing the interleave for
+mark_event_cancelled needs an event-listener harness whose complexity
+exceeds the claim — the claim is downgraded to "guarded by the same
+rowcount pattern", not "race-proven"); m6 terminal-merge comment
+reworded; m10 include_cancelled zero-callers = Stage-5 wiring reality,
+recorded; m11 residual risk (entity-pool bare cosine) noted with the
+critic's own 3/3-declined probes; notation restatements ('25:31' vs
+'25.31') remain a disclosed residual. **[CORRECTED R4-m9/R5-m7: the
+single-number refusal (R3-Ma7) CLOSED this class — such pairs carry
+one numeric token and now refuse.]**
+
+Post-fix: **228 tests green** (supersession 45 / consolidation 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5) + conflict
+script 28/28. Coverage llm/supersession.py **98% — uncovered set
+exactly the real-LLM HTTP body (287-300)**. Smoke reproduces:
+demonstration + boundary + Part D (labeled store-level). R4 dispatched
+as the intended closing round.
+
+### Stage 4 — G3 ROUND 4: BLOCK (1 blocker, 5 majors, 12 minors) → all fixed
+
+R4 verified every headline number exact, caught all 12 demanded
+mutations by name, confirmed reinstate is judge-unreachable BY CODE
+PATH, and then broke the v2 binding gate's calibration. Resolutions:
+
+**R4-B1 — the ≥2-shared-content-words rule was calibrated on an axis
+ORTHOGONAL to correctness**: two GENERIC shared words ('weekend
+training') bound a false cancel 3/3 on the real model, while verbatim
+TRUE cancellations of short-named plans ('cancelled the Rome
+marathon') refused at one shared word; the critic also measured that
+coverage RATIOS do not separate (0.50 both cases). REBUILT as
+CONTAINMENT — you can only cancel a thing you NAME, and everything the
+cancelling clause names must be part of the plan: per non-negated cue
+occurrence (every occurrence checked — R4-m1), the clause's object
+words (4-char floor, recovering the distinctive short words the 5-char
+rule destroyed: 'yoga', 'rome'; cue SPANS removed before extraction so
+'called' cannot leak from 'called off') must be non-empty and a SUBSET
+of the plan's words. The physio case names session+physiotherapist —
+not in the marathon-camp plan — and refuses; Rome binds. Pinned:
+weekend-training repro end-to-end, Rome positive, multi-occurrence
+negation, insurance-'cancellation'-noun refusal, pronoun-only
+('cancelled it' names nothing) refusal. Reachability note stands: this
+gate is prompt-unreachable TODAY (0/23 planned facts) — it exists to
+be right BEFORE the parked plans-as-events decision flips, not after.
+
+**Majors:** Ma1 the sweep live-filter 'pin' was a TAUTOLOGY (assert X
+or True — an assertion that cannot fail, answering a 4th-round
+survivor with a rubber stamp) → replaced with a real pin (a
+superseded, never-judged fact must produce ZERO judgment rows through
+the sweep; deleting the filter turns it red). Lesson recorded:
+assertions that cannot fail are the lookalike-test class in its purest
+form. Ma2 the R3 smoke-label claim had NOT landed (the exact wording
+R3 rejected still printed) → landed and grep-verified: the RESULT line
+now states Part D is STORE-INJECTED, HAND-AUTHORED, and that the
+metric signal has never fired on an extracted fact. Ma3 the Stage-4
+honest-claims block is required for close → written at the closing
+verdict (below, R5). Ma4 the module design-of-record docstring still
+described the killed cosine metric — same phrase, one level up from
+where Ma8 fixed it → corrected to the current truth. Ma5 the m5
+waiver's downgrade now sits AT the claim ('race-defended' →
+'guarded by the same rowcount pattern supersede() race-proves', with
+the not-race-proven waiver inline).
+
+**Minors:** m1 multi-occurrence negation (in B1, pinned); m2 insurance
+false-cue class (containment refuses, pinned); m10 non-dict model
+output dropped loudly (pinned); m9 record corrected — the
+single-number refusal CLOSED the notation-restatement residuals
+('25:31'/'25.31' are single-number pairs and now refuse); m5
+abbreviation clause-splitting verified harmless for cue-first
+phrasings **[FALSIFIED by R6-Ma1: honorific periods (Dr./St./Mr.)
+truncated the clause and 5/6 phrasings falsely BOUND — every splitter
+false positive is in the binding direction; fixed by lookbehind and
+pinned]**; m4 the 40-char negation window bound is DISCLOSED (beyond
+it, a distant negation is invisible — vocabulary-window residual); m6
+plans whose only distinctive words are under 4 chars are structurally
+hard to cancel (disclosed miss); m7 'plans'/'attend' added to the
+structural stop extension; m3/m11 hypothetical/question cue forms and
+include_cancelled's zero callers recorded (extractor contract makes
+the former unrealistic; the latter is Stage-5 wiring reality).
+
+Post-fix: **233 tests green** (supersession 50 / consolidation 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5) + conflict
+script 28/28. Coverage llm/supersession.py **98% — uncovered set
+exactly the real-LLM HTTP body (312-325)**. Smoke reproduces with the
+honest Part-D label. R5 dispatched as the closing round.
+
+### Stage 4 — G3 ROUND 5: BLOCK (0 blockers, 3 majors, 10 minors) → all fixed
+
+R5 verified every claim exact for the third round running, confirmed
+R4-B1's core defect dead under 10 mutations (8 killed; the 2 survivors
+became its majors), and blocked the CLOSE on three short items:
+
+**R5-Ma1 — clause selection by STRING defeated per-occurrence
+negation** (the same cue surface in two clauses always judged against
+the FIRST clause containing it — a negated first mention plus a real
+second one produced one measured wrong write; blast radius today zero,
+but span-accurate negation demands span-accurate clauses) → clause
+boundaries computed by POSITION from the splitter's spans; the
+critic's exact wrong-write text pinned refusing, and the mirror
+true-positive (a real cancellation AFTER an unrelated one) pinned
+binding. **R5-Ma2 — the 4-char floor, the R4-B1 fix's key ingredient,
+was unpinned** (the Rome POSITIVE could not fail at either floor —
+containment is symmetric, a lesson now recorded: symmetric rules
+cannot be pinned by positives) → pinned by its NEGATIVE: at floor 5,
+'rome' and 'boston' vanish and the Rome cancellation falsely binds the
+BOSTON marathon plan; floor-4 refuses. **R5-Ma3 — the killed v2
+self-description survived at the call site and in a test comment**
+(third round of this class in the same file) → both dead, verified by
+grep. **Minors:** the structural stop extension pinned ('cancelled
+the plans' must name nothing — an empty extension turns it red); the
+positive-control reason asserted; the notation-residual record lines
+reconciled (single-number refusal closed that class); the remaining
+measured residuals fold into the disclosures below.
+
+Post-fix: **236 tests green** (supersession 53 / consolidation 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5) + conflict
+script 28/28. Coverage llm/supersession.py **98% — uncovered exactly
+the real-LLM HTTP body (320-333)**. Smoke reproduces with the honest
+Part-D label. R6 dispatched as the focused confirmation round.
+
+### STAGE 4 HONEST CLAIMS OF RECORD (critic-approved wording, R5)
+
+**CAN claim:** per-fact supersession judgment over the semantic tier —
+batched shortlist from three reserved pools (entity / lexical /
+planned, caps in the audit row), reasoning-first grammar-forced
+schema, and the LLM only PROPOSES while five deterministic gates
+decide (shortlist membership, same-fact_type, independent co-signal,
+domain-time direction, guarded store writes); direction from DOMAIN
+time, never processing order — demonstrated end to end on a real
+corpus (run in both session orders; the supersession fired in the
+BACKFILL order — disclosure 2 carries the 0-vs-1 asymmetry), the fact
+arriving LAST losing because it was domain-earlier (Rachel [2023/05/23] superseded by [2023/05/26],
+t_invalid=2023/05/26, superseded_at stamped separately, facts_as_of
+still shows the old fact at its own date); every judgment persisted
+(shortlist with per-candidate pool provenance, co-signals, raw output,
+applied actions, dropped proposals with reasons, or the skip reason)
+and committed in ONE transaction with the audit row, so
+applied-but-unaudited is impossible; nothing destructive — supersede()
+invalidates, never deletes, and mark_event_cancelled() is reversible
+by an operator-invoked reinstate_cancelled_event() the judge cannot
+reach by code path (verified: no dynamic dispatch, zero non-test
+callers); a deterministic cancellation binding gate stands between the
+model and any cancellation (cue vocabulary, position-accurate
+per-occurrence negation, containment); 239 tests green across the 5
+scoped files (56/54/64/60/5), conflict-detection 28/28,
+llm/supersession.py at 98% coverage with only the real-LLM HTTP body
+uncovered.
+
+**MANDATORY DISCLOSURES alongside any of the above:**
+1. Scope: judgment runs on state and preference facts ONLY; identity
+   is excluded by design; events are excluded except the
+   planned→cancelled attribute update.
+2. Order asymmetry, measured: the same real sessions gave 0
+   supersessions in order and 1 out of order — the small model's
+   judgment is not order-symmetric, and extraction differs by order
+   too.
+3. The digit-aware metric-update signal has NEVER FIRED ON AN
+   EXTRACTED FACT. Its only live demonstration (smoke Part D) uses
+   STORE-INJECTED, HAND-AUTHORED facts with a real judge LLM; the
+   real-corpus metric class extracts as an EVENT and is excluded by
+   design.
+4. Cancellation is PROMPT-UNREACHABLE today (0/23 planned markers; the
+   extractor types cancellations as past events and the judge skips
+   them). The gate exists to be right BEFORE the parked
+   plans-as-events prompt decision flips — it is not evidence that
+   cancellation works in the product.
+5. The containment gate's own misses and residuals, all measured:
+   pronoun-only cancellations ('cancelled it') name nothing and
+   refuse; plans whose only distinctive words are under 4 characters
+   are structurally hard to cancel; plurals do not stem ('marathons' ≠
+   'marathon' → refuse); a negation more than 40 characters before the
+   cue is invisible; natural true cancellations carrying any extra
+   word refuse (5 of 8 measured phrasings — the chosen mild class); a
+   clause naming only GENERIC words that appear in the plan binds
+   without naming anything distinctive ('cancelled his weekend
+   training' → the marathon-camp plan; real llama3.1 declined all
+   such probes 3/3); verbose/composite plans are strictly easier to
+   cancel because containment sees a word UNION with no adjacency;
+   question and hypothetical cue forms bind; the clause splitter
+   treats a period after ANY 1-3-letter token as an abbreviation
+   (missed sentence splits GROW the clause, which is the refusing
+   direction — pinned both ways; one contrived measured exception: a
+   grown clause can rescue an EMPTY named set, R8-n2); the negation
+   lookback deliberately crosses clause boundaries (erring wide is its
+   safe direction); the same truncation applies to the and/but branch
+   of the splitter: a conjunction inside a coordinated noun phrase
+   splits before the SHARED HEAD NOUN and deletes it, so 'cancelled
+   the Friday and Saturday dinner reservations' names only {friday}
+   and binds a Friday LUNCH plan — 5 of 6 measured cue-first
+   phrasings; every splitter false split, period or conjunction, moves
+   toward BINDING (R8-n1; the branch is load-bearing and a real fix
+   needs shared-head-noun detection — recorded, pinned, not claimed
+   safe).
+6. Sweeps are OPERATOR-INVOKED: judge_missing() is a hand-run
+   cursor-paged recovery/backfill sweep; there is no scheduler.
+7. mark_event_cancelled()'s rowcount guard is the same shipped pattern
+   supersede() race-proves under a real 2-process test, but is NOT
+   itself race-proven — waived with record.
+8. NOTHING is wired into product retrieval. ConsolidationV2/
+   SupersessionJudge have no caller outside benchmarks and tests;
+   include_cancelled has zero non-test callers; t_invalid-aware
+   retrieval is Stage 5.
+
+**Stage-3 forward items answered:** 'cancelled' status reserved for
+Stage 4 → DONE (terminal, operator-reversible); domain-validity-end
+for states (Graphiti's invalid_at gap) → DONE (t_invalid, validated,
+set from the deciding axis); occurrence JUDGMENT / cancellation → DONE
+as one attribute the general judgment may propose, never a bespoke
+detector, reachability disclosed; the 'planned' marker's
+prompt-unreachability → STILL A QUEUED FOUNDER DECISION, unchanged
+(0/23).
+
+### Stage 4 — G3 ROUND 6: BLOCK (0 blockers, 1 major, 3 minors) → all fixed
+
+R6 confirmed all three R5 majors closed (6/6 mutations killed, both R5
+survivors dead, zero tautological asserts by AST scan, claims block
+audited line-by-line) and found one PRE-EXISTING hole plus a falsified
+record line:
+
+**R6-Ma1 — abbreviation periods truncated the cue clause, and
+truncation is always in the BINDING direction** (a smaller named set is
+strictly more likely to be a subset): 'cancelled the appointment with
+Dr. Meyer' lost 'Meyer' at the split and falsely bound a DIFFERENT
+planned appointment — 5/6 honorific phrasings bound; the record's own
+'verified harmless' claim about this class was FALSE (it had verified
+only the safe cue-last direction) → the splitter now refuses to split
+on a period after a 1-3-letter capitalized token (fixed-width
+lookbehinds); pinned with the critic's honorific set INCLUDING the
+true-cancellation-with-honorific positive; the false record line
+struck inline. Blast radius today zero (real model declined 0/3;
+cancellation prompt-unreachable) — but this gate exists to be right
+before the parked decision flips, so it is fixed by code, not wording.
+
+**Minors:** the negation window is now CLAUSE-BOUNDED (R6-m1: a raw
+40-char lookback crossed the boundaries the clause selection computes
+— half-applying the R5 fix's own principle); the two reason-string
+assertions now prove the MECHANISM, not just the refusal (R6-m2); the
+smoke was RERUN under the new splitter for this record (R6-m3 —
+demonstration, boundary, and Part D all reproduce).
+
+Post-fix: **237 tests green** (supersession 54 / consolidation 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5) + conflict
+script 28/28. Coverage llm/supersession.py **98% — uncovered exactly
+the real-LLM HTTP body (332-345)**. The honest-claims block above
+stands with one addition to disclosure 5: abbreviation periods no
+longer truncate clauses (pinned); single-letter abbreviations
+('p.m.') still split, in the safe cue-first direction only. R7
+dispatched as the final minimal verification.
+**[FALSIFIED by R7-B1 — this addition was a SECOND unmeasured 'class
+is safe' sentence, broken at the same 5/6 rate: lowercase
+abbreviations ('p.m.', 'vs.') still truncated and BOUND ('Friday 6
+p.m. dinner reservation' bound a Friday LUNCH plan). Fixed by code:
+the guard is now case-blind over 1-3-letter tokens with
+token-anchored lookbehinds, pinned in BOTH directions (truncation
+refused; sentence-split still load-bearing); see the R7 record.]**
+
+### Stage 4 — G3 ROUND 7: BLOCK (1 blocker, 1 major, 4 minors) → all fixed
+
+R7 confirmed every R6 code fix (6/6 mutations, exact numbers for the
+fourth round running, its own smoke rerun) and blocked on the RECORD:
+the R6 disclosure addition was a SECOND unmeasured "class is safe"
+sentence, written immediately after being blocked for the first one —
+the exact lesson recorded one round earlier. Resolutions:
+
+**R7-B1** lowercase abbreviations ('p.m.', 'vs.') still truncated
+clauses and BOUND at the same 5/6 rate ('Friday 6 p.m. dinner
+reservation' bound a Friday LUNCH plan) → the splitter guard is now
+CASE-BLIND over 1-3-letter tokens with TOKEN-ANCHORED lookbehinds (the
+first fix attempt over-blocked — 'marathon.' matched through its last
+two letters — and the load-bearing sentence-split pin caught it within
+minutes, which is what pins are for); pinned in BOTH directions
+(p.m./vs. truncations refuse WITH the naming words surviving; a true
+cancellation followed by another sentence still binds because the
+sentence period still splits); the falsified R6 line struck inline
+with the measured truth, and the splitter/negation behavior now lives
+INSIDE mandatory disclosure 5 (R7-m3 — quoters must see it).
+
+**R7-Ma1** R6-m1's clause-bounded negation window had NARROWED the
+lookback — the BINDING direction — un-refusing 5/5 scope-ambiguous
+negations, undetectably → REVERTED to the wide raw lookback with the
+principle recorded where it lives: negation errs WIDE, clause naming
+errs NARROW — the two features have OPPOSITE safe directions; the
+'did not cancel X and cancel Y' case pinned refusing.
+
+**Minors:** the sentence-period branch is now load-bearing by test
+(deleting it fails the Rome-marathon-then-Paris positive); the stale
+236-count line reconciled inline; the both-orders phrasing in the
+claims block corrected (the supersession fired in the BACKFILL order;
+disclosure 2 carries the asymmetry).
+
+Post-fix: **239 tests green** (supersession 56 / consolidation 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5) + conflict
+script 28/28. Coverage llm/supersession.py **98% — uncovered exactly
+the real-LLM HTTP body (341-354)**. Smoke reproduces. R8 dispatched:
+verify R7's closures, render the stage verdict.
+
+### Stage 4 — G3 ROUND 8: PASS-WITH-NOTES → STAGE 4 CLOSED (2026-08-07)
+
+R8 (minimal verification): 239/239 reproduced, coverage exact
+line-by-line, its own smoke rerun, all three demanded mutations red by
+name PLUS one unasked mutation verifying the token-anchor story, 41
+probes (honorific family 12/12 refusing with the naming word surviving,
+true positives 4/4 binding, negation scope 0/5 binding), all four R7
+record edits audited accurate, zero tautological asserts by AST. The
+critic's own words: "I could not find a single false number, a single
+false statement, or a single unpinned fix." Verdict: **the STAGE 4
+HONEST CLAIMS OF RECORD block, as amended through R7 and R8-n1, is the
+stage's definitive record.**
+
+Notes landed with the close: **R8-n1** the and/but splitter branch
+truncates coordinated noun phrases the same way the period branch did
+(the critic's verbatim clause appended INSIDE disclosure 5; pinned AS
+DISCLOSED — the pin asserts the measured residual so a future edit
+cannot silently widen or silently "fix" the class; a real fix needs
+shared-head-noun detection; blast radius doubly zero via disclosures
+4/8). **R8-n2** the clause-growth safe-direction argument has one
+contrived measured exception (recorded in disclosure 5). **R8-n3** the
+stale count text corrected at source. **R8-n4** the critic disclosed
+its own coverage-file write (untracked data only; lesson filed:
+COVERAGE_FILE to scratch). Final count with the n1 pin: **240 tests**
+(supersession 57).
+
+**Eight rounds, blocker trajectory 4→4→1→1→0→0→1→0.** The first four
+rounds broke the CODE (over-supersession twice, vacuous gates,
+tautological binding); the last three litigated the RECORD (unmeasured
+"safe" claims written twice, then struck and replaced with measured
+truth). Both mattered. The standing lessons this stage minted: a fix
+is a change like any other; similarity may never approve what
+similarity admitted; symmetric rules cannot be pinned by positives;
+fixing one alternative of an alternation leaves the siblings broken;
+negation errs wide while naming errs narrow; and never write "class X
+is safe" unless the record names the probes.
+
+Stage table: Stage 4 ✅ DONE (G1 ✅ 240 tests / 98% judge coverage,
+LLM-body-only uncovered · G2 ✅ real-corpus supersession in backfill
+order + boundary + Part D, reproduced by the critic across four rounds
+· G3 ✅ R8 PASS-WITH-NOTES after R1-R7 each BLOCKED and fixed).

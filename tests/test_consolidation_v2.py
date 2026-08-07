@@ -1039,3 +1039,102 @@ def test_recover_links_runaway_guard_is_loud(env, monkeypatch):
         _loguru.remove(sink)
     assert rec["complete"] is False
     assert any("max_rounds" in m for m in msgs)
+
+
+# ── Stage 4: supersession wiring ─────────────────────────────────────────────
+
+def test_created_state_prefs_judged_post_commit(env, monkeypatch):
+    # Only created state/preference facts queue for judgment; events do
+    # not. The judge runs AFTER the batch commit (its own sessions), and
+    # every judged fact gets a persisted judgment row.
+    from agentmem_os.db.models import SupersessionJudgment
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: GOOD)   # 1 event + 1 pref
+    monkeypatch.setattr(engine.judge, "_llm", lambda p: {
+        "reasoning": "none", "superseded_ids": [], "cancelled_ids": []})
+    r = engine.consolidate_session("s1")
+    assert r["created"] == 2
+    assert r["judge_failure"] is None
+    assert r["supersession"]["judged"] == 1        # the preference only
+    db = SessionLocal()
+    rows = db.query(SupersessionJudgment).all()
+    db.close()
+    assert len(rows) == 1
+    assert rows[0].session_id == "s1"
+
+
+def test_judge_failure_is_best_effort_and_persisted(env, monkeypatch):
+    from agentmem_os.db.models import ConsolidationLog, SemanticFact
+    engine, SessionLocal = env
+    monkeypatch.setattr(engine, "_llm", lambda p: GOOD)
+
+    def _boom(fid, **kw):
+        raise RuntimeError("judge exploded")
+
+    monkeypatch.setattr(engine.judge, "judge_fact", _boom)
+    r = engine.consolidate_session("s1")
+    assert r["created"] == 2                       # facts survived
+    assert "judge exploded" in r["judge_failure"]
+    assert r["supersession"]["failures"]
+    db = SessionLocal()
+    facts = db.query(SemanticFact).count()
+    log = db.query(ConsolidationLog).one()
+    db.close()
+    assert facts == 2
+    assert "judge exploded" in log.judge_failure   # persisted audit
+    # recovery path: the unjudged fact is sweepable once the judge heals
+    monkeypatch.undo()
+    monkeypatch.setattr(engine.judge, "_llm", lambda p: {
+        "reasoning": "none", "superseded_ids": [], "cancelled_ids": []})
+    rec = engine.recover_judgments()
+    assert rec["complete"] is True
+    assert rec["judged"] == 1
+
+
+def test_real_update_supersedes_across_sessions(env, monkeypatch):
+    # Two sessions, an employment change: session 2's fact must
+    # supersede session 1's via polarity-flip co-signal + mocked judge
+    # verdict, with t_invalid = the new fact's domain time.
+    from agentmem_os.db.models import Session as SessionRow, Turn, SemanticFact
+    engine, SessionLocal = env
+    db = SessionLocal()
+    db.add(SessionRow(session_id="job1"))
+    db.add(Turn(id=200, session_id="job1", role="system",
+                content="Session dated 2023/01/10"))
+    db.add(Turn(id=201, session_id="job1", role="user",
+                content="I work at Google as an engineer."))
+    db.add(SessionRow(session_id="job2"))
+    db.add(Turn(id=210, session_id="job2", role="system",
+                content="Session dated 2023/09/05"))
+    db.add(Turn(id=211, session_id="job2", role="user",
+                content="I left Google and joined Microsoft last month."))
+    db.commit()
+    db.close()
+    monkeypatch.setattr(engine, "_llm", lambda p: {"facts": [
+        {"text": "The user works at Google as an engineer.",
+         "fact_type": "state", "t_occurred": None}]})
+    r1 = engine.consolidate_session("job1")
+    assert r1["created"] == 1
+    monkeypatch.setattr(engine, "_llm", lambda p: {"facts": [
+        {"text": "The user left Google and joined Microsoft.",
+         "fact_type": "state", "t_occurred": None}]})
+
+    def _judge_llm(prompt):
+        import re as _re
+        ids = [int(m) for m in _re.findall(r"\[(\d+)\]", prompt)]
+        return {"reasoning": "employment changed",
+                "superseded_ids": ids, "cancelled_ids": []}
+
+    monkeypatch.setattr(engine.judge, "_llm", _judge_llm)
+    r2 = engine.consolidate_session("job2")
+    assert r2["created"] == 1
+    assert len(r2["supersession"]["superseded"]) == 1
+    db = SessionLocal()
+    old = db.query(SemanticFact).filter(
+        SemanticFact.source_session_id == "job1").one()
+    new = db.query(SemanticFact).filter(
+        SemanticFact.source_session_id == "job2").one()
+    db.close()
+    assert old.superseded_by == new.id
+    assert old.t_invalid == "2023/09/05"           # new fact's domain time
+    assert new.superseded_by is None

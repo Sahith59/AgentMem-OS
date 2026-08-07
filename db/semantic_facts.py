@@ -372,9 +372,16 @@ class SemanticFactStore:
         # never downgrades. NULL on the row (pre-Stage-3 writer against
         # a migrated DB) backfills from the incoming value.
         if event_status is not None and fresh.fact_type == "event":
-            if fresh.event_status is None or (
-                    fresh.event_status == "planned"
-                    and event_status == "occurred"):
+            # cancelled is TERMINAL against merges (Stage 4): a judged
+            # cancellation is a deliberate decision — a later
+            # restatement never silently un-cancels it. The shipped
+            # reversal is reinstate_cancelled_event() below (R3-B1: a
+            # one-way destructive transition with no API back is worse
+            # than supersession, which chain() can always audit).
+            if fresh.event_status != "cancelled" and (
+                    fresh.event_status is None
+                    or (fresh.event_status == "planned"
+                        and event_status == "occurred")):
                 values["event_status"] = event_status
         (session.query(SemanticFact)
          .filter(SemanticFact.id == fact_id)
@@ -384,7 +391,8 @@ class SemanticFactStore:
         session.refresh(fresh)
         return fresh
 
-    def supersede(self, old_fact_id: int, new_fact_id: int, db=None):
+    def supersede(self, old_fact_id: int, new_fact_id: int,
+                  t_invalid: str = None, db=None):
         """
         Mark old_fact superseded by new_fact. The write is an ATOMIC
         conditional update — `WHERE id = old AND superseded_by IS NULL`,
@@ -399,6 +407,13 @@ class SemanticFactStore:
 
         if old_fact_id == new_fact_id:
             raise ValueError("a fact cannot supersede itself")
+        # Stage 4: t_invalid = DOMAIN time the old fact stopped being
+        # true (usually the superseding fact's own domain time) —
+        # validated like every other date; distinct from superseded_at,
+        # which is OUR decision time and is always stamped here.
+        t_inv = None
+        if t_invalid is not None:
+            t_inv, _ = normalize_date(t_invalid)
 
         session, owns = self._acquire(db)
         try:
@@ -435,7 +450,8 @@ class SemanticFactStore:
                     .filter(SemanticFact.id == old_fact_id,
                             SemanticFact.superseded_by.is_(None))
                     .update({"superseded_by": new_fact_id,
-                             "superseded_at": datetime.utcnow()},
+                             "superseded_at": datetime.utcnow(),
+                             "t_invalid": t_inv},
                             synchronize_session=False)
                 )
                 if updated != 1:
@@ -452,6 +468,97 @@ class SemanticFactStore:
             if owns:
                 session.close()
 
+    def mark_event_cancelled(self, fact_id: int, db=None):
+        """
+        The ONLY path that writes event_status='cancelled' (Stage 4 —
+        add_fact still refuses it as input; a status the store accepts
+        must have defined transition semantics, and this is the whole
+        definition): a LIVE event currently 'planned' becomes
+        'cancelled'. occurred never cancels (a past claim), superseded
+        facts are history (refused), and cancelled is TERMINAL — the
+        re-affirmation merge never upgrades it (disclosed). Atomic
+        conditional UPDATE, rowcount-checked, same discipline as
+        supersede().
+        """
+        from agentmem_os.db.models import SemanticFact
+
+        session, owns = self._acquire(db)
+        try:
+            fact = session.query(SemanticFact).filter(
+                SemanticFact.id == fact_id).first()
+            if fact is None:
+                raise ValueError(f"fact {fact_id} not found")
+            if fact.fact_type != "event" or fact.event_status != "planned":
+                raise ValueError(
+                    f"only a live PLANNED event can be cancelled; fact "
+                    f"{fact_id} is {fact.fact_type}/{fact.event_status}")
+            if fact.superseded_by is not None:
+                raise ValueError(
+                    f"fact {fact_id} is superseded history; refusing")
+            updated = (
+                session.query(SemanticFact)
+                .filter(SemanticFact.id == fact_id,
+                        SemanticFact.event_status == "planned",
+                        SemanticFact.superseded_by.is_(None))
+                .update({"event_status": "cancelled"},
+                        synchronize_session=False)
+            )
+            if updated != 1:
+                if owns:
+                    session.rollback()
+                raise ValueError(
+                    f"fact {fact_id} changed concurrently; refusing")
+            if owns:
+                session.commit()
+            else:
+                session.flush()
+        finally:
+            if owns:
+                session.close()
+
+    def reinstate_cancelled_event(self, fact_id: int, db=None):
+        """Operator escape hatch (R3-B1: mark_event_cancelled was the
+        store's only one-way destructive transition — no API back).
+        A LIVE cancelled event returns to 'planned'. Atomic conditional
+        UPDATE, rowcount-checked, same discipline as the forward path.
+        Deliberately NOT reachable from the judge — reinstatement is a
+        human decision, informed by the audit row that cancelled it."""
+        from agentmem_os.db.models import SemanticFact
+
+        session, owns = self._acquire(db)
+        try:
+            fact = session.query(SemanticFact).filter(
+                SemanticFact.id == fact_id).first()
+            if fact is None:
+                raise ValueError(f"fact {fact_id} not found")
+            if fact.fact_type != "event" or fact.event_status != "cancelled":
+                raise ValueError(
+                    f"only a live CANCELLED event can be reinstated; "
+                    f"fact {fact_id} is {fact.fact_type}/{fact.event_status}")
+            if fact.superseded_by is not None:
+                raise ValueError(
+                    f"fact {fact_id} is superseded history; refusing")
+            updated = (
+                session.query(SemanticFact)
+                .filter(SemanticFact.id == fact_id,
+                        SemanticFact.event_status == "cancelled",
+                        SemanticFact.superseded_by.is_(None))
+                .update({"event_status": "planned"},
+                        synchronize_session=False)
+            )
+            if updated != 1:
+                if owns:
+                    session.rollback()
+                raise ValueError(
+                    f"fact {fact_id} changed concurrently; refusing")
+            if owns:
+                session.commit()
+            else:
+                session.flush()
+        finally:
+            if owns:
+                session.close()
+
     # ── Read path ───────────────────────────────────────────────────────────
 
     def current_facts(
@@ -462,6 +569,7 @@ class SemanticFactStore:
         limit: int = 100,
         agent_id: str = None,
         user_id: str = None,
+        include_cancelled: bool = False,
         db=None,
     ) -> list:
         """Live facts for a scope, newest event first (SQLite puts NULL
@@ -480,6 +588,13 @@ class SemanticFactStore:
                 .filter(SemanticFact.superseded_by.is_(None),
                         SemanticFact.scope_key == scope_key)
             )
+            if not include_cancelled:
+                # Stage 4 (G3 S4-R1 Ma3): a judged-cancelled planned
+                # event is a VOIDED claim — surfacing it as "current"
+                # misleads. It is not superseded (no successor fact),
+                # so the status filter is its only reader-side guard.
+                q = q.filter((SemanticFact.event_status.is_(None))
+                             | (SemanticFact.event_status != "cancelled"))
             if fact_type is not None:
                 q = q.filter(SemanticFact.fact_type == fact_type)
             if contains:
@@ -500,6 +615,12 @@ class SemanticFactStore:
         Point-in-time reconstruction: facts mentioned by the given date and
         not yet superseded in conversation time (their superseding fact, if
         any, was mentioned after it).
+
+        DISCLOSED LIMIT (Stage 4): cancellation carries no decision-time
+        axis of its own — a cancelled planned event appears cancelled at
+        EVERY as-of date, including dates before the cancellation was
+        judged. Modeling cancellation time is deferred until a reader
+        needs it (Stage 5 territory).
         """
         from sqlalchemy.orm import aliased
         from agentmem_os.db.models import SemanticFact
@@ -554,6 +675,9 @@ class SemanticFactStore:
                         SemanticFact.t_occurred <= b,
                         func.coalesce(SemanticFact.t_occurred_end,
                                       SemanticFact.t_occurred) >= a)
+                # cancelled events never happened in the range (Ma3)
+                .filter((SemanticFact.event_status.is_(None))
+                        | (SemanticFact.event_status != "cancelled"))
             )
             if fact_type is not None:
                 q = q.filter(SemanticFact.fact_type == fact_type)
@@ -672,6 +796,7 @@ class SemanticFactStore:
                 "langs": list(fact.langs or [fact.lang_source]),
                 "mention_count": fact.mention_count,
                 "event_status": fact.event_status,   # F7 axis (events only)
+                "t_invalid": fact.t_invalid,         # domain validity end (S4)
             }
         finally:
             if owns:

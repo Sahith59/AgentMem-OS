@@ -211,7 +211,10 @@ class ConsolidationV2:
         self.timeout = timeout
         self.store = SemanticFactStore(get_db_session)
         from agentmem_os.db.fact_entities import FactEntityLinker
+        from agentmem_os.llm.supersession import SupersessionJudge
         self.linker = FactEntityLinker(get_db_session)
+        self.judge = SupersessionJudge(get_db_session, model=model,
+                                       timeout=timeout)
         self._last_prompt_eval = None
 
     # ── 1. Extraction ───────────────────────────────────────────────────────
@@ -416,6 +419,7 @@ class ConsolidationV2:
 
         created = reaffirmed = entities_linked = 0
         link_skipped, link_failure = [], None
+        judge_queue = []
         batch = self.get_db()
         try:
             for f, ftype, t_occ, cited, surfaces, plan in accepted:
@@ -433,6 +437,13 @@ class ConsolidationV2:
                 )
                 created += was_created
                 reaffirmed += (not was_created)
+                if was_created and ftype in ("state", "preference"):
+                    # Stage 4: judged post-commit. CREATED facts only —
+                    # a re-affirmed fact was judged at creation
+                    # (disclosed: links added later can enable new
+                    # candidates; judge_missing has no re-judge path by
+                    # design, operators re-judge via judge_fact).
+                    judge_queue.append(fact.id)
                 # Stage 3 linking, same batch (write lock already held by
                 # the add_fact flush/UPDATE above), APPLY-ONLY — the plan
                 # was computed before the transaction (B1). Failure
@@ -519,6 +530,47 @@ class ConsolidationV2:
                 logger.warning(f"[ConsolidationV2] {session_id}: link "
                                f"recovery itself failed: {e}")
 
+        # Stage 4: supersession judgment — AFTER the batch commits (LLM
+        # compute never under a write lock, the R1-B1 law), BEST-EFFORT
+        # (facts and log are already durable; a judge fault is recorded
+        # in report + log row, never raised), per-fact isolation (one
+        # bad judgment cannot take the rest down).
+        supersession = None
+        judge_failure = None
+        if judge_queue:
+            supersession = {"judged": 0, "superseded": [], "cancelled": [],
+                            "dropped": 0, "failures": []}
+            for fid in judge_queue:
+                try:
+                    jr = self.judge.judge_fact(fid, session_id=session_id)
+                    supersession["judged"] += 1
+                    supersession["superseded"].extend(jr["superseded"])
+                    supersession["cancelled"].extend(jr["cancelled"])
+                    supersession["dropped"] += len(jr["dropped"])
+                except Exception as e:
+                    supersession["failures"].append((fid, str(e)))
+                    logger.warning(f"[ConsolidationV2] {session_id}: "
+                                   f"judgment failed on fact {fid}: {e}")
+            if supersession["failures"]:
+                judge_failure = (f"{len(supersession['failures'])} of "
+                                 f"{len(judge_queue)} judgments failed: "
+                                 f"{supersession['failures'][0][1][:120]}")
+                try:
+                    patch = self.get_db()
+                    try:
+                        row = (patch.query(ConsolidationLog)
+                               .filter(ConsolidationLog.session_id
+                                       == session_id)
+                               .order_by(ConsolidationLog.id.desc())
+                               .first())
+                        row.judge_failure = judge_failure
+                        patch.commit()
+                    finally:
+                        patch.close()
+                except Exception as e:
+                    logger.warning(f"[ConsolidationV2] {session_id}: could "
+                                   f"not persist judge_failure: {e}")
+
         report = {
             "session_id": session_id, "turns": len(turn_data),
             "candidates": len(candidates), "created": created,
@@ -534,6 +586,8 @@ class ConsolidationV2:
             "entity_links_skipped": link_skipped,   # (surface, reason)
             "link_failure": link_failure,           # None = clean run
             "link_recovery": link_recovery,         # auto-drain (R4-M5)
+            "supersession": supersession,           # Stage 4 judgments
+            "judge_failure": judge_failure,         # None = clean
             "numbers_audit": numbers_audit,   # which values licensed by
                                               # which turns; exempted date
                                               # digits (R5-M5)
@@ -552,7 +606,8 @@ class ConsolidationV2:
         deep=False recovers unlinked facts (auto-invoked after a
         link_failure commit); deep=True re-plans every fact in scope
         (run after anchor-bearing ingests — recovers surfaces skipped
-        earlier). max_rounds is a runaway guard, LOUD when hit.
+        earlier). max_rounds is a runaway guard, LOUD when hit; the
+        numeric bound is max_rounds × limit items per call.
         Cost disclosure (R5): the drain is SCOPE-wide, not batch-scoped
         — under a persistent linker fault every auto-invocation
         re-attempts all still-unlinked facts in the scope, O(sessions ×
@@ -578,6 +633,40 @@ class ConsolidationV2:
                   "failures": failures, "deep": deep,
                   "complete": rounds < max_rounds}
         logger.info(f"[ConsolidationV2] link recovery: {result}")
+        return result
+
+    def recover_judgments(self, agent_id: str = None, user_id: str = None,
+                          limit: int = 200, max_rounds: int = 200) -> dict:
+        """
+        Product-side drain for the supersession judge's recovery sweep
+        (the R4-M5 lesson applied at build time, not at review time):
+        judges every live state/preference fact with no judgment row.
+        Crash recovery + backfill; cursor-drained; max_rounds is a
+        runaway guard, LOUD when hit — the numeric bound is
+        max_rounds × limit facts per call. Cost disclosure: each judged
+        fact may cost one LLM call — run after ingest bursts, not
+        per-turn.
+        """
+        cursor = rounds = judged = supersessions = 0
+        failures = []
+        while rounds < max_rounds:
+            r = self.judge.judge_missing(agent_id=agent_id,
+                                         user_id=user_id, limit=limit,
+                                         after_id=cursor)
+            if r["candidates"] == 0:
+                break
+            cursor = r["next_after_id"]
+            judged += r["judged"]
+            supersessions += r["supersessions"]
+            failures.extend(r["failures"])
+            rounds += 1
+        else:
+            logger.warning(f"[ConsolidationV2] recover_judgments hit "
+                           f"max_rounds={max_rounds} — drain incomplete")
+        result = {"rounds": rounds, "judged": judged,
+                  "supersessions": supersessions, "failures": failures,
+                  "complete": rounds < max_rounds}
+        logger.info(f"[ConsolidationV2] judgment recovery: {result}")
         return result
 
     # ── Helpers ─────────────────────────────────────────────────────────────

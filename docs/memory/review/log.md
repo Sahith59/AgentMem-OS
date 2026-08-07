@@ -1319,3 +1319,1120 @@ to the digit, and the live DB was not touched. Founder: recovery now runs automa
 linking batch, but it sweeps the whole scope (a first triggered run on an old DB is a full backfill), its
 links do not appear in the persisted consolidation log, and if the drain itself dies the whole run's report
 is lost — three cheap fixes, none of them data-safety.
+
+## 2026-08-06 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 1 — **BLOCK**
+
+**Claim reviewed:** "Stage 4 G1+G2 done: 204/204 across 5 scoped files, llm/supersession.py 96%,
+conflict-detection script 100%; the LLM only proposes and deterministic gates decide; events are
+excluded except planned→cancelled; every judgment is persisted; recovery sweep auto-invoked on
+judge failure; G2 demonstrates the machine end to end with an honest in-order/out-of-order asymmetry."
+**Method:** ran the 5 scoped files (204 passed, 119.4s) + branch coverage on llm/supersession.py +
+tests/test_conflict_detection.py directly (28/28); read every Stage-4 line of code against every
+Stage-4 line of the record; 31 valid mutations on a scratch COPY (never the working tree); 16
+attack probes (P1-P16) on isolated scratch DBs; my own rerun of benchmarks/consolidation_v2_stage4_smoke.py
+with real llama3.1 (reproduced in-order=0 / out-of-order=1, same fact ids, same mutual 4<->6 tie-drop);
+live DB inspected READ-ONLY via file:...?mode=ro.
+
+**Reproduced honestly.** 204/204 and the per-file split is exact (supersession 21 / consolidation 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5). Coverage EXACT: 164 stmts, 6 missed, 46
+branches, 0 partial = 96%, missing 127-140 = the real-LLM HTTP body, as claimed. Script suite 28/28.
+**Mutation score 22/31.** Both gate-caught design fixes are genuinely pinned: removing the lexical
+pool turns test_entityless_facts_reach_the_judge_via_lexical_pool RED (1.1s); removing the reserved
+planned pool and crowding it out behind the peer cap BOTH turn test_shortlist_composition_and_cap RED;
+the conflict_detector "works at" root-cause fix is caught by tests/test_consolidation_v2.py.
+db/knowledge_graph.py:96-97's local patch verified redundant with NO behavior change (WORKS_AT still
+compiles with the s-form). Attacks that HELD: two judges racing the same pair (one applies, the other
+records "store refused: already superseded by ...", both audited); dead-winner chains (chain() = [2,3,1],
+transition_text renders the full chain, current_facts correct); cost (9-12 ms per shortlist at 300 /
+1,500 / 5,000 live facts).
+
+**Verdict: BLOCK — 4 blockers, 8 majors, 12 minors.** The dangerous class is NOT blocked: I invalidated
+a true current fact through two independent paths using only in-scope model output and passing gates.
+
+**BLOCKERS**
+- **B1 — a planned EVENT can invalidate a true current STATE fact.** llm/supersession.py:215-243: the
+  superseded_ids loop has NO fact_type/event_status guard (the cancelled_ids loop at :249-254 does).
+  The reserved planned pool (:341-345, the G1 "design fix") guarantees planned events are shortlisted;
+  'planned' means future-dated, so `_domain_time(event)` is ALWAYS later and the direction rule at
+  :232-233 REVERSES — the state fact loses. Probe P2: "The user works at Google and left the conference
+  committee." superseded BY "The user attends the Google conference." [2099/06/01]; current_facts then
+  returns ONLY the event. Probe P14: same result with a 2030-dated offsite, cosine 0.3908, zero drops.
+  **P13 falsifies BUILD_LOG:1067-1068** ("One candidate double-listed in both arrays was dropped by the
+  status guard"): double-listing supersedes FIRST and cancels SECOND — final state = user's current
+  fact invalidated, sole live fact a CANCELLED event, dropped=[]. Violates design decisions 2 and 3 and
+  supersession.py:17-22. Repro: scratchpad/s4r1/probe.py (P2), probe3.py (P13, P14).
+- **B2 — the co-signal gate is VACUOUS for every lexical-pool candidate.** :336-337 admits on
+  `_tfidf_cosine(new, cand) >= _COSIGNAL_COSINE`; :222 gates on the same function, same pair, same
+  threshold — always true. For the pool added at G2 (the one built to reach entity-less facts) gate (b)
+  rejects nothing, and ":225 'LLM-only verdicts never act'" is false. Probe P1: "The user is allergic to
+  peanuts." vs "The user is allergic to shellfish." — no entity links, no polarity flip, cosine 0.6311 —
+  the peanut allergy is invalidated on the model's word alone, dropped=[]. The justification comment at
+  :70-76 ("our shortlist already guarantees entity overlap, so this gate must carry more weight alone")
+  is false for this pool, and its provenance is wrong: forget_about's 0.25 exists only in a docstring —
+  memory/conflict_detector.py:337-363 uses >=4-char keyword overlap, no cosine. Compounding: M22 (pool
+  threshold 0.25->0.0) leaves 21/21 green — the only thing between the model and every live same-type
+  fact in the newest 300 is an untested constant.
+- **B3 — an applied supersession can exist with NO audit row and never be re-judged.** `_apply` commits
+  each action immediately (:236-240, :257) and writes the judgment row in a separate session at the end
+  (:262-269). Probe P4 (crash before the row): new.superseded_by set, t_invalid set, 0 judgment rows,
+  and the fact now fails judge_missing's `superseded_by IS NULL` predicate (:392-396) -> permanently
+  unaudited AND unreachable by the sweep. Falsifies design decision 7 ("Every judgment is PERSISTED")
+  and :48-50 ("a fact with no judgment row has never been judged"). The mirror case re-judges, re-spends
+  the LLM, and persists "store refused: already superseded" for an action this judge itself performed.
+  Both store paths already accept db= with flush-not-commit — one transaction closes this.
+- **B4 — record claim falsified: "auto-invoked on judge failure".** BUILD_LOG:988-992 and
+  consolidation_v2.py:641 ("the R4-M5 lesson applied at build time, not at review time"). Repo-wide grep:
+  `recover_judgments` has ZERO callers outside tests. Link recovery IS auto-invoked (:506-509); the judge
+  path (:554-572) only patches the log row. Exactly the lesson at lessons/process.md:468-476. NOTE: do
+  not blindly auto-invoke — process.md:478-491 (blast radius); a scope-wide judge sweep is one LLM call
+  per fact. Correct the record, or wire it batch-scoped with the worst case stated.
+
+**MAJORS.** (Ma1) `_has_polarity_flip` is used outside the guard rails its own shipped caller applies:
+conflict_detector.py:254-259 requires entity overlap AND cosine >= 0.10 first; supersession.py:349 calls
+it bare, and structural categories skip the entity check by design (:181-182). Probe P3: flip=True
+(employment) for "works at Google" vs "left the party early"; flip=True (location) for "lives in Berlin"
+vs "left a good tip"; flip=True (education) for "studying at MIT" vs "left her umbrella" — "left" is the
+shared negative token of three categories, and Stage 4 widened the employment positive vocabulary.
+(Ma2) Domain comparison mixes axes and ignores intervals, unaudited: `_domain_time` (:107-111) falls back
+t_occurred->t_mentioned, so probe P6 has a fact mentioned 2023/01/01 (t_occurred 2024/12/01) supersede a
+fact mentioned 2024/06/01; and a month-interval fact (2023/05 -> 05/01..05/31) loses to a point date
+INSIDE its own interval — t_occurred_end is never read, though the store models it deliberately
+(semantic_facts.py:85-110). The tie gate (:227) is exact string equality, so overlap-ambiguity is not
+"conservative". The audit row records no domain times, no axis, no direction rationale.
+(Ma3) 'cancelled' has no reader: probe P5 — current_facts, facts_as_of and facts_overlapping all return
+a cancelled event like a live one, transition_text returns ""; nothing in db/api/storage/memory/mcp_server/cli
+filters or annotates it. And design decision 9's "EVENT_STATUSES grows 'cancelled'" is false —
+semantic_facts.py:58 is still {"occurred","planned"} and mark_event_cancelled writes a value the store's
+own validator rejects. (Ma4) The audit row omits what the gates turn on: shortlist_json = {"ids",
+"peer_cap", "planned_cap"} only (:361-363) — no lexical window, no lexical threshold, no per-candidate
+pool provenance, so an auditor cannot tell whether a supersession had independent evidence (see B2).
+(Ma5) Skip reason misattributes: both paths persist "no candidates sharing an entity" (:176, :179) though
+three pools ran — observed live in my smoke pass C, 7/7 rows, on facts with no entity links at all.
+(Ma6) Fixture blindness: M21 (drop the shortlist `scope_key` filter) leaves 21/21 green because
+test_shortlist_composition_and_cap:248-250 dates the other-scope fact OLDEST — the cap alone excludes it
+(probe P12: with it newest, another user's fact text enters the prompt). M23 (cap 12->100) and M24 (window
+300->1000) survive because the same test monkeypatches those constants to the asserted values. Repeat of
+lessons:124 and lessons:199. (Ma7) Stage 4 re-armed the import-time-migration trap (lessons:423-433):
+supersession.py:63 is a MODULE-level import of conflict_detector, which module-imports db.engine, whose
+tail runs init_db(). Measured: importing llm.consolidation_v2 does NOT pull the engine; importing
+llm.supersession DOES — a new llm->engine edge, so reading a constant out of the judge runs every
+migration. Every other DB import in that module is function-local. (Ma8) The G1 record's own instruction
+(run tests/test_conflict_detection.py directly) bypasses tests/conftest.py:12-16 — the file exists to FORCE
+a scratch DB "regardless of the inherited environment" — and the script calls init_db() at :198 and writes
+through the real engine.
+
+**MINORS.** (m1) M18: mark_event_cancelled's rowcount guard — the "race-defended at the store" claim —
+can be deleted with the whole scoped suite green (supersede's equivalent IS caught, M30). (m2) M27:
+removing `superseded_by.is_(None)` from `_pool` leaves 21/21 green — dead facts would fill the prompt.
+(m3) M20: judge_missing's live-fact filter untested. (m4) M14: `_int_list`'s bool rejection untested.
+(m5) M17: "CREATED facts only" has no tripwire AND is disclosed only in a code comment
+(consolidation_v2.py:441-446) — no "re-affirm"/"created only" line exists anywhere in the Stage-4 record.
+(m6) judge_failure patch picks the newest ConsolidationLog row for the session (:561-565) — probe P8: run
+A's failure lands on run B's row. (m7) ConsolidationLog persists judge_failure but nothing about
+SUCCESSFUL judgments (R5-m3 class). (m8) `_apply` binds ctext/_cat/ctype and never uses them (:220-221) —
+the unused `ctype` is precisely the guard B1 needs. (m9) The smoke prints its own criterion ("the direction
+rule holds iff the same old fact loses in both") and the recorded run does not meet it; the record
+discloses the asymmetry but never says the criterion failed. (m10) The lexical pool produced NO candidate
+in ANY real-corpus judgment in the smoke (pass C: 7/7 skips); the one real supersession came through the
+entity pool — the G2 fix is unit-tested only, and run 2 showed the real cause of run 1 was event typing.
+(m11) recover_judgments' bound is max_rounds x limit = 40,000 facts ~ 40,000 LLM calls, not stated (contrast
+recover_links, which states its bound after R5-m5). (m12) The "newest 300" window is in the docstring but
+not in the audit row.
+
+**Disclosure — my own two incidents, both the lessons:423-433 class.** (1) Running
+tests/test_conflict_detection.py directly as instructed ran init_db() against the founder's production DB
+(/Volumes/Sahith_SSD/AgentMem-OS/db/agentmem_os.db, mtime 22:56) — Stage-4 columns added,
+supersession_judgments created, 1 session + 3 turns written and deleted by the script's own finally block.
+(2) `import agentmem_os.llm.supersession` (to verify a scratch path) did it a second time — the Ma7 edge.
+Verified READ-ONLY afterwards: 0 leftover rows, CO_OCCURS 32,194 rows / 35,051.0 weight (identical to the
+R5-verified values), the single is_active=0 turn is the pre-existing demo one, max turn id back to 16640.
+No data lost; the schema is now Stage-4-migrated. My harnesses forced AGENTMEM_OS_DB_PATH from that point
+on; the smoke rerun forced it too.
+
+**Refs:** llm/supersession.py:63,70-76,107-111,215-243,249-254,262-269,336-345,349,361-363,392-396;
+db/semantic_facts.py:52-58,203-206,375-378,468-514; llm/consolidation_v2.py:441-446,506-509,554-572,637-667;
+memory/conflict_detector.py:34-65,181-182,254-259,337-363; db/knowledge_graph.py:96-97;
+tests/test_supersession.py:241-283,508-553; tests/conftest.py:12-16;
+CONSOLIDATION_V2_BUILD_LOG.md:942-1001,1015-1078. Harnesses: scratchpad/s4r1/ (runmut.py + runmut2.py,
+33 mutations; probe.py, probe2.py, probe3.py, probe4.py; smoke_r1.log).
+
+**Who needs to know:** Dev-Head — B1/B2 are live over-supersession paths with 3-line repros; B3 is a
+one-transaction fix; B4 is a record correction (do NOT auto-wire without sizing the sweep). Bosses:
+**Stage 4 does not pass round 1** — the machine works (reversal reproduced live, race and chain attacks
+held, 22/31 mutations caught, coverage exact) but its central safety claim ("an LLM-only verdict never
+acts", "events are excluded") is false on two demonstrated paths. Founder: the judge can currently delete
+a true fact from your current view in two ways — a future-dated plan outranking a present fact, and a
+lookalike sentence passing a gate that is the same test twice — both reversible (nothing is destroyed),
+both fixable this round.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 2 — **BLOCK**
+
+**Claim reviewed:** "R1's 4 blockers + 8 majors all fixed (type guard, co-signal independence, one
+transaction, record corrections, Ma1-Ma8); 211 tests green across the 5 scoped files (28/54/64/60/5);
+conflict script 28/28; smoke reproduces post-fix."
+**Method:** reran the 5 scoped files IN THE REPO (211 passed, 120.7s) and again on a scratch copy with
+branch coverage; ran tests/test_conflict_detection.py directly (28/28) AFTER verifying its new guard;
+reran benchmarks/consolidation_v2_stage4_smoke.py with real llama3.1; 34 valid mutations on a scratch
+COPY (never the working tree), all survivors re-run against ALL 5 files; 5 attack probes on isolated
+scratch DBs; a 20,000-pair randomized fuzz of the new co-signal's arithmetic; import-edge probe over
+every module in llm/, db/, memory/. Every shell and every harness exported AGENTMEM_OS_DB_PATH to a
+scratch file BEFORE any import (lessons:547). **No production DB was touched this round** — verified by
+pointing the guard at a scratch "PRETEND_PROD.db" and watching the trap fire there instead.
+
+**Reproduced honestly.** 211/211 and the per-file split is EXACT (supersession 28 / consolidation_v2 54 /
+fact_entities 64 / semantic_facts 60 / temporal_kg 5). Conflict script 28/28. Coverage on
+llm/supersession.py = 215 stmts, 9 missed, 70 branches, 2 partial = **95%** (was 96%): missing 165-178 is
+the real-LLM HTTP body as before, but 142 and 325-327 are NEW uncovered PRODUCT lines (see Ma2/Ma7 below).
+Smoke reproduces exactly: same Rachel supersession in backfill order ([2023/05/23] superseded by
+[2023/05/26], t_invalid=2023/05/26, transition_text + facts_as_of correct), same in-order=0 /
+out-of-order=1 asymmetry, boundary pass 0. **All FIVE demanded mutations are genuinely pinned** — revert
+the type guard -> test_planned_event_can_never_supersede_a_state RED; make lexical cosine approve ->
+test_similarity_cannot_approve_what_similarity_admitted RED; drop `db=txn` (split the transaction) ->
+test_actions_and_audit_commit_atomically RED; un-guard the flip -> test_polarity_flip_requires_shared_subject
+RED; revert to mixed-axis scalars -> test_interval_overlap_is_ambiguous_strict_precedence_applies RED.
+Ma4/Ma5/Ma6/Ma7 verified (audit provenance + constants pinned; skip reason pinned; scope-filter removal now
+detectable; `import agentmem_os.llm.supersession` no longer pulls db.engine — measured clean, as are all of
+db/* and llm/* except the pre-existing llm.adapters and memory.conflict_detector). Retry loop attacked and
+it HOLDS: a permanently-refusing store terminates after exactly len(plan) attempts with every exclusion in
+dropped_json and applied={} (probe p4-A). Audit JSON serializes cleanly (dates are sortable STRINGS, tuples
+-> arrays, None -> null). The (t_occurred=None, t_occurred_end=set) shape is unreachable through the store
+(add_fact:212-214 and _reaffirm:365-367 always write the pair together) and would degrade to the mention
+axis anyway. **Mutation score 19/34.**
+
+**Verdict: BLOCK — 4 blockers, 8 majors, 12 minors.** The R1 blockers are closed. The CODE WRITTEN TO
+CLOSE THEM reopens the same dangerous class three ways, and the one fix aimed at protecting reviewers is
+dead code inside a docstring.
+
+**BLOCKERS**
+- **B1 — the metric-update co-signal is the SAME similarity function, and it invalidates a true current
+  fact.** llm/supersession.py:495-505 computes `stripped_cos` on numbers-stripped text and gates at 0.7,
+  claiming independence ("numbers-stripped texts near-identical"). But `_tfidf_cosine` tokenises with
+  `re.findall(r"[a-z]+")` (memory/conflict_detector.py:74-97) — **digits are already invisible to it**, so
+  `stripped_cosine` is IDENTICAL to `cosine` for every input: 20,000 randomized adversarial pairs, **0
+  differences**. The branch is literally `cosine >= 0.7 AND the number strings differ` — similarity
+  approving what similarity admitted at 0.25, exactly the rule R1-B2 established, one threshold up.
+  Consequence, reproduced end to end (probe p1): "The user's personal best time in the charity 5K run is
+  25:31." is SUPERSEDED by "The user's personal best time in the charity 10K run is 55:12." — cosine 1.000
+  (the tokenizer cannot see 5 vs 10), metric_update=True, **dropped=[]**, t_invalid=2023/06/01, and
+  current_facts returns ONLY the 10K fact. The archetypal class the lexical pool was BUILT for is the class
+  it destroys. The same gate approves "flight at 6:15 on Friday" vs "flight at 9:40 on Monday" (0.755),
+  "$1,200 for the laptop" vs "$2,400 for the desk" (0.706), "won 3 games in March" vs "won 5 games in
+  April" (0.706). Repro: scratchpad/s4r2/probes/p1_metric.py + the fuzz harness.
+- **B2 — CANCELLATION is a pure LLM verdict: no co-signal, no topical gate — and Ma3 just multiplied its
+  blast radius.** The cancel loop (:313-328) checks only "id in shortlist" + "candidate is event/planned" +
+  "not double-consumed". `cosignals` IS computed for planned candidates and PERSISTED, and never consulted.
+  Worse, the planned pool passes `id_filter=None` when the new fact has no entity links (:451-455), so
+  EVERY entity-less state/preference fact puts up to 4 arbitrary live plans in front of an 8B model that is
+  told to name plans that were "called off". Probe p5: new fact "The user prefers oat milk in coffee."
+  cancels "The user is flying to Tokyo for his sister's wedding." [2099/09/14] — dropped=[], and **the
+  audit row for that very action records "agrees": false**. Post-Ma3 the event now vanishes from
+  current_facts AND facts_overlapping, and the store makes cancelled TERMINAL against re-affirmation
+  (semantic_facts.py:470-478) with no un-cancel API. Falsifies supersession.py:24-25/:46 and design
+  decision 3 ("the LLM only PROPOSES; deterministic gates DECIDE ... an LLM-only verdict never acts") for
+  the second of the module's two write actions. R1 blocked this shape on supersede; it was never applied to
+  cancel.
+- **B3 — the Ma8 reviewer-safety fix is INSIDE the module docstring: it has never executed.**
+  tests/test_conflict_detection.py:1-18 — the file opens its docstring on line 1 and the nine-line guard
+  (`_os.environ["AGENTMEM_OS_DB_PATH"] = ...`) sits on lines 3-10, INSIDE that string, above the title.
+  Proven, not inferred: with an inherited AGENTMEM_OS_DB_PATH the script created and migrated 17 tables
+  (incl. semantic_facts) at the INHERITED path. conftest.py:12-16 states the founder's own .env/setup.sh
+  export that variable at a real DB, and the record's own instruction is "run this file directly" — so the
+  documented procedure still migrates the production DB. **Third occurrence of the class** (lessons:423,
+  lessons:547); BUILD_LOG:1140-1141 claims it landed.
+- **B4 — the "subject-guarded" flip is not subject-guarded, and it deletes true current state facts.**
+  :492 `flip and _content_word_overlap(cand_text, new_text)` — one shared 5+-char non-stopword. Probe p3,
+  three reproductions where the user's TRUE current fact is the one that disappears, dropped=[] each time:
+  "The user is studying at Stanford." LOST to "The user left Stanford Stadium before the encore."
+  (education); "The user lives in Berlin." LOST to "The user moved from Berlin Hauptbahnhof to the hotel on
+  foot." (location); "The user's personal best time in the charity 5K run is 25:31." LOST to "The user had
+  a terrible time at the charity 5K run." (sentiment — "best" is in the positive vocabulary). A venue, a
+  station and a topic word are not subjects. R1-Ma1 narrowed the surface; the record (:486-491 and
+  BUILD_LOG:1119-1123) discloses only the MISS direction of the cost and calls the result a subject guard —
+  lessons:180 and lessons:240 verbatim.
+
+**MAJORS.** (Ma1) **Ma3's entire reader-side fix has NO test:** removing the cancelled filter from
+current_facts, removing it from facts_overlapping, and flipping `include_cancelled` to True each leave all
+211 green (M25/M26/M27); `include_cancelled` has ZERO callers anywhere in the repo. Code written to close a
+review finding, shipped untested — lessons:493.
+(Ma2) **"pinned both directions" (Ma2 claim, BUILD_LOG:1126) is false.** Coverage shows
+llm/supersession.py:142 — the interval-axis REVERSAL return, the Josh case on the occurrence axis — never
+executes in the whole suite; and M16 (`c_end < n_start` -> `<=`) survives, so the docstring's "Overlap or
+touch = ambiguous" (:128) has no tripwire either.
+(Ma3) **"12 minors -> all fixed" (BUILD_LOG:1080) is unsupported and false.** The R1 section contains no
+minors record at all. Measured: m1 (M28 mark_event_cancelled rowcount guard), m2 (M14 `_pool` live filter),
+m3 (M24 sweep live filter), m4 (M19 `_int_list` bool rejection) and m5 (M29 "CREATED facts only") all still
+survive; m6 (judge_failure picks the newest log row, consolidation_v2.py:561-565) and m9 (the smoke's own
+criterion) are untouched code. Two are genuinely fixed (m8 unused binds, m12 window in the audit row).
+(Ma4) **The "Design decisions of record" section still states five falsified claims** — dec 1 (:943-947,
+entity-only shortlist), dec 3(b) (:952-957, the pre-independence co-signal), dec 3(c) (:957-960, "t_occurred
+start, fallback t_mentioned" = the mixed-axis rule Ma2 killed), dec 8 (:986-992, "auto-invoked on judge
+failure"), dec 9 (:993-997, "EVENT_STATUSES grows 'cancelled'"), plus Build surface :1006. Both CORRECTED
+annotations landed, but 120 lines downstream in the round section; the G2 line :1067-1068 still asserts the
+falsified "dropped by the status guard" verbatim. The file's own convention is INLINE annotation (see :58).
+(Ma5) **The new signal has zero real-corpus exercise.** My smoke rerun reproduces pass C at 7/7 "no
+candidates from any pool" — the lexical pool STILL never fires on the real corpus (R1-m10 unchanged), so
+the metric-update branch is unit-test-only, and B1 shows what it does when it fires.
+(Ma6) **The new gate's only quantitative content is an untested constant:** M6 (0.7 -> 0.0) and M7 (drop
+"numbers must differ") both survive all 211 — the exact shape of R1-B2 and lessons:504, recurring inside
+the fix for R1-B2.
+(Ma7) **The double-consumption guard is unreachable in tests and its test is misnamed.** M18 survives and
+coverage confirms :325-327 never executes; test_double_listed_candidate_superseded_not_double_consumed
+exercises the TYPE guard (its own assertion is `superseded == []`), so the behavior in its name is untested
+and does not occur. lessons:124 + lessons:302.
+(Ma8) **The caps are still unpinned:** M33 (_SHORTLIST_CAP 12->100) and M34 (_LEXICAL_SCAN_CAP 300->5)
+survive because the tests monkeypatch those constants to the asserted values — the other half of R1-Ma6,
+not addressed. They are audited now (Ma4) but not enforced.
+
+**MINORS.** (m1) "Numbers differ" is STRING inequality: "$2,000"/"$2000", "70 kg"/"70.0 kg", "7 am"/"07:00
+am" all register as metric updates — the Mem0 #1674 restatement class. (m2) Multiple reversals in one
+judgment cost a full rollback per extra candidate and audit "store refused: fact N is already superseded by
+M; refusing to rewrite history" for THIS judgment's own action (probe p4-B). (m3) Duplicate ids in the
+model's arrays cost the same rollback and audit "changed concurrently" for our own duplicate. (m4)
+recover_judgments states no numeric bound (contrast recover_links: "the bound is max_rounds x limit") and
+has no product-surface caller — one test calls it, while BUILD_LOG:1116-1117 says "operators/schedulers
+invoke the drain". (m5) The smoke still prints "the direction rule holds iff the same old fact loses in
+both" and the reproduced run does not meet it; the record still never says the criterion failed (R1-m9).
+(m6) judge_failure still patches the newest ConsolidationLog row for the session (R1-m6). (m7) Still
+nothing persisted about SUCCESSFUL judgment counts on the log row (R1-m7). (m8) The `_COSIGNAL_COSINE`
+comment (:82-88) still claims "our shortlist already guarantees entity overlap" — false for the lexical
+pool this same constant admits — and still sources 0.25 to forget_about, which uses 4+-char keyword overlap
+and no cosine (R1-B2 named this; not corrected). (m9) Every audit row carries `stripped_cosine` as a
+separate field that is always identical to `cosine` — two numbers that are one. (m10) M9 (drop
+`txn.rollback()` before retry) survives, but it is an EQUIVALENT mutant: `finally: txn.close()` already
+discards the transaction — noted so the next round does not chase it. (m11) facts_as_of includes cancelled
+while current_facts excludes it; disclosed in the docstring (:573-577), acknowledged not blocked. (m12)
+95% coverage is now 1 point below R1's 96% with two non-HTTP product lines uncovered; if coverage is
+reported again, report the uncovered SET, not just the number.
+
+**Refs:** llm/supersession.py:24-25,44-46,82-88,119-149(142),313-328,325-327,451-455,486-492,495-505;
+memory/conflict_detector.py:34-65,74-97,119-130; db/semantic_facts.py:468-514,526,545-551,605-641;
+llm/consolidation_v2.py:441-446,561-565,637-667; tests/test_conflict_detection.py:1-18;
+tests/test_supersession.py:665-695,730-751; CONSOLIDATION_V2_BUILD_LOG.md:943-1001,1006,1067-1068,
+1080,1100-1105,1119-1141. Harnesses: scratchpad/s4r2/ (runmut.py 28 + runmut2.py 6 mutations,
+runmut_survivors.py; probes/p1_metric.py, p2_pairs.py, p3_reversed.py, p4_retry.py, p5_cancel.py;
+import_probe.sh; smoke_r2.log).
+
+**Who needs to know:** Dev-Head — B1 is arithmetic (a cosine that cannot see digits cannot be an
+independent numbers signal: compare the numbers themselves, and require a same-metric check that survives
+"5K" vs "10K"); B2 needs a deterministic gate on cancellation and a topical restriction on the unrestricted
+planned pool; B3 is a two-line move above the docstring; B4 needs a real subject (the entity join table
+exists — Stage 3 built it). Bosses: **Stage 4 does not pass round 2.** The R1 fixes are real and pinned
+(5/5 demanded mutations caught, smoke reproduces, imports clean, retry loop holds) — but three of the four
+new blockers live INSIDE the R1 fixes, which is process.md:493 recurring at full scale. Founder: the judge
+can still remove a true fact from your current view in three ways — a "different metric" it cannot see the
+difference in (5K vs 10K), a shared word in two unrelated sentences (Stanford the school vs Stanford
+Stadium), and a plan cancelled on the model's word alone with the audit row itself recording that the
+evidence disagreed. All three are reversible (nothing is deleted) and all three are fixable.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 3 — **BLOCK**
+
+**Claim reviewed:** "R2's 4 blockers + majors + every minor resolved; 220 tests green (37/54/64/60/5);
+conflict script 28/28; llm/supersession.py 98% with uncovered set exactly 222-235; smoke reproduces
+(demonstration + boundary) plus a NEW Part D live metric supersession."
+**Method:** reran the 5 scoped files in the repo (220 passed, 120.0s) and again on a scratch COPY
+(shadowing the editable install; 220 passed, 121.5s); per-file collection counts; branch coverage;
+tests/test_conflict_detection.py run DIRECTLY against a decoy inherited AGENTMEM_OS_DB_PATH
+("PRETEND_PROD.db"); full smoke with real llama3.1; **38 mutations on the scratch copy (never the
+working tree)**, survivors re-run against all 5 files; 7 attack probes on isolated scratch DBs; a
+500k-string fuzz of the new number arithmetic; 5 adversarial cases against the REAL llama3.1 (3 samples
+each). Every shell and harness exported AGENTMEM_OS_DB_PATH to a scratch file BEFORE any import
+(lessons:547). **Production DB untouched** — mtime unchanged at Aug 6 23:26 across the whole round;
+the decoy path was never created.
+
+**Reproduced honestly — every headline number is exact.** 220/220 with the split EXACT (supersession 37
+/ consolidation_v2 54 / fact_entities 64 / semantic_facts 60 / temporal_kg 5). Conflict script 28/28 and
+**B3 is genuinely closed**: the guard now sits above the docstring, and with a decoy inherited path the
+decoy file was never created (verified by execution, not by diff — third-incident class finally shut).
+Coverage llm/supersession.py = 251 stmts, 6 missed, 88 branches, **0 partial = 98%, missing exactly
+222-235** (the real-LLM HTTP body) — the claim is precisely true. Smoke reproduces exactly: Rachel
+[2023/05/23] superseded by [2023/05/26] in backfill order, t_invalid=2023/05/26, transition + facts_as_of
+correct, in-order=0 / out-of-order=1, boundary pass 0; **Part D fires — superseded=[(1,2)],
+t_invalid=2023/05/30**, as claimed. **ALL SEVEN demanded mutations turn a NAMED test red**: weaken masked
+equality (M1/M1b) and allow two differing values (M2/M2b) -> test_metric_signal_is_digit_aware; drop the
+cue gate (M3) and un-filter the entity-less planned pool (M6) -> test_oat_milk_cannot_cancel_the_tokyo_flight;
+drop the shared-subject half (M4) -> test_apply_defends_stale_plan_without_shared_subject; revert the flip
+guard to content words (M5) -> test_polarity_flip_requires_shared_entity_node; drop the cancelled reader
+filters (M26/M27/M28, all three) -> test_cancelled_readers_and_opt_in. R2-Ma1 (untested reader fix) and
+R2-Ma6 (untested constants: M11 0.25->0.0 now caught) are CLOSED; caps pinned without monkeypatching
+(M9, M10 caught). The **"equal masks imply equal counts" lemma is TRUE for all digit/whitespace/unicode
+inputs** (200k fuzz, 0 counterexamples) — and FALSE for one character it forgot (Ma1 below).
+**Mutation score 29/37 valid (2 survivors are equivalent mutants) — the best of the three rounds.**
+
+**Verdict: BLOCK — 1 blocker, 8 majors, 12 minors.** Three of R2's four blockers are properly dead. The
+fourth was half-fixed: the cue is a real gate; the shared-subject half is a tautology on every path the
+product can actually produce, so nothing deterministic constrains WHICH plan a cancellation kills.
+
+**BLOCKER**
+- **B1 — the cancellation "shared subject" gate cannot reject anything reachable, and a real llama3.1 run
+  deletes a true live plan through it.** llm/supersession.py:408-416 gates on
+  `cand["shared_nodes"] or _content_word_overlap(new_text, cand_text)`. Every cancellation candidate can
+  only enter the shortlist through the planned pool (:544-558), and that pool's own admission test IS the
+  gate: entity-linked facts draw planned candidates from `peer_fact_ids` (shares >=1 node) -> `shared_nodes`
+  is True by construction; entity-less facts filter the pool with `_content_word_overlap(fact.fact_text,
+  c.fact_text)` (:557) and the gate then re-runs `_content_word_overlap` on the same pair with the same
+  argument order (:411). Measured on every reachable candidate (probe p2-C): SUBJECT-GATE-PASSES=True,
+  both branches. lessons:504 ("a candidate-selection threshold reused as the DECISION gate is not a
+  gate"), third occurrence, and the module's own INDEPENDENCE RULE (:565-570) violated on the second of
+  its two write actions. **Live repro, REAL llama3.1, default config, 3/3 deterministic (probes p1+p3):**
+  new fact "The user cancelled his climbing gym membership." cancels the live plan "The user plans to
+  enter the climbing competition in October." — `{'cancelled': [1], 'dropped': []}`, plan gone from
+  current_facts, **while the model's own reasoning string says "which is unrelated to entering a
+  competition"**. The cue constrains WHETHER a cancellation may fire; the choice of WHICH plan dies is
+  still LLM-only. Aggravating: `mark_event_cancelled` is one-way — the store has no un-cancel/restore
+  method (probe p6-C) and cancelled is terminal against re-affirmation, so unlike a supersession this is
+  not operator-reversible through any shipped API. Falsifies BUILD_LOG:1200-1204 ("deterministic gate,
+  both halves required") and supersession.py:397-402. Corroborating: **M4c (delete the entity-node half
+  entirely, keep only content words) SURVIVES all 220** — the node half has no tripwire at all; the only
+  test that turns M4 red (test_apply_defends_stale_plan_without_shared_subject:980-1005) calls `_apply`
+  with a hand-built snapshot the shortlist cannot produce. Repro: scratchpad/s4r3/probes/p1_cancel_tautology.py,
+  p2_cue.py, p3_real_llm.py.
+
+**MAJORS.**
+(Ma1) **The removed length check was NOT dead: the lemma is false for a literal '#'.** :141-142 records
+"equal masks imply equal token counts (each '#' is one token), so no length check". A '#' already present
+in the source text also masks to '#'. Reproduced (p7): `_metric_update("The user's ticket is 7 and it is
+3 days old.", "The user's ticket is # and it is 3 days old.")` -> masks equal, `['7.0','3.0']` vs `['3.0']`,
+**zip misaligns and returns True** — comparing 7 against 3. Fuzz with '#' in the alphabet: 401/300,000
+mask-equal-but-count-unequal, 53 of them return True on a misaligned comparison. This falsifies the
+docstring's "the numeric token counts must align" (:129-130), the comment at :141-142, and
+BUILD_LOG:1192-1193 ("numeric positions align"); and
+test_norm_nums_unparseable_and_len_mismatch_and_shared_subject_drop:940-941 is named for a len-mismatch it
+never exercises (the mask check catches that case) — lessons:302. One-line fix: restore `if len(a) != len(b):
+return False`.
+(Ma2) **Interval touch is pinned in ONE direction only.** M8 (`c_end < n_start` -> `<=`, :196) is caught;
+**M8b (`n_end < c_start` -> `<=`, :198) SURVIVES all 220.** The docstring's "Overlap or touch = ambiguous"
+has a tripwire on the forward branch and none on the reversal branch. lessons:240, second occurrence, on
+the very rule R2 asked to be pinned "both directions".
+(Ma3) **The entity-node half of the cancellation gate is untested** (M4c survives) — see B1.
+(Ma4) **The record still asserts a falsified line R2 named by reference.** Five INLINE CORRECTED
+annotations did land (decisions 1/3/8/9 + the G2 status-guard line, BUILD_LOG:948-952, 968-977, 1008-1012,
+1018-1024, 1095-1099) — but the sixth item R2 listed, the **Build surface line (now :1033)**, still reads
+"db/models.py (t_invalid, supersession_judgments table, **EVENT_STATUSES+cancelled**)". Doubly false:
+`EVENT_STATUSES = frozenset({"occurred","planned"})` (db/semantic_facts.py:58, deliberately unchanged),
+and it is not in db/models.py at all.
+(Ma5) **The metric-update signal still has ZERO real-corpus exercise.** My smoke rerun: pass C = 7/7
+"no candidates from any pool (entity, lexical, planned)" and 0 entity links — the lexical pool has produced
+no candidate in ANY judgment across all three real-corpus passes, in three consecutive rounds (R1-m10,
+R2-Ma5, now). Part D is real-judge-LLM but STORE-INJECTED, hand-authored facts. So the digit-aware signal
+has never fired on an EXTRACTED fact, and the smoke's RESULT line (:170-174) says "store-level metric pass
+superseded=1" without saying those two facts were hand-written.
+(Ma6) **The cue vocabulary is negation-blind, and the repo already ships the fix.** `_CANCEL_CUE_RE`
+(:93-97) fires on "The user did not cancel the pottery workshop.", "The user has not cancelled his trip to
+Paris.", "The user refuses to cancel the workshop.", "The user's flight was almost cancelled but went
+ahead." (probe p2-A) — and an end-to-end run with the negated text cancels the plan (p2-B).
+memory/conflict_detector.py:144-149 already implements `_negated(text, pattern)` with a 40-char preceding
+window over `_NEGATIONS` and is used by the polarity path; the cue path does not call it. Under-reach, not
+a missing capability.
+(Ma7) **`_metric_update` cannot tell a value from an identity when there is only ONE number** — and the
+docstring's stated rationale only covers the two-number case. Reproduced True (p4): "apartment 12B"/"14B",
+"Route 66"/"Route 95", "flight to Tokyo is JAL 456"/"JAL 789", "The user's child is 7 years old."/"is 4
+years old.". End-to-end (p6-A): the 7-year-old fact is superseded, t_invalid set, current_facts returns
+only the 4-year-old one — and **real llama3.1 proposes exactly that supersession 3/3** (p3). Measured
+prevalence on the real corpus is 0 (Ma5), which is why this is a major and not a blocker (lessons:314) —
+but it must be gated or disclosed, not left implied-safe by a rationale that does not cover it.
+(Ma8) **The rebuilt `_cosignal` still describes the design it replaced, in its own docstring.** :576-577
+says the metric signal is "numbers-stripped texts near-identical (**cosine >= 0.7**)" — the exact
+arithmetic R2-B1 killed; there is no cosine in `_metric_update` at all. :572-573 says the flip subject
+guard is "**entity/content-word overlap**" while :595 requires `shared_nodes` only, contradicted 20 lines
+later by its own comment (:587-594). lessons:180 and lessons:240: the comment must not say more, or other,
+than the code does.
+
+**MINORS.** (m1) Notation restatements register as metric updates: '25:31' vs '25.31' -> True, '07:00 am'
+vs '7 am' -> True, and '1,5 percent' comma-strips to **15.0** (European decimal). Reproduced end to end
+(p6-B: the older fact is superseded by its own restatement). Low harm, but it contradicts the prompt's own
+"a mere restatement = NOT superseded". (m2) M16 survives — `_pool` still not pinned to live facts (R1-m2,
+R2, now third round). (m3) M19 survives — the sweep's `superseded_by IS NULL` filter untested (R1-m3,
+third round). (m4) M20 survives — `_int_list`'s bool rejection untested (R1-m4, third round). (m5) M29
+survives — `mark_event_cancelled`'s rowcount race guard, the "race-defended at the store" claim, still has
+no tripwire (R1-m1, third round). (m6) M15 (`if not a: return False`) and M30 (the `!= "cancelled"` half
+of the terminal-merge guard, db/semantic_facts.py:378) are **equivalent mutants** — both are unreachable
+as differences given the conditions that follow; noted so R4 does not chase them, but the terminal-merge
+comment (:375-377) credits a check that can never be the deciding one. (m7) `recover_judgments`'
+docstring (llm/consolidation_v2.py:643-645) states the runaway guard and the per-fact LLM cost but not the
+numeric bound; only BUILD_LOG:1012 states "max_rounds × limit" (R2-m4, partially landed). (m8)
+test_double_listed_candidate_superseded_not_double_consumed is still named for a guard that was correctly
+deleted. (m9) Cue vocabulary misses "cancellation", "cancels", "calls off", "backed out", "pulled out",
+"shelved", "will not be attending" — the mild direction, undisclosed. (m10) `include_cancelled` still has
+zero non-test callers; repo-wide, NOTHING outside benchmarks/ and llm/consolidation_v2.py reads semantic
+facts at all. (m11) The entity-pool bare-cosine co-signal (0.25) remains the weakest surviving gate; I
+probed three realistic coexisting same-entity pairs with real llama3.1 (Emma/MIT+piano at cosine 0.4346,
+Google job+volunteering, Rachel colleague+gym) and **the model declined all 3/3** — residual risk, not a
+finding. (m12) 98% coverage with 0 partial branches is a real improvement over R2's 95%.
+
+**Refs:** llm/supersession.py:88-97,123-145(141-142),176-206(196,198),397-416(403,408-416),
+540-558(557),562-606(572-577,595,599-600); db/semantic_facts.py:58,375-378,468-514,526,545-551,632-634;
+llm/consolidation_v2.py:179-203,637-667; tests/test_supersession.py:934-941,945-961,980-1005;
+benchmarks/consolidation_v2_stage4_smoke.py:141-174; CONSOLIDATION_V2_BUILD_LOG.md:1033,1182-1249.
+Harnesses: scratchpad/s4r3/ (runmut.py 30 + runmut2.py 8 mutations; probes/p1_cancel_tautology.py,
+p2_cue.py, p3_real_llm.py, p4_metric_edges.py, p5_entity_cosine.py, p6_misc.py, p7_hash.py; smoke_r3.log).
+
+**Who needs to know:** Dev-Head — B1 needs a cancellation signal that is INDEPENDENT of the pool's
+admission test and that binds the cue to THIS plan (e.g. the cue clause must contain the plan's own
+distinctive words, or require >=2 shared content words plus a negation check reusing
+conflict_detector._negated); Ma1 is one restored line; Ma2 is one mutation-driven assertion; Ma4/Ma8 are
+record/docstring corrections at named lines; Ma6 reuses code that already exists. Bosses: **Stage 4 does
+not pass round 3, but it is close** — 29/37 mutations caught (best of the arc), every headline number
+exact, B3 finally proven by execution, and the reader-side and constant-pinning majors genuinely closed.
+The single blocker is the same shape as the last two rounds' blockers: a gate that re-runs the test that
+admitted the candidate. Founder: the judge can still cancel a plan you never cancelled — say "I cancelled
+my climbing gym membership" and a planned climbing competition is marked off, with the model's own written
+reasoning saying the two are unrelated — and cancellation, unlike supersession, has no undo in the code.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 4 (final-intent) — **BLOCK**
+
+**Claim reviewed:** "R3's blocker + 8 majors + 12 minors all resolved; 228 tests green (45/54/64/60/5);
+conflict 28/28; llm/supersession.py 98% with the uncovered set exactly 287-300; smoke reproduces
+(Rachel demonstration + boundary + Part D store-level metric supersession); the cancellation binding
+gate is independent of pool admission and binds the cue to THIS plan."
+**Method:** reran the 5 scoped files in the repo (228 passed, 127.3s) and on a scratch COPY shadowing
+the editable install (228 passed, 119.9s; `agentmem_os.__path__` asserted to the copy); per-file
+collection counts; branch coverage; tests/test_conflict_detection.py run DIRECTLY twice — once on a
+scratch path, once with a DECOY inherited AGENTMEM_OS_DB_PATH ("PRETEND_PROD_R4.db", never created);
+full smoke with real llama3.1; **22 mutations on the scratch copy only**; 17 deterministic binding
+probes; **6 end-to-end cancellation cases against the REAL llama3.1, 3 trials each (18 live runs)**;
+one real-pipeline extraction probe to settle reachability. Every shell exported AGENTMEM_OS_DB_PATH to
+a scratch file BEFORE any import (lessons:547). **Production DB untouched** — mtime still Aug 6 23:26.
+
+**Every headline number is exact.** 228/228 with the split EXACT (45/54/64/60/5). Conflict 28/28
+directly, and 28/28 again with a decoy inherited path that was never created — B3 stays closed by
+execution. Coverage llm/supersession.py = **272 stmts, 6 missed, 98 branches, 0 partial = 98%, missing
+exactly 287-300** (the real-LLM HTTP body); the module GREW 251→272 statements and held 98% with zero
+partial branches. Smoke reproduces exactly: Rachel [2023/05/23] superseded by [2023/05/26],
+t_invalid=2023/05/26, in-order=0 / out-of-order=1, boundary=0, **Part D superseded=[(1,2)],
+t_invalid=2023/05/30**. **All 12 demanded mutations turn the NAMED test red** — drop the cue (M1) →
+test_oat_milk_cannot_cancel_the_tokyo_flight; remove the negation window (M2) and shrink it to 0 chars
+(M2b) → test_negated_cue_never_cancels; weaken >=2 shared words to >=1 (M3) / delete it (M3b) →
+test_gym_membership_cannot_cancel_climbing_competition; drop the clause requirement (M4) / neutralize
+clause extraction (M4b) → test_cue_clause_must_name_the_plan; drop the restored length check (M5) and
+re-allow single-number pairs (M6) → test_metric_hash_literal_and_single_number_and_decimals; revert
+grouping-only comma stripping (M7) → same test; both interval-touch directions (M8/M8b) → their two
+tests (**R3-Ma2 CLOSED**); pool live filter (M9) → test_shortlist_and_sweep_exclude_superseded; bool
+ids (M11) → test_int_list_rejects_booleans; weaken the reinstate guard (M12) →
+test_reinstate_cancelled_event. **reinstate_cancelled_event is NOT reachable from the judge BY CODE
+PATH** (verified, not just by test): the judge calls only supersede() and mark_event_cancelled(), has
+no getattr/eval/dynamic dispatch, and the method has zero non-test callers repo-wide.
+**Mutation score 19/22; 2 survivors are equivalent/waived, 1 is real (Ma1).**
+
+**Verdict: BLOCK — 1 blocker, 5 majors, 12 minors.** The R3 blocker's CORE defect is genuinely fixed:
+the gate is independent of pool admission and rejects real reachable candidates. But its binding
+criterion is satisfied by two GENERIC shared words, and a realistic pair kills a true live plan 3/3
+with the default model.
+
+**BLOCKER**
+- **B1 — two generic shared content words are enough to bind a cancellation, and real llama3.1
+  destroys a true live plan 3/3.** llm/supersession.py:137-147. Measured (probe p_e2e.py E2, real
+  llama3.1:latest, default config, temperature 0, **3/3 deterministic**): live plan (event/planned)
+  "The user plans to join the weekend training camp for the marathon." + new state fact "The user
+  cancelled his weekend training session with the physiotherapist." → shared={training, weekend} (2,
+  both generic), cue clause contains both → binds=True → model proposes cancelled_ids=[1] → **applied,
+  event_status='cancelled'**, the marathon camp gone from current_facts. Second case E1 fires 1/3
+  ("cancelled the yoga workshop weekend in Big Sur" cancels "plans to attend the pottery workshop
+  weekend in Sonoma"). The calibration is INVERTED: TRUE cancellations of short-named plans REFUSE —
+  "The user cancelled the Rome marathon." vs "The user plans to run the Rome marathon." refuses (1
+  shared word), same for "yoga class" and "gym trial" — so the discrimination axis (count of >=5-char
+  shared words) is orthogonal to correctness. Falsifies supersession.py:117-127 ("one shared word is
+  topical coincidence, not identity" — two generic ones are too) and BUILD_LOG:1264-1269 ("binds the
+  cue to THIS plan"). **Reachability, measured honestly (p_extract.py, full real pipeline):** today
+  this is UNREACHABLE end to end — "I had to cancel my weekend training session with the physio"
+  extracts as fact_type=event/status=occurred and judge_fact SKIPS it; "I signed up for the weekend
+  training camp" extracts event/occurred, not planned (consistent with the Stage-3 disclosure that the
+  'planned' marker is prompt-unreachable). Blast radius today = zero. **The gate IS the entire safety
+  story for the parked plans-as-events prompt decision**, which is why it must be right before that
+  decision is unparked. Two remedies, either closes it: (a) make the binding discriminative on the
+  plan's distinctive word(s), pinned by this repro through judge_fact (a coverage RATIO does not
+  separate — measured: false A2 = 2/4 = 0.50, true E1b = 3/6 = 0.50); (b) keep the gate, DOWNGRADE the
+  claim, and put the verbatim 3/3 repro in the stage's mandatory disclosures.
+
+**MAJORS.**
+(Ma1) **The sweep live-filter "pin" is a tautology and M10 survives all 228.**
+tests/test_supersession.py:1136 `assert all(r2.skipped != None or True for r2 in rows_a)` — `X != None
+or True` is ALWAYS True; :1137 also cannot fail because judge_fact skips superseded facts before the
+LLM call. Deleting `SemanticFact.superseded_by.is_(None)` from judge_missing (llm/supersession.py:712)
+survives all 5 files. BUILD_LOG:1294 "m2/m3 pool and sweep live-filters pinned ... never sweep" is half
+false — the pool half IS pinned (M9 caught). FOURTH round (R1-m3, R2, R3-m3), and this round the team
+answered a survivor with a no-op assertion. Behavioral risk is low (one wasted judge_fact writing a
+skip row, no wrong write); the finding is the false pin plus the rubber stamp (lessons:124).
+(Ma2) **The R3-Ma5 smoke-label fix did not land.** BUILD_LOG:1281-1282 claims "the smoke RESULT line
+now states Part D is store-injected/hand-authored". benchmarks/consolidation_v2_stage4_smoke.py:171-175
+still prints "...store-level metric pass superseded={n}" — the exact wording R3 quoted and rejected (my
+rerun printed "store-level metric pass superseded=1"); the file contains no "hand-authored"/
+"hand-written"/"not extracted" anywhere. The other half of Ma5 (the never-fired-on-an-extracted-fact
+disclosure) DID land at BUILD_LOG:1282-1285.
+(Ma3) **There is no STAGE 4 HONEST CLAIMS OF RECORD block.** Stage 3 has one (BUILD_LOG:871-896,
+"critic-approved wording", with MANDATORY DISCLOSURES); the Stage 4 record ends at :1314 without an
+equivalent. A stage cannot close without it, and lessons:118-122 requires the prior stage's "Stage N+1
+will do X" items to be answered as line items here.
+(Ma4) **The module's design-of-record docstring still describes the KILLED cosine design.**
+llm/supersession.py:33-34 — "the metric-update signal (numbers differ, numbers-stripped texts
+near-identical)". The code requires masked texts EXACTLY identical, >=2 numeric tokens and EXACTLY ONE
+differing value; two-differ and single-number pairs both REFUSE. Both phrases overstate breadth toward
+MORE supersession. Direct repeat of lessons:624-630 — Ma8 was fixed inside `_cosignal` (:631-634 now
+correct) and the same phrase survived one level up in the same file.
+(Ma5) **The m5 waiver's downgrade was not applied where the claim lives.** BUILD_LOG:1298-1303 says the
+claim is downgraded to "guarded by the same rowcount pattern", not "race-proven"; BUILD_LOG:1060 still
+reads, under "Failure paths pinned:", "cancellation only reaches live planned events, race-defended at
+the store". M14 (delete mark_event_cancelled's `updated != 1` guard, db/semantic_facts.py:506-510)
+survives all 228 — nothing pins it. Same shape as R3-Ma4. **The waiver itself is HONEST and I accept
+it** (supersede()'s 2-process test proves the pattern; an event-listener interleave harness for
+mark_event_cancelled is disproportionate) — only the downgrade text is missing at :1060.
+
+**MINORS.** (m1) The negation check reads only the FIRST cue occurrence (:131-136) while the "reused"
+conflict_detector._negated (:144-149) checks EVERY occurrence — "The user cancelled his climbing gym
+membership; he did not cancel the climbing competition." BINDS to the climbing-competition plan (the
+negated clause supplies the second shared word); the reversed sentence refuses. Real model declined
+3/3. (m2) The m9 vocabulary extension added "cancellation", creating a new false-cue class: "travel
+insurance now includes trip cancellation coverage for the Tokyo conference" binds to a Tokyo-conference
+plan; model declined 3/3. (m3) Hypothetical ("may cancel ... if it rains"), third-party ("The organiser
+cancelled ... refund policy") and question forms all bind; model declined 3/3; extractor realism makes
+the question form unlikely, agreed. (m4) Negation beyond the 40-char window binds — inherited bound,
+not disclosed in the docstring that says only "40-char negation window, reused". (m5) Clause splitting
+on `[.;!?]` (:99) breaks on abbreviations/anaphora: "The pottery workshop is at 5 p.m. It was
+cancelled." selects "It was cancelled" and REFUSES a true cancellation — mild direction, undisclosed.
+(m6) Plans whose distinctive words are <5 chars are structurally uncancellable (Rome marathon, yoga
+class, gym trial all refuse a verbatim true cancel) — measured, undisclosed. (m7) `_content_words`
+counts structural verbs — "plans"/"attend" are content words of every plan text and inflate
+len(shared). (m8) M13 (drop the `!= "cancelled"` half of the terminal-merge guard,
+db/semantic_facts.py:381) is an EQUIVALENT mutant by analysis — consistent with R3-m6, not chased.
+(m9) Ma7's single-number refusal also CLOSED R3-m1's notation residuals ('25:31'/'25.31', '07:00 am'/
+'7 am', '1,5'/'15' all now False, measured); BUILD_LOG:1306-1307 still lists them open — inaccurate in
+the safe direction. (m10) `judge_fact` assumes the model reply is a dict (`raw.get` at :416/:451); a
+JSON list or string raises AttributeError — contained by the per-fact `except Exception` in
+judge_missing:729 and consolidate_session:550 and audited, but untested. (m11) Unchanged: `include_
+cancelled` has zero non-test callers and nothing outside benchmarks/ and llm/consolidation_v2.py reads
+semantic facts at all. (m12) Coverage grew 251→272 statements and held 98% with 0 partial branches and
+the same uncovered set — the new code is genuinely covered, not diluted.
+
+**Refs:** llm/supersession.py:33-34,99,111-148(131-136,137-147),151-210,241-271,397-473(467-472),
+530-616,618-662,692-736(712); db/semantic_facts.py:378-385,471-517(506-510),519-560;
+llm/consolidation_v2.py:539-557,596-616,638-670; tests/test_supersession.py:937-1010,1015-1099,
+1110-1137(1136),1140-1169; benchmarks/consolidation_v2_stage4_smoke.py:120-175;
+CONSOLIDATION_V2_BUILD_LOG.md:871-896,1033-1039,1060,1254-1314(1264-1269,1281-1285,1294,1298-1307).
+Harnesses: scratchpad/s4r4/ (runmut.py 22 mutations + mut_results.json; p_binds.py 17 deterministic
+cases; p_e2e.py 6 cases x 3 real-llama3.1 trials; p_extract.py real-pipeline typing probe; p_ratio.py;
+p_misc.py; smoke_r4.log).
+
+**Who needs to know:** Dev-Head — B1 needs the binding to discriminate on the plan's DISTINCTIVE
+word(s) (a plain coverage ratio does NOT separate: false 0.50 vs true 0.50 — measured), pinned by the
+physio/marathon repro through judge_fact, OR an honest downgrade + disclosure; Ma1 is one real
+assertion replacing a tautology; Ma2/Ma4/Ma5 are three text edits at named lines; Ma3 is the stage's
+missing honest-claims block. Bosses: **Stage 4 does not pass round 4.** Everything measurable is exact
+(228 with the exact split, 98% with the exact uncovered set, conflict 28/28 with a decoy path, smoke
+reproduces including Part D), the mutation score is the best of the arc (19/22, all 12 demanded
+mutations red on the NAMED test), reinstate is proven operator-only by code path, and R3-Ma1/Ma2/Ma7/
+m1/m4 are genuinely closed. What blocks is one measured wrong write and four record/description
+over-claims. Founder: the cancellation gate got much stronger but is still guessing — say "I cancelled
+my weekend training session with the physio" and a planned marathon training camp is marked off, three
+times out of three. It cannot happen in the product today (the extractor types cancellations as past
+events, so the judge never sees them) — it becomes reachable the moment you unpark the plans-as-events
+prompt decision. And there is now an undo (an operator-only reinstate), which there was not last round.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 5 (closing-intent) — **BLOCK**
+
+**Claim reviewed:** "R4's blocker + 5 majors + 12 minors all resolved; _cancellation_binds v3 =
+CONTAINMENT (per non-negated cue occurrence, ALL occurrences checked, the cue clause's object words —
+4-char floor, cue spans removed, clause split on enders + and/but — must be non-empty and a SUBSET of
+the plan's words); 233 tests green (50/54/64/60/5); conflict 28/28; coverage llm/supersession.py 98%
+uncovered EXACTLY 312-325; smoke reproduces with the honest Part-D label."
+**Method:** reran the 5 scoped files in the repo (233 passed, 123.8s) and on a scratch COPY shadowing
+the editable install (233 passed, 124.6s; `agentmem_os.__path__` asserted to the copy); per-file
+collection counts; branch coverage; tests/test_conflict_detection.py DIRECTLY twice — once on a scratch
+path, once with a DECOY inherited AGENTMEM_OS_DB_PATH ("PRETEND_PROD_R5.db", never created); full smoke
+with real llama3.1; **10 mutations on the scratch copy only** (the 6 demanded + M10 re-verify + 3
+survivor hunts); 26 deterministic binding probes; **4 cancellation cases x 3 real-llama3.1 trials (12
+live runs)** plus 3 mocked-proposal end-to-end writes. Every shell exported AGENTMEM_OS_DB_PATH to a
+scratch file BEFORE any import (lessons:547). **Production DB untouched** — /Volumes/Sahith_SSD/
+AgentMem-OS/db/agentmem_os.db mtime still Aug 6 23:26; repo file set unchanged.
+
+**Every headline number is exact.** 233/233 with the split EXACT (50/54/64/60/5), in the repo and on
+the shadow copy. Conflict 28/28 twice, decoy path never created. Coverage llm/supersession.py = **284
+stmts, 6 missed, 102 branches, 0 partial = 98%, missing exactly 312-325** (the real-LLM HTTP body); the
+module grew 272→284 and held 98% with zero partial branches. Smoke reproduces: in-order=0,
+out-of-order=1 (Rachel [2023/05/23] superseded BY [2023/05/26], t_invalid=2023/05/26, superseded_at
+set), boundary=0, Part D superseded=1 with the label "STORE-INJECTED, HAND-AUTHORED facts, real judge
+LLM: the metric signal has never fired on an EXTRACTED fact". **All 6 demanded v3 mutations turn a
+NAMED test red** — M1 drop subset → 6 tests incl. all four R4 pins; M2 drop non-empty →
+test_pronoun_only_cancellation_names_nothing; M3 first-occurrence-only negation →
+test_negation_checked_at_every_cue_occurrence; M4 re-admit cue leakage → 8 tests incl.
+test_oat_milk_cannot_cancel_the_tokyo_flight; M6 remove and/but split →
+test_double_listed_candidate_type_guard_then_cancellation. **M5 (4-char floor → 5) SURVIVES all 233.**
+Extra hunts: M12 reverse containment → 3 red, M13 intersection-only (the R3 rule) → 4 red (direction and
+strength are genuinely pinned); M11 empty _S4_EXTRA_STOP survives. **Mutation score 8/10.**
+**R4-Ma1 CLOSED BY EXECUTION** (M10, deleting the sweep's live filter, now turns
+test_shortlist_and_sweep_exclude_superseded red — it survived all 228 last round). **R4-Ma2 CLOSED**
+(smoke label landed, grep + live run). **R4-Ma4 CLOSED** (module docstring bullet 3 states the
+digit-aware truth). **R4-Ma5 CLOSED** (BUILD_LOG:1060-1062 carries the downgrade + waiver inline at the
+claim). R4-B1's core defect is genuinely dead: the physio/marathon repro refuses, gym/climbing refuses,
+insurance-noun refuses, pronoun-only refuses, Rome binds.
+
+**Verdict: BLOCK — 0 blockers, 3 majors, 10 minors.** Nothing here is a wrong write reachable in the
+product. What blocks the CLOSE is that two of the v3 gate's own load-bearing pieces are not what the
+record says they are, and one is unpinned.
+
+**MAJORS**
+- **(Ma1) Negation is defeated by clause-selection-by-STRING — measured wrong write.**
+  llm/supersession.py:160-161. The negation test is position-accurate (`m.start()`, :156-158) but the
+  clause is chosen by `next((c for c in _CLAUSE_SPLIT_RE.split(new_text) if m.group(0).lower() in
+  c.lower()), new_text)` — the FIRST clause containing the cue STRING, not the clause containing THIS
+  match. When the same cue surface form occurs twice, a non-negated occurrence is evaluated against a
+  NEGATED clause's words. Repro (measured, deterministic): new state fact "The user did not cancel the
+  pottery workshop weekend, but did cancel the pottery class." + planned event "The user plans a pottery
+  workshop weekend." → clause examined = "The user did not cancel the pottery workshop weekend" →
+  named={pottery,workshop,weekend} ⊆ plan → binds → **judge_fact applies it, event_status='cancelled'**
+  on a text that says the user did NOT cancel it. (The 40-char window saves the semicolon variant; ", but
+  did " pushes the "not" out of range.) Mirror-image miss, safe direction: "cancelled the newsletter
+  subscription and cancelled the Rome marathon" REFUSES a true cancellation. Falsifies :133-135 ("Per
+  non-NEGATED cue occurrence (every occurrence checked — R4-m1: checking only the first let a negated
+  second mention through)") and BUILD_LOG:1339/1363 ("multi-occurrence negation ... pinned"). The pin at
+  tests:1214-1224 cannot catch it (its two cue forms differ: "cancelled" vs "cancel"). Reachability,
+  honest: real llama3.1 declined 3/3 (it proposed supersession, killed by the type guard), extraction
+  types cancellations as past events, plans-as-events is parked — blast radius today ZERO. Remedy (a)
+  select the clause by match POSITION and pin with this exact text; or (b) correct :133-135, BUILD_LOG,
+  and the claims block to say negation holds per occurrence ONLY when the cue form does not appear in an
+  earlier clause, with this repro verbatim.
+- **(Ma2) The 4-char floor — the R4-B1 fix's own key ingredient — is UNPINNED; M5 survives all 233.**
+  llm/supersession.py:117 (floor), :101-107 (rationale), BUILD_LOG:1334-1336 ("4-char floor, recovering
+  the distinctive short words the 5-char rule destroyed: 'yoga', 'rome'"). Setting the floor back to 5
+  leaves the suite 233/233 GREEN while measurably breaking discrimination: "The user cancelled the Rome
+  marathon." then BINDS to "The user plans to run the Boston marathon in April.", and "cancelled the yoga
+  class" BINDS to "plans to take the pottery class" (both refuse at floor 4). The pin the team wrote
+  (tests:1205-1211, the Rome POSITIVE) cannot fail at either floor — containment is symmetric, so
+  dropping 'rome' from BOTH sides leaves {marathon} ⊆ {marathon}. The floor is only visible on a
+  NEGATIVE. Remedy: one assertion — Rome-cancel vs BOSTON-marathon plan must be False — then re-run the
+  floor mutation and watch it go red (lessons:655-658, the team's own rule).
+- **(Ma3) The rewritten gate's KILLED self-description survives at the CALL SITE and in a test comment —
+  third round of this exact class.** llm/supersession.py:490-494 still reads "(negation-aware cue + >=2
+  shared content words + the cue clause naming the plan)"; tests/test_supersession.py:1165 still reads
+  "The third binding half: >=2 shared words overall". Both describe the v2 rule R4-B1 killed. Direction is
+  safe (understates strictness), but this is a direct repeat of lessons:622-630 ("grep the changed
+  function for the falsified phrase") after R3-Ma8 and R4-Ma4 fixed the same phrase one and two levels up
+  in the same file.
+
+**CLOSE-OUT CONDITION (not counted as a major — I am the artifact's source).** There is still no STAGE 4
+HONEST CLAIMS OF RECORD block in CONSOLIDATION_V2_BUILD_LOG.md (the file ends at :1381; BUILD_LOG:1355
+defers it to this verdict). The critic-approved wording is delivered with this verdict and must be pasted
+verbatim, including the Stage-3 forward items answered as line items (lessons:114-122).
+
+**MINORS.** (m1) M11 (empty `_S4_EXTRA_STOP`) also survives all 233 — R4-m7's "'plans'/'attend' added to
+the structural stop extension" has no tripwire; mixed direction, low stakes. (m2) Containment does NOT
+require the plan's DISTINCTIVE word, only the absence of foreign words: "The user cancelled his weekend
+training." BINDS the marathon-camp plan (the R4-B1 pair under a shorter, natural phrasing); "The user
+cancelled dinner." BINDS "plans to take the family to the Tokyo conference dinner"; "cancelled the annual
+retreat" binds a 7-word plan. Real llama3.1 declined to propose all of these 3/3 (12 live runs); mocked
+proposals land the write. Must be disclosed. (m3) Composite/verbose plans bind by word UNION with no
+adjacency: "The user cancelled the Tokyo trip." binds "plans to attend a wedding in Tokyo and a separate
+trip to Kyoto." (m4) Measured true-positive cost: 5 of 8 natural TRUE-cancellation phrasings REFUSE
+("...in April", "...because of an injury", "his Rome marathon entry", "The Rome marathon trip fell
+through", "is not going to the Rome marathon anymore") — safe direction, but the record's "Rome binds"
+reads as if true cancellations work generally. (m5) Stemless matching: "marathons" ≠ "marathon" → refuse
+(miss); possessives are fine ("Tokyo's" → tokyo). (m6) Question form binds ("Did the user cancel the Rome
+marathon?") — R4-m3, re-measured. (m7) BUILD_LOG:1309-1310 (R3 section) still says notation restatements
+"remain a disclosed residual" with no inline correction, while :1365-1367 says they are CLOSED — same
+shape as R4-Ma5, safe direction. (m8) tests:1231-1234 binds `why` and never asserts on it, weaker than
+its three siblings. (m9) Harness honesty: my first M5/M6 patches inserted a comment inside a call and
+produced a syntax error (bogus "7 failed / 92 errors"); both were re-run clean and only the clean numbers
+appear above. (m10) Standing: `include_cancelled` still has zero non-test callers; nothing outside
+benchmarks/ and llm/consolidation_v2.py reads semantic facts at all.
+
+**Refs:** llm/supersession.py:100-107,110-118,121-173(133-135,156-158,160-161,166-170),176-235,
+299-325,329-420,422-554(485-501,490-494),556-644,646-690,692-764(740); db/semantic_facts.py:471-517;
+tests/test_supersession.py:1110-1145,1164-1178(1165),1181-1211(1205-1211),1214-1224,1227-1234,1237-1245,
+1248-1265; benchmarks/consolidation_v2_stage4_smoke.py:141-176; CONSOLIDATION_V2_BUILD_LOG.md:871-896,
+1045-1066(1060-1062),1257-1317(1309-1310),1319-1381(1330-1343,1355,1363-1375).
+Harnesses: scratchpad/s4r5/ (runmut.py + mut_results{,2,3}.json = 10 mutations; p_e2e.py 4 cases x 3
+real-llama3.1 trials; probe batches 1-3 = 26 deterministic binding cases + the mocked-proposal write
+repro; pkg/ = shadow copy of the repo).
+
+**Who needs to know:** Dev-Head — Ma1 is a 2-line change (select the clause by match position) plus one
+test, or an honest wording correction in three places; Ma2 is ONE assertion plus re-running the floor
+mutation; Ma3 is two comment edits found by grepping ">=2 shared". Then paste the claims block.
+Bosses: **Stage 4 does not close on round 5.** Everything measurable is exact for the third round running
+(233 with the exact split on repo AND shadow copy, 98% with the exact uncovered set, conflict 28/28 with
+a decoy path, smoke reproduces including the corrected Part-D label), R4-Ma1/Ma2/Ma4/Ma5 are closed and
+R4-B1's core defect is genuinely dead — the gate now refuses every false pair R3 and R4 measured. What
+blocks is one incomplete fix with a measured (unreachable) wrong write, one unpinned constant that the
+fix's headline depends on, and a stale description of the killed rule at the call site. Founder: the
+cancellation gate is much better — it now refuses the physio/marathon case and the gym/climbing case that
+killed real plans in earlier rounds — but a sentence that says "I did NOT cancel the pottery workshop, I
+cancelled the pottery class" can still mark the workshop off, and the setting that makes "Rome" work can
+be reverted without a single test noticing. Neither can happen in the product today (cancellations never
+reach the judge), and both are short fixes.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 6 (focused confirmation) — **BLOCK**
+
+**Claim reviewed:** "R5's 3 majors + m1 fixed (clause boundaries by POSITION; the 4-char floor pinned by
+its NEGATIVE; the killed '>=2 shared' self-description dead at the call site and in the test comment;
+_S4_EXTRA_STOP pinned); 236 tests green (53/54/64/60/5); conflict 28/28; coverage llm/supersession.py 98%
+uncovered exactly the real-LLM HTTP body (320-333); the R5-resolution section + STAGE 4 HONEST CLAIMS OF
+RECORD block appended to the build log."
+**Method:** reran the 5 scoped files (236 passed, 122.0s) + per-file collection counts; branch coverage;
+tests/test_conflict_detection.py DIRECTLY; **6 mutations on a scratch shadow copy** ($SC/pkg, asserted
+`agentmem_os.__path__` AND `tests.*.__file__` both resolve to the copy) — the 4 the round demanded plus 2
+containment re-verifies; 26 deterministic binding probes (10 regression + 9 adversarial + 7 abbreviation);
+1 mocked-proposal end-to-end WRITE repro; 6 real-llama3.1 live trials (local, free). Every shell exported
+AGENTMEM_OS_DB_PATH to a scratch file BEFORE any import (lessons:547). **Read-only proven:** all four
+Stage-4 file hashes byte-identical before and after; prod DB mtime still Aug 6 23:26; repo file set
+unchanged. **Smoke NOT re-run** (disclosed below).
+
+**Everything the round was dispatched to verify is CLOSED, and every number is exact.**
+236/236 with the split EXACT (53/54/64/60/5). Conflict 28/28. Coverage llm/supersession.py = **287 stmts,
+6 missed, 102 branches, 0 partial = 98%, missing exactly 320-333**, which I read line-by-line: it is
+precisely the `_llm` HTTP body (`urllib.request.Request` → `return json.loads(body["response"])`) and
+nothing else. **All 4 demanded mutations turn the NAMED test red, each alone:** M1 revert to string-based
+clause selection → `test_position_accurate_clause_selection` (1 failed / 52 passed); M2
+first-occurrence-only negation → `test_negation_checked_at_every_cue_occurrence`; M3 floor 4→5 →
+`test_four_char_floor_is_load_bearing` (**the R5 survivor is dead**); M4 empty `_S4_EXTRA_STOP` → 6 red
+incl. `test_structural_stop_extension_is_load_bearing` (**the second R5 survivor is dead**). Re-verifies:
+M5 drop the subset check → 8 red, M6 drop the non-empty check → 2 red. **Mutation score 6/6.** R5-Ma1's
+exact wrong-write text now REFUSES with the right reason ("cue is NEGATED; cue clause names things
+outside the plan (class)") — the second occurrence was judged on ITS OWN clause — and the mirror binds.
+R5-Ma3: `>=2 shared` returns NOTHING in llm/supersession.py or tests/test_supersession.py; the call site
+(:498-504) now describes containment. R5-m7: the inline bracketed correction is in place at
+BUILD_LOG:1310-1312. AST scan of the test file: **zero tautological asserts** (the `or True` class stays
+dead). Claims-block audit: every headline number matches my own reruns; disclosures 1-8 and the Stage-3
+forward items match the measured reality of R5's findings — except one measured class that is missing and
+one record line that is affirmatively false (Ma1 below).
+
+**Verdict: BLOCK — 0 blockers, 1 major, 3 minors.** This is a ONE-ITEM block on a pre-existing defect the
+spot-check surfaced, not a regression: nothing this round broke, and all four R5 items are genuinely dead.
+
+**MAJOR**
+- **(Ma1) The clause splitter breaks on abbreviation periods, and every splitter false positive is in
+  the UNSAFE direction — measured wrong write, end to end; and BUILD_LOG:1369-1371 states this exact
+  class was "verified harmless for cue-first phrasings", which is false.** llm/supersession.py:100
+  (`_CLAUSE_SPLIT_RE = [.;!?]|\band\b|\bbut\b`) with :167-170 (position-based clause). A `.` inside an
+  abbreviation ends the clause early, DELETING the words that name the specific thing; a smaller named
+  set is strictly more likely to be a subset, so truncation always moves toward BINDING. Measured
+  (deterministic), cue-FIRST phrasings, 5 of 6 FALSE BIND: "The user cancelled the appointment with Dr.
+  Meyer." → clause = "The user cancelled the appointment with Dr" → named={appointment} ⊆ plan → BINDS
+  "The user plans an appointment at the downtown clinic."; same for "trip to St. Louis" → "plans a trip
+  to Chicago"; "dinner with Mr. Alvarez" → "plans a dinner with the Tokyo team"; "lesson with Mrs.
+  Kowalski"; "viewing on Oak Ave. downtown". **Control proves the mechanism:** "with Doctor Meyer" (no
+  period) REFUSES with named={doctor, meyer}. **End-to-end write repro** (mocked proposal, scratch copy):
+  judge_fact writes `event_status='cancelled'` on the downtown-clinic appointment, `dropped=[]` — the
+  gate is the last defense and it passed. NOT a regression: I ran the same probes against the R5
+  string-based mutant and the results are IDENTICAL, so this predates the R5-Ma1 fix. Blast radius today
+  ZERO, measured honestly: real llama3.1 proposed cancellation 0/3 on both cases (it proposed
+  supersession for Dr. Meyer, killed by the type guard), and cancellation is prompt-unreachable
+  (disclosure 4). What makes it blocking is the RECORD: BUILD_LOG:1370 says the cue-first abbreviation
+  family was verified harmless — my R4-m5 raised only the cue-LAST case, which is the safe direction —
+  and the claims block's disclosure 5 enumerates the gate's misses as "all measured" while implying the
+  gate is safe whenever the sentence names something distinctive. Here the sentence names Meyer/Louis/
+  Alvarez and the gate binds anyway. Remedy (a) code: do not split on a `.` that terminates a short
+  capitalized token (or require whitespace + a following lowercase word), then pin with the Dr. Meyer
+  text and re-run the split mutation; or (b) record: strike "verified harmless for cue-first phrasings"
+  from BUILD_LOG:1369-1371 with an inline bracketed correction, and add to disclosure 5, verbatim: "an
+  abbreviation period ('Dr.', 'St.', 'Mr.', 'Ave.') ends the cue clause early and DELETES the words that
+  name the specific thing, so 'cancelled the appointment with Dr. Meyer' binds a different planned
+  appointment; every clause-splitter false positive is in the binding direction."
+
+**MINORS.** (m1) The negation window is still NOT clause-bounded — llm/supersession.py:163 keeps a raw
+40-char lookback that crosses the boundaries :159-160 now computes, so a negation in the PRIOR clause
+suppresses a TRUE cancellation in this one: "The user did not cancel the pottery class but cancelled the
+pottery workshop weekend." vs "The user plans a pottery workshop weekend." → refuses, why="cue is
+NEGATED; cue is NEGATED". Safe direction, but it half-applies the fix's own stated principle
+(BUILD_LOG:1394-1396 "span-accurate negation demands span-accurate clauses") and disclosure 5 discloses
+only the opposite direction (">40 characters ... invisible"). (m2) BUILD_LOG:1408-1409 "the
+positive-control reason asserted" does not close R5-m8 as written: the insurance test still binds `why`
+and never asserts on it (tests/test_supersession.py:1230-1233), and the NEW pin repeats the pattern —
+`test_position_accurate_clause_selection` (tests:1275) binds `why` unused, so it asserts only THAT the
+gate refused, never that the SECOND clause was the one examined; add `assert "class" in why`. AST scan
+found exactly these two unused reason bindings. (m3) Method disclosure, mine: I did NOT re-run the smoke
+this round — I grep-verified the honest Part-D label at benchmarks/consolidation_v2_stage4_smoke.py:174-176
+and reasoned it unchanged by construction (statement count 284→287 = +3, exactly the clause-boundary
+edit; branches unchanged at 102; the smoke's cancellation path measured 0 in R5). The claims block's
+"demonstrated end to end ... Rachel [2023/05/23] superseded by [2023/05/26]" rests on R5's run, not mine.
+
+**Refs:** llm/supersession.py:100,104-107,110-118,121-181(133-135,159-160,163-170),318-333,498-511;
+tests/test_supersession.py:1164-1177,1226-1233(1230-1233),1236-1244,1268-1284(1275),1287-1296,1299-1308;
+CONSOLIDATION_V2_BUILD_LOG.md:1310-1312,1366-1374(1369-1371),1385-1417,1419-1494(disclosure 5).
+Harnesses: scratchpad/s4r6/ (pkg/ = shadow copy; runmut.py + mut_results.json = 6 mutations;
+abbrev_probe.py = fixed-vs-mutant comparison; pkg/agentmem_os/tests/test_r6_critic_probe.py = the
+end-to-end write repro, scratch copy ONLY).
+
+**Who needs to know:** Dev-Head — one item. Either one regex guard in `_CLAUSE_SPLIT_RE` plus the Dr.
+Meyer pin, or two record edits (strike BUILD_LOG:1370's false "verified harmless", extend disclosure 5).
+Then m1's one-line disclosure and m2's one assertion. Bosses: **everything R6 was dispatched to confirm
+is confirmed** — 236 with the exact split, 98% with the exact uncovered set, conflict 28/28, all four
+demanded mutations red on the named test (both R5 survivors killed), the grep clean, the record's numbers
+exact. Stage 4 does not close only because the spot-check found a fourth-round-running instance of the
+same class: the record says a class was verified and the measurement says the opposite. Founder: the
+cancellation gate is genuinely much better than three rounds ago, but "I cancelled my appointment with
+Dr. Meyer" can still mark a different planned appointment cancelled, because the code treats the dot in
+"Dr." as the end of the sentence and throws away the name. It cannot happen in the product today, and
+the fix is small.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 7 (final minimal) — **BLOCK**
+
+**Claim reviewed:** "R6-Ma1 fixed in code (lookbehinds refuse a period after a 1-3-letter capitalized
+token) + pinned; R6-m1 negation window clause-bounded; R6-m2 both reason assertions prove the mechanism;
+the R6 record audited ('verified harmless' struck inline, disclosure-5 addition about abbreviation
+periods, smoke rerun); 237 tests (54/54/64/60/5); conflict 28/28; coverage 98% uncovered exactly 332-345;
+smoke reproduces incl. Part D — render the FINAL STAGE VERDICT."
+**Method:** reran the 5 scoped files (**237 passed, 124.8s**) + per-file collect counts; branch coverage;
+tests/test_conflict_detection.py DIRECTLY; **5 mutations on a scratch shadow copy** ($SC/pkg, containment
+asserted: `agentmem_os.__path__`, `llm.supersession.__file__` AND `tests.test_supersession.__file__` all
+resolve to the copy); a **3-variant A/B** (current vs pre-R6-m1 vs pre-R6-Ma1) to establish causation on
+every mismatch; 21 + 14 deterministic binding probes; AST scan of the test file; **smoke RERUN myself**
+(local llama3.1, free). Every shell exported AGENTMEM_OS_DB_PATH to a scratch file BEFORE any import.
+**Read-only proven:** all six file hashes byte-identical before and after (`shasum -c` all OK); prod DB
+mtime still Aug 6 23:26; `git status` byte-identical to session start.
+
+**Everything R7 was dispatched to confirm about the FIXES is confirmed, and every number is exact.**
+237/237 with the split EXACT (54/54/64/60/5). Conflict 28/28. Coverage llm/supersession.py = **287 stmts,
+6 missed, 102 branches, 0 partial = 98%, missing exactly 332-345**, read line-by-line: precisely the
+`_llm` HTTP body (`urllib.request.Request` → `return json.loads(body["response"])`) and nothing else.
+**M1 (revert the lookbehinds) turns `test_abbreviation_periods_do_not_truncate_the_clause` red ALONE**
+(1 failed / 53 passed) — the R6-Ma1 pin is real and load-bearing. **M2 (drop `and|but`) → 2 red**
+(`test_position_accurate_clause_selection`, `test_double_listed_candidate_type_guard_then_cancellation`)
+— conjunction splitting still works and is pinned. **M5 (reason drops the named-word list) → 2 red**
+while the refusals stay green — R6-m2 CLOSED: both assertions prove the MECHANISM, not the refusal. AST
+scan: **zero tautological asserts, zero unused why/reason bindings**. All 7 honorific probes (Dr./St./Mr./
+Mrs./Ave./Rev./Sgt.) now REFUSE with the name surviving in the reason; the true-cancellation-with-
+honorific control BINDS. R6-m1's own crossing-boundary probe behaves as claimed (pre-R6-m1 refused, now
+binds). BUILD_LOG:1370-1374 does carry the inline `[FALSIFIED by R6-Ma1 …]` strike. **Smoke rerun by me,
+reproduces exactly:** in-order=0, out-of-order=1 (Rachel [2023/05/23] superseded by [2023/05/26],
+t_invalid=2023/05/26, superseded_at set, facts_as_of still shows the old fact at its own date),
+boundary=0, Part D superseded=1 under the honest STORE-INJECTED/HAND-AUTHORED label.
+
+**Verdict: BLOCK — 1 blocker, 1 major, 4 minors.** The code fix R6 demanded is real and correctly pinned.
+The stage cannot close because the *replacement record line* R6 wrote is itself measurably false, at the
+same 5/6 rate, about the residual half of the same regex — and because R6-m1 shipped an undisclosed,
+unpinned change in the BINDING direction.
+
+**BLOCKER**
+- **(B1) The R6 disclosure-5 addition — the exact wording this round asks me to certify as part of the
+  definitive record — is affirmatively FALSE, measured 5/6 in the direction it calls safe.**
+  BUILD_LOG:1530-1533 states: *"abbreviation periods no longer truncate clauses (pinned); single-letter
+  abbreviations ('p.m.') still split, in the safe cue-first direction only."* Both halves are false. The
+  fix (llm/supersession.py:107-109) is scoped to **capitalized** 1-3-letter tokens; a period after a
+  **lowercase** abbreviation still truncates the clause, still deletes the naming words, and still moves
+  every error toward BINDING. Measured, all cue-FIRST, all wrong writes onto a DIFFERENT plan — **5 of 6**:
+  "cancelled the **Friday 6 p.m.** dinner reservation" → clause `"…cancelled the Friday 6 p"` → named
+  {friday} ⊆ plan → BINDS "plans a Friday **lunch** reservation"; "the **Tuesday p.m.** pottery class" →
+  binds "plans a Tuesday pottery **workshop weekend**"; "the **Monday a.m.** spin session" → binds "plans
+  a Monday **swimming** session"; "the **Saturday a.m.** German lesson" → binds "plans a Saturday German
+  **exam**"; "the **Rome vs.** Milan trip booking" → binds "plans a Rome **hiking** trip". Only the
+  "…, etc. for June" phrasing refused. 3-variant A/B proves this is **PRE-EXISTING, not an R6 regression**
+  (identical under pre-R6-Ma1) — what is new is the record asserting the class is safe. "cancelled the
+  Friday 6 p.m. dinner reservation" is far more natural in an extracted fact than "Dr. Meyer" ever was.
+  This is a **direct repeat of the lesson this team recorded one round ago** (lessons/process.md:702-704:
+  *"never accept 'class X verified harmless' unless the record names the probes; re-run the class in the
+  direction the probe did NOT cover"*) — R6 struck one unmeasured safety claim and replaced it with
+  another unmeasured safety claim about the residual. Remedy (a) code: drop the `[A-Z]` restriction —
+  refuse to split on a period after any 1-3-letter token (or require the period to be followed by
+  whitespace + a capital) — and extend the R6 pin with the "Friday 6 p.m. dinner reservation" text so M1
+  keeps it red; or (b) record: replace the addition with the measured truth, verbatim: *"the lookbehind
+  covers CAPITALIZED 1-3-letter abbreviations only; a period after a lowercase abbreviation ('p.m.',
+  'a.m.', 'vs.') still truncates the clause and still binds a different plan — 5 of 6 measured cue-first
+  phrasings falsely bind."* (a) is preferred for the same reason R6 gave: this gate exists to be right
+  BEFORE the parked plans-as-events decision flips.
+
+**MAJOR**
+- **(Ma1) R6-m1 made the negation window strictly NARROWER — a change in the BINDING direction — and it
+  is neither pinned nor disclosed.** llm/supersession.py:177 `window = new_text[max(c_start, m.start()-40)
+  :m.start()]`. Clause-bounding can only shrink the window, so fewer negations are seen and MORE cues
+  bind. Measured **5/5 false binds** that the pre-R6-m1 code refused (A/B verified on 3, mechanism
+  identical on all 5): "The user did **not** cancel the pottery class **and** cancel the pottery workshop
+  weekend." → BINDS "plans a pottery workshop weekend"; same for "will not … and cancel the Tokyo museum
+  tour", "has no plans to … and cancel the Rome training camp", "does not want to … and cancel the piano
+  recital", "never asked to … and cancel the Denver hotel". A distributed negator elided across `and` is
+  now invisible. **Unpinned:** M4 (revert to the raw 40-char lookback) leaves **54/54 green** — nothing in
+  the suite detects the reversion, the R5-Ma2 class again (a fix's key ingredient with no negative pin).
+  **Undisclosed:** disclosure 5 still says only *"a negation more than 40 characters before the cue is
+  invisible"*; a negation in a PRIOR CLAUSE is now also invisible, and that list claims to enumerate the
+  gate's residuals "all measured". Honest sizing: the trigger phrasing is strained, blast radius today
+  zero (cancellation prompt-unreachable). Remedy: one disclosure clause + one negative pin (the "did not
+  cancel X and cancel Y" text must refuse, or must be recorded as an accepted bind with reasoning).
+
+**MINORS.** (m1) **The period branch of `_CLAUSE_SPLIT_RE` is entirely unpinned** — M3 (delete `\.` from
+the splitter) leaves **54/54 green**. Errors here are refuse-direction only (longer clause → more named
+words → less likely subset), so it is a recall risk, not a wrong-write risk; but the round asked me to
+verify sentence-end splitting is pinned and it is not. One pin: a cancellation followed by an unrelated
+second sentence must still bind. (m2) **The claims block's own headline is stale**: BUILD_LOG:1444-1445
+still reads "236 tests green across the 5 scoped files (53/54/64/60/5)" while the tree is 237
+(54/54/64/60/5) — under-claim direction, harmless, but a block nominated as *definitive* must not
+disagree with the post-fix line 85 lines below it. (m3) The disclosure-5 addition lives in the **R6
+round-notes section (1530-1533), not inside the MANDATORY DISCLOSURES list (1467-1479)** — anyone quoting
+the mandatory disclosures verbatim omits it. Fold it in. (m4) Wording nit: "demonstrated end to end on a
+real corpus **in both session orders**" (1430-1432) reads as if supersession fired in both; my rerun
+measured 0 in-order / 1 out-of-order. Disclosure 2 corrects it, so this is a nit, not a defect.
+
+**Refs:** llm/supersession.py:100-109(107-109),119-127,159-193(163-177,181-190),332-345;
+tests/test_supersession.py:1213-1223,1226-1234,1269-1286(1281),1289-1298,1301-1310,1313-1336(1322);
+CONSOLIDATION_V2_BUILD_LOG.md:1366-1380(1369-1374),1422-1497(1444-1445,1467-1479),1499-1534(1520-1525,
+1527-1534); lessons/process.md:687-704(702-704),706-715. Harnesses: scratchpad/s4r7/ (pkg/ = shadow copy
++ sitecustomize; runmut.py + mut_results.json = 5 mutations; causation.py = the 3-variant A/B;
+probe.py / probe2.py = 35 binding probes; astscan.py; smoke_r7.txt = my smoke run).
+
+**Who needs to know:** Dev-Head — **two items**, both small. B1: delete `[A-Z]` from the three lookbehinds
+(or require whitespace+capital after the period) and add the "Friday 6 p.m. dinner reservation" case to
+the existing pin; if you choose the record route instead, use my verbatim replacement wording. Ma1: one
+disclosure clause + one negative pin for the distributed-negation bind. Then m1-m3 are three one-line
+edits. Bosses: **the R6 code fix is genuinely good and genuinely pinned** — M1 kills exactly the named
+test alone, the honorific family is closed 7/7 with the true-positive control intact, R6-m2 is closed by
+mutation, the smoke reproduces under my own run, and every headline number is exact for the fourth round
+running. Stage 4 does not close because the record wrote a second unmeasured "this class is safe" line
+immediately after being blocked for the first one — the same regex, the same direction, the same 5/6
+rate. Founder: the fix stopped "cancelled my appointment with **Dr.** Meyer" from marking the wrong
+appointment cancelled; it did not stop "cancelled the **Friday 6 p.m.** dinner" from doing exactly the
+same thing, and the write-up says that case is safe. Still impossible in the product today. Still a small
+fix.
+
+## 2026-08-07 — Critics — Consolidation v2 STAGE 4 (per-fact supersession), G3 ROUND 8 (minimal) — **PASS-WITH-NOTES** → **STAGE VERDICT: PASS-WITH-NOTES**
+
+**Claim reviewed:** "R7-B1 fixed (case-blind, TOKEN-ANCHORED lookbehinds) + pinned both ways; R7-Ma1
+reverted to the wide raw 40-char negation window + pinned; the four record edits made (falsified R6
+addition struck inline, splitter/negation behavior folded INSIDE mandatory disclosure 5, stale count
+reconciled, both-orders phrasing corrected to BACKFILL); 239 tests (56/54/64/60/5); conflict 28/28;
+coverage 98% uncovered exactly 341-354; smoke reproduces — render the STAGE VERDICT."
+**Method:** reran the 5 scoped files (**239 passed, 125.0s**) + per-file collect counts;
+`tests/test_conflict_detection.py` DIRECTLY as a script; branch coverage; **4 mutations on a scratch
+shadow copy** (containment asserted INSIDE pytest: `agentmem_os.__path__[0]`,
+`llm.supersession.__file__` and `tests.test_supersession.__file__` all resolve to the copy — the
+containment test passed as a real test, not a print); 41 deterministic binding probes in 6 families
+(conjunction truncation / growth-flip / string-start abbreviation / the full R7 honorific+lowercase set /
+true-positive controls / negation scope); AST scan of the test file; **smoke RERUN myself** (local
+llama3.1, free); line-by-line audit of all four record edits. Every shell exported
+`AGENTMEM_OS_DB_PATH` to a scratch file BEFORE any import (lessons:547). **Read-only:** all five source
+hashes byte-identical before and after (`llm/supersession.py` a71a87dc…, `tests/test_supersession.py`
+6a607a32…, `CONSOLIDATION_V2_BUILD_LOG.md` 51561c69…, the smoke 4d2fd309…, `memory/conflict_detector.py`
+caedfa66…); `git status` tracked-file set identical to session start — **one exception disclosed in n4.**
+
+**Everything R8 was dispatched to verify is CLOSED, and every number is exact for the fifth round
+running.** 239/239 with the split EXACT (56/54/64/60/5). Conflict **28/28, 100%**. Coverage
+llm/supersession.py = **287 stmts, 6 missed, 102 branches, 0 partial = 98%, missing exactly 341-354**,
+read line-by-line: precisely the `_llm` HTTP body (`req = urllib.request.Request(` → `return
+json.loads(body["response"])`) and nothing else.
+
+**The three demanded mutations each turn the NAMED test red, ALONE (1 failed / 55 passed in every case):**
+- **M1** revert to capitalized-only lookbehinds (`[A-Za-z]`→`[A-Z]` in each lookbehind head) →
+  `test_lowercase_abbreviations_do_not_truncate_and_negation_errs_wide` RED, and the Dr. Meyer pin stays
+  GREEN — the discriminating result: the pin is specific to the lowercase half R7-B1 raised.
+- **M2** delete the period branch → `test_sentence_period_split_is_load_bearing` RED. R7-m1 CLOSED; the
+  branch that was unpinned in R7 is now load-bearing.
+- **M3** re-apply R6-m1's clause-bounding (`max(0,…)`→`max(c_start,…)`, llm/supersession.py:186) →
+  `test_lowercase_abbreviations_do_not_truncate_and_negation_errs_wide` RED. R7-Ma1 CLOSED; the wide
+  window is now pinned by a NEGATIVE, which is exactly what R7-Ma1 said was missing.
+- **M4 (mine, unasked — a record-narrative check)** un-anchored lookbehinds (`(?<![A-Za-z])…`, i.e. the
+  "first fix attempt" the R7 record describes) → `test_sentence_period_split_is_load_bearing` RED. The
+  record's story about WHY the token anchor exists ("'marathon.' matched through its last two letters,
+  and the sentence-split pin caught it") is **verified by mutation, not taken on trust.**
+
+**Behavioral verification, 41 probes.** The R7-B1 family is **closed 12/12**: all seven honorifics
+(Dr./St./Mr./Mrs./Ave./Rev./Sgt.) and all five lowercase forms (p.m. ×2, a.m. ×2, vs.) REFUSE, each with
+the naming word surviving into the reason (`…names things outside the plan (meyer)`, `(dinner)`,
+`(spin)`, `(lesson)`, `(booking, milan)`). True-positive controls **4/4 BIND** (verbatim; true
+cancellation WITH an honorific; cancellation followed by a second sentence; a sentence ending in a
+3-letter word before the cue). Negation scope **0/5 binds** — all five R7-Ma1 "did not cancel X and
+cancel Y" shapes refuse. The string-start abbreviation edge (`"Dr. Meyer's appointment was cancelled."`)
+is **behaviorally inert** — the split fires there but only strips a ≤3-char token the 4-char floor
+discards anyway; 0/2 binds, names survive. The wide window's disclosed recall cost reproduces exactly as
+disclosure 5 describes (prior-clause negation suppresses a true cancellation → refuse; >40-char negation
+invisible → bind).
+
+**Record audit, all four edits, line by line — all four are real and all four are accurate:**
+1. **Strike** — `BUILD_LOG:1540-1546` carries `**[FALSIFIED by R7-B1 — this addition was a SECOND
+   unmeasured 'class is safe' sentence, broken at the same 5/6 rate …]**` immediately after the falsified
+   R6 sentence (1536-1539), with the measured truth and the fix. Correct.
+2. **Fold-in** — disclosure 5 runs 1468-1484 (item 6 begins 1485); the splitter and negation clauses are
+   at **1480-1484, INSIDE it**. R7-m3 closed: a verbatim quoter of the mandatory disclosures now gets
+   them. Both clauses are TRUE as written ("a period after ANY 1-3-letter token" — verified case-blind;
+   "the negation lookback deliberately crosses clause boundaries" — verified at :186) — with one measured
+   exception to a parenthetical, n2 below.
+3. **Count reconciliation** — `BUILD_LOG:1448` `**[Counts updated through R7: 239 tests,
+   56/54/64/60/5.]**`, three lines under the stale 1445 sentence, matching my own rerun exactly. R7-m2
+   closed by the inline-correction pattern the log already uses. See n3.
+4. **Both-orders** — 1431-1432 now reads "(run in both session orders; the supersession fired in the
+   BACKFILL order — disclosure 2 carries the 0-vs-1 asymmetry)". "BACKFILL" is the smoke's **own** label
+   (`benchmarks/consolidation_v2_stage4_smoke.py:11,130` — "B. OUT OF ORDER (backfill)"), and my rerun
+   measured in-order=0 / out-of-order=1. R7-m4 closed and terminologically consistent.
+
+**Smoke rerun by me, reproduces exactly:** in-order=**0**, out-of-order=**1** — Rachel [2023/05/23] "The
+user plans to catch up with Rachel soon." superseded by [2023/05/26], **t_invalid=2023/05/26**,
+**superseded_at set=True**, transition text present, and `as-of 2023/05/23` STILL returns the old fact at
+its own date; boundary-case=**0**; **Part D superseded=1** under the honest "STORE-INJECTED,
+HAND-AUTHORED facts, real judge LLM: the metric signal has never fired on an EXTRACTED fact (disclosed)"
+label. AST scan of tests/test_supersession.py: **zero tautological asserts, zero unused why/reason
+bindings** — R6-m2 and R7-m5 stay closed under two new tests.
+
+**VERDICT: PASS-WITH-NOTES — 0 blockers, 0 unresolved majors, 4 notes.** Stage 4 closes. The **STAGE 4
+HONEST CLAIMS OF RECORD block (BUILD_LOG:1422-1497, as amended through R7) is the stage's definitive
+record**, subject to note n1, which is a one-clause addition to disclosure 5 and does not reopen the
+stage. I could not find a single false number, a single false statement, or a single unpinned fix in it.
+
+**NOTES (must ride along).**
+
+- **(n1) MANDATORY record addition — the CONJUNCTION half of `_CLAUSE_SPLIT_RE` truncates exactly like
+  the period half did, at the same 5/6 rate and in the same BINDING direction, and disclosure 5 does not
+  name the mechanism.** llm/supersession.py:112-115 — R6-Ma1 and R7-B1 both fixed the `\.` alternative;
+  the `\band\b|\bbut\b` alternatives of the SAME regex were never probed. A conjunction inside a
+  coordinated noun phrase splits BEFORE the shared head noun and deletes it. Measured, cue-first, **5 of
+  6**, and I can hit it with the R7 pin's own sentinel pairs: "cancelled the Friday **and Saturday dinner
+  reservations**" → clause `"The user cancelled the Friday and"` → named={friday} ⊆ plan → **BINDS**
+  "plans a Friday **lunch** reservation" (R7-B1's exact pair, re-reachable via `and`); "cancelled the
+  German **and Spanish lessons**" → BINDS "plans a German **exam**" (again R7-B1's pair); "cancelled the
+  pottery **and painting classes**" → BINDS "plans a pottery **workshop weekend**"; "cancelled the
+  pottery **but kept the painting class**" → BINDS the same; "cancelled the Rome and Milan trips" → binds
+  a Rome hiking trip (arguably correct, not counted as clearly false). Only the morning/evening shape
+  refused. Write chain is unbroken: `binds=True` → :532 `cancel_plan.append(cid)` → :554
+  `store.mark_event_cancelled(cid, db=txn)`, no gate between (R6 proved this end-to-end for the identical
+  mechanism; **I did not re-run the write repro this round**).
+  **Why this is a NOTE and not a blocker — stated plainly so the standard stays consistent:** R6-Ma1 and
+  R7-B1 were blockers because the record made an affirmative safety claim that measurement falsified.
+  Nothing in the record claims conjunction splits are safe, and disclosure 5 already discloses this
+  class's SYMPTOM verbatim — *"a clause naming only GENERIC words that appear in the plan binds without
+  naming anything distinctive"* — which is literally what named={friday} is. Blast radius is doubly zero
+  (disclosure 4: cancellation is prompt-unreachable, 0/23 planned markers; disclosure 8: nothing wired
+  into product retrieval). And a real code fix needs shared-head-noun detection over a coordinated NP,
+  which is out of proportion to a gate that cannot fire; the `and|but` branch is also load-bearing (R7's
+  M2 → 2 red), so it cannot simply be deleted. What IS required: disclosure 5 opens "The containment
+  gate's own misses and residuals, **all measured**", and that is a completeness claim. Append, verbatim:
+  *"the same truncation applies to the `and`/`but` branch of the splitter: a conjunction inside a
+  coordinated noun phrase splits before the SHARED HEAD NOUN and deletes it, so 'cancelled the Friday and
+  Saturday dinner reservations' names only {friday} and binds a Friday LUNCH plan — 5 of 6 measured
+  cue-first phrasings; every splitter false split, period or conjunction, moves toward BINDING."*
+  Recommend a pin alongside it so a future splitter edit cannot silently widen the class.
+- **(n2) One measured exception to a parenthetical now inside disclosure 5.** 1482-1484 says missed
+  sentence splits "GROW the clause, which is the refusing direction". Growth is refusing-direction for
+  the `outside` test but BINDING-direction when it rescues an EMPTY named set: `named` empty → "cue
+  clause names nothing" → refuse; grow the clause and it can become non-empty AND a subset → BIND.
+  Measured 1/4, and only with unnatural text ("The user cancelled it. The pottery workshop weekend was
+  fun." → BINDS, because "it." is a 2-letter token so the sentence period no longer splits). Note-level
+  precisely because I could not reach it with natural extracted-fact phrasing — I tried four shapes and
+  three refused. Suggested amendment: "…which is the refusing direction **except when the cue clause
+  named nothing, where growth can flip a refusal into a bind (measured once, on contrived text)**".
+- **(n3) The stale count text still stands in the CAN-claim sentence.** `BUILD_LOG:1445-1447` still reads
+  "236 tests green across the 5 scoped files (53/54/64/60/5)", corrected only by the bracket at 1448.
+  This is the same inline-correction pattern the log uses elsewhere and it preserves history honestly, so
+  it is not a defect — but anyone lifting that SENTENCE alone quotes a stale number. Cleanest fix:
+  put the bracket immediately after "(53/54/64/60/5)" rather than at the end of the paragraph.
+- **(n4) Method disclosure, mine — I was not perfectly read-only.** Running the dispatched `--cov` checks
+  inside the repo caused pytest-cov to write and combine `.coverage*` data files in the repo root: the
+  untracked `.coverage.Sahiths-MacBook-Pro.local.34248.XYLfFMlx` present at session start is gone and a
+  new parallel file is present. No tracked file, no source file, and no doc changed (hashes above), and
+  these are regenerated by any coverage run — but it is a slip against my own standing rule and I am
+  recording it rather than claiming a clean session. Lesson filed: export `COVERAGE_FILE` to scratch, or
+  run coverage from the shadow copy.
+
+**Refs:** llm/supersession.py:100-115(112-115),136-202(159-190,181,186),526-532,554;
+tests/test_supersession.py:1313-1336,1339-1359,1361-1370; CONSOLIDATION_V2_BUILD_LOG.md:1422-1497
+(1431-1432,1445-1448,1468-1484,1480-1484),1499-1546(1540-1546),1548-1585;
+benchmarks/consolidation_v2_stage4_smoke.py:8-13,130,168-176. Harnesses: scratchpad/s4r8/ (pkg/ = shadow
+copy; sitecustomize.py = editable-finder remap; runmut.py + runmut2.py = the 4 mutations; probe.py /
+probe2.py = 41 binding probes; astscan.py; smoke_r8.txt = my smoke run).
+
+**Who needs to know:** **Bosses — Stage 4 is CLOSED, PASS-WITH-NOTES, after 8 rounds.** Every number in
+the record is exact for the fifth round running; all three demanded mutations kill exactly the named test
+alone; the R7-B1 family is closed 12/12 with true-positive controls intact; the period branch and the
+wide negation window are both now pinned by negatives, which is what R7 said was missing; the smoke
+reproduces under my own run; the four record edits are real and accurate; and the record's own narrative
+about why the token anchor exists is verified by mutation. Ship it with n1 attached. **Dev-Head —** one
+required edit before the claims block is quoted anywhere: append n1's verbatim clause to disclosure 5
+(and, if cheap, a pin). n2/n3 are one-line wording improvements. **Founder —** the cancellation gate is
+now genuinely good: "cancelled my appointment with Dr. Meyer" and "cancelled the Friday 6 p.m. dinner"
+both correctly refuse to touch a different plan, and the write-up no longer claims anything I could
+measure as false. The remaining known hole is the mirror image via "and": "cancelled the Friday **and
+Saturday** dinner reservations" can still mark a Friday lunch cancelled. It cannot happen in the product
+today — the extractor never produces the marker this gate needs, and none of this is wired into
+retrieval — and it is now written down as a known limit instead of being claimed safe. That last part is
+the whole difference between rounds 6-7 and this one.

@@ -8,6 +8,18 @@ Phase 1 Stress Test — Conflict Detection
 Run: python3 tests/test_conflict_detection.py
 """
 
+# DB-path guard (G3 S4-R1 Ma8, REPLACED in R2 — the first version was
+# injected INSIDE this docstring and never executed, proven when an
+# inherited env var migrated 17 tables at its path; third incident of
+# the class): this is a SCRIPT outside conftest protection, and
+# importing the product reaches db.engine, whose import runs init_db()
+# against whatever DB resolves. FORCE a scratch path before any
+# agentmem_os import — inherited environment included.
+import os as _os
+import tempfile as _tempfile
+_os.environ["AGENTMEM_OS_DB_PATH"] = _os.path.join(
+    _tempfile.mkdtemp(prefix="agentmem-conflict-test-"), "t.db")
+
 import sys
 import time
 from pathlib import Path

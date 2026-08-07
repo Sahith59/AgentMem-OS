@@ -186,6 +186,51 @@ def init_db() -> None:
     _migrate_temporal_kg()
     _migrate_semantic_tier()
     _migrate_stage3()
+    _migrate_stage4()
+
+
+def _migrate_stage4() -> dict:
+    """
+    Stage 4 additive migration (supersession judgment): t_invalid and
+    judge_failure columns; supersession_judgments is created by
+    create_all (absent-table honesty like every stage before it). Same
+    discipline: duplicate-column-only swallow, loud otherwise.
+    """
+    import sqlite3 as _sqlite3
+    from loguru import logger as _logger
+
+    report = {}
+    conn = None
+    try:
+        conn = _sqlite3.connect(DB_PATH, timeout=30)
+        for table, col in (("semantic_facts", "t_invalid TEXT"),
+                           ("consolidation_log", "judge_failure TEXT")):
+            if conn.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' "
+                    "AND name=?", (table,)).fetchone() is None:
+                report[table] = "table absent (create_all creates it)"
+                continue
+            try:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {col}")
+                conn.commit()
+                report[table] = f"{col.split()[0]} added"
+            except _sqlite3.OperationalError as e:
+                if "duplicate column" not in str(e):
+                    raise
+                report[table] = "verified"
+        report["supersession_judgments"] = (
+            "present" if conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' "
+                "AND name='supersession_judgments'").fetchone()
+            else "absent (create_all creates it)")
+        _logger.info(f"[migrate] stage 4: {report}")
+        return report
+    except Exception as e:
+        raise RuntimeError(
+            f"stage 4 migration failed against {DB_PATH}: {e}") from e
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 def _migrate_phase1() -> None:

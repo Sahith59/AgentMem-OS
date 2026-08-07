@@ -218,6 +218,13 @@ class SemanticFact(Base):
 
     superseded_by     = Column(Integer, ForeignKey("semantic_facts.id"), nullable=True)
     superseded_at     = Column(DateTime, nullable=True)    # when WE invalidated it
+    # Stage 4: DOMAIN time a state stopped being true — the third axis
+    # Graphiti splits as invalid_at vs expired_at, and the KG already
+    # proves in-repo as valid_until. Sortable "YYYY/MM/DD", nullable
+    # (unknown/never-ended). Set at supersession from the superseding
+    # fact's domain time. DISTINCT from superseded_at (decision time):
+    # "we learned on Aug 6 that the job ended in June" stores both.
+    t_invalid         = Column(String, nullable=True)
 
     __table_args__ = (
         UniqueConstraint("scope_key", "normalized_hash", name="uq_facts_scope_hash"),
@@ -283,6 +290,41 @@ class SemanticFactEntity(Base):
         UniqueConstraint("fact_id", "node_id", name="uq_fact_entity"),
         # Reverse direction: "facts mentioning node N".
         Index("idx_fact_entities_node", "node_id", "fact_id"),
+    )
+
+
+class SupersessionJudgment(Base):
+    """
+    The persisted audit row for EVERY supersession judgment (Stage 4) —
+    one per (new fact, judgment run), whether or not anything was
+    superseded. graphiti#1666's lesson: silent under-judgment ships
+    undetected without this; and the inspectable-history story requires
+    showing why a supersession did or did NOT happen. A fact with no
+    row here has never been judged — that absence IS the recovery
+    sweep's candidate marker (the link_missing pattern).
+
+    Dropped proposals are recorded WITH their reason (out-of-shortlist
+    id, co-signal disagreement, direction tie, type/status guard) — the
+    model's raw output is kept verbatim so a judgment can be re-audited
+    against what the model actually said.
+    """
+    __tablename__ = "supersession_judgments"
+
+    id             = Column(Integer, primary_key=True, autoincrement=True)
+    fact_id        = Column(Integer, ForeignKey("semantic_facts.id"), nullable=False)
+    session_id     = Column(String, nullable=True)   # consolidation session
+    model          = Column(String, nullable=False)
+    shortlist_json = Column(Text, nullable=False)    # candidate ids + cap note
+    cosignal_json  = Column(Text, nullable=True)     # per-candidate signals
+    raw_output_json = Column(Text, nullable=True)    # model verdict verbatim
+    applied_json   = Column(Text, nullable=True)     # supersessions/cancels done
+    dropped_json   = Column(Text, nullable=True)     # proposals dropped + WHY
+    skipped        = Column(String, nullable=True)   # whole-judgment skip reason
+    created_at     = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index("idx_judgments_fact", "fact_id"),
+        Index("idx_judgments_session", "session_id"),
     )
 
 
@@ -442,6 +484,10 @@ class ConsolidationLog(Base):
     # metadata (link_missing() sweeps) must never mean invisible.
     entities_linked     = Column(Integer, default=0)
     link_failure        = Column(Text, nullable=True)   # NULL = clean run
+    # Stage 4 audit coherence (the R5 lesson applied forward): a judge-
+    # level failure must be visible in the SAME audit row as the run it
+    # belongs to — per-judgment detail lives in supersession_judgments.
+    judge_failure       = Column(Text, nullable=True)   # NULL = clean run
     timestamp           = Column(DateTime, default=datetime.utcnow)
 
 

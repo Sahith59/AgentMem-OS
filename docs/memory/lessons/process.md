@@ -500,3 +500,283 @@ had no tripwire either — reverting it to the old rule left 14 selected tests g
 enforced check ("every claimed fix goes through the mutation sweep, not just the ones a previous round
 named") recurring one level up: **new code written to satisfy a reviewer is unreviewed code — mutate its
 own safety claims and honesty flags before calling the round closed.**
+
+## 2026-08-06 — A candidate-selection threshold reused as the DECISION gate is not a gate (Critics, Stage 4 R1)
+
+Stage 4's defensibility argument for an 8B judge is "the LLM only proposes; a deterministic co-signal
+must agree". The shortlist's lexical pool admits candidates on `_tfidf_cosine(new, cand) >= 0.25`, and
+the co-signal then checks `cosine >= 0.25` — same function, same text pair, same constant. Every
+lexical-pool candidate passes the gate by construction, so for that pool the verdict is LLM-only.
+Measured: "The user is allergic to peanuts." invalidated by "The user is allergic to shellfish."
+(cosine 0.6311, no polarity flip, no entity link, dropped=[]) — the exact dangerous class the design
+cites Mem0 #1674 for. The reuse was invisible because the pool was added at a LATER gate than the gate
+it silently disarmed, and the justifying comment still described the pre-pool world ("our shortlist
+already guarantees entity overlap"). **Enforced check: when a new candidate source is added to a
+pipeline, re-derive every downstream gate's independence for that source — a gate whose predicate is
+implied by the selector must be raised, replaced, or declared inert in the record — and never source a
+threshold from a docstring (0.25 was cited to `forget_about`, whose code uses keyword overlap and no
+cosine at all).**
+
+## 2026-08-06 — A shortlist admitted for one ACTION is reachable by every other action (Critics, S4 R1)
+
+Planned events were added to the judgment shortlist in a reserved pool so they could be CANCELLED.
+The cancellation loop guards `ctype == "event" and cstatus == "planned"`; the supersession loop, which
+runs FIRST over the same shortlist, has no type guard at all — so the model naming a planned event in
+`superseded_ids` supersedes it. Worse, 'planned' means future-dated, so the domain-time direction rule
+always makes the event the WINNER: the user's true current state fact is the one invalidated, and a
+candidate double-listed in both arrays ends up cancelled AND the superseder of a live fact. The record
+claimed that case was "dropped by the status guard"; reproduced, it drops nothing. **Enforced check:
+every candidate that enters a shortlist must be type-checked at EVERY action that consumes the
+shortlist, not only at the action it was admitted for — and a direction rule that reads a date must ask
+whether one class of candidate always wins that comparison.**
+
+## 2026-08-06 — Committing the action before the audit row makes the recovery marker lie (Critics, S4 R1)
+
+The judge applies supersessions through the store (each its own committed transaction) and writes the
+judgment row afterwards in a separate session. A crash in that window leaves an applied, durable
+supersession with no audit row — and because the sweep's candidate predicate is "live fact with no
+judgment row", the loser is now invisible to recovery: permanently unaudited, never re-judged, against
+a documented contract that "a fact with no judgment row has never been judged". The mirror case is
+worse for honesty: the re-judgment persists "store refused: already superseded" for an action this same
+judge performed. **Enforced check: an audit row that doubles as a recovery marker must be written in
+the SAME transaction as the actions it records; if it cannot be, the docstring must say which states
+the marker cannot distinguish.** (Sibling of Stage-3 R3's "a zero-rows sweep cannot recover a PARTIAL
+failure" — the predicate again covers the failure it was written for and misses the one the new code
+creates.)
+
+## 2026-08-06 — A reviewer's own read-only rule dies at the first module-level import (Critics, S4 R1)
+
+I ran the review's named script (`python3 tests/test_conflict_detection.py`) and later imported
+`agentmem_os.llm.supersession` to check a scratch path. Both ran `init_db()` — every migration — against
+the founder's production DB, because Stage 4 added a MODULE-level `from agentmem_os.memory.conflict_detector
+import ...` and that module module-imports `db.engine`, whose tail calls `init_db()`. Measured:
+`import agentmem_os.llm.consolidation_v2` does NOT pull the engine; `import agentmem_os.llm.supersession`
+does. Outcome was benign (verified read-only: 0 leftover rows, CO_OCCURS 32,194 / 35,051.0 unchanged),
+but this is the SECOND occurrence of the R3 incident, and the first one produced a standing rule I
+believed I was following. **Enforced check (reviewers): export AGENTMEM_OS_DB_PATH to a scratch file in
+EVERY shell and EVERY harness before any import or any script run — not only when a DB is obviously
+involved; a task instruction to "run this directly" is not an exemption. (Builders): a new module-level
+import edge into a package whose import runs migrations is a defect on its own — keep DB imports
+function-local, as the rest of that module already does.**
+
+## 2026-08-07 — A "stripped" signal that strips what the metric already ignores is the same signal twice (Critics, S4 R2)
+
+R1-B2 blocked a vacuous gate (admission cosine == agreement cosine). The fix added an "independent"
+metric-update signal: numbers differ AND the NUMBERS-STRIPPED texts are near-identical (cosine >= 0.7).
+But the repo's `_tfidf_cosine` tokenises with `re.findall(r"[a-z]+")` — digits were never in the vector.
+Measured: `stripped_cosine == cosine` on 20,000 randomized adversarial pairs, zero exceptions. The new
+gate is `cosine >= 0.7` wearing a different name, and it is number-BLIND in the worst place: "personal
+best time in the charity 5K run is 25:31" vs "...10K run is 55:12" scores cosine 1.000, so the 5K record
+is invalidated by the 10K record with dropped=[]. **Enforced check: before claiming a second signal is
+INDEPENDENT of the first, compute both on the same inputs and prove they differ — read the tokenizer, not
+the function name. A transformation that removes information the measure never had is a no-op, and a
+threshold on a no-op is the original threshold.**
+
+## 2026-08-07 — The action nobody attacked is the one with no gate (Critics, S4 R2)
+
+Every gate in the supersession judge sits on the supersede path, because that is the path two review
+rounds attacked. The cancellation path — same shortlist, same model output, same transaction — checks
+only "is this candidate a planned event". No co-signal, no topical test. The co-signal IS computed for
+those candidates and IS persisted; it is simply never read, so an audit row exists that records
+`"agrees": false` next to an applied cancellation. And the same round's reader-side fix (cancelled facts
+excluded from current_facts and facts_overlapping) silently RAISED the blast radius of that ungated
+action from cosmetic to "the plan disappears from the user's memory". **Enforced check: when a module has
+more than one write action, enumerate the gates per ACTION, not per module — and when a change makes an
+existing action's effect more visible or more permanent, re-derive that action's gate before shipping the
+visibility change.**
+
+## 2026-08-07 — A guard pasted after the opening triple-quote is a string, not a guard (Critics, S4 R2)
+
+The Ma8 fix for the reviewer-safety finding ("this script must pin a scratch DB path before any import")
+was inserted immediately after the module docstring's opening `"""` — nine lines of import-and-assign that
+Python stores as prose. The record says the guard landed; running the script with an inherited
+AGENTMEM_OS_DB_PATH still created and migrated 17 tables at the inherited path (verified against a scratch
+"PRETEND_PROD" file). Third occurrence of the import-time-migration class in this project, and the first
+where the FIX was the failure. **Enforced check: a guard that must run before imports is verified by
+OBSERVING it run (print/assert the value it sets, or point it at a decoy path and confirm the decoy stays
+untouched) — never by reading the diff. Reviewers: keep exporting the scratch path in every shell anyway;
+the guard you were told about may not exist.**
+
+## 2026-08-07 — A gate whose test is the pool's own admission test is the pool, twice (Critics, S4 R3)
+**Evidence:** llm/supersession.py:408-416 gates cancellation on `shared_nodes or _content_word_overlap(new,
+cand)`. Cancellation candidates can only reach the shortlist through the planned pool (:544-558), whose
+admission test is *the same two properties*: entity-linked facts are drawn from `peer_fact_ids` (shared
+node -> `shared_nodes` True), entity-less facts are filtered by `_content_word_overlap(fact.fact_text,
+c.fact_text)` — the identical call the gate then repeats. Measured on every reachable candidate: the gate
+passes 100% of the time. The only test that turns "delete the gate" red builds a snapshot by hand that the
+shortlist cannot produce.
+**Rule:** before believing a gate, ask what SELECTED the thing being gated. If the selector and the gate
+test the same property, the gate's true rejection rate is zero and its test must be written through the
+product entry point, not through a hand-built snapshot. Third occurrence of lessons:504 in one stage.
+
+## 2026-08-07 — "X implies Y, so the check is dead" needs a fuzz over the ALPHABET, not the semantics (Critics, S4 R3)
+**Evidence:** `_metric_update` dropped its length check because "equal masks imply equal token counts (each
+'#' is one token)". True for every digit, unicode digit and whitespace input — 200k fuzz, zero
+counterexamples. False the moment a literal `#` appears in the source text: "ticket is 7 and it is 3 days
+old" vs "ticket is # and it is 3 days old" mask identically with 2 vs 1 numbers, `zip` silently truncates,
+and the function returns True on a misaligned comparison (7 against 3). My first fuzz missed it because my
+alphabet did not contain the mask character itself.
+**Rule:** when a lemma justifies deleting a guard, fuzz the alphabet including the SENTINEL the transform
+emits. The output character of a normalizer is always a legal input character.
+
+## 2026-08-07 — A rebuilt function whose docstring still describes the version it replaced (Critics, S4 R3)
+**Evidence:** `_cosignal`'s docstring (:576-577) still says the metric signal is "numbers-stripped texts
+near-identical (cosine >= 0.7)" — the exact arithmetic the previous round proved vacuous and which no
+longer exists anywhere in the function; and (:572-573) still calls the flip subject guard
+"entity/content-word overlap" while the code twenty lines down requires an entity node only, contradicted
+by its own inline comment. Both survived a round in which the function was rewritten and the build log was
+corrected in five places.
+**Rule:** a rewrite's diff must include every self-description ABOVE the changed lines, not only the
+build-log record. Grep the changed function for the falsified constant/phrase before calling the fix done.
+
+## 2026-08-07 — Raising a threshold is not the same as changing what it measures (Critics, S4 R4)
+**Evidence:** R3 blocked a cancellation gate that required ONE shared content word ("climbing") between
+the cancelling text and the plan. The fix raised it to TWO and added a clause test. Both the old and the
+new rule measure the same thing — how many >=5-char words the two strings happen to share — so the
+failure just moved up one word: "cancelled his weekend TRAINING session with the physiotherapist"
+cancels "plans to join the weekend TRAINING camp for the marathon", real llama3.1, 3/3 deterministic.
+The calibration is inverted at the same time: verbatim TRUE cancellations of short-named plans ("Rome
+marathon", "yoga class", "gym trial") all REFUSE at 1 shared word. Generic words are frequent, so a
+count-based rule admits the coincidences and rejects the identities.
+**Rule:** when a gate is defeated by a coincidence, ask whether the fix changes the MEASURE or only its
+threshold. A threshold change must be validated with a fresh adversarial set built from the SAME
+coincidence mechanism at the new setting (here: two generic words, not one) — re-running the old
+counterexample only proves the old counterexample is dead. And measure the true-positive side too: a
+gate that rejects real cancellations while admitting fake ones is not conservative, it is miscalibrated.
+
+## 2026-08-07 — An assertion that cannot fail is how a survivor mutation comes back green (Critics, S4 R4)
+**Evidence:** R1-m3/R2/R3-m3 all reported the same survivor — the recovery sweep's `superseded_by IS
+NULL` filter has no tripwire. The R3 fix round added
+`assert all(r2.skipped != None or True for r2 in rows_a)` to test_shortlist_and_sweep_exclude_superseded,
+and the build log recorded "m2/m3 pool and sweep live-filters pinned". `X != None or True` is a
+tautology; the neighbouring `assert not any(r2.raw_output_json ...)` also cannot fail because the code
+under test skips superseded facts before the LLM call. Deleting the filter still passes all 228 tests,
+fourth round running.
+**Rule (builders):** a test written to kill a surviving mutant must be validated by RUNNING that
+mutation and watching it go red — a pin is proven by the red, never by the green. **(Reviewers):** grep
+new assertions for `or True`, `!= None or`, `assert x or`, and any `assert` whose right side is a
+constant, before believing a "pinned" claim; then re-run the exact mutation the pin names.
+
+## 2026-08-07 — A position-accurate check applied to a string-matched context checks the wrong span (Critics, S4 R5)
+**Evidence:** `_cancellation_binds` v3 tests negation at the exact match offset
+(`new_text[m.start()-40:m.start()]`) but then picks the clause with
+`next(c for c in split(new_text) if m.group(0).lower() in c.lower())` — the FIRST clause containing the
+cue STRING, not the clause containing THIS match. With the same cue form in two clauses, a non-negated
+occurrence is judged on a NEGATED clause's words: "The user did not cancel the pottery workshop weekend,
+but did cancel the pottery class." marks "The user plans a pottery workshop weekend." CANCELLED
+(measured through judge_fact, event_status='cancelled'). The pinned test could not catch it because its
+two cue forms differ ("cancelled" vs "cancel"). The mirror image is a silent miss: a true cancellation in
+the second clause is judged on the first clause and refuses.
+**Rule:** when one part of a check uses match POSITIONS and another part re-finds the same token by
+string search, they can disagree — carry the span through (offsets) instead of re-searching. Reviewers:
+for any per-occurrence loop, build a case where the SAME surface form appears twice with different
+polarity and assert the gate reads the occurrence it claims to read.
+
+## 2026-08-07 — A symmetric rule cannot be pinned by a positive example (Critics, S4 R5)
+**Evidence:** R4-B1's fix hinged on lowering the content-word floor from 5 to 4 chars "to recover the
+distinctive short words the 5-char rule destroyed ('yoga', 'rome')". The pin added for it asserts the
+Rome cancellation BINDS its Rome plan. Because containment compares two sets built by the SAME extractor,
+raising the floor back to 5 drops 'rome' from BOTH sides and leaves {marathon} ⊆ {marathon} — the
+assertion still passes, and the whole 233-test suite stays green while "cancelled the Rome marathon"
+starts binding a BOSTON marathon plan and "cancelled the yoga class" starts binding a pottery class.
+**Rule:** a constant that controls DISCRIMINATION is only observable on a NEGATIVE case. When a rule is
+symmetric (same transform applied to both sides), a positive-example test pins nothing about the
+transform — write the negative (a distinctive word present on one side only) and prove it by running the
+mutation red.
+
+## 2026-08-07 — A text splitter feeding a containment rule has all its errors in the unsafe direction (Critics, S4 R6)
+**Evidence:** `_cancellation_binds` decides "everything the cancelling CLAUSE names must be in the plan",
+and the clause comes from `_CLAUSE_SPLIT_RE = [.;!?]|\band\b|\bbut\b`. An abbreviation period ends the
+clause early: "The user cancelled the appointment with Dr. Meyer." → clause "The user cancelled the
+appointment with Dr" → named={appointment}, which IS a subset of "plans an appointment at the downtown
+clinic" → BINDS, and judge_fact writes event_status='cancelled' with dropped=[]. The control without the
+period ("with Doctor Meyer") refuses. 5 of 6 abbreviation shapes (Dr./St./Mr./Mrs./Ave.) false-bind.
+The asymmetry is structural: a splitter false positive can only SHRINK the named set, and a smaller set
+is strictly more likely to be a subset — so every parsing error pushes toward BINDING, never toward
+refusing. The defect survived rounds 3-6 because each round tested the RULE and never the PARSER feeding
+it, and because the round-4 record wrote "abbreviation clause-splitting verified harmless for cue-first
+phrasings" from a probe that only exercised the cue-LAST (safe) direction.
+**Rule (builders):** when a gate's decision is a set relation over words a parser extracted, ask which
+direction each parser error moves the decision. If all errors move toward the unsafe verdict, the parser
+is part of the gate and must be adversarially tested with the gate — real punctuation (abbreviations,
+decimals, ellipses, quotes), not just clean sentences. **(Reviewers):** never accept "class X verified
+harmless" unless the record names the probes; re-run the class in the direction the probe did NOT cover.
+A finding raised in the safe direction does not license a "harmless" verdict on its mirror.
+
+## 2026-08-07 — Fixing the context selector without fixing the context WINDOW leaves the fix half-applied (Critics, S4 R6)
+**Evidence:** R5-Ma1 was fixed correctly — clause boundaries now come from the splitter's spans by match
+position — but the negation test next to it still reads a raw `new_text[m.start()-40:m.start()]`, which
+crosses the very boundaries the fix computes. Result, measured: "The user did not cancel the pottery
+class but cancelled the pottery workshop weekend." reports BOTH occurrences NEGATED and refuses a true
+cancellation. Safe direction here, so no test noticed, and the build log claims "span-accurate negation
+demands span-accurate clauses" as if both were now span-accurate.
+**Rule:** when a fix replaces one notion of "the surrounding context" with a better one, grep the same
+function for every OTHER place that computes context by the old notion and either convert them or state
+in the record that they were deliberately left, with the measured consequence and its direction.
+
+## 2026-08-07 — The REPLACEMENT disclosure is an unverified claim too (Critics, S4 R7)
+**Evidence:** R6 blocked Stage 4 because BUILD_LOG said "abbreviation clause-splitting verified harmless
+for cue-first phrasings" and measurement showed 5/6 false BINDS. The fix struck that line — and wrote a
+new one: "single-letter abbreviations ('p.m.') still split, in the safe cue-first direction only." Nobody
+probed it. R7 probed it: **5 of 6 cue-first phrasings falsely bind** — "cancelled the Friday 6 p.m.
+dinner reservation" → clause truncates to "…the Friday 6 p" → named={friday} ⊆ "plans a Friday lunch
+reservation" → BINDS. Identical mechanism, identical direction, identical 5/6 rate as the line it
+replaced. The code fix was scoped to CAPITALIZED 1-3-letter tokens (`(?<![A-Z])…`); the record described
+the residual as safe without measuring the residual.
+**Rule (builders):** when a fix covers part of a class, the disclosure of what is LEFT is a new claim and
+needs its own probes before it is written. Never carry a "the rest is safe" sentence out of a round that
+was blocked for exactly that sentence. **(Reviewers):** after a fix lands, probe the COMPLEMENT of what
+the fix covers — read the guard's own scope words ("capitalized", "1-3 letter") and build the probe set
+from what they exclude.
+
+## 2026-08-07 — Measure the direction of the FIX, not only the direction of the bug (Critics, S4 R7)
+**Evidence:** R6-m1 narrowed the negation lookback to the clause (`max(c_start, m.start()-40)`). The BUG
+it fixed was refuse-direction (a prior clause's negation suppressed a true cancellation). The FIX is
+binding-direction: a narrower window sees FEWER negations, so more cues bind. Measured 5/5 new false
+binds the old code refused — "The user did **not** cancel the pottery class **and** cancel the pottery
+workshop weekend." now binds the workshop plan, because the elided negator sits in the prior clause.
+No test noticed: reverting the change leaves 54/54 green.
+**Rule:** any change to a suppression/veto window is a change to how often the unsafe verdict is reached.
+State which direction the fix moves the gate, measure the newly-admitted cases, disclose them, and pin
+the fix by a NEGATIVE (a case that must still be suppressed) — a fix whose reversion leaves the suite
+green is unpinned, whatever its round number.
+
+## 2026-08-07 — Fix ONE alternative of a regex, and the other alternatives keep the bug (Critics, S4 R8)
+**Evidence:** `_CLAUSE_SPLIT_RE` has four alternatives: `\.` , `[;!?]` , `\band\b` , `\bbut\b`. R6-Ma1
+found the period alternative truncating the cue clause and false-binding 5/6; R7-B1 found the residual
+LOWERCASE half of the same alternative false-binding 5/6; both were fixed. Nobody ever probed `and`/`but`
+— and they truncate identically, because a conjunction inside a coordinated noun phrase splits BEFORE the
+shared head noun: "cancelled the Friday **and Saturday dinner reservations**" → clause "…cancelled the
+Friday and" → named={friday} ⊆ "plans a Friday **lunch** reservation" → BINDS. 5 of 6 measured, and it
+re-reaches the EXACT sentinel pairs (Friday dinner→lunch, German lesson→exam) that the R7 pin certifies
+as refusing. Two rounds of fixes hardened one branch of a four-branch regex and the record moved on.
+**Rule (builders):** when the defect is in one alternative of an alternation (regex `|`, a dispatch
+table, an if/elif chain), the unit of repair is the ALTERNATION, not the alternative. Enumerate every
+branch, run the same probe set through each, and record per-branch results — "fixed" means the class is
+closed on all branches or the open ones are named in the disclosure. **(Reviewers):** when a fix lands on
+one branch, build your next probe set by substituting the OTHER branches into the round's own pinned test
+fixtures. If the pin's sentinel pair is still reachable through a sibling branch, the class is not closed.
+
+## 2026-08-07 — A "safe direction" argument breaks at the boundary case the rule short-circuits on (Critics, S4 R8)
+**Evidence:** The record justifies a deliberate under-splitting trade with "missed sentence splits GROW
+the clause, which is the refusing direction" — true for the `outside = named - plan_words` test, since a
+bigger `named` can only add words outside the plan. But the gate short-circuits FIRST on `if not named:
+refuse` ("cue clause names nothing"). Growth can turn an EMPTY named set into a non-empty SUBSET, which
+flips refuse → BIND. Measured once (contrived text: "The user cancelled it. The pottery workshop weekend
+was fun." binds, because "it." is a 2-letter token so the period no longer splits).
+**Rule:** a monotonicity argument ("more input can only move the verdict toward safe") is only valid over
+the branch it reasons about. Before writing it into a record, list every early-return/short-circuit the
+value passes through and check the argument at each one — empty-set and zero-length guards are where
+monotonicity usually inverts.
+
+## 2026-08-07 — A read-only reviewer's coverage run is a WRITE (Critics, S4 R8)
+**Evidence:** Running the dispatched `pytest --cov` inside the repo made pytest-cov write and combine
+`.coverage*` data files in the repo root; the untracked parallel data file present at session start was
+consumed and replaced. Source, test and doc hashes were all byte-identical, so the review's read-only
+claim held where it mattered — but the working tree was not untouched, and the entry would have been
+technically false if written as "nothing changed".
+**Rule (reviewers):** export `COVERAGE_FILE=$SCRATCH/.coverage` (or run coverage against the shadow copy)
+before any `--cov` invocation, alongside the existing `AGENTMEM_OS_DB_PATH` rule. Tools that look
+read-only — coverage, profilers, caches, `--lf`/`.pytest_cache`, `__pycache__` — all write. Verify
+read-only by HASHING the files you care about and disclosing anything else you touched, rather than by
+asserting a clean session.

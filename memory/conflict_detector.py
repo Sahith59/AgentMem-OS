@@ -37,8 +37,14 @@ _CONTRADICTION_PAIRS = [
      r"\b(hate|dislike|avoid|don't use|do not use|stopped using|can't stand|no longer use|switched away)\b",
      "preference"),
 
-    # Employment
-    (r"\b(work(?:ing)? at|work(?:ing)? for|employed at|joined|started at)\b",
+    # Employment. Third-person "works at" included (Stage 4 root-cause
+    # fix: the missing s-form was noticed during the KG typed-relation
+    # port and patched LOCALLY there instead of here — db/
+    # knowledge_graph.py's _build_relation_patterns still carries that
+    # patch, now redundant but harmless. Canonical fact text is
+    # third-person by design, so the supersession judge's polarity
+    # co-signal was blind to every "The user works at X" fact.)
+    (r"\b(work(?:s|ing)? at|work(?:s|ing)? for|employed at|joined|started at)\b",
      r"\b(left|quit|fired from|no longer at|resigned from|moved on from)\b",
      "employment"),
 
