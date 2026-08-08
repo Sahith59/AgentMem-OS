@@ -2584,3 +2584,51 @@ whole-arc final pass: BUILD READY WITH CONDITIONS → both conditions
 closed by reverting-the-fix verification → confirmation round: BUILD
 READY). **THE CONSOLIDATION V2 BUILD ARC IS COMPLETE. The system is
 BUILD READY.**
+
+---
+
+## POST-ARC CHANGE 1 — plans-as-events prompt flip (founder-decided 2026-08-08 at the BUILD READY checkpoint)
+
+The parked F7-activation decision, fired at its recorded trigger.
+Founder chose: flip BEFORE cluster extraction (extracting twice is the
+alternative). Change: one prompt rule — dated future plans are now
+EVENTS with t_occurred = the planned date (the store stamps
+event_status='planned' deterministically via the long-tested
+_event_status); undated plans stay states (F7's disclosed boundary,
+unchanged). Pinned: test_prompt_types_dated_plans_as_planned_events.
+
+**Gate-theater catch (recorded because it will recur):** the original
+consolidation_v2_gate_b.py embeds the pre-engine DRAFT prompt
+("FACT:" lines, no fact_type) — re-running it would have been
+structurally INSENSITIVE to the flip. The honest instrument
+(consolidation_v2_gate_b_live.py) drives the LIVE pipeline A/B in one
+process — pass B with the pre-flip lines monkeypatched back, pass A
+with HEAD — same 15 hard-core aggregation sessions, same
+number-preservation scoring vs the trusted haiku extraction, stop
+rule recorded BEFORE running (revert if flip costs >2pts or
+reachability stays 0).
+
+**RESULT: flipped 45.1% vs pre-flip 45.1% — diff +0.0pts, the flip is
+quality-neutral. Planned reachability 4 (pre-flip 1, Stage-3 era 0):
+the Stage 4 cancellation/planned machinery is now REACHABLE from real
+extraction.** VERDICT: FLIP HOLDS.
+
+**Mandatory context for the 45.1% (do not quote it against the 91.2%
+headline):** the original 91.2% scored the DRAFT prompt's RAW
+extraction lines; 45.1% scores what the LIVE pipeline STORES — after
+the validator refuses assistant-knowledge facts (the Mem0 #4573 gate;
+~21% of pre-gate G2 output was assistant knowledge), unsupported
+numbers, and uncited content. The haiku baseline KEPT numbers our
+gates deliberately refuse, so live-vs-haiku is structurally lower BY
+DESIGN. The two numbers measure different pipelines; the A/B diff
+(+0.0) was this gate's question and it is exact. What the stored
+representation is WORTH end-to-end is precisely Gate C's question
+(stop rule 0.519).
+
+(Process note, kept per discipline: this record's append initially
+landed in a STRAY file one directory up — the exact Stage-3
+cwd-reset incident class, repeated despite the standing
+absolute-path rule, because a relative path rode on an earlier cd.
+Caught by the git-commit failure seconds later, restored via
+absolute path, stray deleted. The rule is now: absolute paths on
+EVERY founder-doc write, no exceptions for "cwd was just set".)

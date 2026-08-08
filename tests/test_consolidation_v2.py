@@ -1138,3 +1138,21 @@ def test_real_update_supersedes_across_sessions(env, monkeypatch):
     assert old.superseded_by == new.id
     assert old.t_invalid == "2023/09/05"           # new fact's domain time
     assert new.superseded_by is None
+
+
+def test_prompt_types_dated_plans_as_planned_events():
+    """Pin for the founder's plans-as-events decision (2026-08-08 —
+    the parked F7 activation, decided at the BUILD READY checkpoint):
+    dated future plans must extract as EVENTS (the store then stamps
+    event_status='planned' deterministically via _event_status, which
+    the tests above already pin); UNDATED plans stay states (F7's
+    disclosed boundary, unchanged). A revert of the prompt flip goes
+    red here."""
+    from agentmem_os.llm.consolidation_v2 import ConsolidationV2
+
+    p = ConsolidationV2(lambda: None)._prompt("2023/05/20", "t")
+    assert "plan/appointment for a SPECIFIC FUTURE DATE" in p
+    assert "marks future-dated events as planned automatically" in p
+    assert 'A plan with NO stated date is a "state"' in p
+    assert "the date it is planned FOR" in p
+    assert "never an event" not in p  # the pre-flip wording is gone

@@ -714,8 +714,8 @@ class ConsolidationV2:
 Rules:
 - Each fact is ONE self-contained proposition. Name "the user", never bare pronouns. Include the concrete details (names, numbers, dates) IN the fact text — a fact must make sense alone, months later.
 - PRESERVE exactly: counts, quantities, prices, dates, times, schedules, proper names. Never round, merge, or drop a number. If the user did something N times, the fact states N.
-- fact_type: "event" = something that ALREADY HAPPENED at a time; "state" = an ongoing situation, including PLANS ("The user plans to attend X on DATE" is a state, never an event); "preference" = a like/dislike/choice; "identity" = who the user is.
-- t_occurred: the date the event happened, YYYY/MM/DD (or YYYY/MM if only the month is known) — resolve relative references ("last Tuesday", "two weeks ago") against the session date {session_date}, NEVER against today. null if no date is stated or implied.
+- fact_type: "event" = something that happened at a specific time, OR a plan/appointment for a SPECIFIC FUTURE DATE ("The user plans to attend X on DATE" is an event with t_occurred = that date; the system marks future-dated events as planned automatically). A plan with NO stated date is a "state". "state" = an ongoing situation; "preference" = a like/dislike/choice; "identity" = who the user is.
+- t_occurred: the date the event happened — or, for a planned event, the date it is planned FOR — YYYY/MM/DD (or YYYY/MM if only the month is known) — resolve relative references ("last Tuesday", "two weeks ago") against the session date {session_date}, NEVER against today. null if no date is stated or implied.
 - NEVER extract a fact that merely restates what the user ASKED or wants to learn — questions and curiosity are not facts about the user's life.
 - ONLY facts stated by the USER about their own life. Never extract the assistant's knowledge, recommendations, availability information, or tool/system output.
 
