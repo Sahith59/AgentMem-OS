@@ -404,7 +404,8 @@ class ConsolidationV2:
                 # transaction — same rule as extraction: no model
                 # compute while any write lock is held that this loop
                 # controls (G3 R1 B1: in-batch planning loaded the
-                # ~87s-cold alias model under the DB-wide write lock
+                # ~87s-cold alias model (Stage 6: mostly NETWORK,
+                # ~6s offline-first) under the DB-wide write lock
                 # and killed a competing writer). plan_surfaces uses
                 # its own short READ session here. Known consequence,
                 # disclosed: an anchor node created later in THIS batch

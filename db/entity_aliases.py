@@ -85,7 +85,60 @@ class EntityAliasResolver:
                 if self._model is None and not self._model_failed:
                     try:
                         from sentence_transformers import SentenceTransformer
-                        self._model = SentenceTransformer(_MODEL_NAME)
+                        # OFFLINE-FIRST (Stage 6 E2E finding, measured by
+                        # stack dump): a cached model still phoned
+                        # huggingface.co — including transformers'
+                        # tokenizer __init__ calling model_info for a
+                        # Mistral-regex patch check that
+                        # local_files_only alone does NOT suppress —
+                        # hanging background KG threads for MINUTES on a
+                        # slow network. Env vars alone cannot fix it
+                        # post-import: huggingface_hub FREEZES
+                        # HF_HUB_OFFLINE into a module constant at
+                        # import time, so the constant is mutated
+                        # directly and restored (env vars set too for
+                        # dynamic readers). HONEST SCOPE (final-pass
+                        # m6): the mutation is PROCESS-GLOBAL while it
+                        # lasts — this lock serializes only THIS
+                        # loader; an unrelated concurrent HF consumer
+                        # in another thread would see offline=True
+                        # transiently. Acceptable today (this resolver
+                        # is the only in-process HF consumer);
+                        # re-evaluate if another appears. A
+                        # local-first product must load a cached model
+                        # with zero network — measured: 3.8s offline vs
+                        # the ~87s previously blamed on "cold load"
+                        # (mostly network stalls all along). The online
+                        # fallback covers the true first-run download.
+                        _off = ("HF_HUB_OFFLINE", "TRANSFORMERS_OFFLINE")
+                        _prev = {k: os.environ.get(k) for k in _off}
+                        try:
+                            import huggingface_hub.constants as _hfc
+                            _prev_const = _hfc.HF_HUB_OFFLINE
+                        except Exception:
+                            _hfc, _prev_const = None, None
+
+                        def _restore():
+                            for k, v in _prev.items():
+                                if v is None:
+                                    os.environ.pop(k, None)
+                                else:
+                                    os.environ[k] = v
+                            if _hfc is not None:
+                                _hfc.HF_HUB_OFFLINE = _prev_const
+
+                        for k in _off:
+                            os.environ[k] = "1"
+                        if _hfc is not None:
+                            _hfc.HF_HUB_OFFLINE = True
+                        try:
+                            self._model = SentenceTransformer(
+                                _MODEL_NAME, local_files_only=True)
+                        except Exception:
+                            _restore()
+                            self._model = SentenceTransformer(_MODEL_NAME)
+                        finally:
+                            _restore()
                     except Exception as e:
                         self._model_failed = True
                         logger.debug(

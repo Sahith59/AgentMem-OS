@@ -40,7 +40,7 @@ compute (v1: session-end; phase 2: idle-time aggregate/tally passes) + profile t
 | 3 | KG integration (facts→entities/edges, provenance) | ✅ 180 tests, 100% line cov | ✅ 6× identical real-model | **R5 PASS-WITH-NOTES** (R1-R4 ✗, each fixed) | ✅ DONE 08-06 |
 | 4 | Per-fact supersession | ✅ 240 tests, 98% judge cov | ✅ real-corpus backfill supersession, critic-reproduced 4× | **R8 PASS-WITH-NOTES** (R1-R7 ✗, each fixed) | ✅ DONE 08-07 |
 | 5 | Facts-first retrieval wiring + $0 diagnostics | ✅ 41 tests (40+1 opt-in skip), 255 regression | ✅ real-corpus facts-first + 2 real pre-existing bugs found (Redis) | **R6 PASS-WITH-NOTES** (R1-R5 ✗, each fixed; 3 incarnations of the truncation bug killed) | ✅ DONE 08-07 |
-| 6 | Full E2E smoke + final critic pass → BUILD READY | ☐ | ☐ | ☐ | — |
+| 6 | Full E2E smoke + final critic pass → BUILD READY | ✅ 12 E2E tests; suite 318+1 in 2 orders | ✅ real-model MCP-only E2E; 4 pre-existing defects found+fixed | **BUILD READY** (whole-arc pass: conditions closed by revert-verification) | ✅ DONE 08-08 — **ARC COMPLETE** |
 
 After Stage 6: founder provides university-cluster access → slice-haystack extraction
 through the REAL pipeline → $1.50 Gate C eval (stop rule: beat 0.519) → Gate D 150 →
@@ -569,7 +569,11 @@ caller-batch lock precondition, backfill↔helper agreement 10/10,
 mutation sweep 14/16) and then broke the rest. Resolutions:
 
 **B1 — ~87s of DB-WIDE WRITE LOCK during in-batch alias planning
-(measured: competing writer DIED on busy_timeout).** The first Indic
+(measured: competing writer DIED on busy_timeout). [Stage 6
+annotation: the ~87s was later measured to be mostly NETWORK — the
+cached model phoning huggingface.co — and is ~6s with the offline-
+first loader; the architectural decision below stands unchanged, its
+magnitude was 14× off.]** The first Indic
 surface loaded sentence-transformers inside the consolidation batch.
 Fixed as a CONTRACT, not a patch: planning (model load + embeddings) is
 now a separate read-only step — engine calls plan_surfaces() BEFORE the
@@ -2264,3 +2268,319 @@ Stage table: Stage 5 ✅ DONE (G1 ✅ 41 tests · G2 ✅ real-corpus
 facts-first retrieval + 2 real pre-existing bugs found · G3 ✅ R6
 PASS-WITH-NOTES after R1-R5 each BLOCKED and fixed). Stage 6 (full
 E2E + final critic pass → BUILD READY) remains.
+
+## STAGE 6 — Full E2E + final critic pass → BUILD READY — started 2026-08-07
+
+Founder GO 2026-08-07 ("same discipline… building the vision of the
+future"). The arc's last stage: prove the WHOLE machine works as ONE
+product — not five verified pieces — then submit the whole arc to a
+final adversarial pass. Exit condition is a defined state called
+BUILD READY, not a feeling.
+
+### Design (frozen before code, decisions numbered for the critic)
+
+D1. PRODUCT SURFACES ONLY. Both gates drive `handle_call_tool`
+    (save_memory → consolidate_session → recall_memory, plus
+    get_knowledge_graph) — zero internal-API calls in the E2E path.
+    That is what "end to end" means here: the exact JSON a real MCP
+    client would send and receive. save_memory's real side effects
+    (SQLite, Redis L1, background KG-ingestion threads, importance
+    scoring) are part of the loop, not mocked around.
+D2. G1 = the full wiring, deterministic: the ONLY thing mocked is
+    the single LLM boundary each engine already isolates
+    (ConsolidationV2._llm / SupersessionJudge._llm — one method
+    each, urlopen to Ollama). Extraction returns canned fact JSON;
+    validation, storage, entity linking, judgment gates, retrieval,
+    and rendering all run REAL. Covers: full round-trip; facts in
+    [SEMANTIC FACTS] via recall; cross-session recall; scope
+    isolation through MCP; double-consolidation idempotency
+    (re-affirmation, no dupes); a deterministic supersession firing
+    end-to-end (mock judge LLM proposes, real gates decide) with
+    change history visible in the recalled context; error paths
+    (unknown session, dead LLM = loud zero-write failure through the
+    MCP error contract).
+D3. G2 = the same loop with REAL local models (llama3.1 extraction +
+    judge), real LongMemEval sessions, scratch-isolated env
+    (DB + Redis kill-switch both FORCED). Cases: the Rachel
+    knowledge-update pair (continuity with Stages 4-5 evidence), the
+    5K boundary pair, AND one fresh case never used in any prior
+    stage's artifacts — chosen at runtime by index, disclosed — so
+    the demo isn't secretly tuned to two examples. Measured: fact
+    counts/links/judgments through the MCP JSON itself; gold answer
+    in [SEMANTIC FACTS]; cross-session reach; KG subgraph via
+    get_knowledge_graph; double-consolidate idempotency on real
+    output; whatever the judge does is reported as-is (temp-0
+    within-window determinism expected, cross-window variance
+    disclosed in Stage 5's record).
+D4. Background threads handled honestly: save_turn spawns KG
+    ingestion threads; the E2E waits BOUNDED (poll for thread
+    quiescence / stable kg_nodes count, hard timeout, loud on
+    expiry) — no sleeps-and-hope.
+D5. Redis stays DISABLED in E2E (the founder's live Redis is not a
+    test fixture — standing isolation rule). The L1 path itself is
+    covered by Stage 5's faithful-fake pins + the opt-in live test.
+    Disclosed, not hidden.
+D6. BUILD READY, defined: (1) G1+G2 green with artifacts in this
+    log; (2) the FULL scoped suite green (all eleven test files
+    [CORRECTED final-pass m5: written "eight" while the evidence ran
+    eleven — the definition and its evidence must agree], in at least
+    two orders);
+    (3) every stage's HONEST CLAIMS block re-verified against final
+    code by the critic; (4) the open-items ledger current — BUILD
+    READY means "ready for cluster extraction and Gate C", NOT
+    "product finished" (ledger #23/#24/#27 etc. stay open and
+    visible); (5) G3 = a FINAL WHOLE-ARC critic pass (not a
+    stage-scoped one): consistency across all five stages' records,
+    the E2E evidence, and an adversarial answer to "is there any
+    reason this should not proceed to paid gates?"
+D7. Trigger discipline: the PARKED plans-as-events decision fires at
+    the BUILD READY checkpoint per its recorded trigger ("just
+    before cluster extraction") — it goes to the founder WITH the
+    BUILD READY report, never decided silently here.
+
+Deliverables: `tests/test_e2e_v2.py` (G1),
+`benchmarks/consolidation_v2_e2e.py` (G2, $0, env-pinned), G3
+whole-arc critic dispatch, stage record + BUILD READY declaration.
+
+### Stage 6 — G1 + G2 record (2026-08-08)
+
+**G1 (tests/test_e2e_v2.py, 9 tests, THREE consecutive runs green at
+6-8s each):** the full loop through handle_call_tool only — round
+trip (save → consolidate → recall with [SEMANTIC FACTS] first and the
+header-stamped t_mentioned), cross-session recall, scope isolation,
+double-consolidation idempotency, supersession firing end-to-end
+(mock judge proposes, REAL gates decide, change history visible in
+the recalled context, the superseded fact absent as current),
+dead-LLM loud zero-write failure through the MCP error contract,
+unknown-session refusal, KG surface, and the concurrency pin below.
+
+**Getting G1 stable found FOUR real defects — none of them in the
+new stage code:**
+1. **The "~87s cold model load" was mostly NETWORK, all along.** A
+   fully cached alias model still phoned huggingface.co — including
+   transformers' tokenizer __init__ calling model_info for a
+   Mistral-regex check that local_files_only alone does not suppress
+   — and on a slow network those unbounded backoffs hung background
+   KG threads for MINUTES (stack-dump proven). Env vars cannot fix
+   it post-import (huggingface_hub FREEZES HF_HUB_OFFLINE into a
+   constant at import time), so the constant is mutated scoped +
+   restored inside the one locked loader. **Measured: 3.8s offline
+   load vs ~87s; the full E2E file dropped from 90-122s (flaky) to
+   6-8s (stable); the whole 315-test sweep got ~2× faster.** A
+   local-first product now loads cached models with ZERO network;
+   true first-run download still works (fallback path).
+2. **KG node-insert race (Stage 3's own prediction, unmasked):** one
+   background thread per saved turn; the read-then-write upsert's
+   loser hit uq_kg_nodes_scope_text and dropped its turn's ENTIRE KG
+   contribution — 12 drops in one E2E run. Invisible for months
+   ONLY because the model-load stall serialized the threads; the
+   offline fix unmasked it within minutes. Fix:
+   retry-once-on-IntegrityError with in-memory-graph invalidation
+   (the method mutates the cache pre-commit, so a rolled-back pass
+   leaves it ahead of the DB).
+3. **KG lost-update race, caught by the new pin itself:** with drops
+   fixed, 16 barrier-released writers still lost 6 of 16
+   mention_count increments — ORM read-modify-write, the Stage-1
+   store class in KG clothing. Edge weights had the same hole. Fix:
+   atomic server-side increments for both. Pin:
+   test_concurrent_kg_ingest_never_drops_turns (16 threads, all
+   land, count exactly 16, .one() proves the unique index held).
+4. tqdm's TMonitor is a never-exiting daemon watchdog — the D4
+   quiescence filter excludes it by class module.
+
+**G2 (benchmarks/consolidation_v2_e2e.py, real llama3.1 + judge,
+MCP-only drive, exit 0):** A. Rachel: 64+46 turns → 9+7 facts,
+'TechCorp' in [SEMANTIC FACTS] via recall_memory. B. cross-session
+recall facts-only=True; re-consolidation created=0 (idempotent).
+C. boundary: both 25:50 and 27:12 visible as facts, no false
+supersession. D. FRESH case qs[10] ('Where do I initially keep my
+old sneakers?', gold 'under my bed'): **HONEST MISS — extraction
+miss, not wiring.** 12 facts extracted from the pair; none carries
+the location detail (verified by reading every stored fact). The
+wiring surfaced everything extraction produced; the miss is the
+extraction-quality class Gate C exists to measure at scale against
+its 0.519 stop rule. E. KG subgraph serves. Zero KG drops after the
+race fix (was 12). Real-model outputs REPRODUCED exactly across both
+G2 runs.
+
+**DISCLOSURES, including one against myself:**
+- **Isolation breach (mine):** G2's FIRST run drove the real
+  assembler whose persistent Chroma resolves through cwd-relative
+  config.yaml — it created EMPTY collections named after the seven
+  benchmark sessions in the DEV vector store
+  (/Volumes/Sahith_SSD/AgentMem-OS/vectors). No documents were
+  written (nothing populates turn chunks in the product flow — see
+  next bullet); the spill is empty collections only. The script now
+  builds a scratch config.yaml and chdirs into scratch (third
+  isolation channel, alongside the DB env and the Redis
+  kill-switch). Cleanup of the seven empty collections is LISTED FOR
+  THE FOUNDER (precedent: the dev-DB cleanup gate) — ledger #28.
+- **The product's raw-turn chunk tier is EMPTY by construction:**
+  nothing in the live MCP flow writes turn chunks to Chroma (only
+  the old compression engine writes summary chunks, and it never
+  fires). [SEMANTIC MEMORY] was absent from every real recall in
+  G2 — the facts tier isn't just first in the live product, it is
+  the ONLY cross-turn semantic tier. Benchmarks sidestep this with
+  the TF-IDF stand-in. Ledger #29: either wire turn-chunk writes or
+  adopt the TF-IDF-over-SQLite adapter as the product fallback.
+- chromadb attempts posthog telemetry even with
+  anonymized_telemetry=False (fails harmlessly on a posthog API
+  mismatch, but a local-first product should not phone analytics at
+  all) — ledger #30.
+
+**Regression: 315 passed + 1 opt-in skip across ELEVEN files**
+(the eight prior surfaces + test_e2e_v2 + test_temporal_kg +
+test_cross_lingual_aliases), 267s.
+
+### Stage 6 — FINAL WHOLE-ARC PASS: BUILD READY WITH CONDITIONS — fix pass record
+
+The critic's whole-arc verdict: **"No correctness defect found in the
+shipped facts path"** — every G1/G2 number reproduced (including
+'assert 6 == 16' on the lost-update mutant, the exact figure), the
+offline-first attribution independently confirmed (5.92s offline vs
+82.59s online, model fully cached in both), real-model outputs matched
+Stage 5's diagnostics to the character across yet another window. Two
+CONDITIONS + 2 majors + 8 minors, all in the test environment and the
+records, none in the product. All landed:
+
+**C1 — the eleven-file suite was NOT green (3 failed in suite order;
+"315 passed" did not reproduce).** benchmarks/real_code_utils'
+install_* REPLACED _get_chroma on the ContextAssembler CLASS — one
+test file importing the benchmark adapter silently rewired every later
+file, killing (among others) THE byte-identity no-regress pin. The
+critic's lesson: "a class-level monkeypatch from one test file
+silently rewires every later test." FIX at the mechanism: the override
+is now DATA (ContextAssembler._chroma_override) that the instance
+attribute always beats, install_* sets it, and a conftest autouse
+fixture resets it after every test. VERIFIED: the critic's exact
+bisect combo (eval_harness + agentmem_adapter + fact_retrieval) now
+52 passed; the full suite is **317 passed + 1 opt-in skip in BOTH
+orders** (stage listing order and alphabetical), per the corrected D6.
+
+**C2 — the TEST SUITE had been spilling into the dev vector store all
+along** (e2e-*, hdr-test2, honest-test collections found; the critic
+disclosed its own ~13 contributing runs; the channel predates Stage 6
+— it is the same cwd-relative config.yaml the G2 script closed for
+itself only). FIX: conftest session fixture builds a scratch
+config.yaml, chdirs into scratch AFTER collection, and SELF-CHECKS
+that StorageManager().base_path resolved into scratch before any test
+writes. Ledger #28 amended to cover the suite, not just the
+benchmark. The critic's lesson: "fix an isolation channel in ONE
+caller and the channel is still open."
+
+**W1 — retry-once was unpinned as the suite actually runs** (the
+16-thread pin killed the mutant in isolation, not in-file where warm
+state closes the collision window). FIX: a _find_node seam +
+test_upsert_retry_is_deterministically_pinned — the lookup lies "not
+found" exactly once, forcing the loser's INSERT against an existing
+row; a retry revert dies in ANY context. The thread test stays as the
+integration probe; the seam pin is the tripwire.
+**W2 — the edge-weight half of the atomic-increment fix was unpinned
+everywhere.** FIX: _bump_node/_bump_edge seams +
+test_lost_update_impossible_for_node_and_edge — two sessions load the
+same row, end their read transactions keeping stale objects, then
+each bumps: server-side arithmetic lands on start+2; an ORM
+read-modify-write revert writes the stale snapshot and dies.
+**[FALSIFIED confirmation round — that last sentence was false as
+first shipped: the pin's rollback() EXPIRED the instances and the
+next attribute access silently refreshed them, so the "stale" objects
+weren't stale and BOTH RMW mutants survived (X4/X5). The critic's
+lesson verbatim: "rollback() destroys the very staleness a
+lost-update pin depends on." REBUILT with expunge() + a setup
+self-assert that the object still holds the old value; re-verified by
+mutation probe: node mutant DIES (final=start+1, stale_held=True),
+edge mutant DIES (final=start+1, stale_held=True).]**
+
+Minors: **m1** the generic except branch now invalidates the
+in-memory graph like the IntegrityError branch (the method mutates
+the cache pre-commit; the unguarded sibling was the S4-R8 alternation
+shape again). **m2 disclosed here as required: the offline-first fix
+is UNPINNED BY NATURE** — no timing assertion exists or reasonably
+can; the D4 quiescence bound (180s) is the only backstop and a full
+online stall fits inside it; the tripwire is operational (E2E
+duration regressing 6-8s → minutes), not a test. **m3** ledger #6
+annotated [RESOLVED Stage 5] — it had gone stale, D6(4) violation.
+**m4** all four "~87s" code comments + the Stage 3 B1 context now
+carry "[Stage 6: mostly NETWORK, ~6s offline-first]" — the B1
+architectural decision stands; its magnitude was 14× off.
+**[CORRECTED confirmation round: half false as first written — the
+build-log :571 annotation had NOT landed (only the code comments
+had), and three of the four comments were string-spliced mid-phrase
+("~87s […]-cold"). All four repaired grammatically and :571
+annotated; this strike keeps the miss on record.]** **m5** D6
+corrected inline ("eight" → eleven files, two orders — the definition
+and its evidence must agree). **m6** the HF constant mutation's
+comment now states its true scope honestly: PROCESS-GLOBAL while it
+lasts, serialized only against this loader, acceptable only while
+this resolver is the sole in-process HF consumer. **m7** the G2
+script now proves StorageManager().base_path resolved into scratch
+(the rewrite assert couldn't catch a removed chdir). **m8** ledger
+#29 carries the GATE-C INTERPRETATION RULE: the paid eval measures
+facts + a TF-IDF chunk stand-in while the product ships facts-only —
+say so wherever Gate C numbers are quoted.
+
+**D7:** the parked plans-as-events decision goes to the founder WITH
+the BUILD READY report — the critic explicitly declined to decide it,
+correctly.
+
+---
+
+## STAGE 6 — HONEST CLAIMS OF RECORD (definitive; quote nothing about this stage — or BUILD READY — without these)
+
+**What Stage 6 proved:** the WHOLE machine works as ONE product. Every
+E2E call goes through handle_call_tool exactly as an MCP client would;
+real llama3.1 extraction + judgment; the current answer surfaces as a
+dated fact from sessions that never discussed it; supersession fires
+through the product loop with change history visible; consolidation is
+idempotent; failures are loud with zero writes. Real-model outputs
+reproduced to the character across builder and critic windows.
+
+**Mandatory disclosures:**
+1. BUILD READY means "ready for cluster extraction and the paid Gate C
+   eval" — NOT "product finished". The open-items ledger (RUNNING_NOTES
+   #1-30) is part of this claim, notably: #23 Redis ghost-key root
+   cause open (contained); #24 banked numbers owe a Redis-disabled
+   re-verify AT Gate C (critic-ruled safe to defer — the re-verify IS
+   a Gate C activity); #27 MCP pool exhaustion (~15 recalls); #28 dev
+   vector-store stray collections awaiting founder cleanup OK; #29 the
+   product's raw-turn chunk tier is EMPTY by construction — facts are
+   the ONLY cross-turn semantic tier in the live product, and Gate C
+   numbers (facts + TF-IDF stand-in) must always say so; #30 chromadb
+   telemetry attempt.
+2. The FRESH G2 case (qs[10]) was an HONEST MISS: extraction dropped
+   the location detail — all 12 stored facts verified to lack it. The
+   wiring surfaced everything extraction produced. Extraction quality
+   at scale is exactly what Gate C measures against its 0.519 stop
+   rule; this miss is evidence FOR running that gate, not against the
+   wiring.
+3. Stage 6 fixed FOUR pre-existing defects it exposed (offline-first
+   model load — the "~87s cold load" was mostly network, 14× off, now
+   ~6s; KG insert race dropping whole turn contributions; KG
+   lost-update race on both counters; tqdm watchdog in quiescence
+   waits) and TWO test-infrastructure conditions from the final pass
+   (the class-patch leak that broke the byte-identity pin in suite
+   order; the suite's own dev-vector-store spill — closed
+   self-checkingly in conftest). The offline-first fix is UNPINNED BY
+   NATURE (operational tripwire only: E2E duration regressing 6-8s →
+   minutes).
+4. Two of my pins were falsified DURING this stage's gates and
+   rebuilt (the 16-thread pin that couldn't kill its mutant in-file;
+   the lost-update pin whose rollback() un-staled its own fixture) —
+   both now die deterministically through constructed seams, verified
+   by mutation probes recorded above. The strikes stay inline.
+5. The background KG tier is eventually-consistent BY CONTRACT
+   (~seconds warm, bounded-waited in tests via D4); recall
+   immediately after save may not see the newest turn's entities.
+
+**CURRENT artifacts: 12 E2E tests (tests/test_e2e_v2.py) · full
+eleven-file suite 318 passed + 1 opt-in skip in TWO orders ·
+G2 real-model E2E exit 0, isolated in all three channels,
+zero KG drops · final critic verdict, verbatim: "BUILD READY. Cluster
+extraction and the paid Gate C eval may proceed."**
+
+Stage table: Stage 6 ✅ DONE (G1 ✅ 12 E2E tests, 3× stable · G2 ✅
+real-model MCP-only E2E, honest fresh-case miss disclosed · G3 ✅
+whole-arc final pass: BUILD READY WITH CONDITIONS → both conditions
+closed by reverting-the-fix verification → confirmation round: BUILD
+READY). **THE CONSOLIDATION V2 BUILD ARC IS COMPLETE. The system is
+BUILD READY.**

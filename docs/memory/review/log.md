@@ -2804,3 +2804,148 @@ prompt, superseded and cancelled facts never appear, scope holds, and the render
 can no longer be forged from user text. The honest caveats that remain are the ones already written
 down — the entity-floor-only path for undated facts at scale, the single-oversized-fact exception, and
 the Redis ghost-key root cause still open as a ledger item.
+
+## 2026-08-08 — Critics — Consolidation v2 WHOLE-ARC (Stage 6 G3, final pass) — **BUILD READY WITH CONDITIONS**
+
+**Claim reviewed:** Stage 6 G1+G2 green, four pre-existing defects fixed, 315+1 across eleven files,
+BUILD READY per D6 (CONSOLIDATION_V2_BUILD_LOG.md:2268-2426).
+**Method:** 6 mutations against the Stage 6 fixes (retry-once, both atomic increments, offline-first,
+scratch-config); E2E file 3× plus ~10 mutation runs; race pin in isolation and in-file, 6+5 runs;
+G2 script once end-to-end (local llama3.1, $0, exit 0); the eleven-file sweep in TWO orders; a 3-file
+bisect; static tracing of ChromaManager/StorageManager resolution; whole-arc record + ledger read.
+Env-pinned to /tmp/critic-s6-final/*. Repo unmodified.
+
+**Verdict: BUILD READY WITH CONDITIONS — 2 conditions (must clear before cluster extraction),
+2 majors, 8 minors/notes. No correctness defect found in the shipped facts path.**
+
+CONDITIONS (D6's own criteria are not yet met):
+- C1: **the eleven-file suite is NOT green — 3 failed / 312 passed / 1 skipped**, in my order AND in
+  plain alphabetical order (both reproduced). Root cause bisected to
+  `benchmarks/adapters/agentmem_adapter.py:54` — `install_best_chroma(ContextAssembler)` patches
+  `_get_chroma` on the CLASS, so after test_agentmem_adapter/test_eval_harness run, every later
+  ContextAssembler ignores its instance `_chroma`. The three casualties are Stage 5's assembler-wiring
+  tests INCLUDING `test_empty_fact_store_is_byte_identical`, the load-bearing no-regress pin. Alone:
+  40 passed. mcp_server+fact_retrieval: 48 passed. eval_harness+agentmem_adapter+fact_retrieval: 3
+  failed. D6(2) unmet and the record's "315 passed" does not reproduce.
+- C2: **tests/test_e2e_v2.py writes to the founder's DEV vector store on every recall.**
+  `ChromaManager.search` → `get_or_create_collection(session_id)`; tests/conftest.py pins the DB path
+  and Redis but NOT the StorageManager tree, which resolves `config.yaml` relative to pytest's cwd.
+  Evidence: /Volumes/Sahith_SSD/AgentMem-OS/vectors/chroma.sqlite3 (mtime today) holds `e2e-rt-1`,
+  `e2e-far-1`, `e2e-sup-2`, `hdr-test2`, `honest-test` — E2E session ids. Stage 6 fixed this channel in
+  the G2 SCRIPT only; ledger #28 discloses the benchmark spill and says nothing about the suite, which
+  runs constantly. Same class as the conftest's own founding incident (dev DB) and the Redis channel.
+  **My own disclosure: I ran that file ~13 times this session and contributed to the spill I am
+  reporting.**
+
+MAJORS:
+- W1: **retry-once is unpinned as the suite actually runs.** M2 (single attempt) in full-file context:
+  5/5 PASS; the same mutant with the pin in ISOLATION: 6/6 FAIL. Earlier tests warm state that closes
+  the collision window, so a revert of fix #2 ships unnoticed under `pytest tests/test_e2e_v2.py`.
+- W2: **the edge-weight half of the atomic-increment fix is unpinned in every context.** M3b passes
+  in-file and in isolation (3/3). The node half is genuinely pinned — M3 dies with `assert 6 == 16`,
+  reproducing the record's "6 of 16 lost increments" exactly. The record says "atomic increments for
+  both" and names one pin.
+
+MINORS/NOTES: `_ingest_turn_once`'s generic `except Exception` does NOT invalidate the in-memory graph
+though the IntegrityError branch does and the method mutates it pre-commit (same class, unguarded
+sibling branch — the S4-R8 alternation shape) · offline-first is unpinned BY NATURE (no timing
+assertion; `_await_background`'s 180s bound is the only backstop) and the record should say so ·
+ledger #6 "NOTHING WIRED INTO PRODUCT RETRIEVAL YET" is stale — Stage 5 did it; D6(4) requires a
+current ledger · "~87s" survives as a MODEL-LOAD cost in db/fact_entities.py:49,149,225 and the Stage 3
+B1 record (:571) with no cross-reference to Stage 6's finding that it was mostly network (now ~6s) ·
+D6 says "all eight test files", the record says ELEVEN · the HF constant mutation is process-global and
+serialized only against this loader's lock (a concurrent unrelated HF user could see OFFLINE=True) ·
+the G2 script's isolation is half-self-checking (the assert catches a failed config rewrite; nothing
+catches a missing `os.chdir`) · Gate C interpretation: ledger #29 means the paid eval measures
+facts + a TF-IDF chunk stand-in while the product ships facts-ONLY.
+
+REPRODUCED EXACTLY: G1 9 tests × 3 runs at 6.93/6.12/5.67s · offline load 5.92s vs 82.59s online
+(14×; independently confirms the network attribution) · M3 → 6==16 · G2 exit 0 with every number
+matching (9+7 facts, 945-char facts section, 8+6, 3192, 5+7=12 sneaker facts, cross-session
+facts-only=True, re-consolidate created=0, KG 235 chars) · zero KG drop warnings · SEMANTIC MEMORY
+absent from 100% of G2 recalls (ledger #29 verified) · posthog telemetry errors (ledger #30) · dev-store
+benchmark collections (ledger #28). NOT independently reproducible: "12 drops in one E2E run" (requires
+reverting the fix and re-running G2) — stated as historical.
+
+**Refs:** benchmarks/adapters/agentmem_adapter.py:54; benchmarks/real_code_utils.py:95-100;
+db/chroma_client.py:38-58; storage/manager.py:9-20; tests/conftest.py; db/knowledge_graph.py:296-308,
+340-353,455-460; db/entity_aliases.py:82-141; db/fact_entities.py:49,149,225;
+tests/test_e2e_v2.py:266-311; benchmarks/consolidation_v2_e2e.py:29-53;
+CONSOLIDATION_V2_BUILD_LOG.md:571,2268-2426; RUNNING_NOTES.md #6,#23-30.
+Harnesses: /tmp/critic-s6-final/ (mut/m2,m3,m3b; probe_offline.py; g2_run.log; sweep.log).
+
+**Who needs to know:** **Dev-Head —** two conditions, both isolation/coverage, neither in the facts
+path: make the suite green in any order (the adapter's class patch must be scoped or reverted in
+teardown) and extend the Stage 6 isolation pattern from the G2 script into tests/conftest.py. Then W1
+(run the race pin in a fresh process, or force the collision) and W2 (pin the edge weight).
+**Bosses —** the arc's product claims held up: I could not break the facts path, and every G2 number
+reproduced on my own run. The defects are in the test environment and its coverage. **Founder —** two
+things before extraction: the full test suite is not actually green in a normal invocation, and running
+the tests writes empty collections into your dev vector store (I did it ~13 times today myself). Both
+are contained and neither touches stored facts. The parked plans-as-events decision is due to you now
+per D7.
+
+## 2026-08-08 — Critics — Consolidation v2 WHOLE-ARC, CONFIRMATION ROUND — **BUILD READY (C1+C2 CLOSED); 1 major + 2 minors are RECORD-scoped, not extraction-scoped**
+
+**Claim reviewed:** both conditions closed, W1/W2 pinned, m1-m8 landed, 317+1 in both orders
+(CONSOLIDATION_V2_BUILD_LOG.md:2431-2500).
+**Method:** bisect combo + the eleven files in BOTH my orders; 6 mutations against the NEW mechanisms
+(class-patch revert, chdir neuter, retry revert, both bump reverts, m1 graph-clear removal); the new
+pins run in isolation as well as in-file; empirical dev-vector-store check across the whole session.
+Env-pinned to /tmp/critic-s6-confirm/*. Repo unmodified.
+
+**Verdict: BUILD READY. Cluster extraction and Gate C may proceed.**
+
+CONDITIONS — BOTH CLOSED, verified by mutation and by measurement:
+- **C1 CLOSED.** Bisect combo (eval_harness + agentmem_adapter + fact_retrieval): **52 passed** (was 3
+  failed). Eleven files: **317 passed + 1 skipped in stage order AND in alphabetical order**. X1
+  (installer reverted to the class-level `_get_chroma` patch) reproduces the EXACT three failures
+  including the byte-identity pin — so the `_chroma_override` data attribute is the load-bearing fix and
+  the diagnosis was right.
+- **C2 CLOSED, and self-verifying.** X2 (conftest `os.chdir` neutered) makes
+  `assert StorageManager().base_path.startswith(str(scratch))` fail LOUDLY at session-fixture setup —
+  the m7 lesson applied where it runs a thousand times more often than any script. Empirical proof: the
+  dev store's chroma.sqlite3 mtime is UNCHANGED (Aug 8 00:48) after ~1 hour of my runs — the E2E file
+  many times, two full eleven-file suites, the bisect combo and six mutation runs — still 24
+  collections, no new e2e-* entries. The channel is closed in practice, not just in principle.
+- **W1 CLOSED.** X3 (retry-once reverted) kills `test_upsert_retry_is_deterministically_pinned` in the
+  FULL-FILE context. The `_find_node` seam makes the collision deterministic instead of thread-timed.
+
+REMAINING (record-scoped — do not publish the closing record with these sentences as written):
+- **W2 STILL OPEN, and now mis-recorded.** `test_lost_update_impossible_for_node_and_edge` pins
+  NEITHER half. Measured in isolation: X4 (`_bump_node` → RMW) **1 passed**; X5 (`_bump_edge` → RMW)
+  **1 passed**; X5 across the whole file **11 passed**. Mechanism: the pin's `dbA.rollback()`/
+  `dbB.rollback()` — the step whose comment says "end reads; keep stale objects" — is exactly what
+  EXPIRES the ORM instances, so `node.mention_count` / `edge.weight` refresh from the DB at bump time
+  and the RMW revert computes the correct value. The record's "an ORM read-modify-write revert writes
+  the stale snapshot and dies" is false. The node half is still covered only by the 16-thread
+  integration test (X4 kills it there); the EDGE half remains unpinned for the second round running.
+  Fix: `expunge()` the objects after loading (detach, keep loaded values) instead of rollback.
+- **m1 unpinned and not disclosed as such.** X6 (graph-clear removed from the generic except): 11
+  passed. m2 got an explicit "UNPINNED BY NATURE" disclosure; m1 deserves the same, or a pin — it IS
+  pinnable (force a non-Integrity error at commit, assert the graph is empty).
+- **m4 half-false + splice damage.** "all four '~87s' code comments **+ the Stage 3 B1 context** now
+  carry [Stage 6: mostly NETWORK, ~6s offline-first]" — the four code comments do;
+  CONSOLIDATION_V2_BUILD_LOG.md:571 does NOT. And the annotation was string-spliced mid-phrase:
+  llm/consolidation_v2.py:407 now reads "~87s [Stage 6: ...]-cold alias model" (~110-char line, broken
+  grammar); db/fact_entities.py:149,225 have the same pattern.
+
+VERIFIED LANDINGS: m3 (ledger #6 "[RESOLVED Stage 5, kept for history]"), m5 (D6 corrected inline with
+the strike), m6, m7, m8 (ledger #29 Gate-C interpretation rule), m2's honest unpinned-by-nature
+disclosure, ledger #28 amended to cover the suite including my own runs.
+
+**Refs:** llm/context_assembler.py:367-378; benchmarks/real_code_utils.py:104-107,147;
+tests/conftest.py:35-70; db/knowledge_graph.py:446-487; tests/test_e2e_v2.py:322-357,359-397;
+llm/consolidation_v2.py:407; db/fact_entities.py:49,149,225; CONSOLIDATION_V2_BUILD_LOG.md:571,
+2319-2323,2431-2500. Harnesses: /tmp/critic-s6-confirm/ (mut/x1-x6; order_stage.log, order_alpha.log).
+
+**Who needs to know:** **Dev-Head —** both conditions are genuinely closed and I verified each by
+reverting the fix, not by reading it. Three items left, none blocking extraction: swap the pin's
+`rollback()` for `expunge()` so W2 actually pins (it currently pins neither half), disclose m1 as
+unpinned or pin it, and finish m4 (annotate :571, repair the three spliced comments). **Bosses — the
+arc is BUILD READY.** Six adversarial rounds on Stage 5, a whole-arc pass and this confirmation; every
+blocker closed with a mutation-proven pin; the product's facts path survived every attack I could
+construct. **Founder —** you can start cluster extraction. The test suite no longer touches your dev
+vector store (verified: zero new writes in an hour of my running it), the suite is green in both
+orders, and the remaining three items are about the accuracy of the write-up, not the behaviour of the
+system. Per D7 the parked plans-as-events decision is now yours to make.

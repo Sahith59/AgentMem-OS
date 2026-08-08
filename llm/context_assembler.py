@@ -359,10 +359,22 @@ class ContextAssembler:
             self._store = ConversationStore()
         return self._store
 
+    # Benchmark backend override (Stage 6 final pass, C1): install_*
+    # in benchmarks/real_code_utils.py used to REPLACE _get_chroma on
+    # the class — a permanent rewiring that silently ignored instance
+    # _chroma assignments for the rest of the process, so importing
+    # the benchmark adapter in one test file broke the byte-identity
+    # pin in every later file. The override is now DATA the instance
+    # attribute always beats, and tests reset it (conftest autouse).
+    _chroma_override = None
+
     def _get_chroma(self):
         if self._chroma is None:
-            from agentmem_os.db.chroma_client import ChromaManager
-            self._chroma = ChromaManager()
+            if ContextAssembler._chroma_override is not None:
+                self._chroma = ContextAssembler._chroma_override
+            else:
+                from agentmem_os.db.chroma_client import ChromaManager
+                self._chroma = ChromaManager()
         return self._chroma
 
     def _get_kg(self):

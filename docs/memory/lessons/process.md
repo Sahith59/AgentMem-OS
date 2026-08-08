@@ -938,3 +938,49 @@ later correct yourself, GREP the correction: list every file and line that carri
 and name them individually, because a general "I was wrong about X" note does not reach the copies.
 **(Builders):** attribute quoted measurements to the round that produced them, so a later correction
 has a search key.
+
+## 2026-08-08 — Fix an isolation channel in ONE caller and the channel is still open (Critics, whole-arc)
+**Evidence:** Stage 6 found a third isolation channel — StorageManager reads `config.yaml` RELATIVE TO
+CWD, so any process driving the real assembler creates Chroma collections in the DEV vector store. The
+fix (scratch config + chdir + a rewrite assert) went into the G2 benchmark script, which runs rarely.
+`tests/conftest.py` — which pins the DB path and the Redis kill-switch precisely because both of those
+channels burned the project before — was not extended, and `tests/test_e2e_v2.py` drives the same
+assembler. Proof is static and conclusive: `ChromaManager.search` calls `get_or_create_collection`, and
+the dev store now holds `e2e-rt-1`/`e2e-far-1`/`e2e-sup-2`. The disclosure (ledger #28) names the
+script's spill and not the suite's, so the record reads as if the channel were closed.
+**Rule (builders):** an isolation channel is a property of the PROCESS, not of one script. When you find
+one, enumerate every entry point that reaches the resolving code — test conftest, benchmark scripts,
+CLI, demo app — and close them together, with the pin in the conftest where it cannot be forgotten.
+**(Reviewers):** when a record says "the script now isolates X", immediately ask what ELSE reaches X;
+check the test conftest FIRST, because it runs a thousand times more often than any script. Then check
+whether you yourself have been running the unisolated path while reviewing — I had, ~13 times.
+
+## 2026-08-08 — A class-level monkeypatch from one test file silently rewires every later test (Critics, whole-arc)
+**Evidence:** The eleven-file regression is reported as 315 passed. It is 312 passed / 3 failed, in my
+file order AND in plain alphabetical order. Bisected in three runs: fact_retrieval ALONE 40 passed;
+mcp_server+fact_retrieval 48 passed; eval_harness+agentmem_adapter+fact_retrieval 3 failed. Cause:
+`benchmarks/adapters/agentmem_adapter.py:54` calls `install_best_chroma(ContextAssembler)` in its
+constructor, which assigns `context_assembler_cls._get_chroma = lambda self: adapter` — a permanent
+CLASS attribute. Afterwards `assembler._chroma = FakeChroma(...)` is silently ignored, because
+`assemble` calls `self._get_chroma()`. The casualties included the load-bearing byte-identity pin, so a
+green single-file run and a red suite run disagreed about the stage's most important guarantee.
+**Rule (builders):** never mutate a class attribute from library code a test imports; if you must,
+restore it (fixture/contextmanager). A per-instance override that a class-level patch can shadow is a
+latent order dependency. **(Reviewers):** run the full suite in at least TWO orders and treat any
+single-file-vs-suite disagreement as a finding, not as flakiness — and bisect it, because the cause is
+usually a global someone installed for a benchmark.
+
+## 2026-08-08 — rollback() destroys the very staleness a lost-update pin depends on (Critics, confirmation round)
+**Evidence:** `test_lost_update_impossible_for_node_and_edge` was built to pin two atomic increments
+deterministically: load a row in two sessions, "end their read transactions keeping stale objects", then
+bump each and assert start+2. It pins NEITHER half — measured in isolation, reverting `_bump_node` to
+read-modify-write leaves it green (1 passed) and so does reverting `_bump_edge` (1 passed, and 11 passed
+across the whole file). The step that was supposed to establish staleness — `dbA.rollback()` — is
+exactly what EXPIRES every instance in a SQLAlchemy session, so the next attribute access silently
+REFRESHES from the database and the read-modify-write revert computes the correct value by accident.
+`expire_on_commit=False` protects commit, not rollback.
+**Rule (builders):** to keep a stale in-memory snapshot, DETACH (`session.expunge(obj)`) or copy the
+value out; never rely on an object surviving a transaction boundary with its loaded values intact.
+**(Reviewers):** for any pin whose premise is "this value is stale", verify the staleness directly —
+assert the Python-side value still equals the old number after the boundary — before believing the pin.
+A test that asserts only the final state cannot tell you whether its own setup worked.

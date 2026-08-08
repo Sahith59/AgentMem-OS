@@ -46,7 +46,7 @@ Design decisions of record (CONSOLIDATION_V2_BUILD_LOG.md, Stage 3):
     applying: plan_surfaces() runs before the batch transaction,
     link_fact(plan=) writes under the lock. Caller-owned sessions
     REFUSE to plan in-session (G3 R1 B1: an in-batch model load held
-    the DB-wide write lock ~87s and killed a competing writer).
+    the DB-wide write lock ~87s [Stage 6: mostly NETWORK, ~6s offline-first] and killed a competing writer).
 
 Concurrency model (Stage-1 discipline — guarded at the DATABASE):
 
@@ -146,7 +146,8 @@ class FactEntityLinker:
         G3 R2 M1).
 
         G3 R1 B1: this is where the sentence-transformers model may
-        LOAD (~87s measured cold) and embeddings run; callers holding
+        LOAD (measured ~87s cold; Stage 6: mostly NETWORK, ~6s
+        offline-first) and embeddings run; callers holding
         the SQLite write lock (the consolidation batch) MUST call this
         BEFORE the transaction and hand the plan to link_fact — the
         first version planned in-batch and a competing writer died on
@@ -223,7 +224,8 @@ class FactEntityLinker:
             if db is not None:
                 # Not a style preference — a loud contract (G3 R1 B1):
                 # in-session planning can load the alias model (~87s
-                # measured) while the caller's batch holds the SQLite
+                # measured; Stage 6: mostly NETWORK, ~6s offline-first)
+                # while the caller's batch holds the SQLite
                 # write lock, killing competing writers on busy_timeout.
                 raise ValueError(
                     "caller-owned sessions must pass plan= (from "

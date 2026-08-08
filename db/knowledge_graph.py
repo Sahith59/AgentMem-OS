@@ -279,8 +279,39 @@ class EntityKnowledgeGraph:
         Returns the number of new entities found.
 
         Called automatically by ConversationStore.save_turn().
+
+        Concurrency (Stage 6 E2E finding): one background thread runs
+        per saved turn, and the read-then-write node upsert races its
+        siblings — the loser's INSERT hits uq_kg_nodes_scope_text and
+        the old code dropped that turn's ENTIRE KG contribution
+        (nodes' mention counts, edges, typed relations). The race was
+        invisible for months because the alias-model load serialized
+        the threads; the offline-first load fix unmasked it (12 drops
+        in one E2E run). On IntegrityError: rollback, invalidate the
+        in-memory graph (this method mutates it BEFORE commit, so a
+        rolled-back pass leaves it ahead of the DB), and retry ONCE —
+        the second pass finds the winner's rows and updates them. A
+        second IntegrityError stays a loud drop.
         """
-        entities = self._extract_entities(content)
+        raw_entities = self._extract_entities(content)
+        for attempt in (0, 1):
+            result = self._ingest_turn_once(
+                session_id, agent_id, content, raw_entities)
+            if result is not None:
+                return result
+            # IntegrityError path: state already rolled back and the
+            # in-memory graph invalidated by _ingest_turn_once.
+            if attempt == 1:
+                logger.warning(
+                    "[KnowledgeGraph] ingest_turn dropped after retry — "
+                    "concurrent upsert race lost twice")
+                return 0
+
+    def _ingest_turn_once(self, session_id, agent_id, content,
+                          raw_entities):
+        """One upsert attempt. Returns an int on success/normal
+        failure; None ONLY for the retryable IntegrityError race."""
+        from sqlalchemy.exc import IntegrityError
 
         db = self.get_db()
         try:
@@ -292,7 +323,7 @@ class EntityKnowledgeGraph:
             # entities when they alias-match an already-known entity at τ —
             # so common Hindi/Tamil words never flood the graph.
             entities, alias_pending = self._augment_with_script_aliases(
-                db, entities, content, agent_id
+                db, list(raw_entities), content, agent_id
             )
             if not entities:
                 return 0
@@ -300,17 +331,9 @@ class EntityKnowledgeGraph:
             # Upsert nodes
             node_ids = {}
             for text, etype in entities:
-                node = (
-                    db.query(KnowledgeGraphNode)
-                    .filter(
-                        KnowledgeGraphNode.entity_text == text,
-                        KnowledgeGraphNode.agent_id == agent_id,
-                    )
-                    .first()
-                )
+                node = self._find_node(db, text, agent_id)
                 if node:
-                    node.mention_count += 1
-                    node.last_seen = datetime.utcnow()
+                    self._bump_node(db, node)
                 else:
                     node = KnowledgeGraphNode(
                         agent_id=agent_id,
@@ -371,8 +394,7 @@ class EntityKnowledgeGraph:
                         .first()
                     )
                     if edge:
-                        edge.weight += 1.0
-                        edge.last_updated = datetime.utcnow()
+                        self._bump_edge(db, edge)
                     else:
                         edge = KnowledgeGraphEdge(
                             source_id=src,
@@ -404,12 +426,65 @@ class EntityKnowledgeGraph:
             db.commit()
             return len(entities)
 
+        except IntegrityError:
+            db.rollback()
+            self._graph.clear()
+            return None  # retryable — the caller's loop decides
         except Exception as e:
             logger.warning(f"[KnowledgeGraph] ingest_turn failed: {e}")
             db.rollback()
+            # Same cache-coherence rule as the IntegrityError branch
+            # (final-pass m1: this method mutates the in-memory graph
+            # BEFORE commit, so ANY rolled-back pass leaves the cache
+            # ahead of the DB — not just the raced one).
+            self._graph.clear()
             return 0
         finally:
             db.close()
+
+    @staticmethod
+    def _find_node(db, text, agent_id):
+        """Node lookup for the upsert — a seam so the retry path can be
+        pinned DETERMINISTICALLY (final-pass W1: the 16-thread race pin
+        killed the retry mutant in isolation but not in-file, where
+        warm state closes the collision window; a pin that depends on
+        thread timing pins nothing in the context it runs in)."""
+        from agentmem_os.db.models import KnowledgeGraphNode
+        return (
+            db.query(KnowledgeGraphNode)
+            .filter(
+                KnowledgeGraphNode.entity_text == text,
+                KnowledgeGraphNode.agent_id == agent_id,
+            )
+            .first()
+        )
+
+    @staticmethod
+    def _bump_node(db, node):
+        """Atomic server-side increment (Stage 6 race pin caught the
+        ORM read-modify-write losing 6 of 16 concurrent increments —
+        the Stage-1 store class, KG edition). Takes the LOADED object
+        but must never trust its Python-side values for the write."""
+        from agentmem_os.db.models import KnowledgeGraphNode
+        (db.query(KnowledgeGraphNode)
+         .filter(KnowledgeGraphNode.id == node.id)
+         .update({KnowledgeGraphNode.mention_count:
+                  KnowledgeGraphNode.mention_count + 1,
+                  KnowledgeGraphNode.last_seen: datetime.utcnow()},
+                 synchronize_session=False))
+
+    @staticmethod
+    def _bump_edge(db, edge):
+        """Same atomic-increment discipline as _bump_node —
+        co-occurrence weights are the KG's load-bearing signal
+        (final-pass W2 pinned this half too)."""
+        from agentmem_os.db.models import KnowledgeGraphEdge
+        (db.query(KnowledgeGraphEdge)
+         .filter(KnowledgeGraphEdge.id == edge.id)
+         .update({KnowledgeGraphEdge.weight:
+                  KnowledgeGraphEdge.weight + 1.0,
+                  KnowledgeGraphEdge.last_updated: datetime.utcnow()},
+                 synchronize_session=False))
 
     def _ingest_typed_relations(
         self, db, node_ids: Dict[str, int], content: str,

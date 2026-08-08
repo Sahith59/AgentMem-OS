@@ -93,11 +93,18 @@ class DenseChromaAdapter:
 
 
 def install_tfidf_chroma(context_assembler_cls) -> None:
-    """Monkey-patch ContextAssembler._get_chroma to use TfIdfChromaAdapter,
-    for the lifetime of the process. Only affects scripts that call this
-    explicitly — production code is unaffected."""
-    adapter = TfIdfChromaAdapter()
-    context_assembler_cls._get_chroma = lambda self: adapter
+    """Set ContextAssembler's chroma backend override to a
+    TfIdfChromaAdapter. Only affects scripts that call this explicitly
+    — production code is unaffected.
+
+    Stage 6 final pass (C1): this used to REPLACE the _get_chroma
+    method on the class — a permanent process-wide rewiring that
+    silently ignored instance-level _chroma assignments, so one test
+    file importing the benchmark adapter broke the assembler pins of
+    every file after it (including the byte-identity no-regress pin).
+    It is now a class ATTRIBUTE the instance attribute always beats,
+    and the test conftest resets it around every test."""
+    context_assembler_cls._chroma_override = TfIdfChromaAdapter()
 
 
 def install_best_chroma(context_assembler_cls) -> str:
@@ -137,8 +144,7 @@ def install_dense_chroma(context_assembler_cls) -> str:
     from agentmem_os.llm.multi_vector_retrieval import is_available
 
     if is_available():
-        adapter = DenseChromaAdapter()
-        context_assembler_cls._get_chroma = lambda self: adapter
+        context_assembler_cls._chroma_override = DenseChromaAdapter()
         return "dense"
     install_tfidf_chroma(context_assembler_cls)
     return "tfidf"
