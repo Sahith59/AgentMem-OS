@@ -2632,3 +2632,62 @@ absolute-path rule, because a relative path rode on an earlier cd.
 Caught by the git-commit failure seconds later, restored via
 absolute path, stray deleted. The rule is now: absolute paths on
 EVERY founder-doc write, no exceptions for "cwd was just set".)
+
+---
+
+## POST-ARC CHANGE 2 — GSU cluster port for Gate C extraction (2026-08-09)
+
+Founder provided GSU ARC/TReNDS ("Elpis") access; account
+trends517s113; **home-only storage (no scratch allocation exists)**,
+67GB free — treated as a hard ceiling, audited at every step.
+
+**Built:** `benchmarks/cluster/gate_c_setup.sbatch` (one-time model
+pull + GPU proof) and `gate_c_extract.sbatch` (one GPU, one private
+Ollama on a per-task port, one disjoint shard, one private SQLite DB).
+Runner gained `GATE_C_SHARD`/`GATE_C_NSHARDS` stride slicing —
+partition verified EXACT and DISJOINT (908+908+908+907 = 3,631 =
+worklist). Ledger #5 closed on the way: `AGENTMEM_OS_OLLAMA_URL` is
+now env-configurable in BOTH engines (load-bearing here — array tasks
+can share a node and would collide on port 11434); default unchanged,
+verified.
+
+**Cluster facts of record (measured, not assumed):**
+- `apptainer/1.4.1` module is BROKEN on the login node (missing
+  libsubid.so.4) — `singularity/4.3.1` works; that is what the jobs
+  use.
+- SLURM batch shells do not load the module system — both scripts use
+  login shells (`#!/bin/bash -l` + explicit profile source).
+- Extraction needs only sqlalchemy/loguru/spacy/networkx/pyyaml. The
+  ~3GB torch+sentence-transformers stack is NOT needed: verified in
+  code (`_plan_surfaces` consults the alias resolver ONLY inside the
+  `contains_indic` branch) and then verified EMPIRICALLY by output
+  comparison below — not assumed.
+- **GPU sizing is load-bearing.** First rate test landed on an RTX
+  2080 Ti (11GB): 4 slots × 10,240 ctx = 5.1GB KV cache + 4.7GB model
+  left 1.2GB free, one layer stayed on CPU, and generation collapsed
+  to **0.31 tok/s**. Same job on an L40S (48GB): 33/33 layers
+  offloaded, **80-118 tok/s, 437 sessions/hour** — a ~300× difference
+  from GPU memory alone. Extraction jobs MUST request `gpu:L40S:1`
+  (or a 32GB V100), never a generic GPU.
+
+**Environment-equivalence check (the promised correctness gate),
+16 identical sessions local vs cluster:** same 16 sessions, 129 vs
+128 facts, same type mix (event 46/50, state 40/36, preference 37/35,
+identity 6/7), **74% byte-identical fact texts**; every sampled
+difference is a PARAPHRASE of the same content ("bought the Remington
+Noiseless Portable" vs "bought a Remington Noiseless Portable
+typewriter"; a date rendered with/without "(Mon)"). No content class
+is missing on either side. **DISCLOSURE FOR THE PAPER: local-model
+extraction is reproducible WITHIN a machine (six byte-identical runs
+recorded in Stage 5/6) but only paraphrase-equivalent ACROSS
+hardware/backends (Metal vs CUDA) — so the extraction hardware must be
+stated wherever Gate C numbers are reported.** This is the same
+temp-0 boundary Stage 5's honest-claims block already recorded, now
+measured across machines.
+
+**Measured ETA for the full run:** 3,631 sessions ÷ 437 sessions/hour
+per L40S = 8.3 GPU-hours ⇒ **~1.4 hours wall-clock on 6 L40S shards**
+(cluster has 22 idle GPUs: 6×L40S + 16×V100), versus ~28 hours
+locally. Partition qDEV's 12-hour limit is not a constraint at this
+rate. LAUNCH IS FOUNDER-GATED (standing approval rule for
+long-running/state-changing work).

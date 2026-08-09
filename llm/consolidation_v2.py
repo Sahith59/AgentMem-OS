@@ -47,6 +47,7 @@ revoked — "when" is only ever a user-stated time.
 """
 
 import json
+import os
 import re
 import urllib.request
 from datetime import datetime
@@ -55,7 +56,12 @@ from loguru import logger
 
 from agentmem_os.db.semantic_facts import SemanticFactStore, normalize_date
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
+# Env-configurable (open-items ledger #5; load-bearing from the
+# cluster run on: SLURM array tasks may share a node, so each
+# task needs its own Ollama port). Default unchanged.
+OLLAMA_URL = os.environ.get(
+    "AGENTMEM_OS_OLLAMA_URL", "http://localhost:11434") \
+    .rstrip("/") + "/api/generate"
 DEFAULT_MODEL = "llama3.1:latest"
 TRANSCRIPT_CAP = 36000
 NUM_CTX = 10240

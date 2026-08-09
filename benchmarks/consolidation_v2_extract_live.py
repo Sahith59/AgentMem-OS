@@ -44,7 +44,14 @@ sys.path.insert(0, str(HERE.parent))
 
 WORKERS = int(sys.argv[1]) if len(sys.argv) > 1 else 3
 LIMIT = int(sys.argv[2]) if len(sys.argv) > 2 else None
-FAILLOG = HERE / "extracted_memories" / "gate_c_failures.jsonl"
+# Sharding for the SLURM array (shard index/count, 0-based). Each shard
+# owns a DISJOINT stride of the sorted worklist and its OWN DB (set via
+# GATE_C_DB) — no cross-shard writers on one SQLite file, ever.
+SHARD = int(os.environ.get("GATE_C_SHARD", "0"))
+NSHARDS = int(os.environ.get("GATE_C_NSHARDS", "1"))
+FAILLOG = Path(os.environ.get(
+    "GATE_C_FAILLOG",
+    str(HERE / "extracted_memories" / "gate_c_failures.jsonl")))
 
 
 def build_worklist():
@@ -98,9 +105,18 @@ def ingest(get_session, mems, sid):
 
 def main():
     sids, mems = build_worklist()
+    full_n = len(sids)
     if LIMIT:
         sids = sids[:LIMIT]
         print(f"SMOKE MODE: limited to first {LIMIT} sessions")
+    if NSHARDS > 1:
+        # Stride slicing on the DETERMINISTIC sorted worklist: shard i
+        # takes every NSHARDS-th session. Strided (not blocked) so an
+        # uneven size/latency distribution spreads across shards
+        # instead of loading one. Union of shards == worklist exactly,
+        # verified by the merge step.
+        sids = sids[SHARD::NSHARDS]
+        print(f"SHARD {SHARD}/{NSHARDS}: {len(sids)} of {full_n} sessions")
 
     from agentmem_os.db.engine import get_session
     from agentmem_os.llm.consolidation_v2 import ConsolidationV2

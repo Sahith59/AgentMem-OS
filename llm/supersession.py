@@ -63,6 +63,7 @@ sourced from the research pass):
 """
 
 import json
+import os
 import urllib.request
 from datetime import datetime
 
@@ -75,7 +76,12 @@ from loguru import logger
 # module-level edge and re-armed it; the critic's own run migrated the
 # production DB again proving the point).
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
+# Env-configurable (open-items ledger #5; load-bearing from the
+# cluster run on: SLURM array tasks may share a node, so each
+# task needs its own Ollama port). Default unchanged.
+OLLAMA_URL = os.environ.get(
+    "AGENTMEM_OS_OLLAMA_URL", "http://localhost:11434") \
+    .rstrip("/") + "/api/generate"
 DEFAULT_MODEL = "llama3.1:latest"
 _SHORTLIST_CAP = 12
 _PLANNED_SLOT_CAP = 4   # reserved cancellation-candidate slots
