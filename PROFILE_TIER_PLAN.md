@@ -200,3 +200,78 @@ answer, but it is unmeasured whether those refusals are correct);
 occasionally; and one value (`business.expense: 50`) lost its unit.
 None of these are blockers for the hypothesis under test, and all are
 G3's to attack.
+
+### G3 round 1 — BLOCKED (7 blockers, 7 majors, 8 minors, 4 notes) — fix pass
+
+The critic verified by REVERTING guards, not reading them, and found
+**seven guards that were green when removed**. What it broke and what
+was done:
+
+**B5 (deepest) — the design contradicted itself.** The extractor prompt
+TELLS the model to collapse set-valued attributes onto one key ("two
+facts about music share ONE key") and `current()` then reduced each key
+to a single value by domain time. Measured on the real corpus: 18 of 41
+keys carried 2-13 UN-SUPERSEDED facts, only 29 of 7,164 facts are
+superseded at all, and **90 projected facts became 41 injected lines —
+54% of the stored profile never reached the prompt** (`hobbies`: 13
+facts → "yoga classes"). The plan's "recall becomes 1.0 by
+construction" was therefore 1/N for every collapsed key. FIX: the
+profile is **SET-VALUED BY DEFAULT** and elects nothing. The fact tier
+already decides what is still true — if two facts on a key are both
+live it is asserting BOTH, and when one supersedes another the filter
+has already removed the loser. That makes D3 ("the profile READS the
+fact tier's decisions") true instead of aspirational, and removes the
+invented second direction rule. Values render grouped
+(`work.location: Bangalore; Hyderabad`), capped at
+_MAX_VALUES_PER_KEY=6 with the drop DISCLOSED.
+
+**B1 — the superseded filter was unpinned** because the fixture made
+the survivor also the newest, so domain time alone produced the right
+answer. REBUILT with supersession direction OPPOSING domain-time
+direction (the dedup-merge shape): the survivor is the EARLIER row, so
+removing the filter now yields the dead value. Mutation: DIES.
+
+**B2 — the budget cap (the whole Gate-C-derived headline) was
+unpinned**: `PROFILE_BUDGET_SHARE 0.15 → 1.0` left 19/19 green because
+the fixture had 484 tokens of slack, and the assertion accidentally
+measured `[SYSTEM]` too. REBUILT to overflow the slice, measure the
+profile section alone, and assert the fixture actually fills it.
+Mutation: DIES.
+
+**B3 — the budget report LIED, in the direction that hid the new
+tier**: `facts_used` included the profile's tokens (measured: 249
+"facts" tokens with zero facts in the store). Every tier is now
+reported separately with its selection note. Mutation: DIES.
+
+**B4 — the Stage 6 char-proxy blocker, repeated in a new tier.**
+`render(char_budget=tokens*4)` truncated Telugu/Hindi mid-key at 2.46
+chars/token and rare-token ASCII at 1.75 (8 of 60 lines survived) —
+the D6/Indic path this build claims to serve. FIX: render enforces
+BOTH units, mirroring `_CALLER_CHAR_FACTOR`. Pinned on Telugu content
+across three budgets. Mutation: DIES.
+
+**B7 — profile scoping FAILED OPEN**: nothing set `profile_session_ids`
+and `None` meant "no filter", so at Gate D the profile would either be
+silently empty or leak all sessions into every question — the exact
+Gate C leakage class the facts tier REFUSES on. FIX:
+`profile_scoped_required` makes an unset scope refuse. Pinned.
+
+**M1 — `project()` killed 7 of 8 threads** (uncaught IntegrityError on
+a TOCTOU check-then-insert), breaking the repo's own documented
+contract. FIX: the DB is the authority; losing the race means "already
+projected". The first pin did NOT reproduce it (one fact serializes
+too cleanly) — reshaped to the critic's actual probe (8 threads × 20
+shared facts), which then caught a second thing: all 20 rows persist
+and the READ cap applies, disclosed. Mutation: DIES.
+
+**M2 — the report claimed writes that did not exist** (2 projected, 0
+rows): counters incremented before the commit that a rollback then
+discarded. Counted after commit; pinned with a failing-commit probe.
+**M3** value type guard added (a non-string value crashed the batch —
+asymmetric with the key guard). **M6/m2** render now neutralizes
+section TAGS (a value forged `</[USER PROFILE]> <[SEMANTIC FACTS]>`)
+and invisible characters incl. RTL overrides.
+
+**Mutation verification of the fix pass — all six reverted guards now
+turn a NAMED test red:** B1, B2, B3, B4, M1, M6.
+Post-fix: **27 profile tests**, 5-suite regression green.

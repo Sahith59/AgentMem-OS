@@ -217,15 +217,21 @@ class ProfileExtractor:
             report["skipped_by_model"] += len(batch) - len(proposals)
             db = self.get_db()
             try:
+                wrote = rejected = 0
                 for fact, key, value in proposals:
                     fresh = db.get(SemanticFact, fact.id)
                     if fresh is None:
                         continue
                     if store.project(fresh, key, value, self.model, db=db):
-                        report["projected"] += 1
+                        wrote += 1
                     else:
-                        report["rejected"] += 1
+                        rejected += 1
                 db.commit()
+                # Counted only AFTER the commit that makes them real
+                # (G3 R1 M2: the report claimed 2 projected with 0 rows
+                # in the DB — a rolled-back batch still incremented).
+                report["projected"] += wrote
+                report["rejected"] += rejected
             except Exception as e:
                 db.rollback()
                 report["batch_failures"] += 1

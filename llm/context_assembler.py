@@ -72,6 +72,8 @@ class ContextAssembler:
         self._procedural = None
         self._facts = None
         self._profile = None
+        self.profile_session_ids = None
+        self.profile_scoped_required = False
 
     # ──────────────────────────────────────────────────────────────────────────
     # Public API
@@ -139,20 +141,34 @@ class ContextAssembler:
         # precisely so that a preference's presence does not depend on
         # a query happening to match it (PROFILE_TIER_PLAN.md D4).
         profile_budget = int(sem_budget * PROFILE_BUDGET_SHARE)
+        profile_used = 0
         if "profile" not in disable and profile_budget > 0:
             try:
+                # Scoping parity with the facts tier (G3 R1 B7): an
+                # eval that scopes facts per question MUST scope the
+                # profile too, or the profile leaks every question's
+                # attributes into every other question. Setting
+                # profile_scoped_required makes an unset scope REFUSE
+                # rather than silently read everything.
+                sids = getattr(self, "profile_session_ids", None)
+                if sids is None and getattr(
+                        self, "profile_scoped_required", False):
+                    raise RuntimeError(
+                        "profile_session_ids unset while scoping is "
+                        "required — refusing to inject an UNSCOPED "
+                        "profile (that would leak across questions)")
                 attrs = self._get_profile().current(
-                    agent_id=agent_id, user_id=user_id,
-                    session_ids=getattr(self, "profile_session_ids", None))
+                    agent_id=agent_id, user_id=user_id, session_ids=sids)
                 block = self._get_profile().render(
-                    attrs, char_budget=profile_budget * 4)
+                    attrs, token_budget=profile_budget,
+                    counter=self.counter)
                 if block:
                     prof_section = self._fit_to_budget(
                         block, profile_budget, "[USER PROFILE]", keep="head")
                     if prof_section:
                         sections.append(prof_section)
-                        sem_budget = max(
-                            0, sem_budget - self.counter.count(prof_section))
+                        profile_used = self.counter.count(prof_section)
+                        sem_budget = max(0, sem_budget - profile_used)
             except Exception as e:
                 # Same containment as the facts tier: a dead profile
                 # must not take recall down with it, and must not be
@@ -205,10 +221,20 @@ class ContextAssembler:
                     f"[ContextAssembler] Facts tier failed; falling back "
                     f"to raw retrieval: {e}")
 
-        self.last_tier_budget = {"semantic_total": self.allocations["semantic"],
-                                 "facts_cap": facts_budget,
-                                 "facts_used": self.allocations["semantic"] - sem_budget,
-                                 "chunks_left": sem_budget}
+        # G3 R1 B3: facts_used used to include the profile's tokens —
+        # the alarm lied in the direction that hid the NEW tier's spend.
+        # Every tier is now reported separately, with its own selection
+        # note, so a gate run can print starvation instead of logging it.
+        self.last_tier_budget = {
+            "semantic_total": self.allocations["semantic"],
+            "profile_cap": profile_budget,
+            "profile_used": profile_used,
+            "facts_cap": facts_budget,
+            "facts_used": max(0, self.allocations["semantic"]
+                              - profile_used - sem_budget),
+            "chunks_left": sem_budget,
+            "profile_selection": getattr(self._profile, "last_selection", None)
+            if self._profile is not None else None}
         if "semantic" not in disable and sem_budget <= 0:
             # Loud, not silent (G3 R1 m2): a facts block that consumed
             # the whole semantic allocation starves raw-turn provenance

@@ -28,11 +28,32 @@ Contracts inherited deliberately from the stages before it:
 import re
 
 from loguru import logger
+from sqlalchemy.exc import IntegrityError
+
+# Values are LLM output derived from user text — untrusted for
+# RENDERING (Stage 5 G3 M1's lesson, applied to this renderer's own
+# vocabulary). Beyond the facts renderer's sanitizer we must also
+# neutralize the assembler's SECTION TAGS (G3 R1 M6: a value
+# containing "</[USER PROFILE]> <[SEMANTIC FACTS]>" forged a section
+# boundary in the assembled prompt) and invisible characters that
+# survive str.strip() (G3 R1 m2: a zero-width-only value rendered as
+# an empty attribute line; U+202E can reverse displayed order).
+_INVISIBLE = "\u200b\u200c\u200d\u2060\ufeff\u202a\u202b\u202c\u202d\u202e"
+_TAG_RE = re.compile(r"<\s*/?\s*\[[A-Z][A-Z ]*\]\s*>")
+
+
+def _strip_invisible(text: str) -> str:
+    return "".join(c for c in text if c not in _INVISIBLE)
 
 # Canonical dotted keys: lowercase ASCII words joined by dots.
 # Deliberately strict — the key space is a JOIN KEY across languages
 # (D6), and a permissive space would fragment "coffee.milk" from
 # "Coffee_Milk" and silently split one attribute into two profiles.
+_MAX_VALUES_PER_KEY = 6   # a set-valued attribute is a summary, not a log
+# Mirrors fact_retrieval._CALLER_CHAR_FACTOR: the assembler's
+# _fit_to_budget cuts on CHARS (token_budget*4) before it cuts on
+# tokens, so a token-only budget is not enough (G3 R1 B4).
+_CALLER_CHAR_FACTOR = 4   # a set-valued attribute is a summary, not a log
 _KEY_RE = re.compile(r"^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)*$")
 _KEY_MAX_LEN = 64
 _KEY_MAX_DEPTH = 3
@@ -84,7 +105,15 @@ class ProfileStore:
             # user IS. Silently profiling them would fill the injected
             # block with narrative.
             return False
-        value = (value_text or "").strip()
+        # Type guard, symmetric with normalize_key's (G3 R1 M3: a
+        # non-string value raised AttributeError and killed the whole
+        # projection batch — the model's output is untrusted on BOTH
+        # fields, not just the key).
+        if value_text is None or isinstance(value_text, bool):
+            return False
+        if not isinstance(value_text, str):
+            value_text = str(value_text)
+        value = _strip_invisible(value_text).strip()
         if not value:
             return False
         value = value[:_VALUE_MAX_LEN]
@@ -98,6 +127,12 @@ class ProfileStore:
                       .first())
             if exists:
                 return False
+            # The DB is the authority (G3 R1 M1): check-then-insert is
+            # TOCTOU, and a real 8-thread probe killed 7 of 8 threads
+            # with an uncaught IntegrityError. Same contract the fact
+            # store documents and implements — the unique constraint
+            # decides, and losing the race means "already projected",
+            # not "crash the consolidation batch".
             session.add(ProfileAttribute(
                 scope_key=fact.scope_key, agent_id=fact.agent_id,
                 user_id=fact.user_id, attribute_key=key, value_text=value,
@@ -107,7 +142,19 @@ class ProfileStore:
                 lang_source=fact.lang_source, proposed_by=proposed_by))
             if owns:
                 session.commit()
+            else:
+                session.flush()   # surface the race NOW, inside the try
             return True
+        except IntegrityError:
+            if owns:
+                session.rollback()
+            else:
+                # A caller-owned session cannot be silently rolled back
+                # under the caller (it would discard THEIR writes), so
+                # the row is removed from this session and the loss is
+                # reported as "not written" — the batch continues.
+                session.expunge_all()
+            return False
         finally:
             if owns:
                 session.close()
@@ -153,22 +200,52 @@ class ProfileStore:
                     SemanticFact.source_session_id.in_(list(session_ids)))
             rows = q.all()
 
-            best = {}
+            # SET-VALUED BY DEFAULT (G3 R1 B5). The earlier version kept
+            # ONE row per key by domain time — which INVENTED a second
+            # direction rule the fact tier never authorized and hid 54%
+            # of the projected profile ("hobbies": 13 facts -> 1 line).
+            # The fact tier already decides what is still true: if two
+            # facts on a key are both LIVE, it is asserting both, and
+            # the profile must show both; when one supersedes another
+            # the filter above has already removed the loser. So the
+            # profile READS that decision instead of second-guessing it
+            # — which is what D3 claimed all along.
+            by_key = {}
             for attr, fact in rows:
                 when = attr.t_occurred or attr.t_mentioned or ""
-                cur = best.get(attr.attribute_key)
-                if cur is None or (when, attr.fact_id) > (cur[1], cur[0].fact_id):
-                    best[attr.attribute_key] = (attr, when)
-            picked = sorted(
-                best.values(),
-                key=lambda av: (av[0].mention_count or 1, av[1],
-                                av[0].attribute_key),
+                by_key.setdefault(attr.attribute_key, []).append((attr, when))
+            for vals in by_key.values():
+                vals.sort(key=lambda av: (av[1], av[0].fact_id), reverse=True)
+            ranked_keys = sorted(
+                by_key.items(),
+                key=lambda kv: (max(a.mention_count or 1 for a, _ in kv[1]),
+                                max(w for _, w in kv[1]), kv[0]),
                 reverse=True)
-            if len(picked) > limit:
-                logger.info(
-                    f"[ProfileStore] {len(picked)} attributes in scope; "
-                    f"injecting the top {limit} by (mentions, recency)")
-            return [a for a, _ in picked[:limit]]
+            out, dropped_keys, dropped_vals = [], 0, 0
+            for key, vals in ranked_keys:
+                if len({a.attribute_key for a in out}) >= limit:
+                    dropped_keys += 1
+                    dropped_vals += len(vals)
+                    continue
+                keep = vals[:_MAX_VALUES_PER_KEY]
+                dropped_vals += len(vals) - len(keep)
+                out.extend(a for a, _ in keep)
+            if dropped_keys or dropped_vals:
+                # D5 says selection is DISCLOSED, never silent (G3 R1 M5:
+                # this used to be an INFO log with no reader).
+                self.last_selection = {"attributes_in_scope": len(by_key),
+                                       "keys_dropped": dropped_keys,
+                                       "values_dropped": dropped_vals,
+                                       "limit": limit}
+                logger.warning(
+                    f"[ProfileStore] selection dropped {dropped_keys} keys "
+                    f"and {dropped_vals} values (limit={limit}) — "
+                    f"{len(by_key)} attributes in scope")
+            else:
+                self.last_selection = {"attributes_in_scope": len(by_key),
+                                       "keys_dropped": 0, "values_dropped": 0,
+                                       "limit": limit}
+            return out
         finally:
             if owns:
                 session.close()
@@ -198,20 +275,54 @@ class ProfileStore:
             if owns:
                 session.close()
 
-    def render(self, attrs: list, char_budget: int = 1200) -> str:
-        """Render for injection: one line per attribute, most-confirmed
-        first, hard-capped. Values are sanitized with the SAME renderer
-        the facts block uses — profile values are LLM-derived from user
-        text and are equally untrusted (Stage 5 G3 M1)."""
+    def render(self, attrs: list, token_budget: int = 300,
+               counter=None) -> str:
+        """Render for injection, grouped one line per KEY.
+
+        Budgeted in TOKENS, not chars (G3 R1 B4 — the Stage 6 blocker
+        repeating in a new tier): a chars=tokens*4 proxy truncated
+        Telugu/Hindi mid-key at 2.46 chars/token and rare-token ASCII
+        at 1.75, cutting 52 of 60 lines. The block must ALSO satisfy
+        the caller's char fast path, so both units are enforced here —
+        exactly what fact_retrieval._CALLER_CHAR_FACTOR does.
+
+        Values are sanitized with the facts renderer's sanitizer PLUS
+        this renderer's own vocabulary: section tags and invisible
+        characters (M6, m2).
+        """
         from agentmem_os.llm.fact_retrieval import _sanitize
 
         if not attrs:
             return ""
-        lines, used = [], 0
+        if counter is None:
+            from agentmem_os.llm.token_counter import TokenCounter
+            counter = TokenCounter()
+        char_cap = token_budget * _CALLER_CHAR_FACTOR
+
+        grouped = {}
         for a in attrs:
-            line = f"{a.attribute_key}: {_sanitize(a.value_text)}"
-            if lines and used + len(line) + 1 > char_budget:
+            grouped.setdefault(a.attribute_key, []).append(a)
+        lines = []
+        for key, rows in grouped.items():
+            vals = []
+            for r in rows:
+                v = _TAG_RE.sub(" ", _sanitize(_strip_invisible(r.value_text)))
+                v = " ".join(v.split())
+                if v and v not in vals:
+                    vals.append(v)
+            if vals:
+                lines.append(f"{key}: {'; '.join(vals)}")
+
+        out, kept = "", []
+        for line in lines:
+            candidate = "\n".join(kept + [line])
+            if kept and (len(candidate) > char_cap
+                         or counter.count(candidate) > token_budget):
                 break
-            lines.append(line)
-            used += len(line) + 1
-        return "\n".join(lines)
+            kept.append(line)
+            out = candidate
+        # The FIRST line is always included (there must be a profile if
+        # there are attributes); the caller truncates its tail, which is
+        # rank-safe. G3 R1 m3 caught the old code claiming a hard cap it
+        # did not honor for line 1 — this states the exception instead.
+        return out or lines[0][:char_cap]
