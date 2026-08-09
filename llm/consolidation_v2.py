@@ -64,6 +64,14 @@ OLLAMA_URL = os.environ.get(
     .rstrip("/") + "/api/generate"
 DEFAULT_MODEL = "llama3.1:latest"
 TRANSCRIPT_CAP = 36000
+# Output ceiling. 2000 silently truncated fact-dense sessions
+# (Gate C: 3/3,631 lost, one of them gold evidence).
+NUM_PREDICT = 4000
+NUM_PREDICT_MAX = 16000
+# Escalation-only remedy for temperature-0 repetition loops.
+# 1.05 measured as the sweet spot: 1.15 over-suppressed
+# (9 facts -> 2), 1.05 broke the loop and kept all 9.
+ANTI_REPEAT_OPTS = {"repeat_penalty": 1.05, "repeat_last_n": 1024}
 NUM_CTX = 10240
 CITE_CAP = 8
 STAMP_SCAN_TURNS = 3   # session-date stamps are headers; scanning every
@@ -225,23 +233,69 @@ class ConsolidationV2:
 
     # ── 1. Extraction ───────────────────────────────────────────────────────
 
-    def _llm(self, prompt: str) -> dict:
+    def _llm(self, prompt: str, num_predict: int = NUM_PREDICT,
+             anti_repeat: bool = False) -> dict:
+        """Extraction call. OUTPUT truncation is detected and retried,
+        never swallowed (Gate C finding, 2026-08-09): a fact-dense
+        session that exceeded num_predict returned JSON cut mid-string,
+        the JSONDecodeError killed the WHOLE session, and 3 of 3,631
+        sessions vanished — one of them GOLD EVIDENCE for an
+        aggregation question, i.e. a silently depressed benchmark
+        score. Ollama reports done_reason='length' when it hits the
+        cap, so the cap is now observable: retry once at double, then
+        fail with a message that names the real cause instead of a
+        parser error."""
         req = urllib.request.Request(
             OLLAMA_URL,
             data=json.dumps({
                 "model": self.model, "prompt": prompt, "stream": False,
                 "format": FACTS_SCHEMA,
                 "options": {"temperature": 0, "num_ctx": NUM_CTX,
-                            "num_predict": 2000},
+                            "num_predict": num_predict,
+                            **(ANTI_REPEAT_OPTS if anti_repeat else {})},
             }).encode(),
             headers={"Content-Type": "application/json"},
         )
         with urllib.request.urlopen(req, timeout=self.timeout) as r:
             body = json.loads(r.read())
-            if "response" not in body:
-                raise ValueError(f"Ollama reply missing 'response': {body}")
-            self._last_prompt_eval = body.get("prompt_eval_count")
-            return json.loads(body["response"])
+        if "response" not in body:
+            raise ValueError(f"Ollama reply missing 'response': {body}")
+        self._last_prompt_eval = body.get("prompt_eval_count")
+        if body.get("done_reason") == "length":
+            if num_predict >= NUM_PREDICT_MAX:
+                raise ValueError(
+                    f"extraction output hit the num_predict ceiling "
+                    f"({num_predict}) even after retry — the session is "
+                    f"too fact-dense for this cap; raise NUM_PREDICT_MAX "
+                    f"rather than losing the session")
+            if not anti_repeat:
+                # Root cause first (measured 2026-08-09): truncation
+                # here is DEGENERATION, not density — llama3.1 at
+                # temperature 0 loops on near-duplicate facts
+                # ("wants to fine-tune VGG16" / "interested in
+                # exploring VGG16" / "wants to fine-t..."), so raising
+                # the ceiling only feeds the loop. A mild repetition
+                # penalty over a long lookback breaks it: the two
+                # degenerate sessions of 3,631 went from unbounded to
+                # 9 facts each. The penalty is ESCALATION-ONLY —
+                # applying it globally would change every extraction
+                # (measured: penalty 1.15 cut a session from 9 facts
+                # to 2) and invalidate already-extracted corpora.
+                logger.warning(
+                    f"[ConsolidationV2] output truncated at "
+                    f"num_predict={num_predict} — retrying with "
+                    f"anti-repetition {ANTI_REPEAT_OPTS}")
+                return self._llm(prompt, num_predict=num_predict,
+                                 anti_repeat=True)
+            logger.warning(
+                f"[ConsolidationV2] still truncated with anti-repetition "
+                f"at num_predict={num_predict} — retrying at "
+                f"{num_predict * 2}")
+            return self._llm(prompt,
+                             num_predict=min(num_predict * 2,
+                                             NUM_PREDICT_MAX),
+                             anti_repeat=True)
+        return json.loads(body["response"])
 
     # ── 2/3. Validation + support gate ──────────────────────────────────────
 

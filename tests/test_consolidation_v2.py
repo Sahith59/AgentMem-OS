@@ -1156,3 +1156,85 @@ def test_prompt_types_dated_plans_as_planned_events():
     assert 'A plan with NO stated date is a "state"' in p
     assert "the date it is planned FOR" in p
     assert "never an event" not in p  # the pre-flip wording is gone
+
+
+def test_output_truncation_retries_then_fails_loudly(env, monkeypatch):
+    """Gate C finding pin (2026-08-09): Ollama silently returns JSON cut
+    mid-string when the generation hits num_predict; the resulting
+    JSONDecodeError killed the WHOLE session (3 of 3,631 lost, one of
+    them GOLD EVIDENCE for a benchmark question — a silently depressed
+    score). done_reason='length' makes the cap observable: retry once at
+    double, then fail naming the real cause."""
+    import json as _json
+    from agentmem_os.llm import consolidation_v2 as cv2
+
+    cv2engine, _SessionLocal = env
+    calls = []
+
+    class _Resp:
+        def __init__(self, payload):
+            self._p = _json.dumps(payload).encode()
+
+        def read(self):
+            return self._p
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def _fake_urlopen(req, timeout=None):
+        body = _json.loads(req.data.decode())
+        calls.append((body["options"]["num_predict"],
+                      "repeat_penalty" in body["options"]))
+        # Truncate forever: proves escalation AND the loud terminal fail.
+        return _Resp({"response": '{"facts": [{"text": "cut',
+                      "done_reason": "length", "prompt_eval_count": 10})
+
+    monkeypatch.setattr(cv2.urllib.request, "urlopen", _fake_urlopen)
+    with pytest.raises(ValueError, match="num_predict ceiling"):
+        cv2engine._llm("prompt")
+    # ROOT CAUSE FIRST: truncation is degeneration, so the first retry
+    # applies anti-repetition at the SAME ceiling; only then does the
+    # ceiling escalate. The default call must carry NO penalty (global
+    # application measurably cuts good sessions from 9 facts to 2).
+    assert calls[0] == (cv2.NUM_PREDICT, False)
+    assert calls[1] == (cv2.NUM_PREDICT, True)
+    assert calls[2] == (cv2.NUM_PREDICT * 2, True)
+    assert calls[-1][0] == cv2.NUM_PREDICT_MAX
+    assert all(c[1] for c in calls[1:])
+
+
+def test_untruncated_output_never_retries(env, monkeypatch):
+    """The escalation must fire ONLY on truncation — a normal reply
+    makes exactly one call."""
+    import json as _json
+    from agentmem_os.llm import consolidation_v2 as cv2
+
+    cv2engine, _SessionLocal = env
+    calls = []
+
+    class _Resp:
+        def __init__(self, payload):
+            self._p = _json.dumps(payload).encode()
+
+        def read(self):
+            return self._p
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def _fake_urlopen(req, timeout=None):
+        opts = _json.loads(req.data.decode())["options"]
+        calls.append(opts)
+        return _Resp({"response": '{"facts": []}', "done_reason": "stop",
+                      "prompt_eval_count": 10})
+
+    monkeypatch.setattr(cv2.urllib.request, "urlopen", _fake_urlopen)
+    assert cv2engine._llm("prompt") == {"facts": []}
+    assert len(calls) == 1
+    assert "repeat_penalty" not in calls[0]  # untouched happy path
