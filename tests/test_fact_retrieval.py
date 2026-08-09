@@ -1025,9 +1025,12 @@ def test_facts_may_not_starve_raw_evidence(env):
     tb = a.last_tier_budget
     assert tb["facts_used"] <= int(4740 * FACTS_BUDGET_SHARE) + 5
     assert tb["chunks_left"] >= int(4740 * (1 - FACTS_BUDGET_SHARE)) - 5
-    # and the starvation counter must be REPORTABLE, not just logged
-    assert set(tb) == {"semantic_total", "facts_cap", "facts_used",
-                       "chunks_left"}
+    # and the starvation counter must be REPORTABLE, not just logged.
+    # SUPERSET, not equality: the profile tier added its own keys and an
+    # exact-match assertion would break every time a tier is added —
+    # what this pin protects is that the numbers are THERE.
+    assert {"semantic_total", "facts_cap", "facts_used",
+            "chunks_left"} <= set(tb)
 
 
 def test_few_facts_do_not_pad_the_reservation(env):
