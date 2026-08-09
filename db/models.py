@@ -293,6 +293,54 @@ class SemanticFactEntity(Base):
     )
 
 
+class ProfileAttribute(Base):
+    """
+    Profile tier (PROFILE_TIER_PLAN.md): a per-scope, per-ATTRIBUTE
+    projection of preference/identity facts — the "who this user is"
+    layer that is INJECTED at assembly rather than retrieved, so its
+    recall does not depend on a query matching it.
+
+    DERIVED STATE, never a second source of truth. Every row points at
+    the semantic_facts row it came from (fact_id), so a profile is
+    always rebuildable from facts and provenance is never broken. The
+    fact tier owns supersession; this table READS those decisions — it
+    never invents its own (D3).
+
+    One row per (scope_key, attribute_key, fact_id): the same attribute
+    legitimately has several rows over time (the user changed their
+    mind), and current-vs-history is resolved at READ time by domain
+    time, exactly like the fact tier. Nothing here is ever deleted.
+    """
+    __tablename__ = "profile_attributes"
+
+    id            = Column(Integer, primary_key=True, autoincrement=True)
+    scope_key     = Column(String, nullable=False, index=True)
+    agent_id      = Column(String, nullable=True)
+    user_id       = Column(String, nullable=True)
+    # Canonical ENGLISH dotted key regardless of source language (D6) —
+    # a Telugu-stated and an English-stated preference land on the SAME
+    # key. Normalized + charset-validated before storage (D2).
+    attribute_key = Column(String, nullable=False, index=True)
+    value_text    = Column(Text, nullable=False)
+    fact_id       = Column(Integer, ForeignKey("semantic_facts.id"),
+                           nullable=False)
+    fact_type     = Column(String, nullable=False)   # preference | identity
+    # Copied from the source fact so ranking/ordering never needs a join
+    # on the hot injection path (the profile is read on EVERY assemble).
+    t_occurred    = Column(String, nullable=True)
+    t_mentioned   = Column(String, nullable=False)
+    mention_count = Column(Integer, default=1)
+    lang_source   = Column(String, nullable=True)
+    proposed_by   = Column(String, nullable=False)   # model that keyed it
+    created_at    = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("scope_key", "attribute_key", "fact_id",
+                         name="uq_profile_attr_fact"),
+        Index("ix_profile_scope_attr", "scope_key", "attribute_key"),
+    )
+
+
 class SupersessionJudgment(Base):
     """
     The persisted audit row for EVERY supersession judgment (Stage 4) —

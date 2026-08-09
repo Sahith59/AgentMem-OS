@@ -30,6 +30,12 @@ from agentmem_os.llm.token_counter import TokenCounter
 # is RESERVED for raw-turn evidence (Gate C: facts at 100% evicted the
 # fallback and the score stayed exactly at baseline).
 FACTS_BUDGET_SHARE = 0.65
+# The profile gets its OWN slice of the semantic allocation, taken
+# before facts and chunks divide the rest. It is small by design (who
+# the user IS compresses to a few dozen lines) and it must never
+# compete with the other tiers for space — the Gate C starvation
+# lesson applies to the new tier first.
+PROFILE_BUDGET_SHARE = 0.15
 
 
 class ContextAssembler:
@@ -65,6 +71,7 @@ class ContextAssembler:
         self._kg = None
         self._procedural = None
         self._facts = None
+        self._profile = None
 
     # ──────────────────────────────────────────────────────────────────────────
     # Public API
@@ -85,7 +92,7 @@ class ContextAssembler:
         Each section is capped at its token budget.
         Sections are labelled with XML-style tags for easy parsing in evaluations.
 
-        disable: optional set of tier names to skip — {"facts", "semantic",
+        disable: optional set of tier names to skip — {"profile", "facts", "semantic",
         "global", "procedural"}. Exists so ablation studies can exercise this
         real assembler directly instead of a hand-rolled simulation of it —
         see benchmarks/ablation_study_real.py. Defaults to empty (all tiers
@@ -125,6 +132,35 @@ class ContextAssembler:
         # pre-facts assembler (pinned in tests — the banked benchmark
         # numbers were measured through this code path).
         sem_budget = self.allocations["semantic"]
+
+        # ── Section 2b: USER PROFILE (injected, never retrieved) ─────────
+        # Who the user IS, always present when non-empty, from its own
+        # reserved slice. Query-INDEPENDENT by design: this tier exists
+        # precisely so that a preference's presence does not depend on
+        # a query happening to match it (PROFILE_TIER_PLAN.md D4).
+        profile_budget = int(sem_budget * PROFILE_BUDGET_SHARE)
+        if "profile" not in disable and profile_budget > 0:
+            try:
+                attrs = self._get_profile().current(
+                    agent_id=agent_id, user_id=user_id,
+                    session_ids=getattr(self, "profile_session_ids", None))
+                block = self._get_profile().render(
+                    attrs, char_budget=profile_budget * 4)
+                if block:
+                    prof_section = self._fit_to_budget(
+                        block, profile_budget, "[USER PROFILE]", keep="head")
+                    if prof_section:
+                        sections.append(prof_section)
+                        sem_budget = max(
+                            0, sem_budget - self.counter.count(prof_section))
+            except Exception as e:
+                # Same containment as the facts tier: a dead profile
+                # must not take recall down with it, and must not be
+                # silent either.
+                logger.warning(
+                    f"[ContextAssembler] Profile tier failed; continuing "
+                    f"without it: {e}")
+
         # NO TIER MAY STARVE ANOTHER (Gate C 2026-08-09, measured):
         # facts consumed 99-100% of this allocation (4,737 of 4,740
         # tokens) and left raw-turn evidence 3 tokens. That did not
@@ -415,6 +451,13 @@ class ContextAssembler:
             from agentmem_os.db.engine import get_session
             self._procedural = ProceduralMemory(get_session)
         return self._procedural
+
+    def _get_profile(self):
+        if self._profile is None:
+            from agentmem_os.db.profile import ProfileStore
+            from agentmem_os.db.engine import get_session
+            self._profile = ProfileStore(get_session)
+        return self._profile
 
     def _get_facts(self):
         if self._facts is None:

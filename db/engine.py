@@ -187,6 +187,36 @@ def init_db() -> None:
     _migrate_semantic_tier()
     _migrate_stage3()
     _migrate_stage4()
+    _migrate_profile_tier()
+
+
+def _migrate_profile_tier() -> dict:
+    """
+    Profile tier migration. The table itself is created by create_all
+    (same absent-table honesty as every stage before it); this verifies
+    presence and reports it rather than assuming. Additive only — the
+    profile is DERIVED state, so a rebuild is always available and no
+    destructive path is ever needed.
+    """
+    import sqlite3 as _sqlite3
+    from loguru import logger as _logger
+
+    conn = None
+    try:
+        conn = _sqlite3.connect(DB_PATH, timeout=30)
+        present = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' "
+            "AND name='profile_attributes'").fetchone() is not None
+        report = {"profile_attributes":
+                  "present" if present else "absent (create_all creates it)"}
+        _logger.info(f"[migrate] profile tier: {report}")
+        return report
+    except Exception as e:
+        raise RuntimeError(
+            f"profile tier migration failed against {DB_PATH}: {e}") from e
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 def _migrate_stage4() -> dict:
