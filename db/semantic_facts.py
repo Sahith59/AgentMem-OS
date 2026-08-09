@@ -570,6 +570,7 @@ class SemanticFactStore:
         agent_id: str = None,
         user_id: str = None,
         include_cancelled: bool = False,
+        session_ids: list = None,
         db=None,
     ) -> list:
         """Live facts for a scope, newest event first (SQLite puts NULL
@@ -595,6 +596,18 @@ class SemanticFactStore:
                 # so the status filter is its only reader-side guard.
                 q = q.filter((SemanticFact.event_status.is_(None))
                              | (SemanticFact.event_status != "cancelled"))
+            if session_ids is not None:
+                # Session-scoped reads ("what does this project//haystack
+                # know?"). CONSERVATIVE BY DESIGN: matches the PRIMARY
+                # source_session_id only — a fact first learned outside
+                # the given set but re-affirmed inside it is EXCLUDED.
+                # Under-retrieval is the safe direction; the alternative
+                # (JSON array membership on source_session_ids) is
+                # unindexable in SQLite and would leak on a partial
+                # match. Empty list means "no sessions" -> no facts,
+                # never "unfiltered".
+                q = q.filter(SemanticFact.source_session_id.in_(
+                    list(session_ids)))
             if fact_type is not None:
                 q = q.filter(SemanticFact.fact_type == fact_type)
             if contains:

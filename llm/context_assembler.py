@@ -26,6 +26,11 @@ fact store the output is byte-identical to the pre-facts assembler.
 from loguru import logger
 from agentmem_os.llm.token_counter import TokenCounter
 
+# Share of the semantic allocation the facts tier may claim. The rest
+# is RESERVED for raw-turn evidence (Gate C: facts at 100% evicted the
+# fallback and the score stayed exactly at baseline).
+FACTS_BUDGET_SHARE = 0.65
+
 
 class ContextAssembler:
     """
@@ -48,6 +53,11 @@ class ContextAssembler:
             "procedural":int(self.budget * 0.03),   # Procedural memory (was 0)
         }
         self.counter = TokenCounter()
+        # Populated by every assemble() so callers (gate runs) can
+        # REPORT tier starvation instead of burying it in a log — the
+        # Gate C lesson: an alarm that only reaches a log file is not
+        # an alarm.
+        self.last_tier_budget = {}
 
         # Lazy-initialized to avoid circular imports at startup
         self._store = None
@@ -115,6 +125,17 @@ class ContextAssembler:
         # pre-facts assembler (pinned in tests — the banked benchmark
         # numbers were measured through this code path).
         sem_budget = self.allocations["semantic"]
+        # NO TIER MAY STARVE ANOTHER (Gate C 2026-08-09, measured):
+        # facts consumed 99-100% of this allocation (4,737 of 4,740
+        # tokens) and left raw-turn evidence 3 tokens. That did not
+        # measure "facts + turns" — it measured "facts INSTEAD OF
+        # turns", and the two cover DIFFERENT question shapes: 13
+        # questions flipped to correct and 13 to wrong, netting zero.
+        # The tiers are complements, not competitors, so the facts
+        # tier may claim at most FACTS_BUDGET_SHARE and the remainder
+        # is RESERVED for raw evidence. When there are few facts they
+        # simply use less — the reservation only ever caps, never pads.
+        facts_budget = int(sem_budget * FACTS_BUDGET_SHARE)
         if "facts" not in disable:
             try:
                 retriever = self._get_facts()
@@ -131,7 +152,7 @@ class ContextAssembler:
                 # sweep pin goes red if they drift apart.
                 block = retriever.build_block(
                     query, agent_id=agent_id, user_id=user_id,
-                    token_budget=sem_budget)
+                    token_budget=facts_budget)
                 if block:
                     facts_section = self._fit_to_budget(
                         block, sem_budget, "[SEMANTIC FACTS]", keep="head")
@@ -148,6 +169,10 @@ class ContextAssembler:
                     f"[ContextAssembler] Facts tier failed; falling back "
                     f"to raw retrieval: {e}")
 
+        self.last_tier_budget = {"semantic_total": self.allocations["semantic"],
+                                 "facts_cap": facts_budget,
+                                 "facts_used": self.allocations["semantic"] - sem_budget,
+                                 "chunks_left": sem_budget}
         if "semantic" not in disable and sem_budget <= 0:
             # Loud, not silent (G3 R1 m2): a facts block that consumed
             # the whole semantic allocation starves raw-turn provenance

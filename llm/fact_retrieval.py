@@ -106,7 +106,7 @@ class FactRetriever:
     # ── Retrieval ───────────────────────────────────────────────────────────
 
     def retrieve(self, query: str, agent_id: str = None,
-                 user_id: str = None) -> list:
+                 user_id: str = None, session_ids: list = None) -> list:
         """Ranked current facts for the query — lexical-primary,
         entity-floor (module docstring). Returns [] for empty queries,
         empty stores, and token-free queries with no linked entities.
@@ -121,6 +121,7 @@ class FactRetriever:
 
         store = self._get_store()
         scan = store.current_facts(agent_id=agent_id, user_id=user_id,
+                                   session_ids=session_ids,
                                    limit=_LEXICAL_SCAN_CAP)
         if len(scan) == _LEXICAL_SCAN_CAP:
             logger.warning(
@@ -142,6 +143,9 @@ class FactRetriever:
                     limit=_PER_ENTITY_CAP):
                 if f.id in seen:
                     continue
+                if (session_ids is not None
+                        and f.source_session_id not in session_ids):
+                    continue          # the floor obeys the same scope
                 entry = floor.setdefault(f.id, [f, 0])
                 entry[1] += 1
 
@@ -218,7 +222,8 @@ class FactRetriever:
     # ── Rendering ───────────────────────────────────────────────────────────
 
     def build_block(self, query: str, agent_id: str = None,
-                    user_id: str = None, token_budget: int = 1000) -> str:
+                    user_id: str = None, token_budget: int = 1000,
+                    session_ids: list = None) -> str:
         """Retrieve, select to budget, render.
 
         Selection is RANK-based and the block NEVER exceeds
@@ -260,7 +265,8 @@ class FactRetriever:
 
         Returns "" when nothing is retrieved — the caller's byte-level
         no-regress path depends on that exact contract."""
-        facts = self.retrieve(query, agent_id=agent_id, user_id=user_id)
+        facts = self.retrieve(query, agent_id=agent_id, user_id=user_id,
+                              session_ids=session_ids)
         if not facts:
             return ""
 

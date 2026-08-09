@@ -1,0 +1,568 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o-mini",
+  "judge_model": "gpt-4o",
+  "n_questions": 79,
+  "retrieval_backend": "tfidf",
+  "context_chars": 24000,
+  "memory_source": "extracted",
+  "answerer": "reasoning",
+  "qa_accuracy": 0.519,
+  "correct": 41,
+  "total": 79,
+  "results": [
+    {
+      "question": "How many projects have I led or am currently leading?",
+      "gold_answer": "2",
+      "predicted": "1",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What was the date on which I attended the first BBQ event in June?",
+      "gold_answer": "June 3rd",
+      "predicted": "June 3rd",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many times did I ride rollercoasters across all the events I attended from July to October?",
+      "gold_answer": "10 times",
+      "predicted": "9",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many graduation ceremonies have I attended in the past three months?",
+      "gold_answer": "3",
+      "predicted": "3",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days ago did I harvest my first batch of fresh herbs from the herb garden kit?",
+      "gold_answer": "3 days ago. 4 days (including the last day) is also acceptable.",
+      "predicted": "3 days ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days a week do I attend fitness classes?",
+      "gold_answer": "4 days.",
+      "predicted": "2 days a week.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I mentioned an investment for a competition four weeks ago? What did I buy?",
+      "gold_answer": "I got my own set of sculpting tools.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?",
+      "gold_answer": "one week",
+      "predicted": "4 weeks",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much money did I raise for charity in total?",
+      "gold_answer": "$3,750",
+      "predicted": "$3,750",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total amount of money I earned from selling my products at the markets?",
+      "gold_answer": "$495",
+      "predicted": "$495",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days had passed since I started taking ukulele lessons when I decided to take my acoustic guitar to the guitar tech for servicing?",
+      "gold_answer": "24 days. 25 days (including the last day) is also acceptable.",
+      "predicted": "27 days",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "predicted": "The event was the Spring Sprint Triathlon on June 2, 2023.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days did it take for me to receive the new remote shutter release after I ordered it?",
+      "gold_answer": "5 days. 6 days (including the last day) is also acceptable.",
+      "predicted": "5 days",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What time do I wake up on Tuesdays and Thursdays?",
+      "gold_answer": "6:45 AM",
+      "predicted": "6:45 AM",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which vehicle did I take care of first in February, the bike or the car?",
+      "gold_answer": "bike",
+      "predicted": "The bike.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days had passed between the day I bought a gift for my brother's graduation ceremony and the day I bought a birthday gift for my best friend?",
+      "gold_answer": "7 days. 8 days (including the last day) is also acceptable.",
+      "predicted": "7",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What is the total amount I spent on gifts for my coworker and brother?",
+      "gold_answer": "$200",
+      "predicted": "175",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days did I spend participating in faith-related activities in December?",
+      "gold_answer": "3 days.",
+      "predicted": "3",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total cost of my recently purchased headphones and the iPad?",
+      "gold_answer": "The information provided is not enough. You mentioned purchasing a headphone, but you did not mention the iPad.",
+      "predicted": "$378",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many movie festivals that I attended?",
+      "gold_answer": "I attended four movie festivals.",
+      "predicted": "2",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What time did I go to bed on the day before I had a doctor's appointment?",
+      "gold_answer": "2 AM",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total number of episodes I've listened to from 'How I Built This' and 'My Favorite Murder'?",
+      "gold_answer": "27",
+      "predicted": "12",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which project did I start first, the Ferrari model or the Japanese Zero fighter plane model?",
+      "gold_answer": "Japanese Zero fighter plane model",
+      "predicted": "Ferrari 288 GTO model.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I mentioned visiting a museum two months ago. Did I visit with a friend or not?",
+      "gold_answer": "No, you did not visit with a friend.",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What percentage discount did I get on the book from my favorite author?",
+      "gold_answer": "20%",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "At which university did I present a poster on my thesis research?",
+      "gold_answer": "Harvard University",
+      "predicted": "Harvard University",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many bikes did I service or plan to service in March?",
+      "gold_answer": "2",
+      "predicted": "1",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many sports have I played competitively in the past?",
+      "gold_answer": "two",
+      "predicted": "2",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many hours do I work in a typical week during peak campaign seasons?",
+      "gold_answer": "50",
+      "predicted": "50 hours",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+      "gold_answer": "Samsung Galaxy S22",
+      "predicted": "Dell XPS 13",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many months ago did I attend the photography workshop?",
+      "gold_answer": "3",
+      "predicted": "3 months",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much did I spend on each coffee mug for my coworkers?",
+      "gold_answer": "$12",
+      "predicted": "$12",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which event happened first, my participation in the #PlankChallenge or my post about vegan chili recipe?",
+      "gold_answer": "You posted a recipe for vegan chili on Instagram using the hashtag #FoodieAdventures first.",
+      "predicted": "The vegan chili recipe post happened first.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which pair of shoes did I clean last month?",
+      "gold_answer": "white Adidas sneakers",
+      "predicted": "White Adidas sneakers.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many charity events did I participate in before the 'Run for the Cure' event?",
+      "gold_answer": "4",
+      "predicted": "3",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many weeks ago did I meet up with my aunt and receive the crystal chandelier?",
+      "gold_answer": "4",
+      "predicted": "4 weeks ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How old was I when Alex was born?",
+      "gold_answer": "11",
+      "predicted": "11 years old.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What was the the life event of one of my relatives that I participated in a week ago?",
+      "gold_answer": "my cousin's wedding",
+      "predicted": "You participated in a wedding-related event for one of your relatives.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which task did I complete first, fixing the fence or purchasing three cows from Peter?",
+      "gold_answer": "The information provided is not enough. You mentioned fixing the fence but did not mention purchasing cows from Peter.",
+      "predicted": "Fixing the fence was completed first; purchasing cows was not mentioned.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which device did I set up first, the smart thermostat or the new router?",
+      "gold_answer": "new router",
+      "predicted": "The new router.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many different art-related events did I attend in the past month?",
+      "gold_answer": "4",
+      "predicted": "2",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days did I spend in total traveling in Hawaii and in New York City?",
+      "gold_answer": "15 days",
+      "predicted": "5 days (New York City); duration in Hawaii not mentioned.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How much will I save by taking the bus from the airport to my hotel instead of a taxi?",
+      "gold_answer": "The information provided is not enough. You did not mention how much will the bus take.",
+      "predicted": "not mentioned",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many months ago did I book the Airbnb in San Francisco?",
+      "gold_answer": "Five months ago",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many points do I need to earn to redeem a free skincare product at Sephora?",
+      "gold_answer": "100",
+      "predicted": "100 points.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many tanks do I currently have, including the one I set up for my friend's kid?",
+      "gold_answer": "3",
+      "predicted": "2",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total number of goals and assists I have in the recreational indoor soccer league?",
+      "gold_answer": "5",
+      "predicted": "5",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What percentage of the countryside property's price is the cost of the renovations I plan to do on my current house?",
+      "gold_answer": "10%",
+      "predicted": "10%",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How much money did I raise in total through all the charity events I participated in?",
+      "gold_answer": "$5,850",
+      "predicted": "$850",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which trip did the narrator take first, the solo trip to Europe or the family road trip across the American Southwest?",
+      "gold_answer": "The family road trip across the American Southwest",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which streaming service did I start using most recently?",
+      "gold_answer": "Disney+",
+      "predicted": "Apple TV+",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How long had I been watching stand-up comedy specials regularly when I attended the open mic night at the local comedy club?",
+      "gold_answer": "2 months",
+      "predicted": "3 months",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many months passed between the completion of my undergraduate degree and the submission of my master's thesis?",
+      "gold_answer": "6 months",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days had passed between the Sunday mass at St. Mary's Church and the Ash Wednesday service at the cathedral?",
+      "gold_answer": "30 days. 31 days (including the last day) is also acceptable.",
+      "predicted": "30",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many babies were born to friends and family members in the last few months?",
+      "gold_answer": "5",
+      "predicted": "5",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many months have passed since I participated in two charity events in a row, on consecutive days?",
+      "gold_answer": "2",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days ago did I read the March 15th issue of The New Yorker?",
+      "gold_answer": "12 days ago. 13 days (including the last day) is also acceptable.",
+      "predicted": "12 days ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many antique items did I inherit or acquire from my family members?",
+      "gold_answer": "5",
+      "predicted": "3",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many months before my anniversary did Rachel get engaged?",
+      "gold_answer": "2",
+      "predicted": "2 months",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Who did I meet first, the woman selling jam at the farmer's market or the tourist from Australia?",
+      "gold_answer": "the woman selling jam at the farmer's market",
+      "predicted": "The woman selling jam at the farmer's market.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days did I spend attending workshops, lectures, and conferences in April?",
+      "gold_answer": "3 days",
+      "predicted": "2 days",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many dinner parties have I attended in the past month?",
+      "gold_answer": "three",
+      "predicted": "4",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many projects have I been working on simultaneously, excluding my thesis?",
+      "gold_answer": "2",
+      "predicted": "2",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Who did I go with to the music event last Saturday?",
+      "gold_answer": "my parents",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which airline did I fly with the most in March and April?",
+      "gold_answer": "United Airlines",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much did I save on the Jimmy Choo heels?",
+      "gold_answer": "$300",
+      "predicted": "$300",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which show did I start watching first, 'The Crown' or 'Game of Thrones'?",
+      "gold_answer": "'Game of Thrones'",
+      "predicted": "'Game of Thrones'",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days did I spend on camping trips in the United States this year?",
+      "gold_answer": "8 days.",
+      "predicted": "15 days",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which three events happened in the order from first to last: the day I helped my friend prepare the nursery, the day I helped my cousin pick out stuff for her baby shower, and the day I ordered a customized phone case for my friend's birthday?",
+      "gold_answer": "First, I helped my friend prepare the nursery, then I helped my cousin pick out stuff for her baby shower, and lastly, I ordered a customized phone case for my friend's birthday.",
+      "predicted": "Helped my friend prepare the nursery, helped my cousin pick out stuff for her baby shower, ordered a customized phone case for my friend's birthday.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which event did I participate in first, the charity gala or the charity bake sale?",
+      "gold_answer": "I participated in the charity bake sale first.",
+      "predicted": "charity bake sale",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What was the significant buisiness milestone I mentioned four weeks ago?",
+      "gold_answer": "I signed a contract with my first client.",
+      "predicted": "Launched their website on 2023/02/10.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many times did I bake egg tarts in the past two weeks?",
+      "gold_answer": "The information provided is not enough. You did not mention baking egg tarts.",
+      "predicted": "not mentioned",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I mentioned cooking something for my friend a couple of days ago. What was it?",
+      "gold_answer": "a chocolate cake",
+      "predicted": "The user baked a chocolate cake for their friend's birthday party.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much faster did I finish the 5K run compared to my previous year's time?",
+      "gold_answer": "10 minutes",
+      "predicted": "10 minutes",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the average GPA of my undergraduate and graduate studies?",
+      "gold_answer": "3.83",
+      "predicted": "3.83",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the order of the six museums I visited from earliest to latest?",
+      "gold_answer": "Science Museum, Museum of Contemporary Art, Metropolitan Museum of Art, Museum of History, Modern Art Museum, Natural History Museum",
+      "predicted": "Science Museum, Museum of Contemporary Art, Metropolitan Museum of Art, Museum of History, Modern Art Museum, Children's Museum.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many items of clothing do I need to pick up or return from a store?",
+      "gold_answer": "3",
+      "predicted": "2 items",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days passed between the day I cancelled my FarmFresh subscription and the day I did my online grocery shopping from Instacart?",
+      "gold_answer": "54 days. 55 days (including the last day) is also acceptable.",
+      "predicted": "54 days",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What is the order of the sports events I watched in January?",
+      "gold_answer": "First, I attended a NBA game at the Staples Center, then I watched the College Football National Championship game, and finally, I watched the NFL playoffs.",
+      "predicted": "Kansas City Chiefs vs. Buffalo Bills, Lakers vs. Chicago Bulls, College Football National Championship game.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    }
+  ]
+}

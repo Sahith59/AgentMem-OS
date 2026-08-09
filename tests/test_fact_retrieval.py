@@ -965,3 +965,79 @@ async def test_mcp_recall_passes_scope_to_assembler(monkeypatch):
     data = json.loads(result[0].text)
     assert data["context"] == "<ctx/>"
     assert seen == {"agent_id": "agent-A", "user_id": "u-1"}
+
+
+def test_session_scoped_retrieval_prevents_cross_scope_leakage(env):
+    """Gate C validity pin: the eval stores every question's haystack
+    in ONE fact corpus (3,631 sessions). Without a session filter every
+    question would see every other question's facts — that is cheating,
+    not measuring. Empty list must mean NO facts, never 'unfiltered'."""
+    store, linker, retriever, SessionLocal = env
+    mine = _fact(store, "Rachel is currently working at TechCorp.",
+                 source_session_id="sess-1")
+    other = _fact(store, "Rachel is currently working at Initech.",
+                  source_session_id="sess-2")
+    q = "Where does Rachel currently work?"
+
+    assert {f.id for f in retriever.retrieve(q)} == {mine.id, other.id}
+    assert [f.id for f in retriever.retrieve(q, session_ids=["sess-1"])] \
+        == [mine.id]
+    assert [f.id for f in retriever.retrieve(q, session_ids=["sess-2"])] \
+        == [other.id]
+    assert retriever.retrieve(q, session_ids=[]) == []      # not "all"
+    assert "TechCorp" in retriever.build_block(q, session_ids=["sess-1"])
+    assert "Initech" not in retriever.build_block(q, session_ids=["sess-1"])
+
+
+def test_entity_floor_also_obeys_session_scope(env):
+    """The floor is a SECOND path into the corpus — it must honor the
+    same restriction or it becomes the leak."""
+    store, linker, retriever, SessionLocal = env
+    outside = _fact(store, "The colleague enjoys hiking on weekends.",
+                    source_session_id="sess-2")
+    _link(SessionLocal, outside.id, "Rachel")
+    assert any(f.id == outside.id for f in retriever.retrieve("Rachel"))
+    assert not any(f.id == outside.id
+                   for f in retriever.retrieve("Rachel",
+                                               session_ids=["sess-1"]))
+
+
+def test_facts_may_not_starve_raw_evidence(env):
+    """Gate C pin (2026-08-09, measured on the real corpus): facts
+    consumed 99-100% of the semantic allocation and left raw evidence
+    3 tokens — that measured 'facts INSTEAD OF turns' and the score
+    stayed exactly at baseline (13 questions won, 13 lost). The tiers
+    are complements: facts are capped, the remainder is RESERVED."""
+    from agentmem_os.llm.context_assembler import FACTS_BUDGET_SHARE
+
+    store, linker, retriever, SessionLocal = env
+    for i in range(120):
+        _fact(store, f"Rachel completed milestone {i} on the platform "
+                     f"team at TechCorp with measurable impact.")
+    big = [f"[2023/05/{d:02d}] USER: raw evidence chunk {d} " + "y" * 300
+           for d in range(1, 29)]
+    a = _assembler(env, chunks=big)
+    a.allocations["semantic"] = 4740          # the eval's real budget
+    out = a.assemble("s-starve", "Rachel TechCorp milestone platform")
+
+    assert "[SEMANTIC FACTS]" in out
+    assert "[SEMANTIC MEMORY]" in out, "raw evidence was starved again"
+    tb = a.last_tier_budget
+    assert tb["facts_used"] <= int(4740 * FACTS_BUDGET_SHARE) + 5
+    assert tb["chunks_left"] >= int(4740 * (1 - FACTS_BUDGET_SHARE)) - 5
+    # and the starvation counter must be REPORTABLE, not just logged
+    assert set(tb) == {"semantic_total", "facts_cap", "facts_used",
+                       "chunks_left"}
+
+
+def test_few_facts_do_not_pad_the_reservation(env):
+    """The cap only ever CAPS. A small fact block must leave the rest
+    to chunks, not reserve space it doesn't use."""
+    store, linker, retriever, SessionLocal = env
+    _fact(store, "Rachel is currently working at TechCorp.")
+    a = _assembler(env, chunks=["[2023/05/01] USER: chunk one."])
+    a.allocations["semantic"] = 4740
+    a.assemble("s-small", "Where does Rachel work?")
+    tb = a.last_tier_budget
+    assert tb["facts_used"] < 100
+    assert tb["chunks_left"] > 4600

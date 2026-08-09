@@ -80,6 +80,10 @@ ap.add_argument("--seed", type=int, default=42)
 ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
                  help="LongMemEval haystack: oracle (evidence sessions only) or s "
                       "(~40 sessions/question, the split vendor numbers use)")
+ap.add_argument("--facts-source", choices=["live", "gate_c"], default="live",
+                help="gate_c = read the extracted fact corpus "
+                     "(benchmarks/extracted_memories/gate_c_facts.db), "
+                     "scoped per question to its own haystack")
 ap.add_argument("--memory-source", choices=["extracted", "raw"], default="extracted",
                  help="what gets stored: LLM-extracted atomic memories (default, "
                       "matches what every competitor stores) or raw dialogue turns")
@@ -347,6 +351,21 @@ def ensure_scope_ingested(scope_keys: list) -> str:
 def retrieve_context(scope_keys: list, question: str) -> str:
     sid = ensure_scope_ingested(scope_keys)
     return assembler.assemble(sid, question, agent_id=sid)
+
+
+_GATE_C_PROVENANCE = None
+if args.facts_source == "gate_c":
+    # Gate C: the facts tier reads the extracted corpus instead of the
+    # eval's live DB, scoped to each question's OWN haystack (the
+    # corpus holds every question's sessions in one scope; unscoped
+    # reads would leak across questions — measured, see the module).
+    sys.path.insert(0, str(Path(__file__).parent))
+    import gate_c_facts_source as _gate_c
+    _scope_by_q = {it.question: list(it.scope_keys) for it in items}
+    if not _gate_c.preflight(_scope_by_q):
+        raise SystemExit("Gate C preflight FAILED — refusing to spend")
+    _GATE_C_PROVENANCE = _gate_c.install(assembler, _scope_by_q)
+    print(f"[gate_c] {_GATE_C_PROVENANCE}")
 
 
 _retrieve_lock = threading.Lock()
