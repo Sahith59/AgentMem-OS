@@ -15,12 +15,18 @@ Contracts inherited deliberately from the stages before it:
     suggests an attribute key; `normalize_key` validates charset,
     shape, depth and length, and a rejected key means the fact stays a
     fact — never lost, only un-profiled.
-  - The fact tier OWNS supersession; the profile READS it (D3). No
-    second direction rule is invented here: current value = latest by
-    DOMAIN time (t_occurred else t_mentioned), ties by fact id, and a
-    fact already superseded in the fact tier can never be current.
+  - The fact tier OWNS supersession; the profile READS it (D3) and
+    ELECTS NOTHING (G3 R1 B5). Two LIVE facts on one key means the
+    fact tier is asserting both, so both are shown; a fact superseded
+    or cancelled there can never appear here. Values are ranked
+    (mention_count, domain time) and capped per key, and every drop is
+    disclosed in last_selection / last_render.
   - DERIVED STATE, never a second source of truth. Every row carries
-    fact_id; `rebuild` can reconstruct the whole profile from facts.
+    fact_id, so a projection can always be traced back. NOTE (G3 R1
+    m1): there is no `rebuild()` method, and the projection is NOT a
+    pure function of the facts — keys and values exist only as model
+    output, and a prompt change alone moved 58 keys to 41. "Derived"
+    means traceable, not reproducible.
   - Projection failure never takes facts down (Stage 3's linking
     contract); read failure degrades to no-profile (Stage 5's tier
     contract).
@@ -109,10 +115,16 @@ class ProfileStore:
         # non-string value raised AttributeError and killed the whole
         # projection batch — the model's output is untrusted on BOTH
         # fields, not just the key).
-        if value_text is None or isinstance(value_text, bool):
+        # SCALARS convert, CONTAINERS refuse (G3 R2: the R1 fix
+        # str()-ed everything, so ["oat"] became the literal "['oat']"
+        # — a repr is never a sensible attribute value. A number IS:
+        # G2's own residual was `business.expense: 50`.)
+        if isinstance(value_text, bool) or value_text is None:
             return False
-        if not isinstance(value_text, str):
+        if isinstance(value_text, (int, float)):
             value_text = str(value_text)
+        elif not isinstance(value_text, str):
+            return False
         value = _strip_invisible(value_text).strip()
         if not value:
             return False
@@ -215,7 +227,13 @@ class ProfileStore:
                 when = attr.t_occurred or attr.t_mentioned or ""
                 by_key.setdefault(attr.attribute_key, []).append((attr, when))
             for vals in by_key.values():
-                vals.sort(key=lambda av: (av[1], av[0].fact_id), reverse=True)
+                # Rank values the SAME way keys rank (G3 R2 blocker 3):
+                # ordering by recency alone let six newer one-offs evict
+                # a value re-affirmed 15 times — including the SURVIVOR
+                # of a supersession, which re-opened the very claim this
+                # round was about. mention_count first, then domain time.
+                vals.sort(key=lambda av: (av[0].mention_count or 1, av[1],
+                                          av[0].fact_id), reverse=True)
             ranked_keys = sorted(
                 by_key.items(),
                 key=lambda kv: (max(a.mention_count or 1 for a, _ in kv[1]),
@@ -302,7 +320,7 @@ class ProfileStore:
         grouped = {}
         for a in attrs:
             grouped.setdefault(a.attribute_key, []).append(a)
-        lines = []
+        lines, deduped = [], 0
         for key, rows in grouped.items():
             vals = []
             for r in rows:
@@ -310,19 +328,37 @@ class ProfileStore:
                 v = " ".join(v.split())
                 if v and v not in vals:
                     vals.append(v)
+                elif v:
+                    deduped += 1
             if vals:
                 lines.append(f"{key}: {'; '.join(vals)}")
 
+        if not lines:
+            # Every value sanitized away (e.g. a value that was ONLY
+            # section tags). G3 R2 major 4: this indexed lines[0] and
+            # raised IndexError — one crafted utterance suppressed the
+            # whole profile for that turn.
+            return ""
         out, kept = "", []
+        dropped_by_budget = 0
         for line in lines:
             candidate = "\n".join(kept + [line])
             if kept and (len(candidate) > char_cap
                          or counter.count(candidate) > token_budget):
+                dropped_by_budget = len(lines) - len(kept)
                 break
             kept.append(line)
             out = candidate
+        # G3 R2 major 5: render's OWN drops were in no report —
+        # last_selection covered only the limit path, so on the full
+        # corpus the operator report would say nothing about the slice
+        # binding. Recorded here, merged with the read's selection note.
+        self.last_render = {"lines_in": len(lines), "lines_out": len(kept),
+                            "dropped_by_budget": dropped_by_budget,
+                            "values_deduped": deduped}
         # The FIRST line is always included (there must be a profile if
         # there are attributes); the caller truncates its tail, which is
-        # rank-safe. G3 R1 m3 caught the old code claiming a hard cap it
-        # did not honor for line 1 — this states the exception instead.
-        return out or lines[0][:char_cap]
+        # rank-safe (G3 R1 m3 — and G3 R2 major 4 found the old
+        # `lines[0]` fallback was dead code, since line 1 is always
+        # appended; the empty case is handled above instead).
+        return out

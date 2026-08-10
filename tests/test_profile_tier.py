@@ -582,3 +582,112 @@ def test_report_counts_only_committed_writes(env, monkeypatch):
         assert db.query(ProfileAttribute).count() == 0
     finally:
         db.close()
+
+
+# ── G3 R2: pins the critic proved missing (mutation-verified) ────────────────
+
+def test_per_key_cap_keeps_the_supersession_winner(env):
+    """G3 R2 blocker 3: the per-key cap ordered by RECENCY ONLY while
+    keys rank by (mentions, recency) — so six newer one-offs evicted
+    the survivor of a supersession, re-opening the exact claim R1 was
+    about. Values now rank the same way keys do."""
+    store, profile, SessionLocal = env
+    winner = _fact(store, "The user prefers the long-standing option.",
+                   t_occurred="2020/01/01")          # OLDEST
+    db = SessionLocal()
+    try:
+        from agentmem_os.db.models import SemanticFact
+        db.query(SemanticFact).filter(SemanticFact.id == winner.id).update(
+            {"mention_count": 15})                   # re-affirmed 15x
+        db.commit()
+    finally:
+        db.close()
+    winner = store.current_facts(contains="long-standing")[0]
+    profile.project(winner, "work.location", "SURVIVOR", "t")
+    for i in range(6):                                # six newer one-offs
+        f = _fact(store, f"The user prefers newer option {i} briefly.",
+                  t_occurred=f"2024/0{i + 1}/01")
+        profile.project(f, "work.location", f"noise-{i}", "t")
+    vals = [a.value_text for a in profile.current()]
+    assert "SURVIVOR" in vals, vals
+    assert len(vals) == _MAX_VALUES_PER_KEY
+
+
+def test_render_survives_a_value_that_sanitizes_to_nothing(env):
+    """G3 R2 major 4: a value of only section tags left lines == [] and
+    the fallback indexed lines[0] — one crafted utterance suppressed
+    the entire profile for that turn."""
+    store, profile, SessionLocal = env
+    f = _fact(store, "The user prefers oat milk.")
+    assert profile.project(f, "coffee.milk", "<[USER PROFILE]>", "t")
+    assert profile.render(profile.current(), token_budget=300) == ""
+
+
+def test_value_type_guard_is_pinned(env):
+    """G3 R2 major 3: the guard added in R1 had no test, so it was one
+    edit from silently reverting."""
+    store, profile, SessionLocal = env
+    f = _fact(store, "The user prefers oat milk.")
+    for bad in (True, False, ["oat"], {"v": "oat"}, None, object()):
+        assert profile.project(f, "coffee.milk", bad, "t") is False, bad
+    assert profile.current() == []
+    # ...but a NUMBER is a legitimate value (G2's own residual was
+    # `business.expense: 50`), so scalars convert rather than crash.
+    assert profile.project(f, "business.expense", 50, "t") is True
+    assert profile.current()[0].value_text == "50"
+
+
+def test_render_budget_binds_on_HIGH_ratio_content_too(env):
+    """G3 R2 major 2: the Telugu fixture measured 2.72 chars/token —
+    entirely below the 4.0 proxy — so ONLY the token branch could bind
+    and deleting the char branch left everything green. Long-word
+    English measures ~5.9 chars/token, where the CHAR branch is the
+    binding cut. A dual-unit budget needs a fixture per unit."""
+    from agentmem_os.llm.token_counter import TokenCounter
+    from agentmem_os.db.profile import _CALLER_CHAR_FACTOR
+
+    store, profile, SessionLocal = env
+    prose = ("comprehensive organizational restructuring considerations "
+             "throughout multinational headquarters demonstrating "
+             "extraordinary professional development")
+    for i in range(40):
+        g = _fact(store, f"The user prefers {prose} number {i}.")
+        profile.project(g, f"pref.p{i}", f"{prose} {i}", "t")
+    tc = TokenCounter()
+    sample = profile.render(profile.current(limit=40), token_budget=4000)
+    assert len(sample) / tc.count(sample) > 4.5, "fixture must be high-ratio"
+    for budget in (40, 120, 300):
+        out = profile.render(profile.current(limit=40), token_budget=budget)
+        assert len(out) <= budget * _CALLER_CHAR_FACTOR
+        assert tc.count(out) <= budget or "\n" not in out
+
+
+def test_budget_report_cannot_hide_overspend_as_zero(env):
+    """G3 R2 major 1: facts_used = max(0, total - profile - sem) reads
+    ZERO when the profile overspends, so deleting the subtraction that
+    reserves the profile's tokens left the pin green while the section
+    overspent by 369 tokens. Assert the ARITHMETIC, not just the sign."""
+    store, profile, SessionLocal = env
+    for i in range(200):
+        f = _fact(store, f"The user prefers alternative {i} in all cases.")
+        profile.project(f, f"pref.a{i}", f"alternative {i}", "t")
+    a = _assembler(env)
+    a.allocations["semantic"] = 4740
+    a.assemble("s-overspend", "anything")
+    tb = a.last_tier_budget
+    total = tb["profile_used"] + tb["facts_used"] + tb["chunks_left"]
+    assert total <= tb["semantic_total"], (tb, total)
+    assert tb["profile_used"] <= tb["profile_cap"]
+
+
+def test_render_drops_are_reported(env):
+    """G3 R2 major 5: render's own drops (budget + dedup) were in no
+    report, so on the full corpus the operator would see nothing."""
+    store, profile, SessionLocal = env
+    for i in range(30):
+        f = _fact(store, f"The user prefers selection {i} at all times.")
+        profile.project(f, f"pref.s{i}", f"selection {i}", "t")
+    profile.render(profile.current(limit=30), token_budget=40)
+    r = profile.last_render
+    assert r["lines_in"] == 30 and r["lines_out"] < 30
+    assert r["dropped_by_budget"] == r["lines_in"] - r["lines_out"]

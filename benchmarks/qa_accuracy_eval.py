@@ -80,6 +80,10 @@ ap.add_argument("--seed", type=int, default=42)
 ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
                  help="LongMemEval haystack: oracle (evidence sessions only) or s "
                       "(~40 sessions/question, the split vendor numbers use)")
+ap.add_argument("--profile", action="store_true",
+                help="inject the profile tier, scoped per question "
+                     "(Gate D). Refuses to run if the profile is empty "
+                     "or any question lacks a registered haystack.")
 ap.add_argument("--facts-source", choices=["live", "gate_c"], default="live",
                 help="gate_c = read the extracted fact corpus "
                      "(benchmarks/extracted_memories/gate_c_facts.db), "
@@ -350,6 +354,10 @@ def ensure_scope_ingested(scope_keys: list) -> str:
 
 def retrieve_context(scope_keys: list, question: str) -> str:
     sid = ensure_scope_ingested(scope_keys)
+    # The profile is INJECTED, so an unscoped read would leak into
+    # every answer — bind this question's haystack before assembling
+    # (the assembler REFUSES when scoping is required and unset).
+    assembler.profile_session_ids = list(scope_keys)
     return assembler.assemble(sid, question, agent_id=sid)
 
 
@@ -366,6 +374,16 @@ if args.facts_source == "gate_c":
         raise SystemExit("Gate C preflight FAILED — refusing to spend")
     _GATE_C_PROVENANCE = _gate_c.install(assembler, _scope_by_q)
     print(f"[gate_c] {_GATE_C_PROVENANCE}")
+
+_GATE_D_PROVENANCE = None
+if args.profile:
+    sys.path.insert(0, str(Path(__file__).parent))
+    import gate_d_profile_source as _gate_d
+    _p_scope = {it.question: list(it.scope_keys) for it in items}
+    if not _gate_d.preflight(_p_scope):
+        raise SystemExit("Gate D profile preflight FAILED — refusing to spend")
+    _GATE_D_PROVENANCE = _gate_d.install(assembler, _p_scope)
+    print(f"[gate_d] {_GATE_D_PROVENANCE}")
 
 
 _retrieve_lock = threading.Lock()

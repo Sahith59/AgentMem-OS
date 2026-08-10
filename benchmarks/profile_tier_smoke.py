@@ -75,18 +75,26 @@ def main():
         hist = store.history(k)
         print(f"   {k}: {n} facts | current={hist[-1].value_text[:40]!r}")
 
-    print("\n--- TOP 25 ATTRIBUTES AS INJECTED ---")
-    top = store.current(limit=25)
-    block = store.render(top, char_budget=4000)
-    print(block[:1800])
-
+    # THE ASSEMBLER'S OWN PATH — not a hand-picked subset (G3 R2 major
+    # 7: the old numbers used limit=25/char_budget=4000, which is not
+    # what the assembler injects, so the reported cost described
+    # nothing that ships).
     from agentmem_os.llm.token_counter import TokenCounter
     from agentmem_os.llm.context_assembler import PROFILE_BUDGET_SHARE
     tc = TokenCounter()
     slice_tokens = int(4740 * PROFILE_BUDGET_SHARE)
-    print(f"\ninjected block: {tc.count(block)} tokens "
-          f"(slice at the eval's budget = {slice_tokens})")
-    print(f"fits its slice: {tc.count(block) <= slice_tokens or 'render caps it at assembly'}")
+    injected = store.current(limit=40)
+    block = store.render(injected, token_budget=slice_tokens, counter=tc)
+    print("\n--- AS THE ASSEMBLER INJECTS IT (limit=40, real slice) ---")
+    print(block[:1800])
+    n_values = sum(len(l.split(": ", 1)[1].split("; ")) for l in
+                   block.split("\n") if ": " in l)
+    print(f"\ninjected: {len(block.split(chr(10)))} lines / {n_values} "
+          f"values | {tc.count(block)} tokens of the {slice_tokens} slice")
+    print(f"REACH: {n_values} of {keyed} projected facts reach the prompt "
+          f"({n_values / max(1, keyed):.0%}) — the B5 measurement")
+    print(f"selection: {store.last_selection} | render: {store.last_render}")
+    assert tc.count(block) <= slice_tokens, "render exceeded its slice"
 
     print(f"\nRESULT: {keyed} attributes stored from {rep['candidates']} "
           f"candidate facts; {len(collapsed)} keys carry history")

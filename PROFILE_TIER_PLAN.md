@@ -275,3 +275,71 @@ and invisible characters incl. RTL overrides.
 **Mutation verification of the fix pass — all six reverted guards now
 turn a NAMED test red:** B1, B2, B3, B4, M1, M6.
 Post-fix: **27 profile tests**, 5-suite regression green.
+
+### G3 round 2 — BLOCK (narrow): 3 blockers, 6 majors — fix pass
+
+**B5 VERIFIED WORKING on the real corpus by the critic's own run:**
+90 projected → 82 rows/40 keys → 40 lines / **80 values, 573 tokens of
+the 711 slice. 80 of 90 facts now reach the prompt = 89%, up from 41
+of 90 = 46%.** The 10 lost: 7 to the per-key cap, 1 key to limit=40,
+2 to render dedup. 11 of 15 R1 mutations now die.
+
+**R2-blocker 1 — the G2 GATE SCRIPT was broken by the fix pass and
+never re-run.** `render(char_budget=...)` no longer existed; the
+artifact that validates the round's deepest change did not execute, so
+§G3's B5 paragraph was ARGUED, not measured. Lesson (the critic's):
+**gate scripts are callers — a signature change breaks them like any
+other caller, and a gate that does not run is not a gate.** FIXED and
+re-run: the smoke now uses the ASSEMBLER'S OWN path (limit=40, the
+real slice) instead of a hand-picked limit=25/char_budget=4000, and
+reproduces 89% reach independently. It also asserts the render never
+exceeds its slice.
+
+**R2-blocker 2 — Gate D wiring did not exist.** `profile_scoped_required`
+closed the leak half, but nothing set it, nothing projected profile
+rows into the corpus, and the refusal was raised INSIDE the tier's
+try/except — degrading to one warning per question and a silently
+profile-less run, i.e. "measures nothing". FIXED:
+`benchmarks/gate_d_profile_source.py` mirrors the facts tier's
+contract — `project()` (idempotent, $0), `preflight()` that returns
+False LOUDLY on an empty profile or any unscoped question, and
+`install()` that binds per-question scope AND turns refusal on.
+`qa_accuracy_eval --profile` refuses to spend when preflight fails
+(verified: empty profile ⇒ FAIL ⇒ SystemExit).
+
+**R2-blocker 3 — the per-key cap could evict a supersession WINNER.**
+Values ordered by recency alone while KEYS rank by (mentions,
+recency), so six newer one-offs displaced a value re-affirmed 15
+times — re-opening the exact claim R1 was about. FIXED: values rank
+the same way keys do. Pinned.
+
+**Majors:** #1 B2's pin could not fail (`max(0, …)` reads ZERO when
+the profile overspends — 369 tokens of real overspend read as
+`facts_used: 0`); now asserts the ARITHMETIC (profile+facts+chunks ≤
+total). #2 B4's Telugu fixture measured 2.72 chars/token — BELOW the
+4.0 proxy — so only the token branch could bind and the char branch
+was still unpinned; added a 5.9-chars/token English fixture that
+asserts its own ratio. **Third stage running for this parameter; the
+lesson is now "a dual-unit budget needs a fixture per unit".** #3 the
+value type guard had no test; pinned — and the pin exposed that my R1
+fix `str()`-ed everything, so `["oat"]` became the literal `"['oat']"`.
+Corrected to SCALARS convert, CONTAINERS refuse. #4 `render()` raised
+IndexError when every value sanitized away (one crafted utterance
+suppressed the whole profile); the dead `lines[0]` fallback is gone.
+#5 render's own drops (budget + dedup) are now reported in
+`last_render`.
+
+**Still open, disclosed, NOT Gate-D-blocking (critic's own
+classification):** M4 `mention_count` is copied at projection time and
+7,068 of 7,135 facts have the value 1, so D5's ranking degenerates to
+(recency, key) for 98% of the profile — this must be disclosed with
+any Gate D result, because a failed hypothesis could not be
+distinguished from "the wrong forty attributes were chosen". Plus
+`profile_selection` must be captured per question in the artifact.
+Record-only: every minor (doc drift, no `rebuild()`, a spliced
+comment, the superseded vacuous test still present alongside its
+replacement, D6 unpinned by anything real).
+
+Post-fix: **33 profile tests**, 6-suite regression green
+(tests/test_profile_tier, test_fact_retrieval, test_semantic_facts,
+test_e2e_v2, test_supersession, test_consolidation_v2).
