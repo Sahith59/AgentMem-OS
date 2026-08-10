@@ -337,7 +337,14 @@ class ProfileStore:
             # Every value sanitized away (e.g. a value that was ONLY
             # section tags). G3 R2 major 4: this indexed lines[0] and
             # raised IndexError — one crafted utterance suppressed the
-            # whole profile for that turn.
+            # whole profile for that turn. G3 R3 major 2: the early
+            # return also skipped the last_render write, leaving the
+            # PREVIOUS render's numbers standing — a stale report is
+            # worse than none when the artifact captures it per
+            # question.
+            self.last_render = {"lines_in": 0, "lines_out": 0,
+                                "dropped_by_budget": 0,
+                                "values_deduped": deduped}
             return ""
         out, kept = "", []
         dropped_by_budget = 0

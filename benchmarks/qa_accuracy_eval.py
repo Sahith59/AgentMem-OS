@@ -358,6 +358,11 @@ def retrieve_context(scope_keys: list, question: str) -> str:
     # every answer — bind this question's haystack before assembling
     # (the assembler REFUSES when scoping is required and unset).
     assembler.profile_session_ids = list(scope_keys)
+    # Gate D resolves scope from the REGISTERED MAP by question, so the
+    # store is told which question it is answering rather than trusting
+    # externally-set state (G3 R3 major 4).
+    if getattr(assembler._profile, "_scope_map", None) is not None:
+        assembler._profile.current_question = question
     return assembler.assemble(sid, question, agent_id=sid)
 
 

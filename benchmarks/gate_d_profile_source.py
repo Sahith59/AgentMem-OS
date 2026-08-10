@@ -46,10 +46,19 @@ def _sessionmaker(corpus: Path, read_only: bool):
 
 
 def project(corpus: Path = CORPUS, limit: int = 100000) -> dict:
-    """Populate the profile from the corpus's facts. Idempotent."""
+    """Populate the profile from the corpus's facts. Idempotent.
+
+    Creates `profile_attributes` if the corpus predates the tier
+    (G3 R3 blocker 1: the Gate C corpus has 17 tables and this is not
+    one of them, so project() raised OperationalError on the only
+    database it exists to serve — the wiring was written and the entry
+    point was dead)."""
+    from agentmem_os.db.models import Base, ProfileAttribute
     from agentmem_os.llm.profile_extractor import ProfileExtractor
 
     Session = _sessionmaker(corpus, read_only=False)
+    engine = Session.kw["bind"]
+    ProfileAttribute.__table__.create(bind=engine, checkfirst=True)
     return ProfileExtractor(Session).project_scope(limit=limit)
 
 
@@ -96,8 +105,32 @@ def preflight(scope_keys_by_question: dict, corpus: Path = CORPUS) -> bool:
               "unscoped profile injects every question's attributes into "
               "every answer")
         return False
-    covered = sum(1 for s in scope_keys_by_question.values() if s)
-    print(f"  PREFLIGHT PASS ({covered} questions scoped, "
+    # COVERAGE, not presence (G3 R3 blocker 2): 3 rows covering 2 of
+    # 2,965 sessions passed the old check with all 150 questions
+    # "scoped" — the paid run would have measured the tier's ABSENCE
+    # and reported it as the tier's effect. The facts tier checks the
+    # union of question haystacks against what was actually built; so
+    # must this one.
+    con = sqlite3.connect(f"file:{corpus}?mode=ro", uri=True)
+    try:
+        profiled_sessions = {r[0] for r in con.execute(
+            "SELECT DISTINCT f.source_session_id FROM profile_attributes p "
+            "JOIN semantic_facts f ON f.id = p.fact_id")}
+    finally:
+        con.close()
+    per_q = [len(set(s) & profiled_sessions) for s in
+             scope_keys_by_question.values()]
+    empty_q = sum(1 for n in per_q if n == 0)
+    print(f"  questions whose haystack contains PROFILED sessions: "
+          f"{len(per_q) - empty_q}/{len(per_q)} "
+          f"(median profiled sessions/question: "
+          f"{sorted(per_q)[len(per_q) // 2] if per_q else 0})")
+    if empty_q:
+        print(f"  FAIL: {empty_q} questions would see an EMPTY profile — "
+              "the run would measure the tier's absence and report it as "
+              "the tier's effect")
+        return False
+    print(f"  PREFLIGHT PASS ({len(per_q)} questions scoped and covered, "
           f"{st['profile_rows']} attribute rows)")
     return True
 
@@ -110,14 +143,44 @@ def install(assembler, scope_keys_by_question: dict,
     Session = _sessionmaker(corpus, read_only=True)
 
     class _ScopedProfileStore(ProfileStore):
+        """Scope is resolved from the REGISTERED MAP, never from
+        caller-set external state (G3 R3 major 4: install() ignored
+        its own scope_keys_by_question, so per-question binding lived
+        in a mutable attribute and a STALE scope passed the is-None
+        check). Same shape as _ScopedFactRetriever."""
+
+        def __init__(self, get_db, scope_map):
+            super().__init__(get_db)
+            self._scope_map = scope_map
+            self.current_question = None
+
         def current(self, scope_key=None, agent_id=None, user_id=None,
                     limit=40, session_ids=None, db=None):
+            sids = session_ids
+            if self.current_question is not None:
+                sids = self._scope_map.get(self.current_question)
+                if sids is None:
+                    raise KeyError(
+                        "Gate D: no haystack registered for this question "
+                        "— refusing to read an UNSCOPED profile (it is "
+                        "INJECTED, so it would leak into every answer)")
             return super().current(scope_key=None, agent_id=None,
                                    user_id=None, limit=limit,
-                                   session_ids=session_ids, db=db)
+                                   session_ids=sids, db=db)
 
-    assembler._profile = _ScopedProfileStore(Session)
+    assembler._profile = _ScopedProfileStore(Session,
+                                             scope_keys_by_question)
     assembler.profile_scoped_required = True     # unscoped => REFUSE
     st = stats(corpus)
     return (f"profile-source=gate_c_facts.db rows={st['profile_rows']} "
             f"keys={st['keys']} scoped-per-question=yes refuse-if-unscoped=yes")
+
+
+if __name__ == "__main__":
+    # G3 R3 blocker 1: there was no supported way to RUN the projection.
+    import sys
+
+    n = int(sys.argv[1]) if len(sys.argv) > 1 else 100000
+    print(f"projecting up to {n} facts into {CORPUS} ...")
+    print(project(limit=n))
+    print(stats())

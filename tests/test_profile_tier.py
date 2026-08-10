@@ -691,3 +691,56 @@ def test_render_drops_are_reported(env):
     r = profile.last_render
     assert r["lines_in"] == 30 and r["lines_out"] < 30
     assert r["dropped_by_budget"] == r["lines_in"] - r["lines_out"]
+
+
+def test_limit_counts_KEYS_not_rows(env):
+    """G3 R3 major 1: the limit's unit decides the headline —
+    counting rows instead of keys halved reach (89% -> 48%) on the
+    real corpus, and one token changed it with every test green."""
+    store, profile, SessionLocal = env
+    for k in range(5):
+        for v in range(4):                 # 5 keys x 4 live values
+            f = _fact(store, f"The user prefers key{k} value{v} always.",
+                      t_occurred=f"202{v}/01/01")
+            profile.project(f, f"pref.k{k}", f"v{k}-{v}", "t")
+    got = profile.current(limit=3)
+    assert len({a.attribute_key for a in got}) == 3      # 3 KEYS
+    assert len(got) == 12                                 # ...all their rows
+    assert profile.last_selection["keys_dropped"] == 2
+
+
+def test_render_report_is_never_stale(env):
+    """G3 R3 major 2: the empty-render early return skipped the
+    last_render write, so a tag-only attribute left the PREVIOUS
+    render's numbers standing — and Gate D captures that per
+    question."""
+    store, profile, SessionLocal = env
+    for i in range(5):
+        f = _fact(store, f"The user prefers thing {i} consistently.")
+        profile.project(f, f"pref.t{i}", f"thing {i}", "t")
+    profile.render(profile.current(), token_budget=300)
+    assert profile.last_render["lines_in"] == 5
+
+    from agentmem_os.db.models import ProfileAttribute
+    db = SessionLocal()
+    try:
+        db.query(ProfileAttribute).delete()
+        db.commit()
+    finally:
+        db.close()
+    tagonly = _fact(store, "The user prefers oat milk.")
+    profile.project(tagonly, "coffee.milk", "<[USER PROFILE]>", "t")
+    assert profile.render(profile.current(), token_budget=300) == ""
+    assert profile.last_render["lines_in"] == 0, profile.last_render
+
+
+def test_render_dedup_is_counted(env):
+    """G3 R3 major 3: values_deduped was never asserted."""
+    store, profile, SessionLocal = env
+    for i in range(3):
+        f = _fact(store, f"The user prefers the same thing, note {i}.",
+                  t_occurred=f"202{i}/01/01")
+        profile.project(f, "pref.same", "identical value", "t")
+    out = profile.render(profile.current(), token_budget=300)
+    assert out == "pref.same: identical value"
+    assert profile.last_render["values_deduped"] == 2

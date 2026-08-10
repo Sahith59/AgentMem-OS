@@ -343,3 +343,73 @@ replacement, D6 unpinned by anything real).
 Post-fix: **33 profile tests**, 6-suite regression green
 (tests/test_profile_tier, test_fact_retrieval, test_semantic_facts,
 test_e2e_v2, test_supersession, test_consolidation_v2).
+
+### G3 round 3 — BLOCK: 2 blockers (both $0), 5 majors — fix pass
+
+**R3-blocker 1 — `project()` could not run on the only database it
+exists to serve.** The Gate C corpus has 17 tables and
+`profile_attributes` is not one of them; the module built its own
+engine with no schema creation, so `project()` raised
+OperationalError. There was also no `__main__` and the eval never
+calls it: **the wiring was written and the entry point was dead.**
+FIXED: `project()` creates the table (checkfirst) and the module is
+runnable. VERIFIED on a corpus copy: 0 rows → project() → 14 rows /
+7 keys / 7 sessions.
+
+**R3-blocker 2 — the preflight checked PRESENCE, not COVERAGE.** The
+critic's measurement: 3 profile rows covering 2 of 2,965 sessions,
+all 150 questions "registered", **PREFLIGHT PASS** — while not one
+question's haystack contained a profiled session. The paid run would
+have measured the tier's ABSENCE and reported it as the tier's
+effect. §G3's "mirrors the facts tier's contract" was an
+overstatement in the one dimension that mattered. FIXED: the
+preflight intersects each question's haystack with the profiled
+sessions and FAILS on any question that would see an empty profile,
+reporting the median coverage. VERIFIED: a 24-fact profile against 20
+real questions ⇒ "0/20 questions whose haystack contains PROFILED
+sessions" ⇒ **FAIL**. Lesson (the critic's): **a preflight that checks
+presence instead of coverage greenlights a run that measures
+nothing.**
+
+**Majors:** #1 the `limit` unit (KEYS vs ROWS) was unpinned and
+decides the headline — counting rows instead of keys halves reach
+(89% → 48%) with every test green; now pinned. #2 the empty-render
+early return skipped the `last_render` write, leaving the PREVIOUS
+render's numbers standing — and Gate D captures that per question;
+fixed and pinned. #3 `values_deduped` was never asserted; pinned. #4
+`install()` ignored its own `scope_keys_by_question` — per-question
+binding lived in mutable external state and a STALE scope passed the
+is-None check; the store now resolves scope from the REGISTERED MAP
+by question and raises on an unregistered one, the same shape as
+`_ScopedFactRetriever`. #5 B5's fix amplifies the bad-key residual
+into the prompt (one wrong value per key becomes up to six) — a Gate
+D disclosure, quoted from the smoke's own output.
+
+**RECORD CORRECTION (the critic's, accepted):** §G3 round 2 said the
+Gate D wiring "mirrors the facts tier's contract" and called
+`project()` "idempotent, $0" — `project()` did not run and the
+preflight did not check coverage. **Also: the 89% reach figure is
+measured on a 120-fact sample where the 40-key limit barely binds (41
+keys). It is an EXTRAPOLATION to the full corpus until the
+per-question REACH distribution is measured, and must be labelled as
+one.**
+
+Post-fix: **36 profile tests**; 6-suite regression green.
+
+### GATE D PRECONDITIONS (critic-set, before any spend)
+1. ✅ `project()` runnable and schema-creating.
+2. ✅ preflight checks COVERAGE and fails loudly.
+3. ⏳ **Run the full projection** — 7,135 facts ≈ 80+ min of local
+   llama3.1. Long-running ⇒ **founder go-ahead required.**
+4. ⏳ $0 dry pass reporting the per-question REACH distribution.
+
+### MANDATORY DISCLOSURES FOR ANY GATE D NUMBER
+(i) `mention_count` is copied at projection and 7,068 of 7,135 facts
+have the value 1, so D5's ranking degenerates to (recency, key) for
+98% of the profile — a failed hypothesis cannot be distinguished from
+"the wrong forty attributes were injected". (ii) `profile_selection`
+and `last_render` captured per question in the artifact. (iii) The
+bad-key amplification above. (iv) 89% is a 120-fact sample figure
+until the distribution is measured. (v) **D6 is pinned by nothing
+real and the corpus is English — NO Indic claim may attach to this
+result.**
