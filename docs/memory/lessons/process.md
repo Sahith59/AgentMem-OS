@@ -984,3 +984,127 @@ value out; never rely on an object surviving a transaction boundary with its loa
 **(Reviewers):** for any pin whose premise is "this value is stale", verify the staleness directly —
 assert the Python-side value still equals the old number after the boundary — before believing the pin.
 A test that asserts only the final state cannot tell you whether its own setup worked.
+
+## 2026-08-09 — A projection that keeps ONE value per key silently deletes the majority of what it stores (Critics, Profile R1)
+**Evidence:** the profile tier's reader keeps the latest row per `attribute_key` (db/profile.py:156-161)
+while its extractor prompt is explicitly instructed to REUSE one key for the same KIND of attribute
+(llm/profile_extractor.py:74-78). The two halves are in direct contradiction for set-valued attributes.
+Measured on the real Gate C corpus, reproducing G2 exactly: 90 facts projected → 41 injected lines →
+**49 (54%) never reach the prompt**; `hobbies` = 13 facts → one line. The vocabulary fix that G2 reports
+as the improvement (69→90 projected, 58→41 keys) is what raised the hidden-fact rate from 11 (16%) to
+49 (54%) and cut injected lines by 29%. Worse for the claim "the fact tier owns supersession, the
+profile reads it": only 29 of 7,164 preference/identity facts in the corpus are superseded at all, so
+in practice it is the profile's own recency rule — not the fact tier — deciding what the user sees.
+**Rule (builders):** before shipping any many→one projection, state in the design whether the target is
+single- or set-valued, and report `stored - emitted` as a first-class number next to "stored". A
+collapse metric ("fewer distinct keys") is not an improvement metric unless you also show what stopped
+being emitted. **(Reviewers):** for any key-collapsing layer, compute rows-stored vs rows-rendered on
+the real corpus, not on the fixture — the fixture has one value per key by construction, which is
+exactly the case where the bug is invisible.
+
+## 2026-08-09 — A tier that reserves budget must be mutation-tested against its OWN share constant, or the reservation is decorative (Critics, Profile R1)
+**Evidence:** the profile tier's whole reason for having a budget slice is the Gate C starvation
+incident, and the pin written for it (`test_profile_section_injected_and_budget_reserved`) survives
+`PROFILE_BUDGET_SHARE = 1.0` AND survives deleting the `sem_budget -= profile tokens` subtraction
+entirely — 19/19 green both times. Two causes, both of the already-logged class: 484 tokens of slack
+(asserts 267 ≤ 751), and the measured quantity is `out.split("</[USER PROFILE]>")[0]`, which starts at
+the `[SYSTEM]` section and therefore never measured the profile. Separately, `last_tier_budget`
+computes `facts_used = semantic - sem_budget` after the profile has already reduced `sem_budget`, so a
+store with ZERO facts reports `facts_used: 249` — the starvation alarm the incident produced now
+mis-attributes the new tier's spend to the old one.
+**Rule (builders):** every budget-share constant gets one test that sets it to 1.0 in-process and
+asserts the neighbouring tier lost space; and every derived "used" figure gets a test with the OTHER
+tiers empty, where the correct answer is 0. **(Reviewers):** when a new tier is inserted ahead of an
+existing one in a shared allocation, re-derive every downstream accounting expression by hand — the
+subtraction that makes the new tier polite is the same subtraction that corrupts the old tier's report.
+Third stage running in which the chars/token proxy also bit: `render(char_budget=token_budget*4)` with
+no token cut truncated the injected profile to the literal string `pr` on 2.46-chars/token Telugu, and
+to 8 of 40 attributes on 1.75-chars/token content. When a hidden parameter is found once, sweep every
+NEW fixture against it — this is the same lesson as 2026-08-07 (S5 R4), unheeded by a later tier.
+
+## 2026-08-09 — A signature change breaks the GATE SCRIPT silently, because gates are not in the test suite (Critics, Profile R2)
+**Evidence:** the fix pass changed `ProfileStore.render(attrs, char_budget=)` to
+`render(attrs, token_budget=, counter=)` and updated every caller the suite exercises. The one caller
+it did not update is `benchmarks/profile_tier_smoke.py:80` — the **G2 gate itself** — which now raises
+`TypeError: got an unexpected keyword argument 'char_budget'`. 27 profile tests and a 257-test
+regression were green over a build whose $0 evidence-producing script could not start, so the deepest
+change in the round (set-valued reads) shipped with zero real-corpus evidence behind its paragraph in
+the plan of record. I had to measure it myself to find that it was, in fact, right (46% → 89% of
+stored facts reaching the prompt).
+**Rule (builders):** benchmark/gate scripts are CALLERS. On any signature or return-shape change,
+grep the whole repo for the symbol — `benchmarks/` included — and re-run the gate that produced the
+numbers in the record, or mark those numbers stale in the same commit. A green suite says nothing
+about a file pytest never imports. **(Reviewers):** after any refactor, execute (or at minimum
+import-check) every gate script whose output appears in the record; a broken gate is a blocker even
+when the product code is correct, because it converts a measured claim into an argued one.
+
+## 2026-08-09 — Fixing a proxy-ratio bug with a fixture on ONE side of the ratio re-creates the bug's blind spot (Critics, Profile R2)
+**Evidence:** R1 blocked `render(char_budget=tokens*4)` for truncating non-ASCII mid-key. The fix
+enforces BOTH units and is pinned by `test_render_is_budget_capped_in_BOTH_units` on Telugu content —
+measured at **2.72 chars/token**, i.e. entirely BELOW the 4.0 proxy, so only the token branch can ever
+bind. Deleting the char branch outright leaves all 27 tests green; on 5.90-chars/token English the
+char branch is the binding cut at two of three budgets. The pin written specifically to close a
+straddle bug does not straddle. This is the third stage in which this exact parameter decided whether
+a test could see anything (cf. 2026-08-07 S5 R4 and S5 R5).
+**Rule (builders):** a dual-unit budget needs a fixture per unit — content above the ratio AND below
+it — and each unit's branch must be shown to be the binding one in at least one case. **(Reviewers):**
+when a fix adds a second enforcement branch, mutate away EACH branch separately; a single "the
+mutation dies" result on the pair proves only that one of them is live.
+
+## 2026-08-09 — A preflight that checks PRESENCE instead of COVERAGE greenlights a run that measures nothing (Critics, Profile R3)
+**Evidence:** `gate_d_profile_source.preflight()` was written to mirror `gate_c_facts_source.preflight()`
+and gates a ~$3.50 run. It checks `profile_rows > 0` and that every question has a non-empty scope
+list. Measured: seed **3 profile rows covering 2 of 2,965 sessions**, register all 150 questions →
+`PREFLIGHT PASS (150 questions scoped, 3 attribute rows)`. Not one question's haystack contains a
+profiled session, so the paid run would measure the tier's absence and report it as the tier's effect.
+The module it copied does the right thing (union of question haystacks vs consolidated sessions, False
+on any gap) — the copy kept the shape and dropped the check that made it a gate. In the same module
+`project()`, the step that would have populated the profile, cannot run at all: the corpus has no
+`profile_attributes` table and the module never calls `create_all`.
+**Rule (builders):** a preflight must assert that the artifact under test REACHES the questions under
+test — intersect what you have with what each question needs and print the distribution, never just a
+non-zero row count. And execute every step of your own documented contract once against the real
+artifact (on a copy) before calling the wiring done. **(Reviewers):** attack a preflight by making it
+PASS on a deliberately useless input; if you can, it is a formality, not a gate. Presence checks are
+the most common form of false clean in gating code.
+
+## L-2026-08-10 — A category score is meaningless without its STORAGE FORM attached (Critics)
+**Trap:** `PROFILE_TIER_PLAN.md:27` correctly records knowledge-update 20/21 = 0.952 with the column
+"Measured with FACTS? ❌ NEVER" and the header "Banked (RAW turns)". One hop later, in a design brief,
+it travelled as "knowledge-update scores 95.2%, at ceiling" — the qualifier gone, the number now
+describing the product. The real fact-tier number is 11/21 = 52.4%
+(`benchmarks/qa_accuracy_longmemeval_full150_4o.json`). The over-claim inverted a whole risk analysis:
+"we can't make it worse, we're at ceiling" became "we're at 52% and the proposed change has a concrete
+path to make it worse."
+**Rule:** every benchmark number carries its storage form and its answerer in the same breath, or it
+does not get quoted. When a doc has to add a "measured with X? NEVER" column, that column is part of
+the number, not a footnote.
+**Enforced check:** before accepting any per-category score in a design argument, open the artifact and
+confirm `memory_source` AND that the ingest actually stored that form. In this harness
+`memory_source` is the ARGUMENT, not the storage (`benchmarks/qa_accuracy_eval.py:316-321, 435-446`) —
+the field cannot be trusted alone. Evidence: F-15, `DECISION_AND_FAILURE_LOG.md:563-578`.
+
+## L-2026-08-10 — A comparison ladder must vary ONE thing; ours varied four (Critics)
+**Trap:** `benchmarks/extraction_fidelity.py` compares raw turns / cached facts / live pipeline and the
+diagnosis attributed −11.4 pts to "the extraction prompt" and −19.0 pts to "our validator". But rung 2
+is a Claude-Haiku cache with a different prompt (`corpus_loaders.py:66-69`), rung 2 gets dates prefixed
+into the text (`:123-125`) while rung 3 reads `fact_text` only (`extraction_fidelity.py:96-100`) —
+measured: only 455 of 3,118 dated facts carry the date in the text — rung 3 hides superseded facts, and
+the lexical ≥60%-overlap test is length-biased toward the longest rung. Four confounds, all pushing the
+same direction, in the diagnostic that set the engineering priority.
+**Rule:** a ladder that changes model, prompt, pipeline and representation between rungs measures none
+of them. Before a ladder sets priority, write down what differs between adjacent rungs and confirm it is
+exactly one thing. And measure the representation the PRODUCT SERVES (here `[t_occurred] (type) text`,
+`llm/fact_retrieval.py:344-354`), not a convenient SQL projection of it.
+**Related:** F-16 in the same log ("a diagnostic is a caller too") — this is its sibling: a diagnostic is
+also an EXPERIMENT, and needs a control.
+
+## L-2026-08-10 — "Equal totals" is not "same answers" — check agreement, not aggregates (Critics)
+**Trap:** a 22-question control group scoring 11/22 in two runs was read as proof that the answerer model
+explained nothing. Two failures: (1) n=22 at p̂=0.5 is the maximum-variance point — the 95% CI is roughly
+±20 points, so equal totals rule out nothing smaller than the effect being argued about; (2) equal totals
+can be different questions. Measured across the two full-150 artifacts: they agree on only 80/150
+questions, 63 flipped correct→incorrect and **7 flipped incorrect→correct** (those 7 are the only direct
+evidence the fact tier ever beat raw turns, and nobody had looked at them).
+**Rule:** when two runs are differenced to attribute a cause, publish the question-level agreement table
+(both / A-only / B-only / neither), not the two totals. It is $0 from artifacts already on disk.

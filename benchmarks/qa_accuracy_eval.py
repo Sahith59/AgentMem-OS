@@ -107,7 +107,36 @@ ap.add_argument("--out-suffix", default="",
 ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
                  help="answer layer: reasoning (date-anchored CoT + aggregation + "
                       "calibrated abstention) or simple (naive one-shot)")
+ap.add_argument("--db-path", default="",
+                 help="eval DB. DEFAULT: a CONFIG-SCOPED file under "
+                      "benchmarks/eval_dbs/ — never the shared dev DB. "
+                      "F-15: runs used to share ~/.agentmem_os and SKIP "
+                      "re-ingestion when a scope already held turns, so a "
+                      "run's memory was whatever the FIRST run to touch "
+                      "that scope stored — 22 scopes held 08-05 raw turns "
+                      "while 128 held 08-10 facts, in one 'single' run.")
 args = ap.parse_args()
+
+# ── F-15 FIX: bind the DB BEFORE any agentmem import ──────────────────
+# db/engine.py resolves DB_PATH at IMPORT time (engine.py:94), so this
+# must precede every agentmem_os import below, and the assert after them
+# PROVES it took effect rather than assuming it.
+# Config-scoped, not run-scoped, deliberately: identical configs share a
+# DB so resume still works and ingestion is not repaid, while ANY change
+# that alters what gets stored lands in a different file.
+if args.db_path:
+    _DB_PATH = Path(args.db_path).resolve()
+else:
+    _cfg = "|".join(str(x) for x in (
+        args.dataset, args.lme_split, args.memory_source, args.n,
+        args.seed, args.types, args.context_chars))
+    _tag = hashlib.sha1(_cfg.encode()).hexdigest()[:10]
+    _DB_PATH = (Path(__file__).parent / "eval_dbs" /
+                f"{args.dataset}-{args.lme_split}-{args.memory_source}"
+                f"-{_tag}.db")
+_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+os.environ["AGENTMEM_OS_DB_PATH"] = str(_DB_PATH)
+print(f"eval DB (config-scoped): {_DB_PATH}")
 
 try:
     import openai
@@ -128,6 +157,17 @@ from agentmem_os.llm.context_assembler import ContextAssembler  # noqa: E402
 from agentmem_os.agents.namespace_manager import AgentNamespaceManager  # noqa: E402
 from agentmem_os.db.engine import get_session as get_db  # noqa: E402
 from agentmem_os.db.models import Turn  # noqa: E402
+from agentmem_os.db import engine as _engine_mod  # noqa: E402
+
+# PROVE the bind took effect. If any module above imported db.engine
+# before the env var was set, DB_PATH is silently the shared dev DB and
+# F-15 is back — the failure that produced a 0.287 run nobody could
+# explain. Assert, never assume.
+if str(_engine_mod.DB_PATH) != str(_DB_PATH):
+    raise SystemExit(
+        f"F-15 GUARD: DB bind failed.\n  wanted: {_DB_PATH}\n"
+        f"  actual: {_engine_mod.DB_PATH}\n"
+        "An agentmem_os import ran before AGENTMEM_OS_DB_PATH was set.")
 
 RETRIEVAL_BACKEND = install_best_chroma(ContextAssembler)
 print(f"Semantic retrieval backend: {RETRIEVAL_BACKEND}")
@@ -294,6 +334,8 @@ assembler.allocations["semantic"] = int(args.context_chars * 0.79 // 4)
 assembler.allocations["recent"] = 1200     # tokens ≈ last-20-turns tail
 _namespace_mgr = AgentNamespaceManager(get_db)
 _ingested = set()
+# What was ACTUALLY stored, per session, counted at write time (F-14).
+_STORED = {"facts": 0, "raw": 0, "skipped_preexisting": 0}
 _ingest_lock = threading.Lock()
 
 
@@ -313,9 +355,15 @@ def ensure_scope_ingested(scope_keys: list) -> str:
     # already holds turns in the DB (e.g. a slice re-run reusing the full
     # run's scratch DB), re-ingesting would DOUBLE every turn and poison
     # retrieval. Skip instead — same data, 39 minutes saved.
+    # Safe ONLY because the DB is now config-scoped (F-15): a pre-existing
+    # scope in a config-scoped DB was written by an identical config, so
+    # its storage form matches. In the old shared dev DB it did not, and
+    # this early return is exactly how one run mixed 08-05 raw turns with
+    # 08-10 facts. Counted and published either way.
     _db = get_db()
     try:
         if _db.query(Turn).filter(Turn.session_id == sid).count() > 0:
+            _STORED["skipped_preexisting"] += 1
             return sid
     finally:
         _db.close()
@@ -331,7 +379,14 @@ def ensure_scope_ingested(scope_keys: list) -> str:
         mem = mem_by_id.get(mkey)
         if not mem:
             continue
-        units = facts_as_turns(mem) if (MEMORY_SOURCE == "extracted" and mem.facts) else mem.turns
+        # F-14: `memory_source` records the ARGUMENT; per session the code
+        # silently falls back to raw turns whenever the cache has no facts
+        # for it. On `_s` the cache covers 933 of 19,195 sessions, so the
+        # banked 66.0% is labelled "extracted" while its gold-evidence
+        # sessions were RAW. Count both forms and publish the split.
+        _as_facts = MEMORY_SOURCE == "extracted" and bool(mem.facts)
+        _STORED["facts" if _as_facts else "raw"] += 1
+        units = facts_as_turns(mem) if _as_facts else mem.turns
         if not units:
             continue
         for turn in units:
@@ -440,6 +495,21 @@ def main():
             "context_chars": args.context_chars,
             "memory_source": MEMORY_SOURCE,
             "answerer": args.answerer,
+            # ── PROVENANCE (F-14/F-15) ────────────────────────────────
+            # Everything needed to know whether two artifacts are
+            # comparable. `memory_source` alone is the ARGUMENT and has
+            # already misdescribed a banked run; `stored` is what the
+            # writer actually wrote, counted at write time.
+            "lme_split": args.lme_split,
+            "facts_source": args.facts_source,
+            "profile_tier": bool(args.profile),
+            "types_filter": args.types or None,
+            "seed": args.seed,
+            "db_path": str(_DB_PATH),
+            "stored": dict(_STORED),
+            "stored_facts_fraction": round(
+                _STORED["facts"] / max(1, _STORED["facts"] + _STORED["raw"]),
+                4),
             "qa_accuracy": round(correct / max(1, done), 4),
             "correct": correct, "total": done,
             "results": results,
@@ -471,6 +541,54 @@ def main():
         ensure_scope_ingested(sk)
         if i % 5 == 0 or i == len(unique_scopes):
             print(f"  {i}/{len(unique_scopes)} scopes ingested", flush=True)
+
+    # ── STORAGE-FORM PREFLIGHT ($0) — F-14/F-15 ───────────────────────
+    # Gate C and Gate D each refuse to spend against a corpus that cannot
+    # answer; BASE INGESTION had no such gate, which is how a $5 run
+    # measured a memory nobody intended. Prove what is in the DB, and
+    # prove the gold evidence survived, BEFORE any paid call.
+    print("\n=== STORAGE PREFLIGHT ($0) ===")
+    print(f"  sessions stored as EXTRACTED FACTS : {_STORED['facts']}")
+    print(f"  sessions stored as RAW TURNS       : {_STORED['raw']}")
+    print(f"  scopes SKIPPED (pre-existing)      : "
+          f"{_STORED['skipped_preexisting']}")
+    _frac = _STORED["facts"] / max(1, _STORED["facts"] + _STORED["raw"])
+    if MEMORY_SOURCE == "extracted":
+        print(f"  requested 'extracted'; ACTUALLY stored as facts: "
+              f"{_frac:.1%} — the rest fell back to raw turns because the "
+              f"extraction cache has no facts for them (DISCLOSE with any "
+              f"number from this run)")
+    _gold_ok = _gold_missing = 0
+    _db = get_db()
+    try:
+        for it in todo:
+            sid = _scope_session_id(it.scope_keys)
+            have = {c for (c,) in _db.query(Turn.content).filter(
+                Turn.session_id == sid)}
+            hit = False
+            for k in getattr(it, "gold_keys", []) or []:
+                m = mem_by_id.get(k)
+                if not m:
+                    continue
+                units = (facts_as_turns(m)
+                         if (MEMORY_SOURCE == "extracted" and m.facts)
+                         else m.turns)
+                if any(t.get("content", "") in have for t in units):
+                    hit = True
+                    break
+            _gold_ok += hit
+            _gold_missing += (not hit)
+    finally:
+        _db.close()
+    print(f"  questions whose GOLD EVIDENCE is present in the eval DB: "
+          f"{_gold_ok}/{len(todo)}")
+    if todo and _gold_ok / len(todo) < 0.50:
+        raise SystemExit(
+            f"PREFLIGHT FAIL — only {_gold_ok}/{len(todo)} questions have "
+            "their gold evidence in the DB. Refusing to spend: this would "
+            "measure ingestion, not memory. (This is the check that was "
+            "missing when the 0.287 run was launched.)")
+    print("  PREFLIGHT PASS\n")
 
     with ThreadPoolExecutor(max_workers=safe_workers(args.gen_model, args.workers)) as pool:
         futs = {pool.submit(run_one, it): it for it in todo}

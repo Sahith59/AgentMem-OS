@@ -54,20 +54,66 @@ FAILLOG = Path(os.environ.get(
     str(HERE / "extracted_memories" / "gate_c_failures.jsonl")))
 
 
+# Which questions' haystacks to extract. DEFAULT is unchanged (the 79
+# slice) so the original Gate C run stays byte-reproducible; point it at
+# the 150-question artifact to extend coverage to the full benchmark.
+# An eval ARTIFACT is the source of truth rather than a re-sample,
+# because the question set must match the eval EXACTLY — re-sampling
+# depends on seed/n/split agreeing, and a silent mismatch here produces
+# a corpus that looks complete and is not (F-12).
+QSOURCE = os.environ.get(
+    "GATE_C_QSOURCE", "qa_accuracy_longmemeval_answerer54mini.json")
+# Sessions already consolidated in a REFERENCE corpus are skipped, so an
+# extension run only pays for what is genuinely new. Read-only.
+EXCLUDE_DB = os.environ.get("GATE_C_EXCLUDE_DB", "")
+
+
+def _excluded():
+    """Sessions already consolidated in the reference corpus."""
+    if not EXCLUDE_DB or not Path(EXCLUDE_DB).exists():
+        return set()
+    import sqlite3
+    con = sqlite3.connect(f"file:{EXCLUDE_DB}?mode=ro", uri=True)
+    try:
+        return {r[0] for r in con.execute(
+            "SELECT session_id FROM consolidation_log "
+            "WHERE triggered_by='consolidation_v2'")}
+    finally:
+        con.close()
+
+
 def build_worklist():
-    """Union of scope_keys of the 79 slice questions actually run —
-    exactly the haystacks the Gate C eval will query. Deterministic
-    order (sorted) so resumed runs walk the same list."""
+    """Union of scope_keys of the questions in QSOURCE — exactly the
+    haystacks the eval will query. Deterministic order (sorted) so
+    resumed runs walk the same list."""
     ds = json.load(open(HERE / "benchmark_cache/longmemeval_s.json"))
-    slice_qs = {r["question"] for r in json.load(open(
-        HERE / "qa_accuracy_longmemeval_answerer54mini.json"))["results"]}
+    slice_qs = {r["question"]
+                for r in json.load(open(HERE / QSOURCE))["results"]}
     qmap = {q["question"]: q for q in ds["queries"]}
     mems = {m["mid"]: m for m in ds["memories"]}
     sids = set()
+    missing_q = 0
     for qtext in slice_qs:
+        if qtext not in qmap:
+            missing_q += 1
+            continue
         for k in qmap[qtext]["scope_keys"]:
             if k in mems:
                 sids.add(k)
+    if missing_q:
+        # LOUD: a question in the artifact that the dataset cannot
+        # resolve means the two disagree, and the corpus would be
+        # silently short. Never let this pass as a warning-free run.
+        print(f"WARNING: {missing_q} questions in {QSOURCE} not found in "
+              f"the dataset — worklist may be incomplete")
+    print(f"worklist source: {QSOURCE} -> {len(slice_qs)} questions, "
+          f"{len(sids)} haystack sessions")
+    skip = _excluded()
+    if skip:
+        before = len(sids)
+        sids -= skip
+        print(f"excluding {len(skip)} sessions already consolidated in "
+              f"{EXCLUDE_DB}: {before} -> {len(sids)} to extract")
     return sorted(sids), mems
 
 

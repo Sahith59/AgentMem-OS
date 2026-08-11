@@ -36,8 +36,16 @@ export OLLAMA_NUM_PARALLEL=${OLLAMA_NUM_PARALLEL:-4}
 export OLLAMA_KEEP_ALIVE=24h
 export GATE_C_SHARD=$SHARD
 export GATE_C_NSHARDS=$NSHARDS
-export GATE_C_DB=$WORK/shards/gate_c_shard${SHARD}.db
-export GATE_C_FAILLOG=$WORK/shards/gate_c_failures_${SHARD}.jsonl
+# Prefix is parameterised so an EXTENSION run writes new shard DBs and
+# never appends to the shards of a completed run — the old artifact must
+# stay byte-reproducible. Default preserves the original run's paths.
+PREFIX=${GATE_C_DB_PREFIX:-gate_c_shard}
+export GATE_C_DB=$WORK/shards/${PREFIX}${SHARD}.db
+export GATE_C_FAILLOG=$WORK/shards/${PREFIX}failures_${SHARD}.jsonl
+# Passed through to the runner: which questions to cover, and which
+# sessions are already done in a reference corpus (skip, don't redo).
+export GATE_C_QSOURCE=${GATE_C_QSOURCE:-qa_accuracy_longmemeval_answerer54mini.json}
+export GATE_C_EXCLUDE_DB=${GATE_C_EXCLUDE_DB:-}
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1   # no phone-home (Stage 6)
 mkdir -p "$WORK/shards" "$OLLAMA_MODELS"
 

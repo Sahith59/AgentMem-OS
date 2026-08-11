@@ -47,12 +47,31 @@ def _cols(con, table):
 
 def main():
     force = "--force" in sys.argv
-    shards = sorted(SHARD_DIR.glob("gate_c_shard*.db"))
+    # Pattern covers BOTH the original run (gate_c_shard*.db) and
+    # extension runs (gate_c_ext_shard*.db). The old glob was
+    # `gate_c_shard*.db`, which silently EXCLUDES an extension shard —
+    # it would have merged 4 of 7 and produced a corpus that looks whole
+    # and is missing 3,061 sessions. Same silent-partial class as F-12.
+    shards = sorted(SHARD_DIR.glob("gate_c_*shard*.db"))
     if not shards:
         raise SystemExit(f"no shards in {SHARD_DIR}")
     if OUT.exists() and not force:
         raise SystemExit(f"{OUT} exists — pass --force to replace")
     print(f"merging {len(shards)} shards -> {OUT}")
+    # DERIVED tables are NOT merged and must be REBUILT after a merge.
+    # `profile_attributes` is projected FROM semantic_facts and carries a
+    # fact_id FK, so carrying it across an id-remapping merge would
+    # dangle. Silence here cost nothing only because it was caught by
+    # hand: a merged corpus has an EMPTY profile, so a Gate D run would
+    # have measured the profile tier as absent and reported it as null.
+    print("  NOTE: derived tables (profile_attributes) are NOT merged.\n"
+          "        Re-run the projection after this merge:\n"
+          "        python3 benchmarks/gate_d_profile_source.py")
+    for s in shards:                       # NAME every input, always
+        n = sqlite3.connect(f"file:{s}?mode=ro", uri=True).execute(
+            "SELECT COUNT(*) FROM consolidation_log WHERE "
+            "triggered_by='consolidation_v2'").fetchone()[0]
+        print(f"    {s.name}: {n} sessions")
 
     # Start from shard 0's SCHEMA (not its data) so every table,
     # index and constraint matches the live schema exactly.
