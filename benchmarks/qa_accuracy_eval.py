@@ -107,6 +107,19 @@ ap.add_argument("--out-suffix", default="",
 ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
                  help="answer layer: reasoning (date-anchored CoT + aggregation + "
                       "calibrated abstention) or simple (naive one-shot)")
+ap.add_argument("--retrieval", choices=["tfidf", "dense"], default="tfidf",
+                 help="raw-turn retrieval backend. tfidf is the historical "
+                      "default, chosen on a 30-question LoCoMo diagnostic "
+                      "where it beat dense 11/30 vs 10/30 — one question, a "
+                      "different benchmark, and for a stated reason that is "
+                      "LoCoMo-specific ('LoCoMo questions share rare entity "
+                      "terms with their evidence'). LongMemEval is the "
+                      "opposite: its questions PARAPHRASE the evidence "
+                      "('sports event' -> 'soccer tournament'). Measured on "
+                      "150 LongMemEval questions against gold-session "
+                      "coverage, dense wins by +26 (114 -> 140 full "
+                      "coverage; multi-session 26/39 -> 38/39). Same "
+                      "multilingual-e5-small the product ships.")
 ap.add_argument("--db-path", default="",
                  help="eval DB. DEFAULT: a CONFIG-SCOPED file under "
                       "benchmarks/eval_dbs/ — never the shared dev DB. "
@@ -169,7 +182,18 @@ if str(_engine_mod.DB_PATH) != str(_DB_PATH):
         f"  actual: {_engine_mod.DB_PATH}\n"
         "An agentmem_os import ran before AGENTMEM_OS_DB_PATH was set.")
 
-RETRIEVAL_BACKEND = install_best_chroma(ContextAssembler)
+if args.retrieval == "dense":
+    from real_code_utils import install_dense_chroma  # noqa: E402
+    RETRIEVAL_BACKEND = install_dense_chroma(ContextAssembler)
+    if RETRIEVAL_BACKEND != "dense":
+        raise SystemExit(
+            "--retrieval dense requested but the multilingual extra is not "
+            "installed; install_dense_chroma silently fell back to TF-IDF. "
+            "Refusing to run: the artifact would record a backend that did "
+            "not rank a single result (F-14 class — the label must describe "
+            "what actually ran).")
+else:
+    RETRIEVAL_BACKEND = install_best_chroma(ContextAssembler)
 print(f"Semantic retrieval backend: {RETRIEVAL_BACKEND}")
 
 SIMPLE_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
