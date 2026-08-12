@@ -104,7 +104,7 @@ ap.add_argument("--types", default="",
 ap.add_argument("--out-suffix", default="",
                  help="output-file suffix so a slice run never overwrites (or resumes "
                       "from) the canonical full-run artifact")
-ap.add_argument("--answerer", choices=["reasoning", "simple"], default="reasoning",
+ap.add_argument("--answerer", choices=["reasoning", "simple", "structured"], default="reasoning",
                  help="answer layer: reasoning (date-anchored CoT + aggregation + "
                       "calibrated abstention) or simple (naive one-shot)")
 ap.add_argument("--retrieval", choices=["tfidf", "dense"], default="tfidf",
@@ -196,6 +196,35 @@ else:
     RETRIEVAL_BACKEND = install_best_chroma(ContextAssembler)
 print(f"Semantic retrieval backend: {RETRIEVAL_BACKEND}")
 
+# STRUCTURED stage-1: the model's ONLY job is enumeration — read prose,
+# emit candidate instances as structured lines. All computation (dedup,
+# window resolution, counting, date arithmetic, ordering) happens in
+# benchmarks/structured_answer.py, deterministically. PAL/TReMu pattern;
+# evidence base + the 29-question autopsy: DECISION_AND_FAILURE_LOG
+# §3.1ae-af.
+ENUM_PROMPT = """You are the enumeration stage of a memory system. You DO NOT answer the question. You extract the raw material; deterministic code computes the answer.
+
+Memories:
+{context}
+
+Question: {question}
+Today's date: {today}
+
+Emit ONLY a JSON object, no prose:
+{{"operation": "<count | date_diff | order | window_recall | direct>",
+  "items": [{{"desc": "<short description of ONE candidate instance/event>",
+             "date": "<YYYY/MM/DD if stated or clearly inferable, else null>",
+             "count": <integer if the text states a multiplicity for THIS instance, e.g. 'rode 3 times', else null>}}],
+  "start": "<YYYY/MM/DD or null — only for date_diff: the earlier endpoint>",
+  "end": "<YYYY/MM/DD or null — only for date_diff: the later endpoint>"}}
+
+{window_hint}
+Rules:
+- operation: count = "how many/how often" over distinct instances; date_diff = elapsed time between two endpoints; order = sequence/first/last; window_recall = "what happened <relative time> ago"; direct = the answer is a value someone STATED outright (a mentioned duration, a quoted amount) or none of the shapes fit — for direct, the main system answers, not you.
+- YOU decide the final set: include ONLY instances you judge to actually qualify (right kind, right person, inside the asked time window). Deduplicate repeated mentions of the SAME occurrence yourself; keep genuinely separate occurrences separate, even if worded alike on different days.
+- Dates come from the [YYYY/MM/DD] stamps next to the evidence. Never invent a date.
+- Do NOT total anything up and do NOT compute date differences — code does the arithmetic on your final set."""
+
 SIMPLE_PROMPT = """You answer a question using ONLY the memories provided. Be concise — answer in as few words as possible (a name, date, number, or short phrase). If the memories do not contain the answer, reply "I don't know".
 
 Memories:
@@ -285,6 +314,38 @@ def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
             last = e
             _t.sleep(2)
     raise RuntimeError(f"{model}: gave up after {tries} attempts ({last})")
+
+
+def gen_structured(context, question, qdate):
+    """Two-stage: LLM enumerates -> code computes -> template answers.
+    Returns (answer|None, note); None => caller falls back to the plain
+    reasoning path — this stage refuses rather than guesses, and the
+    per-question note records which path actually ran (F-14 family)."""
+    from structured_answer import compute, route
+    if not route(question):
+        return None, "not-routed"
+    from structured_answer import resolve_window
+    _win = resolve_window(question, qdate)
+    _hint = ""
+    if _win:
+        _hint = (f"Computed time anchor: the window the question refers to "
+                 f"is approximately {_win[0]:%Y/%m/%d} to "
+                 f"{_win[1]:%Y/%m/%d}. Judge instances against it.")
+    r = _chat_with_retry(client, args.gen_model, ENUM_PROMPT.format(
+        context=context[:args.context_chars], question=question,
+        today=qdate, window_hint=_hint), 900)
+    raw = (r.choices[0].message.content or "").strip()
+    m = re.search(r"\{.*\}", raw, re.S)
+    if not m:
+        return None, "no-json"
+    try:
+        payload = json.loads(m.group(0))
+    except Exception:
+        return None, "bad-json"
+    ans, note = compute(payload, question, qdate)
+    if ans is None:
+        return None, f"compute-refused: {note}"
+    return ans, f"computed: {note}"
 
 
 def gen_answer(context: str, question: str, today: str = "") -> str:
@@ -483,12 +544,19 @@ def run_one(it) -> dict:
     # The slow part — the two OpenAI network calls — stays parallel.
     with _retrieve_lock:
         ctx = retrieve_context(it.scope_keys, it.question)
-    pred = gen_answer(ctx, it.question, getattr(it, "question_date", "")) if ctx.strip() else "I don't know"
+    _qd = getattr(it, "question_date", "")
+    _sa_note = None
+    pred = None
+    if args.answerer == "structured" and ctx.strip():
+        pred, _sa_note = gen_structured(ctx, it.question, _qd)
+    if pred is None:
+        pred = gen_answer(ctx, it.question, _qd) if ctx.strip() else "I don't know"
     ok = judge(it.question, it.gold_answer, pred,
                getattr(it, "question_type", ""), getattr(it, "question_id", ""))
     return {"question": it.question, "gold_answer": it.gold_answer,
             "predicted": pred, "correct": ok,
-            "question_type": getattr(it, "question_type", "")}
+            "question_type": getattr(it, "question_type", ""),
+            "structured_note": _sa_note}
 
 
 def main():
