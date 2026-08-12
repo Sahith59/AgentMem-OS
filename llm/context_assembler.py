@@ -80,6 +80,25 @@ PROFILE_BUDGET_SHARE = 0.15
 # to a prior exchange is what separates them (measured: an earlier, looser
 # 'you|recommend|suggest' pattern caught 70% of preference questions and
 # would have suppressed the profile exactly where it helps).
+# Aggregation-intent questions ("how many X across our chats") need the
+# TALLY SHEET, not the diary: the fact tier stores ONE DATED ATOMIC FACT
+# PER INSTANCE (the aggregation gate verified the instances exist — the
+# three tanks, the five antiques, the workshop days are each their own
+# fact), while raw turns scatter the same instances through ~30k chars of
+# prose that language models demonstrably miscount (even the oracle
+# does). On these questions the facts tier takes a larger share of the
+# semantic budget. RECALL INTENT WINS on conflict ("our previous chat...
+# how many times") because assistant-stated content is deliberately not
+# extracted into facts — suppression must beat boosting there. Validated
+# on the 350 held-out questions: 0 preference false-positives; the only
+# assistant-question hits also match the recall rule and are taken by it.
+_AGGREGATION_INTENT_RE = re.compile(
+    r"\b(how many|how much|how often|how old|in total|altogether"
+    r"|total (number|cost|amount|days))\b",
+    re.IGNORECASE,
+)
+_AGGREGATION_FACTS_SHARE = 0.60
+
 _CONVERSATION_RECALL_RE = re.compile(
     r"(previous|earlier|last|past|our)\s+"
     r"(conversation|chat|discussion|talk|session)"
@@ -227,6 +246,21 @@ class ContextAssembler:
             and os.environ.get("AGENTMEM_OS_DISABLE_INTENT_ROUTING") != "1"
         if recall_intent:
             disable = frozenset(disable) | {"profile", "facts"}
+        # OPT-IN, not default (2026-08-12): the paid probe FAILED its
+        # pre-registered bar — of the 29 systematic failures it fixed 1
+        # (bar >=4) and broke 2 stable answers. Instance DELIVERY
+        # improved (rollercoasters 6->9 of 10 in context) and the model
+        # still miscounted: the failure is distinguishing which delivered
+        # instances are DISTINCT and IN-WINDOW, not seeing them. An
+        # unproven change does not ship as a default; the mechanism stays
+        # for corpora where it is measured to help.
+        aggregation_intent = (
+            not recall_intent
+            and bool(_AGGREGATION_INTENT_RE.search(query or ""))
+            and os.environ.get(
+                "AGENTMEM_OS_ENABLE_AGGREGATION_ROUTING") == "1")
+        facts_share = (_AGGREGATION_FACTS_SHARE if aggregation_intent
+                       else FACTS_BUDGET_SHARE)
 
         # ── Section 2b: USER PROFILE (injected, never retrieved) ─────────
         # Who the user IS, always present when non-empty, from its own
@@ -280,7 +314,7 @@ class ContextAssembler:
         # tier may claim at most FACTS_BUDGET_SHARE and the remainder
         # is RESERVED for raw evidence. When there are few facts they
         # simply use less — the reservation only ever caps, never pads.
-        facts_budget = int(sem_budget * FACTS_BUDGET_SHARE)
+        facts_budget = int(sem_budget * facts_share)
         if "facts" not in disable:
             try:
                 retriever = self._get_facts()
@@ -323,6 +357,7 @@ class ContextAssembler:
             # later — F-14's whole lesson is that a run must be able to
             # prove what it actually did, not what it was asked to do.
             "recall_intent": recall_intent,
+            "aggregation_intent": aggregation_intent,
             "semantic_total": self.allocations["semantic"],
             "profile_cap": profile_budget,
             "profile_used": profile_used,

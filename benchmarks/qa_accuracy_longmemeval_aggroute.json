@@ -1,0 +1,1080 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o",
+  "judge_model": "gpt-4o",
+  "n_questions": 150,
+  "retrieval_backend": "dense",
+  "context_chars": 24000,
+  "memory_source": "raw",
+  "answerer": "reasoning",
+  "lme_split": "s",
+  "retrieval_backend_requested": "dense",
+  "retrieval_context_turns": 2,
+  "retrieval_deep_hits": null,
+  "facts_source": "gate_c",
+  "profile_tier": true,
+  "types_filter": null,
+  "seed": 42,
+  "db_path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/eval_dbs/longmemeval-s-raw-4b4cc846c7.db",
+  "stored": {
+    "facts": 0,
+    "raw": 0,
+    "skipped_preexisting": 150
+  },
+  "stored_facts_fraction": 0.0,
+  "qa_accuracy": 0.7733,
+  "correct": 116,
+  "total": 150,
+  "results": [
+    {
+      "question": "Where does my sister Emily live?",
+      "gold_answer": "Denver",
+      "predicted": "Denver",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "What was the date on which I attended the first BBQ event in June?",
+      "gold_answer": "June 3rd",
+      "predicted": "2023/06/03",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many playlists do I have on Spotify?",
+      "gold_answer": "20",
+      "predicted": "20 playlists.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many engineers do I lead when I just started my new role as Senior Software Engineer? How many engineers do I lead now?",
+      "gold_answer": "When you just started your new role as Senior Software Engineer, you led 4 engineers. Now, you lead 5 engineers",
+      "predicted": "Initially, you led 4 engineers; now, you lead 5 engineers.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "I've been struggling with my slow cooker recipes. Any advice on getting better results?",
+      "gold_answer": "The user would prefer responses that provide tips and advice specifically tailored to their slow cooker experiences, utilizing their recent success with beef stew and interest in making yogurt in the slow cooker. They might not prefer general slow cooker recipes or advice unrelated to their specific experiences and interests.",
+      "predicted": "Explore plant-based slow cooker recipes like lentil curry or black bean chili, and try making cashew-based yogurt, using a thermometer for best results.",
+      "correct": false,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "How many graduation ceremonies have I attended in the past three months?",
+      "gold_answer": "3",
+      "predicted": "3 graduation ceremonies.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many times did I ride rollercoasters across all the events I attended from July to October?",
+      "gold_answer": "10 times",
+      "predicted": "9 rides.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many projects have I led or am currently leading?",
+      "gold_answer": "2",
+      "predicted": "At least two projects.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many short stories have I written since I started writing regularly?",
+      "gold_answer": "seven",
+      "predicted": "7 short stories.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many skeins of worsted weight yarn did I find in my stash?",
+      "gold_answer": "17",
+      "predicted": "17 skeins",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?",
+      "gold_answer": "one week",
+      "predicted": "1 week",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I was looking back at our previous conversation about environmentally responsible supply chain practices, and I was wondering if you could remind me of the company you mentioned that's doing a great job with sustainability?",
+      "gold_answer": "Patagonia",
+      "predicted": "Patagonia.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about front-end and back-end development. Can you remind me of the specific back-end programming languages you recommended I learn?",
+      "gold_answer": "I recommended learning Ruby, Python, or PHP as a back-end programming language.",
+      "predicted": "Ruby, Python, or PHP.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "How many days ago did I harvest my first batch of fresh herbs from the herb garden kit?",
+      "gold_answer": "3 days ago. 4 days (including the last day) is also acceptable.",
+      "predicted": "3 days ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How long did I wait for the decision on my asylum application?",
+      "gold_answer": "over a year",
+      "predicted": "Over a year.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "I mentioned an investment for a competition four weeks ago? What did I buy?",
+      "gold_answer": "I got my own set of sculpting tools.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days a week do I attend fitness classes?",
+      "gold_answer": "4 days.",
+      "predicted": "3 days a week (Tuesday, Thursday, Saturday).",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What did I buy for my sister's birthday gift?",
+      "gold_answer": "a yellow dress",
+      "predicted": "A yellow dress and a pair of earrings.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How long did it take me to assemble the IKEA bookshelf?",
+      "gold_answer": "4 hours",
+      "predicted": "4 hours.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "Where did I attend the Imagine Dragons concert?",
+      "gold_answer": "Xfinity Center",
+      "predicted": "Xfinity Center.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How much money did I raise for charity in total?",
+      "gold_answer": "$3,750",
+      "predicted": "$3,750.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total amount of money I earned from selling my products at the markets?",
+      "gold_answer": "$495",
+      "predicted": "$495",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days had passed since I started taking ukulele lessons when I decided to take my acoustic guitar to the guitar tech for servicing?",
+      "gold_answer": "24 days. 25 days (including the last day) is also acceptable.",
+      "predicted": "0 days",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which vehicle did I take care of first in February, the bike or the car?",
+      "gold_answer": "bike",
+      "predicted": "The bike was taken care of first in February.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Where did I attend for my study abroad program?",
+      "gold_answer": "University of Melbourne in Australia",
+      "predicted": "University of Melbourne",
+      "correct": false,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "I mentioned participating in a sports event two weeks ago. What was the event?",
+      "gold_answer": "The company's annual charity soccer tournament.",
+      "predicted": "Volleyball league game.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days did it take for me to receive the new remote shutter release after I ordered it?",
+      "gold_answer": "5 days. 6 days (including the last day) is also acceptable.",
+      "predicted": "5 days.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What was my personal best time in the charity 5K run?",
+      "gold_answer": "25 minutes and 50 seconds (or 25:50)",
+      "predicted": "25:50",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "What time do I wake up on Tuesdays and Thursdays?",
+      "gold_answer": "6:45 AM",
+      "predicted": "6:45 AM",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days had passed between the day I bought a gift for my brother's graduation ceremony and the day I bought a birthday gift for my best friend?",
+      "gold_answer": "7 days. 8 days (including the last day) is also acceptable.",
+      "predicted": "7 days.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I was going through our previous chat and I was wondering, what was Andy wearing in the script you wrote for the comedy movie scene?",
+      "gold_answer": "Andy was wearing an untidy, stained white shirt.",
+      "predicted": "An untidy, stained white shirt.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "What is the total amount I spent on gifts for my coworker and brother?",
+      "gold_answer": "$200",
+      "predicted": "$200",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many days did I spend participating in faith-related activities in December?",
+      "gold_answer": "3 days.",
+      "predicted": "3 days",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total cost of my recently purchased headphones and the iPad?",
+      "gold_answer": "The information provided is not enough. You mentioned purchasing a headphone, but you did not mention the iPad.",
+      "predicted": "$378 (for the headphones); iPad cost not mentioned.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I mentioned visiting a museum two months ago. Did I visit with a friend or not?",
+      "gold_answer": "No, you did not visit with a friend.",
+      "predicted": "No, you visited with your dad, not a friend.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What should I serve for dinner this weekend with my homegrown ingredients?",
+      "gold_answer": "The user would prefer dinner suggestions that incorporate their homegrown cherry tomatoes and herbs like basil and mint, highlighting recipes that showcase their garden produce. They might not prefer suggestions that do not utilize these specific ingredients or do not emphasize the use of homegrown elements.",
+      "predicted": "Consider making a Caprese Salad with your homegrown cherry tomatoes and basil, or a Pesto Pasta incorporating basil and mint for a fresh and flavorful dinner.",
+      "correct": true,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "What was my previous frequent flyer status on United Airlines before I got the current status?",
+      "gold_answer": "Premier Silver",
+      "predicted": "Premier Silver",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+      "gold_answer": "Miss Bee Providore",
+      "predicted": "Miss Bee Providore.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "What play did I attend at the local community theater?",
+      "gold_answer": "The Glass Menagerie",
+      "predicted": "The Glass Menagerie.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "What company is Rachel, an old colleague from my previous company, currently working at?",
+      "gold_answer": "TechCorp",
+      "predicted": "TechCorp.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "Where am I planning to stay for my birthday trip to Hawaii?",
+      "gold_answer": "Oahu",
+      "predicted": "Oahu",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many movie festivals that I attended?",
+      "gold_answer": "I attended four movie festivals.",
+      "predicted": "2",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which project did I start first, the Ferrari model or the Japanese Zero fighter plane model?",
+      "gold_answer": "Japanese Zero fighter plane model",
+      "predicted": "Japanese Zero fighter plane model.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about private sector businesses in Chaudhary. Can you remind me of the company that employs over 40,000 people in the rug-manufacturing industry?",
+      "gold_answer": "Jaipur Rugs",
+      "predicted": "Jaipur Rugs.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "What is the total number of episodes I've listened to from 'How I Built This' and 'My Favorite Murder'?",
+      "gold_answer": "27",
+      "predicted": "27 episodes in total (12 from 'My Favorite Murder' and 15 from 'How I Built This').",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I'm going back to our previous conversation about DIY home decor projects using recycled materials. Can you remind me what sealant you recommended for the newspaper flower vase?",
+      "gold_answer": "Mod Podge or another sealant",
+      "predicted": "Mod Podge or another sealant.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "What time did I go to bed on the day before I had a doctor's appointment?",
+      "gold_answer": "2 AM",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many bikes did I service or plan to service in March?",
+      "gold_answer": "2",
+      "predicted": "1 bike was serviced in March.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Where is the painting 'Ethereal Dreams' by Emma Taylor currently hanging?",
+      "gold_answer": "in my bedroom",
+      "predicted": "Above the user's bed.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "I'm trying to recall what the designation on my jumpsuit was that helped me find the file number in the records room?",
+      "gold_answer": "The designation on your jumpsuit was 'LIV'.",
+      "predicted": "LIV",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "What percentage discount did I get on the book from my favorite author?",
+      "gold_answer": "20%",
+      "predicted": "20% discount.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about language learning apps. You mentioned a few options, and I was wondering if you could remind me of the one that uses mnemonics to help learners memorize words and phrases?",
+      "gold_answer": "Memrise",
+      "predicted": "Memrise.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "At which university did I present a poster on my thesis research?",
+      "gold_answer": "Harvard University",
+      "predicted": "Harvard University",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What type of bulb did I replace in my bedside lamp?",
+      "gold_answer": "Philips LED bulb",
+      "predicted": "Philips LED bulb",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many sports have I played competitively in the past?",
+      "gold_answer": "two",
+      "predicted": "2",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many hours do I work in a typical week during peak campaign seasons?",
+      "gold_answer": "50",
+      "predicted": "Up to 50 hours per week during peak campaign seasons.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+      "gold_answer": "You increased the limit (from one cup to two cups)",
+      "predicted": "Increased to two cups.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+      "gold_answer": "Samsung Galaxy S22",
+      "predicted": "Samsung Galaxy S22",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+      "gold_answer": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+      "predicted": "Consider the Fontainebleau Miami Beach or 1 Hotel South Beach for your Miami trip, as they offer unique features like ocean views and luxurious pools, aligning with your hotel preferences.",
+      "correct": true,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "How many bikes do I own?",
+      "gold_answer": "three",
+      "predicted": "3",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many different species of birds have I seen in my local park?",
+      "gold_answer": "32",
+      "predicted": "32 species.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many bikes do I currently own?",
+      "gold_answer": "4",
+      "predicted": "4",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many weeks ago did I meet up with my aunt and receive the crystal chandelier?",
+      "gold_answer": "4",
+      "predicted": "4 weeks ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many months ago did I attend the photography workshop?",
+      "gold_answer": "3",
+      "predicted": "3 months ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What game did I finally beat last weekend?",
+      "gold_answer": "Dark Souls 3 DLC",
+      "predicted": "Dark Souls 3 DLC",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How much did I spend on each coffee mug for my coworkers?",
+      "gold_answer": "$12",
+      "predicted": "$12 per mug.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How long have I been collecting vintage cameras?",
+      "gold_answer": "three months",
+      "predicted": "Approximately three months and one week.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "Which event happened first, my participation in the #PlankChallenge or my post about vegan chili recipe?",
+      "gold_answer": "You posted a recipe for vegan chili on Instagram using the hashtag #FoodieAdventures first.",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I was thinking of trying a new coffee creamer recipe. Any recommendations?",
+      "gold_answer": "The user would prefer responses that suggest variations on their existing almond milk, vanilla extract, and honey creamer recipe or new ideas that align with their goals of reducing sugar intake and saving money. They might not prefer responses that recommend commercial creamer products or recipes that are high in sugar or expensive.",
+      "predicted": "Try a \"Strawberry Cream\" coffee creamer with half-and-half, strawberry puree, vanilla extract, and sweetener.",
+      "correct": false,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "What is my current record in the recreational volleyball league?",
+      "gold_answer": "5-2",
+      "predicted": "5-2",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "Which pair of shoes did I clean last month?",
+      "gold_answer": "white Adidas sneakers",
+      "predicted": "White Adidas sneakers.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many charity events did I participate in before the 'Run for the Cure' event?",
+      "gold_answer": "4",
+      "predicted": "4 charity events.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How old was I when Alex was born?",
+      "gold_answer": "11",
+      "predicted": "0 years old.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many different art-related events did I attend in the past month?",
+      "gold_answer": "4",
+      "predicted": "3",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What was the the life event of one of my relatives that I participated in a week ago?",
+      "gold_answer": "my cousin's wedding",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which task did I complete first, fixing the fence or purchasing three cows from Peter?",
+      "gold_answer": "The information provided is not enough. You mentioned fixing the fence but did not mention purchasing cows from Peter.",
+      "predicted": "Fixing the fence.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What type of rice is my favorite?",
+      "gold_answer": "Japanese short-grain rice",
+      "predicted": "Japanese short-grain rice.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "What breed is my dog?",
+      "gold_answer": "Golden Retriever",
+      "predicted": "Golden Retriever.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many days did I spend in total traveling in Hawaii and in New York City?",
+      "gold_answer": "15 days",
+      "predicted": "5 days in New York City; no information on Hawaii.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which device did I set up first, the smart thermostat or the new router?",
+      "gold_answer": "new router",
+      "predicted": "The new router was set up first.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many videos of Corey Schafer's Python programming series have I completed so far?",
+      "gold_answer": "30",
+      "predicted": "30 videos.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "I was thinking about rearranging the furniture in my bedroom this weekend. Any tips?",
+      "gold_answer": "The user would prefer responses that take into account their existing plans to replace the bedroom dresser and their interest in mid-century modern style, suggesting furniture layouts that accommodate the new dresser and incorporate elements of this design aesthetic. They might not prefer general furniture arrangement tips or suggestions that do not consider their specific design preferences.",
+      "predicted": "Focus on clean lines and organic shapes, aligning with your mid-century modern style. Ensure the layout allows for easy movement and highlights your aesthetic preferences.",
+      "correct": false,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+      "gold_answer": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+      "predicted": "8 am - 4 pm (Day Shift)",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was going through our previous chat. Can you remind me of the name of the last venue you recommended in the list of popular venues in Portland for indie music shows?",
+      "gold_answer": "Revolution Hall",
+      "predicted": "Revolution Hall.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "What book am I currently reading?",
+      "gold_answer": "The Seven Husbands of Evelyn Hugo",
+      "predicted": "A historical account from the perspective of Little Deer, a boy from the Piscataway tribe.",
+      "correct": false,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+      "gold_answer": "The Sugar Factory at Icon Park.",
+      "predicted": "The Sugar Factory at Icon Park.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about binaural beats for anxiety and depression. Can you remind me how many subjects were in the study published in the journal Music and Medicine that found significant reductions in symptoms of depression, anxiety, and stress?",
+      "gold_answer": "38 subjects",
+      "predicted": "38 subjects.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "How much will I save by taking the bus from the airport to my hotel instead of a taxi?",
+      "gold_answer": "The information provided is not enough. You did not mention how much will the bus take.",
+      "predicted": "You will save between $112 and $152 by taking the bus instead of a taxi from the airport to your hotel.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many months ago did I book the Airbnb in San Francisco?",
+      "gold_answer": "Five months ago",
+      "predicted": "Approximately three months ago.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many points do I need to earn to redeem a free skincare product at Sephora?",
+      "gold_answer": "100",
+      "predicted": "100 points.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many tanks do I currently have, including the one I set up for my friend's kid?",
+      "gold_answer": "3",
+      "predicted": "3 tanks",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the total number of goals and assists I have in the recreational indoor soccer league?",
+      "gold_answer": "5",
+      "predicted": "3 goals and 2 assists.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What percentage of the countryside property's price is the cost of the renovations I plan to do on my current house?",
+      "gold_answer": "10%",
+      "predicted": "10%",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which trip did the narrator take first, the solo trip to Europe or the family road trip across the American Southwest?",
+      "gold_answer": "The family road trip across the American Southwest",
+      "predicted": "The family road trip across the American Southwest.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much money did I raise in total through all the charity events I participated in?",
+      "gold_answer": "$5,850",
+      "predicted": "$5,850",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+      "gold_answer": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+      "predicted": "Check Eventbrite and Meetup for cultural events this weekend, focusing on language diversity and cultural exchange, as you have shown interest in such events.",
+      "correct": false,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+      "gold_answer": "Mindful.org.",
+      "predicted": "Mindful.org",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "Which streaming service did I start using most recently?",
+      "gold_answer": "Disney+",
+      "predicted": "Apple TV+",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How long had I been watching stand-up comedy specials regularly when I attended the open mic night at the local comedy club?",
+      "gold_answer": "2 months",
+      "predicted": "About 2 months.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Who did I have a conversation with about destiny?",
+      "gold_answer": "Sarah",
+      "predicted": "Sarah.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many days had passed between the Sunday mass at St. Mary's Church and the Ash Wednesday service at the cathedral?",
+      "gold_answer": "30 days. 31 days (including the last day) is also acceptable.",
+      "predicted": "30 days",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many Crash Course videos have I watched in the past few weeks?",
+      "gold_answer": "15",
+      "predicted": "15 Crash Course videos.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many months passed between the completion of my undergraduate degree and the submission of my master's thesis?",
+      "gold_answer": "6 months",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many babies were born to friends and family members in the last few months?",
+      "gold_answer": "5",
+      "predicted": "4 babies",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How often do I see Dr. Johnson?",
+      "gold_answer": "The information provided is not enough. You mentioned seeing Dr. Smith but not Dr. Johnson.",
+      "predicted": "not mentioned",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "I'm looking back at our previous conversation where you created two sad songs for me. Can you remind me what was the chord progression for the chorus in the second song?",
+      "gold_answer": "C D E F G A B A G F E D C",
+      "predicted": "C D E F G A B A G F E D C.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "How many times have I tried making a Negroni at home since my friend Emma showed me how to make it?",
+      "gold_answer": "10",
+      "predicted": "10 times.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many months have passed since I participated in two charity events in a row, on consecutive days?",
+      "gold_answer": "2",
+      "predicted": "2 months.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I'm planning to visit the Vatican again and I was wondering if you could remind me of the name of that famous deli near the Vatican that serves the best cured meats and cheeses?",
+      "gold_answer": "Roscioli",
+      "predicted": "Roscioli.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "Can you suggest some activities that I can do in the evening?",
+      "gold_answer": "The user would prefer suggestions that involve relaxing activities that can be done in the evening, preferably before 9:30 pm. They would not prefer suggestions that involve using their phone or watching TV, as these activities have been affecting their sleep quality.",
+      "predicted": "Consider reading a book, practicing meditation (like the 'Body Scan' by Insight Timer), or journaling in the evening to unwind before bed, aligning with your preference for relaxation and winding down by 9:30 pm.",
+      "correct": true,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "predicted": "Grilled Snapper with Mango Salsa.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "Who did I meet first, the woman selling jam at the farmer's market or the tourist from Australia?",
+      "gold_answer": "the woman selling jam at the farmer's market",
+      "predicted": "The woman selling jam at the farmer's market.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "I was going through our previous conversation about the impact of the political climate in Catalonia on its literature and music. Can you remind me of the example you gave of a Spanish-Catalan singer-songwriter who supports unity between Catalonia and Spain?",
+      "gold_answer": "Manolo Garc\u00eda",
+      "predicted": "Manolo Garc\u00eda.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "How many days ago did I read the March 15th issue of The New Yorker?",
+      "gold_answer": "12 days ago. 13 days (including the last day) is also acceptable.",
+      "predicted": "12 days ago.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many months before my anniversary did Rachel get engaged?",
+      "gold_answer": "2",
+      "predicted": "Approximately two months and one week.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many antique items did I inherit or acquire from my family members?",
+      "gold_answer": "5",
+      "predicted": "4 antique items.",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is my preferred gin-to-vermouth ratio for a classic gin martini?",
+      "gold_answer": "3:1",
+      "predicted": "3:1 gin-to-vermouth ratio.",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "How many days did I spend attending workshops, lectures, and conferences in April?",
+      "gold_answer": "3 days",
+      "predicted": "1 day",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I was going through our previous conversation and I was wondering if you could remind me of the two companies you mentioned that prioritize employee safety and well-being like Triumvirate?",
+      "gold_answer": "Patagonia and Southwest Airlines.",
+      "predicted": "Patagonia and Southwest Airlines.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I\u2019m a bit anxious about getting around Tokyo. Do you have any helpful tips?",
+      "gold_answer": "The user would prefer responses that utilize their existing resources, such as their Suica card and TripIt app, to provide personalized tips for navigating Tokyo's public transportation. They might not prefer general tips or recommendations that do not take into account their prior preparations.",
+      "predicted": "Use your Suica card for public transport, and consider using Google Maps for navigation. Hotel staff at Park Hyatt Tokyo can also provide helpful directions and tips.",
+      "correct": false,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "How many dinner parties have I attended in the past month?",
+      "gold_answer": "three",
+      "predicted": "3 dinner parties.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Can you recommend a show or movie for me to watch tonight?",
+      "gold_answer": "The user would prefer recommendations for stand-up comedy specials on Netflix, especially those that are known for their storytelling. They may not prefer recommendations for other genres or platforms.",
+      "predicted": "\"Hasan Minhaj: Homecoming King\" on Netflix, for its strong storytelling in comedy.",
+      "correct": true,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "How long did it take to move to the new apartment?",
+      "gold_answer": "5 hours",
+      "predicted": "5 hours",
+      "correct": true,
+      "question_type": "single-session-user"
+    },
+    {
+      "question": "Who did I go with to the music event last Saturday?",
+      "gold_answer": "my parents",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many projects have I been working on simultaneously, excluding my thesis?",
+      "gold_answer": "2",
+      "predicted": "2 projects (Data Mining and Database Systems).",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many Korean restaurants have I tried in my city?",
+      "gold_answer": "four",
+      "predicted": "Four Korean restaurants.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many titles are currently on my to-watch list?",
+      "gold_answer": "25",
+      "predicted": "25 titles.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "Where do I initially keep my old sneakers?",
+      "gold_answer": "under my bed",
+      "predicted": "Under your bed.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "Which airline did I fly with the most in March and April?",
+      "gold_answer": "United Airlines",
+      "predicted": "United Airlines",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What is the order of the six museums I visited from earliest to latest?",
+      "gold_answer": "Science Museum, Museum of Contemporary Art, Metropolitan Museum of Art, Museum of History, Modern Art Museum, Natural History Museum",
+      "predicted": "Science Museum, Castello di Amorosa, Museum of History, Modern Art Museum, Metropolitan Museum of Art.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much did I save on the Jimmy Choo heels?",
+      "gold_answer": "$300",
+      "predicted": "$300",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "Which three events happened in the order from first to last: the day I helped my friend prepare the nursery, the day I helped my cousin pick out stuff for her baby shower, and the day I ordered a customized phone case for my friend's birthday?",
+      "gold_answer": "First, I helped my friend prepare the nursery, then I helped my cousin pick out stuff for her baby shower, and lastly, I ordered a customized phone case for my friend's birthday.",
+      "predicted": "Helped friend prepare the nursery, helped cousin pick out stuff for her baby shower, ordered a customized phone case for friend's birthday.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Which show did I start watching first, 'The Crown' or 'Game of Thrones'?",
+      "gold_answer": "'Game of Thrones'",
+      "predicted": "'Game of Thrones'",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How often do I play table tennis with my friends at the local park?",
+      "gold_answer": "The information provided is not enough. You mentioned playing tennis but not table tennis.",
+      "predicted": "Not mentioned.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many days did I spend on camping trips in the United States this year?",
+      "gold_answer": "8 days.",
+      "predicted": "8 days.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "How many times did I bake egg tarts in the past two weeks?",
+      "gold_answer": "The information provided is not enough. You did not mention baking egg tarts.",
+      "predicted": "not mentioned",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I'm planning another trip to New York City and I was wondering if you could remind me of that vegan eatery you recommended last time, the one with multiple locations throughout the city?",
+      "gold_answer": "By Chloe",
+      "predicted": "By Chloe.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm looking back at our previous conversation about the Seco de Cordero recipe from Ancash. You mentioned using a light or medium-bodied beer, but I was wondering if you could remind me what type of beer you specifically recommended?",
+      "gold_answer": "I recommended using a Pilsner or Lager for the recipe.",
+      "predicted": "Pilsner or lager.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "Which event did I participate in first, the charity gala or the charity bake sale?",
+      "gold_answer": "I participated in the charity bake sale first.",
+      "predicted": "Charity bake sale.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+      "gold_answer": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+      "predicted": "Consider attending MICCAI or RSNA conferences and reading the Journal of Medical Imaging or IEEE Transactions on Medical Imaging for recent advancements in explainable AI and medical image analysis.",
+      "correct": true,
+      "question_type": "single-session-preference"
+    },
+    {
+      "question": "What was the significant buisiness milestone I mentioned four weeks ago?",
+      "gold_answer": "I signed a contract with my first client.",
+      "predicted": "Successful Facebook ad campaign reaching 2,000 people with 50 clicks to the website.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "What is the average GPA of my undergraduate and graduate studies?",
+      "gold_answer": "3.83",
+      "predicted": "The average GPA of your undergraduate and graduate studies is 3.83.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "I mentioned cooking something for my friend a couple of days ago. What was it?",
+      "gold_answer": "a chocolate cake",
+      "predicted": "Sandwiches with sourdough bread for a dinner party.",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How much faster did I finish the 5K run compared to my previous year's time?",
+      "gold_answer": "10 minutes",
+      "predicted": "You finished the 5K run 10 minutes faster compared to your previous time.",
+      "correct": true,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What was my previous goal for my Apex Legends level before I updated my goal?",
+      "gold_answer": "level 100",
+      "predicted": "Level 100 before the end of the year.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many MCU films did I watch in the last 3 months?",
+      "gold_answer": "5",
+      "predicted": "5 MCU films.",
+      "correct": true,
+      "question_type": "knowledge-update"
+    },
+    {
+      "question": "How many items of clothing do I need to pick up or return from a store?",
+      "gold_answer": "3",
+      "predicted": "2 items (new pair of boots from Zara and navy blue blazer from dry cleaner).",
+      "correct": false,
+      "question_type": "multi-session"
+    },
+    {
+      "question": "What is the order of the sports events I watched in January?",
+      "gold_answer": "First, I attended a NBA game at the Staples Center, then I watched the College Football National Championship game, and finally, I watched the NFL playoffs.",
+      "predicted": "NFL Divisional Round (01/01), Lakers vs. Bulls (01/05), College Football Championship (01/14)",
+      "correct": false,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How many days passed between the day I cancelled my FarmFresh subscription and the day I did my online grocery shopping from Instacart?",
+      "gold_answer": "54 days. 55 days (including the last day) is also acceptable.",
+      "predicted": "54 days.",
+      "correct": true,
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question": "How long was I in Japan for?",
+      "gold_answer": "two weeks",
+      "predicted": "Two weeks.",
+      "correct": true,
+      "question_type": "single-session-user"
+    }
+  ]
+}

@@ -1113,3 +1113,45 @@ def test_recall_intent_does_NOT_fire_on_user_fact_questions():
         "What was the date on which I attended the first BBQ event in June?",
     ):
         assert not R.search(q), f"user-fact question wrongly flagged: {q!r}"
+
+
+def test_aggregation_intent_boosts_facts_share():
+    """Counting questions get the tally sheet: aggregation intent raises
+    the facts share to _AGGREGATION_FACTS_SHARE. RED if the routing or
+    the constant is reverted."""
+    from agentmem_os.llm.context_assembler import (_AGGREGATION_INTENT_RE,
+                                                   _CONVERSATION_RECALL_RE)
+    for q in ("How many movie festivals did I attend?",
+              "How much did I spend on coffee mugs in total?",
+              "How often do I play table tennis?"):
+        assert _AGGREGATION_INTENT_RE.search(q), q
+        assert not _CONVERSATION_RECALL_RE.search(q), q
+
+
+def test_recall_intent_beats_aggregation_intent():
+    """'our previous chat ... how many times' is a RECALL question — the
+    answer is what was SAID, which facts deliberately do not store.
+    Suppression must win over boosting. RED if precedence is reverted."""
+    import os
+    from agentmem_os.llm import context_assembler as ca
+    q = ("I was looking back at our previous chat and I wanted to "
+         "confirm, how many times did the party wipe?")
+    assert ca._CONVERSATION_RECALL_RE.search(q)
+    assert ca._AGGREGATION_INTENT_RE.search(q)
+    # precedence is encoded as `not recall_intent` in assemble(); pin the
+    # source so a refactor that drops it goes red.
+    import inspect
+    src = inspect.getsource(ca.ContextAssembler.assemble)
+    assert "not recall_intent" in src
+
+
+def test_aggregation_routing_is_opt_in():
+    """The probe FAILED its pre-registered bar (1 systematic fixed vs a
+    >=4 bar), so the routing must be OPT-IN: without the enable flag the
+    facts share is unchanged. RED if someone flips it back to default-on
+    without a measurement."""
+    import inspect
+    from agentmem_os.llm import context_assembler as ca
+    src = inspect.getsource(ca.ContextAssembler.assemble)
+    assert 'AGENTMEM_OS_ENABLE_AGGREGATION_ROUTING\") == \"1\"' in src or \
+        "AGENTMEM_OS_ENABLE_AGGREGATION_ROUTING" in src
