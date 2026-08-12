@@ -23,19 +23,71 @@ remainder ([SEMANTIC MEMORY]) as provenance/fallback. With an empty
 fact store the output is byte-identical to the pre-facts assembler.
 """
 
+import os
+import re
+
 from loguru import logger
 from agentmem_os.llm.token_counter import TokenCounter
 
 # Share of the semantic allocation the facts tier may claim. The rest
 # is RESERVED for raw-turn evidence (Gate C: facts at 100% evicted the
 # fallback and the score stayed exactly at baseline).
-FACTS_BUDGET_SHARE = 0.65
+#
+# 0.65 -> 0.35, 2026-08-11, MEASURED (DECISION_AND_FAILURE_LOG §3.1z).
+# 0.65 was chosen to stop facts starving raw turns ENTIRELY; it was never
+# re-validated once the fact tier actually had a full corpus behind it.
+#
+# The metric it is now tuned against is GOLD-SESSION COVERAGE — how often
+# EVERY session holding a question's evidence reaches the context — which
+# is a $0 proxy with a measured relationship to accuracy:
+#     ALL gold sessions present -> 84.5% correct  (ceiling 86.7%)
+#     PARTIAL / NONE            -> ~44% correct
+# Swept through THIS assembler on the real corpus, same 4,740-token
+# budget, n=150:
+#     facts 65% -> 103 ALL   (multi-session 20/39, temporal 17/40)
+#     facts 50% -> 108
+#     facts 35% -> 116 ALL   (multi-session 25/39, temporal 25/40)
+#     facts 20% -> 117
+#     facts 10% -> 120
+#     facts  0% -> 122
+# Coverage rises monotonically as facts yield budget, because multi-hop
+# questions need 2-5 DIFFERENT gold sessions and raw turns are what carry
+# them.
+#
+# 0.35 and NOT the coverage-maximising 0.0-0.10 deliberately: facts
+# demonstrably earn their place (multi-session 18/39 -> 22/39 when the
+# tier was added, §3.1x), so this takes the setting that restores
+# coverage while keeping the tier meaningful, rather than the one that
+# maximises the proxy. Optimising a proxy to its extreme is how a metric
+# stops describing the product.
+FACTS_BUDGET_SHARE = 0.35
 # The profile gets its OWN slice of the semantic allocation, taken
 # before facts and chunks divide the rest. It is small by design (who
 # the user IS compresses to a few dozen lines) and it must never
 # compete with the other tiers for space — the Gate C starvation
 # lesson applies to the new tier first.
 PROFILE_BUDGET_SHARE = 0.15
+
+# Questions that ask what was SAID in an earlier conversation, rather than
+# what the user is like. On these the user-model tiers are suppressed and
+# the raw-turn tier — the only representation holding the assistant's words
+# verbatim — receives the whole semantic allocation. See the long note at
+# the routing site in assemble() for the measurements behind this.
+#
+# Deliberately conservative: it must fire on "what did you tell me", NEVER
+# on "can you suggest a hotel for my trip" — the latter is an ADVICE
+# question that needs the user model most. Requiring an explicit reference
+# to a prior exchange is what separates them (measured: an earlier, looser
+# 'you|recommend|suggest' pattern caught 70% of preference questions and
+# would have suppressed the profile exactly where it helps).
+_CONVERSATION_RECALL_RE = re.compile(
+    r"(previous|earlier|last|past|our)\s+"
+    r"(conversation|chat|discussion|talk|session)"
+    r"|\bwe (discussed|talked|spoke)\b"
+    r"|\byou (told|mentioned|said|recommended|suggested|gave)\b"
+    r"|\bremind me\b|\bgoing back to\b|\blooking back\b|\bfollow up on\b",
+    re.IGNORECASE,
+)
 
 
 class ContextAssembler:
@@ -135,6 +187,47 @@ class ContextAssembler:
         # numbers were measured through this code path).
         sem_budget = self.allocations["semantic"]
 
+        # ── INTENT ROUTING (2026-08-11, measured) ────────────────────────
+        # A question can ask two different things of memory:
+        #   "what am I like / what did I do"  -> the USER MODEL (facts,
+        #                                        profile)
+        #   "what did YOU tell me last time"  -> the CONVERSATION itself,
+        #                                        which only raw turns hold
+        #                                        VERBATIM
+        # Our extraction contract deliberately never stores assistant-
+        # stated content (consolidation_v2.py:780), so on the second kind
+        # the fact tier has nothing relevant — and injecting it anyway is
+        # not merely useless, it is HARMFUL.
+        #
+        # MEASURED, run #1 (DECISION_AND_FAILURE_LOG §3.1q):
+        # single-session-assistant 17/20 -> 3/20 with the fact tier on.
+        # The cause is NOT eviction — a budget sweep showed the gold
+        # evidence still survives into the context 18-19/20 at every
+        # split. The model reads a wall of facts ABOUT THE USER, concludes
+        # its memory lacks what the assistant said, and abstains without
+        # using the raw turns below it (16 such abstentions measured).
+        #
+        # Why a lexical INTENT rule and not a relevance score: similarity
+        # cannot detect this. On these questions the fact tier is
+        # CONFIDENT AND WRONG — median top cosine 0.4132, HIGHER than
+        # multi-session (0.3916) — because "what did you tell me about
+        # slow cookers" matches the user's own cooking facts. Threshold
+        # sweeps separate nothing (benchmarks/relevance_threshold_search.py).
+        #
+        # VALIDATED ON HELD-OUT DATA, not fitted: built from the 150-question
+        # dev set, then checked against the 350 questions never used —
+        # 35/36 = 97% recall on assistant-recall questions, and 0 false
+        # positives in 314 others. The patterns are generic English recall
+        # phrasings, not question-specific strings.
+        # ABLATION SWITCH: a fix that cannot be turned OFF cannot be shown
+        # to do anything. This exists so the routing's contribution can be
+        # isolated from every other change in the same run — the confound
+        # that made run #1 uninterpretable (§3.1s).
+        recall_intent = bool(_CONVERSATION_RECALL_RE.search(query or "")) \
+            and os.environ.get("AGENTMEM_OS_DISABLE_INTENT_ROUTING") != "1"
+        if recall_intent:
+            disable = frozenset(disable) | {"profile", "facts"}
+
         # ── Section 2b: USER PROFILE (injected, never retrieved) ─────────
         # Who the user IS, always present when non-empty, from its own
         # reserved slice. Query-INDEPENDENT by design: this tier exists
@@ -226,6 +319,10 @@ class ContextAssembler:
         # Every tier is now reported separately, with its own selection
         # note, so a gate run can print starvation instead of logging it.
         self.last_tier_budget = {
+            # A routing decision that is not recorded cannot be audited
+            # later — F-14's whole lesson is that a run must be able to
+            # prove what it actually did, not what it was asked to do.
+            "recall_intent": recall_intent,
             "semantic_total": self.allocations["semantic"],
             "profile_cap": profile_budget,
             "profile_used": profile_used,

@@ -1011,7 +1011,13 @@ def test_facts_may_not_starve_raw_evidence(env):
     from agentmem_os.llm.context_assembler import FACTS_BUDGET_SHARE
 
     store, linker, retriever, SessionLocal = env
-    for i in range(120):
+    # 400, not 120: the fact block must be able to SATURATE the whole
+    # 4,740-token allocation, otherwise this pin cannot detect starvation
+    # at all. Caught by mutation 2026-08-11 — with 120 facts (~1,800
+    # tokens) setting FACTS_BUDGET_SHARE = 1.0 left the pin GREEN, because
+    # there were never enough facts to crowd raw evidence out. A pin that
+    # cannot fail on the failure it names is F-01, the tautological pin.
+    for i in range(400):
         _fact(store, f"Rachel completed milestone {i} on the platform "
                      f"team at TechCorp with measurable impact.")
     big = [f"[2023/05/{d:02d}] USER: raw evidence chunk {d} " + "y" * 300
@@ -1023,8 +1029,21 @@ def test_facts_may_not_starve_raw_evidence(env):
     assert "[SEMANTIC FACTS]" in out
     assert "[SEMANTIC MEMORY]" in out, "raw evidence was starved again"
     tb = a.last_tier_budget
-    assert tb["facts_used"] <= int(4740 * FACTS_BUDGET_SHARE) + 5
-    assert tb["chunks_left"] >= int(4740 * (1 - FACTS_BUDGET_SHARE)) - 5
+    # +_SECTION_WRAPPER_TOKENS, not +5: `facts_used` measures the WRAPPED
+    # section while the retriever's budget covers only the block content,
+    # so a full block always exceeds the cap by the wrapper's fixed cost.
+    # MEASURED at 16 tokens for "<[SEMANTIC FACTS]>\n...\n</[SEMANTIC
+    # FACTS]>" (_fit_to_budget). The old +5 passed at share=0.65 only
+    # because the block did not fill that larger cap exactly; at 0.35 it
+    # does, and the pin failed on 6 tokens of structural overhead rather
+    # than on any starvation. This is a tolerance CORRECTION derived from
+    # a measurement — the starvation contract itself (the two asserts
+    # above and chunks_left below) is unchanged and still enforced.
+    _SECTION_WRAPPER_TOKENS = 16
+    assert tb["facts_used"] <= (int(4740 * FACTS_BUDGET_SHARE)
+                                + _SECTION_WRAPPER_TOKENS)
+    assert tb["chunks_left"] >= (int(4740 * (1 - FACTS_BUDGET_SHARE))
+                                 - _SECTION_WRAPPER_TOKENS)
     # and the starvation counter must be REPORTABLE, not just logged.
     # SUPERSET, not equality: the profile tier added its own keys and an
     # exact-match assertion would break every time a tier is added —
@@ -1044,3 +1063,53 @@ def test_few_facts_do_not_pad_the_reservation(env):
     tb = a.last_tier_budget
     assert tb["facts_used"] < 100
     assert tb["chunks_left"] > 4600
+
+
+# ── Intent routing (2026-08-11) ──────────────────────────────────────────
+# Run #1 measured single-session-assistant collapsing 17/20 -> 3/20 with the
+# fact tier on (DECISION_AND_FAILURE_LOG §3.1q, McNemar p=0.0016). The cause
+# is interference, not eviction: gold evidence still reached the context
+# 18-19/20 at every budget split, and the model abstained anyway. These pins
+# fix the CONTRACT — user-model tiers are suppressed when the user asks what
+# was SAID, and are NOT suppressed otherwise. Each pin goes RED if
+# _CONVERSATION_RECALL_RE or the routing branch is reverted.
+
+def test_recall_intent_fires_on_conversation_questions():
+    from agentmem_os.llm.context_assembler import _CONVERSATION_RECALL_RE as R
+    # Real LongMemEval single-session-assistant phrasings.
+    for q in (
+        "I was looking back at our previous conversation about supply chains",
+        "I wanted to follow up on our previous conversation about front-end work",
+        "I'm going back to our previous conversation about DIY home decor",
+        "Could you remind me of the name of that restaurant?",
+        "You mentioned a technique for slow cookers — what was it?",
+        "We discussed a book last month; which one was it?",
+    ):
+        assert R.search(q), f"recall intent missed: {q!r}"
+
+
+def test_recall_intent_does_NOT_fire_on_advice_questions():
+    # THE REGRESSION THIS PREVENTS: an earlier, looser pattern
+    # ('you|recommend|suggest') matched 70% of single-session-preference
+    # questions and would have suppressed the profile tier exactly where the
+    # user model is the whole point. Advice questions must keep it.
+    from agentmem_os.llm.context_assembler import _CONVERSATION_RECALL_RE as R
+    for q in (
+        "Can you suggest a hotel for my upcoming trip to Miami?",
+        "I was thinking of trying a new coffee creamer recipe. Any recommendations?",
+        "Can you recommend some interesting cultural events this weekend?",
+        "Can you suggest some activities that I can do in the evening?",
+        "I'm a bit anxious about getting around Tokyo. Do you have any helpful tips?",
+    ):
+        assert not R.search(q), f"advice question wrongly flagged: {q!r}"
+
+
+def test_recall_intent_does_NOT_fire_on_user_fact_questions():
+    from agentmem_os.llm.context_assembler import _CONVERSATION_RECALL_RE as R
+    for q in (
+        "How many playlists do I have on Spotify?",
+        "Where does my sister Emily live?",
+        "How many projects have I led or am currently leading?",
+        "What was the date on which I attended the first BBQ event in June?",
+    ):
+        assert not R.search(q), f"user-fact question wrongly flagged: {q!r}"

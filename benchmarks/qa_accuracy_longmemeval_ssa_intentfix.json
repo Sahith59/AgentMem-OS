@@ -1,0 +1,167 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o-mini",
+  "judge_model": "gpt-4o",
+  "n_questions": 20,
+  "retrieval_backend": "tfidf",
+  "context_chars": 24000,
+  "memory_source": "extracted",
+  "answerer": "reasoning",
+  "lme_split": "s",
+  "facts_source": "gate_c",
+  "profile_tier": true,
+  "types_filter": "single-session-assistant",
+  "seed": 42,
+  "db_path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/eval_dbs/longmemeval-s-extracted-caa53799be.db",
+  "stored": {
+    "facts": 20,
+    "raw": 936,
+    "skipped_preexisting": 0
+  },
+  "stored_facts_fraction": 0.0209,
+  "qa_accuracy": 0.1,
+  "correct": 2,
+  "total": 20,
+  "results": [
+    {
+      "question": "I wanted to follow up on our previous conversation about front-end and back-end development. Can you remind me of the specific back-end programming languages you recommended I learn?",
+      "gold_answer": "I recommended learning Ruby, Python, or PHP as a back-end programming language.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+      "gold_answer": "Miss Bee Providore",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was going through our previous chat and I was wondering, what was Andy wearing in the script you wrote for the comedy movie scene?",
+      "gold_answer": "Andy was wearing an untidy, stained white shirt.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was looking back at our previous conversation about environmentally responsible supply chain practices, and I was wondering if you could remind me of the company you mentioned that's doing a great job with sustainability?",
+      "gold_answer": "Patagonia",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm going back to our previous conversation about DIY home decor projects using recycled materials. Can you remind me what sealant you recommended for the newspaper flower vase?",
+      "gold_answer": "Mod Podge or another sealant",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about private sector businesses in Chaudhary. Can you remind me of the company that employs over 40,000 people in the rug-manufacturing industry?",
+      "gold_answer": "Jaipur Rugs",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about language learning apps. You mentioned a few options, and I was wondering if you could remind me of the one that uses mnemonics to help learners memorize words and phrases?",
+      "gold_answer": "Memrise",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm trying to recall what the designation on my jumpsuit was that helped me find the file number in the records room?",
+      "gold_answer": "The designation on your jumpsuit was 'LIV'.",
+      "predicted": "LIV",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+      "gold_answer": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was going through our previous chat. Can you remind me of the name of the last venue you recommended in the list of popular venues in Portland for indie music shows?",
+      "gold_answer": "Revolution Hall",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about binaural beats for anxiety and depression. Can you remind me how many subjects were in the study published in the journal Music and Medicine that found significant reductions in symptoms of depression, anxiety, and stress?",
+      "gold_answer": "38 subjects",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm looking back at our previous conversation where you created two sad songs for me. Can you remind me what was the chord progression for the chorus in the second song?",
+      "gold_answer": "C D E F G A B A G F E D C",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm planning to visit the Vatican again and I was wondering if you could remind me of the name of that famous deli near the Vatican that serves the best cured meats and cheeses?",
+      "gold_answer": "Roscioli",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was going through our previous conversation about the impact of the political climate in Catalonia on its literature and music. Can you remind me of the example you gave of a Spanish-Catalan singer-songwriter who supports unity between Catalonia and Spain?",
+      "gold_answer": "Manolo Garc\u00eda",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+      "gold_answer": "The Sugar Factory at Icon Park.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+      "gold_answer": "Mindful.org.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm planning another trip to New York City and I was wondering if you could remind me of that vegan eatery you recommended last time, the one with multiple locations throughout the city?",
+      "gold_answer": "By Chloe",
+      "predicted": "By Chloe.",
+      "correct": true,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I was going through our previous conversation and I was wondering if you could remind me of the two companies you mentioned that prioritize employee safety and well-being like Triumvirate?",
+      "gold_answer": "Patagonia and Southwest Airlines.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question": "I'm looking back at our previous conversation about the Seco de Cordero recipe from Ancash. You mentioned using a light or medium-bodied beer, but I was wondering if you could remind me what type of beer you specifically recommended?",
+      "gold_answer": "I recommended using a Pilsner or Lager for the recipe.",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "single-session-assistant"
+    }
+  ]
+}

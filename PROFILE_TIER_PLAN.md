@@ -1,5 +1,35 @@
 # PROFILE TIER — Plan of Record & Build Log
 
+## ⚠️ RECONCILED 2026-08-11 — the profile tier's real, measured verdict
+
+Superseded by `DECISION_AND_FAILURE_LOG.md` §3.1t–§3.1y. What is now known:
+
+* **The tier WORKS and is live**: 11,338 attributes / 900 keys / 4,901
+  sessions on the full corpus, 0 of 150 questions blind to it (its earlier
+  "null" was measured when only 79 of 150 questions had any corpus at all).
+* **On preference questions it is NOT the bottleneck.** Traced end to end
+  (§3.1w): for a failing question the profile served `knowledge.area:
+  Spanish` and the context contained "Spanish", "French" and "language" —
+  and gpt-4o-mini still answered *"Not mentioned."* Swapping to GPT-4o
+  moved preference **2/10 → 5/10** with the SAME memory. That was a MODEL
+  limit, not a memory limit.
+* **Two genuine defects remain, both measured:**
+  1. **Selection is QUERY-INDEPENDENT** (top-40 by `mention_count`,
+     `db/profile.py`) — a deliberate choice (D4: presence must not depend
+     on the query matching) that now measurably costs us. On the dinner
+     question "cherry tomato / basil / mint" were **absent from all 29,240
+     context chars**.
+  2. **Lexical retrieval does not bridge "homegrown" → "grows"**, so
+     relevant facts are missed regardless of the profile.
+* **`profile_attributes` is NOT carried by the shard merge** (derived
+  table, fact_id FK). After ANY corpus merge the projection must be re-run
+  or a Gate D run silently measures an EMPTY profile. The merge now prints
+  the rebuild instruction.
+* Preference headroom: **5/10 now, ceiling 9/10 → 4 recoverable.**
+* ⚠️ **Open debt: G3 round 4 was never dispatched.** Round-3 fixes are
+  committed but no critic has re-verified them.
+
+
 **Started 2026-08-09.** This file is the durable record for the
 profile-tier build: why it exists, what it must do, and every gate it
 passed or failed. Companions: `MASTER_PLAN.md` (private strategy),

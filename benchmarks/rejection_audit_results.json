@@ -1,0 +1,1267 @@
+{
+  "cause": "no supporting USER turn",
+  "model": "gpt-4o-mini",
+  "population": 1908,
+  "sampled": 250,
+  "counts": {
+    "D": 133,
+    "B": 61,
+    "A": 45,
+    "C": 11
+  },
+  "gate_correct_rate": 0.712,
+  "user_memory_destroyed_rate": 0.244,
+  "assistant_content_rate": 0.044,
+  "labelled": [
+    {
+      "session_id": "sharegpt_VJJV9MS_0",
+      "fact": "The user is reading articles about the violent incident in Hong Kong.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_kNi3QzP_24",
+      "fact": "The user is working on a project called ProjektOne.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_6UVUYKJ_7",
+      "fact": "The user is currently finishing up an Allstate Apprenticeship in AskHR, gaining valuable experience in HR-related suppor",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_H4fpIsr_9",
+      "fact": "The user is interested in learning how to write a good summary of an article.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_xwGWeTv_0",
+      "fact": "The user's relationship with the key client is good, as of November 2022.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_fK7pfNf_0",
+      "fact": "The user has proficiency in PHP, Symfony, and MySQL",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_RlTrAHR_13",
+      "fact": "The user has a van with an average fuel efficiency of 20 miles per gallon (mpg).",
+      "label": "A"
+    },
+    {
+      "session_id": "ultrachat_484875",
+      "fact": "The user is aware of Osaka's efforts to promote public transportation.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_CYcAuWq_17",
+      "fact": "The user is currently at twenty-seven weeks of pregnancy.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_buGcwO5_0",
+      "fact": "The user is interested in photography.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_wmLWMpg_0",
+      "fact": "The user has a good relationship with many of the local vendors and can recommend them to guests.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_EdS4P9F_0",
+      "fact": "The user is a third-year student at Colorado State University.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_i59HUGf_106",
+      "fact": "The user plans to apply the principles of considering subject, medium, environment, lighting, color, mood, composition, ",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_uVeeJj8_0",
+      "fact": "The user is a developer.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_XykNSdx_15",
+      "fact": "The user prefers to drive for longer hours on certain days.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_7Ezwt1J_31",
+      "fact": "Jeffrey has been seeking help and trying to turn his life around.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_yyStjJb_103",
+      "fact": "The user is thinking of taking up running.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_BFODaKW_0",
+      "fact": "The user plans to iterate the certbot command in the GoLang application.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9Z00o6B_0",
+      "fact": "In the user's dream, the mirror transformed into something similar to a PlayStation 5 screen showing squares.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_aJ3tgkA_15",
+      "fact": "The user has worked as a Benefits Administration Customer Service Representative since February 2021.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_RlTrAHR_13",
+      "fact": "The user has a trip planned.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_Wi7Op1u_72",
+      "fact": "The user's name came up as someone who may find the Greening The Equator program interesting.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_SBJezEx_4",
+      "fact": "The user improved their business process.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9ra36HI_32",
+      "fact": "The user may have a gift for writing, teaching or public speaking.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_7OkaPQ4_15",
+      "fact": "The user is planning to serve Pinot grigio, Gavi, Sauvignon blanc, and Chardonnay as white wines in their restaurant.",
+      "label": "A"
+    },
+    {
+      "session_id": "ultrachat_442201",
+      "fact": "The user has considered visiting Calistoga Ranch, The Spa at Silverado, and Meadowood Spa for spa treatments.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_JtVDTm4_0",
+      "fact": "The user is a software development manager.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_0DiDwpY_23",
+      "fact": "The user has read 'The 4-Hour Work Week' by Timothy Ferriss.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_fUrzIST_0",
+      "fact": "The user needs help creating the presentation for the Networking Project",
+      "label": "B"
+    },
+    {
+      "session_id": "e295eb5f",
+      "fact": "The user is a Mac user.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_yyStjJb_103",
+      "fact": "The user is currently at home.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_RlTrAHR_13",
+      "fact": "The user will be driving from Yellowstone National Park to Beartooth Pass.",
+      "label": "D"
+    },
+    {
+      "session_id": "7a103180",
+      "fact": "The user's black leather boots are gently used.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_5Rpp72b_148",
+      "fact": "The user is open to higher offers.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_yC6nsDU_0",
+      "fact": "The user is not confident in their own intelligence or abilities.",
+      "label": "D"
+    },
+    {
+      "session_id": "409015ef_2",
+      "fact": "The user plans to create a folder structure based on activities during the trip.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_YbYHKEO_2",
+      "fact": "The user has a person named 'Person1' from CompanyA in Norway.",
+      "label": "D"
+    },
+    {
+      "session_id": "e7497c07_2",
+      "fact": "The user has been trying to reduce spending on eating out and takeout.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_cXkL3cR_69",
+      "fact": "The user is reading a Bible verse called Psalm 34:18 (NIV).",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_499750",
+      "fact": "The user has read 'The Great Gatsby' by F. Scott Fitzgerald.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_1X61wv2_2",
+      "fact": "Ryan graduated from Virginia Polytechnic Institute and State University (Virginia Tech) in 2016 with a B.A. in Political",
+      "label": "B"
+    },
+    {
+      "session_id": "6ff77d45_2",
+      "fact": "The user is 32 years old.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_yyStjJb_103",
+      "fact": "The user has been looking up some tips online about running.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_GrLzv0V_262",
+      "fact": "The user felt drawn to Odyl's new demeanor.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_0z277Yx_0",
+      "fact": "The user spends quality time with loved ones poorly.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_NxG2nGm_34",
+      "fact": "The user has a population of interest in Spain.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_dO3BCzw_33",
+      "fact": "The user accepted the assistant's offer to provide an example ipe file for a violin.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_GdpvkKD_7",
+      "fact": "The user has a Dell UltraSharp U2720Q monitor.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_aJ3tgkA_15",
+      "fact": "The user has experience in problem-solving and communication, which are essential skills for a psychiatric technician.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_i59HUGf_0",
+      "fact": "The user has created a series imagining what the velociraptor looked like, feathers and all.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_aVExml0_162",
+      "fact": "Kadence was captivated by the vibrant rhythms of the Caribbean from a young age.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_aVExml0_63",
+      "fact": "The user plans to incorporate the Hero's Journey into their music, image, and public persona.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_KhExdXp_43",
+      "fact": "The user is revising a document.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_KwbJJ66_15",
+      "fact": "The user is not mentioned in any conversation about the FIFA World Cup Final.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9ra36HI_32",
+      "fact": "The user has a quick and sharp intellect that allows them to learn quickly, but may lead to impulsive decisions, especia",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_t8L5CeI_0",
+      "fact": "Sheri Angel is the lead updater/compiler for the CA new hire document.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_499750",
+      "fact": "The user has read 'The Old Man and the Sea' by Ernest Hemingway.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_JRQtEcd_0",
+      "fact": "Emma is a choreographer and dancer.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9MXUwJk_0",
+      "fact": "The user provided ad-hoc strategic consultancy to the artist, drawing on their insight of the music industry.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_1VhiETr_0",
+      "fact": "The user has an idea, but prefers to hear what others can generate.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_oLlUxYj_40",
+      "fact": "The user is a third-year Electrical Engineering student.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_ucYF3Uv_15",
+      "fact": "The user has ADHD.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_wcTU09Q_31",
+      "fact": "The user is reading a book titled 'Zoey's Hoops: The Rise of the Sky Shooters' on 2023/05/27.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_i59HUGf_0",
+      "fact": "The user has created a series of images of cacti in the style of 'knolling' where all the items are arranged neatly in t",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_RI7urjB_17",
+      "fact": "The user is writing about a dark curse placed on the King by shadowy assassins from Talondor.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_y1IBjYa_0",
+      "fact": "The user's social security number is known to the bank.",
+      "label": "A"
+    },
+    {
+      "session_id": "025836be_1",
+      "fact": "The user has 20 candles of vanilla candle in stock with a unit cost of $3.00/candle and a total value of $60.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_7gIKsqO_104",
+      "fact": "The user is using the events.forEach method to iterate over an array of event objects on 2023/02/15.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_NTrNWqJ_0",
+      "fact": "The user has a sourcing platform where attachments are stored.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_GGpItd5_0",
+      "fact": "The user has decided to explore alternative options for their logo design.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_hi2xiJT_14",
+      "fact": "The user is a solicitor",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_TpaMHPY_0",
+      "fact": "The user's CSS code includes styles for classes '.link-card-grid', '.link-card > a', and 'p'.",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_bTDMt3m_0",
+      "fact": "The user has become aware that Venkatesh, the landlord, has developed some health problems.",
+      "label": "D"
+    },
+    {
+      "session_id": "6f7485fa",
+      "fact": "The user acquired the property at 789 Oak St on March 1, 2015.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_FQi5DlJ_48",
+      "fact": "The user has a preference for viewing film details in HTML format.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_0DiDwpY_23",
+      "fact": "The user has read 'The Success Principles' by Jack Canfield.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_PQ71V9I_7",
+      "fact": "One10 Marketing has a demand gen specialist, but they are considering outsourcing or hiring internally for this role.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_KtWBRv1_4",
+      "fact": "The user has applied to college.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_iXZ4mJ7_19",
+      "fact": "The user is a property owner.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_VN4DQKO_0",
+      "fact": "The user has worked on projects that required community building and a constant focus on new trends, from underground to",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_iHP3XDi_39",
+      "fact": "The user is Grifter.",
+      "label": "A"
+    },
+    {
+      "session_id": "ultrachat_524807",
+      "fact": "The user has no personal experience of watching basketball games.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_S6bD7yp_0",
+      "fact": "The user is interested in learning about EMP protection for electrical systems.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_MJrfKtS_0",
+      "fact": "The user is totally dependent on their species for their life and well-being.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_V7ePzVN_1",
+      "fact": "There are no atomic facts to extract from this conversation session.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_bTDMt3m_80",
+      "fact": "The user's name is Alex.",
+      "label": "D"
+    },
+    {
+      "session_id": "7a103180",
+      "fact": "The user's Allen Edmonds loafers are good condition.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_TQNHiIB_12",
+      "fact": "The user builds actionable sales plans and executes multi-faceted outbound prospecting campaigns.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9h7mgwL_0",
+      "fact": "The user has a father.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_e328KPR_0",
+      "fact": "The user wants to ask the assistant about school, friends, and relationships with parents.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_2DsULnN_21",
+      "fact": "The user is knowledgeable in computational chemistry, molecular modeling, and traditional Chinese medicine integration w",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_ePBzYD0_57",
+      "fact": "The user is looking for a list of events in South Korea.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_Wj3iOcG_0",
+      "fact": "The user would like to pay 30% - 40% (halfway) - 30% (completion).",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_LgRcROx_0",
+      "fact": "The user needs grilled chicken breast with mixed vegetables (peppers, onions, and carrots) and brown rice for dinner on ",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_p9YcIKu_0",
+      "fact": "The user has worked at Company for X years/months",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_uRwln6Y_29",
+      "fact": "The user chose recipes for dishes 1, 2, 4 and 5.",
+      "label": "B"
+    },
+    {
+      "session_id": "e8c815ff_3",
+      "fact": "The user plans to meditate on Monday, Wednesday, Friday, Tuesday, and Thursday from 8:30-8:40 PM.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_389020",
+      "fact": "The user exercises at least 30 minutes of moderate activity most days of the week.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_fhj3OCi_0",
+      "fact": "The user is interested in learning about historical events.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_PQ71V9I_7",
+      "fact": "One10 Marketing is considering outsourcing demand generation to Spear versus hiring internally for this role.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_CjoQMV6_0",
+      "fact": "The user's communication with Jess is inconsistent, occurring every one week on average.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_TQNHiIB_12",
+      "fact": "The user is able to navigate a very strategic sales process.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_6QV1gPO_151",
+      "fact": "The user has joined a protest in a city against greed and corruption.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_lDVDe5H_61",
+      "fact": "The user came here alone to find the truth about the demon.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9MXUwJk_0",
+      "fact": "The user produced an EP launch event from concept to delivery, including securing a venue, booking support acts and assi",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_2DsULnN_21",
+      "fact": "The user is familiar with popular machine learning frameworks like TensorFlow, Keras, and PyTorch.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_4Su6bUM_11",
+      "fact": "The user is working on a project that involves updating balance codes",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_i59HUGf_0",
+      "fact": "The user has created a series called 'Trains' featuring old coal powered trains and bold photography.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_vRXR59F_0",
+      "fact": "The user has a geo data file ID of 63dfd2406eb589180cb7145e.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_185358",
+      "fact": "The user is interested in historical events.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_VbIxRWJ_33",
+      "fact": "The user has a toddler daughter.",
+      "label": "B"
+    },
+    {
+      "session_id": "ultrachat_42484",
+      "fact": "The user wants to build strength through full-body strength training exercises.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_15819",
+      "fact": "The user is interested in learning about following up after a negotiation, regardless of the outcome.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_RlTrAHR_13",
+      "fact": "The user will be driving from Bozeman, MT to Yellowstone National Park.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_391029",
+      "fact": "The user has children.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_Bf5wBOC_3",
+      "fact": "The user inputs data into Google Sheets.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_E0YL5SX_145",
+      "fact": "The user learned biomedical engineering design, cell passaging, circuit design, and fabrication skills at WPI.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_flHO7QM_17",
+      "fact": "The user has lived through the month of August in 2022.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_lioy4Cq_0",
+      "fact": "The user does not have a personality trait or behavior that can be determined by their zodiac sign.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_M84blrA_53",
+      "fact": "The user plans to visit the Bai Orchid and Butterfly Farm on 2023/05/22.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_WDCapYY_0",
+      "fact": "The user is a professional who has linked a document to discuss with an assistant.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_2nvkR60_0",
+      "fact": "The user wants highly advanced driver assistance features",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_499750",
+      "fact": "The user has read 'The Glass Castle' by Jeannette Walls.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_3D7Qpuq_14",
+      "fact": "The user has a list of recipes that will impress their friends.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_qdSOdaF_8",
+      "fact": "The user's listing has an address with latitude 32.76582 and longitude -96.82539.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_vRXR59F_0",
+      "fact": "The user has an ID of 63d0d8518d61ce96e24a8cbf.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_PQ71V9I_7",
+      "fact": "The user's company uses Oracle NetSuite as their ERP system.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_LgRcROx_0",
+      "fact": "The user needs grilled chicken wrap (wholemeal wrap, grilled chicken breast, mixed greens, and hummus) for lunch on Tues",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_sahTL9C_0",
+      "fact": "The assistant will work closely with the user to understand their product, target market, and goals.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_566359",
+      "fact": "The user has not visited Hagia Sophia yet.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_cUXo8S0_0",
+      "fact": "The user gets enjoyment in life from spending time with friends.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_1GMst5Z_0",
+      "fact": "The user plans to create content for children aged 8-14 years old.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_2Qvu6BM_34",
+      "fact": "The user wants to learn about the benefits of joining a community.",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_MjN8ZSz_0",
+      "fact": "The user plans to attend Week 1 of Course 1 on 2023/06/15.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_gzocj9T_0",
+      "fact": "Elara Moonwhisper is on a mission to retrieve a powerful enchanted flower from the Shadowrealm.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_PxwLrQl_0",
+      "fact": "The user wants to create a navigation bar that is fixed to the top or bottom of the screen, and can expand or collapse t",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_n1o07ij_0",
+      "fact": "The user is alive",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_hHGVWPU_1",
+      "fact": "The user is interested in the BMW iX.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_tg5sopD_0",
+      "fact": "The user has read about Henry Dorsett Case.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_bY0N10x_7",
+      "fact": "The user is in a conversation session on 2023/05/28.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_1B5KXOT_0",
+      "fact": "The user is interested in the Vehicle Booking System.",
+      "label": "A"
+    },
+    {
+      "session_id": "023641cc_3",
+      "fact": "The user handles their comics carefully and avoids stacking them too high to prevent damage.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_t8L5CeI_0",
+      "fact": "Kevin Stroupe updates the insurance and contribution forms yearly.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_fK7pfNf_0",
+      "fact": "The user has excellent communication skills",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_KSCdclV_0",
+      "fact": "The user asked for 20 abdominal pain examination items.",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_oXgiN7q_53",
+      "fact": "The user thinks that the mirror may be showing an alternate future where some tragedy or loss didn't happen.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_rHbSTOz_101",
+      "fact": "The user knows how important it is to have access to reliable and trustworthy information when researching and investing",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_KFhIUCO_0",
+      "fact": "Maxime's weakest attribute is probably his Social skills.",
+      "label": "C"
+    },
+    {
+      "session_id": "c73cebb3_2",
+      "fact": "The user is in their 20s, 30s, or 40s.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_yyStjJb_103",
+      "fact": "The user wants to know how to respond to the phone in English.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_k4l9l7i_9",
+      "fact": "The user plans to practice applying different styles in a Word document.",
+      "label": "D"
+    },
+    {
+      "session_id": "93f23301_1",
+      "fact": "The user has a Twitter account but hasn't been very active on it.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_p57YcDV_15",
+      "fact": "The user has a friend named Nemesis, who is a hulking bioweapon.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_btv4SkQ_0",
+      "fact": "There are no facts extracted from this conversation session.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_453348",
+      "fact": "The user is planning to visit Ch\u00e2teau Lafite Rothschild.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_Wt2YDZs_35",
+      "fact": "The user has been through a lot with their music group, but they are determined to come back stronger than ever.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_MCmVQ20_0",
+      "fact": "The first subject area of the literature review is 'Social Media use by Teenage girls in the uk'.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_aJ3tgkA_15",
+      "fact": "The user is highly motivated.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_YfIEYo1_0",
+      "fact": "The user has identified potential venues for the program.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_LtpeNAS_0",
+      "fact": "The user lost their first investment",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_TpaMHPY_0",
+      "fact": "The user's HTML code includes two links with subjects 'Subject-1' and 'Subject2', respectively, linked to URLs 'https://",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_iYX2M5a_0",
+      "fact": "The user has experience with SOQL (Salesforce Object Query Language).",
+      "label": "D"
+    },
+    {
+      "session_id": "e91e8a2e_1",
+      "fact": "The user cooks at home most nights of the week.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_Lacd1qM_15",
+      "fact": "Argentina is dominating the FIFA World Cup match against France with a 2-0 lead.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_1X61wv2_2",
+      "fact": "The user worked at Middle Seat for over four years as of the session date",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_zciCXP1_12",
+      "fact": "The user believes that Ethereum Mexico is a unique opportunity to create a lasting impact on the Ethereum ecosystem in M",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_196325",
+      "fact": "The user plans to control weeds around the strawberries.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9ra36HI_32",
+      "fact": "Mars and Venus are in Gemini sign and in the fifth house in conjunction.",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_PQ71V9I_7",
+      "fact": "The user's company has a relatively immature marketing and demand generation team.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_jobjzzl_11",
+      "fact": "The user has a battery with a voltage of 12 volts.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_jHGL67f_0",
+      "fact": "The user has not mentioned any personal details about their life or interests.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9ra36HI_32",
+      "fact": "The user's Ascendant is in Capricorn.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_D6wM9yq_0",
+      "fact": "The user is working on a project related to environmentalism and sustainability.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_gw7Ym6y_6",
+      "fact": "The user shops for apparel once every 2 to 3 months on average.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_hUAh1Tu_0",
+      "fact": "The user's eldest child is Warren McClenagan, born on 1/20/1964.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_zxm712D_9",
+      "fact": "The user is a beginner guitarist.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_T1zNKId_0",
+      "fact": "The user has read or heard about Israel's democratic institutions and legal system.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_1giY8Cd_33",
+      "fact": "The user is 25 years old.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_5Rpp72b_87",
+      "fact": "The user has a contract agreement with Caller Intercept LLC",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_kovlLyh_0",
+      "fact": "The user is familiar with the process of determining the impact of quality measurement and performance on the PY Benchma",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_196325",
+      "fact": "The user will water strawberries properly, avoiding drought or excess moisture.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_hHGVWPU_1",
+      "fact": "The user thinks BMW is doing a good job electrifying their lineups.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_oLlUxYj_40",
+      "fact": "The user has 4 years of experience as a Retail Associate at McDonald's.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_TRck0h4_0",
+      "fact": "The user has experience with R.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_flHO7QM_17",
+      "fact": "The user is aware of sales data for August 2022.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_XWqXdom_0",
+      "fact": "The user is interested in rewriting product titles to make them more inclusive.",
+      "label": "B"
+    },
+    {
+      "session_id": "078db67b",
+      "fact": "The user lives in the city of Beverly Hills with zip code 90210.",
+      "label": "B"
+    },
+    {
+      "session_id": "ultrachat_30245",
+      "fact": "The user is pregnant.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_1X61wv2_2",
+      "fact": "The user's email address is ryan@mioduski.us",
+      "label": "B"
+    },
+    {
+      "session_id": "7a103180",
+      "fact": "The user bought their black leather boots on December 15th.",
+      "label": "D"
+    },
+    {
+      "session_id": "4d2c2c88_1",
+      "fact": "The user plans to use extra cash to build up emergency fund after paying off debt.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_6MPnc5F_9",
+      "fact": "The user has had the opportunity to collaborate with developers in their previous experience.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_cUXo8S0_0",
+      "fact": "The user enjoys playing card games with friends.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_4N3wNeE_11",
+      "fact": "The user's cousin is 5 years old.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_sbnodfn_144",
+      "fact": "The user is working on a story with a cooking competition theme.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_SBJezEx_4",
+      "fact": "The user improved control of output variability.",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_d8dUtMG_0",
+      "fact": "The user's recipe contains 1 cup chopped kale.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_7R4dDcT_0",
+      "fact": "The user created content for about 5% of A1 level on Key Result K2.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_VoYObKM_31",
+      "fact": "The user has read 'The Library of Babel' by Jorge Luis Borges.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_sahTL9C_0",
+      "fact": "The assistant has worked on a wide range of projects, including marketing and advertising campaigns, emails, landing pag",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_gxaMwJI_0",
+      "fact": "The user plans to introduce a restaurant solution.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_YjDWRhe_0",
+      "fact": "The user has strong purchase intention for a dog tag necklace.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_JLZvJr4_0",
+      "fact": "The user has no prior knowledge about the topic of instructional design.",
+      "label": "A"
+    },
+    {
+      "session_id": "6dd592c3",
+      "fact": "The user's wake-up time is 6:45 am every day, including weekends.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_E0YL5SX_145",
+      "fact": "The user was a researcher at WPI.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_TQNHiIB_12",
+      "fact": "The user is a creative thinker and able to come up with innovative solutions.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_fuWAESw_13",
+      "fact": "The user is considering a payment option for a project.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_dO3BCzw_33",
+      "fact": "The user asked for an example of a violin image in ipe format.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_1X61wv2_2",
+      "fact": "Ryan has expertise in ActionKit, Action Network, Data Studio, Datorama, Supermetrics, and Tag Manager",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_oXgiN7q_53",
+      "fact": "Sarah has a feeling that there's something about the mirror that's captivating, and it's not just its appearance.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_pXSdS8E_0",
+      "fact": "The user lives in Berkshire County.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_wcTU09Q_31",
+      "fact": "The user is reading a story about Zoey and her friends forming a new team called the Sky Shooters to compete in a region",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_gPmunOt_37",
+      "fact": "The user's livestock is thin.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_tvcY0lQ_0",
+      "fact": "The user is interested in addressing common concerns such as acne, razor burn, and signs of aging in their product devel",
+      "label": "D"
+    },
+    {
+      "session_id": "064e1984_1",
+      "fact": "The user tends to shop more when with their sister, and this is a pattern they want to change.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9ra36HI_32",
+      "fact": "The user's South Lunar Node is in Leo sign in the seventh house.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_Bf5wBOC_3",
+      "fact": "The user uses micropipetting and spectrophotometry to measure the optical density of pond samples.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_Jb45xGp_27",
+      "fact": "The user has eaten \u5e74\u7cd5 (ni\u00e1ng\u0101o) during Chinese New Year.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_5GYAEJe_23",
+      "fact": "Legolas has 15 gold pieces remaining after purchasing equipment.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_kNi3QzP_24",
+      "fact": "The user has written code in the file main.py located at C:\\Users\\User\\PycharmProjects\\ProjektOne\\main.py.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_283979",
+      "fact": "The user plans to visit Furano and Biei.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_cMHMPNy_29",
+      "fact": "Lily Underfoot was born into a family of thieves and rogues.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_dcPDoo0_0",
+      "fact": "The user is a writer.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_81riySf_0",
+      "fact": "The user has staff.",
+      "label": "D"
+    },
+    {
+      "session_id": "b2e5a019",
+      "fact": "The user takes a 10-minute walk during their lunch break.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_ddHUPH2_0",
+      "fact": "The user has browsed the website ankarastyl.com on 2023/05/22",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_NxG2nGm_298",
+      "fact": "The user decreased the time of completion by 60%, from 13 minutes to 5 minutes.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_eRuRHwf_73",
+      "fact": "The user worked with teens struggling with mental health issues through 7 Cups.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_cUXo8S0_0",
+      "fact": "The user's favourite soccer team is Manchester United.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_XaM55h6_28",
+      "fact": "The user has no stated preferences or likes/dislikes regarding any topic.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_9mSixCe_16",
+      "fact": "The user has a Financial Management final exam tomorrow.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_H2ddZjb_13",
+      "fact": "The song 'Shine On' continued to inspire people after graduation and became a classic anthem in the community of The Sta",
+      "label": "D"
+    },
+    {
+      "session_id": "de43030f_1",
+      "fact": "The user plans to attend a performance of Hadestown at an unspecified time.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_PQ71V9I_7",
+      "fact": "The user's company is looking to focus on the insurance industry in 2022.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_ckoZYgD_0",
+      "fact": "The user has been studying English for at least 1 session.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_jpiaPoJ_29",
+      "fact": "The user is currently in the facility.",
+      "label": "C"
+    },
+    {
+      "session_id": "sharegpt_e3npOdq_0",
+      "fact": "The user won the TRIX PEDROS L\u00d8P with a prize of 35000 on 2023/01/03.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_vvCtAZS_0",
+      "fact": "The user has no facts to extract.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_137024",
+      "fact": "The user has no facts about their own life.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_gzocj9T_0",
+      "fact": "Thorne Shadowstep is searching for a group of adventurers to assist him in stealing a valuable artifact from a wealthy n",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_HYJ27Qb_0",
+      "fact": "The user is interested in learning about the FIFA World Cup 2022.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_wLMrVR9_28",
+      "fact": "The user is reading about the process for a joint resolution of disapproval of designation or removal of designation of ",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_2x5IpnY_13",
+      "fact": "The user has calculated the average of the natural logarithm of reference readings (A).",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_gw7Ym6y_6",
+      "fact": "The user prefers to shop online for apparel.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_a6pZtrg_0",
+      "fact": "The user thinks promoting clothing recycling can improve a brand's image or reputation.",
+      "label": "B"
+    },
+    {
+      "session_id": "sharegpt_AqgYTct_0",
+      "fact": "The user has deployed a service in DC2.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_yyStjJb_103",
+      "fact": "The user wants to start out slow and build up their endurance.",
+      "label": "A"
+    },
+    {
+      "session_id": "sharegpt_LgRcROx_0",
+      "fact": "The user needs a protein shake as a snack on Tuesday.",
+      "label": "D"
+    },
+    {
+      "session_id": "sharegpt_YfIEYo1_0",
+      "fact": "The user plans to secure a venue for the program.",
+      "label": "D"
+    },
+    {
+      "session_id": "ultrachat_521842",
+      "fact": "The user plans to complete at least 150 semester hours of college education, including 24 semester hours in accounting c",
+      "label": "A"
+    }
+  ]
+}

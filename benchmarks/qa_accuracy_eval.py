@@ -194,16 +194,20 @@ Memories:
 
 Question: {question}
 
+The memories arrive in several labelled sections — [USER PROFILE] (who the user is), [SEMANTIC FACTS] (dated facts), [SEMANTIC MEMORY] and [RECENT TURNS] (actual conversation). The answer may be in ANY of them. Search all of them before concluding anything is missing.
+
 Reason carefully before answering:
-- Find the specific fact(s) in the memories that bear on the question.
+- Find the specific fact(s) in the memories that bear on the question. Say which section each came from.
 - DATES / DURATIONS ("how many days ago", "how long since", "between X and Y", "most recent"): locate the exact date(s) and compute the difference, counting carefully.
 - COUNTS / TOTALS ("how many", "total", "in total"): find EVERY relevant item across ALL memories and add them up. Do not stop at the first one.
 - UPDATES ("currently", "now", "most recently", "switched"): prefer the latest-dated fact over earlier ones.
-- If the memories genuinely do not contain the information, do not guess — say it was not mentioned.
+- PARTIAL EVIDENCE IS STILL EVIDENCE. If the memories support an answer only indirectly — a related fact, an earlier mention, a detail in the conversation rather than in the facts — use it and answer. Answer from the best evidence available.
+
+Saying the memories do not contain the answer is a LAST RESORT, not a safe default. Before you may say it, you must first list what you searched for and what you found instead. Only if that list is genuinely empty may the ANSWER line be "not mentioned". An unnecessary refusal is worse than an imperfect answer.
 
 Think step by step, then end with exactly one final line starting with "ANSWER: ".
-- For factual questions (who/what/when/where/how many): the ANSWER line is the shortest possible answer — a name, number, date, or short phrase; or "not mentioned" if the memories do not contain it.
-- If the question asks for advice, suggestions, recommendations, or ideas: the ANSWER line is one or two sentences that respond helpfully and make specific use of what the memories say about the user — their preferences, past activities, possessions, and plans. Never answer "not mentioned" to an advice question; use whatever relevant user context the memories contain."""
+- For factual questions (who/what/when/where/how many): the ANSWER line is the shortest possible answer — a name, number, date, or short phrase.
+- If the question asks for advice, suggestions, recommendations, or ideas: the ANSWER line is one or two sentences that respond helpfully and make specific use of what the memories say about THIS user — their stated preferences, skills, possessions, past activities and plans. Name the specific detail you are using. Never answer "not mentioned" to an advice question: the user's profile and facts always contain something relevant to ground a suggestion in."""
 
 JUDGE_PROMPT = """You are grading whether a predicted answer to a question is correct, given the gold answer. Be lenient about phrasing, formatting, and extra words — judge only whether the predicted answer conveys the same factual information as the gold answer.
 
@@ -588,6 +592,61 @@ def main():
             "their gold evidence in the DB. Refusing to spend: this would "
             "measure ingestion, not memory. (This is the check that was "
             "missing when the 0.287 run was launched.)")
+
+    # ── ANSWER-SURVIVAL CHECK (§3.1s) ─────────────────────────────────
+    # The check above proves INGESTION RAN. It cannot prove the ANSWER
+    # SURVIVED the transformation, and that gap is exactly how the
+    # confound got through: with memory_source=extracted, gold sessions
+    # were REPLACED by a third party's Haiku summaries which kept what
+    # the user was interested in and deleted the answer ("Patagonia"
+    # appeared nowhere), and this preflight cheerfully reported
+    # "gold evidence present 20/20".
+    #
+    # So compare like for like, per question: is the gold answer
+    # recoverable from what we STORED, versus from the RAW turns the
+    # dataset gave us? An absolute rate would be the wrong bar — even
+    # perfect raw storage only yields ~75% lexically, because
+    # multi-session answers are DERIVED and appear verbatim nowhere.
+    # The contract is RELATIVE: storage must not destroy evidence the
+    # source contained.
+    from answer_presence import _lex as _lex_present, numbers as _nums
+
+    def _recoverable(gold, hay):
+        gn = _nums(gold)
+        if gn:
+            return all(x in _nums(hay) for x in gn)
+        return _lex_present(gold, hay)
+
+    _raw_ok = _stored_ok = 0
+    _db = get_db()
+    try:
+        for it in todo:
+            sid = _scope_session_id(it.scope_keys)
+            stored = " ".join(
+                c for (c,) in _db.query(Turn.content).filter(
+                    Turn.session_id == sid) if c)
+            raw = " ".join(
+                t.get("content", "")
+                for k in (getattr(it, "gold_keys", []) or [])
+                for t in (mem_by_id[k].turns if k in mem_by_id else []))
+            g = str(it.gold_answer)
+            _raw_ok += _recoverable(g, raw)
+            _stored_ok += _recoverable(g, stored)
+    finally:
+        _db.close()
+    n = max(1, len(todo))
+    print(f"  gold ANSWER recoverable from the dataset's RAW turns : "
+          f"{_raw_ok}/{len(todo)} ({_raw_ok / n:.1%})")
+    print(f"  gold ANSWER recoverable from what we ACTUALLY STORED : "
+          f"{_stored_ok}/{len(todo)} ({_stored_ok / n:.1%})")
+    if _raw_ok and _stored_ok / _raw_ok < 0.80:
+        raise SystemExit(
+            f"PREFLIGHT FAIL — storage destroyed evidence: the answer is "
+            f"recoverable for {_stored_ok} questions after storage vs "
+            f"{_raw_ok} in the source ({_stored_ok / _raw_ok:.0%} retained, "
+            "floor 80%). Refusing to spend — this measures the ingest "
+            "transformation, not the memory system. See "
+            "DECISION_AND_FAILURE_LOG §3.1s.")
     print("  PREFLIGHT PASS\n")
 
     with ThreadPoolExecutor(max_workers=safe_workers(args.gen_model, args.workers)) as pool:
