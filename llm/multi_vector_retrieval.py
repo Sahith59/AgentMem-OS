@@ -93,7 +93,21 @@ class MultiVectorRetriever:
         self._tfidf_matrix = self._tfidf_vec.fit_transform(self._turns)
         logger.debug(f"[MultiVectorRetriever] indexed {self.n_docs} turns (dense + tfidf)")
 
-    def search(self, query: str, top_k: int = 5) -> List[str]:
+    def search(self, query: str, top_k: int = 5,
+               deep_hits: Optional[int] = None) -> List[str]:
+        """deep_hits — BREADTH-THEN-DEPTH span policy (2026-08-12,
+        measured). Fixed-width spans force a bad trade: at ±2 every hit
+        returns 5 turns, so ~5x fewer DISTINCT evidence points fit a
+        budget (fatal for multi-hop counting: full gold-session coverage
+        108/150); at 0 every hit is naked and referent-dependent answers
+        break ('how many bikes in MARCH' lost the neighbor carrying the
+        date — 4 previously-stable questions failed). Measured on both
+        axes: ctx=2 -> 108 coverage / context intact; ctx=0 -> 139 / 4
+        known context-breaks; deep_hits=4 with ±1 -> 134 coverage AND
+        context kept on all 4 known breaks.
+        None (default) = every hit expanded ±context_turns, byte-identical
+        to the old behaviour for every existing caller. An int N = the
+        top-N ranked hits carry ±1 neighbor, the rest arrive hit-only."""
         if self._matrix is None or not self._turns:
             return []
 
@@ -131,8 +145,12 @@ class MultiVectorRetriever:
             i = int(idx)
             if i in covered:
                 continue  # this evidence is already inside a returned span
-            start = max(0, i - self.context_turns)
-            end = min(n, i + self.context_turns + 1)
+            if deep_hits is None:
+                ctx = self.context_turns
+            else:
+                ctx = 1 if len(selected) < deep_hits else 0
+            start = max(0, i - ctx)
+            end = min(n, i + ctx + 1)
             covered |= set(range(start, end))
             selected.append("\n".join(self._turns[start:end]))
         return selected

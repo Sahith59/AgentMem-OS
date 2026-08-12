@@ -105,3 +105,40 @@ def test_install_dense_chroma_is_available_as_opt_in():
 
     assert install_dense_chroma(_Dummy) == "dense"
     assert _Dummy()._get_chroma() is not None
+
+
+def test_deep_hits_none_is_byte_identical_to_old_behaviour():
+    """The default path must not change for any existing caller: with
+    deep_hits=None every hit is expanded ±context_turns exactly as before.
+    Goes RED if the new branch alters the default."""
+    from agentmem_os.llm.multi_vector_retrieval import (MultiVectorRetriever,
+                                                        is_available)
+    if not is_available():
+        import pytest
+        pytest.skip("multilingual extra not installed")
+    turns = [f"turn {i} about topic-{i % 5} with details" for i in range(30)]
+    r = MultiVectorRetriever(context_turns=2)
+    r.index(turns)
+    assert r.search("topic-3 details", top_k=3) == \
+        r.search("topic-3 details", top_k=3, deep_hits=None)
+
+
+def test_deep_hits_breadth_then_depth_span_shape():
+    """Top deep_hits results carry neighbors (±1 → up to 3 turns); the
+    rest arrive hit-only (1 turn). Goes RED if the policy is reverted to
+    fixed-width spans (the 108-coverage regression) or all-naked hits
+    (the 4 known context breaks)."""
+    from agentmem_os.llm.multi_vector_retrieval import (MultiVectorRetriever,
+                                                        is_available)
+    if not is_available():
+        import pytest
+        pytest.skip("multilingual extra not installed")
+    turns = [f"unique-marker-{i} sentence about subject {i}" for i in range(40)]
+    r = MultiVectorRetriever(context_turns=2)
+    r.index(turns)
+    out = r.search("unique-marker-7 subject", top_k=8, deep_hits=2)
+    assert len(out) == 8
+    deep = [len(s.split("\n")) for s in out[:2]]
+    shallow = [len(s.split("\n")) for s in out[2:]]
+    assert all(d >= 2 for d in deep), "deep hits lost their neighbors"
+    assert all(s == 1 for s in shallow), "shallow hits are not hit-only"

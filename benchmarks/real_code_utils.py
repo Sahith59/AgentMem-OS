@@ -85,11 +85,27 @@ class DenseChromaAdapter:
 
         retriever = self._retrievers.get(session_id)
         if retriever is None or retriever.n_docs != len(contents):
-            retriever = MultiVectorRetriever()
+            # Span width is a MEASURED knob, not a constant. The product
+            # default (context_turns=2) was tuned on LoCoMo, whose short
+            # chat turns need neighbors for pronoun referents. On
+            # LongMemEval every hit returning 5 turns means ~5x fewer
+            # DISTINCT evidence points fit the budget — fatal for
+            # multi-hop counting questions. Measured ($0 sweep,
+            # iterative_retrieval_proto machinery): full gold-session
+            # coverage 108/150 at ctx=2 vs 139/150 at ctx=0; on the 29
+            # systematic failures, 9/29 vs 22/29. Env-set so the eval can
+            # test it as ONE variable; the artifact records the value.
+            import os as _os
+            _ctx = int(_os.environ.get(
+                "AGENTMEM_OS_RETRIEVAL_CONTEXT_TURNS", "2"))
+            retriever = MultiVectorRetriever(context_turns=_ctx)
             retriever.index(contents)
             self._retrievers[session_id] = retriever
 
-        return retriever.search(query, top_k=top_k)
+        import os as _os
+        _dh = _os.environ.get("AGENTMEM_OS_RETRIEVAL_DEEP_HITS")
+        return retriever.search(query, top_k=top_k,
+                                deep_hits=int(_dh) if _dh else None)
 
 
 def install_tfidf_chroma(context_assembler_cls) -> None:

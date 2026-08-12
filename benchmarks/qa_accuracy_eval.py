@@ -529,6 +529,11 @@ def main():
             # already misdescribed a banked run; `stored` is what the
             # writer actually wrote, counted at write time.
             "lme_split": args.lme_split,
+            "retrieval_backend_requested": args.retrieval,
+            "retrieval_context_turns": int(os.environ.get(
+                "AGENTMEM_OS_RETRIEVAL_CONTEXT_TURNS", "2")),
+            "retrieval_deep_hits": os.environ.get(
+                "AGENTMEM_OS_RETRIEVAL_DEEP_HITS"),
             "facts_source": args.facts_source,
             "profile_tier": bool(args.profile),
             "types_filter": args.types or None,
