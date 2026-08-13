@@ -84,3 +84,11 @@ ENGLISH_BASELINE_PLAN.md
 # SQLite WAL/SHM sidecar files (never track)
 *.db-shm
 *.db-wal
+
+# Internal working documents (local-only, never public)
+BENCHMARK_PLAN.md
+CONSOLIDATION_V2_*.md
+PROFILE_TIER_PLAN.md
+Guide.md
+AgentMemOS_v2_Sarvam_Extension_Roadmap.md
+deep-research-report*.md

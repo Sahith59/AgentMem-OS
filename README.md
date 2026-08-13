@@ -1,24 +1,21 @@
 # AgentMem OS
 
+**Memory for AI agents, in any language.**
+
 [![CI](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml/badge.svg)](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml)
 
-**Git for agent memory.**
+An open-source, local-first memory engine for LLM agents. Measured where it counts: **79.3% ± 1.2 on LongMemEval `_s`** with every knob disclosed. Facts are extracted by a local model and admitted only by deterministic validators, history lives in a bi-temporal knowledge graph, agents fork memory from each other git-style, and a fact stored in Hindi answers a query asked in English. That last part is the frontier: **no production memory system today survives a user switching languages**, and we are building and benchmarking the first one that does, starting with Indic languages.
 
-Child agents fork a parent's memory, inherit only what generalized, and diverge from there. Trust between agents is a number that is earned and lost through evidence, not a permission slip assigned once and forgotten. The whole thing runs on your machine: no cloud dependency, no API key required to get started.
+## Find what you need in 30 seconds
 
-Most memory systems give an agent a bigger notebook. AgentMem OS gives a fleet of agents a version-controlled, trust-weighted, temporally aware one. And it is measured the way infrastructure should be: **79.3% ± 1.2 on LongMemEval `_s`** with every knob disclosed, a published failure ledger, and a noise floor we measured before quoting decimals.
-
----
-
-## Read this repo in 15 minutes
-
-| If you want... | Read |
+| Question | Answer |
 |---|---|
-| The benchmark story: 63.3% to 79.3%, the mechanism, the curve, what is pending | [docs/BENCHMARKS.md](docs/BENCHMARKS.md) |
-| Everything that failed, what it cost, and what each failure bought | [docs/FAILURES.md](docs/FAILURES.md) |
-| The architectural decisions, why we made them, and how they turned out | [docs/DECISIONS.md](docs/DECISIONS.md) |
-| The cross-lingual (Indic) memory frontier: the layer nobody has built | [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md) |
-| Sourced competitor claims and why most published numbers are not comparable | [COMPETITIVE_ANALYSIS.md](COMPETITIVE_ANALYSIS.md) |
+| How good is it, really? | **[docs/BENCHMARKS.md](docs/BENCHMARKS.md)**: 63.3% to 79.3%, the mechanism, the token curve, what is pending |
+| What failed on the way? | **[docs/FAILURES.md](docs/FAILURES.md)**: every refuted idea, what it cost, what it bought |
+| Why is it built this way? | **[docs/DECISIONS.md](docs/DECISIONS.md)**: each decision with its measured outcome, good and bad |
+| What about Indian languages? | **[docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md)**: the cross-lingual layer, measured numbers, the benchmark nobody has built |
+| Can I trust vendor benchmark claims? | **[COMPETITIVE_ANALYSIS.md](COMPETITIVE_ANALYSIS.md)**: sourced claims, and why most published numbers are not comparable |
+| How do I run it? | [Quickstart](#quickstart): local, free, no API key |
 
 We publish negative results and retracted numbers alongside the wins. If that seems unusual, [docs/FAILURES.md](docs/FAILURES.md) explains why it is the point.
 

@@ -93,7 +93,10 @@ def test_install_best_chroma_is_the_measured_champion():
         pass
 
     assert install_best_chroma(_Dummy) == "tfidf"
-    assert _Dummy()._get_chroma() is not None
+    # Stage 6 C1 contract: install_* sets a class ATTRIBUTE override
+    # (instance attributes always beat it) — it no longer rewires a
+    # _get_chroma method process-wide.
+    assert _Dummy._chroma_override is not None
 
 
 @needs_model
@@ -104,7 +107,7 @@ def test_install_dense_chroma_is_available_as_opt_in():
         pass
 
     assert install_dense_chroma(_Dummy) == "dense"
-    assert _Dummy()._get_chroma() is not None
+    assert _Dummy._chroma_override is not None
 
 
 def test_deep_hits_none_is_byte_identical_to_old_behaviour():
