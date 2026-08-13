@@ -17,4 +17,8 @@ class TokenCounter:
             return tiktoken.get_encoding("cl100k_base")
 
     def count(self, text: str) -> int:
-        return len(self.encoder.encode(text))
+        # Conversation content is DATA, never control tokens: a user who
+        # literally types "<|endoftext|>" must be counted, not crash the
+        # write path (tiktoken raises on special tokens by default; a
+        # real LongMemEval haystack session contains one).
+        return len(self.encoder.encode(text, disallowed_special=()))
