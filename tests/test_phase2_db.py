@@ -61,6 +61,11 @@ EXPECTED_TABLES = [
     "federated_memory",
     "agent_fork_records",
     "memory_access_log",
+    # Consolidation v2 (semantic fact tier + supersession + profile)
+    "semantic_facts",
+    "semantic_fact_entities",
+    "supersession_judgments",
+    "profile_attributes",
 ]
 
 def test_all_tables_created(engine_and_session):
