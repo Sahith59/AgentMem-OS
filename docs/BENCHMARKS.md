@@ -179,7 +179,7 @@ published pair matches on all six. With that warning:
 | Zep (paper, Jan 2025) | 71.2% on `_s` | Partially | Roughly. We are +8.1 |
 | TiMem (ACL Findings 2026) | 76.88% on `_s` | Yes | Yes, closest honest rival. We are +2.4 at n=150 (CI ±6.8, so: level to slightly ahead) |
 | Zep (current site) | 90.2% | **No answerer, no judge named** | No. Exceeds the measured oracle ceiling |
-| Mem0 (platform) | 94.4% | **Closed platform, LLM undisclosed** | No. Independent reproductions range 0.20 to 73.8 |
+| Mem0 (platform) | 94.4% | **Closed platform, LLM undisclosed, split unnamed** | No. Independent reproductions range 0.20 to 73.8 |
 | Supermemory | "86%" | Recall@5, not QA accuracy | No. Different metric family entirely |
 
 Our gold recall is 96.7%, which is higher than Supermemory's 86%, and we
