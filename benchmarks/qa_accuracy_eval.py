@@ -544,6 +544,10 @@ def run_one(it) -> dict:
     # The slow part — the two OpenAI network calls — stays parallel.
     with _retrieve_lock:
         ctx = retrieve_context(it.scope_keys, it.question)
+        # Disclosure duty (§3.1ah): the mean-context number must live IN
+        # the artifact, not in run logs. Same counter the assembler
+        # budgets with; counted on what the answerer actually receives.
+        ctx_tokens = store.token_counter.count(ctx[:args.context_chars])
     _qd = getattr(it, "question_date", "")
     _sa_note = None
     pred = None
@@ -556,6 +560,7 @@ def run_one(it) -> dict:
     return {"question": it.question, "gold_answer": it.gold_answer,
             "predicted": pred, "correct": ok,
             "question_type": getattr(it, "question_type", ""),
+            "context_tokens": ctx_tokens,
             "structured_note": _sa_note}
 
 
@@ -613,6 +618,12 @@ def main():
                 4),
             "qa_accuracy": round(correct / max(1, done), 4),
             "correct": correct, "total": done,
+            # Mean over results that carry the count (older resumed
+            # results may predate the field) — None until one does.
+            "mean_context_tokens": (lambda v: round(sum(v) / len(v))
+                                    if v else None)(
+                [r["context_tokens"] for r in results
+                 if isinstance(r.get("context_tokens"), int)]),
             "results": results,
         }, indent=2))
 
