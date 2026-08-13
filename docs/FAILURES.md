@@ -35,6 +35,35 @@ recoverable answers. This finding also explains why several earlier
 "improvements" measured as zero: they were tuned on top of evidence the
 storage layer had already destroyed.
 
+## The 800-character photocopier (found by the n=500 autopsy)
+
+The most recent entry in this ledger, and the fourth harness defect that
+made us look worse than we are. Our benchmark loader capped every
+conversation turn at 800 characters when building the local dataset cache
+(a leftover from an earlier fix that raised the cap from 300 instead of
+removing it). Measured against the raw benchmark source: **42.8% of all
+turns exceed 800 characters** and lost their tails. Several questions ask
+about details that sit past the cut, deep inside long assistant messages.
+Our system searched, honestly answered "not mentioned", and was scored
+wrong for it: the answer had been deleted by our own tooling before the
+memory system ever saw it.
+
+How it was found: a 35-question autopsy of the first full-set run rebuilt
+every failed question's context packet through the exact evaluation code
+path, probed for the specific evidence each question needs, and traced 11
+of 12 single-session-assistant failures upstream, past retrieval, past
+the database, into the cache itself. The fix delivers the benchmark
+verbatim, and a $0 end-to-end check confirmed all 12 previously-destroyed
+details now reach the packet. Re-runs on the fixed harness are in
+progress; all previously published numbers remain labelled as measured on
+the truncated harness until then.
+
+What it bought, beyond the score: the strongest evidence yet for this
+page's core claim. Every harness defect we have found made us look
+*worse*, and none of them could have been found without ceiling tests,
+per-question artifacts, and autopsies that refuse to stop at the first
+plausible explanation.
+
 ## Harness bugs that made us look worse than we were
 
 Ceiling-testing our own harness (hand the answerer perfect evidence and see

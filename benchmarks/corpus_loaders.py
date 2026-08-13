@@ -350,9 +350,17 @@ def load_longmemeval(n_queries: int, cache_dir: Path = CACHE_DIR, seed: int = 42
                 sdate = dates[i] if i < len(dates) else ""
                 lines = []
                 structured_turns = []
-                for turn in turns_raw[:40]:  # was 20 — measured: gold evidence sat past it
+                # F-17 (2026-08-13): NO turn/session caps. The [:800] cap
+                # (raised from 300 in the first loader fix, never removed)
+                # destroyed the tails of 42.8% of all turns — 6 ssa + 2 ms
+                # questions had their literal gold answer deleted before
+                # the memory system ever saw it, and the n=500 autopsy
+                # traced 11/12 ssa failures to exactly this. A session cap
+                # of [:40] also cut 19 sessions. Evidence is sacred: the
+                # loader's job is to deliver the benchmark, not to edit it.
+                for turn in turns_raw:
                     role = turn.get("role", "?")
-                    content = (turn.get("content", "") or "")[:800]  # was 300
+                    content = turn.get("content", "") or ""
                     stamped = f"[{sdate}] {content}" if sdate else content
                     lines.append(f"{role.capitalize()}: {stamped}")
                     structured_turns.append({"role": role, "content": stamped})

@@ -188,19 +188,38 @@ and QA-accuracy numbers must never share a table without labels.
 
 ---
 
+## The full-set run, and the harness defect it exposed
+
+**Run 1 on all 500 `_s` questions: 74.8% (374/500)**, same frozen config,
+mean context 8,600 tokens (now embedded in the artifact itself). To be
+explicit about a common confusion: every split ships the same 500
+questions and differs only in haystack size; our earlier numbers use a
+fixed 150-question sample of `_s`, and this run is **all 500 questions of
+the same `_s` split**, not `_m`. Two honest findings came with it:
+
+1. **The 150-sample overestimated.** The three types the sample had at
+   ceiling (assistant-recall, knowledge-update, preference) are harder in
+   the full population; the three types that carried our architecture
+   claims (temporal, multi-session, user-recall) held to within a point.
+   74.8 sits inside the sample's disclosed ±6.8 sampling interval. At
+   n=500, TiMem (76.88) leads us on this run; we still exceed Zep's paper
+   (71.2) and full-context (60.2).
+2. **A 35-question autopsy of this run found a harness defect (see
+   [FAILURES.md](FAILURES.md)): our loader truncated every turn to 800
+   characters at cache build, destroying evidence that 42.8% of turns
+   carry beyond that point.** The single biggest failure bucket
+   (11 of 12 assistant-recall misses) traces to evidence our own tooling
+   deleted. The fix is shipped and mechanically verified; re-runs on the
+   full-turns harness are the next paid step. **All numbers above are
+   valid measurements of the truncated harness and are superseded only
+   by full-turns runs, never silently.**
+
 ## What is still pending (placeholders, deliberately)
 
 These will be filled with measured results, not projections:
 
-- **Full 500-question `_s` run, 3 repetitions, mean ± spread.** The
-  publishable headline at the scale vendors publish at. To be explicit
-  about a common confusion: every split ships the same 500 questions and
-  differs only in haystack size; our current numbers use a fixed
-  150-question sample of `_s`, and this run is **all 500 questions of the
-  same `_s` split**, not the `_m` split (which is a larger-haystack
-  variant, not on our roadmap). Infrastructure is ready (the full
-  19,195-session haystack is extracted and preflighted).
-  Result: _pending_.
+- **Full-turns re-run of the 500, then 3 repetitions, mean ± spread**
+  (the publishable headline). Result: _pending_.
 - **Second answerer column.** Same memory, same judge, a second frontier
   model, to show the answerer effect explicitly. Result: _pending_.
 - **LoCoMo clean re-run** under the current harness. Result: _pending_.
