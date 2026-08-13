@@ -193,8 +193,13 @@ and QA-accuracy numbers must never share a table without labels.
 These will be filled with measured results, not projections:
 
 - **Full 500-question `_s` run, 3 repetitions, mean ± spread.** The
-  publishable headline at the scale vendors publish at. Infrastructure is
-  ready (the full 19,195-session haystack is extracted and preflighted).
+  publishable headline at the scale vendors publish at. To be explicit
+  about a common confusion: every split ships the same 500 questions and
+  differs only in haystack size; our current numbers use a fixed
+  150-question sample of `_s`, and this run is **all 500 questions of the
+  same `_s` split**, not the `_m` split (which is a larger-haystack
+  variant, not on our roadmap). Infrastructure is ready (the full
+  19,195-session haystack is extracted and preflighted).
   Result: _pending_.
 - **Second answerer column.** Same memory, same judge, a second frontier
   model, to show the answerer effect explicitly. Result: _pending_.
