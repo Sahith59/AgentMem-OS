@@ -209,10 +209,14 @@ the same `_s` split**, not `_m`. Two honest findings came with it:
    characters at cache build, destroying evidence that 42.8% of turns
    carry beyond that point.** The single biggest failure bucket
    (11 of 12 assistant-recall misses) traces to evidence our own tooling
-   deleted. The fix is shipped and mechanically verified; re-runs on the
-   full-turns harness are the next paid step. **All numbers above are
-   valid measurements of the truncated harness and are superseded only
-   by full-turns runs, never silently.**
+   deleted. The fix is shipped and verified twice: a $0 end-to-end check
+   (all 12 destroyed details restored to the packet), then a paid smoke
+   on the affected type: **assistant-recall on full turns scored 53/56 =
+   94.6%, up from 44/56 = 78.6%, with every one of the 12
+   truncation-destroyed questions now answered correctly** (3 unrelated
+   flips at the measured noise rate). Full-set re-runs are next. **All
+   numbers above are valid measurements of the truncated harness and are
+   superseded only by full-turns runs, never silently.**
 
 ## What is still pending (placeholders, deliberately)
 
