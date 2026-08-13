@@ -108,6 +108,25 @@ _CONVERSATION_RECALL_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Advice-intent (2026-08-13, n=500 preference autopsy): a request for
+# recommendations/tips is answered WELL only when grounded in the
+# user's stated preferences, and full-turn verbatim evidence crowds
+# those short preference statements out of the packet (measured: the
+# power-bank and stand-up-comedy preferences vanished from the
+# full-turn packets that the truncated packets still carried). On
+# these queries the facts tier gives preference-type facts first
+# claim on its budget (capped inside the retriever — never starves).
+# RECALL INTENT WINS on conflict, same precedence rule and reason as
+# aggregation: "our previous chat... can you recommend it again" is a
+# recall of assistant content, not a request for personalization.
+_ADVICE_INTENT_RE = re.compile(
+    r"\b(recommend(ed|s|ations?)?|suggest(ed|s|ions?)?|advice"
+    r"|tips?|ideas?)\b"
+    r"|\bshould i\b|\bdo you think\b|\bwhat do you think\b"
+    r"|\bhelp me (choose|pick|decide)\b",
+    re.IGNORECASE,
+)
+
 
 class ContextAssembler:
     """
@@ -261,6 +280,11 @@ class ContextAssembler:
                 "AGENTMEM_OS_ENABLE_AGGREGATION_ROUTING") == "1")
         facts_share = (_AGGREGATION_FACTS_SHARE if aggregation_intent
                        else FACTS_BUDGET_SHARE)
+        advice_intent = (
+            not recall_intent
+            and bool(_ADVICE_INTENT_RE.search(query or ""))
+            and os.environ.get(
+                "AGENTMEM_OS_DISABLE_ADVICE_ROUTING") != "1")
 
         # ── Section 2b: USER PROFILE (injected, never retrieved) ─────────
         # Who the user IS, always present when non-empty, from its own
@@ -331,7 +355,9 @@ class ContextAssembler:
                 # sweep pin goes red if they drift apart.
                 block = retriever.build_block(
                     query, agent_id=agent_id, user_id=user_id,
-                    token_budget=facts_budget)
+                    token_budget=facts_budget,
+                    boost_types=(("preference",) if advice_intent
+                                 else ()))
                 if block:
                     facts_section = self._fit_to_budget(
                         block, sem_budget, "[SEMANTIC FACTS]", keep="head")
@@ -358,6 +384,7 @@ class ContextAssembler:
             # prove what it actually did, not what it was asked to do.
             "recall_intent": recall_intent,
             "aggregation_intent": aggregation_intent,
+            "advice_intent": advice_intent,
             "semantic_total": self.allocations["semantic"],
             "profile_cap": profile_budget,
             "profile_used": profile_used,

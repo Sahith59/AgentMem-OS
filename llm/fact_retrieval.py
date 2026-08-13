@@ -41,6 +41,7 @@ only by Indic-script surfaces with no exact node match. Disclosed,
 not denied.
 """
 
+import os
 import re
 
 from loguru import logger
@@ -223,7 +224,8 @@ class FactRetriever:
 
     def build_block(self, query: str, agent_id: str = None,
                     user_id: str = None, token_budget: int = 1000,
-                    session_ids: list = None) -> str:
+                    session_ids: list = None,
+                    boost_types: tuple = ()) -> str:
         """Retrieve, select to budget, render.
 
         Selection is RANK-based and the block NEVER exceeds
@@ -275,6 +277,35 @@ class FactRetriever:
         with_history = self._predecessor_targets(
             [f.id for f in facts], agent_id=agent_id, user_id=user_id)
 
+        # Read-time update resolution (2026-08-13, n=500 ku autopsy):
+        # over the SCOPED candidates, deterministically pair
+        # same-attribute facts with differing values across sessions
+        # and annotate the OLDER line with the newer value + date.
+        # Non-destructive; see llm/fact_update_resolver.py for why the
+        # write-time judge structurally cannot cover this read path.
+        update_pairs = {}
+        if os.environ.get("AGENTMEM_OS_DISABLE_UPDATE_RESOLUTION") != "1":
+            from agentmem_os.llm.fact_update_resolver import (
+                find_update_pairs)
+            update_pairs = find_update_pairs(facts)
+
+        # Advice-intent boost (2026-08-13, n=500 preference autopsy):
+        # for advice-shaped queries the assembler passes
+        # boost_types=("preference",) and the top preference-type
+        # facts get FIRST claim on the budget (capped, so they can
+        # never starve the rest — the D6 lesson). Rank order is
+        # preserved within and after the boosted slice; presentation
+        # stays chronological. Why: full-turn verbatim evidence crowds
+        # out short preference statements, and an advice answer
+        # grounded in the wrong specifics fails the user even when
+        # every fact in the block is true.
+        if boost_types:
+            boosted = [f for f in facts
+                       if (f.fact_type or "") in boost_types][:6]
+            boosted_ids = {f.id for f in boosted}
+            facts = boosted + [f for f in facts
+                               if f.id not in boosted_ids]
+
         # Incremental fill (G3 R3 M2: re-tokenizing the whole
         # accumulating block per candidate was O(n²) — measured 1150ms
         # of pure tokenization at the module's own 500-fact scan cap,
@@ -287,6 +318,11 @@ class FactRetriever:
         picked, lines, running, running_chars = [], [], 0, 0
         for f in facts:
             line = self._render_line(f, with_history, store)
+            newer = update_pairs.get(f.id)
+            if newer is not None:
+                from agentmem_os.llm.fact_update_resolver import (
+                    annotation_for)
+                line += annotation_for(newer)
             line_tokens = counter.count(line)
             if picked:
                 if running_chars + 1 + len(line) > char_cap:

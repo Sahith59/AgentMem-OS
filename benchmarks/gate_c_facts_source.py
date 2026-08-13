@@ -93,7 +93,8 @@ def install(assembler, scope_keys_by_question: dict,
         ground truth, never anything the memory system knows."""
 
         def build_block(self, query, agent_id=None, user_id=None,
-                        token_budget=1000, session_ids=None):
+                        token_budget=1000, session_ids=None,
+                        boost_types=()):
             sids = scope_keys_by_question.get(query)
             if sids is None:
                 raise KeyError(
@@ -102,7 +103,8 @@ def install(assembler, scope_keys_by_question: dict,
                     "other questions' facts into this one)")
             return super().build_block(
                 query, agent_id=None, user_id=None,
-                token_budget=token_budget, session_ids=sids)
+                token_budget=token_budget, session_ids=sids,
+                boost_types=boost_types)
 
     assembler._facts = _ScopedFactRetriever(SessionLocal)
     st = corpus_stats(corpus)
