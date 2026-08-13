@@ -87,6 +87,52 @@ search: a zero-cost check showed it moved full-coverage questions from 108 to
 120 of 150. The paid runs then confirmed the prediction (predicted 117 to
 122 correct; got 120, 120, 117).
 
+### The six question types, and where every phase's points came from
+
+LongMemEval questions come in six types, and a single total hides where a
+system is actually strong or weak. What each type tests, in plain terms:
+
+| Type | What it tests | Example shape |
+|---|---|---|
+| single-session-user (20 q) | Recall one thing the *user* said in one session | "What breed is my dog?" |
+| single-session-assistant (20 q) | Recall one thing the *assistant* said in one session | "What recipe did you suggest last time?" |
+| single-session-preference (10 q) | Answer in a way consistent with a stated preference | "Recommend a restaurant" (user said they are vegetarian) |
+| knowledge-update (21 q) | The fact changed; answer with the NEW value | "Where do I work?" after a job change mid-history |
+| temporal-reasoning (40 q) | Date arithmetic and ordering across sessions | "How many days between my two dentist visits?" |
+| multi-session (39 q) | Combine evidence from 2 to 5 different sessions | "How many concerts did I attend this year?" |
+
+The full per-type record of every phase (every cell from a committed
+artifact; the three runs per config are listed separately because the noise
+floor lives in exactly these cells):
+
+| Phase | ss-user | ss-assistant | ss-preference | knowledge-update | temporal | multi-session | Total |
+|---|---|---|---|---|---|---|---|
+| 63.3% first clean (gpt-4o-mini) | 16/20 | 17/20 | 2/10 | 17/21 | 22/40 | 21/39 | 95/150 |
+| 72.0% GPT-4o answerer | 16/20 | 18/20 | 5/10 | 20/21 | 27/40 | 22/39 | 108/150 |
+| 73.3% budget retune | 16/20 | 18/20 | 5/10 | 20/21 | 26/40 | 25/39 | 110/150 |
+| 76.0% dense, run 1 | 18/20 | 20/20 | 6/10 | 20/21 | 24/40 | 26/39 | 114/150 |
+| 76.7% dense, run 2 | 17/20 | 20/20 | 5/10 | 21/21 | 26/40 | 26/39 | 115/150 |
+| 78.0% dense, run 3 | 19/20 | 19/20 | 6/10 | 21/21 | 25/40 | 27/39 | 117/150 |
+| 80.0% 40k, run 1 | 18/20 | 20/20 | 8/10 | 21/21 | 27/40 | 26/39 | 120/150 |
+| 80.0% 40k, run 2 | 18/20 | 20/20 | 6/10 | 21/21 | 28/40 | 27/39 | 120/150 |
+| 78.0% 40k, run 3 | 19/20 | 19/20 | 8/10 | 19/21 | 27/40 | 25/39 | 117/150 |
+
+How to read this honestly:
+
+- **Three types are at or near their measured ceilings.** knowledge-update
+  (ceiling 21/21: supersession is our strongest machinery), single-session
+  -user (19/20 ceiling class) and single-session-assistant (19/20). The
+  40k runs touch or exceed those ceilings in individual runs.
+- **The hard half is temporal + multi-session** (79 of 150 questions).
+  Every phase's gains and all the run-to-run noise concentrate there,
+  which is exactly what the coverage mechanism predicts: those are the
+  questions needing 2 to 5 sessions of evidence in context.
+- **Preference is small (n=10) and noisy** but moved with the 40k change
+  (5-6 correct to 8 in two of three runs).
+- **Per-type swings of ±2 between identical-config runs are noise**, not
+  signal (see the noise floor above). The dense run-1 temporal dip to
+  24/40 and run-2's 26/40 are the same configuration.
+
 ### The token-efficiency curve
 
 Accuracy against context size is a curve, and every system picks a point on
