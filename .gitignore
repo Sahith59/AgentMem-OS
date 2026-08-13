@@ -80,3 +80,7 @@ DECISION_AND_FAILURE_LOG.md
 benchmarks/eval_dbs/
 benchmarks/extracted_memories/
 ENGLISH_BASELINE_PLAN.md
+
+# SQLite WAL/SHM sidecar files (never track)
+*.db-shm
+*.db-wal
