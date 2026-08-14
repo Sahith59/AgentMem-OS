@@ -219,10 +219,11 @@ def _event_status(fact_type: str, t_occ: str, session_date: str):
 
 class ConsolidationV2:
     def __init__(self, get_db_session, model: str = DEFAULT_MODEL,
-                 timeout: int = 600):
+                 timeout: int = None):
         self.get_db = get_db_session
         self.model = model
-        self.timeout = timeout
+        self.timeout = timeout if timeout is not None else int(
+            os.environ.get("AGENTMEM_OS_LLM_TIMEOUT", "600"))
         self.store = SemanticFactStore(get_db_session)
         from agentmem_os.db.fact_entities import FactEntityLinker
         from agentmem_os.llm.supersession import SupersessionJudge

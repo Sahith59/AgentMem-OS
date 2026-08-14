@@ -66,6 +66,10 @@ QSOURCE = os.environ.get(
 # Sessions already consolidated in a REFERENCE corpus are skipped, so an
 # extension run only pays for what is genuinely new. Read-only.
 EXCLUDE_DB = os.environ.get("GATE_C_EXCLUDE_DB", "")
+# Explicit session-id worklist (one sid per line): targeted repair runs
+# (F-17 tail: re-splitting a dead node's stride, retrying timeouts)
+# without touching the question->scope derivation path.
+SIDLIST = os.environ.get("GATE_C_SIDLIST", "")
 
 
 def _excluded():
@@ -83,6 +87,13 @@ def _excluded():
 
 
 def build_worklist():
+    if SIDLIST:
+        ds = json.load(open(HERE / "benchmark_cache/longmemeval_s.json"))
+        mems = {m["mid"]: m for m in ds["memories"]}
+        sids = [l.strip() for l in open(SIDLIST)
+                if l.strip() and l.strip() in mems]
+        print(f"worklist source: SIDLIST {SIDLIST} -> {len(sids)} sessions")
+        return sorted(sids), mems
     """Union of scope_keys of the questions in QSOURCE — exactly the
     haystacks the eval will query. Deterministic order (sorted) so
     resumed runs walk the same list."""
