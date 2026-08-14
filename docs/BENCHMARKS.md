@@ -218,6 +218,36 @@ the same `_s` split**, not `_m`. Two honest findings came with it:
    numbers above are valid measurements of the truncated harness and are
    superseded only by full-turns runs, never silently.**
 
+## The full-turns rebuild, and the second defect it exposed (F-18)
+
+Fixing the truncation meant re-extracting the entire corpus on full
+turns: all **19,195 haystack sessions** through the live pipeline
+(cluster GPUs, ~$0 in API terms), merged and hard-verified — exactly
+19,195 sessions, zero duplicates, **107,465 facts** (up from ~66k),
+34,049 profile rows. Both $0 preflight gates pass; the specific details
+the truncation had destroyed are measurably back in the corpus.
+
+Then the category smokes on the honest stack told an uncomfortable
+truth we publish in full: **assistant-recall jumped to 94.6%, but
+knowledge-update fell from 87.2% to 80.8%.** A dual-stack packet audit
+of every affected question (both harnesses, exact eval path, $0) found
+the mechanism: **full turns halved packet breadth.** At a constant
+~36k-char packet, distinct sessions represented fell from ~10 to ~5.4 —
+the truncation had been silently buying breadth with amputated
+evidence. Restoring the evidence exposed the real cost structure of our
+retrieval: whole long turns crowd out other sessions.
+
+The fix (F-18, snippet packing) is genuine retrieval architecture, not
+tuning-to-the-test: a turn longer than 800 chars contributes its
+query-relevant region (sentence-window scored, elisions marked `[...]`)
+instead of its whole body. Swept at $0 — 800 dominates 1200 on breadth
+with zero measured evidence loss on any category. Verified paid:
+**knowledge-update recovered to 68/78 = 87.2% exactly**, on full turns.
+Current category picture on the honest stack: assistant-recall 94.6%,
+knowledge-update 87.2%, preference 53.3% (judge-rubric-bound; its
+evidence coverage recovered 0.67 → 0.87 but the scoring bottleneck is
+judge strictness, which we do not game).
+
 ## What is still pending (placeholders, deliberately)
 
 These will be filled with measured results, not projections:

@@ -64,6 +64,38 @@ page's core claim. Every harness defect we have found made us look
 per-question artifacts, and autopsies that refuse to stop at the first
 plausible explanation.
 
+## The overstuffed suitcase (what fixing the photocopier revealed)
+
+Fixing the 800-character truncation uncovered a second, subtler defect —
+this one in our own retrieval, and invisible for the entire truncated
+era. With turns delivered in full, one retrieved turn can cost 3,000 to
+17,000 characters, so a fixed context budget suddenly held **half** the
+distinct sessions it used to (measured: ~10 sessions per packet fell to
+~5.4 at a constant ~36k chars). Categories that need *breadth* — did the
+value change in a later session? which session holds the user's
+preference? — paid immediately: knowledge-update fell from 87.2% to
+80.8% on the honest harness, and preference questions' evidence-session
+coverage fell from 93% to 67%. The truncation had been quietly
+subsidizing breadth by amputating depth.
+
+Two things worth recording about the diagnosis. First, the dual-stack
+audit rebuilt all 108 affected packets on *both* harnesses and proved
+the newly shipped update-resolution feature innocent — zero of its
+annotations appeared in any broken packet; suspicion of the newest code
+is a reflex, evidence is a discipline. Second, an earlier probe had
+concluded "the packing lever is exhausted" — and re-reading it before
+acting showed it swept *neighbor count* on truncated turns, where turn
+*length* could not yet be a cost. The lever that was exhausted and the
+lever that was broken were different levers wearing the same name.
+
+The fix (snippet packing): turns longer than 800 characters contribute
+their query-relevant region, elisions marked, disable switch shipped,
+cap swept at $0 before adoption. Knowledge-update recovered to 87.2%
+exactly; assistant-recall kept its 94.6%. Cost of the whole episode:
+about $6.70 of smokes — which caught, diagnosed, and verified a
+regression that would otherwise have landed unexplained inside a $27
+headline run.
+
 ## Harness bugs that made us look worse than we were
 
 Ceiling-testing our own harness (hand the answerer perfect evidence and see
