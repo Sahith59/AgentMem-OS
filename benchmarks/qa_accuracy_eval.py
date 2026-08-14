@@ -607,6 +607,8 @@ def main():
                 "AGENTMEM_OS_RETRIEVAL_CONTEXT_TURNS", "2")),
             "retrieval_deep_hits": os.environ.get(
                 "AGENTMEM_OS_RETRIEVAL_DEEP_HITS"),
+            "snippet_chars": int(os.environ.get(
+                "AGENTMEM_OS_SNIPPET_CHARS", "800")),
             "facts_source": args.facts_source,
             "profile_tier": bool(args.profile),
             "types_filter": args.types or None,

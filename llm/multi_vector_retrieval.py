@@ -47,6 +47,20 @@ from loguru import logger
 
 CONTEXT_TURNS = 2  # neighbors returned on each side of a scored hit
 
+# Snippet packing (2026-08-14, F-18). The truncated-harness era hid a
+# breadth collapse: with full turns, one hit's span can cost 3-20k chars,
+# so a fixed context budget holds HALF the distinct sessions it used to
+# (measured on the n=500 dual-stack audit: KU 10.0 -> 5.4 sessions in
+# packet, pref gold-session coverage 0.93 -> 0.67 — and KU/pref scores
+# regressed with it). A turn longer than SNIPPET_CHARS therefore
+# contributes a SNIPPET, not its whole body: the scored hit turn keeps
+# the region that best matches the query (sentence-window scored with
+# the already-fitted TF-IDF vectorizer — cheap, deterministic); neighbor
+# turns keep their head (they are referent context, not evidence).
+# Elisions are marked so the reader model knows text was cut. 0 disables
+# (byte-identical to the old behaviour).
+SNIPPET_CHARS = 800
+
 
 def is_available() -> bool:
     try:
@@ -63,8 +77,14 @@ class MultiVectorRetriever:
     callers detect that by comparing n_docs.
     """
 
-    def __init__(self, context_turns: int = CONTEXT_TURNS):
+    def __init__(self, context_turns: int = CONTEXT_TURNS,
+                 snippet_chars: Optional[int] = None):
+        import os
         self.context_turns = context_turns
+        self.snippet_chars = (
+            snippet_chars if snippet_chars is not None
+            else int(os.environ.get("AGENTMEM_OS_SNIPPET_CHARS",
+                                    str(SNIPPET_CHARS))))
         self.n_docs = 0
         self._turns: List[str] = []
         self._matrix = None  # normalized per-turn embeddings
@@ -92,6 +112,62 @@ class MultiVectorRetriever:
         self._tfidf_vec = TfidfVectorizer(max_features=512, sublinear_tf=True, min_df=1)
         self._tfidf_matrix = self._tfidf_vec.fit_transform(self._turns)
         logger.debug(f"[MultiVectorRetriever] indexed {self.n_docs} turns (dense + tfidf)")
+
+    def _snippet(self, text: str, query: str, is_hit: bool) -> str:
+        """Trim a turn longer than snippet_chars to its most relevant
+        region (hit turns) or its head (neighbor turns). Sentence-window
+        scoring reuses the fitted TF-IDF vectorizer; ties and failures
+        fall back to the head — deterministic either way. Elisions are
+        marked with [...] so the reader knows text was cut."""
+        cap = self.snippet_chars
+        if cap <= 0 or len(text) <= cap:
+            return text
+        if not is_hit:
+            return text[:cap] + " [...]"
+        import re as _re
+        # sentence-ish segments; keeps code/lists intact well enough
+        segs = [s for s in _re.split(r"(?<=[.!?\n])\s+", text) if s]
+        if len(segs) < 2:
+            return text[:cap] + " [...]"
+        try:
+            from sklearn.metrics.pairwise import cosine_similarity
+            sims = cosine_similarity(
+                self._tfidf_vec.transform([query]),
+                self._tfidf_vec.transform(segs))[0]
+        except Exception:
+            return text[:cap] + " [...]"
+        # best window of consecutive segments within the cap, greedy
+        # around the single best segment
+        best = int(sims.argmax())
+        lo = hi = best
+        size = len(segs[best])
+        while size < cap:
+            left = sims[lo - 1] if lo > 0 else -1.0
+            right = sims[hi + 1] if hi + 1 < len(segs) else -1.0
+            if left < 0 and right < 0:
+                break
+            if right >= left:
+                if size + len(segs[hi + 1]) > cap:
+                    if left >= 0 and size + len(segs[lo - 1]) <= cap:
+                        lo -= 1
+                        size += len(segs[lo])
+                        continue
+                    break
+                hi += 1
+                size += len(segs[hi])
+            else:
+                if size + len(segs[lo - 1]) > cap:
+                    if right >= 0 and size + len(segs[hi + 1]) <= cap:
+                        hi += 1
+                        size += len(segs[hi])
+                        continue
+                    break
+                lo -= 1
+                size += len(segs[lo])
+        out = " ".join(segs[lo:hi + 1])
+        pre = "[...] " if lo > 0 else ""
+        post = " [...]" if hi + 1 < len(segs) else ""
+        return pre + out + post
 
     def search(self, query: str, top_k: int = 5,
                deep_hits: Optional[int] = None) -> List[str]:
@@ -152,5 +228,7 @@ class MultiVectorRetriever:
             start = max(0, i - ctx)
             end = min(n, i + ctx + 1)
             covered |= set(range(start, end))
-            selected.append("\n".join(self._turns[start:end]))
+            selected.append("\n".join(
+                self._snippet(self._turns[j], query, is_hit=(j == i))
+                for j in range(start, end)))
         return selected
