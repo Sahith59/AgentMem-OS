@@ -1,0 +1,1070 @@
+[
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous conversation about environmentally responsible supply chain practices, and I was wondering if you could remind me of the company you mentioned that's doing a great job with sustainability?",
+  "gold": "Patagonia",
+  "packet_chars": 36900,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31970,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 42,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about front-end and back-end development. Can you remind me of the specific back-end programming languages you recommended I learn?",
+  "gold": "I recommended learning Ruby, Python, or PHP as a back-end programming language.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 48,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 38,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous chat and I was wondering, what was Andy wearing in the script you wrote for the comedy movie scene?",
+  "gold": "Andy was wearing an untidy, stained white shirt.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 43,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 26,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+  "gold": "Miss Bee Providore",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 44,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 42,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about private sector businesses in Chaudhary. Can you remind me of the company that employs over 40,000 people in the rug-manufacturing industry?",
+  "gold": "Jaipur Rugs",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 53,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 39,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about DIY home decor projects using recycled materials. Can you remind me what sealant you recommended for the newspaper flower vase?",
+  "gold": "Mod Podge or another sealant",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 48,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 39,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm trying to recall what the designation on my jumpsuit was that helped me find the file number in the records room?",
+  "gold": "The designation on your jumpsuit was 'LIV'.",
+  "packet_chars": 36374,
+  "section_chars": {
+   "[USER PROFILE]": 2847,
+   "[SEMANTIC FACTS]": 9417,
+   "[SEMANTIC MEMORY]": 19179,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 6,
+  "turns_in_packet_total": 37,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about language learning apps. You mentioned a few options, and I was wondering if you could remind me of the one that uses mnemonics to help learners memorize words and phrases?",
+  "gold": "Memrise",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 42,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 35,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+  "gold": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+  "packet_chars": 36418,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31488,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 48,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 39,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous chat. Can you remind me of the name of the last venue you recommended in the list of popular venues in Portland for indie music shows?",
+  "gold": "Revolution Hall",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 54,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 44,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+  "gold": "The Sugar Factory at Icon Park.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 38,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about binaural beats for anxiety and depression. Can you remind me how many subjects were in the study published in the journal Music and Medicine that found significant reductions in symptoms of depression, anxiety, and stress?",
+  "gold": "38 subjects",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 46,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 31,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+  "gold": "Mindful.org.",
+  "packet_chars": 34849,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 3109
+  },
+  "n_scope_sessions": 46,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 26,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous conversation where you created two sad songs for me. Can you remind me what was the chord progression for the chorus in the second song?",
+  "gold": "C D E F G A B A G F E D C",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 43,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning to visit the Vatican again and I was wondering if you could remind me of the name of that famous deli near the Vatican that serves the best cured meats and cheeses?",
+  "gold": "Roscioli",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 45,
+  "n_sessions_in_packet": 11,
+  "turns_in_packet_total": 44,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+  "gold": "Grilled Snapper with Mango Salsa",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 43,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about the impact of the political climate in Catalonia on its literature and music. Can you remind me of the example you gave of a Spanish-Catalan singer-songwriter who supports unity between Catalonia and Spain?",
+  "gold": "Manolo García",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 48,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 37,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation and I was wondering if you could remind me of the two companies you mentioned that prioritize employee safety and well-being like Triumvirate?",
+  "gold": "Patagonia and Southwest Airlines.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 48,
+  "n_sessions_in_packet": 12,
+  "turns_in_packet_total": 38,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous conversation about the Seco de Cordero recipe from Ancash. You mentioned using a light or medium-bodied beer, but I was wondering if you could remind me what type of beer you specifically recommended?",
+  "gold": "I recommended using a Pilsner or Lager for the recipe.",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 55,
+  "n_sessions_in_packet": 11,
+  "turns_in_packet_total": 34,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning another trip to New York City and I was wondering if you could remind me of that vegan eatery you recommended last time, the one with multiple locations throughout the city?",
+  "gold": "By Chloe",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 44,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 42,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous chat about the Lost Temple of the Djinn one-shot. Can you remind me how many mummies the party will face in the temple?",
+  "gold": "4",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 13,
+  "turns_in_packet_total": 42,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": null,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous chat and I wanted to confirm, how many times did the Chiefs play the Jaguars at Arrowhead Stadium?",
+  "gold": "The Chiefs played the Jaguars 12 times at Arrowhead Stadium.",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31642,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 49,
+  "n_sessions_in_packet": 12,
+  "turns_in_packet_total": 59,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was thinking about our previous conversation about the Fifth Album, and I was wondering if you could remind me what song you said best exemplified the band's growth and development as artists?",
+  "gold": "Evolution",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 39,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I remember you told me to dilute tea tree oil with a carrier oil before applying it to my skin. Can you remind me what the recommended ratio is?",
+  "gold": "The recommended ratio is 1:10, meaning one part tea tree oil to ten parts carrier oil.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 51,
+  "n_sessions_in_packet": 6,
+  "turns_in_packet_total": 33,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning to go back to the Natural Park of Moncayo mountain in Aragón and I was wondering, what was the name of that hiking trail you recommended that takes you through the park's most stunning landscapes and offers panoramic views of the surrounding mountainside?",
+  "gold": "The GR-90 trail.",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31642,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 37,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about making a classic French omelette, and I wanted to confirm - how many eggs did you say we need for the recipe?",
+  "gold": "2-3 eggs",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31642,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 44,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 47,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about the grant aim page on molecular subtypes and endometrial cancer. Can you remind me what were the three objectives we outlined for the project?",
+  "gold": "The three objectives were: 1) to identify molecular subtypes of endometrial cancer, 2) to investigate their clinical and biological significance, and 3) to develop biomarkers for early detection and prognosis.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 46,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 21,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I think we discussed work from home jobs for seniors earlier. Can you remind me what was the 7th job in the list you provided?",
+  "gold": "Transcriptionist.",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31642,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 11,
+  "turns_in_packet_total": 38,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about music theory. You mentioned some online resources for learning music theory. Can you remind me of the website you recommended for free lessons and exercises?",
+  "gold": "MusicTheory.net",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 40,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous conversation about the Bajimaya v Reward Homes Pty Ltd case. Can you remind me what year the construction of the house began?",
+  "gold": "2014.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 52,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 40,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": null,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about natural remedies for dark circles under the eyes. You mentioned applying tomato juice mixed with lemon juice, how long did you say I should leave it on for?",
+  "gold": "10 minutes",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 37,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "In our previous chat, you suggested 'sexual compulsions' and a few other options for alternative terms for certain behaviors. Can you remind me what the other four options were?",
+  "gold": "I suggested 'sexual fixations', 'problematic sexual behaviors', 'sexual impulsivity', and 'compulsive sexuality'.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 11,
+  "turns_in_packet_total": 32,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about the fusion breakthrough at Lawrence Livermore National Laboratory. Can you remind me who is the President's Chief Advisor for Science and Technology mentioned in the article?",
+  "gold": "Dr. Arati Prabhakar",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 53,
+  "n_sessions_in_packet": 13,
+  "turns_in_packet_total": 33,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning my trip to Amsterdam again and I was wondering, what was the name of that hostel near the Red Light District that you recommended last time?",
+  "gold": "International Budget Hostel",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 62,
+  "n_sessions_in_packet": 13,
+  "turns_in_packet_total": 40,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous chat about the DHL Wellness Retreats campaign. Can you remind me how much was allocated for influencer marketing in the campaign plan?",
+  "gold": "$2,000",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 45,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 24,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous conversation about building a cocktail bar. You recommended five bottles to make the widest variety of gin-based cocktails. Can you remind me what the fifth bottle was?",
+  "gold": "Absinthe",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 34,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+  "gold": "The Plesiosaur had a blue scaly body.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 45,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 32,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about fracking in the Marcellus Shale region. You mentioned that some states require fracking companies to monitor groundwater quality at nearby wells before drilling and for a certain period after drilling is complete. Can you remind me which state you mentioned as an example that has this requirement?",
+  "gold": "Pennsylvania",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 13,
+  "turns_in_packet_total": 37,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about traditional Indian embroidery and tailoring techniques. Can you remind me of the name of that online store based in India that sells traditional Indian fabrics, threads, and embellishments?",
+  "gold": "Nostalgia",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 51,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 34,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about high-end fashion brands, and I was wondering if you could remind me of the brand that uses wild rubber sourced from the Amazon rainforest?",
+  "gold": "Veja",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 45,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 41,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": null,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous conversation about Native American powwows and I was wondering, which traditional game did you say was often performed by skilled dancers at powwows?",
+  "gold": "Hoop Dance",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 7,
+  "turns_in_packet_total": 29,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+  "gold": "Nu, pogodi!",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 40,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about atmospheric correction methods, and I wanted to confirm - you mentioned that 6S, MAJA, and Sen2Cor are all algorithms for atmospheric correction of remote sensing images. Can you remind me which one is implemented in the SIAC_GEE tool?",
+  "gold": "The 6S algorithm is implemented in the SIAC_GEE tool.",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31642,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 46,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 39,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about The Library of Babel, and I wanted to confirm - what did Borges say about the center and circumference of the Library?",
+  "gold": "According to Borges, 'The Library is a sphere whose exact center is any one of its hexagons and whose circumference is inaccessible.'",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4833
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 25,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "Can you remind me of the name of the romantic Italian restaurant in Rome you recommended for dinner?",
+  "gold": "Roscioli",
+  "packet_chars": 36573,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31642,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 49,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 37,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm planning my trip to Speyer again and I wanted to confirm, what's the phone number of the Speyer tourism board that you provided me earlier?",
+  "gold": "+49 (0) 62 32 / 14 23 - 0",
+  "packet_chars": 36619,
+  "section_chars": {
+   "[USER PROFILE]": 3084,
+   "[SEMANTIC FACTS]": 9673,
+   "[SEMANTIC MEMORY]": 18931,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 44,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 26,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous chat and I wanted to clarify something about the prayer of beginners in Tanqueray's Spiritual Life treatise. Can you remind me which chapter of the second part discusses vocal prayer and meditation?",
+  "gold": "Chapter 4 of Book 1, titled 'Vocal Prayer and Meditation'.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 44,
+  "n_sessions_in_packet": 6,
+  "turns_in_packet_total": 27,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I remember you told me about the refining processes at CITGO's three refineries earlier. Can you remind me what kind of processes are used at the Lake Charles Refinery?",
+  "gold": "Atmospheric distillation, fluid catalytic cracking (FCC), alkylation, and hydrotreating.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 48,
+  "n_sessions_in_packet": 8,
+  "turns_in_packet_total": 20,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous chess game and I was wondering, what was the move you made after 27. Kg2 Bd5+?",
+  "gold": "28. Kg3",
+  "packet_chars": 34430,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 29959,
+   "[RECENT TURNS]": 4374
+  },
+  "n_scope_sessions": 47,
+  "n_sessions_in_packet": 11,
+  "turns_in_packet_total": 45,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was thinking back to our previous conversation about the Radiation Amplified zombie, and I was wondering if you remembered what we finally decided to name it?",
+  "gold": "Fissionator.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 49,
+  "n_sessions_in_packet": 12,
+  "turns_in_packet_total": 65,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to follow up on our previous conversation about YouTube videos for workplace posture. Can you remind me of the Mayo Clinic video you recommended?",
+  "gold": "The video is 'How to Sit Properly at a Desk to Avoid Back Pain' and the link is https://www.youtube.com/watch?v=UfOvNlX9Hh0.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 53,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 39,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous conversation about buying unique engagement rings directly from designers. Can you remind me of the Instagram handle of the UK-based designer who works with unusual gemstones?",
+  "gold": "@jessica_poole_jewellery",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 53,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 24,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I remember you provided a list of 100 prompt parameters that I can specify to influence your output. Can you remind me what was the 27th parameter on that list?",
+  "gold": "The 27th parameter was 'Sound effects (e.g., ambient, diegetic, non-diegetic, etc.)'.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 56,
+  "n_sessions_in_packet": 9,
+  "turns_in_packet_total": 27,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I wanted to check back on our previous conversation about Netflix. I mentioned that I wanted to be able to access all seasons of old shows? Do you remember what show I used as an example, the one that only had the last season available?",
+  "gold": "Doc Martin",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 50,
+  "n_sessions_in_packet": 6,
+  "turns_in_packet_total": 47,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": true,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": true,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was thinking about our previous conversation about data privacy and security. You mentioned that companies use two-factor authentication to enhance security. Can you remind me what kind of two-factor authentication methods you were referring to?",
+  "gold": "I mentioned biometric authentication or one-time passwords (OTP) as examples of two-factor authentication methods.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 55,
+  "n_sessions_in_packet": 11,
+  "turns_in_packet_total": 38,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "Can you remind me what was the average improvement in framerate when using the Hardware-Aware Modular Training (HAMT) agent in the 'To Adapt or Not to Adapt? Real-Time Adaptation for Semantic Segmentation' submission?",
+  "gold": "The average improvement in framerate was approximately 20% when using the Hardware-Aware Modular Training (HAMT) agent.",
+  "packet_chars": 36574,
+  "section_chars": {
+   "[SEMANTIC MEMORY]": 31643,
+   "[RECENT TURNS]": 4834
+  },
+  "n_scope_sessions": 49,
+  "n_sessions_in_packet": 10,
+  "turns_in_packet_total": 34,
+  "gold_sessions": 1,
+  "gold_cov": 1,
+  "gold_ans_in_packet": false,
+  "gold_ans_in_facts": false,
+  "gold_ans_in_verbatim": false,
+  "updated_annotations": 0
+ }
+]

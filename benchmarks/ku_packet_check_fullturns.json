@@ -1,0 +1,172 @@
+[
+ {
+  "question": "What time do I wake up on Saturday mornings?",
+  "gold": "7:30 am",
+  "predicted_run1": "8:30 am",
+  "ingest": "ingested 521 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": true,
+  "updated_annotations": 0,
+  "packet_chars": 36264,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "Where did I go on my most recent family trip?",
+  "gold": "Paris",
+  "predicted_run1": "Hawaii",
+  "ingest": "ingested 537 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": true,
+  "updated_annotations": 0,
+  "packet_chars": 36219,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "How many followers do I have on Instagram now?",
+  "gold": "1300",
+  "predicted_run1": "1250 followers (as of 2023/05/25).",
+  "ingest": "ingested 448 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 1,
+  "gold_answer_string_in_packet": true,
+  "updated_annotations": 0,
+  "packet_chars": 36120,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "How many autographed football have I added to my collection in the first three months of collection?",
+  "gold": "The information provided is not enough. You mentioned collecting autographed baseball but not football.",
+  "predicted_run1": "15 autographed baseballs.",
+  "ingest": "ingested 447 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": false,
+  "updated_annotations": 0,
+  "packet_chars": 36348,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "What time do I usually go to the gym?",
+  "gold": "6:00 pm",
+  "predicted_run1": "7:00 pm on Mondays, Wednesdays, and Fridays.",
+  "ingest": "ingested 528 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": true,
+  "updated_annotations": 0,
+  "packet_chars": 36065,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "How many engineers do I lead when I just started my new role as Software Engineer Manager?",
+  "gold": "The information provided is not enough. You mentioned starting the role as Senior Software Engineer but not Software Engineer Manager.",
+  "predicted_run1": "5 engineers.",
+  "ingest": "ingested 523 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": false,
+  "updated_annotations": 0,
+  "packet_chars": 36565,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "How many pre-1920 American coins do I have in my collection?",
+  "gold": "38",
+  "predicted_run1": "37",
+  "ingest": "ingested 483 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 1,
+  "gold_answer_string_in_packet": null,
+  "updated_annotations": 1,
+  "packet_chars": 36077,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "Do I go to the gym more frequently than I did previously?",
+  "gold": "Yes",
+  "predicted_run1": "Current routine is four times a week; no past routine mentioned for comparison.",
+  "ingest": "ingested 490 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 1,
+  "gold_answer_string_in_packet": null,
+  "updated_annotations": 0,
+  "packet_chars": 36374,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "What type of vehicle model am I currently working on?",
+  "gold": "Ford F-150 pickup truck",
+  "predicted_run1": "Ford Mustang Shelby GT350R model.",
+  "ingest": "ingested 431 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": true,
+  "updated_annotations": 0,
+  "packet_chars": 35717,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ },
+ {
+  "question": "What was my previous personal best time for the charity 5K run?",
+  "gold": "27 minutes and 45 seconds",
+  "predicted_run1": "28 minutes.",
+  "ingest": "ingested 506 turns",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "gold_answer_string_in_packet": true,
+  "updated_annotations": 1,
+  "packet_chars": 36573,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ]
+ }
+]

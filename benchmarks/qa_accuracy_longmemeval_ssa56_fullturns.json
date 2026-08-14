@@ -1,0 +1,535 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o",
+  "judge_model": "gpt-4o",
+  "n_questions": 56,
+  "retrieval_backend": "dense",
+  "context_chars": 40000,
+  "memory_source": "raw",
+  "answerer": "reasoning",
+  "lme_split": "s",
+  "retrieval_backend_requested": "dense",
+  "retrieval_context_turns": 2,
+  "retrieval_deep_hits": null,
+  "facts_source": "gate_c",
+  "profile_tier": true,
+  "types_filter": "single-session-assistant",
+  "seed": 42,
+  "db_path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/eval_dbs/longmemeval-s-raw-fullturns.db",
+  "stored": {
+    "facts": 0,
+    "raw": 2144,
+    "skipped_preexisting": 12
+  },
+  "stored_facts_fraction": 0.0,
+  "qa_accuracy": 0.9464,
+  "correct": 53,
+  "total": 56,
+  "mean_context_tokens": 8099,
+  "results": [
+    {
+      "question": "I was looking back at our previous conversation about environmentally responsible supply chain practices, and I was wondering if you could remind me of the company you mentioned that's doing a great job with sustainability?",
+      "gold_answer": "Patagonia",
+      "predicted": "Patagonia.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7961,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about front-end and back-end development. Can you remind me of the specific back-end programming languages you recommended I learn?",
+      "gold_answer": "I recommended learning Ruby, Python, or PHP as a back-end programming language.",
+      "predicted": "Ruby, Python, or PHP.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8103,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous chat and I was wondering, what was Andy wearing in the script you wrote for the comedy movie scene?",
+      "gold_answer": "Andy was wearing an untidy, stained white shirt.",
+      "predicted": "An untidy, stained white shirt.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8562,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+      "gold_answer": "Miss Bee Providore",
+      "predicted": "Miss Bee Providore.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8410,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about private sector businesses in Chaudhary. Can you remind me of the company that employs over 40,000 people in the rug-manufacturing industry?",
+      "gold_answer": "Jaipur Rugs",
+      "predicted": "Jaipur Rugs.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7872,
+      "structured_note": null
+    },
+    {
+      "question": "I'm going back to our previous conversation about DIY home decor projects using recycled materials. Can you remind me what sealant you recommended for the newspaper flower vase?",
+      "gold_answer": "Mod Podge or another sealant",
+      "predicted": "Mod Podge or another sealant.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7879,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about language learning apps. You mentioned a few options, and I was wondering if you could remind me of the one that uses mnemonics to help learners memorize words and phrases?",
+      "gold_answer": "Memrise",
+      "predicted": "Memrise.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7822,
+      "structured_note": null
+    },
+    {
+      "question": "I'm trying to recall what the designation on my jumpsuit was that helped me find the file number in the records room?",
+      "gold_answer": "The designation on your jumpsuit was 'LIV'.",
+      "predicted": "LIV",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8568,
+      "structured_note": null
+    },
+    {
+      "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+      "gold_answer": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+      "predicted": "8 am - 4 pm (Day Shift) on Sunday.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8990,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous chat. Can you remind me of the name of the last venue you recommended in the list of popular venues in Portland for indie music shows?",
+      "gold_answer": "Revolution Hall",
+      "predicted": "Revolution Hall.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8620,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+      "gold_answer": "The Sugar Factory at Icon Park.",
+      "predicted": "The Sugar Factory at Icon Park.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7944,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about binaural beats for anxiety and depression. Can you remind me how many subjects were in the study published in the journal Music and Medicine that found significant reductions in symptoms of depression, anxiety, and stress?",
+      "gold_answer": "38 subjects",
+      "predicted": "38 subjects.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8225,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+      "gold_answer": "Mindful.org.",
+      "predicted": "Mindful.org",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7940,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous conversation where you created two sad songs for me. Can you remind me what was the chord progression for the chorus in the second song?",
+      "gold_answer": "C D E F G A B A G F E D C",
+      "predicted": "C D E F G A B A G F E D C",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8575,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning to visit the Vatican again and I was wondering if you could remind me of the name of that famous deli near the Vatican that serves the best cured meats and cheeses?",
+      "gold_answer": "Roscioli",
+      "predicted": "Roscioli",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8102,
+      "structured_note": null
+    },
+    {
+      "question": "I was looking back at our previous conversation about Caribbean dishes and I was wondering, what was the name of that Jamaican dish you recommended I try with snapper that has fruit in it?",
+      "gold_answer": "Grilled Snapper with Mango Salsa",
+      "predicted": "Escovitch Fish.",
+      "correct": false,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8244,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation about the impact of the political climate in Catalonia on its literature and music. Can you remind me of the example you gave of a Spanish-Catalan singer-songwriter who supports unity between Catalonia and Spain?",
+      "gold_answer": "Manolo Garc\u00eda",
+      "predicted": "Manolo Garc\u00eda.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7591,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation and I was wondering if you could remind me of the two companies you mentioned that prioritize employee safety and well-being like Triumvirate?",
+      "gold_answer": "Patagonia and Southwest Airlines.",
+      "predicted": "Patagonia and Southwest Airlines.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7783,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous conversation about the Seco de Cordero recipe from Ancash. You mentioned using a light or medium-bodied beer, but I was wondering if you could remind me what type of beer you specifically recommended?",
+      "gold_answer": "I recommended using a Pilsner or Lager for the recipe.",
+      "predicted": "Pilsner or lager.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8251,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning another trip to New York City and I was wondering if you could remind me of that vegan eatery you recommended last time, the one with multiple locations throughout the city?",
+      "gold_answer": "By Chloe",
+      "predicted": "By Chloe.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8216,
+      "structured_note": null
+    },
+    {
+      "question": "I'm going back to our previous chat about the Lost Temple of the Djinn one-shot. Can you remind me how many mummies the party will face in the temple?",
+      "gold_answer": "4",
+      "predicted": "4 mummies",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8329,
+      "structured_note": null
+    },
+    {
+      "question": "I was looking back at our previous chat and I wanted to confirm, how many times did the Chiefs play the Jaguars at Arrowhead Stadium?",
+      "gold_answer": "The Chiefs played the Jaguars 12 times at Arrowhead Stadium.",
+      "predicted": "12 times.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8146,
+      "structured_note": null
+    },
+    {
+      "question": "I was thinking about our previous conversation about the Fifth Album, and I was wondering if you could remind me what song you said best exemplified the band's growth and development as artists?",
+      "gold_answer": "Evolution",
+      "predicted": "\"Evolution\"",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7943,
+      "structured_note": null
+    },
+    {
+      "question": "I remember you told me to dilute tea tree oil with a carrier oil before applying it to my skin. Can you remind me what the recommended ratio is?",
+      "gold_answer": "The recommended ratio is 1:10, meaning one part tea tree oil to ten parts carrier oil.",
+      "predicted": "1:10 ratio with a carrier oil.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8360,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning to go back to the Natural Park of Moncayo mountain in Arag\u00f3n and I was wondering, what was the name of that hiking trail you recommended that takes you through the park's most stunning landscapes and offers panoramic views of the surrounding mountainside?",
+      "gold_answer": "The GR-90 trail.",
+      "predicted": "GR-90",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8220,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation about making a classic French omelette, and I wanted to confirm - how many eggs did you say we need for the recipe?",
+      "gold_answer": "2-3 eggs",
+      "predicted": "3 eggs.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8548,
+      "structured_note": null
+    },
+    {
+      "question": "I'm going back to our previous conversation about the grant aim page on molecular subtypes and endometrial cancer. Can you remind me what were the three objectives we outlined for the project?",
+      "gold_answer": "The three objectives were: 1) to identify molecular subtypes of endometrial cancer, 2) to investigate their clinical and biological significance, and 3) to develop biomarkers for early detection and prognosis.",
+      "predicted": "1) Identify molecular subtypes using genomic and transcriptomic approaches. 2) Investigate clinical and biological significance of subtypes. 3) Develop biomarkers for early detection and prognosis.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8102,
+      "structured_note": null
+    },
+    {
+      "question": "I think we discussed work from home jobs for seniors earlier. Can you remind me what was the 7th job in the list you provided?",
+      "gold_answer": "Transcriptionist.",
+      "predicted": "Transcriptionist.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8039,
+      "structured_note": null
+    },
+    {
+      "question": "I'm going back to our previous conversation about music theory. You mentioned some online resources for learning music theory. Can you remind me of the website you recommended for free lessons and exercises?",
+      "gold_answer": "MusicTheory.net",
+      "predicted": "MusicTheory.net",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8043,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous conversation about the Bajimaya v Reward Homes Pty Ltd case. Can you remind me what year the construction of the house began?",
+      "gold_answer": "2014.",
+      "predicted": "2014",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7878,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about natural remedies for dark circles under the eyes. You mentioned applying tomato juice mixed with lemon juice, how long did you say I should leave it on for?",
+      "gold_answer": "10 minutes",
+      "predicted": "10 minutes.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8168,
+      "structured_note": null
+    },
+    {
+      "question": "In our previous chat, you suggested 'sexual compulsions' and a few other options for alternative terms for certain behaviors. Can you remind me what the other four options were?",
+      "gold_answer": "I suggested 'sexual fixations', 'problematic sexual behaviors', 'sexual impulsivity', and 'compulsive sexuality'.",
+      "predicted": "Sexual fixations, Problematic sexual behaviors, Sexual impulsivity, Compulsive sexuality.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7978,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning my trip to Amsterdam again and I was wondering, what was the name of that hostel near the Red Light District that you recommended last time?",
+      "gold_answer": "International Budget Hostel",
+      "predicted": "The Bulldog Hostel Amsterdam.",
+      "correct": false,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8232,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about the fusion breakthrough at Lawrence Livermore National Laboratory. Can you remind me who is the President's Chief Advisor for Science and Technology mentioned in the article?",
+      "gold_answer": "Dr. Arati Prabhakar",
+      "predicted": "Dr. Arati Prabhakar.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7736,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous chat about the DHL Wellness Retreats campaign. Can you remind me how much was allocated for influencer marketing in the campaign plan?",
+      "gold_answer": "$2,000",
+      "predicted": "$2,000.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7533,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous conversation about building a cocktail bar. You recommended five bottles to make the widest variety of gin-based cocktails. Can you remind me what the fifth bottle was?",
+      "gold_answer": "Absinthe",
+      "predicted": "Absinthe",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8320,
+      "structured_note": null
+    },
+    {
+      "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+      "gold_answer": "The Plesiosaur had a blue scaly body.",
+      "predicted": "Blue",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8323,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about fracking in the Marcellus Shale region. You mentioned that some states require fracking companies to monitor groundwater quality at nearby wells before drilling and for a certain period after drilling is complete. Can you remind me which state you mentioned as an example that has this requirement?",
+      "gold_answer": "Pennsylvania",
+      "predicted": "Pennsylvania.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7846,
+      "structured_note": null
+    },
+    {
+      "question": "I'm going back to our previous conversation about traditional Indian embroidery and tailoring techniques. Can you remind me of the name of that online store based in India that sells traditional Indian fabrics, threads, and embellishments?",
+      "gold_answer": "Nostalgia",
+      "predicted": "Nostalgia",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7451,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation about high-end fashion brands, and I was wondering if you could remind me of the brand that uses wild rubber sourced from the Amazon rainforest?",
+      "gold_answer": "Veja",
+      "predicted": "Veja",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8274,
+      "structured_note": null
+    },
+    {
+      "question": "I was looking back at our previous conversation about Native American powwows and I was wondering, which traditional game did you say was often performed by skilled dancers at powwows?",
+      "gold_answer": "Hoop Dance",
+      "predicted": "Hoop Dance.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8096,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+      "gold_answer": "Nu, pogodi!",
+      "predicted": "The Soviet cartoon mentioned is \u201cNu, pogodi!\u201d.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7764,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation about atmospheric correction methods, and I wanted to confirm - you mentioned that 6S, MAJA, and Sen2Cor are all algorithms for atmospheric correction of remote sensing images. Can you remind me which one is implemented in the SIAC_GEE tool?",
+      "gold_answer": "The 6S algorithm is implemented in the SIAC_GEE tool.",
+      "predicted": "6S is implemented in the SIAC_GEE tool.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7956,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous conversation about The Library of Babel, and I wanted to confirm - what did Borges say about the center and circumference of the Library?",
+      "gold_answer": "According to Borges, 'The Library is a sphere whose exact center is any one of its hexagons and whose circumference is inaccessible.'",
+      "predicted": "Borges said the Library is \"a sphere whose exact center is any one of its hexagons and whose circumference is inaccessible.\"",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7856,
+      "structured_note": null
+    },
+    {
+      "question": "Can you remind me of the name of the romantic Italian restaurant in Rome you recommended for dinner?",
+      "gold_answer": "Roscioli",
+      "predicted": "Trattoria Da Enzo al 29.",
+      "correct": false,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7847,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning my trip to Speyer again and I wanted to confirm, what's the phone number of the Speyer tourism board that you provided me earlier?",
+      "gold_answer": "+49 (0) 62 32 / 14 23 - 0",
+      "predicted": "The phone number of the Speyer tourism board is +49 (0) 62 32 / 14 23 - 0.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8357,
+      "structured_note": null
+    },
+    {
+      "question": "I was going through our previous chat and I wanted to clarify something about the prayer of beginners in Tanqueray's Spiritual Life treatise. Can you remind me which chapter of the second part discusses vocal prayer and meditation?",
+      "gold_answer": "Chapter 4 of Book 1, titled 'Vocal Prayer and Meditation'.",
+      "predicted": "Chapter 4 of Book 1 in the second part discusses vocal prayer and meditation.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7791,
+      "structured_note": null
+    },
+    {
+      "question": "I remember you told me about the refining processes at CITGO's three refineries earlier. Can you remind me what kind of processes are used at the Lake Charles Refinery?",
+      "gold_answer": "Atmospheric distillation, fluid catalytic cracking (FCC), alkylation, and hydrotreating.",
+      "predicted": "Atmospheric distillation, fluid catalytic cracking (FCC), alkylation, and hydrotreating.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7813,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous chess game and I was wondering, what was the move you made after 27. Kg2 Bd5+?",
+      "gold_answer": "28. Kg3",
+      "predicted": "28. Kg3",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 9139,
+      "structured_note": null
+    },
+    {
+      "question": "I was thinking back to our previous conversation about the Radiation Amplified zombie, and I was wondering if you remembered what we finally decided to name it?",
+      "gold_answer": "Fissionator.",
+      "predicted": "Fissionator.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8455,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to follow up on our previous conversation about YouTube videos for workplace posture. Can you remind me of the Mayo Clinic video you recommended?",
+      "gold_answer": "The video is 'How to Sit Properly at a Desk to Avoid Back Pain' and the link is https://www.youtube.com/watch?v=UfOvNlX9Hh0.",
+      "predicted": "\"How to Sit Properly at a Desk to Avoid Back Pain\" by the Mayo Clinic.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7693,
+      "structured_note": null
+    },
+    {
+      "question": "I was looking back at our previous conversation about buying unique engagement rings directly from designers. Can you remind me of the Instagram handle of the UK-based designer who works with unusual gemstones?",
+      "gold_answer": "@jessica_poole_jewellery",
+      "predicted": "@jessica_poole_jewellery",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7611,
+      "structured_note": null
+    },
+    {
+      "question": "I remember you provided a list of 100 prompt parameters that I can specify to influence your output. Can you remind me what was the 27th parameter on that list?",
+      "gold_answer": "The 27th parameter was 'Sound effects (e.g., ambient, diegetic, non-diegetic, etc.)'.",
+      "predicted": "Sound effects (e.g., ambient, diegetic, non-diegetic, etc.)",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8423,
+      "structured_note": null
+    },
+    {
+      "question": "I wanted to check back on our previous conversation about Netflix. I mentioned that I wanted to be able to access all seasons of old shows? Do you remember what show I used as an example, the one that only had the last season available?",
+      "gold_answer": "Doc Martin",
+      "predicted": "Doc Martin",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8291,
+      "structured_note": null
+    },
+    {
+      "question": "I was thinking about our previous conversation about data privacy and security. You mentioned that companies use two-factor authentication to enhance security. Can you remind me what kind of two-factor authentication methods you were referring to?",
+      "gold_answer": "I mentioned biometric authentication or one-time passwords (OTP) as examples of two-factor authentication methods.",
+      "predicted": "Biometric authentication and one-time passwords (OTP).",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7573,
+      "structured_note": null
+    },
+    {
+      "question": "Can you remind me what was the average improvement in framerate when using the Hardware-Aware Modular Training (HAMT) agent in the 'To Adapt or Not to Adapt? Real-Time Adaptation for Semantic Segmentation' submission?",
+      "gold_answer": "The average improvement in framerate was approximately 20% when using the Hardware-Aware Modular Training (HAMT) agent.",
+      "predicted": "Approximately 20% improvement in framerate.",
+      "correct": true,
+      "question_type": "single-session-assistant",
+      "context_tokens": 7776,
+      "structured_note": null
+    }
+  ]
+}

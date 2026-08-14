@@ -1,0 +1,301 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-4o",
+  "judge_model": "gpt-4o",
+  "n_questions": 30,
+  "retrieval_backend": "dense",
+  "context_chars": 40000,
+  "memory_source": "raw",
+  "answerer": "reasoning",
+  "lme_split": "s",
+  "retrieval_backend_requested": "dense",
+  "retrieval_context_turns": 2,
+  "retrieval_deep_hits": null,
+  "facts_source": "gate_c",
+  "profile_tier": true,
+  "types_filter": "single-session-preference",
+  "seed": 42,
+  "db_path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/eval_dbs/longmemeval-s-raw-fullturns.db",
+  "stored": {
+    "facts": 0,
+    "raw": 1427,
+    "skipped_preexisting": 0
+  },
+  "stored_facts_fraction": 0.0,
+  "qa_accuracy": 0.5333,
+  "correct": 16,
+  "total": 30,
+  "mean_context_tokens": 8452,
+  "results": [
+    {
+      "question": "I've been struggling with my slow cooker recipes. Any advice on getting better results?",
+      "gold_answer": "The user would prefer responses that provide tips and advice specifically tailored to their slow cooker experiences, utilizing their recent success with beef stew and interest in making yogurt in the slow cooker. They might not prefer general slow cooker recipes or advice unrelated to their specific experiences and interests.",
+      "predicted": "Explore vegetarian and vegan slow cooker recipes like lentil curry or vegan chili, and ensure proper cashew preparation for yogurt. Use a thermometer for consistent results.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8849,
+      "structured_note": null
+    },
+    {
+      "question": "What should I serve for dinner this weekend with my homegrown ingredients?",
+      "gold_answer": "The user would prefer dinner suggestions that incorporate their homegrown cherry tomatoes and herbs like basil and mint, highlighting recipes that showcase their garden produce. They might not prefer suggestions that do not utilize these specific ingredients or do not emphasize the use of homegrown elements.",
+      "predicted": "Serve grilled chicken or fish with a fresh herb salad using parsley, oregano, and chives, and a side of roasted radishes. For dessert, make a lemon blueberry poppy seed cake.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8380,
+      "structured_note": null
+    },
+    {
+      "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+      "gold_answer": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+      "predicted": "Consider the Fontainebleau Miami Beach or 1 Hotel South Beach for your Miami trip, as they offer luxurious amenities and stunning views, aligning with your preference for unique hotel features.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8421,
+      "structured_note": null
+    },
+    {
+      "question": "I was thinking of trying a new coffee creamer recipe. Any recommendations?",
+      "gold_answer": "The user would prefer responses that suggest variations on their existing almond milk, vanilla extract, and honey creamer recipe or new ideas that align with their goals of reducing sugar intake and saving money. They might not prefer responses that recommend commercial creamer products or recipes that are high in sugar or expensive.",
+      "predicted": "Try making a coffee creamer with almond milk, a hint of lemon zest, ginger, and a touch of honey or vanilla, inspired by your interest in Lemon Ginger coffee flavors.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8846,
+      "structured_note": null
+    },
+    {
+      "question": "I was thinking about rearranging the furniture in my bedroom this weekend. Any tips?",
+      "gold_answer": "The user would prefer responses that take into account their existing plans to replace the bedroom dresser and their interest in mid-century modern style, suggesting furniture layouts that accommodate the new dresser and incorporate elements of this design aesthetic. They might not prefer general furniture arrangement tips or suggestions that do not consider their specific design preferences.",
+      "predicted": "Consider your Wi-Fi setup when rearranging your bedroom furniture to avoid further obstructing the signal, as you've experienced slow speeds and disconnections. Keep the layout open to maintain good coverage.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8464,
+      "structured_note": null
+    },
+    {
+      "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+      "gold_answer": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+      "predicted": "Check Eventbrite or Meetup for local cultural events this weekend, focusing on language diversity and cultural exchange, which align with your interests.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8120,
+      "structured_note": null
+    },
+    {
+      "question": "Can you suggest some activities that I can do in the evening?",
+      "gold_answer": "The user would prefer suggestions that involve relaxing activities that can be done in the evening, preferably before 9:30 pm. They would not prefer suggestions that involve using their phone or watching TV, as these activities have been affecting their sleep quality.",
+      "predicted": "Consider reading a book or writing in your journal as a calming evening activity. You might also enjoy guided imagery exercises, which align with your interest and can help you relax before bed.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8325,
+      "structured_note": null
+    },
+    {
+      "question": "I\u2019m a bit anxious about getting around Tokyo. Do you have any helpful tips?",
+      "gold_answer": "The user would prefer responses that utilize their existing resources, such as their Suica card and TripIt app, to provide personalized tips for navigating Tokyo's public transportation. They might not prefer general tips or recommendations that do not take into account their prior preparations.",
+      "predicted": "Use your Suica card for public transport, and ask the Park Hyatt Tokyo concierge for directions. Use Google Maps for navigation.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8592,
+      "structured_note": null
+    },
+    {
+      "question": "Can you recommend a show or movie for me to watch tonight?",
+      "gold_answer": "The user would prefer recommendations for stand-up comedy specials on Netflix, especially those that are known for their storytelling. They may not prefer recommendations for other genres or platforms.",
+      "predicted": "I recommend \"The Death of Stalin,\" a dark comedy that combines political satire with historical events, aligning with your interests in politics and comedy writing.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8276,
+      "structured_note": null
+    },
+    {
+      "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+      "gold_answer": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+      "predicted": "NeurIPS, ICML, RSNA Annual Meeting; Journal of Medical Imaging, IEEE Transactions on Medical Imaging.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8338,
+      "structured_note": null
+    },
+    {
+      "question": "I've been feeling nostalgic lately. Do you think it would be a good idea to attend my high school reunion?",
+      "gold_answer": "The user would prefer responses that draw upon their personal experiences and memories, specifically their positive high school experiences such as being part of the debate team and taking advanced placement courses. They would prefer suggestions that highlight the potential benefits of attending the reunion, such as reconnecting with old friends and revisiting favorite subjects like history and economics. The user might not prefer generic or vague responses that do not take into account their individual experiences and interests.",
+      "predicted": "Attending your high school reunion could be a great way to indulge in your recent nostalgia, reconnect with old friends, and reflect on your personal growth since high school.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8600,
+      "structured_note": null
+    },
+    {
+      "question": "I've got some free time tonight, any documentary recommendations?",
+      "gold_answer": "The user would prefer documentary recommendations that are similar in style and theme to 'Our Planet', 'Free Solo', and 'Tiger King', which they have previously enjoyed. They might not prefer recommendations of documentaries that are vastly different in tone or subject matter from these titles. The preferred response utilizes the user's previously mentioned viewing history to suggest documentaries that cater to their tastes.",
+      "predicted": "I recommend \"Planet Earth,\" \"Blue Planet,\" \"Dynasties,\" and \"Chasing Coral\" for nature and wildlife documentaries. These align with your interest in nature documentaries and coral reef conservation.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8394,
+      "structured_note": null
+    },
+    {
+      "question": "Can you suggest some useful accessories for my phone?",
+      "gold_answer": "The user would prefer suggestions of accessories that are compatible with an iPhone 13 Pro, such as high-quality screen protectors, durable cases, portable power banks, or phone wallet cases. They may not prefer suggestions of accessories that are not compatible with Apple products or do not enhance the functionality or protection of their phone.",
+      "predicted": "Screen protector, wallet case, and portable power bank are useful accessories for your iPhone 13 Pro.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8362,
+      "structured_note": null
+    },
+    {
+      "question": "I've been feeling like my chocolate chip cookies need something extra. Any advice?",
+      "gold_answer": "The user would prefer responses that build upon their previous experimentation with turbinado sugar, suggesting ingredients or techniques that complement its richer flavor. They might not prefer generic cookie-making advice or suggestions that don't take into account their existing use of turbinado sugar.",
+      "predicted": "Try adding turbinado sugar and warm spices like cinnamon or nutmeg for extra flavor and texture.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8223,
+      "structured_note": null
+    },
+    {
+      "question": "I'm thinking of inviting my colleagues over for a small gathering. Any tips on what to bake?",
+      "gold_answer": "The user would prefer baking suggestions that take into account their previous success with the lemon poppyseed cake, such as variations of that recipe or other desserts that share similar qualities. They might prefer suggestions that balance impressiveness with manageability, considering their previous experience. The user may not prefer overly complex or unfamiliar recipes, or suggestions that do not build upon their existing baking experience.",
+      "predicted": "Oatmeal raisin cookies with nuts or chocolate chip cookies.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8672,
+      "structured_note": null
+    },
+    {
+      "question": "I'm getting excited about my visit to the music store this weekend. Any tips on what to look for in a new guitar?",
+      "gold_answer": "The user would prefer responses that highlight the differences between Fender Stratocaster and Gibson Les Paul electric guitars, such as the feel of the neck, weight, and sound profile. They might not prefer general tips on buying an electric guitar or suggestions that do not take into account their current guitar and desired upgrade.",
+      "predicted": "Look for a guitar that complements your interest in rock and blues, similar to your Les Paul, and consider something with a different tonal quality from your Fender Stratocaster.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8369,
+      "structured_note": null
+    },
+    {
+      "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
+      "gold_answer": "The user would prefer responses that build upon their previous mention of purchasing a portable power bank, such as suggestions on how to optimize its use, like ensuring it's fully charged before use. They might also appreciate tips on utilizing battery-saving features on their phone. The user may not prefer responses that suggest alternative solutions or unrelated advice.",
+      "predicted": "Adjust settings like Bluetooth and use power-saving modes; consider battery health apps for insights.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8504,
+      "structured_note": null
+    },
+    {
+      "question": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+      "gold_answer": "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background.",
+      "predicted": "Pimm's Cup with a Twist, muddling cucumber slices.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8434,
+      "structured_note": null
+    },
+    {
+      "question": "Can you suggest some accessories that would complement my current photography setup?",
+      "gold_answer": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+      "predicted": "Consider adding a reflector or diffuser for better lighting control, a sturdy tripod for stability, and a high-quality prime lens for expressive shots, complementing your Sony A7R IV setup.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8180,
+      "structured_note": null
+    },
+    {
+      "question": "I've been feeling a bit stuck with my paintings lately. Do you have any ideas on how I can find new inspiration?",
+      "gold_answer": "The user would prefer responses that build upon their existing sources of inspiration, such as revisiting Instagram art accounts or exploring new techniques from online tutorials. They might also appreciate suggestions that revisit previous themes they found enjoyable, like painting flowers. The user would not prefer generic or vague suggestions for finding inspiration, and would likely appreciate responses that utilize their recent 30-day painting challenge experience.",
+      "predicted": "Explore flower paintings and texture techniques, participate in a painting challenge, and experiment with new mediums or techniques for inspiration.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8454,
+      "structured_note": null
+    },
+    {
+      "question": "Can you recommend some resources where I can learn more about video editing?",
+      "gold_answer": "The user would prefer responses that suggest resources specifically tailored to Adobe Premiere Pro, especially those that delve into its advanced settings. They might not prefer general video editing resources or resources related to other video editing software.",
+      "predicted": "Adobe Premiere Pro's official documentation, YouTube channels like Premiere Bro and Video Copilot, and online courses on Udemy and LinkedIn Learning.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8377,
+      "structured_note": null
+    },
+    {
+      "question": "I noticed my bike seems to be performing even better during my Sunday group rides. Could there be a reason for this?",
+      "gold_answer": "The user would prefer responses that reference specific details from their previous interactions, such as the replacement of the bike's chain and cassette, and the use of a new Garmin bike computer. They might prefer explanations that connect these details to the observed improvement in bike performance. The user may not prefer responses that fail to acknowledge these specific details or provide vague, general explanations for the improvement.",
+      "predicted": "The recent replacement of your bike's chain and cassette on February 1st likely improved its performance.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8510,
+      "structured_note": null
+    },
+    {
+      "question": "I'm trying to decide whether to buy a NAS device now or wait. What do you think?",
+      "gold_answer": "The user would prefer responses that take into account their current home network storage capacity issues and recent reliance on external hard drives, highlighting the potential benefits of a NAS device in addressing these specific needs. They might not prefer responses that ignore their current storage challenges or fail to consider their recent tech upgrades and priorities. Preferred responses would utilize the user's previous mentions of storage capacity issues and tech investments to inform their decision.",
+      "predicted": "Consider buying a NAS device now, as it aligns with your current needs for centralized backup and media streaming, and there are options available that address your security concerns.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8767,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning my meal prep next week, any suggestions for new recipes?",
+      "gold_answer": "The user would prefer responses that suggest healthy meal prep recipes, especially those that incorporate quinoa and roasted vegetables, and offer variations in protein sources. They might appreciate suggestions that build upon their existing preferences, such as new twists on chicken Caesar salads or turkey and avocado wraps. The user may not prefer responses that suggest unhealthy or high-calorie meal prep options, or those that deviate significantly from their established healthy eating habits.",
+      "predicted": "Consider meal prepping lentil bolognese with quinoa, roasted sweet potatoes with fresh rosemary, and Mexican-inspired dishes like chicken fajitas or roasted vegetable quesadillas.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8569,
+      "structured_note": null
+    },
+    {
+      "question": "Can you suggest some activities I can do during my commute to work?",
+      "gold_answer": "The user would prefer suggestions related to listening to new podcasts or audiobooks, especially the genre beyond true crime or self-improvement, such as history. They may not be interested in activities that require visual attention, such as reading or watching videos, as they are commuting. The user would not prefer general podcast topics such as true crime or self-improvement, as the user wants to explore other topics.",
+      "predicted": "Listen to podcasts or audiobooks related to your interests, such as true crime, self-improvement, or film discussions, to stay entertained and informed during your commute.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8737,
+      "structured_note": null
+    },
+    {
+      "question": "I've been thinking about ways to stay connected with my colleagues. Any suggestions?",
+      "gold_answer": "The user would prefer responses that acknowledge their desire for social interaction and collaboration while working remotely, utilizing their previous experiences with company initiatives and team collaborations. They might prefer suggestions of virtual team-building activities, regular check-ins, or joining interest-based groups within the company. The user may not prefer generic suggestions that do not take into account their specific work situation or previous attempts at staying connected with colleagues.",
+      "predicted": "Organize virtual coffee breaks and explore online team activities or social channels for informal chats, as these align with your interest in watercooler conversations and social interactions with colleagues.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8233,
+      "structured_note": null
+    },
+    {
+      "question": "My kitchen's becoming a bit of a mess again. Any tips for keeping it clean?",
+      "gold_answer": "The user would prefer responses that acknowledge and build upon their existing efforts to organize their kitchen, such as utilizing their new utensil holder to keep countertops clutter-free. They would also appreciate tips that address their concern for maintaining their granite surface, particularly around the sink area. Preferred responses would provide practical and actionable steps to maintain cleanliness, leveraging the user's current tools and setup. They might not prefer generic or vague suggestions that do not take into account their specific kitchen setup or concerns.",
+      "predicted": "Organize utensils using your new holder, purge unnecessary items, and use dividers to maximize space and reduce clutter.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8645,
+      "structured_note": null
+    },
+    {
+      "question": "I am planning another theme park weekend; do you have any suggestions?",
+      "gold_answer": "The user would prefer theme park suggestions that cater to their interest in both thrill rides and special events, utilizing their previous experiences at Disneyland, Knott's Berry Farm, Six Flags Magic Mountain, and Universal Studios Hollywood as a reference point. They would also appreciate recommendations that highlight unique food experiences and nighttime shows. The user might not prefer suggestions that focus solely on one aspect of theme parks, such as only thrill rides or only family-friendly attractions, and may not be interested in parks that lack special events or unique dining options.",
+      "predicted": "Consider Disneyland's Halloween Time or Knott's Scary Farm for Halloween-themed events, or the VIP Experience at Universal Studios Hollywood for an exclusive dining and tour experience.",
+      "correct": true,
+      "question_type": "single-session-preference",
+      "context_tokens": 8250,
+      "structured_note": null
+    },
+    {
+      "question": "I've been sneezing quite a bit lately. Do you think it might be my living room?",
+      "gold_answer": "The user would prefer responses that consider the potential impact of their cat, Luna, and her shedding on their sneezing, as well as the recent deep clean of the living room and its possible effect on stirring up dust. They might not prefer responses that fail to take into account these specific details previously mentioned, such as generic suggestions or unrelated factors.",
+      "predicted": "Check for dust or allergens in your living room, especially around your flickering TV, as it might contribute to your sneezing.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8072,
+      "structured_note": null
+    },
+    {
+      "question": "I'm planning a trip to Denver soon. Any suggestions on what to do there?",
+      "gold_answer": "The user would prefer responses that take into account their previous experience in Denver, specifically their interest in live music and memorable encounter with Brandon Flowers. They might appreciate suggestions that revisit or build upon this experience, such as revisiting the same bar or exploring similar music venues in the area. The user may not prefer general tourist recommendations or activities unrelated to their interest in live music.",
+      "predicted": "Explore Denver's music scene at venues like Red Rocks and enjoy local BBQ near the amphitheater.",
+      "correct": false,
+      "question_type": "single-session-preference",
+      "context_tokens": 8607,
+      "structured_note": null
+    }
+  ]
+}

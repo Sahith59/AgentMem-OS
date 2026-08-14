@@ -1,0 +1,774 @@
+[
+ {
+  "type": "single-session-preference",
+  "question": "I've been struggling with my slow cooker recipes. Any advice on getting better results?",
+  "question_date": "2023/05/30 (Tue) 23:44",
+  "gold": "The user would prefer responses that provide tips and advice specifically tailored to their slow cooker experiences, utilizing their recent success with beef stew and interest in making yogurt in the slow cooker. They might not prefer general slow cooker recipes or advice unrelated to their specific experiences and interests.",
+  "predicted": "Experiment with plant-based slow cooker recipes like lentil curry or black bean chili, and use a thermometer for better yogurt results.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_2fc6aabb": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36339,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": [
+   false,
+   false,
+   false
+  ],
+  "packet_tail_hint": "egan slow cooker recipes.\nUSER: As of session 1, the user is interested in making homemade yogurt using a slow cooker, including vegan yogurt alternatives with cashew base and custom flavorings.\nUSER: During session 1, the user asked about making yogurt in a slow cooker and inquired about the necessity of using a thermometer to monitor milk temperature during the heating process.\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+  "question_date": "2023/05/30 (Tue) 22:15",
+  "gold": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+  "predicted": "Check Eventbrite and Meetup for cultural events this weekend, focusing on language diversity and cultural exchange, as these align with your interests.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_9b182436": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36865,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": [
+   false,
+   false,
+   false
+  ],
+  "packet_tail_hint": "ses and facilitate more objective and critical evaluations of arguments. By breaking down arguments into their constituent parts and assessing them according to logical principles, we can more easily identify flaws in reasoning and evidence, and make more informed judgments.\n\nWhile it is true that personal biases can still influence the interpretation of evidence and the evaluati\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I’m a bit anxious about getting around Tokyo. Do you have any helpful tips?",
+  "question_date": "2023/05/30 (Tue) 22:40",
+  "gold": "The user would prefer responses that utilize their existing resources, such as their Suica card and TripIt app, to provide personalized tips for navigating Tokyo's public transportation. They might not prefer general tips or recommendations that do not take into account their prior preparations.",
+  "predicted": "Use your Suica card for public transport, and consider using navigation apps like Google Maps for efficient travel around Tokyo.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_cebb7159": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36587,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": [
+   true,
+   false,
+   true
+  ],
+  "packet_tail_hint": "llows the Shakadang River\n* **12:00 pm:** Take a break for lunch at a local restaurant near the park\n* **1:30 pm:** Visit the **Taroko Gorge**, a marble-walled canyon that's one of the park's most iconic attractions\n* **3:30 pm:** Explore the **Tunnel of Nine Turns**, a tunnel that's carved into the mountain and offers stunning views of the gorge\n* **5:00 pm:** Check-in at a hote\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "Can you recommend a show or movie for me to watch tonight?",
+  "question_date": "2023/05/30 (Tue) 23:43",
+  "gold": "The user would prefer recommendations for stand-up comedy specials on Netflix, especially those that are known for their storytelling. They may not prefer recommendations for other genres or platforms.",
+  "predicted": "Consider watching \"Ancient Egypt: Life and Death in the Valley of the Kings\" for a historical exploration, or a documentary on blockchain technology to align with your interest in the Ethereum Foundation.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_0250ae1c": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 35319,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": [
+   true,
+   true,
+   true
+  ],
+  "packet_tail_hint": "d undeciphered medieval manuscript written in an unknown script and language. It has puzzled scholars for centuries due to its seemingly uncrackable code and peculiar illustrations of plants, astronomical symbols, and human figures. The manuscript is named after Wilfrid Voynich, a Polish book dealer who purchased it in 1912. The most significant unsolved aspect of the Voynich Man\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "What time do I wake up on Saturday mornings?",
+  "question_date": "2023/06/24 (Sat) 03:58",
+  "gold": "7:30 am",
+  "predicted": "8:30 am",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_4a97ae40_1": true,
+   "answer_4a97ae40_2": true
+  },
+  "gold_answer_string_in_packet": true,
+  "packet_chars": 36222,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": " your pace to a brisk walk or a slow jog. This helps your heart rate and breathing slow down, and your body starts to recover.\n2. **Stretching**: Spend 10-15 minutes stretching your major muscle groups, including:\n\t* Hamstrings\n\t* Quads\n\t* Calves\n\t* Hip flexors\n\t* Lower back\n\t* Chest\n\t* Shoulders\n\t* Neck\n\nFocus on static stretches, holding each stretch for 15-30 seconds and breat\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous chat about the Lost Temple of the Djinn one-shot. Can you remind me how many mummies the party will face in the temple?",
+  "question_date": "2023/05/30 (Tue) 23:50",
+  "gold": "4",
+  "predicted": "Not mentioned.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_hn3IS1q_0": true
+  },
+  "gold_answer_string_in_packet": null,
+  "packet_chars": 36574,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": ", this property is priced well below market value.\n* Low competition: Not everyone is willing to invest in a low-income area, which means less competition for you.\n* Unique opportunity: This is the chance to be a part of revitalizing a community and making a difference in people's lives.\n\nContact us now to schedule a viewing and take the first step towards making a smart investme\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I've been feeling nostalgic lately. Do you think it would be a good idea to attend my high school reunion?",
+  "question_date": "2023/05/30 (Tue) 01:29",
+  "gold": "The user would prefer responses that draw upon their personal experiences and memories, specifically their positive high school experiences such as being part of the debate team and taking advanced placement courses. They would prefer suggestions that highlight the potential benefits of attending the reunion, such as reconnecting with old friends and revisiting favorite subjects like history and economics. The user might not prefer generic or vague responses that do not take into account their individual experiences and interests.",
+  "predicted": "Attending your high school reunion could be a meaningful experience, allowing you to reconnect with old friends and reflect on your personal growth since high school.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 0,
+  "presence": {
+   "answer_b0fac439": false
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36256,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "l draw in potential buyers.\n2. **Competitive:** Your price is competitive with other similar listings in your area, making it more likely to sell quickly.\n3. **Fast Sale:** By pricing it lower, you're increasing the chances of a fast sale, which is ideal if you want to get rid of the car quickly.\n\n**Cons:**\n\n1. **Limited Negotiation Room:** By pricing it lower, you're leaving les\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "Where did I go on my most recent family trip?",
+  "question_date": "2023/06/08 (Thu) 10:33",
+  "gold": "Paris",
+  "predicted": "Hawaii",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_02e66dec_1": true,
+   "answer_02e66dec_2": true
+  },
+  "gold_answer_string_in_packet": true,
+  "packet_chars": 35972,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "ving deeper into the least commonly known habits that can sabotage your weight loss journey. From energy balance and calorie deficit to the importance of NEAT (non-exercise activity therm\nUSER: [2023/06/06 (Tue) 21:58] perfect!\nASSISTANT: [2023/06/06 (Tue) 21:58] Great, I'm glad you found the updated email to your liking. Let me know if there is anything else I can help you with.\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "How many followers do I have on Instagram now?",
+  "question_date": "2023/06/15 (Thu) 23:26",
+  "gold": "1300",
+  "predicted": "1250 followers (as of 2023/05/25).",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_5126c02d_1": true,
+   "answer_5126c02d_2": true
+  },
+  "gold_answer_string_in_packet": true,
+  "packet_chars": 36074,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "research and scientific studies were incorporated to support the arguments and ideas presented in the book. The Harvard referencing method was used to cite the sources used in the book. Additionally, links to free images that relate to the topics discussed in the book were provided.\n\nThe key takeaways from this project include the importance of constantly evaluating one's beliefs\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about the grant aim page on molecular subtypes and endometrial cancer. Can you remind me what were the three objectives we outlined for the project?",
+  "question_date": "2023/05/30 (Tue) 22:24",
+  "gold": "The three objectives were: 1) to identify molecular subtypes of endometrial cancer, 2) to investigate their clinical and biological significance, and 3) to develop biomarkers for early detection and prognosis.",
+  "predicted": "1. Identify molecular subtypes using genomic and transcriptomic approaches. 2. Investigate clinical and biological significance of subtypes.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_HFMn2ZX_0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36573,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "versity you attended.\n2. **Relevance to your current job**: Explain how your education is relevant to your current job or career goals.\n3. **Academic achievements**: Mention any notable academic achievements, such as a high GPA, awards, or scholarships.\n\n**Be prepared to talk about your work experience:**\n\n1. **Job title and responsibilities**: Clearly explain your job title, res\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "How many autographed football have I added to my collection in the first three months of collection?",
+  "question_date": "2023/06/07 (Wed) 08:31",
+  "gold": "The information provided is not enough. You mentioned collecting autographed baseball but not football.",
+  "predicted": "15 autographed baseballs.",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_a22b654d_abs_1": true,
+   "answer_a22b654d_abs_2": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36315,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "f doing yoga on social media.\n\n2. Park Shin Hye - Park Shin Hye is an actress who promotes various forms of physical exercise and promotes body positivity. She has participated in charity walks and runs, and is an ambassador for the Korean National Parks Service where she frequently shares her love for hiking.\n\n3. G-Dragon - G-Dragon is a popular Korean rapper and fashion icon wh\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous conversation about the Bajimaya v Reward Homes Pty Ltd case. Can you remind me what year the construction of the house began?",
+  "question_date": "2023/05/30 (Tue) 23:23",
+  "gold": "2014.",
+  "predicted": "not mentioned",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_4aJsGCH_0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36574,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": " investment and avoid costly disputes.\n2. Are you a homeowner or builder? Learn from Bajimaya v Reward Homes Pty Ltd to understand your rights and obligations. Get expert advice and avoid legal disputes.\n3. Building your dream home? Don't let legal issues ruin your investment. Read about Bajimaya v Reward Homes Pty Ltd and learn how to protect yourself with proper legal guidance.\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "What time do I usually go to the gym?",
+  "question_date": "2023/06/06 (Tue) 16:35",
+  "gold": "6:00 pm",
+  "predicted": "7:00 pm on Mondays, Wednesdays, and Fridays.",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_b28f2c7a_1": true,
+   "answer_b28f2c7a_2": true
+  },
+  "gold_answer_string_in_packet": true,
+  "packet_chars": 35779,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": " in a hand-bag, whether it had handles or not, seems to me to display a contempt for the ordinary decencies of family life\"** (Act 1): This monologue is a delightful example of Algernon's clever wordplay and satire, as he mocks the idea of being born in a handbag.\n3. **\"I can resist everything except temptation\"** (Act 1): This famous line is a great showcase for Algernon's charm\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous chat about the DHL Wellness Retreats campaign. Can you remind me how much was allocated for influencer marketing in the campaign plan?",
+  "question_date": "2023/05/30 (Tue) 22:31",
+  "gold": "$2,000",
+  "predicted": "The specific amount allocated for influencer marketing in the DHL Wellness Retreats campaign plan is not mentioned.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_i0tMT9q_9": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36574,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "stions or needs, but I appreciate your willingness to help.\n\nIt was great chatting with you about fashion and style, and I hope you found our conversation helpful. If you have any more fashion-related questions or topics you'd like to discuss in the future, feel free to reach out to me anytime.\n\nUntil next time, stay stylish and confident in your new black distressed denim jeans!\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm looking back at our previous conversation about building a cocktail bar. You recommended five bottles to make the widest variety of gin-based cocktails. Can you remind me what the fifth bottle was?",
+  "question_date": "2023/05/30 (Tue) 18:11",
+  "gold": "Absinthe",
+  "predicted": "not mentioned",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_CaxTGYP_0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36526,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "g Gear Rental:** $10-$20 per person (mask, snorkel, and fins)\n* **Wetsuit or Rash Guard Rental:** $10-$20 per person (optional)\n* **Food and Beverages:** $10-$20 per person (optional)\n\n**Total Estimated Cost:**\n\nFor a family of four (two adults and two kids, ages 7 and 9), the total estimated cost would be:\n\n* $400-$600 (tour operator fees)\n* $40-$80 (snorkeling gear rental)\n* $4\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+  "question_date": "2023/05/30 (Tue) 23:39",
+  "gold": "The Plesiosaur had a blue scaly body.",
+  "predicted": "not mentioned",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_YkWn1Ne_0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36573,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "r first date. This unique setting allows for the exploration of the ideas of performance and facade in dating, as well as the potential for miscommunication in a situation where you are trying to get to know someone in a very public space.\n\nOverall, \"Cat Person\" is a short story that effectively uses its modern setting to explore contemporary themes of dating and gender dynamics,\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "How many engineers do I lead when I just started my new role as Software Engineer Manager?",
+  "question_date": "2023/06/06 (Tue) 08:19",
+  "gold": "The information provided is not enough. You mentioned starting the role as Senior Software Engineer but not Software Engineer Manager.",
+  "predicted": "5 engineers.",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_8748f791_abs_1": true,
+   "answer_8748f791_abs_2": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36890,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "taken steps to address these concerns. The company's 2019 Sustainability Report states that they have increased their supplier audits, and suppliers are expected to correct any violations immediately. Amazon also monitors key performance indicators on an ongoing basis to ensure suppliers are staying in compliance with ethical standards.\n\nWhile there is still room for improvement,\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about high-end fashion brands, and I was wondering if you could remind me of the brand that uses wild rubber sourced from the Amazon rainforest?",
+  "question_date": "2023/05/30 (Tue) 19:49",
+  "gold": "Veja",
+  "predicted": "not mentioned",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_ultrachat_440262": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36573,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "I mentioned earlier, you might want to explore:\n\n1. **The Black Cat**: A beloved indie-rock venue in D.C. that's hosted acts like Arcade Fire, The Strokes, and Vampire Weekend.\n2. **DC9**: A smaller, intimate venue that's perfect for discovering new bands and enjoying up-and-coming acts.\n3. **Rock & Roll Hotel**: A music venue and bar in D.C. that features a wide range of indie-r\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous conversation about Native American powwows and I was wondering, which traditional game did you say was often performed by skilled dancers at powwows?",
+  "question_date": "2023/05/30 (Tue) 17:54",
+  "gold": "Hoop Dance",
+  "predicted": "Drum and Dance Competitions.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_ultrachat_459954": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36571,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": " identity or a distinct way of life.\n\n3. Political autonomy: Some movements are driven by a desire for greater political autonomy, with groups seeking to establish their own governments and political systems.\n\n4. Economic inequality: Movements for self-determination are also often motivated by economic grievances, with marginalized groups seeking greater economic opportunities or\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+  "question_date": "2023/05/30 (Tue) 20:38",
+  "gold": "Nu, pogodi!",
+  "predicted": "Not mentioned.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_ultrachat_427265": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36573,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "n Harry Met Sally\"-inspired New York City theme would be amazing ideas to tie in with your movie choice.\n\nFor \"When Harry Met Sally\", you could also consider having a \"deli\"-themed snack bar with classic New York-style sandwiches, bagels, and knishes. Or, decorate the room with iconic NYC landmarks, like the Statue of Liberty, Central Park, or the Brooklyn Bridge.\n\nFor \"Sleepless\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "How many pre-1920 American coins do I have in my collection?",
+  "question_date": "2023/06/09 (Fri) 11:14",
+  "gold": "38",
+  "predicted": "37",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_d6028d6e_1": true,
+   "answer_d6028d6e_2": true
+  },
+  "gold_answer_string_in_packet": null,
+  "packet_chars": 36167,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "ve online resource that offers articles, tutorials and calculators on various retirement planning topics\n\n4. The Motley Fool: Provides retirement planning advice and stock market analysis\n\n5. Vanguard Retirement Planning Center: Provides retirement planning tools, calculators, and resources for investors. It is worth noting that you might want to seek professional financial advic\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was going through our previous conversation about The Library of Babel, and I wanted to confirm - what did Borges say about the center and circumference of the Library?",
+  "question_date": "2023/05/30 (Tue) 23:56",
+  "gold": "According to Borges, 'The Library is a sphere whose exact center is any one of its hexagons and whose circumference is inaccessible.'",
+  "predicted": "not mentioned",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_U4oCSfU_7": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36574,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "well-suited and require less maintenance.\n\n3. Prepare your soil: The quality of your soil is important for the health of your plants. You can improve the soil by adding compost, mulch, or other organic matter.\n\n4. Water regularly: Most plants require regular watering, especially in hot and dry conditions. Water deeply and infrequently, rather than shallowly and frequently.\n\n5. We\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I'm getting excited about my visit to the music store this weekend. Any tips on what to look for in a new guitar?",
+  "question_date": "2023/05/30 (Tue) 21:04",
+  "gold": "The user would prefer responses that highlight the differences between Fender Stratocaster and Gibson Les Paul electric guitars, such as the feel of the neck, weight, and sound profile. They might not prefer general tips on buying an electric guitar or suggestions that do not take into account their current guitar and desired upgrade.",
+  "predicted": "Look for a guitar suited for rock, blues, and heavy metal, like a Gibson Les Paul, which you are considering upgrading to.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_5e613445": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36193,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "nks for reaching out. Yes, I have over a year of experience with front-end development. I have worked extensively with HTML, CSS, JavaScript, and jQuery. Additionally, I have experience with React JS and have completed several projects using this technology.\n\nRecruiter: That's great to hear. Can you tell me about a particularly challenging project you've worked on in the past and\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
+  "question_date": "2023/05/30 (Tue) 16:42",
+  "gold": "The user would prefer responses that build upon their previous mention of purchasing a portable power bank, such as suggestions on how to optimize its use, like ensuring it's fully charged before use. They might also appreciate tips on utilizing battery-saving features on their phone. The user may not prefer responses that suggest alternative solutions or unrelated advice.",
+  "predicted": "Adjust screen brightness, limit background app refresh, use battery saver mode, manage notifications, and check for battery-draining apps.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_b10dce5e": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 35661,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "ssions. It's essential to consider your budget and prioritize your needs. If you decide that a gaming chair is a worthwhile investment, the Acer Predator chair is a great option to consider. However, it's also important to explore other options and find the best fit for your needs and budget.\n\nRemember, it's not just about the brand or the price tag; it's about finding a chair th\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+  "question_date": "2023/05/30 (Tue) 22:31",
+  "gold": "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background.",
+  "predicted": "Try a Cucumber Gimlet or Rose Petal Spritz with Hendrick's gin for your get-together.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_719502eb": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36043,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "nd sacrificing. The novel shows how these expectations can be suffocating and limiting, and how they can lead to feelings of guilt, shame, and inadequacy.\n* **Motherhood as a performance:** Bennett highlights how motherhood is often performed for the benefit of others, rather than being a genuine expression of love and care. The novel critiques the ways in which mothers are expec\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I noticed my bike seems to be performing even better during my Sunday group rides. Could there be a reason for this?",
+  "question_date": "2024/02/20 (Tue) 23:40",
+  "gold": "The user would prefer responses that reference specific details from their previous interactions, such as the replacement of the bike's chain and cassette, and the use of a new Garmin bike computer. They might prefer explanations that connect these details to the observed improvement in bike performance. The user may not prefer responses that fail to acknowledge these specific details or provide vague, general explanations for the improvement.",
+  "predicted": "Recent replacement of the bike's chain and cassette on February 1st.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_e6b6353d": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 35603,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "water testing helps detect any changes in water parameters that could harm your fish, such as high levels of ammonia, nitrite, or nitrate.\n2. **Identifies water quality issues early**: By testing regularly, you can identify potential issues before they become severe, allowing you to take corrective action to prevent harm to your fish.\n3. **Ensures optimal water conditions**: Wate\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I was looking back at our previous conversation about buying unique engagement rings directly from designers. Can you remind me of the Instagram handle of the UK-based designer who works with unusual gemstones?",
+  "question_date": "2023/05/30 (Tue) 23:50",
+  "gold": "@jessica_poole_jewellery",
+  "predicted": "not mentioned",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_2BSXlAr_0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36573,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "d API that allows you to interact with the platform using SOAP requests. It supports similar operations to the REST API, including CRUD operations for resources.\n\nPrestaShop is built using PHP and MySQL, and it uses the Smarty templating engine for generating HTML. It is a server-side application that can be installed on a web server, such as Apache or Nginx.\n\nPrestaShop does sup\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I'm trying to decide whether to buy a NAS device now or wait. What do you think?",
+  "question_date": "2023/05/30 (Tue) 15:33",
+  "gold": "The user would prefer responses that take into account their current home network storage capacity issues and recent reliance on external hard drives, highlighting the potential benefits of a NAS device in addressing these specific needs. They might not prefer responses that ignore their current storage challenges or fail to consider their recent tech upgrades and priorities. Preferred responses would utilize the user's previous mentions of storage capacity issues and tech investments to inform their decision.",
+  "predicted": "Consider buying a NAS now if you've found a secure model that meets your needs; otherwise, wait for more information or a sale.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_4d3be2ab": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 35692,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "iness objectives [[2](https://www.cognizant.com/us/en/services/digital-strategy)].\n3. Highlight how Cognizant can provide operational efficiencies and help Seagen Inc stay ahead of its competition with our unique blend of human insight and superhuman speed [[3](https://www.cognizant.com/us/en/services/consulting)].\n4. Emphasize the importance of strategic account management and t\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "Do I go to the gym more frequently than I did previously?",
+  "question_date": "2023/09/01 (Fri) 19:15",
+  "gold": "Yes",
+  "predicted": "Current routine is four times a week; no past routine mentioned for comparison.",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_d3bf812b_1": true,
+   "answer_d3bf812b_2": true
+  },
+  "gold_answer_string_in_packet": null,
+  "packet_chars": 36202,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "I feel the weight of my trials, but with every step, I find a way to rise above\nI look back on the miles I've traveled, and I see how far I've come\"\n\nThis creates a sense of balance and tension between the present moment (the struggles and the determination to rise above) and the past (the reflection on how far you've come). It's a powerful way to convey the idea that perseveranc\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "What type of vehicle model am I currently working on?",
+  "question_date": "2023/06/01 (Thu) 05:09",
+  "gold": "Ford F-150 pickup truck",
+  "predicted": "Ford Mustang Shelby GT350R model.",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_cd345582_1": true,
+   "answer_cd345582_2": true
+  },
+  "gold_answer_string_in_packet": true,
+  "packet_chars": 35965,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "oncert**: Create separate sections or playlists for each concert, with the songs you remember most from each show.\n3. **Mood-Based**: Group songs by the mood or atmosphere of the concert. For example, you could have a section for high-energy rock songs, another for mellow acoustic tracks, or one for nostalgic throwbacks.\n4. **Artist-Centric**: Create a playlist for each artist or\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-assistant",
+  "question": "I remember you provided a list of 100 prompt parameters that I can specify to influence your output. Can you remind me what was the 27th parameter on that list?",
+  "question_date": "2023/05/30 (Tue) 21:25",
+  "gold": "The 27th parameter was 'Sound effects (e.g., ambient, diegetic, non-diegetic, etc.)'.",
+  "predicted": "Language (e.g., English, French, Spanish, etc.)",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_sharegpt_6pWK9yx_0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36573,
+  "sections": [
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "ditionally lived a nomadic lifestyle, moving with their reindeer herds between summer and winter grazing areas.\n3. **Connection to Nature:** The Samí people have a strong spiritual connection to nature, believing that everything in nature has a spirit and should be treated with respect.\n\n**Customs and Practices:**\n\n1. **Respect for Elders:** Samí culture places great importance o\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "My kitchen's becoming a bit of a mess again. Any tips for keeping it clean?",
+  "question_date": "2023/05/30 (Tue) 19:03",
+  "gold": "The user would prefer responses that acknowledge and build upon their existing efforts to organize their kitchen, such as utilizing their new utensil holder to keep countertops clutter-free. They would also appreciate tips that address their concern for maintaining their granite surface, particularly around the sink area. Preferred responses would provide practical and actionable steps to maintain cleanliness, leveraging the user's current tools and setup. They might not prefer generic or vague suggestions that do not take into account their specific kitchen setup or concerns.",
+  "predicted": "Organize utensils with dividers, fix the leaky faucet, and maintain the garbage disposal to keep your kitchen clean.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_8549e5e0": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36619,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "owing. They offer a variety of heat levels, from \"Southern Belle\" to \"Nashville Hot,\" so you can customize your spice level.\n2. **Joella's Hot Chicken**: With multiple locations in Louisville, Joella's is a local favorite. They offer a range of heat levels, and their chicken is always juicy and flavorful.\n3. **Ramsi's Cafe on the World**: This eclectic cafe in the NuLu neighborho\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I've been sneezing quite a bit lately. Do you think it might be my living room?",
+  "question_date": "2023/05/30 (Tue) 17:51",
+  "gold": "The user would prefer responses that consider the potential impact of their cat, Luna, and her shedding on their sneezing, as well as the recent deep clean of the living room and its possible effect on stirring up dust. They might not prefer responses that fail to take into account these specific details previously mentioned, such as generic suggestions or unrelated factors.",
+  "predicted": "It might be your living room, as you have pet hair and concerns about air purification there. Consider improving air quality and managing pet hair to reduce sneezing.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_8ee04a2e": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 36825,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "l of Bucharest: This festival is held in August and features performances by folklore groups from around the world. It takes place in various locations throughout the city, including parks and public squares.\n\n3. Bear Dance Festival: This festival, held in early May in the mountain town of Comanesti, is a celebration of the Romanian tradition of the \"Bear Dance.\" The festival fea\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "knowledge-update",
+  "question": "What was my previous personal best time for the charity 5K run?",
+  "question_date": "2023/08/25 (Fri) 05:19",
+  "gold": "27 minutes and 45 seconds",
+  "predicted": "28 minutes.",
+  "gold_sessions": 2,
+  "gold_sessions_in_packet": 2,
+  "presence": {
+   "answer_ac0140ce_1": true,
+   "answer_ac0140ce_2": true
+  },
+  "gold_answer_string_in_packet": true,
+  "packet_chars": 35728,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "eck the seller's ratings and reviews.\n\t* Amazon: Amazon offers a wide selection of vintage action figures, including rare and hard-to-find items. Use specific keywords and filters to narrow down your search.\n2. **Specialty Toy Stores and Collectible Shops**:\n\t* Visit local comic book stores, vintage toy shops, or collectible stores in your area that specialize in vintage action f\n</[RECENT TURNS]>"
+ },
+ {
+  "type": "single-session-preference",
+  "question": "I'm planning a trip to Denver soon. Any suggestions on what to do there?",
+  "question_date": "2023/05/30 (Tue) 21:17",
+  "gold": "The user would prefer responses that take into account their previous experience in Denver, specifically their interest in live music and memorable encounter with Brandon Flowers. They might appreciate suggestions that revisit or build upon this experience, such as revisiting the same bar or exploring similar music venues in the area. The user may not prefer general tourist recommendations or activities unrelated to their interest in live music.",
+  "predicted": "Explore Denver's music scene at venues like Red Rocks and enjoy local BBQ near the amphitheater.",
+  "gold_sessions": 1,
+  "gold_sessions_in_packet": 1,
+  "presence": {
+   "answer_8f15ac24": true
+  },
+  "gold_answer_string_in_packet": false,
+  "packet_chars": 35901,
+  "sections": [
+   "[USER PROFILE]",
+   "[SEMANTIC FACTS]",
+   "[SEMANTIC MEMORY]",
+   "[RECENT TURNS]"
+  ],
+  "in_150_sample": null,
+  "packet_tail_hint": "e is worth subscribing to, especially if each one offers unique and exclusive content. however, the competition will lead to higher quality and more diverse programming, which means that consumers will ultimately have more content to choose from. additionally, advanced algorithms and personalized recommendations may help ease the process of discovering new content that you enjoy.\n</[RECENT TURNS]>"
+ }
+]
