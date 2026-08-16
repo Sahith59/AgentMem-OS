@@ -96,6 +96,33 @@ about $6.70 of smokes — which caught, diagnosed, and verified a
 regression that would otherwise have landed unexplained inside a $27
 headline run.
 
+## The prediction that missed by five points (and what fixed it)
+
+Before the first full-evidence run of all 500 questions we predicted
+78 to 81 percent, reasoning from category smoke tests that had gained
++27 questions. The run landed at 73.2. The prediction error is on the
+record: two of the three smokes had been run before the snippet change
+existed, so we were adding apples to a forecast about oranges. The
+forensics then split the real damage three ways: snippet elisions had
+cut answer sentences out of top-ranked evidence (assistant-recall) and
+countable items out of counting questions (multi-session); a further
+"protect the top hits" variant restored only 3 of 8 lost answers while
+collapsing breadth from 9.4 to 6.0 sessions per packet — packing
+levers trade, they do not add, now proven at a second operating point;
+and the remainder was answerer non-determinism, proven by
+knowledge-update packets that were byte-identical between smoke and
+run yet scored differently.
+
+The fix that survived measurement is F-19, query-adaptive packing:
+each question is routed by embedding similarity (no keyword rules) to
+the packing its intent needs — lookback questions get deep, intact
+passages; aggregate questions get breadth. Verified on rebuilt packets,
+then paid: assistant-recall 96.4% (54/56), breadth guard intact. The
+answerer-column measurement that followed (same memory, same judge,
+gpt-5.6-luna) moved the full-set number to 80.0% ± 0.5 pooled — and the
+gains landed almost exactly where the autopsies said reasoning, not
+memory, was the binding constraint.
+
 ## Harness bugs that made us look worse than we were
 
 Ceiling-testing our own harness (hand the answerer perfect evidence and see

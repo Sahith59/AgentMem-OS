@@ -61,7 +61,7 @@ reach but can never merge nodes or corrupt a fact. A false alias costs
 noise, never truth.
 
 The substrate under this is the same engine documented in
-[BENCHMARKS.md](BENCHMARKS.md): 79.3% ± 1.2 on LongMemEval `_s` in English
+[BENCHMARKS.md](BENCHMARKS.md): 80.0% ± 0.5 on the full LongMemEval `_s` in English
 with full protocol disclosure, local-first extraction at $0 per
 conversation, and a bi-temporal knowledge graph. The cross-lingual layer is
 not a pivot away from that work; it is what that work was for. A memory

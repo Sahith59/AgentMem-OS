@@ -4,13 +4,14 @@
 
 [![CI](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml/badge.svg)](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml)
 
-An open-source, local-first memory engine for LLM agents. Measured where it counts: **79.3% ± 1.2 on LongMemEval `_s`** with every knob disclosed. Facts are extracted by a local model and admitted only by deterministic validators, history lives in a bi-temporal knowledge graph, agents fork memory from each other git-style, and a fact stored in Hindi answers a query asked in English. That last part is the frontier: **no production memory system today survives a user switching languages**, and we are building and benchmarking the first one that does, starting with Indic languages.
+An open-source, local-first memory engine for LLM agents. Measured where it counts: **80.0% ± 0.5 on the full LongMemEval `_s` (3 pooled runs of all 500 questions, honest full-evidence harness)** with every knob disclosed, including the answerer (gpt-5.6-luna column; the GPT-4o column and the measured 89.3% ceiling are published beside it). Facts are extracted by a local model and admitted only by deterministic validators, history lives in a bi-temporal knowledge graph, agents fork memory from each other git-style, and a fact stored in Hindi answers a query asked in English. That last part is the frontier: **no production memory system today survives a user switching languages**, and we are building and benchmarking the first one that does, starting with Indic languages.
 
 ## Find what you need in 30 seconds
 
 | Question | Answer |
 |---|---|
-| How good is it, really? | **[docs/BENCHMARKS.md](docs/BENCHMARKS.md)**: 63.3% to 79.3%, the mechanism, the token curve, what is pending |
+| How good is it, really? | **[docs/BENCHMARKS.md](docs/BENCHMARKS.md)**: 63.3% to 80.0%, the mechanism, the token curve, the measured ceiling |
+| Every number in one table? | **[docs/RESULTS.md](docs/RESULTS.md)**: every run ever, with harness, models, tokens, and artifact |
 | What failed on the way? | **[docs/FAILURES.md](docs/FAILURES.md)**: every refuted idea, what it cost, what it bought |
 | Why is it built this way? | **[docs/DECISIONS.md](docs/DECISIONS.md)**: each decision with its measured outcome, good and bad |
 | What about Indian languages? | **[docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md)**: the cross-lingual layer, measured numbers, the benchmark nobody has built |
@@ -82,7 +83,7 @@ Verbatim conversation evidence stays primary. A local 8B model proposes facts fr
 
 | Configuration | QA accuracy | Mean context sent |
 |---|---|---|
-| **AgentMem OS, 40k operating point** | **79.3% ± 1.2** (n=150, mean of 3 runs) | ~9.8k tokens |
+| **AgentMem OS, 40k operating point** | **80.0% ± 0.5** (n=500, mean of 3 runs, luna column; GPT-4o column 73.2) | ~8.5k tokens |
 | AgentMem OS, 24k operating point | 76.9% ± 1.0 (n=150, mean of 3 runs) | 5,698 tokens |
 | Full-context GPT-4o (no memory system) | 60.2% (benchmark authors) | ~115k tokens |
 | Measured oracle ceiling (gold evidence handed in) | 86.7% | n/a |

@@ -1,4 +1,4 @@
-# The English Baseline: 63.3% to 79.3% on LongMemEval, With Every Step Logged
+# The English Baseline: 63.3% to 80.0% on LongMemEval, With Every Step Logged
 
 This document is the full story of AgentMem OS's benchmark campaign on
 [LongMemEval](https://arxiv.org/abs/2410.10813), the hardest widely used
@@ -15,8 +15,16 @@ it is.
 
 ## The number of record
 
-**79.3% ± 1.2 QA accuracy on LongMemEval `_s`** (150 questions, pooled mean
-of 3 identical runs: 120, 120, 117 of 150 correct).
+**80.0% ± 0.5 QA accuracy on the full LongMemEval `_s`** (all 500
+questions, pooled mean of 3 identical runs: 399, 403, 398 correct),
+measured on the honest full-evidence harness with a gpt-5.6-luna
+answerer and the frozen GPT-4o official judge. The GPT-4o-answerer
+column (73.2%, run 1) and the measured answerer ceiling (89.3%, oracle
+split) are published beside it — the answerer is part of every memory
+number, ours included. The earlier truncated-harness number of record,
+79.3% ± 1.2 at n=150, remains below with its full history and label.
+
+The prior record, kept for the protocol detail it documents:
 
 Every knob, because a benchmark number without its configuration is
 meaningless:
@@ -173,7 +181,7 @@ The six things that must match before two numbers are comparable: split,
 answerer, judge, question subset, memory source, context budget. Almost no
 published pair matches on all six. With that warning:
 
-| System | Published | Protocol disclosed? | Comparable to our 79.3? |
+| System | Published | Protocol disclosed? | Comparable to ours? |
 |---|---|---|---|
 | Full-context GPT-4o | 60.2% on `_s` | Yes (benchmark authors) | Yes. We are +19.1 |
 | Zep (paper, Jan 2025) | 71.2% on `_s` | Partially | Roughly. We are +8.1 |
@@ -183,7 +191,7 @@ published pair matches on all six. With that warning:
 | Supermemory | "86%" | Recall@5, not QA accuracy | No. Different metric family entirely |
 
 Our gold recall is 96.7%, which is higher than Supermemory's 86%, and we
-still only answer 79.3% correctly. That gap is exactly why recall numbers
+still only answered 79.3% correctly (truncated era). That gap is exactly why recall numbers
 and QA-accuracy numbers must never share a table without labels.
 
 ---
