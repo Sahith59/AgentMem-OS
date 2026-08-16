@@ -159,14 +159,25 @@ At the 40k point we send about 12x fewer tokens than full context and score
 Mem0 discloses. The 40k point is the least compressed among memory systems
 and we state that plainly rather than hiding the knob.
 
-### The ceiling
+### The ceiling, and exactly how we measure it
 
-Hand GPT-4o the gold evidence directly, no retrieval at all, same judge:
-**86.7% (130/150).** That is the practical maximum any memory system can
-reach on this data, answerer, and judge. We are at 91% of ceiling. The
-remaining errors are answer-layer reasoning (set construction, date
-arithmetic), not retrieval, and we know because we ran the oracle on the
-systematic failures: 9 of 29 fail even with perfect evidence.
+The ceiling answers one question: if memory were PERFECT, what would
+this answerer + judge combination score? Method, so anyone can rerun
+it: LongMemEval ships an `_oracle` variant of every question whose
+haystack contains ONLY the gold evidence sessions — no distractors, no
+retrieval difficulty, nothing to find. We ingest exactly those
+sessions, assemble the packet the same way, and run the same answerer
+and the same frozen judge (n=150, seed 42 — the same fixed sample as
+the historical 150-question rows, so ceilings and live scores share a
+denominator). Whatever the model misses under those conditions cannot
+be blamed on memory: it is answer-layer reasoning (set construction,
+date arithmetic) or judge strictness. Artifacts:
+`_oracle150_luna_fullturns` and the GPT-4o-era oracle runs.
+
+Measured ceilings: **GPT-4o 86.7% (130/150, truncated-era harness);
+gpt-5.6-luna 89.3% (134/150, honest full-turns harness).** Our live
+80.0% ± 0.5 runs at ~90% of its ceiling. We also ran the oracle on our
+29 chronic failures: 9 of them fail even with perfect evidence.
 
 Worth reading twice: some vendor claims exceed this ceiling. A memory system
 cannot beat what the answerer scores with perfect evidence unless the
