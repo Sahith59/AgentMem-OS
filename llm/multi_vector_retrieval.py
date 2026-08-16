@@ -85,6 +85,10 @@ class MultiVectorRetriever:
             snippet_chars if snippet_chars is not None
             else int(os.environ.get("AGENTMEM_OS_SNIPPET_CHARS",
                                     str(SNIPPET_CHARS))))
+        self.snippet_deep_hits = int(os.environ.get(
+            "AGENTMEM_OS_SNIPPET_DEEP_HITS", "0"))
+        self.snippet_deep_chars = int(os.environ.get(
+            "AGENTMEM_OS_SNIPPET_DEEP_CHARS", "3000"))
         self.n_docs = 0
         self._turns: List[str] = []
         self._matrix = None  # normalized per-turn embeddings
@@ -113,13 +117,14 @@ class MultiVectorRetriever:
         self._tfidf_matrix = self._tfidf_vec.fit_transform(self._turns)
         logger.debug(f"[MultiVectorRetriever] indexed {self.n_docs} turns (dense + tfidf)")
 
-    def _snippet(self, text: str, query: str, is_hit: bool) -> str:
+    def _snippet(self, text: str, query: str, is_hit: bool,
+                 cap_override: Optional[int] = None) -> str:
         """Trim a turn longer than snippet_chars to its most relevant
         region (hit turns) or its head (neighbor turns). Sentence-window
         scoring reuses the fitted TF-IDF vectorizer; ties and failures
         fall back to the head — deterministic either way. Elisions are
         marked with [...] so the reader knows text was cut."""
-        cap = self.snippet_chars
+        cap = cap_override if cap_override is not None else self.snippet_chars
         if cap <= 0 or len(text) <= cap:
             return text
         if not is_hit:
@@ -228,7 +233,27 @@ class MultiVectorRetriever:
             start = max(0, i - ctx)
             end = min(n, i + ctx + 1)
             covered |= set(range(start, end))
+            # F-18b (2026-08-16): asymmetric caps. The n=500 forensics
+            # showed uniform 800-char snippets elide the answer sentence
+            # inside the TOP hits (5/8 lost ssa answers, 14/14 broken
+            # multi-session counting questions had elided items). The
+            # ranker's most confident hits keep near-full depth (bounded
+            # so one 17k-char turn cannot eat the budget); only tail
+            # hits pay the 800-char breadth price.
+            deep_cap = self.snippet_deep_chars if (
+                self.snippet_chars > 0
+                and len(selected) < self.snippet_deep_hits) else None
+            # Deep treatment covers the WHOLE span: in assistant-recall
+            # questions the query matches the USER turn (the hit) while
+            # the answer lives in its NEIGHBOR — protecting only the hit
+            # was measured useless (the 8 ssa losses kept ans=False).
+            # DEFAULT OFF (deep_hits=0): span-wide depth restored only
+            # 3/8 ssa answers while collapsing ku breadth 9.4 -> 6.0
+            # sessions (measured 2026-08-16) — the b5e68ff "packing
+            # trades, it does not add" conclusion at yet another
+            # operating point. Kept as an env-gated experiment lever.
             selected.append("\n".join(
-                self._snippet(self._turns[j], query, is_hit=(j == i))
+                self._snippet(self._turns[j], query, is_hit=(j == i),
+                              cap_override=deep_cap)
                 for j in range(start, end)))
         return selected
