@@ -104,6 +104,19 @@ class DenseChromaAdapter:
 
         import os as _os
         _dh = _os.environ.get("AGENTMEM_OS_RETRIEVAL_DEEP_HITS")
+        # F-19: query-adaptive packing. Lookback intents get deep
+        # spans (the answer is a long passage in ONE session);
+        # aggregate intents get flat breadth. Neutral = config default.
+        try:
+            from agentmem_os.llm.retrieval_intent import route as _route
+            _mode = _route(query)
+        except Exception:
+            _mode = None
+        if _mode == "deep":
+            retriever.snippet_deep_hits = 4
+            retriever.snippet_deep_chars = 6000
+        elif _mode == "breadth":
+            retriever.snippet_deep_hits = 0
         return retriever.search(query, top_k=top_k,
                                 deep_hits=int(_dh) if _dh else None)
 
