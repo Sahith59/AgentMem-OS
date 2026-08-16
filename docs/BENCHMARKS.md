@@ -268,7 +268,12 @@ These will be filled with measured results, not projections:
   QA-accuracy number with a disclosed protocol (TiMem 76.88, Zep paper
   71.2, full-context 60.2). We publish both columns, labelled, because
   the answerer is part of any memory number whether vendors disclose
-  it or not. Luna runs 2-3 pooled mean: _pending_.
+  it or not. **Luna pooled headline, 3 identical runs of all 500:
+  80.0% ± 0.5 (399, 403, 398 correct).** The 0.5-point spread across
+  1,500 judged answers is the stability the single-run numbers above
+  lacked. Measured ceiling for this answerer (oracle split, perfect
+  evidence): 89.3% — which is why no honest number on this benchmark
+  reaches the 90s.
 - **LoCoMo clean re-run** under the current harness. Result: _pending_.
 - **Graphiti head-to-head** (blocked on parallelizing their 21+ hour
   ingestion; see FAILURES.md). Result: _pending_.
