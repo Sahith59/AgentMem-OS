@@ -351,8 +351,11 @@ class SupersessionJudge:
             import time as _t
             body = {"model": api_model,
                     "messages": [{"role": "user", "content": prompt +
-                                  "\n\nReturn ONLY a JSON object matching "
-                                  "the requested schema."}],
+                                  "\n\nReturn ONLY a JSON object with "
+                                  "EXACTLY these fields: {\"reasoning\": "
+                                  "string, \"superseded_ids\": [int], "
+                                  "\"cancelled_ids\": [int]}. Use empty "
+                                  "lists when nothing applies."}],
                     "response_format": {"type": "json_object"},
                     "max_tokens": 800, "temperature": 0}
             req = urllib.request.Request(
