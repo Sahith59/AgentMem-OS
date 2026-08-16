@@ -221,7 +221,11 @@ class ConsolidationV2:
     def __init__(self, get_db_session, model: str = DEFAULT_MODEL,
                  timeout: int = None):
         self.get_db = get_db_session
-        self.model = model
+        # Provenance: when the API extraction branch is active, the
+        # recorded model MUST name the actual extractor (F-20 smoke
+        # caught facts stamped llama3.1 that Luna wrote).
+        api_model = os.environ.get("AGENTMEM_OS_EXTRACTION_API_MODEL")
+        self.model = api_model or model
         self.timeout = timeout if timeout is not None else int(
             os.environ.get("AGENTMEM_OS_LLM_TIMEOUT", "600"))
         self.store = SemanticFactStore(get_db_session)
@@ -231,8 +235,58 @@ class ConsolidationV2:
         self.judge = SupersessionJudge(get_db_session, model=model,
                                        timeout=timeout)
         self._last_prompt_eval = None
+        self._api_usage = {"in": 0, "out": 0}
 
     # ── 1. Extraction ───────────────────────────────────────────────────────
+
+    def _llm_api(self, prompt: str, max_out: int = 6000) -> dict:
+        """OpenAI-compatible extraction path (F-20 write-time upgrade).
+        Activated by AGENTMEM_OS_EXTRACTION_API_MODEL. JSON mode; the
+        length-truncation class the ollama path guards against maps to
+        finish_reason=="length" and is retried once at double budget,
+        then raised loudly — same never-swallow rule."""
+        import time as _t
+        model = os.environ["AGENTMEM_OS_EXTRACTION_API_MODEL"]
+        body = {"model": model,
+                "messages": [{"role": "user", "content": prompt +
+                              "\n\nReturn a JSON object exactly of the "
+                              "form {\"facts\": [{\"text\": ..., "
+                              "\"fact_type\": \"event|state|preference"
+                              "|identity\", \"t_occurred\": ...}]}"}],
+                "response_format": {"type": "json_object"}}
+        if model.startswith(("gpt-5", "o1", "o3", "o4")):
+            body["max_completion_tokens"] = max_out
+        else:
+            body["max_tokens"] = min(max_out, 4000)
+            body["temperature"] = 0
+        req = urllib.request.Request(
+            "https://api.openai.com/v1/chat/completions",
+            data=json.dumps(body).encode(),
+            headers={"Authorization":
+                     f"Bearer {os.environ['OPENAI_API_KEY']}",
+                     "Content-Type": "application/json"})
+        last = None
+        for attempt in range(5):
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout) as r:
+                    out = json.loads(r.read())
+                break
+            except Exception as e:
+                last = e
+                _t.sleep(2 * (attempt + 1))
+        else:
+            raise ValueError(f"extraction API failed after retries: {last}")
+        u = out.get("usage", {})
+        self._last_prompt_eval = u.get("prompt_tokens")
+        self._api_usage["in"] += u.get("prompt_tokens", 0)
+        self._api_usage["out"] += u.get("completion_tokens", 0)
+        choice = out["choices"][0]
+        if choice.get("finish_reason") == "length":
+            if max_out >= 24000:
+                raise ValueError("extraction output hit API ceiling "
+                                 "even after retry — fact-dense session")
+            return self._llm_api(prompt, max_out=max_out * 2)
+        return json.loads(choice["message"]["content"])
 
     def _llm(self, prompt: str, num_predict: int = NUM_PREDICT,
              anti_repeat: bool = False) -> dict:
@@ -437,7 +491,10 @@ class ConsolidationV2:
             transcript = transcript[:TRANSCRIPT_CAP]
 
         self._last_prompt_eval = None
-        raw = self._llm(self._prompt(session_date, transcript))
+        if os.environ.get("AGENTMEM_OS_EXTRACTION_API_MODEL"):
+            raw = self._llm_api(self._prompt(session_date, transcript))
+        else:
+            raw = self._llm(self._prompt(session_date, transcript))
         candidates = raw.get("facts", [])
         prompt_tokens = self._last_prompt_eval
         ctx_clamped = bool(prompt_tokens and prompt_tokens >= NUM_CTX)

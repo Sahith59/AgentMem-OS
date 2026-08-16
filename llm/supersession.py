@@ -344,6 +344,33 @@ class SupersessionJudge:
     # ── LLM boundary (mocked in G1; real in G2) ─────────────────────────────
 
     def _llm(self, prompt: str) -> dict:
+        import os as _os
+        api_model = _os.environ.get("AGENTMEM_OS_SUPERSESSION_API_MODEL")
+        if api_model:
+            # F-20: cheap API judge for the high-volume yes/no calls.
+            import time as _t
+            body = {"model": api_model,
+                    "messages": [{"role": "user", "content": prompt +
+                                  "\n\nReturn ONLY a JSON object matching "
+                                  "the requested schema."}],
+                    "response_format": {"type": "json_object"},
+                    "max_tokens": 800, "temperature": 0}
+            req = urllib.request.Request(
+                "https://api.openai.com/v1/chat/completions",
+                data=json.dumps(body).encode(),
+                headers={"Authorization":
+                         f"Bearer {_os.environ['OPENAI_API_KEY']}",
+                         "Content-Type": "application/json"})
+            last = None
+            for attempt in range(5):
+                try:
+                    with urllib.request.urlopen(req, timeout=self.timeout) as r:
+                        out = json.loads(r.read())
+                    return json.loads(out["choices"][0]["message"]["content"])
+                except Exception as e:
+                    last = e
+                    _t.sleep(2 * (attempt + 1))
+            raise ValueError(f"supersession API failed after retries: {last}")
         req = urllib.request.Request(
             OLLAMA_URL,
             data=json.dumps({

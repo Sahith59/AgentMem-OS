@@ -1,0 +1,720 @@
+{
+ "gpt-4o-mini": {
+  "sessions": 25,
+  "mean_facts": 3.5,
+  "mean_prompt_tokens": 3054,
+  "mean_completion_tokens": 203,
+  "mean_seconds": 2.6,
+  "needle_survival": "3/5",
+  "est_corpus_cost_usd": 11.13,
+  "preflight_cost_usd": 0.015,
+  "rows": [
+   {
+    "mid": "answer_c7ddc051_2",
+    "n_facts": 6,
+    "pt": 3860,
+    "ct": 376,
+    "sec": 4.5,
+    "needles": [
+     "70-200"
+    ],
+    "survived": [
+     "70-200"
+    ],
+    "facts_sample": [
+     "The user has been getting great shots with their new 70-200mm zoom lens.",
+     "The user recently took great shots with their 70-200mm zoom lens at a local park.",
+     "The user is considering upgrading to a full-frame camera body, possibly a Nikon Z6 or a Ca",
+     "The user is thinking about getting a new camera bag to replace their old one, considering "
+    ]
+   },
+   {
+    "mid": "07ba9acd_2",
+    "n_facts": 7,
+    "pt": 3527,
+    "ct": 406,
+    "sec": 4.4,
+    "needles": [
+     "power bank"
+    ],
+    "survived": [],
+    "facts_sample": [
+     "The user is planning a trip to Seattle in February 2023.",
+     "The user had a flight to San Francisco on 2023/05/22.",
+     "The user experienced a delayed flight on their trip to San Francisco on 2023/05/22 and was",
+     "The user traveled to Chicago in December 2022."
+    ]
+   },
+   {
+    "mid": "8acfa731",
+    "n_facts": 4,
+    "pt": 3825,
+    "ct": 215,
+    "sec": 2.5,
+    "needles": [
+     "premier silver"
+    ],
+    "survived": [
+     "premier silver"
+    ],
+    "facts_sample": [
+     "The user has been trying to get Premier Silver status on United Airlines and has hit 20,00",
+     "The user has taken five trips to New York City since January 2023.",
+     "The user is planning a weekend getaway to Boston soon.",
+     "The user plans to book a morning flight on a Saturday for their trip to Boston."
+    ]
+   },
+   {
+    "mid": "25d1830a_1",
+    "n_facts": 5,
+    "pt": 3585,
+    "ct": 302,
+    "sec": 3.6,
+    "needles": [
+     "shoe rack"
+    ],
+    "survived": [],
+    "facts_sample": [
+     "The user started decluttering their closet on 2023/05/21, sorting out their clothes into t",
+     "The user is thinking of organizing their closet further as of 2023/05/21.",
+     "The user is planning to organize their shoes as of 2023/05/21.",
+     "The user has recently rearranged their bedroom and now has a lot more space to move around"
+    ]
+   },
+   {
+    "mid": "85b50955_6",
+    "n_facts": 5,
+    "pt": 4394,
+    "ct": 283,
+    "sec": 5.4,
+    "needles": [
+     "marigold"
+    ],
+    "survived": [
+     "marigold"
+    ],
+    "facts_sample": [
+     "The user harvested their first batch of tomatoes about 2 weeks ago from their garden.",
+     "The user has been using neem oil and soap solution to control aphids and whiteflies in the",
+     "The user is thinking about getting some marigold and zinnia flowers to attract beneficial ",
+     "The user is thinking of growing some sunflowers in their garden."
+    ]
+   },
+   {
+    "mid": "sharegpt_ynLoh9N_0",
+    "n_facts": 1,
+    "pt": 2736,
+    "ct": 47,
+    "sec": 1.0,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user referenced the painting 'Washington Crossing the Delaware' painted by Emanuel Leu"
+    ]
+   },
+   {
+    "mid": "sharegpt_BvuMJIh_0",
+    "n_facts": 7,
+    "pt": 2614,
+    "ct": 421,
+    "sec": 4.8,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user is involved with the fashion brand Autumn Adeigbo, which is a colorful and conver",
+     "The user describes Autumn Adeigbo as a brand that creates a positive impact on the lives o",
+     "The user states that Autumn Adeigbo is committed to ethical practices and makes a habit of",
+     "The user identifies Autumn Adeigbo as the first-to-mind brand for cool, ethical and global"
+    ]
+   },
+   {
+    "mid": "ultrachat_526862",
+    "n_facts": 0,
+    "pt": 2723,
+    "ct": 7,
+    "sec": 0.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "183d2822_1",
+    "n_facts": 5,
+    "pt": 4015,
+    "ct": 274,
+    "sec": 2.7,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user has been using the Pomodoro technique lately and finds it really helpful.",
+     "The user shared their own tip about the Pomodoro technique on a YouTube video about produc",
+     "The user received a response from the YouTube creator after commenting on their video.",
+     "The user has been getting distracted by social media and other online platforms."
+    ]
+   },
+   {
+    "mid": "cbdbcfbc_6",
+    "n_facts": 5,
+    "pt": 3509,
+    "ct": 282,
+    "sec": 3.2,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user perfected their homemade BBQ sauce on 2023/05/14.",
+     "The user has been using their smoker box on their gas grill a lot lately.",
+     "The user tried using hickory chips for the first time in December 2022.",
+     "The user purchased a few bags of applewood and mesquite chips in December 2022."
+    ]
+   },
+   {
+    "mid": "ultrachat_53812",
+    "n_facts": 0,
+    "pt": 2460,
+    "ct": 7,
+    "sec": 0.5,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_lD6huka_0",
+    "n_facts": 0,
+    "pt": 1621,
+    "ct": 7,
+    "sec": 0.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "85dfb2f5_1",
+    "n_facts": 5,
+    "pt": 3922,
+    "ct": 305,
+    "sec": 2.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user plans to organize their shoe closet on 2023/05/20.",
+     "The user got their favorite pair of Vans repaired in the week prior to 2023/05/20.",
+     "The user is thinking of grouping their sneakers together, including their newly repaired V",
+     "The user is considering getting a few more stackable shelf baskets to store their other sh"
+    ]
+   },
+   {
+    "mid": "7c338712_2",
+    "n_facts": 6,
+    "pt": 4196,
+    "ct": 326,
+    "sec": 2.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user has been trying to make a habit of exercising in the morning.",
+     "The user has a 45-minute train ride to work.",
+     "The user usually leaves the house at 8:45 AM to grab a coffee before their train ride.",
+     "The user has been having trouble sleeping and often finds themselves lying awake in bed be"
+    ]
+   },
+   {
+    "mid": "answer_72d9aa58_1",
+    "n_facts": 5,
+    "pt": 3678,
+    "ct": 284,
+    "sec": 3.3,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user went on a two-week trip to Europe with their parents and younger brother in April",
+     "The user is considering planning a solo trip to South America.",
+     "The user prefers flexibility and autonomy in their travel plans.",
+     "The user is interested in hiking in Torres del Paine and exploring the Perito Moreno Glaci"
+    ]
+   },
+   {
+    "mid": "795534dc_3",
+    "n_facts": 7,
+    "pt": 4092,
+    "ct": 351,
+    "sec": 3.7,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user has a cat named Luna.",
+     "The user applies flea prevention medication to Luna every month.",
+     "The user is considering building a DIY catio for Luna.",
+     "The user is concerned about the maintenance aspect of a wooden frame for the catio."
+    ]
+   },
+   {
+    "mid": "25432e10",
+    "n_facts": 3,
+    "pt": 3566,
+    "ct": 164,
+    "sec": 1.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user owns a Toyota Corolla.",
+     "The user has been using a local mechanic shop near their house that is always very reliabl",
+     "The user plans to check out RetailMeNot and Coupons.com to find deals on oil changes or ti"
+    ]
+   },
+   {
+    "mid": "ultrachat_240081",
+    "n_facts": 0,
+    "pt": 965,
+    "ct": 7,
+    "sec": 0.4,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "9ca2a195_1",
+    "n_facts": 5,
+    "pt": 3272,
+    "ct": 322,
+    "sec": 3.7,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user played tennis with their colleague Rachel at the local community center on 2023/0",
+     "The user plans to play a doubles match on 2023/05/27 (Saturday).",
+     "The user is planning to practice with their partner a few times before 2023/05/27 (Saturda",
+     "The user is planning to play in a doubles tournament at the club in February 2023 with the"
+    ]
+   },
+   {
+    "mid": "ultrachat_334679",
+    "n_facts": 0,
+    "pt": 1305,
+    "ct": 7,
+    "sec": 0.7,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_8f85nN2_0",
+    "n_facts": 0,
+    "pt": 554,
+    "ct": 7,
+    "sec": 0.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_3D3oQC0_260",
+    "n_facts": 0,
+    "pt": 1813,
+    "ct": 7,
+    "sec": 1.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "456807b7_1",
+    "n_facts": 5,
+    "pt": 3799,
+    "ct": 323,
+    "sec": 3.8,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user attended the Halloween-themed 'Scream Fest' event at Adventure Land theme park on",
+     "The user rode the new 'Darkness' rollercoaster three times in a row at the Scream Fest eve",
+     "The user plans to visit another theme park soon.",
+     "The user brought refillable water bottles and snacked on energy-boosting foods during thei"
+    ]
+   },
+   {
+    "mid": "sharegpt_Mpic8gv_0",
+    "n_facts": 0,
+    "pt": 2857,
+    "ct": 7,
+    "sec": 0.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "35e36341_1",
+    "n_facts": 6,
+    "pt": 3451,
+    "ct": 348,
+    "sec": 3.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user finished off the last of their chicken fajitas with sautéed onions and bell peppe",
+     "The user has a sweet potato sitting in their pantry.",
+     "The user loves the flavor of caramelized onions.",
+     "The user plans to try using roasted sweet potatoes and caramelized onions in their frittat"
+    ]
+   }
+  ]
+ },
+ "gpt-5.6-luna": {
+  "sessions": 25,
+  "mean_facts": 7.0,
+  "mean_prompt_tokens": 3053,
+  "mean_completion_tokens": 683,
+  "mean_seconds": 5.7,
+  "needle_survival": "3/5",
+  "est_corpus_cost_usd": 27.45,
+  "preflight_cost_usd": 0.036,
+  "rows": [
+   {
+    "mid": "answer_c7ddc051_2",
+    "n_facts": 13,
+    "pt": 3859,
+    "ct": 1045,
+    "sec": 8.1,
+    "needles": [
+     "70-200"
+    ],
+    "survived": [
+     "70-200"
+    ],
+    "facts_sample": [
+     "The user owns a new 70-200mm zoom lens.",
+     "The user has been getting great shots with the new 70-200mm zoom lens.",
+     "The user has been getting great portrait shots with remote flash triggers obtained from a ",
+     "The user currently uses a Nikon D5600 camera body."
+    ]
+   },
+   {
+    "mid": "07ba9acd_2",
+    "n_facts": 15,
+    "pt": 3526,
+    "ct": 1504,
+    "sec": 12.1,
+    "needles": [
+     "power bank"
+    ],
+    "survived": [],
+    "facts_sample": [
+     "The user is planning a trip to Seattle in February 2023.",
+     "The user took a flight to San Francisco on January 1, 2023, that was delayed, leaving the ",
+     "The user found having snacks on hand during the delayed San Francisco flight on January 1,",
+     "The user is trying to get better at packing lighter."
+    ]
+   },
+   {
+    "mid": "8acfa731",
+    "n_facts": 10,
+    "pt": 3824,
+    "ct": 904,
+    "sec": 7.5,
+    "needles": [
+     "premier silver"
+    ],
+    "survived": [
+     "premier silver"
+    ],
+    "facts_sample": [
+     "The user has been meaning to start tracking the user's travel rewards more closely.",
+     "The user uses a spreadsheet to track travel expenses.",
+     "The user is pursuing Premier Silver status with United Airlines.",
+     "The user reached 20,000 miles with United Airlines on 2023/05/21."
+    ]
+   },
+   {
+    "mid": "25d1830a_1",
+    "n_facts": 10,
+    "pt": 3584,
+    "ct": 1066,
+    "sec": 7.8,
+    "needles": [
+     "shoe rack"
+    ],
+    "survived": [],
+    "facts_sample": [
+     "The user started decluttering the user's closet on 2023/01/01.",
+     "The user sorted the user's clothes into three piles: keep, donate, and discard, on 2023/01",
+     "The user is considering organizing the user's closet further.",
+     "The user is considering adding shelves to the user's closet for folded clothes."
+    ]
+   },
+   {
+    "mid": "85b50955_6",
+    "n_facts": 9,
+    "pt": 4393,
+    "ct": 1026,
+    "sec": 7.7,
+    "needles": [
+     "marigold"
+    ],
+    "survived": [
+     "marigold"
+    ],
+    "facts_sample": [
+     "The user has a garden with aphids and whiteflies.",
+     "The user has been using neem oil and a soap solution to control aphids and whiteflies in t",
+     "The user harvested the user's first batch of tomatoes about 2 weeks before 2023/01/01, app",
+     "The user found the user's first batch of tomatoes delicious."
+    ]
+   },
+   {
+    "mid": "sharegpt_ynLoh9N_0",
+    "n_facts": 0,
+    "pt": 2735,
+    "ct": 59,
+    "sec": 1.4,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_BvuMJIh_0",
+    "n_facts": 0,
+    "pt": 2613,
+    "ct": 118,
+    "sec": 1.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "ultrachat_526862",
+    "n_facts": 1,
+    "pt": 2722,
+    "ct": 297,
+    "sec": 3.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user believes that networking and building relationships with customers and partners a"
+    ]
+   },
+   {
+    "mid": "183d2822_1",
+    "n_facts": 9,
+    "pt": 4014,
+    "ct": 889,
+    "sec": 6.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user works from home and remotely.",
+     "The user has been using the Pomodoro technique lately, and the technique has been helpful ",
+     "The user shared the user's own productivity tip about staying focused with the Pomodoro te",
+     "The creator of the YouTube productivity video responded to the user's comment around 2022/"
+    ]
+   },
+   {
+    "mid": "cbdbcfbc_6",
+    "n_facts": 12,
+    "pt": 3508,
+    "ct": 997,
+    "sec": 7.1,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user is thinking of hosting another barbecue at the user's place.",
+     "The user perfected the user's homemade BBQ sauce on 2022/12/25.",
+     "The user's homemade BBQ sauce has a balance of sweet, tangy, and spicy flavors.",
+     "The user has been using a smoker box on the user's gas grill frequently lately."
+    ]
+   },
+   {
+    "mid": "ultrachat_53812",
+    "n_facts": 0,
+    "pt": 2459,
+    "ct": 43,
+    "sec": 1.3,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_lD6huka_0",
+    "n_facts": 0,
+    "pt": 1620,
+    "ct": 43,
+    "sec": 1.0,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "85dfb2f5_1",
+    "n_facts": 8,
+    "pt": 3921,
+    "ct": 856,
+    "sec": 6.9,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user is thinking about organizing the user's shoe closet this weekend.",
+     "The user has a favorite pair of Vans that was repaired last week, relative to January 1, 2",
+     "The user likes categorizing and grouping the user's shoes.",
+     "The user is thinking about grouping the user's sneakers together, including the user's new"
+    ]
+   },
+   {
+    "mid": "7c338712_2",
+    "n_facts": 11,
+    "pt": 4195,
+    "ct": 797,
+    "sec": 6.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user is trying to establish a morning exercise habit.",
+     "The user finds it difficult to exercise consistently in the morning.",
+     "The user has a 45-minute train ride to work.",
+     "The user listens to podcasts or audiobooks during the 45-minute train ride to work."
+    ]
+   },
+   {
+    "mid": "answer_72d9aa58_1",
+    "n_facts": 16,
+    "pt": 3677,
+    "ct": 1165,
+    "sec": 8.6,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user is considering planning a solo trip to South America.",
+     "The user took a two-week trip to Europe with the user's parents and younger brother in Dec",
+     "The user experienced compromising on the itinerary and sacrificing activities during the D",
+     "The user prioritizes flexibility and autonomy when traveling."
+    ]
+   },
+   {
+    "mid": "795534dc_3",
+    "n_facts": 10,
+    "pt": 4091,
+    "ct": 863,
+    "sec": 7.2,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user has a cat named Luna.",
+     "The user is trying to find a good outdoor catio for Luna.",
+     "The user keeps Luna flea-free by applying the flea-prevention medication recommended by th",
+     "The user is considering building a DIY catio."
+    ]
+   },
+   {
+    "mid": "25432e10",
+    "n_facts": 7,
+    "pt": 3565,
+    "ct": 794,
+    "sec": 7.5,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user owns a Toyota Corolla.",
+     "The user has emergency items they want to keep tidy and easily accessible in the trunk of ",
+     "The user has been using a local mechanic shop near the user's house.",
+     "The user's local mechanic shop has been reliable and reasonably priced."
+    ]
+   },
+   {
+    "mid": "ultrachat_240081",
+    "n_facts": 0,
+    "pt": 964,
+    "ct": 71,
+    "sec": 1.3,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "9ca2a195_1",
+    "n_facts": 17,
+    "pt": 3271,
+    "ct": 1646,
+    "sec": 11.8,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user played tennis with colleague Rachel at the local community center on 2022/12/31.",
+     "The user enjoyed playing tennis with Rachel at the local community center on 2022/12/31.",
+     "The user plans to book a court at the local community center for a tennis match on 2023/01",
+     "The user plans to play a doubles tennis match with a partner on 2023/01/07."
+    ]
+   },
+   {
+    "mid": "ultrachat_334679",
+    "n_facts": 0,
+    "pt": 1304,
+    "ct": 70,
+    "sec": 1.4,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_8f85nN2_0",
+    "n_facts": 0,
+    "pt": 553,
+    "ct": 44,
+    "sec": 1.1,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "sharegpt_3D3oQC0_260",
+    "n_facts": 0,
+    "pt": 1812,
+    "ct": 66,
+    "sec": 1.4,
+    "needles": [],
+    "survived": [],
+    "facts_sample": []
+   },
+   {
+    "mid": "456807b7_1",
+    "n_facts": 10,
+    "pt": 3798,
+    "ct": 1002,
+    "sec": 7.8,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user attended the Halloween-themed “Scream Fest” event at Adventure Land theme park wi",
+     "The user and friends fit in all the scare zones and haunted houses at Scream Fest despite ",
+     "The user thought the “Zombie Apocalypse” scare zone at Scream Fest was especially well don",
+     "The user rode the new “Darkness” rollercoaster three times in a row at Scream Fest."
+    ]
+   },
+   {
+    "mid": "sharegpt_Mpic8gv_0",
+    "n_facts": 3,
+    "pt": 2856,
+    "ct": 663,
+    "sec": 7.0,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user did not understand the initial explanation of linear transformations on 2023/05/2",
+     "The user found the explanation of linear transformations somewhat clear after receiving re",
+     "The user prefers explanations of technical concepts in very simple, child-friendly languag"
+    ]
+   },
+   {
+    "mid": "35e36341_1",
+    "n_facts": 13,
+    "pt": 3450,
+    "ct": 1042,
+    "sec": 7.5,
+    "needles": [],
+    "survived": [],
+    "facts_sample": [
+     "The user is trying to reduce food waste.",
+     "The user wants to get creative with leftover vegetables and ingredients on hand.",
+     "On 2023/05/27, the user ate the last of chicken fajitas with sautéed onions and bell peppe",
+     "The user's chicken fajitas were made during the previous week, approximately the week of 2"
+    ]
+   }
+  ]
+ }
+}
