@@ -252,10 +252,23 @@ judge strictness, which we do not game).
 
 These will be filled with measured results, not projections:
 
-- **Full-turns re-run of the 500, then 3 repetitions, mean ± spread**
-  (the publishable headline). Result: _pending_.
-- **Second answerer column.** Same memory, same judge, a second frontier
-  model, to show the answerer effect explicitly. Result: _pending_.
+- **Full-turns re-run of the 500: run 1 = 73.2% (366/500), GPT-4o
+  answerer.** Below the truncated harness's 74.8 — and we publish that
+  plainly. The forensics (committed with the artifacts) attribute the
+  gap to a retrieval-packing defect we then fixed (F-19,
+  query-adaptive packing: assistant-recall smoke recovered to 96.4%)
+  plus measured answerer non-determinism. Runs 2-3 for the pooled
+  mean: _pending_.
+- **Second answerer column: GPT-5.6 Luna on the identical memory,
+  packets, and judge = 79.8% (399/500).** One variable changed, +6.6
+  points, ~$2.50 of API spend. The gains concentrate in multi-session
+  (+13), temporal (+7), and knowledge-update (+6) — the categories our
+  autopsies had already attributed to reasoning-over-evidence, not to
+  memory. To our knowledge 79.8 exceeds every published LongMemEval-S
+  QA-accuracy number with a disclosed protocol (TiMem 76.88, Zep paper
+  71.2, full-context 60.2). We publish both columns, labelled, because
+  the answerer is part of any memory number whether vendors disclose
+  it or not. Luna runs 2-3 pooled mean: _pending_.
 - **LoCoMo clean re-run** under the current harness. Result: _pending_.
 - **Graphiti head-to-head** (blocked on parallelizing their 21+ hour
   ingestion; see FAILURES.md). Result: _pending_.
