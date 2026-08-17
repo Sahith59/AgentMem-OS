@@ -281,6 +281,21 @@ class ContextAssembler:
                 "AGENTMEM_OS_ENABLE_AGGREGATION_ROUTING") == "1")
         facts_share = (_AGGREGATION_FACTS_SHARE if aggregation_intent
                        else FACTS_BUDGET_SHARE)
+        # F-21 hybrid source routing (env-gated): the F-19 intent router
+        # picks the packet's BACKBONE per question. Lookback intents
+        # keep the verbatim-heavy default (exact wording is the answer);
+        # everything else gets facts-heavy packets (dense dated notes
+        # carry updates/aggregates at a fraction of the tokens; measured
+        # plate-2: ku 69/78 at 2.9k mean tokens vs 72/78 at 8.5k).
+        if os.environ.get("AGENTMEM_OS_HYBRID_SOURCES") == "1":
+            try:
+                from agentmem_os.llm.retrieval_intent import route as _ri
+                _mode = _ri(query or "")
+            except Exception:
+                _mode = None
+            if _mode != "deep":
+                facts_share = float(os.environ.get(
+                    "AGENTMEM_OS_HYBRID_FACTS_SHARE", "0.85"))
         advice_intent = (
             not recall_intent
             and bool(_ADVICE_INTENT_RE.search(query or ""))

@@ -613,6 +613,8 @@ def main():
                 "AGENTMEM_OS_GATE_C_CORPUS", "default(gate_c_facts.db)"),
             "facts_budget_share": float(os.environ.get(
                 "AGENTMEM_OS_FACTS_BUDGET_SHARE", "0.35")),
+            "hybrid_sources": os.environ.get(
+                "AGENTMEM_OS_HYBRID_SOURCES") == "1",
             "facts_source": args.facts_source,
             "profile_tier": bool(args.profile),
             "types_filter": args.types or None,
