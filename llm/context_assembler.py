@@ -296,6 +296,13 @@ class ContextAssembler:
             if _mode != "deep":
                 facts_share = float(os.environ.get(
                     "AGENTMEM_OS_HYBRID_FACTS_SHARE", "0.85"))
+                # ...and shrink the PLATE, not just re-slice it: the
+                # first hybrid smoke re-sliced a 40k budget and saved
+                # zero tokens (measured: 8,531 vs 8,466 mean). Notes-
+                # backbone questions get a notes-scale budget; sem_budget
+                # is a local, so this is per-question and thread-safe.
+                sem_budget = min(sem_budget, int(os.environ.get(
+                    "AGENTMEM_OS_HYBRID_SEMANTIC_TOKENS", "2500")))
         advice_intent = (
             not recall_intent
             and bool(_ADVICE_INTENT_RE.search(query or ""))
