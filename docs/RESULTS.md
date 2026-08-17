@@ -30,6 +30,23 @@ that does not disclose the answerer is comparing answerers, not
 memories. The lesson of H3: this exam's roof for a live system is the
 high 80s; published numbers in the 90s are not this protocol.
 
+## Retrieval recall, published beside accuracy (the pairing nobody shows)
+
+Same system, same 500 questions, same retrieval stack as every number
+above (artifact `recall_at_k_results.json`):
+
+| Metric | @1 | @5 | @10 | @15 |
+|---|---|---|---|---|
+| ANY-gold session recall (the flavor vendors publish) | 77.0% | 93.8% | 98.4% | **99.0%** |
+| ALL-gold session recall (what multi-hop questions require) | 24.2% | 80.8% | 91.2% | 95.4% |
+
+Our Recall@15 is 99.0%. Our QA accuracy is 80.0%. **The 19-point gap
+is metric choice, not memory quality** — measured cleanly on one
+system so the two vocabularies can finally be compared. A multi-hop
+question that needs 4 sessions and retrieves 1 counts as a Recall
+success and then answers wrong; the ALL-gold row shows how often that
+happens.
+
 ## Main-line history (chronological)
 
 | Era | Harness | n | Answerer | Score | Mean ctx tokens | What changed | Artifact |
