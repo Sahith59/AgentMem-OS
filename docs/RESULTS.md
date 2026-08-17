@@ -47,6 +47,42 @@ question that needs 4 sessions and retrieves 1 counts as a Recall
 success and then answers wrong; the ALL-gold row shows how often that
 happens.
 
+### Per-category, session-level (full tables)
+
+ANY-gold = at least one gold session in the top k. ALL-gold = every
+gold session in the top k (what a multi-hop answer actually requires).
+
+| Category | ANY@5 | ALL@5 | ANY@10 | ALL@10 | ANY@15 | ALL@15 |
+|---|---|---|---|---|---|---|
+| single-session-user | 91.4% | 91.4% | 97.1% | 97.1% | 100.0% | 100.0% |
+| single-session-assistant | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% |
+| single-session-preference | 73.3% | 73.3% | 96.7% | 96.7% | 96.7% | 96.7% |
+| knowledge-update | 100.0% | 96.2% | 100.0% | 98.7% | 100.0% | 100.0% |
+| temporal-reasoning | 91.7% | 71.4% | 97.0% | 87.2% | 97.0% | 91.7% |
+| multi-session | 95.5% | 69.2% | 99.2% | 82.7% | 100.0% | 91.7% |
+| **OVERALL** | **93.8%** | **80.8%** | **98.4%** | **91.2%** | **99.0%** | **95.4%** |
+
+Read the multi-hop rows at k=5: ANY-gold says 95.5%, ALL-gold says
+69.2%. That 26-point spread inside our own system is the honest size
+of the trap in headline recall numbers.
+
+### Methodology, precisely (so this is comparable or criticizable)
+
+- **Retrieval unit**: the same production retriever ranks individual
+  TURNS (multilingual-e5-small dense + TF-IDF, reciprocal-rank fusion
+  k=60) over the question's full haystack.
+- **Session-level recall (tables above)**: sessions are ranked by
+  their best-ranked turn; Recall@k asks whether gold sessions appear
+  among the top k SESSIONS.
+- **Chunk-level recall (in progress, will be published beside this)**:
+  the top k units are the TURNS themselves; recall counts gold
+  sessions represented among the top-k turns. Stricter at small k
+  (one verbose session can occupy several of the k slots).
+- Vendor tables (e.g. Supermemory's "Recall@15 with aggregation") do
+  not disclose their unit or their aggregation step; we publish both
+  units so either comparison is possible, and label every table with
+  its unit. We do not claim protocol identity with anyone.
+
 ## Main-line history (chronological)
 
 | Era | Harness | n | Answerer | Score | Mean ctx tokens | What changed | Artifact |
