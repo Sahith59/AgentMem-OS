@@ -22,11 +22,13 @@ $0 by itself: this changes what the assembler reads, not what is
 generated. The eval's paid calls are unchanged.
 """
 import json
+import os
 import sqlite3
 from pathlib import Path
 
 HERE = Path(__file__).parent
-CORPUS = HERE / "extracted_memories" / "gate_c_facts.db"
+CORPUS = Path(os.environ.get("AGENTMEM_OS_GATE_C_CORPUS",
+    str(HERE / "extracted_memories" / "gate_c_facts.db")))
 
 
 def corpus_stats(path: Path = CORPUS) -> dict:

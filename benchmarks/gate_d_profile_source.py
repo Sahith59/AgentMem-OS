@@ -19,11 +19,13 @@ Three jobs, in this order:
 The corpus is opened read-only for reads; projection uses its own
 writable handle and is idempotent, so a re-run costs nothing.
 """
+import os
 import sqlite3
 from pathlib import Path
 
 HERE = Path(__file__).parent
-CORPUS = HERE / "extracted_memories" / "gate_c_facts.db"
+CORPUS = Path(os.environ.get("AGENTMEM_OS_GATE_C_CORPUS",
+    str(HERE / "extracted_memories" / "gate_c_facts.db")))
 # The projection must have reached the sessions that HAD material.
 # 0.60, and the number is REASONED rather than tuned to pass: the gate
 # exists to catch a BROKEN projection (crashed early, model down,
