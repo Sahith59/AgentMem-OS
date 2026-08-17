@@ -78,6 +78,11 @@ of the trap in headline recall numbers.
   the top k units are the TURNS themselves; recall counts gold
   sessions represented among the top-k turns. Stricter at small k
   (one verbose session can occupy several of the k slots).
+- **Chunk-level results (artifact `recall_at_k_chunklevel_results.json`)**:
+  ANY-gold @5/@10/@15 = 91.6% / 96.2% / 98.4%; ALL-gold = 69.0% /
+  81.8% / 88.6%. Stricter than session-level exactly as theory
+  predicts (a verbose session occupies several of the k slots), and
+  published beside it so either unit can be compared.
 - Vendor tables (e.g. Supermemory's "Recall@15 with aggregation") do
   not disclose their unit or their aggregation step; we publish both
   units so either comparison is possible, and label every table with
