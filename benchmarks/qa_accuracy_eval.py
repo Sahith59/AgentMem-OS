@@ -611,6 +611,8 @@ def main():
                 "AGENTMEM_OS_SNIPPET_CHARS", "800")),
             "gate_c_corpus": os.environ.get(
                 "AGENTMEM_OS_GATE_C_CORPUS", "default(gate_c_facts.db)"),
+            "facts_budget_share": float(os.environ.get(
+                "AGENTMEM_OS_FACTS_BUDGET_SHARE", "0.35")),
             "facts_source": args.facts_source,
             "profile_tier": bool(args.profile),
             "types_filter": args.types or None,

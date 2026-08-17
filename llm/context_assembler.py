@@ -60,7 +60,8 @@ from agentmem_os.llm.token_counter import TokenCounter
 # coverage while keeping the tier meaningful, rather than the one that
 # maximises the proxy. Optimising a proxy to its extreme is how a metric
 # stops describing the product.
-FACTS_BUDGET_SHARE = 0.35
+FACTS_BUDGET_SHARE = float(os.environ.get(
+    "AGENTMEM_OS_FACTS_BUDGET_SHARE", "0.35"))
 # The profile gets its OWN slice of the semantic allocation, taken
 # before facts and chunks divide the rest. It is small by design (who
 # the user IS compresses to a few dozen lines) and it must never
