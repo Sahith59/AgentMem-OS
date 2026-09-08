@@ -9,8 +9,9 @@ up, or quietly superseded. Columns that matter for comparability:
   harness and labelled, never deleted); `full` = the honest harness,
   benchmark delivered verbatim.
 - **Write-time extraction**: the model that reads conversations and
-  writes the fact tier. All rows to date: **llama3.1-8B, local** — the
-  upgrade to a frontier extractor is the next measured arc.
+  writes the fact tier. Rows are labelled `llama3.1-8B` (local) or
+  `gpt-5.6-luna` (the 2026-08 write-time upgrade: 19,195 sessions
+  re-extracted, 106,142 facts, supersession judged by gpt-4o-mini).
 - **Memory backbone**: what the answer packet is primarily built from.
 - **Answerer / Judge**: the judge is frozen (GPT-4o, the benchmark's
   official per-type prompts) in every row. We never tune the judge.
@@ -23,6 +24,23 @@ up, or quietly superseded. Columns that matter for comparability:
 | H2 | GPT-4o column, run 1 | full | 500 | verbatim+facts+profile | gpt-4o | 73.2% (366) | 8,561 | `_500q_40k_fullturns_r1` |
 | H3 | **Measured ceiling** (oracle: perfect evidence, no haystack) | full | 150 | gold sessions only | gpt-5.6-luna | **89.3%** (134) | 4,557 | `_oracle150_luna_fullturns` |
 | H4 | No memory system at all (benchmark authors' full-context figure) | — | 500 | entire haystack ~115k tokens | gpt-4o | 60.2% | ~115,000 | LongMemEval paper |
+
+**Write-time extraction upgrade (2026-08-17), single runs, not yet pooled:**
+
+| # | What | n | Extraction | Answerer | Score | Mean ctx tokens | Artifact |
+|---|---|---|---|---|---|---|---|
+| W1 | Luna-extracted corpus, verbatim-primary packets | 500 | gpt-5.6-luna | gpt-5.6-luna | **82.6%** (413) | 8,524 | `_500q_lunacorpus_p1` |
+| W2 | Same corpus, hybrid source routing (efficiency point) | 500 | gpt-5.6-luna | gpt-5.6-luna | 76.2% (381) | **4,401** | `_500q_lunacorpus_p3b_hybrid` |
+
+W1 and W2 are **single runs**; per reading rule 1 they do not displace
+the pooled H1 record until three runs exist. What changed in W1 is one
+variable, the extraction model behind the fact tier: +14 questions over
+the same configuration on the llama corpus (399 to 413), concentrated
+in temporal reasoning (102 to 113) and single-session-user (63 to 67).
+W2 is the same memory at a different operating point: 48% fewer
+context tokens for 6.4 points, with multi-session absorbing most of
+the loss (93 to 77). Both are published because the accuracy-tokens
+curve is the honest way to describe a memory system.
 
 The one-variable lesson of H1 vs H2: same memory, same packets, same
 judge — the answerer alone is worth +6.6 points. Any vendor comparison
@@ -121,6 +139,8 @@ of the trap in headline recall numbers.
 | ctx0 span width | 75.3% | trade, not gain | `_ctx0` |
 | Breadth-then-depth d=4 | 76.7% | trade, not gain | `_btd4` |
 | Extracted-facts-primary memory (llama3.1-8B extraction) | 48.7% | 8B-extracted notes cannot carry the packet alone — the measured reason the backbone is verbatim, and the motivation for the frontier-extractor arc | `_gate_d_full150` |
+| Facts-primary packets (gpt-5.6-luna extraction, 164q smoke) | 128/164 vs 140/164 verbatim | better notes close most but not all of the 2019 gap; 2.9k vs 8.5k tokens | `_smoke164_plate2_factsprimary` |
+| F-22 cross-session activity ledgers (43 chronic counting failures) | 8/43 vs ~10 expected by chance | **refuted**: the answerer used the supplied count 4 times out of 20 and was mostly right to ignore it — question-blind ledgers cannot honor window constraints ("in March", "past two weeks") | `_f22_ledger43` |
 
 ## Reading rules
 

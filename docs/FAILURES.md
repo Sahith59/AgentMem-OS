@@ -123,6 +123,44 @@ gpt-5.6-luna) moved the full-set number to 80.0% ± 0.5 pooled — and the
 gains landed almost exactly where the autopsies said reasoning, not
 memory, was the binding constraint.
 
+## Four probes, one wall: the counting tail is not a memory problem
+
+Across the whole campaign, 46 questions were wrong in every run we ever
+made, on every corpus, under both answerer models. Most are
+multi-session or temporal counting questions, and 21 of them had their
+complete gold evidence sitting in the assembled packet. Four
+independent attempts to fix them from the memory side:
+
+1. **Span-width and breadth-then-depth packing** (2026-08): traded
+   coverage for depth, never added.
+2. **Aggregation routing** (2026-08): failed its pre-registered bar,
+   shipped opt-in only.
+3. **Structured answerers v1/v2** (2026-08): 57.3% and 65.3% against a
+   ~79% free-reasoning baseline. Forcing reasoning through a schema
+   loses more than the arithmetic it buys.
+4. **F-22 cross-session activity ledgers** (2026-08-17): a local model
+   read each scope's facts, question-blind, and authored recurring
+   topic ledgers ("Concerts: 7 distinct instances, dates ..."), which
+   were injected as their own packet section. Result on the 43 chronic
+   counting failures: **8 correct against ~10 expected from
+   flip-history alone.** Refuted. The forensics are the interesting
+   part: in the 20 cases where a ledger contained the gold count, the
+   answerer used it 4 times and ignored it 16 times, and it was mostly
+   right to ignore it. Question-blind ledgers cannot know a question's
+   window ("in March", "in the past two weeks", "before making an
+   offer"), so an unscoped tally is a distractor, not an answer. Our
+   own prototype metric had also been too loose: it scored a hit
+   whenever *any* ledger's count equalled the gold number, which
+   inflated the go-signal that justified the test.
+
+The convergent conclusion, now paid for four times: **this tail is
+bound by the answerer's set construction under question constraints,
+not by memory delivery.** The one intervention that ever moved it was
+a stronger answerer (+13 multi-session questions from GPT-4o to
+GPT-5.6 Luna). We publish this because "we tried four times and the
+memory layer was never the problem" is a result, and because it tells
+anyone building in this space where not to spend their month.
+
 ## Harness bugs that made us look worse than we were
 
 Ceiling-testing our own harness (hand the answerer perfect evidence and see

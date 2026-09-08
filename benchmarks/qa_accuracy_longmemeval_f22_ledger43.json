@@ -1,0 +1,424 @@
+{
+  "dataset": "longmemeval",
+  "gen_model": "gpt-5.6-luna",
+  "judge_model": "gpt-4o",
+  "n_questions": 43,
+  "retrieval_backend": "dense",
+  "context_chars": 40000,
+  "memory_source": "raw",
+  "answerer": "reasoning",
+  "lme_split": "s",
+  "retrieval_backend_requested": "dense",
+  "retrieval_context_turns": 2,
+  "retrieval_deep_hits": null,
+  "snippet_chars": 800,
+  "gate_c_corpus": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/extracted_memories/gate_c_facts_luna.db",
+  "facts_budget_share": 0.35,
+  "hybrid_sources": false,
+  "ledger_file": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/ledgers_f22.json",
+  "question_list_file": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/f22_questions.json",
+  "facts_source": "gate_c",
+  "profile_tier": true,
+  "types_filter": null,
+  "seed": 42,
+  "db_path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/eval_dbs/longmemeval-s-raw-fullturns.db",
+  "stored": {
+    "facts": 0,
+    "raw": 0,
+    "skipped_preexisting": 43
+  },
+  "stored_facts_fraction": 0.0,
+  "qa_accuracy": 0.186,
+  "correct": 8,
+  "total": 43,
+  "mean_context_tokens": 8722,
+  "results": [
+    {
+      "question": "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?",
+      "gold_answer": "one week",
+      "predicted": "3 weeks and 2 days.",
+      "correct": false,
+      "question_type": "temporal-reasoning",
+      "context_tokens": 8545,
+      "structured_note": null
+    },
+    {
+      "question": "How many days a week do I attend fitness classes?",
+      "gold_answer": "4 days.",
+      "predicted": "3 days a week",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8406,
+      "structured_note": null
+    },
+    {
+      "question": "How much money did I raise for charity in total?",
+      "gold_answer": "$3,750",
+      "predicted": "More than $8,750",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8797,
+      "structured_note": null
+    },
+    {
+      "question": "What is the total cost of my recently purchased headphones and the iPad?",
+      "gold_answer": "The information provided is not enough. You mentioned purchasing a headphone, but you did not mention the iPad.",
+      "predicted": "$378 plus the iPad\u2019s price, which isn\u2019t mentioned.",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 8845,
+      "structured_note": null
+    },
+    {
+      "question": "How many movie festivals that I attended?",
+      "gold_answer": "I attended four movie festivals.",
+      "predicted": "3",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8332,
+      "structured_note": null
+    },
+    {
+      "question": "How many bikes did I service or plan to service in March?",
+      "gold_answer": "2",
+      "predicted": "1 bike",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8690,
+      "structured_note": null
+    },
+    {
+      "question": "How many days did I spend in total traveling in Hawaii and in New York City?",
+      "gold_answer": "15 days",
+      "predicted": "5 days plus an unspecified Hawaii duration; total not determinable",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8804,
+      "structured_note": null
+    },
+    {
+      "question": "How much will I save by taking the bus from the airport to my hotel instead of a taxi?",
+      "gold_answer": "The information provided is not enough. You did not mention how much will the bus take.",
+      "predicted": "Approximately $30\u2013$40.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 9501,
+      "structured_note": null
+    },
+    {
+      "question": "How many points do I need to earn to redeem a free skincare product at Sephora?",
+      "gold_answer": "100",
+      "predicted": "300 points total.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8971,
+      "structured_note": null
+    },
+    {
+      "question": "How many tanks do I currently have, including the one I set up for my friend's kid?",
+      "gold_answer": "3",
+      "predicted": "3 tanks",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 9035,
+      "structured_note": null
+    },
+    {
+      "question": "How many months passed between the completion of my undergraduate degree and the submission of my master's thesis?",
+      "gold_answer": "6 months",
+      "predicted": "Not mentioned",
+      "correct": false,
+      "question_type": "temporal-reasoning",
+      "context_tokens": 8579,
+      "structured_note": null
+    },
+    {
+      "question": "How many days did I spend attending workshops, lectures, and conferences in April?",
+      "gold_answer": "3 days",
+      "predicted": "1 day",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8422,
+      "structured_note": null
+    },
+    {
+      "question": "How many dinner parties have I attended in the past month?",
+      "gold_answer": "three",
+      "predicted": "3 dinner parties",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 8874,
+      "structured_note": null
+    },
+    {
+      "question": "How many items of clothing do I need to pick up or return from a store?",
+      "gold_answer": "3",
+      "predicted": "2 items total; only 1\u2014the blazer\u2014still needs pickup.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8759,
+      "structured_note": null
+    },
+    {
+      "question": "How many different doctors did I visit?",
+      "gold_answer": "I visited three different doctors: a primary care physician, an ENT specialist, and a dermatologist.",
+      "predicted": "3 different doctors",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 8600,
+      "structured_note": null
+    },
+    {
+      "question": "What is the total number of siblings I have?",
+      "gold_answer": "4",
+      "predicted": "1 sibling",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 9058,
+      "structured_note": null
+    },
+    {
+      "question": "How many different types of citrus fruits have I used in my cocktail recipes?",
+      "gold_answer": "3",
+      "predicted": "3 (orange, lemon, and lime)",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 9276,
+      "structured_note": null
+    },
+    {
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "gold_answer": "3",
+      "predicted": "2 albums or EPs",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8729,
+      "structured_note": null
+    },
+    {
+      "question": "How many health-related devices do I use in a day?",
+      "gold_answer": "4",
+      "predicted": "3 devices explicitly mentioned.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8761,
+      "structured_note": null
+    },
+    {
+      "question": "How much total money did I spend on attending workshops in the last four months?",
+      "gold_answer": "$720",
+      "predicted": "$220",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8738,
+      "structured_note": null
+    },
+    {
+      "question": "How many autographed football have I added to my collection in the first three months of collection?",
+      "gold_answer": "The information provided is not enough. You mentioned collecting autographed baseball but not football.",
+      "predicted": "15 autographed baseballs",
+      "correct": false,
+      "question_type": "knowledge-update",
+      "context_tokens": 8594,
+      "structured_note": null
+    },
+    {
+      "question": "How many musical instruments do I currently own?",
+      "gold_answer": "I currently own 4 musical instruments. I've had the Fender Stratocaster electric guitar for 5 years, the Yamaha FG800 acoustic guitar for 8 years, the 5-piece Pearl Export drum set for an unspecified amount of time, and the Korg B1 piano for 3 years.",
+      "predicted": "3",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8397,
+      "structured_note": null
+    },
+    {
+      "question": "How many different museums or galleries did I visit in the month of February?",
+      "gold_answer": "2",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 6486,
+      "structured_note": null
+    },
+    {
+      "question": "What was the page count of the two novels I finished in January and March?",
+      "gold_answer": "856",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8948,
+      "structured_note": null
+    },
+    {
+      "question": "I'm looking back at our previous chat about the DHL Wellness Retreats campaign. Can you remind me how much was allocated for influencer marketing in the campaign plan?",
+      "gold_answer": "$2,000",
+      "predicted": "The influencer-marketing allocation was not mentioned in the available campaign plan.",
+      "correct": false,
+      "question_type": "single-session-assistant",
+      "context_tokens": 8569,
+      "structured_note": null
+    },
+    {
+      "question": "How many weddings have I attended in this year?",
+      "gold_answer": "I attended three weddings. The couples were Rachel and Mike, Emily and Sarah, and Jen and Tom.",
+      "predicted": "4 weddings",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8979,
+      "structured_note": null
+    },
+    {
+      "question": "How many engineers do I lead when I just started my new role as Software Engineer Manager?",
+      "gold_answer": "The information provided is not enough. You mentioned starting the role as Senior Software Engineer but not Software Engineer Manager.",
+      "predicted": "5 engineers",
+      "correct": false,
+      "question_type": "knowledge-update",
+      "context_tokens": 8220,
+      "structured_note": null
+    },
+    {
+      "question": "How many kitchen items did I replace or fix?",
+      "gold_answer": "I replaced or fixed five items: the kitchen faucet, the kitchen mat, the toaster, the coffee maker, and the kitchen shelves.",
+      "predicted": "4 items",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8904,
+      "structured_note": null
+    },
+    {
+      "question": "How many fun runs did I miss in March due to work commitments?",
+      "gold_answer": "2",
+      "predicted": "1",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8590,
+      "structured_note": null
+    },
+    {
+      "question": "How many days ago did I attend a baking class at a local culinary school when I made my friend's birthday cake?",
+      "gold_answer": "21 days. 22 days (including the last day) is also acceptable.",
+      "predicted": "26 days ago",
+      "correct": false,
+      "question_type": "temporal-reasoning",
+      "context_tokens": 8830,
+      "structured_note": null
+    },
+    {
+      "question": "How much more did I spend on accommodations per night in Hawaii compared to Tokyo?",
+      "gold_answer": "$270",
+      "predicted": "More than $270 per night.",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 9040,
+      "structured_note": null
+    },
+    {
+      "question": "How many pre-1920 American coins do I have in my collection?",
+      "gold_answer": "38",
+      "predicted": "37 coins",
+      "correct": false,
+      "question_type": "knowledge-update",
+      "context_tokens": 9074,
+      "structured_note": null
+    },
+    {
+      "question": "How many years older is my grandma than me?",
+      "gold_answer": "43",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8674,
+      "structured_note": null
+    },
+    {
+      "question": "How many copies of my favorite artist's debut album were released worldwide?",
+      "gold_answer": "500",
+      "predicted": "500 copies",
+      "correct": true,
+      "question_type": "single-session-user",
+      "context_tokens": 8672,
+      "structured_note": null
+    },
+    {
+      "question": "How many weeks had passed since I recovered from the flu when I went on my 10th jog outdoors?",
+      "gold_answer": "15",
+      "predicted": "11 weeks and 4 days \u0aaa\u0abe\u0aa1",
+      "correct": false,
+      "question_type": "temporal-reasoning",
+      "context_tokens": 8707,
+      "structured_note": null
+    },
+    {
+      "question": "How many hours have I spent playing games in total?",
+      "gold_answer": "140 hours",
+      "predicted": "110 hours",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8733,
+      "structured_note": null
+    },
+    {
+      "question": "How many doctor's appointments did I go to in March?",
+      "gold_answer": "2",
+      "predicted": "1 appointment",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 9026,
+      "structured_note": null
+    },
+    {
+      "question": "How many times did I bake something in the past two weeks?",
+      "gold_answer": "4",
+      "predicted": "4 times",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 9136,
+      "structured_note": null
+    },
+    {
+      "question": "How much did I spend on a designer handbag?",
+      "gold_answer": "$800",
+      "predicted": "Not mentioned.",
+      "correct": false,
+      "question_type": "single-session-user",
+      "context_tokens": 8615,
+      "structured_note": null
+    },
+    {
+      "question": "How many hours of jogging and yoga did I do last week?",
+      "gold_answer": "0.5 hours",
+      "predicted": "not mentioned",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8931,
+      "structured_note": null
+    },
+    {
+      "question": "How many different types of food delivery services have I used recently?",
+      "gold_answer": "3",
+      "predicted": "3 different food delivery services",
+      "correct": true,
+      "question_type": "multi-session",
+      "context_tokens": 8601,
+      "structured_note": null
+    },
+    {
+      "question": "How many pieces of furniture did I buy, assemble, sell, or fix in the past few months?",
+      "gold_answer": "4",
+      "predicted": "3 pieces",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8725,
+      "structured_note": null
+    },
+    {
+      "question": "How many properties did I view before making an offer on the townhouse in the Brookside neighborhood?",
+      "gold_answer": "I viewed four properties before making an offer on the townhouse in the Brookside neighborhood. The reasons I didn't make an offer on them were: the kitchen of the bungalow needed serious renovation, the property in Cedar Creek was out of my budget, the noise from the highway was a deal-breaker for the 1-bedroom condo, and my offer on the 2-bedroom condo was rejected due to a higher bid.",
+      "predicted": "3 properties",
+      "correct": false,
+      "question_type": "multi-session",
+      "context_tokens": 8885,
+      "structured_note": null
+    }
+  ]
+}

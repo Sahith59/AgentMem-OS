@@ -396,6 +396,13 @@ if args.types:
     _wanted = {t.strip() for t in args.types.split(",")}
     items = [q for q in items if getattr(q, "question_type", "") in _wanted]
     print(f"  type filter {sorted(_wanted)} -> {len(items)} questions")
+# Explicit question list (F-22 validation: re-answer exactly the
+# autopsied failures). Recorded in the artifact.
+_QLIST = os.environ.get("AGENTMEM_OS_QUESTION_LIST_FILE")
+if _QLIST:
+    _qset = set(json.load(open(_QLIST)))
+    items = [q for q in items if q.question in _qset]
+    print(f"  question-list filter {_QLIST} -> {len(items)} questions")
 print(f"QA-accuracy eval: {args.dataset}, {len(items)} questions "
       f"(of {len(ds.queries)} sampled — some lack a scope or answer), "
       f"gen={args.gen_model}, judge={args.judge_model}")
@@ -496,6 +503,10 @@ def ensure_scope_ingested(scope_keys: list) -> str:
     return sid
 
 
+_LEDGER_FILE = os.environ.get("AGENTMEM_OS_LEDGER_FILE")
+_LEDGERS = json.load(open(_LEDGER_FILE)) if _LEDGER_FILE else {}
+
+
 def retrieve_context(scope_keys: list, question: str) -> str:
     sid = ensure_scope_ingested(scope_keys)
     # The profile is INJECTED, so an unscoped read would leak into
@@ -507,7 +518,12 @@ def retrieve_context(scope_keys: list, question: str) -> str:
     # externally-set state (G3 R3 major 4).
     if getattr(assembler._profile, "_scope_map", None) is not None:
         assembler._profile.current_question = question
-    return assembler.assemble(sid, question, agent_id=sid)
+    packet = assembler.assemble(sid, question, agent_id=sid)
+    # F-22 prototype: question-BLIND cross-session ledgers, authored at
+    # write time from the scope's facts, prepended as their own section.
+    if _LEDGERS and question in _LEDGERS:
+        packet = "[ACTIVITY LEDGERS]\n" + _LEDGERS[question] + "\n\n" + packet
+    return packet
 
 
 _GATE_C_PROVENANCE = None
@@ -615,6 +631,9 @@ def main():
                 "AGENTMEM_OS_FACTS_BUDGET_SHARE", "0.35")),
             "hybrid_sources": os.environ.get(
                 "AGENTMEM_OS_HYBRID_SOURCES") == "1",
+            "ledger_file": os.environ.get("AGENTMEM_OS_LEDGER_FILE"),
+            "question_list_file": os.environ.get(
+                "AGENTMEM_OS_QUESTION_LIST_FILE"),
             "facts_source": args.facts_source,
             "profile_tier": bool(args.profile),
             "types_filter": args.types or None,

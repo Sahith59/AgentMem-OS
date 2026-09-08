@@ -1,0 +1,34 @@
+{
+ "baseline_v2": {
+  "best_f1": 0.504,
+  "precision_at_best": 0.452,
+  "operating_point": null
+ },
+ "layers": "L0 ctx-gate + L1 translit-normalized strsim + L2 AND-rule",
+ "translit_note": "offline indic-transliteration; Tamil mapping known-weak (disclosed), Sarvam API is the S2 lever",
+ "best_f1_gated": {
+  "t_cos": 0.88,
+  "t_str": 0.5,
+  "gate": true,
+  "precision": 0.425,
+  "recall": 0.68,
+  "f1": 0.523,
+  "fp_hard": 106,
+  "fp_easy": 9
+ },
+ "operating_gated": null,
+ "best_f1_ungated": {
+  "t_cos": 0.7,
+  "t_str": 0.7,
+  "gate": false,
+  "precision": 0.521,
+  "recall": 0.496,
+  "f1": 0.508,
+  "fp_hard": 57,
+  "fp_easy": 0
+ },
+ "operating_ungated": null,
+ "per_class_at_operating": {},
+ "missed_positives_at_op": [],
+ "false_merges_at_op": []
+}

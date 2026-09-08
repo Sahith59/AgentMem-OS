@@ -1,0 +1,255 @@
+{
+ "model": "intfloat/multilingual-e5-small",
+ "entities": 53,
+ "positive_pairs": 125,
+ "hard_negative_pairs": 219,
+ "easy_negative_pairs": 1378,
+ "sweep": [
+  {
+   "threshold": 0.8,
+   "precision": 0.079,
+   "recall": 1.0,
+   "f1": 0.147,
+   "fp_hard": 219,
+   "fp_easy": 1234
+  },
+  {
+   "threshold": 0.81,
+   "precision": 0.084,
+   "recall": 1.0,
+   "f1": 0.155,
+   "fp_hard": 219,
+   "fp_easy": 1142
+  },
+  {
+   "threshold": 0.82,
+   "precision": 0.093,
+   "recall": 1.0,
+   "f1": 0.169,
+   "fp_hard": 218,
+   "fp_easy": 1007
+  },
+  {
+   "threshold": 0.83,
+   "precision": 0.105,
+   "recall": 0.984,
+   "f1": 0.189,
+   "fp_hard": 216,
+   "fp_easy": 836
+  },
+  {
+   "threshold": 0.84,
+   "precision": 0.123,
+   "recall": 0.984,
+   "f1": 0.219,
+   "fp_hard": 210,
+   "fp_easy": 665
+  },
+  {
+   "threshold": 0.85,
+   "precision": 0.149,
+   "recall": 0.968,
+   "f1": 0.259,
+   "fp_hard": 203,
+   "fp_easy": 486
+  },
+  {
+   "threshold": 0.86,
+   "precision": 0.182,
+   "recall": 0.936,
+   "f1": 0.304,
+   "fp_hard": 189,
+   "fp_easy": 338
+  },
+  {
+   "threshold": 0.87,
+   "precision": 0.227,
+   "recall": 0.904,
+   "f1": 0.363,
+   "fp_hard": 173,
+   "fp_easy": 211
+  },
+  {
+   "threshold": 0.88,
+   "precision": 0.275,
+   "recall": 0.856,
+   "f1": 0.416,
+   "fp_hard": 153,
+   "fp_easy": 129
+  },
+  {
+   "threshold": 0.89,
+   "precision": 0.337,
+   "recall": 0.776,
+   "f1": 0.47,
+   "fp_hard": 127,
+   "fp_easy": 64
+  },
+  {
+   "threshold": 0.9,
+   "precision": 0.377,
+   "recall": 0.664,
+   "f1": 0.481,
+   "fp_hard": 109,
+   "fp_easy": 28
+  },
+  {
+   "threshold": 0.91,
+   "precision": 0.452,
+   "recall": 0.568,
+   "f1": 0.504,
+   "fp_hard": 80,
+   "fp_easy": 6
+  },
+  {
+   "threshold": 0.92,
+   "precision": 0.478,
+   "recall": 0.432,
+   "f1": 0.454,
+   "fp_hard": 58,
+   "fp_easy": 1
+  },
+  {
+   "threshold": 0.93,
+   "precision": 0.476,
+   "recall": 0.312,
+   "f1": 0.377,
+   "fp_hard": 43,
+   "fp_easy": 0
+  },
+  {
+   "threshold": 0.94,
+   "precision": 0.418,
+   "recall": 0.184,
+   "f1": 0.256,
+   "fp_hard": 32,
+   "fp_easy": 0
+  },
+  {
+   "threshold": 0.95,
+   "precision": 0.424,
+   "recall": 0.112,
+   "f1": 0.177,
+   "fp_hard": 19,
+   "fp_easy": 0
+  },
+  {
+   "threshold": 0.96,
+   "precision": 0.333,
+   "recall": 0.048,
+   "f1": 0.084,
+   "fp_hard": 12,
+   "fp_easy": 0
+  },
+  {
+   "threshold": 0.97,
+   "precision": 0.375,
+   "recall": 0.024,
+   "f1": 0.045,
+   "fp_hard": 5,
+   "fp_easy": 0
+  },
+  {
+   "threshold": 0.98,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "fp_hard": 1,
+   "fp_easy": 0
+  }
+ ],
+ "best_f1": {
+  "threshold": 0.91,
+  "precision": 0.452,
+  "recall": 0.568,
+  "f1": 0.504,
+  "fp_hard": 80,
+  "fp_easy": 6
+ },
+ "operating_precision_first": null,
+ "per_class_at_operating": {
+  "A": {
+   "recall_at_op": 0.431,
+   "pairs": 51
+  },
+  "B": {
+   "recall_at_op": 0.786,
+   "pairs": 28
+  },
+  "C": {
+   "recall_at_op": 0.5,
+   "pairs": 22
+  },
+  "D": {
+   "recall_at_op": 0.667,
+   "pairs": 24
+  },
+  "E": {
+   "false_merges": 9,
+   "pairs": 18
+  }
+ },
+ "worst_hard_negatives": [
+  {
+   "sim": 0.984,
+   "a": "Sharma ji ke saath meeting fix karo",
+   "b": "Verma ji ke saath meeting fix karo"
+  },
+  {
+   "sim": 0.978,
+   "a": "5000 rupaye bhej do",
+   "b": "500 rupaye bhej do"
+  },
+  {
+   "sim": 0.977,
+   "a": "Varanasi",
+   "b": "Vanarasi"
+  },
+  {
+   "sim": 0.971,
+   "a": "Meenakshi Iyer",
+   "b": "Meenakshi Iyengar"
+  },
+  {
+   "sim": 0.971,
+   "a": "office se late niklunga",
+   "b": "office se early niklunga"
+  },
+  {
+   "sim": 0.97,
+   "a": "mummy ko call karna hai",
+   "b": "aunty ko call karna hai"
+  },
+  {
+   "sim": 0.968,
+   "a": "Gurpreet Singh",
+   "b": "Gurmeet Singh"
+  },
+  {
+   "sim": 0.966,
+   "a": "Ganga",
+   "b": "Gango"
+  },
+  {
+   "sim": 0.966,
+   "a": "Arjun Reddy",
+   "b": "Arjun Rao"
+  },
+  {
+   "sim": 0.963,
+   "a": "kal Bangalore jaana hai",
+   "b": "kal Mangalore jaana hai"
+  },
+  {
+   "sim": 0.961,
+   "a": "Diwali pe ghar jaunga",
+   "b": "Holi pe ghar jaunga"
+  },
+  {
+   "sim": 0.961,
+   "a": "Amul",
+   "b": "Amol"
+  }
+ ],
+ "status": "DRAFT dataset — native-speaker review pending"
+}

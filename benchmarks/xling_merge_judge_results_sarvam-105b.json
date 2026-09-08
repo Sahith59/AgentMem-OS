@@ -1,0 +1,2944 @@
+{
+ "model": "sarvam-105b",
+ "pairs": 344,
+ "precision": 0.865,
+ "recall": 0.872,
+ "f1": 0.869,
+ "errors": 0,
+ "need_context_total": 39,
+ "per_class": {
+  "A": {
+   "recall": 0.98,
+   "false_merges": 6,
+   "neg_pairs": 66
+  },
+  "B": {
+   "recall": 0.857,
+   "false_merges": 6,
+   "neg_pairs": 58
+  },
+  "C": {
+   "recall": 0.727,
+   "false_merges": 4,
+   "neg_pairs": 50
+  },
+  "D": {
+   "recall": 0.792,
+   "false_merges": 0,
+   "neg_pairs": 27
+  },
+  "E": {
+   "false_merges": 1,
+   "need_context": 12,
+   "pairs": 18
+  }
+ },
+ "false_merge_examples": [
+  {
+   "a": "Varanasi",
+   "b": "Vanarasi",
+   "conf": 0.95
+  },
+  {
+   "a": "वाराणसी",
+   "b": "Vanarasi",
+   "conf": 0.9
+  },
+  {
+   "a": "Banaras",
+   "b": "Vanarasi",
+   "conf": 0.99
+  },
+  {
+   "a": "Kashi",
+   "b": "Vanarasi",
+   "conf": 0.99
+  },
+  {
+   "a": "भारत",
+   "b": "Indies",
+   "conf": 1.0
+  },
+  {
+   "a": "गंगा",
+   "b": "Gango",
+   "conf": 0.99
+  },
+  {
+   "a": "Anand K.",
+   "b": "Anand Kumar",
+   "conf": 0.98
+  },
+  {
+   "a": "राजेश",
+   "b": "Rakesh",
+   "conf": 1.0
+  },
+  {
+   "a": "Rajesh",
+   "b": "राकेश",
+   "conf": 1.0
+  },
+  {
+   "a": "मीनाक्षी अय्यर",
+   "b": "Meenakshi Iyengar",
+   "conf": 0.9
+  },
+  {
+   "a": "Salman Khan",
+   "b": "Sallu bhai",
+   "conf": 0.99
+  },
+  {
+   "a": "सलमान ख़ान",
+   "b": "Sallu bhai",
+   "conf": 0.99
+  },
+  {
+   "a": "Sarvam",
+   "b": "सर्वम्",
+   "conf": 1.0
+  },
+  {
+   "a": "Jio",
+   "b": "jiyo (live!)",
+   "conf": 0.95
+  },
+  {
+   "a": "Reliance Jio",
+   "b": "jiyo (live!)",
+   "conf": 1.0
+  }
+ ],
+ "missed_examples": [
+  {
+   "a": "Delhi",
+   "b": "New Delhi",
+   "verdict": "NO_MERGE"
+  },
+  {
+   "a": "Dhravya",
+   "b": "Dravya",
+   "verdict": "NO_MERGE"
+  },
+  {
+   "a": "Anand Krishnan",
+   "b": "Anand K.",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "Gurpreet Singh",
+   "b": "Gurpreet",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "ਗੁਰਪ੍ਰੀਤ ਸਿੰਘ",
+   "b": "Gurpreet",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "Sarvam",
+   "b": "सर्वम् एआई",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "Saaras",
+   "b": "Saaras ASR",
+   "verdict": "NO_MERGE"
+  },
+  {
+   "a": "Saaras",
+   "b": "सारस मॉडल",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "Tata",
+   "b": "Tata Group",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "टाटा",
+   "b": "Tata Group",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "ओला",
+   "b": "Ola Cabs",
+   "verdict": "NO_MERGE"
+  },
+  {
+   "a": "Sharma ji ke saath meeting fix karo",
+   "b": "शर्मा जी के साथ मीटिंग फिक्स करो",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "set up the meeting with Sharma ji",
+   "b": "शर्मा जी के साथ मीटिंग फिक्स करो",
+   "verdict": "NEED_CONTEXT"
+  },
+  {
+   "a": "send 5000 rupees",
+   "b": "5000 रुपये भेज दो",
+   "verdict": "NO_MERGE"
+  },
+  {
+   "a": "leaving office late",
+   "b": "ऑफ़िस से लेट निकलूंगा",
+   "verdict": "NO_MERGE"
+  }
+ ],
+ "results": [
+  {
+   "a": "Jaipur",
+   "b": "जयपुर",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jaipur",
+   "b": "jaipur city",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "जयपुर",
+   "b": "jaipur city",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jaipur",
+   "b": "Jodhpur",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "जयपुर",
+   "b": "Jodhpur",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "jaipur city",
+   "b": "Jodhpur",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jaipur",
+   "b": "जोधपुर",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "जयपुर",
+   "b": "जोधपुर",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "jaipur city",
+   "b": "जोधपुर",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai",
+   "b": "चेन्नई",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai",
+   "b": "சென்னை",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai",
+   "b": "Madras",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "चेन्नई",
+   "b": "சென்னை",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "चेन्नई",
+   "b": "Madras",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "சென்னை",
+   "b": "Madras",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai",
+   "b": "China",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "चेन्नई",
+   "b": "China",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "சென்னை",
+   "b": "China",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Madras",
+   "b": "China",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai",
+   "b": "चीन",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "चेन्नई",
+   "b": "चीन",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "சென்னை",
+   "b": "चीन",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Madras",
+   "b": "चीन",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Delhi",
+   "b": "दिल्ली",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Delhi",
+   "b": "Dilli",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Delhi",
+   "b": "New Delhi",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "दिल्ली",
+   "b": "Dilli",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "दिल्ली",
+   "b": "New Delhi",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Dilli",
+   "b": "New Delhi",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Delhi",
+   "b": "Delhi Public School",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "दिल्ली",
+   "b": "Delhi Public School",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Dilli",
+   "b": "Delhi Public School",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "New Delhi",
+   "b": "Delhi Public School",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bangalore",
+   "b": "Bengaluru",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Bangalore",
+   "b": "बेंगलुरु",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bengaluru",
+   "b": "बेंगलुरु",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bangalore",
+   "b": "Bengal",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Bengaluru",
+   "b": "Bengal",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "बेंगलुरु",
+   "b": "Bengal",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bangalore",
+   "b": "बंगाल",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Bengaluru",
+   "b": "बंगाल",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "बेंगलुरु",
+   "b": "बंगाल",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Mumbai",
+   "b": "मुंबई",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Mumbai",
+   "b": "Bombay",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "मुंबई",
+   "b": "Bombay",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Mumbai",
+   "b": "Mumba Devi temple",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "मुंबई",
+   "b": "Mumba Devi temple",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bombay",
+   "b": "Mumba Devi temple",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Hyderabad",
+   "b": "हैदराबाद",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Hyderabad",
+   "b": "హైదరాబాద్",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "हैदराबाद",
+   "b": "హైదరాబాద్",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Hyderabad",
+   "b": "Secunderabad",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "हैदराबाद",
+   "b": "Secunderabad",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "హైదరాబాద్",
+   "b": "Secunderabad",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Hyderabad",
+   "b": "सिकंदराबाद",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "हैदराबाद",
+   "b": "सिकंदराबाद",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "హైదరాబాద్",
+   "b": "सिकंदराबाद",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Kolkata",
+   "b": "कोलकाता",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Kolkata",
+   "b": "Calcutta",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "कोलकाता",
+   "b": "Calcutta",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Kolkata",
+   "b": "Kerala",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "कोलकाता",
+   "b": "Kerala",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Calcutta",
+   "b": "Kerala",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Varanasi",
+   "b": "वाराणसी",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Varanasi",
+   "b": "Banaras",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Varanasi",
+   "b": "Kashi",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "वाराणसी",
+   "b": "Banaras",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "वाराणसी",
+   "b": "Kashi",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Banaras",
+   "b": "Kashi",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Varanasi",
+   "b": "Vanarasi",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "वाराणसी",
+   "b": "Vanarasi",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Banaras",
+   "b": "Vanarasi",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Kashi",
+   "b": "Vanarasi",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "India",
+   "b": "भारत",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "India",
+   "b": "Bharat",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "India",
+   "b": "இந்தியா",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "भारत",
+   "b": "Bharat",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "भारत",
+   "b": "இந்தியா",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bharat",
+   "b": "இந்தியா",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "India",
+   "b": "Indiana",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "भारत",
+   "b": "Indiana",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Bharat",
+   "b": "Indiana",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "இந்தியா",
+   "b": "Indiana",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "India",
+   "b": "Indies",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "भारत",
+   "b": "Indies",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bharat",
+   "b": "Indies",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "இந்தியா",
+   "b": "Indies",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "Ganges",
+   "b": "Ganga",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ganges",
+   "b": "गंगा",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ganga",
+   "b": "गंगा",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ganges",
+   "b": "Gango",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Ganga",
+   "b": "Gango",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "गंगा",
+   "b": "Gango",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ganges",
+   "b": "Kaveri",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ganga",
+   "b": "Kaveri",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "गंगा",
+   "b": "Kaveri",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Priya Sharma",
+   "b": "प्रिया शर्मा",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Priya Sharma",
+   "b": "Priya Sharma ji",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "प्रिया शर्मा",
+   "b": "Priya Sharma ji",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Priya Sharma",
+   "b": "Priya Verma",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "प्रिया शर्मा",
+   "b": "Priya Verma",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Priya Sharma ji",
+   "b": "Priya Verma",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Priya Sharma",
+   "b": "Riya Sharma",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "प्रिया शर्मा",
+   "b": "Riya Sharma",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Priya Sharma ji",
+   "b": "Riya Sharma",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Dhravya",
+   "b": "Dravya",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Dhravya",
+   "b": "ध्रव्य",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Dravya",
+   "b": "ध्रव्य",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Dhravya",
+   "b": "dravya (matter)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Dravya",
+   "b": "dravya (matter)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "ध्रव्य",
+   "b": "dravya (matter)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Anand Krishnan",
+   "b": "ஆனந்த் கிருஷ்ணன்",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Anand Krishnan",
+   "b": "Anand K.",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "ஆனந்த் கிருஷ்ணன்",
+   "b": "Anand K.",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Anand Krishnan",
+   "b": "Anand Kumar",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "ஆனந்த் கிருஷ்ணன்",
+   "b": "Anand Kumar",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Anand K.",
+   "b": "Anand Kumar",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "Anand Krishnan",
+   "b": "Ananda",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "ஆனந்த் கிருஷ்ணன்",
+   "b": "Ananda",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Anand K.",
+   "b": "Ananda",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "Fatima Sheikh",
+   "b": "फ़ातिमा शेख",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Fatima Sheikh",
+   "b": "Fatima Shaikh",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "फ़ातिमा शेख",
+   "b": "Fatima Shaikh",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Fatima Sheikh",
+   "b": "Fatima Khan",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "फ़ातिमा शेख",
+   "b": "Fatima Khan",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "Fatima Shaikh",
+   "b": "Fatima Khan",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Rajesh",
+   "b": "राजेश",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Rajesh",
+   "b": "Rajesh bhai",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "राजेश",
+   "b": "Rajesh bhai",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Rajesh",
+   "b": "Rakesh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "राजेश",
+   "b": "Rakesh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Rajesh bhai",
+   "b": "Rakesh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.85
+  },
+  {
+   "a": "Rajesh",
+   "b": "राकेश",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "राजेश",
+   "b": "राकेश",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Rajesh bhai",
+   "b": "राकेश",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Lakshmi Narayanan",
+   "b": "லட்சுமி நாராயணன்",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Lakshmi Narayanan",
+   "b": "Lakshmi (goddess)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "லட்சுமி நாராயணன்",
+   "b": "Lakshmi (goddess)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Lakshmi Narayanan",
+   "b": "लक्ष्मी जी",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "லட்சுமி நாராயணன்",
+   "b": "लक्ष्मी जी",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "Arjun Reddy",
+   "b": "अर्जुन रेड्डी",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Arjun Reddy",
+   "b": "Arjuna",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "अर्जुन रेड्डी",
+   "b": "Arjuna",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "Arjun Reddy",
+   "b": "Arjun Rao",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "अर्जुन रेड्डी",
+   "b": "Arjun Rao",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Gurpreet Singh",
+   "b": "ਗੁਰਪ੍ਰੀਤ ਸਿੰਘ",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Gurpreet Singh",
+   "b": "Gurpreet",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "ਗੁਰਪ੍ਰੀਤ ਸਿੰਘ",
+   "b": "Gurpreet",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "Gurpreet Singh",
+   "b": "Gurmeet Singh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "ਗੁਰਪ੍ਰੀਤ ਸਿੰਘ",
+   "b": "Gurmeet Singh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Gurpreet",
+   "b": "Gurmeet Singh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Gurpreet Singh",
+   "b": "Singh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "ਗੁਰਪ੍ਰੀਤ ਸਿੰਘ",
+   "b": "Singh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Gurpreet",
+   "b": "Singh",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Meenakshi Iyer",
+   "b": "मीनाक्षी अय्यर",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Meenakshi Iyer",
+   "b": "Meenakshi temple",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "मीनाक्षी अय्यर",
+   "b": "Meenakshi temple",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "Meenakshi Iyer",
+   "b": "Meenakshi Iyengar",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "मीनाक्षी अय्यर",
+   "b": "Meenakshi Iyengar",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Salman Khan",
+   "b": "सलमान ख़ान",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Salman Khan",
+   "b": "Salman Khan (educator)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "सलमान ख़ान",
+   "b": "Salman Khan (educator)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Salman Khan",
+   "b": "Sallu bhai",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "सलमान ख़ान",
+   "b": "Sallu bhai",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Sarvam AI",
+   "b": "Sarvam",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Sarvam AI",
+   "b": "सर्वम् एआई",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Sarvam",
+   "b": "सर्वम् एआई",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.8
+  },
+  {
+   "a": "Sarvam AI",
+   "b": "sarvam (everything)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Sarvam",
+   "b": "sarvam (everything)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "सर्वम् एआई",
+   "b": "sarvam (everything)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Sarvam AI",
+   "b": "सर्वम्",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "Sarvam",
+   "b": "सर्वम्",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "सर्वम् एआई",
+   "b": "सर्वम्",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Saaras",
+   "b": "Saaras ASR",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Saaras",
+   "b": "सारस मॉडल",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "Saaras ASR",
+   "b": "सारस मॉडल",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Saaras",
+   "b": "saras (crane)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "Saaras ASR",
+   "b": "saras (crane)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "सारस मॉडल",
+   "b": "saras (crane)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Saaras",
+   "b": "Saras dairy",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Saaras ASR",
+   "b": "Saras dairy",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "सारस मॉडल",
+   "b": "Saras dairy",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Bulbul TTS",
+   "b": "Bulbul model",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Bulbul TTS",
+   "b": "bulbul (bird)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bulbul model",
+   "b": "bulbul (bird)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "Bulbul TTS",
+   "b": "बुलबुल",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "Bulbul model",
+   "b": "बुलबुल",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Amul",
+   "b": "अमूल",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Amul",
+   "b": "Amul dairy",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "अमूल",
+   "b": "Amul dairy",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Amul",
+   "b": "Amol",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "अमूल",
+   "b": "Amol",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Amul dairy",
+   "b": "Amol",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Amul",
+   "b": "अमोल",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "अमूल",
+   "b": "अमोल",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Amul dairy",
+   "b": "अमोल",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Tata",
+   "b": "टाटा",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Tata",
+   "b": "Tata Group",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "टाटा",
+   "b": "Tata Group",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "Tata",
+   "b": "ta-ta (bye)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "टाटा",
+   "b": "ta-ta (bye)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Tata Group",
+   "b": "ta-ta (bye)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Tata",
+   "b": "Tata Motors",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "टाटा",
+   "b": "Tata Motors",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Tata Group",
+   "b": "Tata Motors",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jio",
+   "b": "जियो",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jio",
+   "b": "Reliance Jio",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "जियो",
+   "b": "Reliance Jio",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Jio",
+   "b": "jiyo (live!)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "जियो",
+   "b": "jiyo (live!)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Reliance Jio",
+   "b": "jiyo (live!)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jio",
+   "b": "GEO",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "जियो",
+   "b": "GEO",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Reliance Jio",
+   "b": "GEO",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "Ola",
+   "b": "ओला",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ola",
+   "b": "Ola Cabs",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "ओला",
+   "b": "Ola Cabs",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ola",
+   "b": "hola",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "ओला",
+   "b": "hola",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ola Cabs",
+   "b": "hola",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ola",
+   "b": "ola (hailstone)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "ओला",
+   "b": "ola (hailstone)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ola Cabs",
+   "b": "ola (hailstone)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Zomato",
+   "b": "ज़ोमैटो",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Zomato",
+   "b": "tomato",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "ज़ोमैटो",
+   "b": "tomato",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Ashok Leyland",
+   "b": "अशोक लीलैंड",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ashok Leyland",
+   "b": "Ashoka (emperor)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "अशोक लीलैंड",
+   "b": "Ashoka (emperor)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ashok Leyland",
+   "b": "Ashok (name)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "अशोक लीलैंड",
+   "b": "Ashok (name)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ganga soap",
+   "b": "गंगा साबुन",
+   "label": "MERGE",
+   "class": "C",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Ganga soap",
+   "b": "Ganga (river)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "गंगा साबुन",
+   "b": "Ganga (river)",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "Ganga soap",
+   "b": "गंगा",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "गंगा साबुन",
+   "b": "गंगा",
+   "label": "NO_MERGE",
+   "class": "C",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "kal Bangalore jaana hai",
+   "b": "Bangalore trip tomorrow",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "kal Bangalore jaana hai",
+   "b": "कल बैंगलोर जाना है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bangalore trip tomorrow",
+   "b": "कल बैंगलोर जाना है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "kal Bangalore jaana hai",
+   "b": "kal Mangalore jaana hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Bangalore trip tomorrow",
+   "b": "kal Mangalore jaana hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "कल बैंगलोर जाना है",
+   "b": "kal Mangalore jaana hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Hyderabadi biryani khani hai",
+   "b": "craving Hyderabadi biryani",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Hyderabadi biryani khani hai",
+   "b": "हैदराबादी बिरयानी खानी है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "craving Hyderabadi biryani",
+   "b": "हैदराबादी बिरयानी खानी है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Hyderabadi biryani khani hai",
+   "b": "Lucknowi biryani khani hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "craving Hyderabadi biryani",
+   "b": "Lucknowi biryani khani hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "हैदराबादी बिरयानी खानी है",
+   "b": "Lucknowi biryani khani hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Sharma ji ke saath meeting fix karo",
+   "b": "set up the meeting with Sharma ji",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Sharma ji ke saath meeting fix karo",
+   "b": "शर्मा जी के साथ मीटिंग फिक्स करो",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "set up the meeting with Sharma ji",
+   "b": "शर्मा जी के साथ मीटिंग फिक्स करो",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "Sharma ji ke saath meeting fix karo",
+   "b": "Verma ji ke saath meeting fix karo",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "set up the meeting with Sharma ji",
+   "b": "Verma ji ke saath meeting fix karo",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "शर्मा जी के साथ मीटिंग फिक्स करो",
+   "b": "Verma ji ke saath meeting fix karo",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Diwali pe ghar jaunga",
+   "b": "going home for Diwali",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Diwali pe ghar jaunga",
+   "b": "दिवाली पे घर जाऊंगा",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "going home for Diwali",
+   "b": "दिवाली पे घर जाऊंगा",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Diwali pe ghar jaunga",
+   "b": "Holi pe ghar jaunga",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "going home for Diwali",
+   "b": "Holi pe ghar jaunga",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "दिवाली पे घर जाऊंगा",
+   "b": "Holi pe ghar jaunga",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai Express pakadni hai",
+   "b": "catching the Chennai Express",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Chennai Express pakadni hai",
+   "b": "चेन्नई एक्सप्रेस पकड़नी है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "catching the Chennai Express",
+   "b": "चेन्नई एक्सप्रेस पकड़नी है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Chennai Express pakadni hai",
+   "b": "Chennai Express (film)",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.85
+  },
+  {
+   "a": "catching the Chennai Express",
+   "b": "Chennai Express (film)",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "चेन्नई एक्सप्रेस पकड़नी है",
+   "b": "Chennai Express (film)",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "5000 rupaye bhej do",
+   "b": "send 5000 rupees",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "5000 rupaye bhej do",
+   "b": "5000 रुपये भेज दो",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "send 5000 rupees",
+   "b": "5000 रुपये भेज दो",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "5000 rupaye bhej do",
+   "b": "500 rupaye bhej do",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "send 5000 rupees",
+   "b": "500 rupaye bhej do",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "5000 रुपये भेज दो",
+   "b": "500 rupaye bhej do",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "office se late niklunga",
+   "b": "leaving office late",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "office se late niklunga",
+   "b": "ऑफ़िस से लेट निकलूंगा",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 0.9
+  },
+  {
+   "a": "leaving office late",
+   "b": "ऑफ़िस से लेट निकलूंगा",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "office se late niklunga",
+   "b": "office se early niklunga",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "leaving office late",
+   "b": "office se early niklunga",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "ऑफ़िस से लेट निकलूंगा",
+   "b": "office se early niklunga",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "mummy ko call karna hai",
+   "b": "need to call mom",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "mummy ko call karna hai",
+   "b": "मम्मी को कॉल करना है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "need to call mom",
+   "b": "मम्मी को कॉल करना है",
+   "label": "MERGE",
+   "class": "D",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "mummy ko call karna hai",
+   "b": "mummy (Egyptian)",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "need to call mom",
+   "b": "mummy (Egyptian)",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "मम्मी को कॉल करना है",
+   "b": "mummy (Egyptian)",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "mummy ko call karna hai",
+   "b": "aunty ko call karna hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "need to call mom",
+   "b": "aunty ko call karna hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "मम्मी को कॉल करना है",
+   "b": "aunty ko call karna hai",
+   "label": "NO_MERGE",
+   "class": "D",
+   "verdict": "NO_MERGE",
+   "confidence": 0.98
+  },
+  {
+   "a": "my manager",
+   "b": "मेरे मैनेजर",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "my manager",
+   "b": "my previous manager",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "the client",
+   "b": "क्लाइंट",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "the client",
+   "b": "the new client",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "my doctor",
+   "b": "मेरे डॉक्टर",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "my doctor",
+   "b": "the specialist",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "my landlord",
+   "b": "मकान मालिक",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "didi",
+   "b": "दीदी",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "didi",
+   "b": "Didi (politician nickname)",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "sir",
+   "b": "सर",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "sir",
+   "b": "Sir (film)",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "ghar",
+   "b": "gharana",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "घर",
+   "b": "gharana",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "bhaiya",
+   "b": "भैया",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 1.0
+  },
+  {
+   "a": "bhaiya",
+   "b": "bhai (Mumbai slang)",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "madam ji",
+   "b": "मैडम",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "boss",
+   "b": "बॉस",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "boss",
+   "b": "Boss (film)",
+   "label": "NO_MERGE",
+   "class": "E",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Pune",
+   "b": "पुणे",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Pune",
+   "b": "Poona",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "पुणे",
+   "b": "Poona",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Pune",
+   "b": "Patna",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "पुणे",
+   "b": "Patna",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Poona",
+   "b": "Patna",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Pune",
+   "b": "पटना",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "पुणे",
+   "b": "पटना",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "Poona",
+   "b": "पटना",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Kashmir",
+   "b": "कश्मीर",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Kashmir",
+   "b": "காஷ்மீர்",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "कश्मीर",
+   "b": "காஷ்மீர்",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Kashmir",
+   "b": "Kanyakumari",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "कश्मीर",
+   "b": "Kanyakumari",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "காஷ்மீர்",
+   "b": "Kanyakumari",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Godavari",
+   "b": "गोदावरी",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Godavari",
+   "b": "கோதாவரி",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "गोदावरी",
+   "b": "கோதாவரி",
+   "label": "MERGE",
+   "class": "A",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Godavari",
+   "b": "Gomati",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "गोदावरी",
+   "b": "Gomati",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "கோதாவரி",
+   "b": "Gomati",
+   "label": "NO_MERGE",
+   "class": "A",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.95
+  },
+  {
+   "a": "Jawaharlal Nehru",
+   "b": "जवाहरलाल नेहरू",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jawaharlal Nehru",
+   "b": "Pandit Nehru",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "जवाहरलाल नेहरू",
+   "b": "Pandit Nehru",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jawaharlal Nehru",
+   "b": "Motilal Nehru",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "जवाहरलाल नेहरू",
+   "b": "Motilal Nehru",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Pandit Nehru",
+   "b": "Motilal Nehru",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Jawaharlal Nehru",
+   "b": "Nehru jacket",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "जवाहरलाल नेहरू",
+   "b": "Nehru jacket",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.95
+  },
+  {
+   "a": "Pandit Nehru",
+   "b": "Nehru jacket",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "APJ Abdul Kalam",
+   "b": "अब्दुल कलाम",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "APJ Abdul Kalam",
+   "b": "Dr. Kalam",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "अब्दुल कलाम",
+   "b": "Dr. Kalam",
+   "label": "MERGE",
+   "class": "B",
+   "verdict": "MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "APJ Abdul Kalam",
+   "b": "kalam (pen)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "अब्दुल कलाम",
+   "b": "kalam (pen)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 1.0
+  },
+  {
+   "a": "Dr. Kalam",
+   "b": "kalam (pen)",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NO_MERGE",
+   "confidence": 0.99
+  },
+  {
+   "a": "APJ Abdul Kalam",
+   "b": "Kamal",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  },
+  {
+   "a": "अब्दुल कलाम",
+   "b": "Kamal",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.85
+  },
+  {
+   "a": "Dr. Kalam",
+   "b": "Kamal",
+   "label": "NO_MERGE",
+   "class": "B",
+   "verdict": "NEED_CONTEXT",
+   "confidence": 0.9
+  }
+ ]
+}
