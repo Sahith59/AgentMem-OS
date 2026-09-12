@@ -190,11 +190,18 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
         return []
     similarities = word_scores
 
+    ordered_range = bool(re.search(
+        r"\b(?:earliest|oldest|chronological|in\s+order|order\s+of)\b",
+        query, re.IGNORECASE))
+
     def key(index: int):
         _, occurred, ordinal = candidates[index]
-        distance = (abs((occurred - window.target).days)
-                    if window.target is not None else 0)
-        return (-similarities[index], distance, ordinal)
+        if window.target is not None:
+            return (abs((occurred - window.target).days),
+                    -similarities[index], ordinal)
+        if ordered_range:
+            return (occurred.toordinal(), -similarities[index], ordinal)
+        return (-similarities[index], occurred.toordinal(), ordinal)
 
     ranked = sorted(range(len(candidates)), key=key)
     return [candidates[index][0] for index in ranked[:limit]

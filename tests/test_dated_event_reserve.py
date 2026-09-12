@@ -59,6 +59,16 @@ def test_point_query_selects_completed_relevant_event():
     assert selected == [turns[1]["content"]]
 
 
+def test_point_query_prefers_closer_date_before_lexical_score():
+    turns = [
+        _turn("[2023/01/14] I attended a very detailed art event."),
+        _turn("[2023/01/18] I attended the art exhibit."),
+    ]
+    assert select_dated_event_turns(
+        "Where was the art event two weeks ago?", "2023/02/01",
+        turns, limit=1) == [turns[1]["content"]]
+
+
 def test_range_query_selects_completed_trip_without_admitting_plan():
     turns = [
         _turn("[2023/03/10 (Fri)] I just got back from a day hike to Muir "
@@ -74,6 +84,17 @@ def test_range_query_selects_completed_trip_without_admitting_plan():
     assert turns[1]["content"] in selected
     assert turns[2]["content"] not in selected
     assert turns[3]["content"] not in selected
+
+
+def test_ordered_range_reserves_earliest_eligible_event_first():
+    turns = [
+        _turn("[2023/05/15] I completed a detailed solo camping trip."),
+        _turn("[2023/03/10] I got back from a day hike during my trips."),
+    ]
+    assert select_dated_event_turns(
+        "What is the order of the trips in the past three months, from "
+        "earliest to latest?", "2023/06/01", turns, limit=1) == [
+            turns[1]["content"]]
 
 
 def test_prepend_reserve_deduplicates_without_reordering():
