@@ -97,6 +97,17 @@ def test_ordered_range_reserves_earliest_eligible_event_first():
             turns[1]["content"]]
 
 
+def test_irrelevant_earlier_event_cannot_block_ordered_range_candidate():
+    turns = [
+        _turn("[2023/03/01] I attended a workshop about accounting."),
+        _turn("[2023/03/10] I got back from a day hike during my trips."),
+    ]
+    assert select_dated_event_turns(
+        "What is the order of the trips in the past three months, from "
+        "earliest to latest?", "2023/06/01", turns, limit=1) == [
+            turns[1]["content"]]
+
+
 def test_prepend_reserve_deduplicates_without_reordering():
     assert prepend_reserve(["base-a", "shared", "base-b"],
                            ["reserved", "shared"]) == [

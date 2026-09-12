@@ -203,9 +203,10 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
             return (occurred.toordinal(), -similarities[index], ordinal)
         return (-similarities[index], occurred.toordinal(), ordinal)
 
-    ranked = sorted(range(len(candidates)), key=key)
-    return [candidates[index][0] for index in ranked[:limit]
-            if similarities[index] >= _RESERVE_FLOOR]
+    eligible = [index for index in range(len(candidates))
+                if similarities[index] >= _RESERVE_FLOOR]
+    ranked = sorted(eligible, key=key)
+    return [candidates[index][0] for index in ranked[:limit]]
 
 
 def prepend_reserve(base_chunks: Sequence[str], reserve: Sequence[str]) -> list[str]:
