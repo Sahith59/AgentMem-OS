@@ -6,9 +6,11 @@ from agentmem_os.benchmarks.recall_span_adapter import (
 
 
 class _Base:
-    def __init__(self, rows, reserve=None):
+    def __init__(self, rows, reserve=None, reserve_mode=None):
         self.rows = rows
         self.last_receipt = {"reserve": list(reserve or [])}
+        if reserve_mode is not None:
+            self.last_receipt["reserve_mode"] = reserve_mode
 
     def search(self, session_id, query, top_k=5):
         return self.rows[:top_k]
@@ -131,6 +133,18 @@ def test_preserves_nested_reserve_metadata_for_context_assembler():
     assert adapter.search("s", "What happened two weeks ago?") == base_rows
     assert adapter.last_receipt["reserve"] == ["dated event"]
     assert adapter.last_receipt["nested_reserve_count"] == 1
+
+
+def test_preserves_nested_reserve_mode_for_auditing():
+    adapter = RecallSpanTfIdfAdapter(
+        {}, base=_Base(
+            ["music event", "ordinary"],
+            reserve=["music event"],
+            reserve_mode="ordered_music_events",
+        ))
+    assert adapter.search("s", "What events did I attend?") == [
+        "music event", "ordinary"]
+    assert adapter.last_receipt["nested_reserve_mode"] == "ordered_music_events"
 
 
 def test_admitted_recall_span_is_actually_promoted_ahead_of_base_chunks():

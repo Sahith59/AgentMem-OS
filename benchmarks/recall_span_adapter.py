@@ -282,6 +282,7 @@ class RecallSpanTfIdfAdapter:
                 "reserve": base_reserve,
                 "recall_reserve_count": 0,
                 "nested_reserve_count": len(base_reserve),
+                "nested_reserve_mode": base_receipt.get("reserve_mode"),
                 "reason": reason,
             }
             return base_chunks
@@ -315,6 +316,7 @@ class RecallSpanTfIdfAdapter:
             "reserve": list(reserve),
             "recall_reserve_count": len(recall_reserve),
             "nested_reserve_count": len(base_reserve),
+            "nested_reserve_mode": base_receipt.get("reserve_mode"),
             "base_count": len(base_chunks),
             "returned_count": len(merged),
         }
