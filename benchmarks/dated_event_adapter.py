@@ -60,6 +60,17 @@ class DatedEventTfIdfAdapter:
         reserve = select_dated_event_turns(
             query, reference_date, self.turn_loader(session_id),
             limit=self.reserve_limit)
+        if not reserve:
+            self.last_receipt = {
+                "session_id": session_id,
+                "query": query,
+                "reserve_count": 0,
+                "reserve": [],
+                "base_count": len(base_chunks),
+                "returned_count": len(base_chunks),
+                "reason": "no_admission",
+            }
+            return base_chunks
         merged = prepend_reserve(base_chunks, reserve)[:top_k]
         self.last_receipt = {
             "session_id": session_id,

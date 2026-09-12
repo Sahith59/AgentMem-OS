@@ -65,6 +65,25 @@ def test_zero_limit_preserves_base_and_skips_loader():
     assert adapter.last_receipt["reason"] == "reserve_disabled"
 
 
+def test_registered_query_without_admission_preserves_duplicate_base_chunks():
+    query = "Which trip was in the past one month?"
+    base_chunks = ["same", "same", "other"]
+    adapter = DatedEventTfIdfAdapter(
+        {query: "2023/06/01"}, reserve_limit=1,
+        base=FakeBase(base_chunks), turn_loader=lambda _: [])
+
+    assert adapter.search("session", query, top_k=3) == base_chunks
+    assert adapter.last_receipt == {
+        "session_id": "session",
+        "query": query,
+        "reserve_count": 0,
+        "reserve": [],
+        "base_count": 3,
+        "returned_count": 3,
+        "reason": "no_admission",
+    }
+
+
 def test_context_assembler_keeps_reserve_before_chronological_raw_turns():
     assembler = DatedEventContextAssembler()
     reserved = "[2023/01/15] I attended the target event."
