@@ -69,6 +69,10 @@ _SOURCE_RELATION_EVENT_RE = re.compile(
     r"[a-z][a-z'-]*",
     re.IGNORECASE,
 )
+_SAW_LIVE_EVENT_RE = re.compile(
+    r"\b(?:i|we)\b[^.!?\n]{0,220}\bsaw\b[^.!?\n]{0,100}\blive\b",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -164,14 +168,21 @@ def _content_tokens(text: str) -> list[str]:
     return tokens
 
 
-def completed_user_event(turn) -> bool:
+def is_source_relation_query(query: str) -> bool:
+    """Whether the question asks who supplied a received item."""
+    return bool(_SOURCE_RELATION_QUERY_RE.search(query or ""))
+
+
+def completed_user_event(turn, allow_source_relation: bool = False) -> bool:
     """Conservative admission check for an explicitly completed user event."""
     if str(_field(turn, "role") or "").lower() != "user":
         return False
     content = str(_field(turn, "content") or "")
     match = _COMPLETED_EVENT_RE.search(content)
     if not match:
-        return bool(_SOURCE_RELATION_EVENT_RE.search(content))
+        return (bool(_SAW_LIVE_EVENT_RE.search(content))
+                or (allow_source_relation
+                    and bool(_SOURCE_RELATION_EVENT_RE.search(content))))
     prefix = content[max(0, match.start() - 80):match.end()]
     return not _PLAN_RE.search(prefix)
 
@@ -184,10 +195,12 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     window = temporal_window(query, reference_date)
     if window is None:
         return []
+    source_relation_query = is_source_relation_query(query)
 
     candidates: list[tuple[str, date, int]] = []
     for ordinal, turn in enumerate(turns):
-        if not completed_user_event(turn):
+        if not completed_user_event(
+                turn, allow_source_relation=source_relation_query):
             continue
         content = str(_field(turn, "content") or "")
         stamp = _STAMP_RE.match(content)
@@ -216,7 +229,6 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     except ValueError:
         return []
     similarities = word_scores
-    source_relation_query = bool(_SOURCE_RELATION_QUERY_RE.search(query))
     source_relation_event = [
         bool(_SOURCE_RELATION_EVENT_RE.search(text)) for text in texts]
 

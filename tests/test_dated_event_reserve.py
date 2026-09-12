@@ -161,3 +161,9 @@ def test_received_prose_is_not_a_completed_event_without_source_relation():
         "[2023/05/09] The monitoring system received spoofed packets "
         "during the year ending last August.")
     assert completed_user_event(turn) is False
+
+
+def test_saw_live_is_a_completed_event():
+    turn = _turn(
+        "[2023/04/15] I just saw Queen live with my parents today.")
+    assert completed_user_event(turn) is True
