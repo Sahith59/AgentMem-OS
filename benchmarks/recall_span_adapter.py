@@ -48,16 +48,20 @@ def select_recall_spans(
     *,
     session_limit: int = 1,
     min_similarity: float = 0.18,
+    group_similarity_weight: float = 1.0,
     max_chars_per_turn: int = 3_200,
 ) -> list[str]:
     """Select matched user prompts and their immediately paired replies.
 
     A character-within-word score is used because the measured recall failures
-    include inflection, punctuation and compound-word differences.  Ranking is
-    over user turns only.  Once a user request is selected, its next assistant
-    turn is reserved as provenance-preserving source text.
+    include inflection, punctuation and compound-word differences.  Each user
+    turn receives a bounded score from its complete source group so distinctive
+    entities elsewhere in the same conversation can disambiguate generic recall
+    wording.  Once a user request is selected, its next assistant turn is
+    reserved as provenance-preserving source text.
     """
-    if session_limit <= 0 or max_chars_per_turn <= 0:
+    if (session_limit <= 0 or max_chars_per_turn <= 0
+            or group_similarity_weight < 0):
         return []
     groups = [list(group) for group in turn_groups]
     candidates = []
@@ -77,15 +81,29 @@ def select_recall_spans(
         sublinear_tf=True, min_df=1)
     matrix = vectorizer.fit_transform([row[2] for row in candidates])
     scores = cosine_similarity(vectorizer.transform([query]), matrix)[0]
+    group_texts = [
+        "\n".join(str(_field(turn, "content") or "") for turn in turns)
+        for turns in groups
+    ]
+    group_vectorizer = TfidfVectorizer(
+        analyzer="char_wb", ngram_range=(3, 5), max_features=20_000,
+        sublinear_tf=True, min_df=1)
+    group_matrix = group_vectorizer.fit_transform(group_texts)
+    group_scores = cosine_similarity(
+        group_vectorizer.transform([query]), group_matrix)[0]
+    ranking_scores = [
+        scores[index] + group_similarity_weight * group_scores[row[0]]
+        for index, row in enumerate(candidates)
+    ]
     ranked = sorted(
-        range(len(candidates)), key=lambda index: (-scores[index], index))
+        range(len(candidates)), key=lambda index: (-ranking_scores[index], index))
 
     selected_groups = set()
     reserve = []
     for index in ranked:
-        if scores[index] < min_similarity:
-            break
         group_index, turn_index, user_content = candidates[index]
+        if max(scores[index], group_scores[group_index]) < min_similarity:
+            continue
         if group_index in selected_groups:
             continue
         selected_groups.add(group_index)
@@ -112,6 +130,7 @@ class RecallSpanTfIdfAdapter:
         *,
         session_limit: int = 1,
         min_similarity: float = 0.18,
+        group_similarity_weight: float = 1.0,
         max_chars_per_turn: int = 3_200,
         base=None,
     ):
@@ -121,6 +140,7 @@ class RecallSpanTfIdfAdapter:
         }
         self.session_limit = session_limit
         self.min_similarity = min_similarity
+        self.group_similarity_weight = group_similarity_weight
         self.max_chars_per_turn = max_chars_per_turn
         self.base = base or TfIdfChromaAdapter()
         self.last_receipt = None
@@ -155,6 +175,7 @@ class RecallSpanTfIdfAdapter:
             groups,
             session_limit=self.session_limit,
             min_similarity=self.min_similarity,
+            group_similarity_weight=self.group_similarity_weight,
             max_chars_per_turn=self.max_chars_per_turn,
         )
         if not recall_reserve:
