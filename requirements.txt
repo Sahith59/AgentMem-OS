@@ -19,7 +19,7 @@ alembic==1.14.0          # DB schema migrations (Phase 1 addition)
 chromadb==0.5.20
 
 # --- LLM Routing (model-agnostic) ---
-litellm==1.52.9
+litellm==1.53.1
 tiktoken==0.8.0
 
 # --- Embeddings & NLP ---
