@@ -154,3 +154,10 @@ def test_last_weekday_received_from_relation_admits_zero_lexical_overlap():
     assert select_dated_event_turns(
         "I received a piece of jewelry last Saturday from whom?",
         "2023/03/09", turns, limit=1) == [target["content"]]
+
+
+def test_received_prose_is_not_a_completed_event_without_source_relation():
+    turn = _turn(
+        "[2023/05/09] The monitoring system received spoofed packets "
+        "during the year ending last August.")
+    assert completed_user_event(turn) is False
