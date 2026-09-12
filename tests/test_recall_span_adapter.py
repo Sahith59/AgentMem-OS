@@ -31,7 +31,7 @@ def test_group_context_disambiguates_generic_recall_wording():
     groups = [[
         {"role": "assistant", "content": "Ideas for the Radiation Amplified zombie."},
         {"role": "user", "content": "Can you suggest some one-word names?"},
-        {"role": "assistant", "content": "Radik, Irradon, and Fissionator."},
+        {"role": "assistant", "content": "Names: Radik, Irradon, and Fissionator."},
         {"role": "user", "content": "Fissionator is a really cool one."},
         {"role": "assistant", "content": "The Fissionator design can use a protective suit."},
     ], [
@@ -42,8 +42,26 @@ def test_group_context_disambiguates_generic_recall_wording():
         "What did we finally decide to name the Radiation Amplified zombie?",
         groups,
     )
-    assert selected[0] in {groups[0][1]["content"], groups[0][3]["content"]}
-    assert selected[1] in {groups[0][2]["content"], groups[0][4]["content"]}
+    assert selected == [turn["content"] for turn in groups[0][2:5]]
+
+
+def test_decision_recall_reserves_proposal_acceptance_and_continuation():
+    group = [
+        {"role": "assistant", "content": "How about Radialisk?"},
+        {"role": "user", "content": "Any other name ideas?"},
+        {"role": "assistant", "content": "Contaminated Colossus or Irradiated Behemoth."},
+        {"role": "user", "content": "How about a few one-word names?"},
+        {"role": "assistant", "content": "Names for the Radiation Amplified: Radik, Fissionator, Radiatron."},
+        {"role": "user", "content": "Fissionator is a REALLY cool one, especially with a mechanical design."},
+        {"role": "assistant", "content": "The Fissionator could wear a protective radiation suit."},
+        {"role": "user", "content": "Can you give me ideas for what the Fissionator could look like?"},
+        {"role": "assistant", "content": "The Fissionator could be a robotic construct."},
+    ]
+    selected = select_recall_spans(
+        "What did we finally decide to name the Radiation Amplified zombie?",
+        [group],
+    )
+    assert selected == [turn["content"] for turn in group[4:7]]
 
 
 def test_group_context_cannot_bypass_similarity_floor_when_unrelated():
