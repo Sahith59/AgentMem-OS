@@ -49,6 +49,8 @@ _PLAN_RE = re.compile(
     re.IGNORECASE,
 )
 _RESERVE_FLOOR = 0.05
+_QUESTION_SCAFFOLD_RE = re.compile(
+    r"\bhow\s+many\s+times\b", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -179,6 +181,7 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     texts = [item[0] for item in candidates]
     relevance_query = _RELATIVE_RE.sub(" ", query)
     relevance_query = _RANGE_RE.sub(" ", relevance_query)
+    relevance_query = _QUESTION_SCAFFOLD_RE.sub(" ", relevance_query)
     word_vectorizer = TfidfVectorizer(
         analyzer=_content_tokens, max_features=2048, sublinear_tf=True,
         min_df=1)

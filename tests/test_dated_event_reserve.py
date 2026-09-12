@@ -122,3 +122,12 @@ def test_relative_time_words_alone_do_not_admit_unrelated_events():
     assert select_dated_event_turns(
         "What gardening-related activity did I do two weeks ago?",
         "2023/05/05", turns, limit=1) == []
+
+
+def test_count_scaffold_time_does_not_match_unrelated_personal_best():
+    turns = [
+        _turn("[2023/05/20] I finished a marathon with a personal best time."),
+    ]
+    assert select_dated_event_turns(
+        "How many times did I bake egg tarts in the past two weeks?",
+        "2023/05/30", turns, limit=1) == []
