@@ -2,8 +2,10 @@ from datetime import date
 
 from agentmem_os.benchmarks.dated_event_reserve import (
     completed_user_event,
+    is_ordered_music_event_query,
     prepend_reserve,
     select_dated_event_turns,
+    select_ordered_music_event_turns,
     temporal_window,
 )
 
@@ -167,3 +169,33 @@ def test_saw_live_is_a_completed_event():
     turn = _turn(
         "[2023/04/15] I just saw Queen live with my parents today.")
     assert completed_user_event(turn) is True
+
+
+def test_ordered_music_enumeration_selects_distinct_completed_events_only():
+    turns = [
+        _turn("[2023/03/18 10:00] I just got back from a Billie Eilish concert."),
+        _turn("[2023/03/25 10:00] I attended a free outdoor concert today."),
+        _turn("[2023/03/25 10:00] I enjoyed that outdoor concert again."),
+        _turn("[2023/04/01 10:00] I got back from a music festival in Brooklyn."),
+        _turn("[2023/04/08 10:00] I've enjoyed a jazz night at a local bar today."),
+        _turn("[2023/04/11 10:00] I attended a charity gala for children."),
+        _turn("[2023/04/15 10:00] I've just saw Queen live with my parents."),
+        _turn("[2023/04/16 10:00] I'm thinking of attending a jazz night soon."),
+    ]
+    query = ("What is the order of the concerts and musical events I attended "
+             "in the past two months, starting from the earliest?")
+    selected = select_ordered_music_event_turns(
+        query, "2023/04/22", turns, limit=6)
+    assert selected == [turns[0]["content"], turns[1]["content"],
+                        turns[3]["content"], turns[4]["content"],
+                        turns[6]["content"]]
+
+
+def test_music_enumeration_route_requires_ordered_range_query():
+    assert is_ordered_music_event_query(
+        "What is the order of concerts in the past two months?",
+        "2023/04/22")
+    assert not is_ordered_music_event_query(
+        "Which concert did I attend two weeks ago?", "2023/04/22")
+    assert not is_ordered_music_event_query(
+        "What is the order of trips in the past two months?", "2023/04/22")

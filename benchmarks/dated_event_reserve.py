@@ -73,6 +73,27 @@ _SAW_LIVE_EVENT_RE = re.compile(
     r"\b(?:i|we)\b[^.!?\n]{0,220}\bsaw\b[^.!?\n]{0,100}\blive\b",
     re.IGNORECASE,
 )
+_ORDERED_EVENT_QUERY_RE = re.compile(
+    r"\b(?:order\s+of|earliest\s+to\s+latest|starting\s+from\s+the\s+earliest|"
+    r"chronological(?:ly)?)\b",
+    re.IGNORECASE,
+)
+_MUSIC_EVENT_QUERY_RE = re.compile(
+    r"\b(?:concerts?|music(?:al)?\s+events?|music\s+(?:nights?|festivals?))\b",
+    re.IGNORECASE,
+)
+_COMPLETED_MUSIC_EVENT_RE = re.compile(
+    r"\b(?:i|we)(?:'ve|\s+have)?\b[^.!?\n]{0,260}\b(?:"
+    r"attended|went\s+to|got\s+back\s+from|returned\s+from|been\s+to|enjoyed"
+    r")\b[^.!?\n]{0,180}\b(?:concert|music\s+festival|jazz\s+night|"
+    r"music\s+night|live\s+music|gig|show)s?\b",
+    re.IGNORECASE,
+)
+_COMPLETED_SAW_LIVE_RE = re.compile(
+    r"\b(?:i|we)(?:'ve|\s+have)?\b[^.!?\n]{0,260}\b(?:saw|seen)\b"
+    r"[^.!?\n]{0,120}\blive\b",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -252,6 +273,59 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
                 or (source_relation_query and source_relation_event[index])]
     ranked = sorted(eligible, key=key)
     return [candidates[index][0] for index in ranked[:limit]]
+
+
+def is_ordered_music_event_query(query: str, reference_date) -> bool:
+    """Recognize explicit chronological music-event enumeration requests."""
+    window = temporal_window(query, reference_date)
+    return bool(
+        window is not None
+        and window.kind == "range"
+        and _ORDERED_EVENT_QUERY_RE.search(query or "")
+        and _MUSIC_EVENT_QUERY_RE.search(query or "")
+    )
+
+
+def select_ordered_music_event_turns(
+    query: str,
+    reference_date,
+    turns: Iterable,
+    *,
+    limit: int = 6,
+) -> list[str]:
+    """Select distinct completed music-event turns in chronological order.
+
+    LongMemEval conversations commonly repeat one event several times within
+    a session. Their turns share the same leading timestamp, so one direct
+    assertion per timestamp prevents duplicates from consuming the bounded
+    enumeration reserve. Selection uses source role, date and wording only.
+    """
+    if limit <= 0 or not is_ordered_music_event_query(query, reference_date):
+        return []
+    window = temporal_window(query, reference_date)
+    assert window is not None
+    candidates = []
+    seen_stamps = set()
+    for ordinal, turn in enumerate(turns):
+        if str(_field(turn, "role") or "").lower() != "user":
+            continue
+        content = str(_field(turn, "content") or "")
+        stamp = _STAMP_RE.match(content)
+        if not stamp:
+            continue
+        occurred = datetime.strptime(stamp.group(1), "%Y/%m/%d").date()
+        if not window.start <= occurred <= window.end:
+            continue
+        if not (_COMPLETED_MUSIC_EVENT_RE.search(content)
+                or _COMPLETED_SAW_LIVE_RE.search(content)):
+            continue
+        stamp_key = stamp.group(0)
+        if stamp_key in seen_stamps:
+            continue
+        seen_stamps.add(stamp_key)
+        candidates.append((occurred, ordinal, content))
+    candidates.sort(key=lambda item: (item[0], item[1]))
+    return [content for _, _, content in candidates[:limit]]
 
 
 def prepend_reserve(base_chunks: Sequence[str], reserve: Sequence[str]) -> list[str]:

@@ -107,3 +107,17 @@ def test_context_assembler_is_identical_without_a_reserve():
     assembler._chroma = type("Adapter", (), {"last_receipt": None})()
     assert assembler._order_evidence(chunks, 100) == [
         "[2023/01/01] Older.", "[2023/01/10] Newer."]
+
+
+def test_adapter_uses_bounded_multi_event_route_when_explicitly_enabled():
+    query = "What is the order of concerts in the past two months?"
+    events = [
+        "[2023/03/01 10:00] I attended an outdoor concert.",
+        "[2023/04/01 10:00] I got back from a music festival.",
+    ]
+    adapter = DatedEventTfIdfAdapter(
+        {query: "2023/04/22"}, reserve_limit=1, ordered_music_limit=6,
+        base=FakeBase(["ordinary"]),
+        turn_loader=lambda _: [_turn(item) for item in events])
+    assert adapter.search("session", query, top_k=3) == [*events, "ordinary"]
+    assert adapter.last_receipt["reserve_mode"] == "ordered_music_events"

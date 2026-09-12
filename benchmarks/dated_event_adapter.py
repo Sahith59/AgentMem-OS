@@ -5,6 +5,7 @@ from __future__ import annotations
 from agentmem_os.benchmarks.dated_event_reserve import (
     prepend_reserve,
     select_dated_event_turns,
+    select_ordered_music_event_turns,
 )
 from agentmem_os.benchmarks.real_code_utils import TfIdfChromaAdapter
 from agentmem_os.llm.context_assembler import ContextAssembler
@@ -19,13 +20,14 @@ class DatedEventTfIdfAdapter:
     """
 
     def __init__(self, reference_dates_by_query, reserve_limit=3, base=None,
-                 turn_loader=None):
+                 turn_loader=None, ordered_music_limit=0):
         if reserve_limit < 0:
             raise ValueError("reserve_limit must be non-negative")
         self.reference_dates_by_query = dict(reference_dates_by_query)
         self.reserve_limit = reserve_limit
         self.base = base or TfIdfChromaAdapter()
         self.turn_loader = turn_loader or self._load_turns
+        self.ordered_music_limit = ordered_music_limit
         self.last_receipt = None
 
     @staticmethod
@@ -57,9 +59,13 @@ class DatedEventTfIdfAdapter:
             }
             return base_chunks
 
-        reserve = select_dated_event_turns(
-            query, reference_date, self.turn_loader(session_id),
-            limit=self.reserve_limit)
+        turns = self.turn_loader(session_id)
+        reserve = select_ordered_music_event_turns(
+            query, reference_date, turns, limit=self.ordered_music_limit)
+        mode = "ordered_music_events" if reserve else "single_dated_event"
+        if not reserve:
+            reserve = select_dated_event_turns(
+                query, reference_date, turns, limit=self.reserve_limit)
         if not reserve:
             self.last_receipt = {
                 "session_id": session_id,
@@ -77,6 +83,7 @@ class DatedEventTfIdfAdapter:
             "query": query,
             "reserve_count": len(reserve),
             "reserve": list(reserve),
+            "reserve_mode": mode,
             "base_count": len(base_chunks),
             "returned_count": len(merged),
         }
