@@ -41,6 +41,8 @@ def test_admission_requires_user_role_and_completed_first_person_event():
         "[2023/01/15] I am planning to attend the exhibit."))
     assert not completed_user_event(_turn(
         "[2023/01/15] Have you ever visited the exhibit?"))
+    assert not completed_user_event(_turn(
+        '[2023/01/15] "The last time I saw you, I was unfair." Why?'))
 
 
 def test_point_query_selects_completed_relevant_event():

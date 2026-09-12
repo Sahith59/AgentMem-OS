@@ -1,4 +1,7 @@
-from agentmem_os.benchmarks.dated_event_adapter import DatedEventTfIdfAdapter
+from agentmem_os.benchmarks.dated_event_adapter import (
+    DatedEventContextAssembler,
+    DatedEventTfIdfAdapter,
+)
 
 
 class FakeBase:
@@ -60,3 +63,28 @@ def test_zero_limit_preserves_base_and_skips_loader():
             AssertionError("turn loader must not run")))
     assert adapter.search("session", query) == ["a"]
     assert adapter.last_receipt["reason"] == "reserve_disabled"
+
+
+def test_context_assembler_keeps_reserve_before_chronological_raw_turns():
+    assembler = DatedEventContextAssembler()
+    reserved = "[2023/01/15] I attended the target event."
+    assembler._chroma = type("Adapter", (), {
+        "last_receipt": {"reserve": [reserved]}})()
+    chunks = [
+        reserved,
+        "[2023/01/01] Older evidence.",
+        "[2023/01/10] Middle evidence.",
+    ]
+    assert assembler._order_evidence(chunks, token_budget=100) == [
+        reserved,
+        "[2023/01/01] Older evidence.",
+        "[2023/01/10] Middle evidence.",
+    ]
+
+
+def test_context_assembler_is_identical_without_a_reserve():
+    chunks = ["[2023/01/10] Newer.", "[2023/01/01] Older."]
+    assembler = DatedEventContextAssembler()
+    assembler._chroma = type("Adapter", (), {"last_receipt": None})()
+    assert assembler._order_evidence(chunks, 100) == [
+        "[2023/01/01] Older.", "[2023/01/10] Newer."]

@@ -39,7 +39,7 @@ _COUNT = {
 _COMPLETED_EVENT_RE = re.compile(
     r"\b(?:i|we)\b[^.!?\n]{0,180}\b(?:"
     r"attended|participated|visited|went|returned|completed|finished|"
-    r"hiked|joined|saw|got\s+back|took\s+part"
+    r"hiked|joined|got\s+back|took\s+part"
     r")\b",
     re.IGNORECASE,
 )
