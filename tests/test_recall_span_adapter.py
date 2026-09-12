@@ -27,6 +27,53 @@ def test_selects_user_request_and_immediate_assistant_reply():
     assert selected == [groups[0][0]["content"], groups[0][1]["content"]]
 
 
+def test_group_context_disambiguates_generic_recall_wording():
+    groups = [[
+        {"role": "assistant", "content": "Ideas for the Radiation Amplified zombie."},
+        {"role": "user", "content": "Can you suggest some one-word names?"},
+        {"role": "assistant", "content": "Radik, Irradon, and Fissionator."},
+        {"role": "user", "content": "Fissionator is a really cool one."},
+        {"role": "assistant", "content": "The Fissionator design can use a protective suit."},
+    ], [
+        {"role": "user", "content": "What was the word you were not supposed to remember?"},
+        {"role": "assistant", "content": "I cannot provide that word."},
+    ]]
+    selected = select_recall_spans(
+        "What did we finally decide to name the Radiation Amplified zombie?",
+        groups,
+    )
+    assert selected[0] in {groups[0][1]["content"], groups[0][3]["content"]}
+    assert selected[1] in {groups[0][2]["content"], groups[0][4]["content"]}
+
+
+def test_group_context_cannot_bypass_similarity_floor_when_unrelated():
+    groups = [[
+        {"role": "user", "content": "Tell me about garden soil."},
+        {"role": "assistant", "content": "Use compost."},
+    ]]
+    assert select_recall_spans(
+        "What did we decide to name the Radiation Amplified zombie?",
+        groups,
+        min_similarity=0.95,
+    ) == []
+
+
+def test_group_context_reranks_without_broadening_admission():
+    groups = [[
+        {"role": "assistant", "content": "Radiation Amplified zombie naming discussion."},
+        {"role": "user", "content": "Any other options?"},
+        {"role": "assistant", "content": "Fissionator."},
+    ], [
+        {"role": "user", "content": "What was the word to remember?"},
+        {"role": "assistant", "content": "Another topic."},
+    ]]
+    assert select_recall_spans(
+        "Which name did we choose for the Radiation Amplified zombie?",
+        groups,
+        min_similarity=0.99,
+    ) == []
+
+
 def test_oversized_turn_returns_source_only_relevant_window():
     text = "A" * 3500 + " Construction of the house began in 2014. " + "B" * 3500
     window = _best_window(text, "When did construction of the house begin?", 3200)
