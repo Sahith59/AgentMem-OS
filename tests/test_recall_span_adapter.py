@@ -58,6 +58,22 @@ def test_group_context_cannot_bypass_similarity_floor_when_unrelated():
     ) == []
 
 
+def test_group_context_reranks_without_broadening_admission():
+    groups = [[
+        {"role": "assistant", "content": "Radiation Amplified zombie naming discussion."},
+        {"role": "user", "content": "Any other options?"},
+        {"role": "assistant", "content": "Fissionator."},
+    ], [
+        {"role": "user", "content": "What was the word to remember?"},
+        {"role": "assistant", "content": "Another topic."},
+    ]]
+    assert select_recall_spans(
+        "Which name did we choose for the Radiation Amplified zombie?",
+        groups,
+        min_similarity=0.99,
+    ) == []
+
+
 def test_oversized_turn_returns_source_only_relevant_window():
     text = "A" * 3500 + " Construction of the house began in 2014. " + "B" * 3500
     window = _best_window(text, "When did construction of the house begin?", 3200)

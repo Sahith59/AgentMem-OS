@@ -91,6 +91,11 @@ def select_recall_spans(
     group_matrix = group_vectorizer.fit_transform(group_texts)
     group_scores = cosine_similarity(
         group_vectorizer.transform([query]), group_matrix)[0]
+    # Keep the established turn-level admission boundary. Group context may
+    # rerank an already-qualified recall query, but it must not broaden which
+    # queries receive a reserve.
+    if max(scores) < min_similarity:
+        return []
     ranking_scores = [
         scores[index] + group_similarity_weight * group_scores[row[0]]
         for index, row in enumerate(candidates)
@@ -102,8 +107,6 @@ def select_recall_spans(
     reserve = []
     for index in ranked:
         group_index, turn_index, user_content = candidates[index]
-        if max(scores[index], group_scores[group_index]) < min_similarity:
-            continue
         if group_index in selected_groups:
             continue
         selected_groups.add(group_index)
