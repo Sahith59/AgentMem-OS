@@ -1,0 +1,58 @@
+from agentmem_os.benchmarks.recall_span_adapter import (
+    RecallSpanTfIdfAdapter,
+    _best_window,
+    select_recall_spans,
+)
+
+
+class _Base:
+    def __init__(self, rows):
+        self.rows = rows
+
+    def search(self, session_id, query, top_k=5):
+        return self.rows[:top_k]
+
+
+def test_selects_user_request_and_immediate_assistant_reply():
+    groups = [[
+        {"role": "user", "content": "[2023/05/26] List work from home jobs for seniors"},
+        {"role": "assistant", "content": "[2023/05/26] 1. Tutor 2. Editor 7. Transcriptionist"},
+    ], [
+        {"role": "user", "content": "[2023/05/20] List outdoor games"},
+        {"role": "assistant", "content": "[2023/05/20] Chess and tennis"},
+    ]]
+    selected = select_recall_spans(
+        "What was the seventh work from home job for seniors?", groups)
+    assert selected == [groups[0][0]["content"], groups[0][1]["content"]]
+
+
+def test_oversized_turn_returns_source_only_relevant_window():
+    text = "A" * 3500 + " Construction of the house began in 2014. " + "B" * 3500
+    window = _best_window(text, "When did construction of the house begin?", 3200)
+    assert len(window) == 3200
+    assert "began in 2014" in window
+    assert window in text
+
+
+def test_no_admission_is_byte_preserving_even_with_duplicate_chunks():
+    base_rows = ["duplicate", "duplicate", "other"]
+    adapter = RecallSpanTfIdfAdapter(
+        {"s": [[{"role": "user", "content": "unrelated"}]]},
+        min_similarity=0.99,
+        base=_Base(base_rows),
+    )
+    assert adapter.search("s", "our previous conversation about astronomy") == base_rows
+    assert adapter.last_receipt["reason"] == "no_admission"
+
+
+def test_non_recall_query_is_an_exact_noop():
+    base_rows = ["one", "two"]
+    adapter = RecallSpanTfIdfAdapter(
+        {"s": [[
+            {"role": "user", "content": "Suggest a hotel in Amsterdam"},
+            {"role": "assistant", "content": "International Budget Hostel"},
+        ]]},
+        base=_Base(base_rows),
+    )
+    assert adapter.search("s", "Where should I stay in Amsterdam?") == base_rows
+    assert adapter.last_receipt["reason"] == "not_recall_intent"
