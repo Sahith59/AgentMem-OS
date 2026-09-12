@@ -159,8 +159,10 @@ class RecallSpanTfIdfAdapter:
         )
         if not recall_reserve:
             return no_recall("no_admission")
-        reserve = prepend_reserve(recall_reserve, base_reserve)
-        merged = prepend_reserve(recall_reserve, base_chunks)[:top_k]
+        # prepend_reserve accepts (ordinary, reserve). Keep the newly matched
+        # recall span first, followed by any nested dated-event reserve.
+        reserve = prepend_reserve(base_reserve, recall_reserve)
+        merged = prepend_reserve(base_chunks, recall_reserve)[:top_k]
         self.last_receipt = {
             "session_id": session_id,
             "query": query,

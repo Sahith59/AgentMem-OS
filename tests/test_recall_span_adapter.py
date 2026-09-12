@@ -66,3 +66,17 @@ def test_preserves_nested_reserve_metadata_for_context_assembler():
     assert adapter.search("s", "What happened two weeks ago?") == base_rows
     assert adapter.last_receipt["reserve"] == ["dated event"]
     assert adapter.last_receipt["nested_reserve_count"] == 1
+
+
+def test_admitted_recall_span_is_actually_promoted_ahead_of_base_chunks():
+    groups = [[
+        {"role": "user", "content": "List work from home jobs for seniors"},
+        {"role": "assistant", "content": "7. Transcriptionist"},
+    ]]
+    adapter = RecallSpanTfIdfAdapter(
+        {"s": groups}, base=_Base(["ordinary one", "ordinary two"]))
+    result = adapter.search(
+        "s", "Remind me about work from home jobs for seniors", top_k=3)
+    assert result == [groups[0][0]["content"], groups[0][1]["content"],
+                      "ordinary one"]
+    assert adapter.last_receipt["reserve"][:2] == result[:2]
