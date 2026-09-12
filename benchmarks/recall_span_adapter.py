@@ -127,38 +127,47 @@ class RecallSpanTfIdfAdapter:
 
     def search(self, session_id: str, query: str, top_k: int = 5) -> list:
         base_chunks = self.base.search(session_id, query, top_k=top_k)
+        base_receipt = getattr(self.base, "last_receipt", None) or {}
+        base_reserve = list(base_receipt.get("reserve", []))
+
+        def no_recall(reason: str) -> list:
+            self.last_receipt = {
+                "session_id": session_id,
+                "query": query,
+                "reserve_count": len(base_reserve),
+                "reserve": base_reserve,
+                "recall_reserve_count": 0,
+                "nested_reserve_count": len(base_reserve),
+                "reason": reason,
+            }
+            return base_chunks
+
         groups = self.turn_groups_by_session.get(session_id)
         if not groups:
-            self.last_receipt = {
-                "session_id": session_id, "query": query,
-                "reserve_count": 0, "reason": "no_turn_groups"}
-            return base_chunks
+            return no_recall("no_turn_groups")
 
         from agentmem_os.llm.context_assembler import _CONVERSATION_RECALL_RE
 
         if not _CONVERSATION_RECALL_RE.search(query or ""):
-            self.last_receipt = {
-                "session_id": session_id, "query": query,
-                "reserve_count": 0, "reason": "not_recall_intent"}
-            return base_chunks
-        reserve = select_recall_spans(
+            return no_recall("not_recall_intent")
+        recall_reserve = select_recall_spans(
             query,
             groups,
             session_limit=self.session_limit,
             min_similarity=self.min_similarity,
             max_chars_per_turn=self.max_chars_per_turn,
         )
-        if not reserve:
-            self.last_receipt = {
-                "session_id": session_id, "query": query,
-                "reserve_count": 0, "reason": "no_admission"}
-            return base_chunks
-        merged = prepend_reserve(base_chunks, reserve)[:top_k]
+        if not recall_reserve:
+            return no_recall("no_admission")
+        reserve = prepend_reserve(recall_reserve, base_reserve)
+        merged = prepend_reserve(recall_reserve, base_chunks)[:top_k]
         self.last_receipt = {
             "session_id": session_id,
             "query": query,
             "reserve_count": len(reserve),
             "reserve": list(reserve),
+            "recall_reserve_count": len(recall_reserve),
+            "nested_reserve_count": len(base_reserve),
             "base_count": len(base_chunks),
             "returned_count": len(merged),
         }

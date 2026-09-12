@@ -6,8 +6,9 @@ from agentmem_os.benchmarks.recall_span_adapter import (
 
 
 class _Base:
-    def __init__(self, rows):
+    def __init__(self, rows, reserve=None):
         self.rows = rows
+        self.last_receipt = {"reserve": list(reserve or [])}
 
     def search(self, session_id, query, top_k=5):
         return self.rows[:top_k]
@@ -56,3 +57,12 @@ def test_non_recall_query_is_an_exact_noop():
     )
     assert adapter.search("s", "Where should I stay in Amsterdam?") == base_rows
     assert adapter.last_receipt["reason"] == "not_recall_intent"
+
+
+def test_preserves_nested_reserve_metadata_for_context_assembler():
+    base_rows = ["dated event", "ordinary"]
+    adapter = RecallSpanTfIdfAdapter(
+        {}, base=_Base(base_rows, reserve=["dated event"]))
+    assert adapter.search("s", "What happened two weeks ago?") == base_rows
+    assert adapter.last_receipt["reserve"] == ["dated event"]
+    assert adapter.last_receipt["nested_reserve_count"] == 1
