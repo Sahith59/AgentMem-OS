@@ -442,7 +442,8 @@ class ContextAssembler:
                 top_k = max(5, min(200, sem_budget // approx_chunk_tokens))
                 chunks = chroma.search(session_id, query, top_k=top_k)
                 if chunks:
-                    # Rank decides WHAT survives; time decides HOW it reads.
+                    # Rank decides WHAT survives; time usually decides HOW it
+                    # reads.
                     # Retrieval returns chunks in similarity order — a shuffle
                     # of moments from many different days. Temporal questions
                     # ("how many days between X and Y") and aggregation
@@ -450,10 +451,14 @@ class ContextAssembler:
                     # measured categories, and both need evidence laid out
                     # the way a person recounts it: chronologically. So the
                     # budget is filled by rank, then the SURVIVORS are
-                    # reordered by their date stamps. No-ops gracefully when
-                    # chunks carry no parseable dates.
+                    # reordered by their date stamps. Conversation-recall
+                    # questions are the exception: their answer is normally a
+                    # single assistant-stated passage, so putting rank-0 at
+                    # the front is more useful than reconstructing a timeline.
+                    # No-ops gracefully when chunks carry no parseable dates.
                     chunks = self._order_evidence(
-                        chunks, sem_budget
+                        chunks, sem_budget,
+                        chronological=not recall_intent,
                     )
                     sem_text = "\n---\n".join(chunks)
                     sem_section = self._fit_to_budget(
@@ -543,10 +548,12 @@ class ContextAssembler:
 
     _EVIDENCE_DATE_RE = None  # compiled lazily
 
-    def _order_evidence(self, chunks: list, token_budget: int) -> list:
+    def _order_evidence(self, chunks: list, token_budget: int,
+                        chronological: bool = True) -> list:
         """
         Fill the token budget from the RANKED chunk list, then sort the
-        survivors chronologically by their leading "[<date>]" stamp.
+        survivors chronologically by their leading "[<date>]" stamp when
+        ``chronological`` is true. Otherwise the selected rank order is kept.
 
         Selection stays rank-based (the best evidence must survive the
         budget); only presentation changes. Dates in the "[YYYY/MM/DD ...]"
@@ -566,6 +573,9 @@ class ContextAssembler:
                 break
             picked.append(c)
             used += len(c) + 5
+
+        if not chronological:
+            return picked
 
         dated = 0
         keys = []

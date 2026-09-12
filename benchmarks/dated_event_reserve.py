@@ -28,9 +28,17 @@ _RANGE_RE = re.compile(
     r"(?P<unit>day|week|month|year)s?\b",
     re.IGNORECASE,
 )
+_LAST_WEEKDAY_RE = re.compile(
+    r"\blast\s+(?P<weekday>monday|tuesday|wednesday|thursday|friday|"
+    r"saturday|sunday)\b",
+    re.IGNORECASE,
+)
 _COUNT = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
     "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+}
+_WEEKDAY = {
+    name.lower(): index for index, name in enumerate(calendar.day_name)
 }
 
 # These cues require a first-person subject and completed-event wording.  They
@@ -51,6 +59,20 @@ _PLAN_RE = re.compile(
 _RESERVE_FLOOR = 0.05
 _QUESTION_SCAFFOLD_RE = re.compile(
     r"\bhow\s+many\s+times\b", re.IGNORECASE)
+_SOURCE_RELATION_QUERY_RE = re.compile(
+    r"\b(?:received|got|acquired)\b[^?\n]{0,120}\bfrom\s+whom\b",
+    re.IGNORECASE,
+)
+_SOURCE_RELATION_EVENT_RE = re.compile(
+    r"\b(?:i|we)\b[^.!?\n]{0,220}\b(?:received|got|acquired)\b"
+    r"[^.!?\n]{0,220}\bfrom\s+(?:my|our|the|an?|some)\s+"
+    r"[a-z][a-z'-]*",
+    re.IGNORECASE,
+)
+_SAW_LIVE_EVENT_RE = re.compile(
+    r"\b(?:i|we)\b[^.!?\n]{0,220}\bsaw\b[^.!?\n]{0,100}\blive\b",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -115,6 +137,12 @@ def temporal_window(query: str, reference_date: str | date | datetime,
         start = _subtract(reference, _count(match["count"]),
                           match["unit"].lower())
         return TemporalWindow(start, reference, None, "range")
+    match = _LAST_WEEKDAY_RE.search(query)
+    if match:
+        weekday = _WEEKDAY[match["weekday"].lower()]
+        days_back = (reference.weekday() - weekday) % 7 or 7
+        target = reference - timedelta(days=days_back)
+        return TemporalWindow(target, target, target, "weekday")
     return None
 
 
@@ -140,14 +168,21 @@ def _content_tokens(text: str) -> list[str]:
     return tokens
 
 
-def completed_user_event(turn) -> bool:
+def is_source_relation_query(query: str) -> bool:
+    """Whether the question asks who supplied a received item."""
+    return bool(_SOURCE_RELATION_QUERY_RE.search(query or ""))
+
+
+def completed_user_event(turn, allow_source_relation: bool = False) -> bool:
     """Conservative admission check for an explicitly completed user event."""
     if str(_field(turn, "role") or "").lower() != "user":
         return False
     content = str(_field(turn, "content") or "")
     match = _COMPLETED_EVENT_RE.search(content)
     if not match:
-        return False
+        return (bool(_SAW_LIVE_EVENT_RE.search(content))
+                or (allow_source_relation
+                    and bool(_SOURCE_RELATION_EVENT_RE.search(content))))
     prefix = content[max(0, match.start() - 80):match.end()]
     return not _PLAN_RE.search(prefix)
 
@@ -160,10 +195,12 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     window = temporal_window(query, reference_date)
     if window is None:
         return []
+    source_relation_query = is_source_relation_query(query)
 
     candidates: list[tuple[str, date, int]] = []
     for ordinal, turn in enumerate(turns):
-        if not completed_user_event(turn):
+        if not completed_user_event(
+                turn, allow_source_relation=source_relation_query):
             continue
         content = str(_field(turn, "content") or "")
         stamp = _STAMP_RE.match(content)
@@ -192,6 +229,8 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     except ValueError:
         return []
     similarities = word_scores
+    source_relation_event = [
+        bool(_SOURCE_RELATION_EVENT_RE.search(text)) for text in texts]
 
     ordered_range = bool(re.search(
         r"\b(?:earliest|oldest|chronological|in\s+order|order\s+of)\b",
@@ -200,14 +239,17 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     def key(index: int):
         _, occurred, ordinal = candidates[index]
         if window.target is not None:
-            return (abs((occurred - window.target).days),
+            return (0 if source_relation_query and source_relation_event[index]
+                    else 1,
+                    abs((occurred - window.target).days),
                     -similarities[index], ordinal)
         if ordered_range:
             return (occurred.toordinal(), -similarities[index], ordinal)
         return (-similarities[index], occurred.toordinal(), ordinal)
 
     eligible = [index for index in range(len(candidates))
-                if similarities[index] >= _RESERVE_FLOOR]
+                if similarities[index] >= _RESERVE_FLOOR
+                or (source_relation_query and source_relation_event[index])]
     ranked = sorted(eligible, key=key)
     return [candidates[index][0] for index in ranked[:limit]]
 
