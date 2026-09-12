@@ -62,7 +62,7 @@ def test_point_query_selects_completed_relevant_event():
 def test_range_query_selects_completed_trip_without_admitting_plan():
     turns = [
         _turn("[2023/03/10 (Fri)] I just got back from a day hike to Muir "
-              "Woods with my family."),
+              "Woods with my family and am preparing for future trips."),
         _turn("[2023/04/20 (Thu)] I returned from a road trip to Big Sur."),
         _turn("[2023/05/20 (Sat)] I am planning a trip to Tahoe."),
         _turn("[2023/02/20 (Mon)] I completed a winter trip to Tahoe."),
@@ -80,3 +80,13 @@ def test_prepend_reserve_deduplicates_without_reordering():
     assert prepend_reserve(["base-a", "shared", "base-b"],
                            ["reserved", "shared"]) == [
                                "reserved", "shared", "base-a", "base-b"]
+
+
+def test_relative_time_words_alone_do_not_admit_unrelated_events():
+    turns = [
+        _turn("[2023/04/19] I returned from a trip to Bali."),
+        _turn("[2023/04/17] I attended a filmmaking panel."),
+    ]
+    assert select_dated_event_turns(
+        "What gardening-related activity did I do two weeks ago?",
+        "2023/05/05", turns, limit=1) == []

@@ -20,7 +20,7 @@ def _turn(content, role="user"):
 
 def test_adapter_prepends_bounded_event_and_preserves_base_order():
     query = "Where was the art event two weeks ago?"
-    target = "[2023/01/15] I attended an exhibit at the Metropolitan Museum."
+    target = "[2023/01/15] I attended an exhibit at the Metropolitan Museum of Art."
     base = FakeBase(["ordinary-a", "ordinary-b", target])
     adapter = DatedEventTfIdfAdapter(
         {query: "2023/02/01"}, reserve_limit=1, base=base,

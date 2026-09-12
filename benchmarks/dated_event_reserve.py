@@ -48,6 +48,7 @@ _PLAN_RE = re.compile(
     r"thinking\s+of|going\s+to)\b",
     re.IGNORECASE,
 )
+_RESERVE_FLOOR = 0.05
 
 
 @dataclass(frozen=True)
@@ -121,6 +122,22 @@ def _field(turn, name: str):
     return getattr(turn, name, None)
 
 
+def _content_tokens(text: str) -> list[str]:
+    """Small lexical normalizer; no semantic or temporal words are invented."""
+    from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+
+    tokens = []
+    for token in re.findall(r"[a-z0-9]+", text.lower()):
+        if token in ENGLISH_STOP_WORDS or len(token) < 2:
+            continue
+        if len(token) > 4 and token.endswith("ies"):
+            token = token[:-3] + "y"
+        elif len(token) > 3 and token.endswith("s") and not token.endswith("ss"):
+            token = token[:-1]
+        tokens.append(token)
+    return tokens
+
+
 def completed_user_event(turn) -> bool:
     """Conservative admission check for an explicitly completed user event."""
     if str(_field(turn, "role") or "").lower() != "user":
@@ -160,25 +177,18 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
     from sklearn.metrics.pairwise import cosine_similarity
 
     texts = [item[0] for item in candidates]
+    relevance_query = _RELATIVE_RE.sub(" ", query)
+    relevance_query = _RANGE_RE.sub(" ", relevance_query)
     word_vectorizer = TfidfVectorizer(
-        max_features=2048, sublinear_tf=True, min_df=1)
-    char_vectorizer = TfidfVectorizer(
-        analyzer="char_wb", ngram_range=(3, 5), max_features=4096,
-        sublinear_tf=True, min_df=1)
+        analyzer=_content_tokens, max_features=2048, sublinear_tf=True,
+        min_df=1)
     try:
         word_matrix = word_vectorizer.fit_transform(texts)
         word_scores = cosine_similarity(
-            word_vectorizer.transform([query]), word_matrix)[0]
-        char_matrix = char_vectorizer.fit_transform(texts)
-        char_scores = cosine_similarity(
-            char_vectorizer.transform([query]), char_matrix)[0]
+            word_vectorizer.transform([relevance_query]), word_matrix)[0]
     except ValueError:
         return []
-
-    # Word matching is the primary signal. Character-within-word matching is
-    # a bounded fallback for morphology such as trip/trips and hike/hiked.
-    similarities = [max(word, char * 0.75)
-                    for word, char in zip(word_scores, char_scores)]
+    similarities = word_scores
 
     def key(index: int):
         _, occurred, ordinal = candidates[index]
@@ -188,7 +198,7 @@ def select_dated_event_turns(query: str, reference_date, turns: Iterable,
 
     ranked = sorted(range(len(candidates)), key=key)
     return [candidates[index][0] for index in ranked[:limit]
-            if similarities[index] > 0.01]
+            if similarities[index] >= _RESERVE_FLOOR]
 
 
 def prepend_reserve(base_chunks: Sequence[str], reserve: Sequence[str]) -> list[str]:
