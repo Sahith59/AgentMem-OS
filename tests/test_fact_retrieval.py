@@ -1145,6 +1145,24 @@ def test_recall_intent_beats_aggregation_intent():
     assert "not recall_intent" in src
 
 
+def test_recall_intent_keeps_raw_evidence_in_relevance_order(env):
+    """Assistant-recall answers are usually one passage. The top-ranked
+    passage must stay at the front instead of moving behind older chatter."""
+    ranked = [
+        "[2023/05/30] ASSISTANT: Roscioli is the romantic restaurant.",
+        "[2023/01/01] USER: unrelated older restaurant discussion.",
+    ]
+    a = _assembler(env, chunks=ranked)
+    out = a.assemble(
+        "s-recall-order",
+        "Can you remind me which romantic restaurant you recommended?",
+        disable=frozenset({"profile", "facts", "global", "procedural"}),
+    )
+
+    assert a.last_tier_budget["recall_intent"] is True
+    assert out.index("Roscioli") < out.index("unrelated older")
+
+
 def test_aggregation_routing_is_opt_in():
     """The probe FAILED its pre-registered bar (1 systematic fixed vs a
     >=4 bar), so the routing must be OPT-IN: without the enable flag the

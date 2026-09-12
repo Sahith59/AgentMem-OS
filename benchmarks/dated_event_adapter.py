@@ -84,11 +84,12 @@ class DatedEventContextAssembler(ContextAssembler):
 
     reserve_budget_share = 0.15
 
-    def _order_evidence(self, chunks, token_budget):
+    def _order_evidence(self, chunks, token_budget, chronological=True):
         receipt = getattr(self._chroma, "last_receipt", None) or {}
         requested = receipt.get("reserve", [])
         if not requested:
-            return super()._order_evidence(chunks, token_budget)
+            return super()._order_evidence(
+                chunks, token_budget, chronological=chronological)
 
         chunk_set = set(chunks)
         reserve_cap = int(token_budget * 4 * self.reserve_budget_share)
@@ -106,10 +107,12 @@ class DatedEventContextAssembler(ContextAssembler):
             used += cost
 
         if not reserved:
-            return super()._order_evidence(chunks, token_budget)
+            return super()._order_evidence(
+                chunks, token_budget, chronological=chronological)
         reserved_set = set(reserved)
         remaining = [chunk for chunk in chunks if chunk not in reserved_set]
         remaining_tokens = max(0, (token_budget * 4 - used) // 4)
         ordered_remaining = (super()._order_evidence(
-            remaining, remaining_tokens) if remaining_tokens else [])
+            remaining, remaining_tokens,
+            chronological=chronological) if remaining_tokens else [])
         return reserved + ordered_remaining
