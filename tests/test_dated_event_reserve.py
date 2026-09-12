@@ -131,3 +131,26 @@ def test_count_scaffold_time_does_not_match_unrelated_personal_best():
     assert select_dated_event_turns(
         "How many times did I bake egg tarts in the past two weeks?",
         "2023/05/30", turns, limit=1) == []
+
+
+def test_last_weekday_resolves_to_strictly_previous_occurrence():
+    window = temporal_window(
+        "Who gave me the gift last Saturday?", "2023/03/09")
+    assert window is not None
+    assert window.kind == "weekday"
+    assert str(window.start) == "2023-03-04"
+    assert window.start == window.end == window.target
+
+
+def test_last_weekday_received_from_relation_admits_zero_lexical_overlap():
+    target = _turn(
+        "[2023/03/04] I also got a crystal chandelier from my aunt today.")
+    turns = [
+        _turn("[2023/03/04] I finished a charity run last Saturday."),
+        target,
+        _turn("[2023/03/04] I've got some wood scraps for coasters."),
+        _turn("[2023/03/03] I received a parcel from my neighbor."),
+    ]
+    assert select_dated_event_turns(
+        "I received a piece of jewelry last Saturday from whom?",
+        "2023/03/09", turns, limit=1) == [target["content"]]
