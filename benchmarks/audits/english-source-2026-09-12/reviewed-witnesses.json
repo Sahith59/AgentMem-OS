@@ -1,0 +1,899 @@
+[
+  {
+    "question_id": "2311e44b",
+    "kind": "retained_detail_gap",
+    "note": "The page250 operand is absent from this source session's retained fact rows and the old raw packet; supplement restores the source.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-5137725c008810416853accbf2093ac6e70b00f6827cb065ace154dce3c0d0e2",
+    "source_title": "Session answer_bf633415_1 (2023/05/30 (Tue) 01:32)",
+    "turn_index": 8,
+    "role": "user",
+    "source_text": "[2023/05/30 (Tue) 01:32] I'm currently on page 250 of 'The Nightingale' by Kristin Hannah, and I'm really getting into it. I'd like to apply the principles from 'Atomic Habits' and 'Deep Work' to improve my reading habits. Can you help me create a plan to increase my reading speed and retention? Specifically, I'd like to know how to schedule my reading sessions, eliminate distractions, and practice active reading.",
+    "source_sha256": "9c4f0ae0180cebdfb7dbae4acb42763b93b3adb7eb04dcf5f3f495d2a7dd276c",
+    "baseline_full_turn": false,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 61031,
+        "fact_text": "The user is interested in evidence-based self-help and personal development books that provide practical advice for improving daily habits and productivity.",
+        "in_packet": false,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "945e3d21",
+    "kind": "retained_detail_gap",
+    "note": "The newer frequency qualifier is missing from retained facts; old twice-weekly state survives.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-03d630405c1242e0a7d2faf0522c1a6d62a245f53b162102d8baa87ef53612b2",
+    "source_title": "Session answer_6a4f8626_2 (2023/11/30 (Thu) 03:29)",
+    "turn_index": 2,
+    "role": "user",
+    "source_text": "[2023/11/30 (Thu) 03:29] I've got a bunch of projects going on, including a marketing campaign, a report due next Friday, and some website updates. I'd say the marketing campaign is the priority, but the report is time-sensitive. I think each task will take around 2-3 days to complete. As for work hours, I'm available from 9am-5pm, but I try to take a lunch break from 12-1pm. I've also got a meeting on Wednesday from 2-3pm. Oh, and I've noticed that I'm more focused on days when I attend yoga classes, which is three times a week - it really helps me clear my head.",
+    "source_sha256": "c0cb222be5361ab6050f906e667931b4688ad31b2b3c4016efe4d0ba87c13275",
+    "baseline_full_turn": false,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 58658,
+        "fact_text": "The user is currently working on a marketing campaign, a report, and website updates.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58659,
+        "fact_text": "The user considers the marketing campaign the highest-priority project.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58660,
+        "fact_text": "The user's report is due on Friday, 2023/12/08.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58661,
+        "fact_text": "The user estimates that each of the marketing campaign, report, and website updates tasks will take around 2-3 days to complete.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58662,
+        "fact_text": "The user is available to work from 9am-5pm.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58663,
+        "fact_text": "The user tries to take a lunch break from 12-1pm.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58664,
+        "fact_text": "The user has a meeting on Wednesday from 2-3pm.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58665,
+        "fact_text": "The user feels more focused on days when the user attends yoga classes, and yoga helps the user clear their head.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58666,
+        "fact_text": "The user was feeling overwhelmed with work projects on 2023/11/30.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58667,
+        "fact_text": "The user prefers dedicating more time to report writing on Wednesday and focusing on editing and proofreading on Friday.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58668,
+        "fact_text": "The user felt more confident about completing the report on time after accepting the updated work schedule on 2023/11/30.",
+        "in_packet": false,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "gpt4_2c50253f",
+    "kind": "retained_detail_gap",
+    "note": "The weekday-specific wake-time offset is absent from retained facts and old packet.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-2b371562fc8846675c8eb942d577dfd1f9372eb34b8343d9a3382f910d003e93",
+    "source_title": "Session answer_9af4e346_2 (2023/05/27 (Sat) 07:56)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/05/27 (Sat) 07:56] I'm trying to create a personalized morning routine that works for me. I've recently started going for a 30-minute walk before work, which has been great. On Tuesdays and Thursdays, I've also started waking up 15 minutes earlier to meditate and practice some yoga poses, which has helped me feel more centered and calm. Can you suggest some healthy breakfast ideas that I can prep the night before to start my day on a good note?",
+    "source_sha256": "bebb3e2b13c3762e71d469237030edc7219e82e5db8d3fa4139420bb3c1b495b",
+    "baseline_full_turn": false,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 60147,
+        "fact_text": "The user recently started taking a 30-minute walk before work.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 60148,
+        "fact_text": "The user is excited to try chia seed pudding.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 60149,
+        "fact_text": "The user has felt more energized and focused throughout the day since starting morning walks.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 60150,
+        "fact_text": "The user likes that Headspace and Insight Timer offer a variety of guided meditations and tracking features.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 60151,
+        "fact_text": "The user is interested in exploring the UCLA Mindful Awareness Research Center and Tara Brach's website as free meditation resources.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 60152,
+        "fact_text": "The user is starting out with meditation and finds it helpful to have a mix of guided sessions and flexibility to explore different styles and topics.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 60153,
+        "fact_text": "The user plans to meditate at the same time every day, right after the user's morning walk, to build a habit.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "e3038f8c",
+    "kind": "retained_detail_gap",
+    "note": "The missing12-count accounts arithmetically for99minus87; this does not prove a future generated answer.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-231986956a4672b38aad390315925d52f81024b1d953c7ff86ec8b1c4092b51d",
+    "source_title": "Session answer_b6018747_2 (2023/05/22 (Mon) 15:51)",
+    "turn_index": 4,
+    "role": "user",
+    "source_text": "[2023/05/22 (Mon) 15:51] I'll keep that in mind. Yeah, I have 12 rare figurines in my collection, and I'm always looking to improve my knowledge about them. Do you think these appraisers would also be able to help me find a good way to store them safely? I've been meaning to get a better display case or a secure storage solution to protect them from damage.",
+    "source_sha256": "aa3577529183686850a47fb364dcdaaacd8b938b8805adc9cf10df49ed01668b",
+    "baseline_full_turn": false,
+    "candidate_full_turn": false,
+    "same_source_retained_facts": [
+      {
+        "id": 60892,
+        "fact_text": "The user is looking for a professional appraiser to evaluate a friend's antique vase.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 60895,
+        "fact_text": "The user wants a better display case or secure storage solution to protect the user's rare figurines from damage.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 60897,
+        "fact_text": "The user plans to add a new vinyl record to the user's collection.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 60898,
+        "fact_text": "The user has 57 rare records in the user's collection.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 60899,
+        "fact_text": "The user recently got a new vinyl record.",
+        "in_packet": false,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "71a3fd6b",
+    "kind": "raw_reply_omission",
+    "note": "Phone-bearing reply missing while nearby user requests were delivered.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-4e4e1a4bf833144664b78e7c81eda05c4d19ca8ace70fd11cb8aae7967101b92",
+    "source_title": "Session answer_ultrachat_417348 (2023/05/29 (Mon) 09:40)",
+    "turn_index": 3,
+    "role": "assistant",
+    "source_text": "[2023/05/29 (Mon) 09:40] Certainly! You can contact the tourism board of Speyer using the following details:\n\nSpeyer Tourismus Marketing GmbH\nMaximilianstra\u00dfe 13\n67346 Speyer\nPhone: +49 (0) 62 32 / 14 23 - 0\nEmail: info@speyer.de\nWebsite: https://www.speyer.de/",
+    "source_sha256": "9e7db32e120565db87a1a3987445e6adb70a9f5f3360df52cf761455f0afab55",
+    "baseline_full_turn": false,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": []
+  },
+  {
+    "question_id": "69fee5aa",
+    "kind": "delivered_operands",
+    "note": "Earlier balance37 is delivered.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-c0394b0e525eeb4a47892a425d1feaf557fa333f20582c1ff80e8eac01deacf7",
+    "source_title": "Session answer_d6028d6e_1 (2023/05/27 (Sat) 18:09)",
+    "turn_index": 8,
+    "role": "user",
+    "source_text": "[2023/05/27 (Sat) 18:09] By the way, I was thinking of organizing my pre-1920 American coins by denomination and mint mark. I have a total of 37 coins in that collection, and I think it would be cool to see them all displayed together. Do you have any tips on how to properly store and display them?",
+    "source_sha256": "ca809e603a3c41c451f8f667e0fe0bb8afa577820379861e9567e98f9f3c63fb",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 61825,
+        "fact_text": "The user is looking to organize collections of coins, records, cameras, and books better.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61826,
+        "fact_text": "The user intends to try Coin Collector's Assistant for the user's coins.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61827,
+        "fact_text": "The user intends to try Discogs for the user's records.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 61828,
+        "fact_text": "The user has a 1940s-era Leica IIIa camera to add to the user's collection.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61829,
+        "fact_text": "The user has a 1960s-era Nikon F camera to add to the user's collection.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61831,
+        "fact_text": "The user has a pre-1920 American coin collection containing a total of 37 coins.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61832,
+        "fact_text": "The user is thinking of organizing the user's pre-1920 American coins by denomination and mint mark.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61833,
+        "fact_text": "The user would like to display all 37 coins in the user's pre-1920 American coin collection together.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61834,
+        "fact_text": "The user is excited to start organizing and displaying the user's coins.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "69fee5aa",
+    "kind": "delivered_operands",
+    "note": "Later additional pre1920 quarter is delivered; both generated explanations repeat earlier37.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-c5d4be1036d2a01b48369f2262fb1767a9196ebddd9f8deaf7c1b9d9d1fb5470",
+    "source_title": "Session answer_d6028d6e_2 (2023/05/29 (Mon) 00:54)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/05/29 (Mon) 00:54] I'm looking to learn more about error coins, specifically ones with misprinted dates. Can you tell me about some notable examples, and how I can identify them? By the way, I just added a new coin to my collection of pre-1920 American coins - a 1915-S Barber quarter.",
+    "source_sha256": "212091043df7f8336f64a94d2fec3f6fc3f58fe43ce9ad2317e79418f50408d9",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 61835,
+        "fact_text": "The user owns a collection of pre-1920 American coins.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61836,
+        "fact_text": "The user added a 1915-S Barber quarter to the user's collection of pre-1920 American coins on 2023/05/29.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61837,
+        "fact_text": "The user recently bought a 1972 doubled die cent.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 61838,
+        "fact_text": "The user intends to get the user's 1972 doubled die cent authenticated soon.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 61839,
+        "fact_text": "The user plans to review PCGS and NGC submission guidelines for authenticating the user's 1972 doubled die cent.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61840,
+        "fact_text": "The user has heard that PCGS is more popular among error coin collectors.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61841,
+        "fact_text": "The user plans to check resources for upcoming coin shows in the user's area.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61842,
+        "fact_text": "The user is interested in meeting other collectors and learning more about error coins at coin shows.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61843,
+        "fact_text": "The user owns a camera collection and is looking to add a few more cameras to it.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 61844,
+        "fact_text": "The user is expanding the user's camera collection to include vintage rangefinders.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "21d02d0d",
+    "kind": "delivered_relation",
+    "note": "Complete source links work and missedMarch26 run; both generated explanations overlook that link.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-65db1fc248b8e824a448f85eb27aeab02159afee7bce457c224e1cf8c0a67684",
+    "source_title": "Session answer_2c637141_2 (2023/04/26 (Wed) 01:52)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/04/26 (Wed) 01:52] I'm looking to plan out my training schedule for the next few months. Can you help me create a calendar to organize my runs, yoga classes, and swimming sessions? By the way, I've been pretty busy with work lately and missed a few events, including a 5K fun run on March 26th.",
+    "source_sha256": "931461c97f0a6c8b45f747bb17a6f47167c43fa6cb5d61992ea08956b5f5197d",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 56616,
+        "fact_text": "The user missed a 5K fun run on March 26, 2023.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56617,
+        "fact_text": "The user is training for a local triathlon in July and wants to build endurance for swimming, running, and cycling.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56618,
+        "fact_text": "The user can dedicate around 5-6 days a week to training and prefers to have one or two rest days in between.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56619,
+        "fact_text": "The user prefers running on Saturday mornings and Wednesday evenings.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56620,
+        "fact_text": "The user currently attends yoga classes on Tuesdays and Thursdays.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56621,
+        "fact_text": "The user currently swims on Wednesday evenings and wants to add an extra swimming session on Fridays.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56622,
+        "fact_text": "The user participates in recreational volleyball sessions on Sundays.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56623,
+        "fact_text": "The user is located in ZIP code 92101.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56624,
+        "fact_text": "The user plans to schedule a bike fitting appointment at RIDE Cyclery, but no appointment date has been specified.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56625,
+        "fact_text": "The user plans to complete a few more training rides before the bike fitting to get a feel for the bike and identify initial discomfort or issues.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "21d02d0d",
+    "kind": "delivered_relation",
+    "note": "Other work-related missed run is also delivered.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-d8bdd939d3053733fd17e2512ac85b7e62caeed41e3da65404f452b9fc5fbf22",
+    "source_title": "Session answer_2c637141_1 (2023/04/26 (Wed) 15:47)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/04/26 (Wed) 15:47] I'm looking for some advice on how to recover from a marathon. I just completed my first full marathon on April 10th and I'm feeling a bit sore. I've been doing yoga twice a week, which has been helping with my flexibility and recovery, but I'm wondering if there are any other tips you can share. By the way, I've been active in the running community and was able to attend most of the weekly 5K fun runs at the local park, except for the run on March 5th when I had to miss due to work commitments.",
+    "source_sha256": "fe44981a4919cb70a259fd534e60fc97a521e957c86623e982d12d6b545a8468",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 56644,
+        "fact_text": "The user completed the user's first full marathon on April 10, 2023.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56645,
+        "fact_text": "The user has been feeling substantial post-marathon soreness, especially in the user's quadriceps and calves, along with tight hip flexors, on April 26, 2023.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56646,
+        "fact_text": "The user practices yoga twice a week to support flexibility and recovery.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56647,
+        "fact_text": "The user is active in the running community and attends most weekly 5K fun runs at the local park.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56648,
+        "fact_text": "The user has been doing light yoga poses to improve flexibility and address hip flexor tightness.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56649,
+        "fact_text": "The user is interested in trying step-ups and lunges to strengthen the user's hip flexors.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 56650,
+        "fact_text": "The user used to swim in high school.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56651,
+        "fact_text": "The user is excited to return to swimming.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 56652,
+        "fact_text": "The user plans to focus on swimming endurance and incorporate intervals when returning to swimming.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "370a8ff4",
+    "kind": "upstream_date_conflict",
+    "note": "Pinned upstream datesJanuary19recovery.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-cca3e98894cf93ff452c3cc21914a3a0b1105aa88b0ff142d08e71eb00173715",
+    "source_title": "Session answer_61d1be50_1 (2023/01/19 (Thu) 10:47)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/01/19 (Thu) 10:47] I'm feeling much better now that I finally recovered from the flu today, and I was thinking about getting back into my exercise routine. Do you have any tips on how to ease into jogging again after a two-week break?",
+    "source_sha256": "e0d1cc5eeba5b0843ac1afde0b657bd5a33def500f5aa4909765a5d8f034501c",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 58360,
+        "fact_text": "The user recovered from the flu on 2023/01/19.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58361,
+        "fact_text": "The user is considering returning to the user's exercise routine after recovering from the flu.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58362,
+        "fact_text": "The user took a two-week break from jogging.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58363,
+        "fact_text": "The user has been doing outdoor activities such as gardening.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58364,
+        "fact_text": "The user has been using the same pair of running shoes for a while.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58367,
+        "fact_text": "The user plans to vacation at the user's family's beach house in July 2023.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58368,
+        "fact_text": "The user is excited to play beach games and activities with the user's cousins.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58369,
+        "fact_text": "The user plans to take it easy and avoid overexertion in the sun because the user recently recovered from the flu.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "370a8ff4",
+    "kind": "upstream_date_conflict",
+    "note": "Pinned upstream datesApril10tenthjog:81daysafterJanuary19, contradictingreference15weeks.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-0a1a46d03f094d86c7794fbd196837c39d7b680f88b0726003fcec8968b639b4",
+    "source_title": "Session answer_61d1be50_2 (2023/04/10 (Mon) 20:58)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/04/10 (Mon) 20:58] I'm planning my summer vacation and I was wondering if you could suggest some fun outdoor activities I can do at the beach besides swimming and beach volleyball? Oh, and by the way, I went on my 10th jog outdoors today, and it feels great to be back in shape after a harsh winter.",
+    "source_sha256": "cdeb7ed672365505e7893954eaf076befc165da1cc4e5dab173a4640745a26a5",
+    "baseline_full_turn": false,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 58350,
+        "fact_text": "The user went on the user's 10th outdoor jog on 2023/04/10.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58351,
+        "fact_text": "The user feels great to be back in shape after a harsh winter.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58352,
+        "fact_text": "The user plans to try kayaking or paddleboarding for the first time.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58353,
+        "fact_text": "The user plans to go kayaking during the user's vacation.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58354,
+        "fact_text": "The user has always wanted to drive along the Blue Ridge Parkway.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58355,
+        "fact_text": "The user plans to take a trip to the Berkshires in Massachusetts.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58356,
+        "fact_text": "The user has always wanted to visit the Clark Art Institute in Williamstown.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58357,
+        "fact_text": "The user plans to drive the Mohawk Trail.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58358,
+        "fact_text": "The user plans to visit scenic coastal towns.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58359,
+        "fact_text": "The user is considering visiting Nantucket or Martha's Vineyard.",
+        "in_packet": false,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "9a707b81",
+    "kind": "upstream_date_conflict",
+    "note": "Pinned upstreamMarch21yesterdayclass ->March20; April15minusMarch20=26days, not21-22.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-b371ec61e678137ae3da0b4c75719b154c1252d072a0a52f4c86499cf438d735",
+    "source_title": "Session answer_dba89487_2 (2022/03/21 (Mon) 15:54)",
+    "turn_index": 2,
+    "role": "user",
+    "source_text": "[2022/03/21 (Mon) 15:54] I've been obsessed with strawberries lately, especially after that amazing baking class I took at a local culinary school yesterday. I was thinking of making a strawberry shortcake. Do you have any tips on how to make the perfect shortcake?",
+    "source_sha256": "4e6dc4323a86a38bb72d8483a38af131ddd481bb66fe376f42e102ff0bb28141",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 62191,
+        "fact_text": "The user is thinking of using fresh strawberries from the farmer's market for the shortcake.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62192,
+        "fact_text": "The user has been buying strawberries by the container lately.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 62193,
+        "fact_text": "The user snacks on strawberries all day.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62194,
+        "fact_text": "The user has sourdough starter available for baking.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62195,
+        "fact_text": "The user made a batch of cookies with bread flour, and the cookies turned out chewier than usual.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62196,
+        "fact_text": "The user has been using oat flour to make pancakes and waffles, which gives them a nice nutty flavor.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62199,
+        "fact_text": "The user plans to monitor the proofing time and adjust the liquid content as needed for the bread-flour sourdough shortcake.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "c8090214_abs",
+    "kind": "abstention_entity_mismatch",
+    "note": "Question asks iPad; iPhone evidence cannot be substituted.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-91dcb85f3d700199457883e54ed8e68b3e03b2847f3d6cdec9403715af352435",
+    "source_title": "Session answer_70dc7d08_abs_2 (2023/05/30 (Tue) 00:04)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/05/30 (Tue) 00:04] I'm looking to upgrade my phone case and screen protector. Can you show me some options for iPhone 13 Pro cases and screen protectors? By the way, I got my iPhone 13 Pro at a discounted price of $800 from Best Buy on Black Friday, which was a great deal considering the regular price was $1,000.",
+    "source_sha256": "659ead1ce638ea81b38c9003c05f2b16760f39a27406e2e6aac0ef9d7ebbe798",
+    "baseline_full_turn": false,
+    "candidate_full_turn": false,
+    "same_source_retained_facts": [
+      {
+        "id": 58878,
+        "fact_text": "The user bought an iPhone 13 Pro from Best Buy on Black Friday for a discounted price of $800, compared with the regular price of $1,000.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58879,
+        "fact_text": "The user is looking to upgrade the case and screen protector for the user's iPhone 13 Pro.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58880,
+        "fact_text": "The user plans to use the user's phone more outdoors.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 58881,
+        "fact_text": "The user wants the user's phone protected from water and dust.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58882,
+        "fact_text": "The user owns a new 4K TV.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58883,
+        "fact_text": "The user prefers a TV with good picture quality and HDR support in the $800-$1,000 price range.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58884,
+        "fact_text": "The user is looking for a soundbar to complement the user's new TV.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 58885,
+        "fact_text": "The user prefers a soundbar with good sound quality and a budget of around $200-$300.",
+        "in_packet": false,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "a96c20ee_abs",
+    "kind": "abstention_relation_mismatch",
+    "note": "Question asks undergrad-course project; source identifies thesis.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-8deab5fab19c4e3827ab8bd6e7a92732d995bbbbe867d1d39a5767036e3c3a83",
+    "source_title": "Session answer_ef84b994_abs_1 (2023/05/23 (Tue) 16:11)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/05/23 (Tue) 16:11] I'm looking for some information on the latest trends in education technology. I've been interested in this field for a while, and I actually just presented a poster on my thesis research on it at my first research conference over the summer.",
+    "source_sha256": "2d40136fabc62e0192118b746f2b39848dc8abc6b659c97e9cf9560b4ba0138c",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 63007,
+        "fact_text": "The user presented a poster on the user's thesis research in education technology at the user's first research conference over the summer.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 63010,
+        "fact_text": "The user's research focused more on the broader concept of AI-powered adaptive learning systems than on particular systems, while using a few specific platforms and systems as case studies about implementation challenges and opportunities.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 63011,
+        "fact_text": "The user found that a common challenge across the user's case studies was the need for ongoing teacher professional development and training to integrate AI-powered adaptive learning systems into teaching practices effectively.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 63012,
+        "fact_text": "The user found that many teachers in the case studies felt they lacked the skills and knowledge needed to use AI-powered adaptive learning systems effectively, which hindered successful implementation.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "gpt4_c27434e8_abs",
+    "kind": "abstention_missing_operand",
+    "note": "Known Ferrari date alone cannot order it against an unsupported Porsche project.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-d23f2a48079c69ce8c76050d7e2c21746dd63073c81ed39f4d34a7080707f762",
+    "source_title": "Session answer_d8e33f5c_abs_1 (2023/05/23 (Tue) 20:21)",
+    "turn_index": 0,
+    "role": "user",
+    "source_text": "[2023/05/23 (Tue) 20:21] I'm working on a model of a 1980s-era Ferrari 288 GTO, started it about three weeks ago on a Sunday afternoon, and I'm looking for some tips on how to achieve a more realistic paint finish.",
+    "source_sha256": "bcc1738cf48a9e544b308cb2dc35ab680dd2f10edcd3655d8e686a017049338b",
+    "baseline_full_turn": true,
+    "candidate_full_turn": true,
+    "same_source_retained_facts": [
+      {
+        "id": 62023,
+        "fact_text": "The user recently acquired a new airbrush compressor.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 62024,
+        "fact_text": "The user believes the airbrush compressor enables much smoother and more even coats of paint.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62025,
+        "fact_text": "The user recently applied pre-made decals specifically designed for the Ferrari 288 GTO to the engine compartment and body.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 62026,
+        "fact_text": "The user found applying the Ferrari 288 GTO decals fairly straightforward but needed patience and care to avoid air bubbles and wrinkles.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  },
+  {
+    "question_id": "6e984302",
+    "kind": "judge_equivalence_dispute",
+    "note": "Answer lists the specific purchased tools enumerated in source; reference names their category.",
+    "status": "ASSISTANT_SOURCE_REVIEW",
+    "source_key": "lme-session-7d12342e5a018b4463ead725503e7a19961a1832258d2b880075f704a50f1b94",
+    "source_title": "Session answer_88841f27_2 (2023/03/04 (Sat) 13:12)",
+    "turn_index": 2,
+    "role": "user",
+    "source_text": "[2023/03/04 (Sat) 13:12] I actually got my own set of sculpting tools, including a modeling tool set, a wire cutter, and a sculpting mat today. I'm excited to experiment with these new tools and techniques. Can you suggest some specific ways I can incorporate eco-friendly materials and techniques into my sculpting process, considering the tools I already have?",
+    "source_sha256": "1420ed2feb71ecdf9d9758ca9d9b9974c7d8fd123fb4c7f1f68d1bdef804365a",
+    "baseline_full_turn": false,
+    "candidate_full_turn": false,
+    "same_source_retained_facts": [
+      {
+        "id": 59581,
+        "fact_text": "The user obtained a modeling tool set, a wire cutter, and a sculpting mat on 2023/03/04.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 59582,
+        "fact_text": "The user is excited to experiment with the new sculpting tools and techniques.",
+        "in_packet": true,
+        "superseded_by": null
+      },
+      {
+        "id": 59583,
+        "fact_text": "The user is considering using multiple plastic bottles and cardboard tubes to create the sculpture's base structure.",
+        "in_packet": false,
+        "superseded_by": null
+      },
+      {
+        "id": 59584,
+        "fact_text": "The user is considering creating a more complex structure by combining multiple plastic bottles and cardboard tubes.",
+        "in_packet": true,
+        "superseded_by": null
+      }
+    ]
+  }
+]
