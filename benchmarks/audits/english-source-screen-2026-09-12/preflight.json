@@ -1,0 +1,10 @@
+{
+  "package_sha256": "3a32272ab417756f01a8d83f98df246b83901a94e5f39d4679a34d5fb71aba34",
+  "cases": 150,
+  "intended_answers": 300,
+  "maximum_requests_no_retries": 600,
+  "conservative_full_reservation_nusd": 8967684500,
+  "conservative_full_reservation_usd": 8.9676845,
+  "scope": "Offline structural check, not answer-quality evidence",
+  "cost_limitations": "Frozen rates; no cache discount assumed. Per-run only. Large bound is not expected invoice."
+}

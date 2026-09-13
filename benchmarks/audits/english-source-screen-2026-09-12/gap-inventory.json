@@ -1,0 +1,1122 @@
+{
+  "summary": {
+    "stable_misses": 72,
+    "answerable": 64,
+    "abstention": 8,
+    "gaining_annotated_turns": 38,
+    "answerable_gaining_annotated_turns": 36,
+    "answerable_all_annotated_turns_before": 13,
+    "answerable_all_annotated_turns_after": 34,
+    "answerable_still_missing_annotated_turns": 30
+  },
+  "rows": [
+    {
+      "question_id": "031748ae_abs",
+      "abstention": true,
+      "annotated_turns": 0,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Senior Software Engineer question substitutes the Manager role in source; team count alone is not support for the requested role.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "06f04340",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-4fa98d193ccd7bc7b4a1c65c69b9adb519c939cc31afe58c3732eeda82d54d93",
+          "turn_index": 4
+        }
+      ],
+      "review_priority": "preference",
+      "review_note": "Trace the homegrown ingredients and garden preferences; the generic quinoa answer does not show the required personalization.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "07741c45",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "interpretation",
+      "review_note": "Under-bed storage and later closet shoe-rack language compete; distinguish completed storage from a plan before labeling the miss.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "09ba9854_abs",
+      "abstention": true,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Bus is substituted for the train with a known fare; generic assistant fare estimates do not establish the user's bus fare.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "0a995998",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "source_reference",
+      "review_note": "Blazer pickup is omitted from the packet; two annotated boot turns may describe the same exchange. Reference3 needs unit/dedup review before treating three source hits as three items.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "10d9b85a",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source explicitly has an April10 lecture and a two-day April17-18 workshop. Trace delivery of the workshop operand.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "1568498a",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "interpretation",
+      "review_note": "Inspect the exact board sequence and side-to-move around move28; matching a move number is not sufficient evidence.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "1a8a66a6",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 3,
+      "missing_after": 1,
+      "gained": 2,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-6e7d4ef609146c0071984e853170c02fa302d355068e9b79ef78ffdbe1f60d45",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "New Yorker and Architectural Digest are active; Forbes was canceled. Trace all three states before counting active subscriptions.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "1c0ddc50",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "preference",
+      "review_note": "The packet includes an interest in history/science for a40-minute commute, but the answer follows other preferences. Inspect preference ranking and answer use.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "1da05512",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "judge_review",
+      "review_note": "Both NAS recommendations contain personalization or conditional personalization; compare with the permissive official preference rubric before rewriting retrieval.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "2133c1b5_abs",
+      "abstention": true,
+      "annotated_turns": 0,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Shinjuku query substitutes Harajuku; answers mention mismatch but still give an assumed duration. Separate actual refusal from substituted answer.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "21d02d0d",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "interpretation",
+      "review_note": "Both March5 and March26 source turns are present; March26 says busy with work and missed events. Generated explanation overlooks that association.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "2311e44b",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Original page250 is absent from the packet and its source session's only retained fact; total440 is delivered. Missing persisted detail plus missing raw fallback.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "2318644b",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "source_reference",
+      "review_note": "Original hotel prices say over300 and around30. Answers over270 preserve qualifiers that the exact270 reference omits; review judge treatment separately.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "28dc39ac",
+      "abstention": false,
+      "annotated_turns": 5,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Need the complete list of completed game-hour operands; some delivered hours do not establish the gold140 total.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "32260d93",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "preference",
+      "review_note": "Netflix stand-up interest is in source/packet but answers pick other shows. Distinguish competing valid preferences from missed personalization.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "370a8ff4",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "source_reference",
+      "review_note": "Pinned upstream itself dates recovery January19 and tenth jog April10:81days,11weeks4days, inconsistent with reference15weeks. Do not alter correct date arithmetic to fit it.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "37f165cf",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-8e9fedc6a4a3342d634b1834e102963ce77bf42a3b6d61036d8406121e96a156",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "source_reference",
+      "review_note": "Pinned source marks two novels just finished in May with440 and416 pages, while question names January and March. Verify missing month links rather than force856.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "3a704032",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-84b8d74b31ed0837a38942ec852443fc5d1b4154461f89713b587ded78432bc8",
+          "turn_index": 2
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Peace lily, succulent and snake-plant purchases need distinct acquisition and time-window review; mentioning a plant is not another purchase.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "46a3abf7",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-84450c175aa2d9c3bb4aa3b6162c8008c487cbe08553c2a5cfebdbb63c84946d",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "Source includes1-,5- and20-gallon tanks; determine whether the old5-gallon tank remains owned before counting it.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "51a45a95",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "source_reference",
+      "review_note": "Coupon value5 is present in source, but binding the redemption to Target needs the full source relation, not number matching.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "51c32626",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-604bc41fb84bbb05f93a1e2d55974ac1fc7167ea73df0270d4b2761192ae0c92",
+          "turn_index": 8
+        }
+      ],
+      "review_priority": "source_reference",
+      "review_note": "Source says paper submitted to ACL and conference submission date February1; deadline is not necessarily this user's submission date.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "57f827a0",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "judge_review",
+      "review_note": "Answers mention the mid-century dresser but also unrelated suggestions. Review against partial-personalization rubric; no automatic regrade.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "69fee5aa",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "interpretation",
+      "review_note": "May27 collection37 and May29 addition of one pre1920 quarter are both delivered as source and facts; both explanations repeat37 without incorporating the addition.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "6d550036",
+      "abstention": false,
+      "annotated_turns": 4,
+      "missing_before": 4,
+      "missing_after": 4,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-32d09cfa70c75f63a3d251e696b01d4f3716ce8fbc3e49bb325544527491f889",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-93617f6a0c9b3d21fbe4fb0d1b6efa0c27ea49996cc6173bc14e2f24682b4dbd",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-4c45b5bf2caf1e89e4957b491538ec6ae48c35335e6a4e23cc4f4ed069ee732a",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-2605669c19a084a4dd0df843bff2dd940010d18f59fb81463ae32c9f11e33698",
+          "turn_index": 2
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "Being involved in a project is not leading it; count requires matching the leadership relation, not every project mention.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "6e984302",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-7d12342e5a018b4463ead725503e7a19961a1832258d2b880075f704a50f1b94",
+          "turn_index": 2
+        }
+      ],
+      "review_priority": "judge_review",
+      "review_note": "Answers enumerate modeling tools, wire cutter and sculpting mat exactly as the annotated source; reference summarizes own sculpting tools. Likely equivalence false negative.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "7024f17c",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-b51be67c90fa3f6bc7f37c82d0eb9fdc0fbfee2a177f7628b046973e2aa21b57",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "source_reference",
+      "review_note": "May20 annotated jog is outside the previous calendar week at May30. Do not assume the reference0.5 resolves the date-window contract.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "71a3fd6b",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "assistant_recall",
+      "review_note": "Speyer contact reply contains the phone number but is absent from the frozen packet; nearby user requests are present. Session-hit proxy conceals reply omission.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "73d42213",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "turn_index": 2
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "7AM departure is delivered; repeat2 explicitly sees two-hour trip but declines to bind it to the Monday appointment. Relation resolution, not pure addition, is disputed.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "75f70248",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "preference",
+      "review_note": "Relevant shedding-cat detail is missing from selected raw turns; generic plant/dust advice does not demonstrate recovery of Luna and deep cleaning.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "80ec1f4f",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 2,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-d9653fa3d2c55ac02204c9f468d149e0a1b6a15afcf4b814691c4dbf057fa35d",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-84f7332190c3c7896699bace34437a0f2d7cc161ab04aeb4176368f0cf6454d3",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Need completed February museum/gallery visits; source mentions plans and recent visits that require date and event disambiguation.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "81507db6",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source has Emma preschool, Alex leadership, Rachel masters graduations. Inspect Emma date/packet and all three distinct attendances before assuming a model counting error.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "8752c811",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "judge_review",
+      "review_note": "Both final answers are Sound effects; source item27 and reference agree. Saved judge saysNo both times; full generation even includes the reference examples.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "88432d0a",
+      "abstention": false,
+      "annotated_turns": 4,
+      "missing_before": 4,
+      "missing_after": 4,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-2c4a7ee01f15eab0a4feb7b5efa3b4e57960b451378e8f246f00928fa9a58fd3",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-ab02d9f181357f9dd25c71c2a8e21aa1efceb80d5cdff85626d2256f608ea436",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-cef81122f3ae835758556c5337932f0c2063aac5bfdb56fd1c0bfcf0a0d31f84",
+          "turn_index": 2
+        },
+        {
+          "source_key": "lme-session-28b4aa738be3d74a6c13d5987ec2a49c36b58d918f3dd460f5688c1b8603ac1a",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "Count baking occasions rather than items, plans, or repeat mentions; overlapping cookie references have inconsistent relative dates.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "92a0aa75",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 2,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-4562241059e9999dc733538ea5cd4eebd5370aba945d1ffb823c88dc178376f1",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-338b425a073c3e214046d3dfd780daaae80bbf9d1d9d84f229d0f0bd3cda97d0",
+          "turn_index": 2
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source2years4months before promotion and3years9months company tenure imply17months under benchmark continuity assumption. Trace both operands and their relation.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "945e3d21",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "November user says yoga three times weekly; retained fact drops frequency and raw turn is absent. Old twice-weekly August evidence survives.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "95228167",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-dc3cf2696bb157e8878f38acef6ee8dbaae67165a6be3dbf7a4828feef2bd74c",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "judge_review",
+      "review_note": "Answers condition on Les Paul coil-splitting/openD preferences. Reference emphasizes Stratocaster comparison; permissive preference rubric merits review.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "9a707b81",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "source_reference",
+      "review_note": "Pinned upstream March21 says baking class yesterday; April15 minusMarch20 is26days, matching both answers. Reference21-22 conflicts with that anchor.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "9d25d4e0",
+      "abstention": false,
+      "annotated_turns": 5,
+      "missing_before": 3,
+      "missing_after": 2,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-9a95e2b5aa70cd6adc0e8a578ec3a8c70cbb2be48f4129bc0d9d0ebe6174bb71",
+          "turn_index": 8
+        },
+        {
+          "source_key": "lme-session-efbb1902f53abf623e8c5a61d9e13795821193d0989a1aca4c2f42438ea8840d",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Jewelry acquisition requires acquisition dates, ownership and unit conventions for earrings; enumerate witnesses rather than count mentions.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "9ea5eabc",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "interpretation",
+      "review_note": "Later May28 source says recent family tripParis and is delivered, but both answerHawaii fromMay26. Mention-date versus event-order inference remains an explicit limitation.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "9ee3ecd6",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "judge_review",
+      "review_note": "Both answers explicitly say100more from200 to300. Likely false negatives for reference100; preserve official grades.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "a1cc6108",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-94357c63ea831f60bea5d9ff61935a46f86136862a15483db81dd31e3d6909e4",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Alex21 is a required operand; locate user's32 and their temporal relationship before subtracting.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "a89d7624",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "judge_review",
+      "review_note": "Answers use concert/RedRocks preferences but omit BrandonFlowers. Assess partial-personalization rubric; do not require every reference phrase automatically.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "a96c20ee_abs",
+      "abstention": true,
+      "annotated_turns": 0,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Undergrad course research substitutes thesis poster; Harvard conference attendance does not repair the wrong project relation.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "b5ef892d",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Yellowstone5 plusBigSur3 camping days, excludeUtah7 explicitlynotcamping. Need Yellowstone operand delivery.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "ba358f49",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-4a32705ca6f5c81a720e74c36d3ed57bff28e3af4e874b9f0f05e477053c8331",
+          "turn_index": 2
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source user32 and Rachel weddingnextyear imply33 under benchmark assumption; inspect age retention and packet delivery.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "bb7c3b45",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Original JimmyChoo paid200 and retail500 imply300savings. Neither full source turn is delivered; inspect retained fact operands.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "bf659f65",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 3,
+      "missing_after": 1,
+      "gained": 2,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-f868f4575ac6735a0e68f25db8979890f1c3fcf6fdcbfb4379701bdaed32b82d",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Downloaded/purchased albums require distinct acquisition events, not listening mentions; inspect all three intended records.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "c18a7dc8",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 2,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-b7e418e1fc797c33008d0eaffcca72a84e0a47b654134f456964f04e8cfa2aed",
+          "turn_index": 8
+        },
+        {
+          "source_key": "lme-session-2925515d531718e13026f82405fd5260225adc0ad8ad51861b30fd648d0f9e6e",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source32current and25atgraduation imply7; inspect user age fact and source delivery.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "c8090214_abs",
+      "abstention": true,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "iPad query substitutes iPhone13Pro purchase. A caveated seven-day iPhone answer does not establish iPad chronology.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "d01c6aa8",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source five-year US residence and current age needed; persisted visa fact omits residence duration. Also unexpected Portuguese refusal in English run.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "d851d5ba",
+      "abstention": false,
+      "annotated_turns": 4,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "interpretation",
+      "review_note": "Personal versus collective fundraising, repeated1000bakesale and additional distractor events need source-based set definition before summing.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "dd2973ad",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-a31401a40ffd89907dfe74a9848418497bb831cb47ed8267a06e569fc7d1111e",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "source_reference",
+      "review_note": "SourceMay24 lastThursday appointment mapsMay18; May29 lastWednesday bedtime mapsMay24. Reference2AM assumes adjacency contradicted by these session dates.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "e3038f8c",
+      "abstention": false,
+      "annotated_turns": 4,
+      "missing_before": 3,
+      "missing_after": 2,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-231986956a4672b38aad390315925d52f81024b1d953c7ff86ec8b1c4092b51d",
+          "turn_index": 4
+        },
+        {
+          "source_key": "lme-session-e5a02372b21637b69cfd50f77878e7dee4707f74a4911aa47a4ebe26198e9e9a",
+          "turn_index": 4
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source12rarefigurines plus5books57records25coins gives99. Figurine-session retained facts omit12; both outputs87 are short by that operand.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "ec81a493",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "source_reference",
+      "review_note": "500copies modifies a limited-edition poster in source and fact, but question asks album copies. Preserve ambiguity; do not transfer quantity automatically.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "eeda8a6d",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-602d57d84154353153e690dd31c4493573b786216b57f0e36ecee740931e32b3",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Need actual fish species/count operands in both tanks; proposed additions are not existing fish and at-least2 is not a total.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "f685340e_abs",
+      "abstention": true,
+      "annotated_turns": 0,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Tabletennis query substitutes tennis. Repeat1 explicitly refuses then explains tennis; review that verdict separately from repeat2's caveated frequency.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_1e4a8aec",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 1,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-e4da6764cfd21b44031d853afdbba6f0164548d489836844ac9fa8deb786be66",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source tomato planting detail must be dated and delivered; generic app-use mention on target date is not the requested gardening event.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_2c50253f",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source TuesdayThursday15minutesearlier is absent from related retained facts and raw packet, while7AM general wakeup survives.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_2f8be40d",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 3,
+      "missing_after": 2,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-843ae86a9652ab70710f3f709440239a73be55adfa085b94c7cfae37faef300e",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-c45c04934a8ad249b53e77594ce1d326c77faaec8dfef8ac2292a931e43a9c32",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "Gold lists three couples, while scoped distractors contain other wedding attendance. Need evidence for exclusion and duplicates, not count every wedding fact.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_4cd9eba1",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source March20 acceptance andMarch27 orientation implyoneweek; inspect acceptance date delivery and whether fact uses mentiondate instead.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_65aabe59",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-0b9bdd7ca80a8e53db3b0327d1a8c6ae6eda07dfaf27e31622ea45a4b72c90a4",
+          "turn_index": 4
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Smartthermostat one-month-before statement must survive; generic set-up mentiondate can invert it relative to meshMay4.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_68e94287",
+      "abstention": false,
+      "annotated_turns": 2,
+      "missing_before": 2,
+      "missing_after": 0,
+      "gained": 2,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "SourceMarch10 yesterdayveganchili versusMarch15plank establishes order. Chili date/source missing from selected packet; inspect retained detail.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_70e84552_abs",
+      "abstention": true,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Fence is known but purchasing three cows fromPeter is unsupported. Answering the known event cannot establish which happened first.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_7fce9456",
+      "abstention": false,
+      "annotated_turns": 6,
+      "missing_before": 5,
+      "missing_after": 4,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-b1b77e74196656ff33e73382aaca49578ad156ca201d7528f804d1f6fb98c12e",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-377bb082db4de8374f65a7f9a9eeb5e592cafce8c20b42f621695e03f9827c6a",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-d8291a94e0b8a916ec318c7c4c9fc54537fa1d90d0e4fbc0adaf0267782ce5c2",
+          "turn_index": 4
+        },
+        {
+          "source_key": "lme-session-d8291a94e0b8a916ec318c7c4c9fc54537fa1d90d0e4fbc0adaf0267782ce5c2",
+          "turn_index": 6
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "Property count requires viewed-beforeoffer boundary, including rejected bids and excluded alternatives; exact property/time witnesses needed.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_8279ba02",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 1,
+      "missing_after": 0,
+      "gained": 1,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "March15 source says got smoker today; retained fact mentions excitement with smoker but not acquisition date. Missing raw fallback hides anchor.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_ab202e7f",
+      "abstention": false,
+      "annotated_turns": 5,
+      "missing_before": 2,
+      "missing_after": 2,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-0afc129451ef697fe16db2e410275bcca4c70234f2841e3ba85665d80371191f",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-0fcfa853766533cb26341a201220f20705147bbb69ea4cdc5bdd4caaa9b0655b",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Source lists faucet,mat,toaster,coffee-maker,shelves. Inspect coffee-maker donation/replacement relation and delivery before claiming arithmetic failure.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_c27434e8_abs",
+      "abstention": true,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "abstention",
+      "review_note": "Porsche project absent; choosing known Ferrari does not answer ordering of two projects.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_e061b84f",
+      "abstention": false,
+      "annotated_turns": 3,
+      "missing_before": 3,
+      "missing_after": 3,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-8963ed2393e8d1287fa3e5bffa7f2b87d66c34a3da4d54e751d9232e6cbde3f0",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-5543e8112d239e6310181fd5f44365cbcf992c269b482bcad6b2f8104353c3f6",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-0df75c269de7929209cffae1a74cfd2161c7431f498f7095458711db13bec487",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "SpringSprintTriathlon needed for reference sequence; packet picks beachvolleyball. Inspect dated event support and competing event inclusion.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_e414231f",
+      "abstention": false,
+      "annotated_turns": 1,
+      "missing_before": 0,
+      "missing_after": 0,
+      "gained": 0,
+      "remaining_source_turns": [],
+      "review_priority": "numeric_evidence",
+      "review_note": "Road-bike service during requested weekend competes with earlier mountain-bike repair. Trace road-bike event before general chronology changes.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_f2262a51",
+      "abstention": false,
+      "annotated_turns": 5,
+      "missing_before": 5,
+      "missing_after": 5,
+      "gained": 0,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-7965523e1778fda68bbe1e4aa428c4011890e3b0e3f74ddc100068cf4e27b39a",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-140c94bb22f666a5f764984e220c55a198703d22487647148289cdd42786380a",
+          "turn_index": 0
+        },
+        {
+          "source_key": "lme-session-140c94bb22f666a5f764984e220c55a198703d22487647148289cdd42786380a",
+          "turn_index": 4
+        },
+        {
+          "source_key": "lme-session-fa751706b61e43515e0af29ed73155107cb619255ae8047958d3936f48e6ad36",
+          "turn_index": 2
+        },
+        {
+          "source_key": "lme-session-fa751706b61e43515e0af29ed73155107cb619255ae8047958d3936f48e6ad36",
+          "turn_index": 6
+        }
+      ],
+      "review_priority": "numeric_evidence",
+      "review_note": "Three doctor types/identities need attended-versusplanned appointment review and exact source delivery; oneDrPatel is not proof otherfacts absent.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    },
+    {
+      "question_id": "gpt4_f420262c",
+      "abstention": false,
+      "annotated_turns": 5,
+      "missing_before": 2,
+      "missing_after": 1,
+      "gained": 1,
+      "remaining_source_turns": [
+        {
+          "source_key": "lme-session-2ed5868ed6a79d4f36c8beb3799bcaf119f878874372a1c131351d5b10a4851c",
+          "turn_index": 0
+        }
+      ],
+      "review_priority": "interpretation",
+      "review_note": "Source flight dates and repeated AmericanAirlines discussion contain inconsistent future references; JetBlue operand and event-date provenance need checking.",
+      "status": "QA_UNMEASURED; cause remains provisional"
+    }
+  ],
+  "limitations": [
+    "Raw annotation coverage is not fact sufficiency. Retained facts may convey a missing raw turn.",
+    "Abstention annotations do not prove the requested answer exists.",
+    "No new answer was generated or graded; this does not prove any answer fixed.",
+    "The source supplement does not repair reasoning, abstention prompts, disputed labels, or extraction lineage."
+  ]
+}

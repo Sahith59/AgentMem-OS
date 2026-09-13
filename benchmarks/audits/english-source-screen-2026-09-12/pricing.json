@@ -1,0 +1,28 @@
+{
+  "checked_utc": "2026-09-13T03:55:36.073564+00:00",
+  "sources": [
+    "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+    "https://developers.openai.com/api/docs/models/gpt-4o"
+  ],
+  "rates_usd_per_million_tokens": {
+    "generate": {
+      "input": 0.2,
+      "output": 1.2,
+      "cache_write_multiplier": 1.25
+    },
+    "judge": {
+      "input": 2.5,
+      "output": 10.0
+    }
+  },
+  "reservation": "Input UTF-8 bytes plus1024wrapper tokens; full output caps; Luna cache-write premium; no cache-read discount. Each input below272000bound. Integer nanoUSD; reservations never refunded automatically. Per-run dispatch cap, not account-wide billing cap.",
+  "usage_estimate": "Charge reported cache_write_tokens at1.25x input, remaining input at uncached price. Ignore cached-input discounts; this is conservative usage pricing, not an invoice.",
+  "observed_returned_models": {
+    "generate": [
+      "gpt-5.6-luna"
+    ],
+    "judge": [
+      "gpt-4o-2024-08-06"
+    ]
+  }
+}
