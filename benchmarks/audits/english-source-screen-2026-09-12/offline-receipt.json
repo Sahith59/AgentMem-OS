@@ -1,0 +1,21 @@
+{
+  "status": "PASS_OFFLINE_EXECUTION",
+  "package_sha256": "3a32272ab417756f01a8d83f98df246b83901a94e5f39d4679a34d5fb71aba34",
+  "real_provider_calls": 0,
+  "real_spend_usd": 0,
+  "scenarios": {
+    "distinct": {
+      "complete": true,
+      "provider_calls": 600,
+      "shared_judgments": 0,
+      "resume_provider_calls": 0
+    },
+    "identical": {
+      "complete": true,
+      "provider_calls": 450,
+      "shared_judgments": 150,
+      "resume_provider_calls": 0
+    }
+  },
+  "accuracy_claim": "NONE. All model responses and grades are synthetic."
+}

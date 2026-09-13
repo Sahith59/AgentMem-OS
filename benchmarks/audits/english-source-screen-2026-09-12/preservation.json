@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "prior_artifact_files_verified": 1591,
+  "hash_mismatches": [],
+  "founder_dirty_paths_preserved": [
+    ".gitignore",
+    "benchmarks/qa_accuracy_longmemeval_ctx40k_r3.partial-killed.json",
+    "benchmarks/xling_merge_judge_results.json",
+    "website/"
+  ],
+  "scope": "Artifact hashes and unchanged git status/diff; no blanket claim about semantic review or all external files."
+}

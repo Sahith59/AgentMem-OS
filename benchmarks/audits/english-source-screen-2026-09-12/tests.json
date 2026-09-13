@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "command": "/opt/homebrew/opt/python@3.13/bin/python3.13 -m pytest tests/test_english_screen.py tests/test_source_packet_supplement.py tests/test_uncapped_lexical_retrieval.py tests/test_verify_source_supplement.py -q",
+  "passed": 59,
+  "screen_tests": 43,
+  "existing_source_tests": 16,
+  "elapsed_seconds": 8.6,
+  "warnings": "pytest-asyncio scope deprecation; Jupyter platformdirs deprecation. No test failures.",
+  "network": "Socket connections denied in new screen tests; no paid calls.",
+  "final_whitespace_change": "Removed one trailing blank line after tests; final frozen runtime exercised again through both full synthetic scenarios. CI will test final commit."
+}

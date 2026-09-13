@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "screen_kind": "source-supplement-150-v1",
+  "experiment_kind": "paired-context-retrieval-v1",
+  "judge_policy": "shared-exact-request-v2",
+  "scope": "Development-exposed 150-pair screen; not population accuracy or a held-out evaluation.",
+  "settings": {
+    "generate": {
+      "model": "gpt-5.6-luna",
+      "max_completion_tokens": 4200
+    },
+    "judge": {
+      "model": "gpt-4o",
+      "max_tokens": 5,
+      "temperature": 0
+    }
+  },
+  "rates_nusd_per_token": {
+    "generate": {
+      "input": 200,
+      "output": 1200
+    },
+    "judge": {
+      "input": 2500,
+      "output": 10000
+    }
+  },
+  "answer_max_bytes": 4096,
+  "prompt_sha256": {
+    "baseline": "9aa30d905db5d52f241f77c34894eafac75184f12144793e6bd0fd5433d06214",
+    "candidate": "9aa30d905db5d52f241f77c34894eafac75184f12144793e6bd0fd5433d06214"
+  },
+  "allowed_returned_models": {
+    "generate": [
+      "gpt-5.6-luna"
+    ],
+    "judge": [
+      "gpt-4o-2024-08-06"
+    ]
+  },
+  "gates": {
+    "net_gain_min": 10,
+    "stable_control_losses_max": 2,
+    "stable_control_correct_min": 56,
+    "abstention_net_gain_min": 0
+  },
+  "proposed_budget_nusd": 8970000000,
+  "runtime_sha256": {
+    "runner.py": "46a3f0bf3814e17bfab290dd3a6ba655f50f794e7fa852cb77b56434d95b7d28",
+    "packet.py": "be46566c282c2be211ebaf8241fc64afc41eea80be9498d3f30dde0ccdbc682c",
+    "verification.py": "e30dcb1a3650ab6443576de73fcb73e366367696db94175f99ec0679daba2c3d"
+  },
+  "source_artifacts": {
+    "source_policy": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/source-supplement-audit-001/policy.json",
+      "sha256": "f2a769ab2fe0cea5fbb314e866314fe7151fc942ddeb5611e46c4a59f08a9e10"
+    },
+    "source_results": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/source-supplement-audit-001/results.json",
+      "sha256": "822acb776aab9d3050f96cf2f96deb0c3dc4441e686a0931f05dfd519b71d456"
+    },
+    "source_verification": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/source-supplement-screen-001/evidence/source-reverification.json",
+      "sha256": "f7bb97e3451737cdd15b0942abf012dcdd27dfa124b9f39d6a4427e92386c4a5"
+    },
+    "pricing": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/source-supplement-screen-001/evidence/pricing.json",
+      "sha256": "c7d0d1739fbbb03671db689a34aa28e68211fcab44a23b275db6b8d24ad0b2fa"
+    },
+    "gaps": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/source-supplement-screen-001/evidence/gap-inventory.json",
+      "sha256": "181afe3dd4e3df68317a39e19f92d4da34fa8c28a9db0061c8e31572bfc48551"
+    },
+    "baseline_package": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/full500-corrected-measurement-package-001/package.json",
+      "sha256": "461514b60a50845c130ee65b8bffdb2054f3ab198994e923feeabcf65873f67c"
+    },
+    "selection": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/source-supplement-audit-001/next-screen-policy.json",
+      "sha256": "24c523e689fe22fff9040b963dd4b491fdeef0b67c48726bc8706ba2d3a43f53"
+    }
+  },
+  "packet_runner_sha256": "be46566c282c2be211ebaf8241fc64afc41eea80be9498d3f30dde0ccdbc682c"
+}
