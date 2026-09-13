@@ -1,0 +1,38 @@
+{
+  "all500": {
+    "questions": 500,
+    "changed": 500,
+    "questions_gaining_annotated_turns": 156,
+    "gained_annotated_turns": 197,
+    "lost_annotated_turns": 0,
+    "extra_chars_mean": 3881.544,
+    "added_turns": 4190
+  },
+  "stable_miss": {
+    "questions": 72,
+    "changed": 72,
+    "questions_gaining_annotated_turns": 38,
+    "gained_annotated_turns": 47,
+    "lost_annotated_turns": 0,
+    "extra_chars_mean": 3909.6944444444443,
+    "added_turns": 658
+  },
+  "stable_pass": {
+    "questions": 408,
+    "changed": 408,
+    "questions_gaining_annotated_turns": 113,
+    "gained_annotated_turns": 144,
+    "lost_annotated_turns": 0,
+    "extra_chars_mean": 3874.5367647058824,
+    "added_turns": 3356
+  },
+  "checks": {
+    "all500_prefix_preserved": true,
+    "stable_miss_gain_min10": true,
+    "no_annotated_turn_loss": true,
+    "all_source_receipts_and_character_caps": true,
+    "input_preservation": true
+  },
+  "offline_gate_pass": true,
+  "paid_calls": 0
+}

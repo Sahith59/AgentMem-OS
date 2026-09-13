@@ -1,0 +1,68 @@
+[
+  {
+    "question_id": "8752c811",
+    "repeat": 1,
+    "answer": "Sound effects",
+    "reference": "The 27th parameter was 'Sound effects (e.g., ambient, diegetic, non-diegetic, etc.)'.",
+    "judge_request_sha256": "1ad35717ef190e62569f2ad73e8fc209c0500f04c0bf78dee832cc09d5b60501",
+    "request_hash_verified": true,
+    "official_correct": false,
+    "official_response": "No",
+    "assistant_review": "likely false negative; no official label or score changed"
+  },
+  {
+    "question_id": "8752c811",
+    "repeat": 2,
+    "answer": "Sound effects",
+    "reference": "The 27th parameter was 'Sound effects (e.g., ambient, diegetic, non-diegetic, etc.)'.",
+    "judge_request_sha256": "1ad35717ef190e62569f2ad73e8fc209c0500f04c0bf78dee832cc09d5b60501",
+    "request_hash_verified": true,
+    "official_correct": false,
+    "official_response": "No.",
+    "assistant_review": "likely false negative; no official label or score changed"
+  },
+  {
+    "question_id": "9ee3ecd6",
+    "repeat": 1,
+    "answer": "300 total points (100 more from 200).",
+    "reference": "100",
+    "judge_request_sha256": "b507b6d87b48b9fdbe399c2543e5cf336950243487206cc8531335ebbff6015d",
+    "request_hash_verified": true,
+    "official_correct": false,
+    "official_response": "No.",
+    "assistant_review": "likely false negative; no official label or score changed"
+  },
+  {
+    "question_id": "9ee3ecd6",
+    "repeat": 2,
+    "answer": "300 points total (100 more from 200).",
+    "reference": "100",
+    "judge_request_sha256": "fdd02d0375383fac2477ad8f65df2c75a93918308d753ce985be8d94222fe6e2",
+    "request_hash_verified": true,
+    "official_correct": false,
+    "official_response": "No.",
+    "assistant_review": "likely false negative; no official label or score changed"
+  },
+  {
+    "question_id": "6e984302",
+    "repeat": 1,
+    "answer": "A modeling tool set, wire cutter, and sculpting mat.",
+    "reference": "I got my own set of sculpting tools.",
+    "judge_request_sha256": "defa216b88f1285befe1adb35bcbaa929c11ab12a1e1f28c613aa4f035f53c8f",
+    "request_hash_verified": true,
+    "official_correct": false,
+    "official_response": "No.",
+    "assistant_review": "likely false negative; no official label or score changed"
+  },
+  {
+    "question_id": "6e984302",
+    "repeat": 2,
+    "answer": "A modeling tool set, wire cutter, and sculpting mat.",
+    "reference": "I got my own set of sculpting tools.",
+    "judge_request_sha256": "defa216b88f1285befe1adb35bcbaa929c11ab12a1e1f28c613aa4f035f53c8f",
+    "request_hash_verified": true,
+    "official_correct": false,
+    "official_response": "No.",
+    "assistant_review": "likely false negative; no official label or score changed"
+  }
+]

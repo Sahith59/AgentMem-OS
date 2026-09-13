@@ -1,0 +1,1376 @@
+{
+  "status": "FROZEN_OFFLINE_SCREEN_DESIGN_NOT_EXECUTION_PACKAGE",
+  "paid_authorization": false,
+  "purpose": "One prospective paired screen before any further full500 claim; includes all72 persistent misses, all20 disagreements, and58 type-balanced stable-pass controls. All30 abstention questions included.",
+  "selection": "All error/unstable rows; all stable-pass abstentions; remaining stable controls round-robin by type ordered by SHA256 of source-supplement-controls-v1:qid.",
+  "control_selection_frozen_before_candidate_QA": true,
+  "exposure": "All500 development-exposed; no held-out claim.",
+  "unchanged_models_and_prompts": "Use exact previous generator, official judge templates and answer prompt. Change only delivered packet to the supplement candidate. Compare newly generated baseline and candidate in paired execution.",
+  "gates": {
+    "complete_pairs": 150,
+    "candidate_minus_baseline_correct_min": 10,
+    "stable_pass_control_losses_max": 2,
+    "abstention_net_gain_min": 0,
+    "unresolved_jobs_max": 0,
+    "selective_regrades_or_retries": false
+  },
+  "next_before_spend": [
+    "Build executable package and conservative cost bound from these exact hashes.",
+    "Validate resume, request accounting, independent verifier and deterministic bounded scheduling.",
+    "Obtain approval for exact package and budget; this design is not spending permission."
+  ],
+  "if_pass": "Freeze the winner, then a separately approved full500 evaluation; report all results and repeat policy, no90percentguarantee.",
+  "if_fail": "Keep83.6 baseline; analyze paired changes and stop broad supplement promotion. No automatic larger run.",
+  "cases": [
+    {
+      "question_id": "031748ae_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "998552c82f1f03363eb301e377388fbe7e3f0e92d8c9d4db03224f2e1e269cf7",
+      "candidate_sha256": "d1fe88178e73d1428c38cfe710e0d377455f4ea78aeda00fb6ed9b32e57be797",
+      "question_sha256": "4330eb4a4c45c6244469b22700fbb9c8d1f39ef9872f6986240fcd513fdecd3c",
+      "type": "knowledge-update",
+      "abstention": true
+    },
+    {
+      "question_id": "06f04340",
+      "cohort": "stable_miss",
+      "baseline_sha256": "5ae54d2c9471f071e2d7fcfb06ef4ef0d6a9c0ba734eda075fb4f4eb9314b98a",
+      "candidate_sha256": "23774da88fbcce7be0e21c7a0f74c92182c8135e996e4600789925858a74a3e6",
+      "question_sha256": "3e88319c30129bd214db63a442598e0ed48b2c26f84ffceb628814d377209aad",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "07741c45",
+      "cohort": "stable_miss",
+      "baseline_sha256": "676b9a665b3426f9e01b85e046d53d34a7c9757d5c789b7c754ca8c309463fa1",
+      "candidate_sha256": "6792b9c6c612e321bc6920c0e4fff9dcb231cf6fc6085fa1912be362550ac992",
+      "question_sha256": "e277fb856ee2dea3dbb1ca3f45591dd963b5417f17a8dc1f23d18e7044a874c2",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "0862e8bf_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "8b706f6a8dcd4356084b9b0271e7929a7d54c981de4de08c5e6d59cb9b3bd2e7",
+      "candidate_sha256": "54de2611558c113d50d2ae4cd3234a5c62ada4d7272552c7916fb2d182fd8816",
+      "question_sha256": "dcd19c76f1cffae791831472ab636ddf348618b7017a632f092d9472b5eac55b",
+      "type": "single-session-user",
+      "abstention": true
+    },
+    {
+      "question_id": "09ba9854",
+      "cohort": "disagreement",
+      "baseline_sha256": "1259b1c2970bf70394f5eb9a11ee3c3ce677db042fe880f58dbbe12d68dfbd71",
+      "candidate_sha256": "5b1c4e1c341f37d575bca051293605420336bc74728aa3caaf34c9547ca82d05",
+      "question_sha256": "431e5f10c52659b7170cb724e0a5e21923ffc956bbaf26133f42a9fb184c9272",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "09ba9854_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "2a211a86197cb2c0ef72174b269da86cce1d1c8b342cd95d6634ae6dc2c1c8ee",
+      "candidate_sha256": "81e0025ef965d0167d172a740140e329bd3df75dabdfafabcab9ffa4853b8ce1",
+      "question_sha256": "4b591d196d918131956f78a4a5c875919f3a30897c7bc7442f26482ef981b42f",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "0a34ad58",
+      "cohort": "disagreement",
+      "baseline_sha256": "f5865dc795e5cda25439b6586d8545a99edd31b56616f263a16f50f275848f28",
+      "candidate_sha256": "e23d69bab9abc65779e37e3d3b46eb0f134ebf6d93954acba7899a49a298159f",
+      "question_sha256": "eb7d539e7e98a15d99a37cc40ee28dade3c1c68786d51f9de830b304c4f0e90f",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "0a995998",
+      "cohort": "stable_miss",
+      "baseline_sha256": "3c57588b32b1790263c4e0afde34ddf79ab3782c0a8998d239cb487e1c472d0a",
+      "candidate_sha256": "1de1cb9ca22a2e77afee7ebc1c4fb137492cce9776b9a6a6efbe12e8d2b01de0",
+      "question_sha256": "d13ea932a731f3d8ffdae7439c7a6afaea64451af077aae344edab3e20f1f932",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "0ddfec37_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "2179719dd389c7fe2993e9b6a1088c610cdc7d6b229cc7d4edacf5fdc2eeb99a",
+      "candidate_sha256": "958567a4b222d9173df5e573ea1ed62b9d0d2d33e03c3989c02ea5ea9bcf804e",
+      "question_sha256": "eb4e371d1cb5e362e9f4cecb577e6e5f36710fb204d5dabec3144b9d4b60dc58",
+      "type": "knowledge-update",
+      "abstention": true
+    },
+    {
+      "question_id": "0edc2aef",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "ef07c4b81fb85428a458a6a6afa2eec55ea1909533af0f086eeec971bfe9a9d3",
+      "candidate_sha256": "87fdff35c15d9fc2cc07a0af71c2416dff677d42b5078e48504dc16b1984fbdc",
+      "question_sha256": "d5d3cb1998b677135af632abb8cd51a892c0fcdbd38747156b31424e779db68f",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "10d9b85a",
+      "cohort": "stable_miss",
+      "baseline_sha256": "442b9aff0bbcf20a7bf1bad2e221a5d31c15972ce32ffedd61b3d2b476ac9c43",
+      "candidate_sha256": "c343e73dc8284873e188e13b72cd9c8495c8464048ca8416830b1c8b5cdf7dc4",
+      "question_sha256": "bd168800c388c890df5108dc1db5ec4f7aa6f769c4a708cb07a6f19bc4a72ef8",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "118b2229",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "ae437c71371a6ee6b3ccef1e014cd0a8f7921c16e65c388cd9b7571f90c8e2ce",
+      "candidate_sha256": "8510f3f2b05818cdfcecf3202cda80d5471327366463fae17a84092e850760e5",
+      "question_sha256": "092f4e554cd2fc97f90d1dce7badab62d9779c64d596789beef74fd878e2d64c",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "1568498a",
+      "cohort": "stable_miss",
+      "baseline_sha256": "e6352c4cd68e4699b09c1a9be15efe916cbc95ef20147e14c2231140c69d2621",
+      "candidate_sha256": "474785534891f718e8a699fd3cf35d14ad49b0dc75571cf9da446affa557dea9",
+      "question_sha256": "69f1c47596c1b1dd039d12979aa835d3acba35c44642627680100f6046b19a5e",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "15745da0_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "c4d18befbea02ee333ef100dcc8fcb6a827adbfe7585e5add9c325dbbc6b0fb3",
+      "candidate_sha256": "b1a32651158f30e174cf1f0f947ab8a2cb0b29d250d3e611a4c0ef9915a44c19",
+      "question_sha256": "0488b2b0cdd06b4822a335bd8bcf022b873fef9855c56f806b87ded8916e6463",
+      "type": "single-session-user",
+      "abstention": true
+    },
+    {
+      "question_id": "19b5f2b3_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "cb9c15add7a080d67fd91138b0ca5e916caabacd02c5269477bf600376630a0d",
+      "candidate_sha256": "004bfab6c347caf290b4cba7d5d559b42b692c4f288f7b108fab137eb7bf31bb",
+      "question_sha256": "421e0669625e5f754c33786a13a1f2909d7f7dc40dc6f90023e540e8f1a3e8d6",
+      "type": "single-session-user",
+      "abstention": true
+    },
+    {
+      "question_id": "1a8a66a6",
+      "cohort": "stable_miss",
+      "baseline_sha256": "9564f4ae560b91de849031d016cd67b9c149e99457e107830fb1b8506102842a",
+      "candidate_sha256": "9497034c075c72563a1c469826817845e3d7cca5bdccd8ac9b5b8f5b90d7e603",
+      "question_sha256": "a8660b1a9d54fe6338ff1e2d03c64a42d98dd62a07ab4f295e01f455fad41db3",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "1c0ddc50",
+      "cohort": "stable_miss",
+      "baseline_sha256": "f9931497fd7a1397b6d7dae9a6f57023ef4983fec7115a6191f33c373d528b39",
+      "candidate_sha256": "de6f32d81e704f0aaceb0b89e32da6780b9080aca8eb1b4e18ee765dd43c00f3",
+      "question_sha256": "7083afb1be70c9b9e440fea162d570eff06ac26cb7500b4a0db05642e4727fda",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "1d4da289",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "b1687a0faea8451459a9a63ea12cf96d8c6455c338ce9dfe3f17a98954fcca75",
+      "candidate_sha256": "a9ddb57260195da166131dc1db9302b0daf91fffa46f7e8ef8b9cb3b9be13984",
+      "question_sha256": "56d88fc052c8008f172afc9d61e0949e1d7cde56516c1910e5335f47a12669dd",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "1da05512",
+      "cohort": "stable_miss",
+      "baseline_sha256": "37893f85b9a8581d1aa30752c5e6342a04cd6c9be7b629ac696831046d142b28",
+      "candidate_sha256": "85ff53431c2e352d2142beeac383789b1186d97e1c4c0b3aa5555481aabf519b",
+      "question_sha256": "e6299b222cb8f102e363e88f8333692fe2c3ef17ca3b520eb7a2499cd2a4d5c3",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "1e043500",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "eb84e27d1184a24907ff8141b05264c3227b0f4aee6e1f9ef3a94af51ed4c929",
+      "candidate_sha256": "cdb9c45763e070e0bcb3db5fc5122bd9596675d1aafd84cdd21dd1e1cdb4ba2a",
+      "question_sha256": "2ece5e6c4459d05cd57fb7ea2e8c657e12c0b23cbe0d2ed69e8b729c47ed0f89",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "2133c1b5",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "d1d41e722d994fe6a443ed5bfad9d5e45bfeade4d219a0552050e797ea94959e",
+      "candidate_sha256": "cf1c1f37f0f59d6b15e5b33cfee3b5423ca88fd2a417a45dbba77b0996e05997",
+      "question_sha256": "a056157c8ec8453340dd18df806957ca014a38d3ecc36d1e84e002916d0fc408",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "2133c1b5_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "9c11a9ba1f6a0f9d0cd06a1a7874931152ee06f2c52a224670bce0d912c89aa3",
+      "candidate_sha256": "2a138deed2d53ec75c006d1cb29d6bedb4f1b6392a700e27326b8fae6e0a51a1",
+      "question_sha256": "cfd7987e34aca88142b51679beeb7447a8e3f17df2a1cfb42925b03e64dfde54",
+      "type": "knowledge-update",
+      "abstention": true
+    },
+    {
+      "question_id": "21d02d0d",
+      "cohort": "stable_miss",
+      "baseline_sha256": "eba5ffb77cbc0773a66e4a66474a74fe43eb3a8a7638575b91aa372b721a3bcb",
+      "candidate_sha256": "0ccd43f8f054446de225b4b61e9847f0b742f68e1cdbfac2bb7d047bfacff089",
+      "question_sha256": "c213e1402bf68809bbae459010a918f702ecf40a23400e7ad946411f2718192a",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "2311e44b",
+      "cohort": "stable_miss",
+      "baseline_sha256": "eb5f7123fbe2677da002f9687cfbc2450ebc5978ad04f79d365a12de9d301bd9",
+      "candidate_sha256": "e338a1401fff6d4eea18d4f5c9a84ac6329113722b0eba728de72a612d7aaf21",
+      "question_sha256": "38987e6c8d502736c588b4df914cbecb23c3b2ec371cadf104b33e2b3a7f57ee",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "2311e44b_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "33441e8e3f983aaf2bd46c19c0e0a7a4d665e0bbb9bcf352f5d41aad20a87bb5",
+      "candidate_sha256": "3897fb5879b5c8dffdc6d6b1b206eaf5a2bb3a5fb7940d1b289057d7b06d2036",
+      "question_sha256": "0bef040be796240eaf78c67f96334eb9e33a7c0e32657f9f15896024b85cc618",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "2318644b",
+      "cohort": "stable_miss",
+      "baseline_sha256": "a82a8a0d2e1861f9741b0bac1626408d6a2c6e483fdf42714b97e3bec880b0b3",
+      "candidate_sha256": "f8d69f1730462254da54f70d366104f76d2769f631a49974c8d95aa5ae15f91b",
+      "question_sha256": "7b4f9359d13ea5576e15847da416ae2998151c035b35443d52508d2994246d5a",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "2698e78f_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "4afb759036267ebf363582e9e3d61afb5b8c5c7a00f9fa6a9840cdf310a47017",
+      "candidate_sha256": "5144e096e7dff8f694d46a2aeb21a24836e588e634d1b7896835c05eae18bcae",
+      "question_sha256": "fe1ee3166c7009913aaa092f57ec247897e475cfcb40bda446c8c8195b6f8370",
+      "type": "knowledge-update",
+      "abstention": true
+    },
+    {
+      "question_id": "28dc39ac",
+      "cohort": "stable_miss",
+      "baseline_sha256": "83056d4ceb23ef215a9fc62b87c3f6b303b74be03e6d4d5eee33c6a3f6deac2e",
+      "candidate_sha256": "fd86e4e2681e2681a6735232283d94aa4899b9b4d7a313194a82d7f4611c6973",
+      "question_sha256": "161cd4c94dcf095534b992d5ecdfa28de7c78e6e87e2e170bd429d056e643788",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "29f2956b_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "ea710901f1ad047e34292248ec95e717c98a259a619b48f4fa97e64c5d6b839c",
+      "candidate_sha256": "027126388b4c26dd1ea080f0e42382137a1452e59ac4bd90f551757aed49de03",
+      "question_sha256": "8c7dd59060e9becf065afc6aa33434eea1febd3492ce19a087aae41a93b423b0",
+      "type": "single-session-user",
+      "abstention": true
+    },
+    {
+      "question_id": "2ce6a0f2",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "7b7b276eea6c35f2165c1aff4592dff7223bd733101661be3d6218d0f1c85d0e",
+      "candidate_sha256": "7094080803330555b87b38f6fbf0714ffb0c0c869d0248933241fe2eebae4089",
+      "question_sha256": "2872c253d9443c036cd7ddb8b3ffcb2432e234dda7300df32b53d17ab3869b26",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "32260d93",
+      "cohort": "stable_miss",
+      "baseline_sha256": "1d009eab560d33e8787381a0e86ac536b6d4bf73a2a590bb2fb34f1604a7bb61",
+      "candidate_sha256": "26972f516ee7c278e32ddb1457c43f8d92a1e123428771ab3e6da6415fb33e66",
+      "question_sha256": "77d3e1181546dc24d4db37ffb60316fe269676fe8276bd7c16d4f0b1b034d8d3",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "35a27287",
+      "cohort": "disagreement",
+      "baseline_sha256": "a957a31aa0d771292eb866487afbd50e108e79e523f33e556382132f7588451d",
+      "candidate_sha256": "f1ef5582d99362e39d9fc65bb05e5fda3620684c0ee8b12834330cf865d000b0",
+      "question_sha256": "d72afaf8b6987ece3fdcdbbfd7185ea8acb26966afa9119c80e3c69154af736c",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "370a8ff4",
+      "cohort": "stable_miss",
+      "baseline_sha256": "65bc35b79ff2889fd2bc0ff6b7bad21828ab8aa3f9a739e8abfd7474940d1907",
+      "candidate_sha256": "7d23d1555df557646aa38372f15dc89a8e2721f0aab0b826874168cfedd0b93e",
+      "question_sha256": "66bf9f4e51543c28e2b21e8d2cd440091a3a9a85f91d2239ad9fd97f7e2735b6",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "37f165cf",
+      "cohort": "stable_miss",
+      "baseline_sha256": "4675df4df7a1a1215637183faae015fc07aa5be04771825349c7ae5e78fb6454",
+      "candidate_sha256": "d1ac8dba7052ea239b1eefae9b4ff189fb0de30a521ffc7c08d0a444f27b4327",
+      "question_sha256": "c9f91662365e3b56c59bb16fff7a35b486fc0302029565d2d72e8efed25910fe",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "38146c39",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "46ea67e0c34b08d1fffb386ff46be586da2e5a5e59250e9177e4f3bdaec17e11",
+      "candidate_sha256": "5aba0764f9c27d5008c6e545af79e2e6cd5a2120716e80b82975e45ba155f43c",
+      "question_sha256": "9a946ac6ff90697fabffd52cf38ed33ea1b7f256bde3a233973b58cddea635ed",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "3a704032",
+      "cohort": "stable_miss",
+      "baseline_sha256": "875d94f6379b415751cfc79e37d70277452cc102188ffef0d257cd96cb921673",
+      "candidate_sha256": "ad7ab791a9a8f8ef3766e56b8923cdd2294d74dfebae6daf60cf475b7e670747",
+      "question_sha256": "6f7591228466b98de694baca627b4acfa942256477579a20f5b955cd24c2a9b5",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "3fdac837",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "bb49be834829c433bf5e53ab69663eab46caf2c152894b684fc40270db0c04ec",
+      "candidate_sha256": "223a27f0b464b7187928c8f2eb50d2bd451fb0554c0047a0ae49570b1c1b4991",
+      "question_sha256": "08cf9bf75d471e50fd8640db8107fa62b3240d52406b79ba6dd916d06bdc4a70",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "46a3abf7",
+      "cohort": "stable_miss",
+      "baseline_sha256": "dd93f1548ec30ca37b065322704211eb70cf1485d69696cdb66fe8fb59d5255a",
+      "candidate_sha256": "a0fdf870ba73cc148b5d48bda2ee2cc9c1c64eede8a4b4597b28ec4c84de1690",
+      "question_sha256": "543d7f597501a87e7d8ccbe741d7d47fdab99bc5f179fbbf2cfbb0fbcd630d4f",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "488d3006",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "12f5b60e5a14b461be8b4bfd4654f41fecd4eed6345a2066a427389057b978c5",
+      "candidate_sha256": "6c50d30094576b7c5bd2019b02d54186f975da786196d571b53c47bb53a74ea2",
+      "question_sha256": "4aec995f88f75d758de89af4ace22f3224ec32bb31e82973b3f3c9e066cec121",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "4adc0475",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "a743e5116953c7c2439c93710b4aac23ddf30c09777c9f55be9538736ed0036a",
+      "candidate_sha256": "af7b23376b08e7a64b5eb7c10662664db61e777da53f0d4f1f7baab5c99cfcf5",
+      "question_sha256": "4a6daf70f1e4cc325a0f0f18af72cda4690b4c163d797c0b1156450ec0f8a114",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "4bc144e2",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "f86b57905eba5233d3124f9bde2b624b78138ce4208044a21fdf14c2cdc5768b",
+      "candidate_sha256": "5495eb6ab1bbc2bdd0c49a413bf17371966794afa82ab98781d4fb9e3478879b",
+      "question_sha256": "6fc8f7bd1028b6a3f57db0f93c1184f3edf86480cfa5e9ba0d693c13962761f0",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "50635ada",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "6e66c1e2f33193349887b417c7dfbfcd831d6d997790ba8cc84988a0ee7b5adb",
+      "candidate_sha256": "2825729dc75b8dc58e60874d2fec910ee062bb5d6181d2a9eb36429f521db13e",
+      "question_sha256": "27ed6bd99462c5f2cb59373aa90ff4e542e18091370c2360f9e2961c1877b025",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "51a45a95",
+      "cohort": "stable_miss",
+      "baseline_sha256": "24a7fda9c568a9203d69053adf33386b16835fee44d0ad21543a6f323a8e639d",
+      "candidate_sha256": "ec478cfe8e511f9a828fa842a65cc43afc1e580518e7b3658f122c0e24611675",
+      "question_sha256": "117c159b9968f5a32a76d74a797f1de8c5eac4d9523c5f3419323cdf706814a2",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "51b23612",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "e8fe48d0efce02a20e39f2d9a6192e0daa55e8d8b216b33fb991f076874f3432",
+      "candidate_sha256": "50daa2c4944e22221fdfb4c292bf4d60fec17aa4417c7eb03402eef6811b6609",
+      "question_sha256": "fff4e74041437e8b9e56cfa7ca2c231da5bdb54fcfb7aefb6ac1597be7f6953d",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "51c32626",
+      "cohort": "stable_miss",
+      "baseline_sha256": "5c2c0107b57613a6f9e230a77d1cb7ff7b785deebb6a3135374a515c9bb4119c",
+      "candidate_sha256": "b9bcba8af7f2e052f197af9037939571f9d7b54467d1e006db5f7ab6e4fedfac",
+      "question_sha256": "627f0c31c75a7a07c2cfcf8bfb6379ab5beaaca8d79256444d4bd52a7547649d",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "54026fce",
+      "cohort": "disagreement",
+      "baseline_sha256": "a88a095608d8e805361c52304bd13b7246fca6f189b0416a615dded6c3ab86ab",
+      "candidate_sha256": "a4ae8565d79f8a37f3f096c035bf89e1e4e711a598d3dc8e3cd8ee65a26073d4",
+      "question_sha256": "d90dd275da54dd393002488b0d11d0f2c34989cb725795414006fdb3acdc0b6e",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "57f827a0",
+      "cohort": "stable_miss",
+      "baseline_sha256": "63a8dd1f8b4b0f280e847e69fcd2107bb2d5ad89feb3205bc14d9cdae5b6d639",
+      "candidate_sha256": "b8b804a6dd0d73f71558e68c3dfeea11427238329fc8fb9b9cfaf3cd31395d5f",
+      "question_sha256": "aef6cee87769bda8f9056f5c50b281d99ec48f5d5c329269b89f7bf709c55f3f",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "58470ed2",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "75164c1116c53e5a2dbd3ba2e692d6b87a980d9c89a47d2ab7abbf932275934e",
+      "candidate_sha256": "e7fc3714e91fed7e58d932d1fdfe50643e08238e41edb8c292192e0bef67885b",
+      "question_sha256": "5b1429daf099096f2b8257e8253c373d7b6cbd0eab889af39b8678ee0094c249",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "5d3d2817",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "f4219d90d323cb83b987da7649da911d18a6a25c9c45d176ca67071078684d3c",
+      "candidate_sha256": "679df6fb586e756fd966030cd30577f59c3756142371f06eef2763c19eb652f6",
+      "question_sha256": "c9ffb16bd8ce9be75df79ab178d824f51dc7206b77f06790f15093ce66465bf7",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "5e1b23de",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "1121f3b2a9ac3dee3baa28a80e6fda4bcec3b089dca7997ef702913b014765c3",
+      "candidate_sha256": "e0ac790cdf0b13d825017247d6994781edc2cd80d78d8cd56402088425747b25",
+      "question_sha256": "e46e10ac1aaa2919e2bbd582fa78192ee2c831debebeb8e530c0851b41a8cbc5",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "603deb26",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "5779e98e32a07d3db45c7d5f69a2d101eb08e67f4af6dcd189c0f0efb062c19e",
+      "candidate_sha256": "884ef6db3f4591d7eb6bae7084c860195c27f7349c4d941e12c666fd8de5ad1c",
+      "question_sha256": "9a59dd7164b4d42f35a1b84f72581edee188959a75ea02a7c872ba7aab20d061",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "60bf93ed_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "4ccdbdab1bf6c349bf3aaa4a941ca777a4a5a86f6309dc68fbad1ca9be75fa41",
+      "candidate_sha256": "fbc62ec61685d1722ec4572199b865edd2def61477dcd64e46d5a63b281270bc",
+      "question_sha256": "ddbce0baa047851c8d4f7ffce82d36d1b9888b82ac7a76a8b820fc912b2ae8df",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "6456829e_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "f7779a58fc9b16ed1e6e97ed3bd35cfa7cab32584d076a39966310a45a7d091b",
+      "candidate_sha256": "ed4950d3146202c462a85cb74814775714b9d3851d75e51890a66346cd32b256",
+      "question_sha256": "e5aed32810218ac7ba05fc436b7776c27e45ea2867f082d0560aed2d4a0bb1e5",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "69fee5aa",
+      "cohort": "stable_miss",
+      "baseline_sha256": "0663cb4966de92787384a9edd01fc7ecb0b6483443e59af4b2e715df212cc4df",
+      "candidate_sha256": "5489bbc43ab5fb8fddb1748d666040521330c31932f7477b72b9eb7873dad6d8",
+      "question_sha256": "71ce88c1b3a74ae8ff18d59a5a9651209675960fc5740eaa5a6ce1b72226cb8f",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "6aeb4375_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "646a306c0294afb3747d47ce9fb08279bedf081d3d8b459d808a3c6967ebb5ca",
+      "candidate_sha256": "9b24a201a3461365efb14350f77a461e473583282c7f2821ae6a5db2fdd2ac3c",
+      "question_sha256": "6e668798fe26a1ef6f7317475b3a7904beaec84430ae463550bdab8224357939",
+      "type": "knowledge-update",
+      "abstention": true
+    },
+    {
+      "question_id": "6d550036",
+      "cohort": "stable_miss",
+      "baseline_sha256": "4c183a5ef9587141f4da77927c70a4bffde5f940a610e70e10a909b583653087",
+      "candidate_sha256": "61e8371b41f3455aca2edf6632a50be19487b859ea9692865ce7c5fbda5bd272",
+      "question_sha256": "41e549b7457aa21fc550ff42a20a09e5fcdda793771ca86d0d7a8f198391e0f5",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "6e984301",
+      "cohort": "disagreement",
+      "baseline_sha256": "1b95c95a95cfb40a07f3fe8f38924dc7bf76a10168bcfe732fd61ce24404ea5e",
+      "candidate_sha256": "32b9d462c4b4efd1e7936f22ac7764b6150848263f14546bc70223a2fd58a1c8",
+      "question_sha256": "2251cdd616ee03b8d69ed624e110bf628c98c0da3fb5a4ec0d5232306602779f",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "6e984302",
+      "cohort": "stable_miss",
+      "baseline_sha256": "6ec752922a1ef7d5afaec211f3e282859d1192f7d8665c56a285a6accf6ac948",
+      "candidate_sha256": "56d4b72963864b7d954b9fa27472979f2872b2bc0fd482cc72300a7bd14f0814",
+      "question_sha256": "beb61de83211ba38166684028ed8a57a58861db2abc4956b1aa8355c60b20315",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "7024f17c",
+      "cohort": "stable_miss",
+      "baseline_sha256": "2fe3def3a7786593786781715129af0be035b77567d3d743dbdb99f468a49c9d",
+      "candidate_sha256": "e31419789ca2fd2900aaf25cd6744ba1e63b7eaaf59a3559e08f1faadae250dc",
+      "question_sha256": "d8928c71fe8671983c0dfb7f5ae33d43ffab634288aac54d79ad7ccbaef338cf",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "71017277",
+      "cohort": "disagreement",
+      "baseline_sha256": "a287122ee283ad9c380773b30640d9adb36b7755e5c8300b5b0493e9ce1ceda2",
+      "candidate_sha256": "84db73332baa272b3369707901c6dba133c6131df77322f9135a848a07c17912",
+      "question_sha256": "92696c958bce9d29fbc129a87a2c990d103f6b08d5f84e065868feaa53686ef6",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "71a3fd6b",
+      "cohort": "stable_miss",
+      "baseline_sha256": "75b2c372bbf05f4d2d2c223dc2f8606e7e9f94352b40e72f423dfb86e291bb23",
+      "candidate_sha256": "a24bd26103e98212a15f9377bade2544ea5bc0c86d71efd84cf20d6c1a419f25",
+      "question_sha256": "d8a6aee7cf49d1a3566c0539cc8607a18d1eefac106e7bb1d4cb2f1ea1582c18",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "73d42213",
+      "cohort": "stable_miss",
+      "baseline_sha256": "33d7d969c77fd59cbd9cd7a18f33d98cc784acc28f7ec3c523d7399198ac22b9",
+      "candidate_sha256": "f45f26236194a8f109592177a8c6eca8bd2aa77dcb32d9aa22e1226be7dc6573",
+      "question_sha256": "83dc6f09f7c0f0cf58548b6977ac30d3f1d9c094ed905d28f62a6ca8bf605867",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "75832dbd",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "3facc7be54bed18e865b3e22bfedd59ebe0ecb1d625548ffed30f709c98f7c9c",
+      "candidate_sha256": "4cf256ac337be75d11fabd189c238f410b578d3d9a9c512b943be5779125e9c5",
+      "question_sha256": "01017265e5dda1b669489f3cacfeb761fc54cd3fe1abfdd0a445fe349aa5a524",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "75f70248",
+      "cohort": "stable_miss",
+      "baseline_sha256": "1403c754d17ee2dfbb093db4e62bd35912f4e02e1c4147700d24c38a57463bd1",
+      "candidate_sha256": "8170ed0a0c66290ef281f898c0d2a569a1c229e20d7083e030aa7a391cebd652",
+      "question_sha256": "a630f978540ff35bbc05b5ed91f51877ea1d1aae3d63effd2e5f3474b711bf61",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "80ec1f4f",
+      "cohort": "stable_miss",
+      "baseline_sha256": "6dde148a34610d4c91d7f790d9429bf76b6bfaa86addac3a1d4a7369abfb9276",
+      "candidate_sha256": "b7213a62782b739cc44767a103e474fe2bb0307be69c095720e0211bc1af5111",
+      "question_sha256": "3c3b8bb2e53072e3db2b2397be216aadec7c8b1333ce8171915ce52ab60d27f6",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "80ec1f4f_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "3810003a2e9e254b168668434324cd3ffe76d4c69ac7082582ea4b5ba19af3bb",
+      "candidate_sha256": "2e191adbed97e0069842f04a4f024f41d85df0618813a26382d3ea3339564556",
+      "question_sha256": "51d99f88c8c600b5e8cd240a7335b6da0c00d9bfb5da7fc5d729e5ff12f20da3",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "81507db6",
+      "cohort": "stable_miss",
+      "baseline_sha256": "cfebb4b9c62670f99376221d6223fe055fd5dd636a3447bb43717e79eb9322cb",
+      "candidate_sha256": "4b4a572b2d13dbafdb9fe6836994fddbd92a06a3856606233b8f275b8cab48ae",
+      "question_sha256": "a8f9fc48b52d7a14b609fe24dcd7d71428b8175e106092469eb91fb206c634ae",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "8752c811",
+      "cohort": "stable_miss",
+      "baseline_sha256": "6173a8a8065944886811429aa2280cb6a6c7b61d52d2c867a38814af1be819bd",
+      "candidate_sha256": "f3df01d886fb9b442c7367516c9dae438922efa9afe996b08a4c1738cdd5bb8f",
+      "question_sha256": "a806939664407593464db538ec5cfb31ded734d25321b962126b9fcb5906c8be",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "88432d0a",
+      "cohort": "stable_miss",
+      "baseline_sha256": "e5183b39de5a74b09677d4c2dddab2adfff250109e33eb32c7e742c2e79d67f1",
+      "candidate_sha256": "6d4d0bc95ebe21a16f2180df0f43e607608154983ea5fb0fa8c81ea5935da770",
+      "question_sha256": "1d6c718fe58406154b5d335fb56fc7bc6fa7ee4e7f825de872c1b5cb677af2b7",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "88432d0a_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "9bdb8dd7b5a8519e513f6c9c344a7d179f5298a4b416fb0bcf9fe132044fcb64",
+      "candidate_sha256": "24aaa43089c850d71929f9a601e85b8360a40825285cc89ffeaddfc60e8a0e3c",
+      "question_sha256": "f82355bc6f7ebb2ee2095b58ac46d22b357a036db4f24a6de7e27e4ce96b1da5",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "89941a94",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "fedc032431819372ec88903a45d33b8383768d551cd010cab75e06b6e2229406",
+      "candidate_sha256": "e7ee453c8f126b241b2e8bf6173d6bd2e5f96d4005a3d6d532f5bb5dc05e7d86",
+      "question_sha256": "b66bd823f733007599507e43d288f9c2624b105e9573578b2f77f89119fb3fc3",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "8a137a7f",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "1a03b64b763df0bb43f70a28e16c2407f9acde6ff7b231b0d7089b477918d20e",
+      "candidate_sha256": "f9f5376e4df9461c4b5573e957ac9d2bf2155469f2d5759ed976c326f5192574",
+      "question_sha256": "26f7e6af4bbd291a2725d3deac995bc3ffabaf3fa90416397ac24d69d1ea0ab8",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "8a2466db",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "59634c5760c57299a1cf62275fb55bad85172c3a6edc97adfa2392900581049b",
+      "candidate_sha256": "f54f9653d2ee489396060f2077d6940fe157e0d30195fb05c6ad209e7a9f1e8e",
+      "question_sha256": "4b3ec9847949dc4c7f298cd0f352d42c8bbc4c5a4a439557795703bd3fa4cea0",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "8cf51dda",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "13e96409653c3e136918e12180d48e99ab2f4b005aae3ee8d44caef635a04f2b",
+      "candidate_sha256": "0834a76014a026bdf95a2671687a8e945500c58767239f5ea753b4a62401bac8",
+      "question_sha256": "bc62004f0f06f77f48e4e0fc1e5c7dd2fa090b43c50379e9574339896afd8641",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "92a0aa75",
+      "cohort": "stable_miss",
+      "baseline_sha256": "70ec6cda7eec994aec12166b082c6b5c086498dc338547b76c877f8cec6c75aa",
+      "candidate_sha256": "8296b75ae32711cfb1cf3e9f6702e54425a1e68c3f58f89410e0c16e4fee1127",
+      "question_sha256": "343320b1ae172d0f80dddfdc50194d3bc496bd5372c9ae94ef269ba16ee39ebf",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "945e3d21",
+      "cohort": "stable_miss",
+      "baseline_sha256": "0478d1da4dc8eb8cc68f3859f7f9814010cf5d553c2b56beff1c984b1d5e2b38",
+      "candidate_sha256": "a606dec7987c19c493ce3ff452cd523222af5e321e5f65cf75f2e4430c75033e",
+      "question_sha256": "07f2b625b3c438a7499fe105d47ee575d8ff4c55b00d44c8aecda10db1765990",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "95228167",
+      "cohort": "stable_miss",
+      "baseline_sha256": "474ebc49f72706566ce7da7f552726f9eb1c2237d9ca6617bf0c2d29f71974e7",
+      "candidate_sha256": "9d88a5092edd79108b382a792879741a3350e8204cb9d6d3cf4cdb41e851b49b",
+      "question_sha256": "6b752691128cd8a25e62c4d2ccccd351ed94b27886d7badf6c48e4561a20d086",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "982b5123",
+      "cohort": "disagreement",
+      "baseline_sha256": "bcb75751cdfc216c1d544806af71469bda23f2b9f46cb6278328014e328319de",
+      "candidate_sha256": "e733ec66ee7763e1e436fb198bf01cf76fc44bbd2d333819cc339217b5e8fc7a",
+      "question_sha256": "0b8bdf62d5bbf6349f9ef09c95eba7c28deb82cfc9e1fe71b2e1da173eafd7f8",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "982b5123_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "bf553fe3ce2fdf3fd013b5063b64efd95dbbcc0983297b0d0f5cbb7a9966160a",
+      "candidate_sha256": "bfeddfdd9539f61f652db73e25b8ba93671f13f3e0ed3d094f4ef5fd17a74f7d",
+      "question_sha256": "cb0c81ae8ca1c18003c117a8dc42b29f3850a7dfb0183f14758fc51cbbe24a4f",
+      "type": "temporal-reasoning",
+      "abstention": true
+    },
+    {
+      "question_id": "9a707b81",
+      "cohort": "stable_miss",
+      "baseline_sha256": "541e31dd6d48014e98891b940a994d2550bebbb188e359c7fa844ecaaf84c40e",
+      "candidate_sha256": "b1f074228b19b420e44e7046494fd7ef7c519d3c5b8207e9bc2acfcfdb313a00",
+      "question_sha256": "f94134e6f763716f606f043358687b984ce255015de0f17e75b5a09968702028",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "9d25d4e0",
+      "cohort": "stable_miss",
+      "baseline_sha256": "5b7f6e8074fee77118c668f7b81d1924bccd647b769fdd4f28401cfc057c1017",
+      "candidate_sha256": "6d039f6acb5e1e94ccd1e29f1ea48dae82187fe9c76951b99d6986c72a50d14b",
+      "question_sha256": "f5c459fd0e7be84bb90b570d7c368ac4eb76731c6285dfb681d0b10a57d2d3af",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "9ea5eabc",
+      "cohort": "stable_miss",
+      "baseline_sha256": "9adf87fcb35c137be52823769895019aaa04ac0ea6d49d69de55898ab753f47b",
+      "candidate_sha256": "c9a3a4ae9f020b4f60647bb3cd88fcd16655f8798109f84d59812f5917da4136",
+      "question_sha256": "0a11ea5f4918940e051cf67e38a6b6fea35075e553e4639fc185afcf39538325",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "9ee3ecd6",
+      "cohort": "stable_miss",
+      "baseline_sha256": "b9f28fd20b47589aedf7149e449089777ad8e6bceac87938d5d0fa571d1672ab",
+      "candidate_sha256": "b0e3d3672b3c88386d16a66964889ade62227aca6595faf9d07db341c45127f2",
+      "question_sha256": "0b4386dd0229c56b95e0a6071856e709d8f67f40e68172c5a70fce2a7d7d9e5e",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "a06e4cfe",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "acc8bc30132a6e967eca12f58bcf958a2732cbd2af54a1a5726a60e6f9b74f7f",
+      "candidate_sha256": "d538e7d6645cc9392db106838abd1cc40cef6b085317ca24e92e6c5658a280ce",
+      "question_sha256": "9802e59e838b2b3b95a635bebb825d76c0141a32a4935ea5a5bfd6bdc8844569",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "a11281a2",
+      "cohort": "disagreement",
+      "baseline_sha256": "f6adb8d6c5de1658d9d2b219da02c7cd4bfe10b255908cda8ba3e260dca1f709",
+      "candidate_sha256": "62e970795953a03c03efcaef28da70611aa6bbbe7c4a94690365e90e304c5e38",
+      "question_sha256": "80fab7e10d5d2ada1290f1bae8b3ae704a1d4b571b5f94aac5e89ca6606a83a4",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "a1cc6108",
+      "cohort": "stable_miss",
+      "baseline_sha256": "cd873fff65472ff47ace1aebac42adaebfd61109e7dfb019ea5b043622300fe3",
+      "candidate_sha256": "9087ca327bc7a3d9d19e827994a79a69d96c3d9d418f57ac61274fae6714efd7",
+      "question_sha256": "b25c3e25e6352263fe140598a2debcb979832a50735171054cfed3707566339e",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "a3332713",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "3d8b56a3d4e63dc8be47b63d967754d79690affc4b235bc20749a684a172aeca",
+      "candidate_sha256": "b7dce29f53e711e9be7b79c3f3476428053545ea50d14ff83574b0de2f1bec45",
+      "question_sha256": "314ecb36e69c4027ab2476c8982f1272261a25d769ece7ce5c342410b77724fc",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "a89d7624",
+      "cohort": "stable_miss",
+      "baseline_sha256": "8e68e911e0931688885f97a8846e83b394650f4c8a83c18741febab08c2759e6",
+      "candidate_sha256": "851081ac9970a585e2b6e18a7905843a1cac4325e6b89ff41be138e1bcd7d77a",
+      "question_sha256": "2368db2558e48efb67af72e6ea624a7c879f3baa4637e0436dcf10f334c841f1",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "a96c20ee_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "5a46ba054d8ca6b8643bfcaac428ce31aee8340180416977a23166b610571a4b",
+      "candidate_sha256": "abb0ff47d507a252466198ff9bae6038589cf564f5dbb9cccafa981e4dd758bb",
+      "question_sha256": "c5e81d7b9b70ee453fe9292e8ee0e08b68f52f55bac2a9a373c8aa82a294c701",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "a9f6b44c",
+      "cohort": "disagreement",
+      "baseline_sha256": "8a48c665d0b5d672edac98fa2c89b0f59d55546da631feca4993470bc6f18d27",
+      "candidate_sha256": "c223316141bb67f57d7a348fdb47c4ec819ebc4833122b3b4648383e5703424d",
+      "question_sha256": "0ee25b80c6e558ebd4aacf0b40a7bf90076fe654ea21fb5a213d30a13d15a187",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "ac031881",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "8332b3572e3fa85743cc9a9b2d0e4ae98df7b7585a081de1c4befa831e00e611",
+      "candidate_sha256": "ed6c9346f26a4aaab988cb27208344ae04844da29a1acc35ba774a609ecebe94",
+      "question_sha256": "9fef545ba6ee5473badac33b1f9896ce7d24958c9d0278ec4fcbe5f54d992630",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "afdc33df",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "64eacea1372e019fc788ea391cbb52ec8db4dadb91d7f0d8888ec57a2f48450c",
+      "candidate_sha256": "f72adea6a8eecebe3d7a80df3b4611a1ace32972fda85b9ae9d74cf92dac59ef",
+      "question_sha256": "b550b377b38c4459adafc0aaa940c02e31cd7839b7ec92738deea22558259dff",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "b5ef892d",
+      "cohort": "stable_miss",
+      "baseline_sha256": "5f87e84571d7ef317dda3f095b640ace658784169a52a133b0c1af61fc843a07",
+      "candidate_sha256": "5d5a334d94e7a1e381f5d61cd8e050987eea998337dadd66da77453f0af6e7c2",
+      "question_sha256": "80ca7a2810363d60deaf2ac7af570c41022322dc8eae93269ce2f84a944bb7a9",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "b6025781",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "664082ef3d9124402bedd00effd6684ca40b10c4c01fd89befc6ad9fd3963b7c",
+      "candidate_sha256": "47f7a091f14df93fccae391333de5c1058e1c29d784a8f14187b22b7bdafd651",
+      "question_sha256": "2a1149dfe6672154e102fb75bd44666ef6b8f6d86b0b5e803f90eb0d96ba65b8",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "ba358f49",
+      "cohort": "stable_miss",
+      "baseline_sha256": "bc061e4d58e89c2654d0f523174647572d4e02bdc7224fd8e510d2d16d940b96",
+      "candidate_sha256": "98644f9fd4cd236abe666f89198eb134714e4d1ad2c8dad49eed161674cf503a",
+      "question_sha256": "e95dce76a146cd5e0aa554ff74acd698038dd63cc9bd7b40875ca93b2f87f5fc",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "ba358f49_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "ca6013354610bd158b7bc1f3922feffaaec9afebab1b88e5d60952c85c118126",
+      "candidate_sha256": "6019784ffbf6228e92fbb2ffe12f7f60da4bded145df8d0cf70bd3a919baa8e7",
+      "question_sha256": "7a7ba0a27d607da6c4434a62d19b9c335843b8f000817b191e7642078700e134",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "bb7c3b45",
+      "cohort": "stable_miss",
+      "baseline_sha256": "46001302513cc96907a4820994137e280e3c5270ed4456e0af617923b7e6f820",
+      "candidate_sha256": "3817f545fd0641353214d2f99f7dcad662a466cbad6c60f505f7b81d9b3886ce",
+      "question_sha256": "cd3c2f895a3058cc1138a548abb282b90a8dad0128c3acca45c8f4a81d4d10d1",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "bc149d6b",
+      "cohort": "disagreement",
+      "baseline_sha256": "3e5df62cc861c09def60469e5fb134faad5a1857b0dead9cbaf26d41b8a2b570",
+      "candidate_sha256": "6cf04fbe6e82b61f115543c4f06d65079eaf78ede3ca98e0074c63e3490f16a7",
+      "question_sha256": "712c60c49794de47de3799a8fef69522f5e003ee2060741c3599e5b024f08a33",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "bc8a6e93_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "4bf99165ffb1ac2c55cc40c5ce356c0e61957422f9cfb12686c30b79b5c26888",
+      "candidate_sha256": "88d5752750d650806ed9eed2956cfb8b3ca324bcff9fcc7883e9175c3549a096",
+      "question_sha256": "5a6007ee203eb5a96f39df617539f47d4013fbb573ab2847eefda1a3f2180e1e",
+      "type": "single-session-user",
+      "abstention": true
+    },
+    {
+      "question_id": "bf659f65",
+      "cohort": "stable_miss",
+      "baseline_sha256": "7251a0fc845b4ffa06a9d649f4b6cf1ab0447806bc07cce985e1ae4d229908bf",
+      "candidate_sha256": "5b3d27f938fe9419d5c8288359b1de4807f59422604f464b99b84b941766933b",
+      "question_sha256": "b85ccdccefb67f2a8f28fd5e12a882740bbe2c13f291448717e8f0e7664c5438",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "c18a7dc8",
+      "cohort": "stable_miss",
+      "baseline_sha256": "3dd51f3e55a73863098bee08ce6e3ebf71e60a87d5a42c5d1be25f42dbcb6988",
+      "candidate_sha256": "5d4cc24fa3282cde69ac60e0d9a87802bde9be52721375159be61c62bafe5d23",
+      "question_sha256": "d4155d6a5c56607a140346dcf887a0668cef48e20ade6fdf59b306a85bb27c1a",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "c4ea545c",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "5a3a916791ac7b0be5dbad6d834759be744ac381e8a6a0a3ced7b4108f207183",
+      "candidate_sha256": "1482e0ec1b6d37b7b7c4cdfad3294fc6852516827c8e31d8f9d13e0e534634ec",
+      "question_sha256": "c41bdb3b0cb441454adde1eefd59c6e5897a68bb5c077640aad7673d58b60879",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "c8090214_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "498a53dc03ad9f396649e2abf1ea2ed1bb61bcdbbe50f0cce4becd38c759a274",
+      "candidate_sha256": "28847b3c47589d674d20ecd517e0cc1c4732971eea2ee9b20e33ec3e47900152",
+      "question_sha256": "da6b07a24b6e5b6f655b01fad5fb66d9e0620841c50fa155153aaa3f23a16bae",
+      "type": "temporal-reasoning",
+      "abstention": true
+    },
+    {
+      "question_id": "d01c6aa8",
+      "cohort": "stable_miss",
+      "baseline_sha256": "41d3c2159bbc0497ad02e304f49a5d93c767f93498890536e4efca1bc544b963",
+      "candidate_sha256": "5b70a2d37da82ef633187c9277095a169f88790f97fe96ee894e8af381375f36",
+      "question_sha256": "db19c79c09758b3810a9e35c19e0b5993b9e7f0c85fbfbb86f5ab558e0e3664c",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "d6233ab6",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "02a4761d9e73914643d1dd76b46a5b3bd13c34ed9c6d87457c63cfd893421037",
+      "candidate_sha256": "66bb734030ef7672a2a49e76e7bd3a9da8037347958270aea6e6212ebb840766",
+      "question_sha256": "4d0e42a4574a92b320315229dc22b35d0c981e0ca7ca52156fc59d96f2e67d0a",
+      "type": "single-session-preference",
+      "abstention": false
+    },
+    {
+      "question_id": "d682f1a2",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "5d81d99f1439475e324afd9d64c25c7c07792bbed3de80abd9c090bb36807de9",
+      "candidate_sha256": "45e8d153d9330c42e764fd377951d1567ecdedb37d8d89823473c9701e4911d6",
+      "question_sha256": "793d02362cc7e7313ebcc345e674b8c4ea6d861407510aa0e7cc5031ce59b365",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "d851d5ba",
+      "cohort": "stable_miss",
+      "baseline_sha256": "a61113818139cb39ea18de309d4b2406dcbd750c52b8d91b55e2c89de1bd2b9a",
+      "candidate_sha256": "0ade3bd9a1d7cb55983f007c0e4dc1d2ed42238788afa4e01e22520cab07b394",
+      "question_sha256": "b32d978429fce709af97f14905539dd8c4d8b7f6b85d3c1b31ea05f9724beeaa",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "dc439ea3",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "ce12e9217015b85ec916d77074603cbc22ec0bb8a399597b8f329ae6cbf0496d",
+      "candidate_sha256": "d5ddd3633bd39a097be2422eff5b561151efb64cbd711e783fb2d4800166e6bf",
+      "question_sha256": "768ecb76f0473ce1e0545b957a5ce65acf327a4d13ef61efb4698349c681780b",
+      "type": "single-session-assistant",
+      "abstention": false
+    },
+    {
+      "question_id": "dccbc061",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "b4108f1f11a72a368bfe4372b6e6154d7f7b64d49f495535388537e8736b20b6",
+      "candidate_sha256": "0f837f01976808c6863c1a4a5a938f5cdaf53de8bd2b0540aff087fe37fbea1c",
+      "question_sha256": "ea452b94157a8fb824dbabd11157406674c3cf289b65e1cb7002673ef2574e36",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "dd2973ad",
+      "cohort": "stable_miss",
+      "baseline_sha256": "062db11858b915b6ffe9a911bf237c066dab2adeb4f060fbadf52369423b073e",
+      "candidate_sha256": "371777ec4b51ff83caa457a494eb206bc78365d4ace26997a5459fb12bcbd7a7",
+      "question_sha256": "d4c2b1b7916c558a96eb527b308f60d55e33f181c76cb1c34aaa4ae47073cc7d",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "e3038f8c",
+      "cohort": "stable_miss",
+      "baseline_sha256": "b83da23a61e4e99355da654f5e9db3d064acb23c19abd6c13e838f53cb56376f",
+      "candidate_sha256": "60d29ac1e4c6e70c7e803f809daae4274bec89eede1aa85387990597e2879e69",
+      "question_sha256": "81fc73859c153c81304f16becfff62090bd9b932b3aafe3da67455298091857a",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "e5ba910e_abs",
+      "cohort": "disagreement",
+      "baseline_sha256": "eadde63bf02cee6c5c7b9b5722334e8f61fd51e4140c10043802a0c1099832d1",
+      "candidate_sha256": "b761aca07e2a61bd26290d03a23cca98136b20cef5b326694a8af11217e6ce84",
+      "question_sha256": "565c0bc5696f9de2b18c8b7f2d448c96d476480eb17ce9d798b6427c2ab632dc",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "ec81a493",
+      "cohort": "stable_miss",
+      "baseline_sha256": "62a04076d124965a6e9b563c4620c23f265e8a9e2ddd65f338c420af35f736c2",
+      "candidate_sha256": "09140393b7aa63bd5b5d2234a65af112a4c59626d0c585e69e2e5a2e2c1f8be2",
+      "question_sha256": "76ad7b7fe26c20b418c639a811eb564290f89ed34b1ad3ca58487c668149ffc4",
+      "type": "single-session-user",
+      "abstention": false
+    },
+    {
+      "question_id": "ed4ddc30",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "0286007340cad4f50adda6574ca99a797d7777a1b33f27e5633890cf0bc8647e",
+      "candidate_sha256": "f106a928ef6ea8b90ce3d35f2b1990e437006ab3d1b37317a3662fc1825cb5fc",
+      "question_sha256": "e4dc53ba26ec2bf82f6e9624402ea78b543583e05244bb20548f793f91638858",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "edced276_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "f4a9bccd6ca51aa06927642b4ae6f70ce20fed375cc80c7068d686b5f01bfbdc",
+      "candidate_sha256": "dbc89fc2a9e52ef6656af4c89e441704ccf9637c1d58540c73409ad568595244",
+      "question_sha256": "d83d5fcb59600a1357930092e9cb6ecfe38cfb0966b69121887772423fedf546",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "eeda8a6d",
+      "cohort": "stable_miss",
+      "baseline_sha256": "e5f1b2179c267beb56f24a766277c21e1ce3c391413eeda2285cd885692f1f61",
+      "candidate_sha256": "8e2d2d4b159f3da554b1d7bdecd99cbeac7c29a14061071d2af3db58ff4be47a",
+      "question_sha256": "7d521cc61401395e9fbb728c3bb94975c69416e485ca4081c79aa20c0fad0ed1",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "eeda8a6d_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "afca7be5e86903b3809bed11256bec61eccc1b8ed9e9863289fe958713e03a89",
+      "candidate_sha256": "0b11b8094f946dbde45bb4862b32c7a9ba7f6f5b574802104b3ae86557e9a831",
+      "question_sha256": "cf878c77d6584184c22ef24f0881ee564fc56120cdf36e4114e8bbcaa18b95e6",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "f4f1d8a4_abs",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "d355c22408bf4d1e2463bc2796807456140709bd9e3d6dad31b648466320bfac",
+      "candidate_sha256": "293d3c88274e8caaf30dc92c9e1fa3a579e80e0d3718600d2c855f88ffc3808c",
+      "question_sha256": "b7626656088d6596538daf0887a9117ae5a8f4d93380160f47cea59b70f4feb4",
+      "type": "single-session-user",
+      "abstention": true
+    },
+    {
+      "question_id": "f685340e",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "be8f0114410cdb633db17c9c4988651ce1a3508baa99a8666d92fac5ebe16b1d",
+      "candidate_sha256": "5e60b7da4f5fec426cb54b65fb5fc76d9dc0e7cd75b54c2da86b87c00027d49b",
+      "question_sha256": "857af03f737e7d54ebeff0cd53f6c1886c862aef422e5750b5e2ad78ceff39e1",
+      "type": "knowledge-update",
+      "abstention": false
+    },
+    {
+      "question_id": "f685340e_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "8dca1307bf326acb6d41713ea5808803a7d16d31943981cfb74f962b4228853f",
+      "candidate_sha256": "11f4432bf24e2d8c6adbc6e12fd69f8448be4c217e743c4b57d9b2f0673fa030",
+      "question_sha256": "128c6e6fb1108da94932097a4a1a14f38ee4ac541b43d20c373a8166aaeb5d74",
+      "type": "knowledge-update",
+      "abstention": true
+    },
+    {
+      "question_id": "gpt4_15e38248",
+      "cohort": "disagreement",
+      "baseline_sha256": "9fe66c7acec27dd225f4f6b1eeba74f9d83bf9b7bd4b7460956ad6c31e62fbed",
+      "candidate_sha256": "a4fdb2b1f6963c3a7ee6c77e3d192078d53aaad5d8c81ce3b30639bc7691318f",
+      "question_sha256": "3b61483b1e72e659ecbc31c313e07011321a29cfb34a30389dfe36c4a2eef1fd",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_1e4a8aec",
+      "cohort": "stable_miss",
+      "baseline_sha256": "55472a15c50e8c87358040e01bbd1684e0b2689b09cdb4e273016645980e0154",
+      "candidate_sha256": "94cb663f9cd4ab6994beb609e6a949675adc43a8277eb13616e49353aa70a421",
+      "question_sha256": "866b8f71eb3f82fa9d0bfcb3db4ff737900682d43007c878d64f97f1d273a9e7",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_21adecb5",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "89e84276c3db7ecf044a916f736bff025646ef66af7dc0e23bcf63b1f7660163",
+      "candidate_sha256": "2b0e77f637f03d7d8d9821e8e3f3eb9de6645b1c227bc24d69f72e64306c2edd",
+      "question_sha256": "7fb3348c12cf1dc5c2b439b21f68354c7d9be7d65efc8591dc02874c0e3cd286",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_2312f94c",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "c3a6191a558cfe33dba480184b0ff7d3dba326454f6fcd014b1be606e7beb1cd",
+      "candidate_sha256": "a48655acd14d4850cd923af7b6de96d918b8c8607c8f46cfed759973d5f3e760",
+      "question_sha256": "53bd21beceae23d5e686b7f1dd270b2104bd5f436572f4dafa290deb9827ad23",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_2ba83207",
+      "cohort": "disagreement",
+      "baseline_sha256": "11171cff069ca226299cd2bd21f1c26fa42aa6452e06229c30c1984f0800205e",
+      "candidate_sha256": "4c5587b8819ea81261732acaa45750d51d8b842937cb1f5aef63eaf61036177d",
+      "question_sha256": "47d3d4e0032ec5b7c5f60d88ddb441ee2bde723461a89deeba0b213c17f289f8",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_2c50253f",
+      "cohort": "stable_miss",
+      "baseline_sha256": "793b1b68bb17dc00e835717d2e3a6a4d57cf2d3e994ce2512d07edb3513527f0",
+      "candidate_sha256": "e3aa1853bbf9b8bb71037c4a616762d3c9adb3395d8c574af6c7a6556a4cac20",
+      "question_sha256": "5d1479f18c3af8d31f0d88e9d1560e457f690922029d47d1a726f4d60ae88680",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_2f8be40d",
+      "cohort": "stable_miss",
+      "baseline_sha256": "d313563cca8f8f86904f6506d77fe1d8441ae7ba1b6845149c23429379a147ff",
+      "candidate_sha256": "419ad35f673dca2fcaf7b804aae46af80d7b1f341f716ded03209a6ea723cc6f",
+      "question_sha256": "19d997dd63676637f815a6e1e281f6018b679301880e3e8cfbba3fd65dc1c8c8",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_372c3eed_abs",
+      "cohort": "disagreement",
+      "baseline_sha256": "4ca41dad31e3d2c66699399da8e9f5b5090221a2a57c4b29b48a2ae3d48d4429",
+      "candidate_sha256": "0d5a7f356fa6fe251bc298ee5926c33f45f7b7a0fc0d29e21e41427e79e85aa0",
+      "question_sha256": "35d4ede72c0a247286b29a105ff319edb394fefe1d7300e70418c21d8b741aa7",
+      "type": "multi-session",
+      "abstention": true
+    },
+    {
+      "question_id": "gpt4_385a5000",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "e32e9d6a1ccc19c29ecba7c89b473437a39952f8ecb46a271d57078340703295",
+      "candidate_sha256": "5aaa8784032531ca5b93bb68b7b93f31ee5a5db1f337d225241e6989c8ad7a70",
+      "question_sha256": "3d0523b6bd9e6f1d11544c2be9346cb37968a845f338ac99c8c4e5777a449f65",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_4cd9eba1",
+      "cohort": "stable_miss",
+      "baseline_sha256": "dcca498ff68f87d478197104f7b6c9adb2f18b30afa0e2b5df03c26d0a62fd0d",
+      "candidate_sha256": "3897eb62a9e22b911d49440b93a9a633e18e22ff80e5b7677614f76d7cb9cbdc",
+      "question_sha256": "e45f688bc4213644e79c120c0db0abf7ee744489fee8a7291410fb164a4bfd88",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_59149c78",
+      "cohort": "disagreement",
+      "baseline_sha256": "014ea86f50b6749d874f48d006a4907c93565952662bba15ee3c050e11244441",
+      "candidate_sha256": "100a5bae830c2e15a08c5681607ce7da7c9d23f1993dcd4c2683cbcebb857e90",
+      "question_sha256": "32ddb2e937a0a07a6ac059315aee27074e39268adbd5461011d7909be2450ef9",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_59c863d7",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "cfcc0ed7d45b868e3d6cdeb953c6f1eb617729ff42a221d9a338542f296d2339",
+      "candidate_sha256": "dcf460775776f4859d85575f577e2e568740ee16890c3ed92c63d595d61171a1",
+      "question_sha256": "9b77e32ef7de9ec435a6956ec92f3158dd6a840b2da210a297011ecfbe2838af",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_65aabe59",
+      "cohort": "stable_miss",
+      "baseline_sha256": "4d3c6b1b3a2e24ab99f0a9fd5970f8fdf50252ce87b4d9481ec8a1d0e5585786",
+      "candidate_sha256": "85d1f88f5dc91dd7c7450b5411ae647ae34a79e4fb58b2836446ea96530352d3",
+      "question_sha256": "3c50fa04be77e4a9ef6f5ea02901cf2deec8318b15c74dbeeaddd679de5a3b79",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_68e94287",
+      "cohort": "stable_miss",
+      "baseline_sha256": "adfcb3d8b9fc85e983490a7d7d2e791fad17a6fea626e831708ed3f00a12dee2",
+      "candidate_sha256": "ba09572de02b4d1ee7aec4890107229fb1bd0c0a817cc317202558658a117da4",
+      "question_sha256": "58f89024da9271d4eae75dcdd72ac86cb70582fa54b327a1a794e2c1dc65147a",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_68e94288",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "2bfbfd642468f880e043a08e03fdee799953d1830f8d4fb9d371f8dc552f32a9",
+      "candidate_sha256": "41f16e70324f0c15de6196121c0ff9390bf42b1917f725585981a2b1be7f8dc4",
+      "question_sha256": "4e950032c29d22128476902e64dba1340cabf6b19ef8bb30478be1e066b0d6d5",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_6dc9b45b",
+      "cohort": "stable_pass_control",
+      "baseline_sha256": "5d725d29d574c6163f954341ca8eef795fa5ddde9ede988fe4b394901a1d826b",
+      "candidate_sha256": "4ada1da813ad7dd0647c21b20be8b227fbdde8ce479b11cea263c7fd6042b4bf",
+      "question_sha256": "05e31230e0832efd36654ea0d56aa4516bd09d7a89c4a0e5f83a4a632496880d",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_70e84552_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "c8a7c47869bda6cad6d3115f40230a49181236223c1a5d11242fae3f46684c3a",
+      "candidate_sha256": "9e3b9f9664794f102a4dc0ac82c6dfb8957f210321729f18bc18c6e5fe0d6514",
+      "question_sha256": "717f48a351fc2d18334457c3cbbae42e92a2c7b0de5b821daa680baeb4a53fde",
+      "type": "temporal-reasoning",
+      "abstention": true
+    },
+    {
+      "question_id": "gpt4_7fce9456",
+      "cohort": "stable_miss",
+      "baseline_sha256": "630b08d35929cb6e4555634969387b1f83700b7849c048f1076e24b03fe89e53",
+      "candidate_sha256": "3bc4cfd729df463c38073279559d672cd7d7e36f7a19ce230d1ccb0206db1ec2",
+      "question_sha256": "6b83a0eb387030db92616653cee01f00ccf23a124114f1787e2caa55f276acde",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_8279ba02",
+      "cohort": "stable_miss",
+      "baseline_sha256": "d99603494500bb257695415fb7b269e99025dba1a4dfe095360e7cf6fa3c5682",
+      "candidate_sha256": "669b2c2f8b477bc76548091311ad923fb9351140dde796072e0fe66186ce2b4b",
+      "question_sha256": "15ed030e2b97b86e1708a374e07e670b83ea79404d3b1ddc7b37b83c47ae8206",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_8279ba03",
+      "cohort": "disagreement",
+      "baseline_sha256": "319d7c3816ecd47e7bf096d5503bb666f64a77cc5fa0d8de30a280d3718d7cb2",
+      "candidate_sha256": "4e9fb3271a75dc56caf8d8e22a102e2d222d91d18b6184a95a020ee3d4851f19",
+      "question_sha256": "f70b6e35755e5ef6f055353501570c7d000657e77ea9c43bdfa2c492528b9295",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_93159ced",
+      "cohort": "disagreement",
+      "baseline_sha256": "584c48daef59bce644aa56c7268683e526e71d0776ea62bebe1af9acc88f1de2",
+      "candidate_sha256": "43abe17b6665af8faa34280193a19b08052326c8ad394c14de6424ce3251a0e0",
+      "question_sha256": "bd478ebf6a798ba4ee6bdb728b2ad1e4f101d3dda7d694da04c2012c94332c15",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_93159ced_abs",
+      "cohort": "disagreement",
+      "baseline_sha256": "80351cff7e1148103d54cb8c3e4de5f1e3d09dc17aba2822429e2fc024602e86",
+      "candidate_sha256": "52698778191632317164027ab7cd035d8d8d9c4c85033831e9e660b0c4cd632b",
+      "question_sha256": "1d1875ebabe63f5973c834b359fd7158b47482af9718e49072e9c317c7dd3029",
+      "type": "temporal-reasoning",
+      "abstention": true
+    },
+    {
+      "question_id": "gpt4_ab202e7f",
+      "cohort": "stable_miss",
+      "baseline_sha256": "f45fb4ed408efb000c40221fb201d85b49c0961ed97667db3ee4e6de2897f3d2",
+      "candidate_sha256": "ee59d9c672c05bff816b92bfec362e75d2df4ac731ddcf22d1ae8638b2f1fa83",
+      "question_sha256": "2001136828e07c723101a16d08f97ed7bcdcc8788078ead7430a5c8e3f05f800",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_c27434e8_abs",
+      "cohort": "stable_miss",
+      "baseline_sha256": "f0e92b8ffe86d96976ef330d5be6ccf50ff265ab6effbce18d0f0527e1189778",
+      "candidate_sha256": "dc1f9fc981e3a208cdd21b15a2d2d8918146fcad9ef66162b0d002986cbea0fc",
+      "question_sha256": "5fe8170ffa456f5ff5b26fa88151d45fb28fae54335d010d7197aa33bcbda324",
+      "type": "temporal-reasoning",
+      "abstention": true
+    },
+    {
+      "question_id": "gpt4_d12ceb0e",
+      "cohort": "disagreement",
+      "baseline_sha256": "a483c623f5c0f31d72b46ad25eac8804d92407fe670c689d72a115a3b67278ab",
+      "candidate_sha256": "8dbdd6627bd0216b5a994b5b722e612cd4795656d9f1c1d1b98859f755cc7135",
+      "question_sha256": "7d9b72fb40ce21aec65114fb8f1f10d35a0e4d92d3a6d849dc6205c0fbe78f65",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_e061b84f",
+      "cohort": "stable_miss",
+      "baseline_sha256": "f14fe746fdf5faffb69e85a79235f1fb3fa119c588ac300165c6150ce22bfe1b",
+      "candidate_sha256": "45b24e90be038432789afb7f4b29335c077866752990f64b2dfbd5247e5c90af",
+      "question_sha256": "69a1ca7ad6f8bc7fb078ac0818d7c075f0ddeb368f9067244e546125e8d4e03b",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_e414231f",
+      "cohort": "stable_miss",
+      "baseline_sha256": "6f70dd203b722ec18dbf33567405cde87998e5e1de4a662fb7483d3c49974c41",
+      "candidate_sha256": "d64bf59720455a800bdcf01989002b6d8d4a89b0ecd9e7d908080a9be2ebda94",
+      "question_sha256": "e8ceb62e7d4fc96ebaee0fd4519de6968d9ab86727f492862591f2ee936672d0",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_f2262a51",
+      "cohort": "stable_miss",
+      "baseline_sha256": "53e3d02348f213c283324d3c33e5430e0e137eee38389bff0e3acd076af89f3e",
+      "candidate_sha256": "3feefd7ead176b4e5804e88ba22165fbf43d8a8f6341e4d166672e4451fe8ca3",
+      "question_sha256": "b4189d8d586b2108e1ef7047e026c56b0472ec8fd6db5ef637edfe9dbe7518e1",
+      "type": "multi-session",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_f420262c",
+      "cohort": "stable_miss",
+      "baseline_sha256": "ee7e01a7f917870b4635dad02d3c6e1e9d88e7782c284ac5423a5076875d2d35",
+      "candidate_sha256": "cdd13711f3cbd9e3cfac8638ee84e2ef5436f061fbf2a7079658524d03c0c630",
+      "question_sha256": "b9e63fc29750eb49f4b7b3cb486d71a42db1d7cd930f25b87d9032a4caf01d13",
+      "type": "temporal-reasoning",
+      "abstention": false
+    },
+    {
+      "question_id": "gpt4_fe651585_abs",
+      "cohort": "disagreement",
+      "baseline_sha256": "a2c2add2745fceb8dfd8a9acc84037c82f52b903fbd1109fb7f2f67618a38da3",
+      "candidate_sha256": "8330b678745edbc7f0a4f46b8e08b709a6fb2f6b49b53e40044389936503a6c6",
+      "question_sha256": "8bdde6fcd8c6b4f53945e6e39611b84ad07ffd10bab5e51b2eba751dbb0ef8b6",
+      "type": "temporal-reasoning",
+      "abstention": true
+    }
+  ]
+}

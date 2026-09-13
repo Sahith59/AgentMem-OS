@@ -1,0 +1,47 @@
+{
+  "all500": {
+    "questions": 500,
+    "changed": 499,
+    "annotated_turns": 896,
+    "baseline_annotated_turn_hits": 544,
+    "candidate_annotated_turn_hits": 745,
+    "questions_gaining_turns": 161,
+    "questions_losing_turns": 11,
+    "gained_turns": 213,
+    "lost_turns": 12,
+    "queries_with_dropped_terms": 497
+  },
+  "stable_miss": {
+    "questions": 72,
+    "changed": 72,
+    "annotated_turns": 154,
+    "baseline_annotated_turn_hits": 55,
+    "candidate_annotated_turn_hits": 104,
+    "questions_gaining_turns": 40,
+    "questions_losing_turns": 1,
+    "gained_turns": 50,
+    "lost_turns": 1,
+    "queries_with_dropped_terms": 72
+  },
+  "stable_pass": {
+    "questions": 408,
+    "changed": 407,
+    "annotated_turns": 702,
+    "baseline_annotated_turn_hits": 470,
+    "candidate_annotated_turn_hits": 610,
+    "questions_gaining_turns": 114,
+    "questions_losing_turns": 10,
+    "gained_turns": 151,
+    "lost_turns": 11,
+    "queries_with_dropped_terms": 405
+  },
+  "checks": {
+    "baseline_exact_500": true,
+    "stable_miss_gain_min10": true,
+    "no_stable_pass_annotated_loss": false,
+    "net_annotated_turn_gain": true,
+    "input_preservation": true
+  },
+  "offline_gate_pass": false,
+  "paid_calls": 0
+}

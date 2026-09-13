@@ -1,0 +1,506 @@
+[
+  {
+    "question_id": "031748ae_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Senior Software Engineer question substitutes the Manager role in source; team count alone is not support for the requested role.",
+    "case_sha256": "8476781e6dc61bac5499a80e2b053cbfcb32a4639d77d9afd9e0bb0e204e1793"
+  },
+  {
+    "question_id": "06f04340",
+    "priority": "preference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Trace the homegrown ingredients and garden preferences; the generic quinoa answer does not show the required personalization.",
+    "case_sha256": "3412c7287b146cfb9bfe0f910f6c0ff6a3d1257fc4584445abc68526df733fae"
+  },
+  {
+    "question_id": "07741c45",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Under-bed storage and later closet shoe-rack language compete; distinguish completed storage from a plan before labeling the miss.",
+    "case_sha256": "1a27f31c5aaee1520194da29e52d54eb196e76e6597ea30e86f41f9da5d30933"
+  },
+  {
+    "question_id": "09ba9854_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Bus is substituted for the train with a known fare; generic assistant fare estimates do not establish the user's bus fare.",
+    "case_sha256": "cbe6484e3674b57b0545d923f5ab0c530ed78623b4d40b9fd5d578ad58999ece"
+  },
+  {
+    "question_id": "0a995998",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Blazer pickup is omitted from the packet; two annotated boot turns may describe the same exchange. Reference3 needs unit/dedup review before treating three source hits as three items.",
+    "case_sha256": "93d4007aca3e8150743f1a74c1f7675bf085354a5e5626e46ecbf8c1ddca9c96"
+  },
+  {
+    "question_id": "10d9b85a",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source explicitly has an April10 lecture and a two-day April17-18 workshop. Trace delivery of the workshop operand.",
+    "case_sha256": "32b68739919929f3d07e60807d696669fafeb56a3e74798ebc58290845e9caf0"
+  },
+  {
+    "question_id": "1568498a",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Inspect the exact board sequence and side-to-move around move28; matching a move number is not sufficient evidence.",
+    "case_sha256": "2c5e334fecd3542fdc50b39186f93030764cda3e4fb1b249ac9294e8995323df"
+  },
+  {
+    "question_id": "1a8a66a6",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "New Yorker and Architectural Digest are active; Forbes was canceled. Trace all three states before counting active subscriptions.",
+    "case_sha256": "508fe481c037733fdb60cb8627e673928c56801b12c3f51a6a5f87a965651df9"
+  },
+  {
+    "question_id": "1c0ddc50",
+    "priority": "preference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "The packet includes an interest in history/science for a40-minute commute, but the answer follows other preferences. Inspect preference ranking and answer use.",
+    "case_sha256": "2b572210ca0af93a9dfb9e34244586593b0df0ce3792156b2b45fc8e08d331cc"
+  },
+  {
+    "question_id": "1da05512",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Both NAS recommendations contain personalization or conditional personalization; compare with the permissive official preference rubric before rewriting retrieval.",
+    "case_sha256": "0e0f60bfcbf0ba80de708f46eb0c10f72efed1528b9a9f0b58ea95eef3b27b8c"
+  },
+  {
+    "question_id": "2133c1b5_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Shinjuku query substitutes Harajuku; answers mention mismatch but still give an assumed duration. Separate actual refusal from substituted answer.",
+    "case_sha256": "f8371b42dec3bebc3084d607487b16116f562d9258b0bb73eba0187e2119f9e7"
+  },
+  {
+    "question_id": "21d02d0d",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Both March5 and March26 source turns are present; March26 says busy with work and missed events. Generated explanation overlooks that association.",
+    "case_sha256": "d54aec37d7e3ac4a9256c5feabd6bd09de21be57cd09c897fb7bfc247aa22aa3"
+  },
+  {
+    "question_id": "2311e44b",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Original page250 is absent from the packet and its source session's only retained fact; total440 is delivered. Missing persisted detail plus missing raw fallback.",
+    "case_sha256": "2c93e7418cb037ebe8df2557dd104a9e10d7dccf5dcae6fd14be1c1e7ae4be8f"
+  },
+  {
+    "question_id": "2318644b",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Original hotel prices say over300 and around30. Answers over270 preserve qualifiers that the exact270 reference omits; review judge treatment separately.",
+    "case_sha256": "f2003e763df85f3494409ea19402300a2214bf90f7f4fede456d956ea0b3afdb"
+  },
+  {
+    "question_id": "28dc39ac",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Need the complete list of completed game-hour operands; some delivered hours do not establish the gold140 total.",
+    "case_sha256": "961ded0fddb2c70da7b154fd7b56b532a9f6ce7f5abd33cd5c203d9f58a0c6fa"
+  },
+  {
+    "question_id": "32260d93",
+    "priority": "preference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Netflix stand-up interest is in source/packet but answers pick other shows. Distinguish competing valid preferences from missed personalization.",
+    "case_sha256": "c78d44e78479140bd6e585bce03acabdb1d929d208bb8da91eebe21f32e4bb69"
+  },
+  {
+    "question_id": "370a8ff4",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Pinned upstream itself dates recovery January19 and tenth jog April10:81days,11weeks4days, inconsistent with reference15weeks. Do not alter correct date arithmetic to fit it.",
+    "case_sha256": "04f0ee65f13f3c41e3a71a387ad8455cd55cc197635e2d6b6f18201f9f74bf1c"
+  },
+  {
+    "question_id": "37f165cf",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Pinned source marks two novels just finished in May with440 and416 pages, while question names January and March. Verify missing month links rather than force856.",
+    "case_sha256": "39eb7b1783d7bd45528f5ffcf8e69bb264f16a9a29fe3041a5fff6df2fc656bc"
+  },
+  {
+    "question_id": "3a704032",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Peace lily, succulent and snake-plant purchases need distinct acquisition and time-window review; mentioning a plant is not another purchase.",
+    "case_sha256": "bdf2632e48681b62d577273c1e1d126d1b6f60be7ce9a3e2f1ebbb6305bdd175"
+  },
+  {
+    "question_id": "46a3abf7",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source includes1-,5- and20-gallon tanks; determine whether the old5-gallon tank remains owned before counting it.",
+    "case_sha256": "ef40b67610deb080aaf73e0af3213b31ed0f04a1712503790930e8b1c04b04e2"
+  },
+  {
+    "question_id": "51a45a95",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Coupon value5 is present in source, but binding the redemption to Target needs the full source relation, not number matching.",
+    "case_sha256": "f35afb733da3fde1dde098887d517a6620e77d77c20dbf7e0d325072154da057"
+  },
+  {
+    "question_id": "51c32626",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source says paper submitted to ACL and conference submission date February1; deadline is not necessarily this user's submission date.",
+    "case_sha256": "4e274748c0d61cd40e739d233d1130918cd2c40a1870dd8f16fd00650777b82b"
+  },
+  {
+    "question_id": "57f827a0",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Answers mention the mid-century dresser but also unrelated suggestions. Review against partial-personalization rubric; no automatic regrade.",
+    "case_sha256": "d4794c0e86560d70046384d5cda55542bcc93b57188556ef12b150801106e808"
+  },
+  {
+    "question_id": "69fee5aa",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "May27 collection37 and May29 addition of one pre1920 quarter are both delivered as source and facts; both explanations repeat37 without incorporating the addition.",
+    "case_sha256": "93526035385c085dac8484e6c1c583604dc1b64856a546d3ddd9dfbdfdd4b89b"
+  },
+  {
+    "question_id": "6d550036",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Being involved in a project is not leading it; count requires matching the leadership relation, not every project mention.",
+    "case_sha256": "c3f512ed83920fd99caa73b0181e794732b0238bf7f19a9410b41f9956c294d2"
+  },
+  {
+    "question_id": "6e984302",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Answers enumerate modeling tools, wire cutter and sculpting mat exactly as the annotated source; reference summarizes own sculpting tools. Likely equivalence false negative.",
+    "case_sha256": "28a050fda5ba66b3904171cbb2f484981d3be502ed1f6601dbb341a123a19cee"
+  },
+  {
+    "question_id": "7024f17c",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "May20 annotated jog is outside the previous calendar week at May30. Do not assume the reference0.5 resolves the date-window contract.",
+    "case_sha256": "0081ba2c4d94a9ae25de4ce896d2a2e7f33ba2adbbf8f1275de54bef7bc48790"
+  },
+  {
+    "question_id": "71a3fd6b",
+    "priority": "assistant_recall",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Speyer contact reply contains the phone number but is absent from the frozen packet; nearby user requests are present. Session-hit proxy conceals reply omission.",
+    "case_sha256": "7a82b4f65662701baf1997a290bc7b1e4ce4f72c0f7040e06e5d33295ec59dfc"
+  },
+  {
+    "question_id": "73d42213",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "7AM departure is delivered; repeat2 explicitly sees two-hour trip but declines to bind it to the Monday appointment. Relation resolution, not pure addition, is disputed.",
+    "case_sha256": "598dd6fe4b50443da16b37ef55ebba9cc05898a0278f7cd16976b57a84b14cb7"
+  },
+  {
+    "question_id": "75f70248",
+    "priority": "preference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Relevant shedding-cat detail is missing from selected raw turns; generic plant/dust advice does not demonstrate recovery of Luna and deep cleaning.",
+    "case_sha256": "4b7c7d96ff40fd2539ad87e5c3cc1a30c4bbd1122960d9e34d86466682a4cf81"
+  },
+  {
+    "question_id": "80ec1f4f",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Need completed February museum/gallery visits; source mentions plans and recent visits that require date and event disambiguation.",
+    "case_sha256": "c45336df63ff460441d73398dc6a769310993fdf35b111f2abf94f4616c146e6"
+  },
+  {
+    "question_id": "81507db6",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source has Emma preschool, Alex leadership, Rachel masters graduations. Inspect Emma date/packet and all three distinct attendances before assuming a model counting error.",
+    "case_sha256": "6a7c0b9c2ff5336d87b3b96f6ef957068c86251a33a7975ebfbd89501e58bd23"
+  },
+  {
+    "question_id": "8752c811",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Both final answers are Sound effects; source item27 and reference agree. Saved judge saysNo both times; full generation even includes the reference examples.",
+    "case_sha256": "0c66de2be01da548c0d56870b7eaced535d6c577a70135a0d9bb6ebe7616b32f"
+  },
+  {
+    "question_id": "88432d0a",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Count baking occasions rather than items, plans, or repeat mentions; overlapping cookie references have inconsistent relative dates.",
+    "case_sha256": "78485d8c0d95b9db6d1f6aa3260b730626d6c9a814ca6cacf8dd50f5cb758f24"
+  },
+  {
+    "question_id": "92a0aa75",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source2years4months before promotion and3years9months company tenure imply17months under benchmark continuity assumption. Trace both operands and their relation.",
+    "case_sha256": "4324b05a2090214560eded8e16d2b6f0fb6595cb7f444666a7880f8fbf4a2e3d"
+  },
+  {
+    "question_id": "945e3d21",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "November user says yoga three times weekly; retained fact drops frequency and raw turn is absent. Old twice-weekly August evidence survives.",
+    "case_sha256": "b006842b13ce7abab314d90a60c5c0558193419db78f7219d0f3e5587a5b659f"
+  },
+  {
+    "question_id": "95228167",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Answers condition on Les Paul coil-splitting/openD preferences. Reference emphasizes Stratocaster comparison; permissive preference rubric merits review.",
+    "case_sha256": "cd1236799ff4f98309e595fd1eb568c4aeefc5059b50dd544b2c9fff3b4cc76d"
+  },
+  {
+    "question_id": "9a707b81",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Pinned upstream March21 says baking class yesterday; April15 minusMarch20 is26days, matching both answers. Reference21-22 conflicts with that anchor.",
+    "case_sha256": "536b2e7bd491e390c46132757b3c5883c08e87b4c326b057d9d3e181567bb5f4"
+  },
+  {
+    "question_id": "9d25d4e0",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Jewelry acquisition requires acquisition dates, ownership and unit conventions for earrings; enumerate witnesses rather than count mentions.",
+    "case_sha256": "26e5cc7caa2dc325d2f1d162c4fe00f60a18b930a31218ebcd4c384f32287e8b"
+  },
+  {
+    "question_id": "9ea5eabc",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Later May28 source says recent family tripParis and is delivered, but both answerHawaii fromMay26. Mention-date versus event-order inference remains an explicit limitation.",
+    "case_sha256": "3bfc13e4843a2171230645f49d548156c2a7f1a8e3c119c5146af2830cdab0f5"
+  },
+  {
+    "question_id": "9ee3ecd6",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Both answers explicitly say100more from200 to300. Likely false negatives for reference100; preserve official grades.",
+    "case_sha256": "d4bb894495d26328e09b544351460cdc03f19bb059ca4159bec3aa5cd0d704e9"
+  },
+  {
+    "question_id": "a1cc6108",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Alex21 is a required operand; locate user's32 and their temporal relationship before subtracting.",
+    "case_sha256": "c58133e0ac34a40d89073d37e22e8dd03af19db1ebc0d3a4841b19f8addbe0f1"
+  },
+  {
+    "question_id": "a89d7624",
+    "priority": "judge_review",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Answers use concert/RedRocks preferences but omit BrandonFlowers. Assess partial-personalization rubric; do not require every reference phrase automatically.",
+    "case_sha256": "adbb6ffc5c5bb1f16f6ac8268174b9689d8bc71ff8c85651b475bf08bcdb1d7b"
+  },
+  {
+    "question_id": "a96c20ee_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Undergrad course research substitutes thesis poster; Harvard conference attendance does not repair the wrong project relation.",
+    "case_sha256": "11d6719def4e5ff93c5ea1654cbfbc57a0833f59b7cde50e69f16ad713a37f61"
+  },
+  {
+    "question_id": "b5ef892d",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Yellowstone5 plusBigSur3 camping days, excludeUtah7 explicitlynotcamping. Need Yellowstone operand delivery.",
+    "case_sha256": "093fa2a6fefc8a81b8f2d7a8b7edbdd99357058358fc43c509bcade06d7be563"
+  },
+  {
+    "question_id": "ba358f49",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source user32 and Rachel weddingnextyear imply33 under benchmark assumption; inspect age retention and packet delivery.",
+    "case_sha256": "e71b32bd3a61bcebab16045644c9d52e1dc8ba44aa2bde0186ff86cb034c2c29"
+  },
+  {
+    "question_id": "bb7c3b45",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Original JimmyChoo paid200 and retail500 imply300savings. Neither full source turn is delivered; inspect retained fact operands.",
+    "case_sha256": "f84f0385e60cb8f37568a66490976450065200f794107f0af2e33a0f059613f8"
+  },
+  {
+    "question_id": "bf659f65",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Downloaded/purchased albums require distinct acquisition events, not listening mentions; inspect all three intended records.",
+    "case_sha256": "3d696b9adf4969d2a59ad5316d4415add85c6b454f58a4b5db0ca467045700a3"
+  },
+  {
+    "question_id": "c18a7dc8",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source32current and25atgraduation imply7; inspect user age fact and source delivery.",
+    "case_sha256": "a446cdc088f9ffdb4a5c59e804ccd0a024e4ccc73e8be270afab1de318a3e3a2"
+  },
+  {
+    "question_id": "c8090214_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "iPad query substitutes iPhone13Pro purchase. A caveated seven-day iPhone answer does not establish iPad chronology.",
+    "case_sha256": "b93d2b941ba5d5e3800dc2a9ee70da0eba096679c23b9ced18451edb43f3bad6"
+  },
+  {
+    "question_id": "d01c6aa8",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source five-year US residence and current age needed; persisted visa fact omits residence duration. Also unexpected Portuguese refusal in English run.",
+    "case_sha256": "65cb75f30b92d9a110c1faa7ea36a958db0d41369e39c9691ca1a891224579b7"
+  },
+  {
+    "question_id": "d851d5ba",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Personal versus collective fundraising, repeated1000bakesale and additional distractor events need source-based set definition before summing.",
+    "case_sha256": "5d086b05b850d7e1e10350e4eef3afbe350c5fb200cf40b15b964ce0595e8fd5"
+  },
+  {
+    "question_id": "dd2973ad",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "SourceMay24 lastThursday appointment mapsMay18; May29 lastWednesday bedtime mapsMay24. Reference2AM assumes adjacency contradicted by these session dates.",
+    "case_sha256": "1d7a1e9a20020bfdea90f1d9fc172a04b6d0af1a6488f61611836c1731d38bcf"
+  },
+  {
+    "question_id": "e3038f8c",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source12rarefigurines plus5books57records25coins gives99. Figurine-session retained facts omit12; both outputs87 are short by that operand.",
+    "case_sha256": "223d44bb20d23f3263ccee066306747c39a3ddcfb8ee388109f870b210a7b5bf"
+  },
+  {
+    "question_id": "ec81a493",
+    "priority": "source_reference",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "500copies modifies a limited-edition poster in source and fact, but question asks album copies. Preserve ambiguity; do not transfer quantity automatically.",
+    "case_sha256": "ae7d909851d9eaa7f6b40e242a1a09b1ed959847062e568baed328350a40ae3c"
+  },
+  {
+    "question_id": "eeda8a6d",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Need actual fish species/count operands in both tanks; proposed additions are not existing fish and at-least2 is not a total.",
+    "case_sha256": "7a35004741dd20ebc1d6b53716458498d0b8c92668397eb6db3d8ae5d390fa0b"
+  },
+  {
+    "question_id": "f685340e_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Tabletennis query substitutes tennis. Repeat1 explicitly refuses then explains tennis; review that verdict separately from repeat2's caveated frequency.",
+    "case_sha256": "9aeb64c0eb016e0e3df9cd0ae6c3b274c5f1be9e049754d0549ac8442188e001"
+  },
+  {
+    "question_id": "gpt4_1e4a8aec",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source tomato planting detail must be dated and delivered; generic app-use mention on target date is not the requested gardening event.",
+    "case_sha256": "3dda870b60b813670b0e812163ac45f34c841dee70332314c48d75c678bfb4b4"
+  },
+  {
+    "question_id": "gpt4_2c50253f",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source TuesdayThursday15minutesearlier is absent from related retained facts and raw packet, while7AM general wakeup survives.",
+    "case_sha256": "bc5c515f8d859636fef7b4d47e7d628ee5bf4cd15bc9f15a230c0a526553f8a6"
+  },
+  {
+    "question_id": "gpt4_2f8be40d",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Gold lists three couples, while scoped distractors contain other wedding attendance. Need evidence for exclusion and duplicates, not count every wedding fact.",
+    "case_sha256": "74562a63e88d538a3633e9b301f04e02bf6623f165a4d5abec6258708d2ccfd8"
+  },
+  {
+    "question_id": "gpt4_4cd9eba1",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source March20 acceptance andMarch27 orientation implyoneweek; inspect acceptance date delivery and whether fact uses mentiondate instead.",
+    "case_sha256": "d9af3a1fa95634952d6d2ba4443ca342a43c678433b493c0298d14c510109140"
+  },
+  {
+    "question_id": "gpt4_65aabe59",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Smartthermostat one-month-before statement must survive; generic set-up mentiondate can invert it relative to meshMay4.",
+    "case_sha256": "e9be8b2ca29124714f6ce86b013ebaaa3dcb0a41b9bd5d1f58706ded505b5f9f"
+  },
+  {
+    "question_id": "gpt4_68e94287",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "SourceMarch10 yesterdayveganchili versusMarch15plank establishes order. Chili date/source missing from selected packet; inspect retained detail.",
+    "case_sha256": "5e6cb6868839220701e7528402b263f2dbb83d008671a92b41fca0693c13d752"
+  },
+  {
+    "question_id": "gpt4_70e84552_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Fence is known but purchasing three cows fromPeter is unsupported. Answering the known event cannot establish which happened first.",
+    "case_sha256": "6d780de9feda586d0e9ed99d4f9242beb85d3c87c2525064cb5357f0785c7ba1"
+  },
+  {
+    "question_id": "gpt4_7fce9456",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Property count requires viewed-beforeoffer boundary, including rejected bids and excluded alternatives; exact property/time witnesses needed.",
+    "case_sha256": "30efc9d9ff9db2d61cb0a7c1f4792953bf1952b7be78bf6b477422e22ba6a7d8"
+  },
+  {
+    "question_id": "gpt4_8279ba02",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "March15 source says got smoker today; retained fact mentions excitement with smoker but not acquisition date. Missing raw fallback hides anchor.",
+    "case_sha256": "7fa1f10f710dddd24a16ee933de677efb7c4c4cb2dc02e5100c7ef84a69605a3"
+  },
+  {
+    "question_id": "gpt4_ab202e7f",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source lists faucet,mat,toaster,coffee-maker,shelves. Inspect coffee-maker donation/replacement relation and delivery before claiming arithmetic failure.",
+    "case_sha256": "20ae9f8bec98d6f7d0be95b9434d30e9a0fb41736843ede7941bbfc0b1094ae1"
+  },
+  {
+    "question_id": "gpt4_c27434e8_abs",
+    "priority": "abstention",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Porsche project absent; choosing known Ferrari does not answer ordering of two projects.",
+    "case_sha256": "54a4f211986e9bd82c876dfb23e36ec009c32297512146af5f9cb396ceafbe22"
+  },
+  {
+    "question_id": "gpt4_e061b84f",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "SpringSprintTriathlon needed for reference sequence; packet picks beachvolleyball. Inspect dated event support and competing event inclusion.",
+    "case_sha256": "6a964e9f45917567c7ddf98805cc31dc915083a2fcd91323434efd6a44d56fb8"
+  },
+  {
+    "question_id": "gpt4_e414231f",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Road-bike service during requested weekend competes with earlier mountain-bike repair. Trace road-bike event before general chronology changes.",
+    "case_sha256": "890d2583aaad3aa5fa4de2eb3f43ae167996f3a65cc1a8b86627516e36384cd8"
+  },
+  {
+    "question_id": "gpt4_f2262a51",
+    "priority": "numeric_evidence",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Three doctor types/identities need attended-versusplanned appointment review and exact source delivery; oneDrPatel is not proof otherfacts absent.",
+    "case_sha256": "026d98fb32d2a4d393c50c7716804ae89a1964018d88d108bbce51592e22a012"
+  },
+  {
+    "question_id": "gpt4_f420262c",
+    "priority": "interpretation",
+    "status": "ASSISTANT_TRIAGE_NOT_FINAL_CAUSAL_ATTRIBUTION",
+    "note": "Source flight dates and repeated AmericanAirlines discussion contain inconsistent future references; JetBlue operand and event-date provenance need checking.",
+    "case_sha256": "af8c8f1bb1f864eeae4099f100e0f8f2671b2b19b33a22cf6421f34643c2a3bf"
+  }
+]
