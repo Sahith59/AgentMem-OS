@@ -26,7 +26,16 @@ class SyntheticProvider:
 def smoke(package, output):
     output = Path(output); output.mkdir(parents=True, exist_ok=False)
     results = {}
-    for name, identical, expected in [('distinct', False, 600), ('identical', True, 450)]:
+    unchanged = sum(
+        case['arm_contexts']['baseline'] == case['arm_contexts']['candidate']
+        for case in package['cases']
+    )
+    expected_distinct = 4 * len(package['cases']) - unchanged
+    expected_identical = 3 * len(package['cases'])
+    for name, identical, expected in [
+        ('distinct', False, expected_distinct),
+        ('identical', True, expected_identical),
+    ]:
         provider = SyntheticProvider(identical)
         folder = output / name
         packet.run(package, folder, provider, package['proposed_budget_nusd'], 'SYNTHETIC-NOT-APPROVAL', 'offline-test')
@@ -44,6 +53,7 @@ def smoke(package, output):
         results[name]['resume_provider_calls'] = resumed.calls
     receipt = {'status': 'PASS_OFFLINE_EXECUTION', 'package_sha256': packet.validate(package),
                'real_provider_calls': 0, 'real_spend_usd': 0, 'scenarios': results,
+               'unchanged_context_pairs': unchanged,
                'accuracy_claim': 'NONE. All model responses and grades are synthetic.'}
     runner.atomic(output / 'receipt.json', receipt)
     return receipt

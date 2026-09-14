@@ -1,0 +1,34 @@
+{
+  "authoritative_local_audit": "precision-source-audit-003",
+  "policy": {
+    "sha256": "bd32911f2853261916e8d503c681c84603eec6f5a2d14b3f5ec581a3af18c9a4"
+  },
+  "results": {
+    "sha256": "3c95b2f113c68bc42cb2c1052bd192cddb4eaac12a6cb46f6a7f565023b47d13"
+  },
+  "independent_verification": {
+    "sha256": "8e9b5ed897f1fb34693ded3d91dad14f7eb618dfcd576682813e8d68bb6f2bad",
+    "status": "PASS",
+    "packets_verified": 500,
+    "source_turns_verified": 652
+  },
+  "selection": {
+    "sha256": "9d10b0b69f18d8929eba4dd382faf929e5f498e612d42c87675e2c9b5a0c912b",
+    "independent_status": "PASS"
+  },
+  "package": {
+    "file_sha256": "0eb4b3cc14fcb99465072b4fd682ffe0889f88092727b79deb4b58ac8b0f22ea",
+    "canonical_sha256": "cd80a0168802bb1db70fb486902a497539b9cd683de41e6062aace774eae8d9e",
+    "contract_status": "PASS"
+  },
+  "offline_execution": {
+    "receipt_sha256": "3983606e93e9b00f508acf40da6e1ea9c60196a2811d4197f167d1249b9e3be5",
+    "status": "PASS",
+    "real_provider_calls": 0
+  },
+  "failed_or_superseded_artifacts_preserved": [
+    "precision-source-audit-001: independent policy-schema rejection",
+    "precision-source-audit-002: superseded after whitespace-only code hash change",
+    "precision-source-screen-001/offline: hardcoded synthetic call-count rejection"
+  ]
+}

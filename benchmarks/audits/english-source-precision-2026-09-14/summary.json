@@ -1,0 +1,39 @@
+{
+  "status": "PASS_OFFLINE_ONLY",
+  "broad_paid_screen": {
+    "integrity": "PASS",
+    "quality_gate": "FAIL",
+    "baseline_correct": 70,
+    "candidate_correct": 87,
+    "gains": 22,
+    "losses": 5,
+    "candidate_controls_correct": 55,
+    "candidate_controls_required": 56
+  },
+  "precision_candidate": {
+    "packets_verified": 500,
+    "source_turns_verified": 652,
+    "annotated_turns_gained": 138,
+    "annotated_turns_lost": 0,
+    "stable_miss_questions_gaining": 24,
+    "added_turns_reduction_fraction": 0.8443914081145585,
+    "mean_extra_chars": 791.558,
+    "qa_accuracy": "NOT_MEASURED"
+  },
+  "next_screen": {
+    "package_sha256": "cd80a0168802bb1db70fb486902a497539b9cd683de41e6062aace774eae8d9e",
+    "package_file_sha256": "0eb4b3cc14fcb99465072b4fd682ffe0889f88092727b79deb4b58ac8b0f22ea",
+    "selection_sha256": "9d10b0b69f18d8929eba4dd382faf929e5f498e612d42c87675e2c9b5a0c912b",
+    "pairs": 150,
+    "fresh_nonabstention_controls": 40,
+    "reused_abstention_controls": 18,
+    "all_abstentions": 30,
+    "maximum_provider_calls": 600,
+    "conservative_reservation_usd": 8.8502665,
+    "proposed_cap_usd": 8.86,
+    "paid_authorization": false
+  },
+  "tests_passed": 66,
+  "real_calls_for_precision_candidate": 0,
+  "default_promoted": false
+}
