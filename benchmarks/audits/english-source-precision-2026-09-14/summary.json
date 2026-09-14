@@ -1,5 +1,5 @@
 {
-  "status": "PASS_OFFLINE_ONLY",
+  "status": "PASS_SCREEN_FULL500_READY_OFFLINE",
   "broad_paid_screen": {
     "integrity": "PASS",
     "quality_gate": "FAIL",
@@ -17,23 +17,47 @@
     "annotated_turns_lost": 0,
     "stable_miss_questions_gaining": 24,
     "added_turns_reduction_fraction": 0.8443914081145585,
-    "mean_extra_chars": 791.558,
-    "qa_accuracy": "NOT_MEASURED"
+    "mean_extra_chars": 791.558
   },
-  "next_screen": {
-    "package_sha256": "cd80a0168802bb1db70fb486902a497539b9cd683de41e6062aace774eae8d9e",
-    "package_file_sha256": "0eb4b3cc14fcb99465072b4fd682ffe0889f88092727b79deb4b58ac8b0f22ea",
-    "selection_sha256": "9d10b0b69f18d8929eba4dd382faf929e5f498e612d42c87675e2c9b5a0c912b",
-    "pairs": 150,
-    "fresh_nonabstention_controls": 40,
-    "reused_abstention_controls": 18,
-    "all_abstentions": 30,
-    "maximum_provider_calls": 600,
-    "conservative_reservation_usd": 8.8502665,
-    "proposed_cap_usd": 8.86,
-    "paid_authorization": false
+  "precision_paid_screen": {
+    "integrity": "PASS",
+    "quality_gate": "PASS",
+    "baseline_correct": 73,
+    "candidate_correct": 85,
+    "gains": 19,
+    "losses": 7,
+    "net_gain": 12,
+    "candidate_controls_correct": 57,
+    "candidate_controls_required": 56,
+    "stable_control_losses": 1,
+    "abstention_net_gain": 2,
+    "provider_calls": 542,
+    "shared_judgments": 58,
+    "reserved_usd": 5.5656065,
+    "usage_cost_without_cache_discount_usd": 0.8324976,
+    "approval_consumed": true
   },
-  "tests_passed": 66,
-  "real_calls_for_precision_candidate": 0,
+  "change_audit": {
+    "changed_outcomes": 26,
+    "mechanism_aligned_gains": 13,
+    "identical_context_gains": 2,
+    "changed_context_gains_without_annotated_evidence": 4,
+    "losses_with_annotated_evidence": 3,
+    "official_regrades": 0
+  },
+  "full500_next_measurement": {
+    "package_sha256": "5d97a10698e0b673aaa87ee18c48b28f7df0c3e73beab0866b0492b06e27f3b3",
+    "package_file_sha256": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab",
+    "cases": 500,
+    "maximum_provider_calls": 1000,
+    "conservative_reservation_usd": 14.81212775,
+    "proposed_cap_usd": 14.82,
+    "independent_verification": "PASS",
+    "synthetic_runner_test": "PASS",
+    "paid_authorization": false,
+    "paid_output_exists": false
+  },
+  "qualified_full500_accuracy": 0.836,
+  "qualified_full500_repeats": 2,
   "default_promoted": false
 }
