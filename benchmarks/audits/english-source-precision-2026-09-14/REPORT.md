@@ -8,6 +8,10 @@ Final authoritative offline audit003 verifies500 packet prefixes,652 complete sc
 
 The next frozen screen contains72stable misses,20disagreements and58controls. All18 stable-pass abstention controls are reused to retainall30abstentions; all40 prior non-abstention controls are uniformly retired and replaced with40 deterministic type-balanced controls. Independent verification showszero prior non-abstention control overlap.
 
-Exact package canonical SHA `cd80a0168802bb1db70fb486902a497539b9cd683de41e6062aace774eae8d9e`; proposedcap$8.86;≤600calls.66focusedtests and both complete network-denied synthetic scenarios pass. No new paid call, QA score, approval, default promotion or full500 run. Read the local `precision-source-screen-001/PROPOSAL.md` for complete scope, limits and gates.
+Exact package canonical SHA `cd80a0168802bb1db70fb486902a497539b9cd683de41e6062aace774eae8d9e` then completed under explicit approval. Independent verification passes:73/150→85/150,19gains/7losses,+12net,57/58controls and+2abstention net. All prospective gates pass.542provider calls+58shared judgments complete withzero retry/error/unresolved work; usage-derived cost$0.8324976 and reserved$5.5656065 within the$8.86cap. Approval is consumed.
 
-Implementation commits: `11d397a` and `3956931`. Repository evidence commit and CI/merge receipt follow separately.
+All26 changed outcomes were audited.13gains align with annotated restored evidence;2occur with identical contexts and4changed-context gains lack annotated restoration. Three losses persist despite relevant evidence, exposing role interpretation, preference specificity and education arithmetic; other losses include distractor, sampling and judge variance. Official grades are preserved and no exposed case is selectively retuned.
+
+The first exact all500 precision measurement is ready offline: canonical SHA `5d97a10698e0b673aaa87ee18c48b28f7df0c3e73beab0866b0492b06e27f3b3`,500answers+500judgments, proposedcap$14.82. Independent verification binds321changed+179identical contexts,652complete source turns,138annotated gains andzero loss. A synthetic1,000-job execution,zero-call resume,budget stop and mutation rejection pass. No full500 approval, provider call, result, default promotion or90% claim exists; the qualified headline remains83.6%twice.
+
+Implementation commits: `11d397a` and `3956931`; initial evidence commit`2922d23`; PR#12 merged at`a9e5193` with PR and post-merge CI passing.
