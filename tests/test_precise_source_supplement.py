@@ -4,6 +4,7 @@ import pytest
 
 from agentmem_os.benchmarks.precise_lexical_retrieval import MAX_TURNS, rank_turns
 from agentmem_os.benchmarks.precise_source_supplement import supplement_packet
+from benchmarks.english_screen.select_precision import select
 
 
 def test_specific_bigram_beats_generic_recommendation_language():
@@ -61,3 +62,37 @@ def test_duplicate_roles_caps_and_oversized_turns_fail_closed():
         supplement_packet("", [], "Denver", max_extra_chars=-1)
     huge = [{"role": "user", "content": "Denver music venue " * 100}]
     assert supplement_packet("base", huge, "Denver music venue", char_cap=100) == ("base", [])
+
+
+def test_second_screen_replaces_all_prior_nonabstention_controls():
+    cases = []
+    jobs1, jobs2 = {}, {}
+    kinds = ["knowledge-update", "multi-session", "single-session-assistant",
+             "single-session-preference", "single-session-user", "temporal-reasoning"]
+    for index in range(500):
+        qid = f"q{index:03}"
+        cases.append({"id": qid, "type": kinds[index % len(kinds)],
+                      "abst": 92 <= index < 110,
+                      "context_sha256": f"context-{index}",
+                      "question_sha256": f"question-{index}"})
+        if index < 72:
+            jobs1[qid + "/judge"] = {"correct": False}
+            jobs2[qid + "/judge"] = {"correct": False}
+        elif index < 92:
+            jobs1[qid + "/judge"] = {"correct": index % 2 == 0}
+            jobs2[qid + "/judge"] = {"correct": index % 2 != 0}
+        else:
+            jobs1[qid + "/judge"] = {"correct": True}
+            jobs2[qid + "/judge"] = {"correct": True}
+    prior_nonabstention = {f"q{index:03}" for index in range(110, 150)}
+    prior = {"cases": [
+        {"question_id": qid, "cohort": "stable_pass_control",
+         "abstention": next(case["abst"] for case in cases if case["id"] == qid)}
+        for qid in ({f"q{index:03}" for index in range(92, 110)} | prior_nonabstention)
+    ]}
+    rows, counts = select({"cases": cases}, {"jobs": jobs1}, {"jobs": jobs2}, prior)
+    controls = {row["question_id"] for row in rows
+                if row["cohort"] == "stable_pass_control"}
+    assert len(rows) == 150 and counts["fresh_nonabstention_controls"] == 40
+    assert not controls & prior_nonabstention
+    assert {f"q{index:03}" for index in range(92, 110)} <= controls
