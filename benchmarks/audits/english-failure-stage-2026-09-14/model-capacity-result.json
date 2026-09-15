@@ -1,0 +1,52 @@
+{
+  "status": "PASS_VERIFIED_MODEL_CAPACITY_GATE",
+  "scope": "targeted development diagnostic; not population accuracy",
+  "package_sha256": "1eb5985eb9d5a17ef77dcddff7631c4ee2ebcedead10d0c71bc20ae9b6e1eed0",
+  "cohorts": {
+    "exact_evidence_miss": {
+      "cases": 25,
+      "luna_correct": 3,
+      "terra_correct": 10,
+      "gains": 8,
+      "losses": 1,
+      "same_correct": 2,
+      "same_wrong": 14
+    },
+    "triple_stable_control": {
+      "cases": 15,
+      "luna_correct": 15,
+      "terra_correct": 15,
+      "gains": 0,
+      "losses": 0
+    }
+  },
+  "prospective_gates": {
+    "all_pairs_complete": true,
+    "terra_target_net_gain_at_least_5": true,
+    "control_losses_at_most_1": true,
+    "terra_controls_at_least_14_of_15": true,
+    "terra_total_net_positive": true
+  },
+  "execution": {
+    "logical_jobs": 160,
+    "provider_calls": 152,
+    "shared_exact_judgments": 8,
+    "errors": 0,
+    "retries": 0,
+    "unresolved": 0,
+    "reserved_usd": 6.95141475,
+    "approved_cap_usd": 7.38293725,
+    "usage_cost_without_cache_discount_usd": 0.8934323
+  },
+  "evidence_sha256": {
+    "checkpoint": "8df863b80f6a4bd3af017f0c6ff1fda184179331ed380291ae5850ca7eae1319",
+    "summary": "e4cfc12265b3a4480723ab6a19452a2f632c9a81067afd22864d3355b9fbb601",
+    "independent_verification": "ec542aa7e0d49a501e1bffda7f64d075c08ee458ee181f0a945d2aaed9bfb1d3"
+  },
+  "headline_after_run": {
+    "correct": 423,
+    "total": 500,
+    "accuracy": 0.846,
+    "reason": "The paired cohort is diagnostic and cannot be spliced into a new full-population score."
+  }
+}
