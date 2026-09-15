@@ -42,7 +42,27 @@
     "package_canonical_sha256": "5d97a10698e0b673aaa87ee18c48b28f7df0c3e73beab0866b0492b06e27f3b3",
     "independent_status": "PASS",
     "offline_runner_status": "PASS",
-    "real_provider_calls": 0
+    "real_provider_calls_during_preparation": 0
+  },
+  "paid_full500_precision_measurement1": {
+    "package_canonical_sha256": "5d97a10698e0b673aaa87ee18c48b28f7df0c3e73beab0866b0492b06e27f3b3",
+    "approval_sha256": "80b214e6feeaa30bd13cb0b607488ed2df43acded1a0790cd1617e7018d679e2",
+    "approval_consumed_sha256": "f072da0825c498ca4c14f26ffc57df51a7ab2a8ee0a2ac7c40f1f02dad851a6d",
+    "checkpoint_sha256": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1",
+    "summary_sha256": "7e4623ae27581c689b4122eca8ea7038ea6c5b973ff2822e908dc0ab4b10337e",
+    "verification_sha256": "81b71e7e098bf7d3d97448520f5d0c10505ac8893f6451b74e42086395e4c7eb",
+    "results_sha256": "5f85223fa34862c100f1d2696f5a7271ec4ab66a42ff0fa3fb10c446b5eedb89",
+    "post_run_audit_json_sha256": "eb05f25309c023f00974afa2fac9cb14ecf51e55bd7f48e3d8fd7c3dac06cdd4",
+    "post_run_audit_md_sha256": "cf121fc0b7b695d7e205a5e7830ac39a2fb7451a541865ad713e124cc6bf29a7",
+    "status": "PASS_VERIFIED_423_OF_500"
+  },
+  "full500_precision_repeat": {
+    "package_reference_sha256": "fa65a7185f1f3e130ef3bbddeefd335d0ef9e9eb5fda95f6ea587e25e2a1bd15",
+    "verification_sha256": "abc85c788128e37ddb844fa25baa006fc360f7ef2da0bac4aede6cc9713ace31",
+    "proposal_sha256": "1076dedfa25ec01492c4064f85c413bf138f04f017349665b7285a1f25dfde4e",
+    "status": "PASS_READY_FOR_EXACT_APPROVAL_NO_SPEND",
+    "paid_authorization": false,
+    "paid_output_exists": false
   },
   "failed_or_superseded_artifacts_preserved": [
     "precision-source-audit-001: independent policy-schema rejection",
