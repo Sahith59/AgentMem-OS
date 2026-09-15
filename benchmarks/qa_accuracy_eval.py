@@ -104,9 +104,10 @@ ap.add_argument("--types", default="",
 ap.add_argument("--out-suffix", default="",
                  help="output-file suffix so a slice run never overwrites (or resumes "
                       "from) the canonical full-run artifact")
-ap.add_argument("--answerer", choices=["reasoning", "simple", "structured"], default="reasoning",
-                 help="answer layer: reasoning (date-anchored CoT + aggregation + "
-                      "calibrated abstention) or simple (naive one-shot)")
+ap.add_argument("--answerer", choices=["reasoning", "balanced", "simple", "structured"], default="reasoning",
+                 help="answer layer: reasoning (historical prompt), balanced "
+                      "(measured evidence-sufficiency prompt), structured "
+                      "(experimental deterministic computation), or simple")
 ap.add_argument("--retrieval", choices=["tfidf", "dense"], default="tfidf",
                  help="raw-turn retrieval backend. tfidf is the historical "
                       "default, chosen on a 30-question LoCoMo diagnostic "
@@ -349,9 +350,14 @@ def gen_structured(context, question, qdate):
 
 
 def gen_answer(context: str, question: str, today: str = "") -> str:
-    reasoning = args.answerer == "reasoning"
+    reasoning = args.answerer in ("reasoning", "balanced")
     if reasoning:
-        prompt = REASONING_PROMPT.format(
+        prompt_template = REASONING_PROMPT
+        if args.answerer == "balanced":
+            from balanced_answer_prompt import BALANCED_REASONING_PROMPT
+
+            prompt_template = BALANCED_REASONING_PROMPT
+        prompt = prompt_template.format(
             context=context[:args.context_chars], question=question,
             today_line=f"\nToday's date is {today}." if today else "")
     else:
