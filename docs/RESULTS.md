@@ -1,8 +1,9 @@
-# Every Number We Have Ever Produced, In One Table
+# English benchmark results and history
 
-Every row below comes from a committed JSON artifact in `benchmarks/`
-that records its own configuration. Nothing here is projected, rounded
-up, or quietly superseded. Columns that matter for comparability:
+Historical rows below come from benchmark artifacts; the newer September 2026
+run receipts are summarized in the project's long-running evaluation record.
+Results from different corpus, retrieval and answer configurations are not
+one-variable comparisons. Columns that matter for comparability:
 
 - **Harness**: `truncated` = before fix F-17 our loader silently cut
   42.8% of conversation turns at 800 chars (numbers are valid for that
@@ -16,14 +17,23 @@ up, or quietly superseded. Columns that matter for comparability:
 - **Answerer / Judge**: the judge is frozen (GPT-4o, the benchmark's
   official per-type prompts) in every row. We never tune the judge.
 
-## Headline numbers (current)
+## Latest measured English state (September 2026)
+
+| Configuration | LongMemEval `_s` full 500 | Repeat status | Interpretation |
+|---|---:|---|---|
+| Precision-source pipeline, Luna answerer, official GPT-4o judge | **423/500 (84.6%)** | One run | Development-exposed; +5 correct versus each prior revised-pipeline repeat, but a separate configuration and no stability claim |
+| Prior revised pipeline, same answerer and judge | **418/500 (83.6%)** | Two byte-identical repeats, both 418 | Repeated result for that exact configuration; 20 question-level grades differed between repeats |
+
+The targeted 40-case, same-packet Luna/Terra model test improved 18→25 overall and 3→10 on 25 exact-evidence misses, with 15/15 stable controls in both arms. It is a development-selected diagnostic, not a 500-question score or a Terra default promotion. A broader Luna-standard versus Terra-balanced screen is prepared offline; it has no paid result yet. The verified full-set record remains 423/500 once and 418/500 twice. [PR #16](https://github.com/Sahith59/AgentMem-OS/pull/16) records the model-capacity evidence and its limit.
+
+## Historical benchmark columns (not the current operating point)
 
 | # | What | Harness | n | Backbone | Answerer | Score | Mean ctx tokens | Artifact |
 |---|---|---|---|---|---|---|---|---|
-| H1 | **Number of record (Luna column), pooled 3 runs** | full | 3×500 | verbatim+facts+profile | gpt-5.6-luna | **80.0% ± 0.5** (399/403/398) | 8,536 | `_500q_40k_fullturns_luna{,_r2,_r3}` |
+| H1 | Historical Luna column, pooled 3 runs | full | 3×500 | verbatim+facts+profile | gpt-5.6-luna | **80.0% ± 0.5** (399/403/398) | 8,536 | `_500q_40k_fullturns_luna{,_r2,_r3}` |
 | H2 | GPT-4o column, run 1 | full | 500 | verbatim+facts+profile | gpt-4o | 73.2% (366) | 8,561 | `_500q_40k_fullturns_r1` |
-| H3 | **Measured ceiling** (oracle: perfect evidence, no haystack) | full | 150 | gold sessions only | gpt-5.6-luna | **89.3%** (134) | 4,557 | `_oracle150_luna_fullturns` |
-| H4 | No memory system at all (benchmark authors' full-context figure) | — | 500 | entire haystack ~115k tokens | gpt-4o | 60.2% | ~115,000 | LongMemEval paper |
+| H3 | Oracle diagnostic on a smaller selected set, not a ceiling | full | 150 | gold sessions only | gpt-5.6-luna | **89.3%** (134) | 4,557 | `_oracle150_luna_fullturns` |
+| H4 | Historical full-context comparator; attribution/protocol parity requires review | — | 500 | entire haystack ~115k tokens | gpt-4o | 60.2% | ~115,000 | Historical project record |
 
 **Write-time extraction upgrade (2026-08-17), single runs, not yet pooled:**
 
@@ -32,21 +42,21 @@ up, or quietly superseded. Columns that matter for comparability:
 | W1 | Luna-extracted corpus, verbatim-primary packets | 500 | gpt-5.6-luna | gpt-5.6-luna | **82.6%** (413) | 8,524 | `_500q_lunacorpus_p1` |
 | W2 | Same corpus, hybrid source routing (efficiency point) | 500 | gpt-5.6-luna | gpt-5.6-luna | 76.2% (381) | **4,401** | `_500q_lunacorpus_p3b_hybrid` |
 
-W1 and W2 are **single runs**; per reading rule 1 they do not displace
-the pooled H1 record until three runs exist. What changed in W1 is one
-variable, the extraction model behind the fact tier: +14 questions over
-the same configuration on the llama corpus (399 to 413), concentrated
-in temporal reasoning (102 to 113) and single-session-user (63 to 67).
+W1 and W2 are **single runs**. Historical W1 does not establish an
+extraction-only effect versus H1: the Luna corpus is untracked and exact
+runtime parity was not independently established. The count increased from
+399 in H1's first run to 413 in W1, but that cross-configuration difference
+is descriptive, not causal.
 W2 is the same memory at a different operating point: 48% fewer
 context tokens for 6.4 points, with multi-session absorbing most of
 the loss (93 to 77). Both are published because the accuracy-tokens
 curve is the honest way to describe a memory system.
 
-The one-variable lesson of H1 vs H2: same memory, same packets, same
-judge — the answerer alone is worth +6.6 points. Any vendor comparison
-that does not disclose the answerer is comparing answerers, not
-memories. The lesson of H3: this exam's roof for a live system is the
-high 80s; published numbers in the 90s are not this protocol.
+H1 versus H2 is also not a verified answerer-only comparison: saved context
+token counts differ on 85 questions, so exact packet parity is unproven.
+The answerer clearly matters in the later controlled 40-case test, but
+its full-set contribution needs measurement. H3's 150-case oracle is not
+an upper bound on future systems or the 500-question population.
 
 ## Retrieval recall, published beside accuracy (the pairing nobody shows)
 
@@ -58,12 +68,12 @@ above (artifact `recall_at_k_results.json`):
 | ANY-gold session recall (the flavor vendors publish) | 77.0% | 93.8% | 98.4% | **99.0%** |
 | ALL-gold session recall (what multi-hop questions require) | 24.2% | 80.8% | 91.2% | 95.4% |
 
-Our Recall@15 is 99.0%. Our QA accuracy is 80.0%. **The 19-point gap
-is metric choice, not memory quality** — measured cleanly on one
-system so the two vocabularies can finally be compared. A multi-hop
-question that needs 4 sessions and retrieves 1 counts as a Recall
-success and then answers wrong; the ALL-gold row shows how often that
-happens.
+In this historical configuration, ANY-gold Recall@15 was 99.0% while
+QA accuracy was 80.0%. These measure different things. Even ALL-gold
+session recall can miss the needed turn or a quantity inside it, so the
+gap cannot be attributed to metric choice alone. A multi-hop question
+that needs four sessions and retrieves only one still counts as an
+ANY-gold recall success while its answer may be unsupported.
 
 ### Per-category, session-level (full tables)
 
