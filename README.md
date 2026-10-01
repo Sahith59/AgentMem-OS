@@ -4,13 +4,13 @@
 
 [![CI](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml/badge.svg)](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml)
 
-An open-source, local-first memory engine for LLM agents. Measured where it counts: **80.0% ± 0.5 on the full LongMemEval `_s` (3 pooled runs of all 500 questions, honest full-evidence harness)** with every knob disclosed, including the answerer (gpt-5.6-luna column; the GPT-4o column and the measured 89.3% ceiling are published beside it). Facts are extracted by a local model and admitted only by deterministic validators, history lives in a bi-temporal knowledge graph, agents fork memory from each other git-style, and a fact stored in Hindi answers a query asked in English. That last part is the frontier: **no production memory system today survives a user switching languages**, and we are building and benchmarking the first one that does, starting with Indic languages.
+An open-source, local-first memory engine for LLM agents. The latest development-exposed LongMemEval `_s` run scored **423/500 (84.6%) once** with the precision-source pipeline; the preceding fixed configuration scored **418/500 (83.6%) in two repeats**. These are different configurations, and 84.6% is not yet a repeated headline. The older full-evidence Luna series scored 80.0% across three runs. The system combines verbatim conversations, validated facts, a temporal knowledge graph and agent memory forks. Cross-lingual identity and Indic evaluation are active research tracks; native Hindi/Telugu ingestion-to-recall performance is not yet established.
 
 ## Find what you need in 30 seconds
 
 | Question | Answer |
 |---|---|
-| How good is it, really? | **[docs/BENCHMARKS.md](docs/BENCHMARKS.md)**: 63.3% to 80.0%, the mechanism, the token curve, the measured ceiling |
+| How good is it, really? | **[docs/RESULTS.md](docs/RESULTS.md)**: current 84.6% single run, 83.6% repeated predecessor, and qualified historical results |
 | Every number in one table? | **[docs/RESULTS.md](docs/RESULTS.md)**: every run ever, with harness, models, tokens, and artifact |
 | What failed on the way? | **[docs/FAILURES.md](docs/FAILURES.md)**: every refuted idea, what it cost, what it bought |
 | Why is it built this way? | **[docs/DECISIONS.md](docs/DECISIONS.md)**: each decision with its measured outcome, good and bad |
@@ -67,8 +67,8 @@ Verbatim conversation evidence stays primary. A local 8B model proposes facts fr
 
 ## What makes this different
 
-- **A benchmark culture no vendor in this space matches.** Means over 3+ runs with spread, all six comparability knobs disclosed (split, answerer, judge, subset, memory source, context budget), a measured oracle ceiling, pre-registered predictions, and a public failure ledger. See [docs/BENCHMARKS.md](docs/BENCHMARKS.md).
-- **Cross-lingual memory, measured honestly.** A fact stored in one language resolving to a query in another is a real, publicly acknowledged gap (the leading graph-memory vendor has multiple open issues asking for it). Ours ships today at a measured operating point (precision 0.762 / recall 0.533 on a hand-labeled EN/Hindi/Tamil set with adversarial negatives), wired into the live graph via non-destructive `ALIAS_OF` edges. The roadmap to the first cross-lingual memory benchmark is [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md).
+- **A benchmark record that includes failures.** We disclose the answerer, judge, split, memory source, context budget, repeat count and negative experiments. Single-run results are labelled as such. See [docs/RESULTS.md](docs/RESULTS.md) and [docs/FAILURES.md](docs/FAILURES.md).
+- **Cross-lingual identity under evaluation.** An earlier hand-labelled EN/Hindi/Tamil alias set measured precision 0.762 and recall 0.533 at one operating point. That does not establish end-to-end Hindi/Telugu memory accuracy or meet the later 0.95 automatic-merge precision target. See [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md).
 - **Extraction that cannot hallucinate silently.** The LLM proposes; deterministic validators decide, with logged rejection reasons. 19,195 sessions extracted into 98,372 validated facts at $0 API cost.
 - **Dynamic trust, not static tiers.** Trust is a live number updated from evidence. Measured in an adversarial harness: retrieval precision 0.951 with trust-weighting versus 0.625 without, and an unreliable agent's perceived trust decays 0.50 to 0.27 automatically.
 - **Fork, not just share.** Child agents inherit abstracted knowledge and start with a clean episodic slate: the first formalization of git-style memory branching for LLM agents.
@@ -83,14 +83,14 @@ Verbatim conversation evidence stays primary. A local 8B model proposes facts fr
 
 | Configuration | QA accuracy | Mean context sent |
 |---|---|---|
-| **AgentMem OS, 40k operating point** | **80.0% ± 0.5** (n=500, mean of 3 runs, luna column; GPT-4o column 73.2) | ~8.5k tokens |
+| Precision-source pipeline, current | **84.6%** (423/500, one run; repeat pending) | 40k-character cap; mean tokens not reported |
+| Prior revised pipeline | **83.6%** (418/500 in each of two repeats) | 40k-character cap; mean tokens not reported |
+| Historical full-evidence Luna series | 80.0% ± 0.5 (three 500-question runs) | ~8.5k tokens |
 | AgentMem OS, 24k operating point | 76.9% ± 1.0 (n=150, mean of 3 runs) | 5,698 tokens |
-| Full-context GPT-4o (no memory system) | 60.2% (benchmark authors) | ~115k tokens |
-| Measured oracle ceiling (gold evidence handed in) | 86.7% | n/a |
 
-Protocol: GPT-4o answerer, the benchmark's official per-type GPT-4o judge, fixed seed, self-describing result artifacts. Against the *verifiable* published field on this split: full-context 60.2%, Zep's paper 71.2%, TiMem 76.88%. Higher vendor claims exist (90%+) with no answerer or judge disclosed, some exceeding the measured ceiling; [docs/BENCHMARKS.md](docs/BENCHMARKS.md#how-this-compares-to-published-numbers) treats them properly. The full 500-question x 3-run result: _pending, infrastructure ready_.
+The English rows use different corpus and retrieval configurations. The current answerer is `gpt-5.6-luna`; the benchmark's official type-specific judge uses `gpt-4o`. See [docs/RESULTS.md](docs/RESULTS.md) for repeat counts and historical comparability limits. A 90% result has not been measured.
 
-**Why the number moved (the mechanism, not vibes):** questions whose full gold evidence reaches the context answer at 84.5%; partial coverage collapses to ~44%. Coverage completeness is the master variable, which also makes Recall@k structurally misleading for multi-hop memory. Full analysis in [docs/BENCHMARKS.md](docs/BENCHMARKS.md#the-coverage-finding-the-mechanism-behind-everything).
+**Why evidence delivery matters:** historical session-coverage analysis found a large association with answer accuracy, but a session hit does not prove that its answer-bearing turn or all operands reached the packet. Later full500 audits separate retrieval gaps from answer selection, abstention and judge sensitivity. See [docs/BENCHMARKS.md](docs/BENCHMARKS.md#the-coverage-finding-the-mechanism-behind-everything) for the original analysis and [docs/RESULTS.md](docs/RESULTS.md) for the qualified current result.
 
 **Multi-agent trust, measured in harness:**
 
@@ -99,9 +99,9 @@ Protocol: GPT-4o answerer, the benchmark's official per-type GPT-4o judge, fixed
 | Full system (dynamic trust + fork inheritance) | **0.951** |
 | No trust-weighting | 0.625 |
 
-**Cross-lingual entity resolution (EN/Hindi/Tamil, hand-labeled, with adversarial negatives):** precision 0.762 / recall 0.533 at the shipped threshold, published at every threshold tested including the failing ones, with the known surviving failure disclosed. Table and design in [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md).
+**Cross-lingual entity resolution pilot (EN/Hindi/Tamil, hand-labelled, with adversarial negatives):** precision 0.762 / recall 0.533 at one tested threshold. It is not yet an end-to-end Indic memory result or a production-quality automatic-merge operating point. Table and design in [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md).
 
-An earlier n=30 head-to-head against Mem0, Letta, and LangMem (real installed libraries, one harness, oracle split, ceiling published) lives with all its caveats in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). Raw per-question outputs for every number: [`benchmarks/`](benchmarks/).
+An earlier n=30 head-to-head against Mem0, Letta, and LangMem lives with its caveats in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). Historical per-question artifacts are in [`benchmarks/`](benchmarks/); later frozen-run receipts are retained in the project's evaluation memory.
 
 ---
 
