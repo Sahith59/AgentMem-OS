@@ -8,6 +8,7 @@ import argparse
 import fcntl
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -149,6 +150,57 @@ def verdict(text):
     return normalized == 'yes'
 
 
+def error_diagnostics(error):
+    """Keep allowlisted provider metadata, never error text or request data.
+
+    A 429 alone does not distinguish throttling from exhausted credits.
+    This is diagnostic only: no retry or reservation release follows.
+    """
+    quota_codes = {'insufficient_quota', 'credit_balance_exhausted',
+                   'organization_spend_limit_exceeded', 'project_spend_limit_exceeded',
+                   'organization_usage_limit_exceeded', 'billing_hard_limit_reached'}
+    rate_codes = {'rate_limit_exceeded', 'slow_down'}
+    allowed_codes = quota_codes | rate_codes | {'server_is_overloaded'}
+    allowed_types = {'insufficient_quota', 'rate_limit_error', 'requests', 'tokens',
+                     'invalid_request_error', 'server_error', 'service_unavailable_error'}
+    status = getattr(error, 'status_code', None)
+    body = getattr(error, 'body', None)
+    body = body if isinstance(body, dict) else {}
+    if isinstance(body.get('error'), dict):
+        body = body['error']
+    code = getattr(error, 'code', None) or body.get('code')
+    kind = getattr(error, 'type', None) or body.get('type')
+    code = code if isinstance(code, str) and code in allowed_codes else None
+    kind = kind if isinstance(kind, str) and kind in allowed_types else None
+    detail = {'category': 'unknown'}
+    if type(status) is int and 400 <= status <= 599:
+        detail['http_status'] = status
+    if code:
+        detail['code'] = code
+    if kind:
+        detail['type'] = kind
+    if code in quota_codes or (not code and kind == 'insufficient_quota'):
+        detail['category'] = 'quota_or_spend_limit'
+    elif code in rate_codes:
+        detail['category'] = 'rate_limit'
+    elif status == 429:
+        detail['category'] = 'unclassified_429'
+    elif code == 'server_is_overloaded':
+        detail['category'] = 'provider_overloaded'
+    request_id = getattr(error, 'request_id', None)
+    if isinstance(request_id, str) and re.fullmatch(r'req_[A-Za-z0-9_-]{1,128}', request_id):
+        detail['request_id'] = request_id
+    response = getattr(error, 'response', None)
+    headers = getattr(response, 'headers', {})
+    # Numeric Retry-After only; arbitrary header values and HTTP dates are omitted.
+    value = headers.get('retry-after') if hasattr(headers, 'get') else None
+    if isinstance(value, str) and re.fullmatch(r'[0-9]{1,5}(?:\.[0-9]{1,3})?', value):
+        seconds = float(value)
+        if math.isfinite(seconds) and 0 <= seconds <= 86400:
+            detail['retry_after_seconds'] = seconds
+    return detail
+
+
 def summary(package, state):
     arms = {}
     for arm in package['prompts']:
@@ -279,8 +331,9 @@ def run(package, directory, provider, budget_nusd, authorization, mode):
                         job['status'] = 'complete'
                     except Exception as error:
                         job['status'] = 'error'
-                        # Exception text may include request data or secrets; retain class only.
+                        # Exception text may include request data or secrets.
                         job['error_class'] = type(error).__name__
+                        job['error_diagnostics'] = error_diagnostics(error)
                         atomic(path, state)
                         atomic(directory / 'summary.json', summary(package, state))
                         raise RuntimeError('Attempt failed; checkpoint preserved; automatic retry disabled') from None
