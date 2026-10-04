@@ -191,13 +191,15 @@
     "focus-capacity-audit.json": "6518e14aa607eaf16248815d97d3e7d4fafd246777eca5258205c42d1307553a",
     "research-memory.md": "5dd4418b634f269d6a032c159ff9d8e76ed7eb064b2e32f3b0141172e4c84975",
     "research-reasoning.md": "1c63c2d69a0cf92f2746fcdf443f9d1ecd5465f3e33aec76dbd8d080812e5d13",
-    "failure-audit.md": "aec61b3dfb65ac8f3633e3901e7282df15c858ba5da4686dfa14598677fc918b",
-    "failure-audit.json": "5c29964dda7a6b46052439ff854007da4daff5f4eeb9d458134255ce4496a246",
+    "failure-audit.md": "e3a4a5736d1c0bc7de8fcf9ec6f5a172b9bf22f0a29d0090e4abc329b9c60b2e",
+    "failure-audit.json": "f09935c2143d97b59d2f5ae788ca477020edc4c72347b591380aef72cfff9af0",
     "focus-capacity-verified.json": "c17815fdf9e2e4a5856e84bcd0ceb8c796ce5ff10fee87d2ea3bb56f3820cec4",
     "sources.json": "bc6822dd8cce0bc38c5173a5c3b8393eab9b2af31e43fe09d729b90f335a220f",
-    "focus-capacity-verified-v2.json": "a1814d79e3ebbfa08b235082621a53ee88723b65f47d09e01d05ab328240bb13"
+    "focus-capacity-verified-v2.json": "a1814d79e3ebbfa08b235082621a53ee88723b65f47d09e01d05ab328240bb13",
+    "root-example-correction.json": "348531d9b60c4c4a6154e1c48eb977b7e74db597fc9ecd1d84e3028444b65c46"
   },
   "superseded_artifacts": [
     "focus-capacity-verified.json: identical counts, weaker population/request binding; use v2"
-  ]
+  ],
+  "root_review_correction": "Saved9ee3ecd6answer contains100more; initial draft operand-error attribution corrected to likely grader/reference concern. Train10/taxi60 packet has competing assistant estimates; pure arithmetic defect not isolated."
 }
