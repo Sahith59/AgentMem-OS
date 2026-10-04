@@ -1,0 +1,36 @@
+{
+  "status": "EXPOSED_REFERENCE_GRADING_REGRESSIONS_NOT_SOURCE_TRUTH",
+  "provenance": "Assistant review of preserved CHANGE_AUDIT.json from paid-combined-answer-screen-continuation-002. Labels below apply the reference-only rubric; historical paid grades remain unchanged.",
+  "cases": [
+    {
+      "family": "novel-pages",
+      "type": "multi-session",
+      "question": "What was the page count of the two novels I finished in January and March?",
+      "gold": "856",
+      "accepted": "856 pages",
+      "rejected": "Cannot be determined from the available memories.",
+      "rationale": "The non-abstention reference requires 856 or sufficient intermediate steps. Refusing to answer does not satisfy that rubric. Source-month ambiguity is a separate audit issue.",
+      "source": "Exposed case37f165cf: archived question/reference and candidate answer; prior judge false-positive concern. Positive is an authored reference-paraphrase, not a new model output."
+    },
+    {
+      "family": "magazine-reference",
+      "type": "multi-session",
+      "question": "How many magazine subscriptions do I currently have?",
+      "gold": "2",
+      "accepted": "2",
+      "rejected": "1 magazine subscription",
+      "rationale": "Reference-only grading accepts 2. The candidate's underlying book-box reasoning was suspect; a yes here must NOT be described as verified source faithfulness.",
+      "source": "Exposed case1a8a66a6: archived reference2, candidate2, baseline1; source audit warns that candidate reasoning counted a book box."
+    },
+    {
+      "family": "album-reference",
+      "type": "single-session-user",
+      "question": "How many copies of my favorite artist's debut album were released worldwide?",
+      "gold": "500",
+      "accepted": "500 copies",
+      "rejected": "Not specified; 500 copies refers to the signed poster, not the album.",
+      "rationale": "The correct answer is asserted only for the poster and denied for the asked album, so the negative fails reference agreement. Source/attribute ambiguity remains separate; do not infer the positive is grounded.",
+      "source": "Exposed caseec81a493: archived reference500 and both answers; raw source has unresolved album/poster attribution ambiguity."
+    }
+  ]
+}
