@@ -1,0 +1,203 @@
+{
+  "status": "RESEARCH_AND_OFFLINE_DIAGNOSTIC_COMPLETE_NO_ACCURACY_CLAIM",
+  "date": "2026-10-04",
+  "model_calls": 0,
+  "new_answers": 0,
+  "historical_score": {
+    "correct": 423,
+    "total": 500,
+    "judge": "gpt-4o"
+  },
+  "bridge_score": {
+    "correct": 425,
+    "total": 500,
+    "judge": "gpt-5.6-terra",
+    "same_answers": true
+  },
+  "agents": [
+    {
+      "task": "architecture_sources",
+      "model": "gpt-6-sol"
+    },
+    {
+      "task": "failure_mechanisms",
+      "model": "gpt-6-sol"
+    },
+    {
+      "task": "reasoning_design",
+      "model": "gpt-6-sol"
+    }
+  ],
+  "sources": [
+    {
+      "id": "longmemeval",
+      "title": "LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory",
+      "url": "https://arxiv.org/html/2410.10813v2"
+    },
+    {
+      "id": "longmemeval_repo",
+      "title": "LongMemEval official repository",
+      "url": "https://github.com/xiaowu0162/LongMemEval"
+    },
+    {
+      "id": "hipporag2",
+      "title": "From RAG to Memory: HippoRAG 2",
+      "url": "https://arxiv.org/html/2502.14802v2"
+    },
+    {
+      "id": "zep",
+      "title": "Zep: A Temporal Knowledge Graph Architecture for Agent Memory",
+      "url": "https://arxiv.org/html/2501.13956v1"
+    },
+    {
+      "id": "mem0",
+      "title": "Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory",
+      "url": "https://arxiv.org/html/2504.19413v1"
+    },
+    {
+      "id": "amem",
+      "title": "A-MEM: Agentic Memory for LLM Agents",
+      "url": "https://arxiv.org/html/2502.12110v1"
+    },
+    {
+      "id": "timem",
+      "title": "TiMem: Temporal-Hierarchical Memory Consolidation for Long-Horizon Conversational Agents",
+      "url": "https://arxiv.org/html/2601.02845v1"
+    },
+    {
+      "id": "hindsight",
+      "title": "Hindsight is 20/20: Building Agent Memory that Retains, Recalls, and Reflects",
+      "url": "https://arxiv.org/html/2512.12818v1"
+    },
+    {
+      "id": "memcog",
+      "title": "MemCog: From Memory-as-Tool to Memory-as-Cognition in Conversational Agents",
+      "url": "https://arxiv.org/html/2605.28046v1"
+    },
+    {
+      "id": "locomo",
+      "title": "LoCoMo official dataset and code",
+      "url": "https://github.com/snap-research/locomo"
+    },
+    {
+      "id": "memoryagentbench",
+      "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+      "url": "https://openreview.net/pdf?id=DT7JyQC3MR"
+    },
+    {
+      "id": "longmemeval_v2",
+      "title": "LongMemEval-V2 official repository",
+      "url": "https://github.com/xiaowu0162/LongMemEval-V2"
+    },
+    {
+      "id": "memretriever",
+      "title": "MemRetriever: Learning to Search, Reflect, and Retrieve from Long-Term Memory",
+      "url": "https://arxiv.org/html/2609.11951v1"
+    },
+    {
+      "id": "evalmem",
+      "title": "EvalMem: An Operation-Level Diagnostic Framework for Long-Term Memory Systems",
+      "url": "https://arxiv.org/html/2609.22231v1"
+    },
+    {
+      "id": "graphs_acl",
+      "title": "Does Memory Need Graphs? A Unified Framework and Empirical Analysis for Long-Term Dialog Memory",
+      "url": "https://aclanthology.org/2026.acl-long.1232.pdf"
+    },
+    {
+      "id": "ircot",
+      "title": "Interleaving Retrieval with Chain-of-Thought Reasoning for Knowledge-Intensive Multi-Step Questions",
+      "url": "https://aclanthology.org/2023.acl-long.557/"
+    },
+    {
+      "id": "selfrag",
+      "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "url": "https://openreview.net/forum?id=hSyW5go0v8"
+    },
+    {
+      "id": "crag",
+      "title": "Corrective Retrieval Augmented Generation",
+      "url": "https://arxiv.org/abs/2401.15884"
+    },
+    {
+      "id": "recomp",
+      "title": "RECOMP: Improving Retrieval-Augmented LMs with Compression and Selective Augmentation",
+      "url": "https://openreview.net/forum?id=mlJLVigNHp"
+    },
+    {
+      "id": "lostmiddle",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172"
+    },
+    {
+      "id": "pal",
+      "title": "PAL: Program-aided Language Models",
+      "url": "https://proceedings.mlr.press/v202/gao23f.html"
+    },
+    {
+      "id": "cove",
+      "title": "Chain-of-Verification Reduces Hallucination in Large Language Models",
+      "url": "https://aclanthology.org/2024.findings-acl.212/"
+    },
+    {
+      "id": "selectiveqa",
+      "title": "Selective Question Answering under Domain Shift",
+      "url": "https://aclanthology.org/2020.acl-main.503/"
+    },
+    {
+      "id": "lara",
+      "title": "LaRA: Benchmarking Retrieval-Augmented Generation and Long-Context LLMs -- No Silver Bullet for LC or RAG Routing",
+      "url": "https://arxiv.org/abs/2502.09977"
+    }
+  ],
+  "unique_sources": 24,
+  "focus_capacity": {
+    "all_cases": {
+      "cases": 500,
+      "median_headroom": 3634.0,
+      "cannot_fit_even_shortest": 2,
+      "cannot_fit_two_shortest": 4,
+      "cannot_fit_eight_shortest": 81,
+      "has_some_unfit_turns": 180
+    },
+    "judge_misses": {
+      "cases": 75,
+      "median_headroom": 3807,
+      "cannot_fit_even_shortest": 0,
+      "cannot_fit_two_shortest": 0,
+      "cannot_fit_eight_shortest": 13,
+      "has_some_unfit_turns": 25
+    },
+    "judge_correct": {
+      "cases": 425,
+      "median_headroom": 3618,
+      "cannot_fit_even_shortest": 2,
+      "cannot_fit_two_shortest": 4,
+      "cannot_fit_eight_shortest": 68,
+      "has_some_unfit_turns": 155
+    },
+    "limits": "Shortest-turn capacity is an optimistic length bound, not semantic recall. Eight turns are a cap, not a requirement. Non-fit does not prove an answer failure."
+  },
+  "tests": {
+    "passed": 35,
+    "new": 9,
+    "existing_focus": 26,
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 uv run --no-project --with pytest python -m pytest --noconftest tests/test_focus_capacity.py tests/test_evidence_focus.py -q",
+    "scope": "Isolated pure diagnostic/focus tests; no full local suite or model-quality measurement",
+    "environment_note": "System python lacked pytest; plugin/global storage setup unavailable in isolated env. Pure tests ran with external plugins and product conftest disabled. Repository CI runs normal conftest."
+  },
+  "next": "Implement gold-blind Luna requirement/selection adapter; preserve Terra as a separately measured comparator. No paid package ready or authorized.",
+  "artifacts": {
+    "focus-capacity-audit.json": "6518e14aa607eaf16248815d97d3e7d4fafd246777eca5258205c42d1307553a",
+    "research-memory.md": "5dd4418b634f269d6a032c159ff9d8e76ed7eb064b2e32f3b0141172e4c84975",
+    "research-reasoning.md": "1c63c2d69a0cf92f2746fcdf443f9d1ecd5465f3e33aec76dbd8d080812e5d13",
+    "failure-audit.md": "aec61b3dfb65ac8f3633e3901e7282df15c858ba5da4686dfa14598677fc918b",
+    "failure-audit.json": "5c29964dda7a6b46052439ff854007da4daff5f4eeb9d458134255ce4496a246",
+    "focus-capacity-verified.json": "c17815fdf9e2e4a5856e84bcd0ceb8c796ce5ff10fee87d2ea3bb56f3820cec4",
+    "sources.json": "bc6822dd8cce0bc38c5173a5c3b8393eab9b2af31e43fe09d729b90f335a220f",
+    "focus-capacity-verified-v2.json": "a1814d79e3ebbfa08b235082621a53ee88723b65f47d09e01d05ab328240bb13"
+  },
+  "superseded_artifacts": [
+    "focus-capacity-verified.json: identical counts, weaker population/request binding; use v2"
+  ]
+}
