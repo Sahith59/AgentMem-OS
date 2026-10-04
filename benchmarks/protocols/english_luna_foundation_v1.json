@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "protocol_id": "english-luna-foundation-v1",
+  "status": "DESIGN_ONLY_NOT_EXECUTABLE_OR_PAID_APPROVAL",
+  "date": "2026-10-04",
+  "historical_series": {
+    "latest_full500": {
+      "correct": 423,
+      "total": 500,
+      "answerer": "gpt-5.6-luna",
+      "judge": "gpt-4o",
+      "runs": 1
+    },
+    "latest_screen": {
+      "baseline_correct": 84,
+      "candidate_correct": 92,
+      "total": 150,
+      "candidate_answerer": "gpt-5.6-terra",
+      "candidate_prompt": "balanced",
+      "judge": "gpt-4o",
+      "decision": "FAIL_GATES"
+    },
+    "mutate_answers_or_verdicts": false,
+    "retired_new_inference_family": [
+      "gpt-4o",
+      "gpt-4o-mini",
+      "chatgpt-4o"
+    ]
+  },
+  "roles": {
+    "reference_answerer": "gpt-5.6-luna",
+    "candidate_judge": "gpt-6-luna",
+    "candidate_judge_status": "UNTESTED_NOT_PROMOTED",
+    "optional_answerer_challenger": "gpt-6-luna",
+    "extraction": "retain_frozen_existing_corpus_for_first_controlled_comparison",
+    "judge_independence": "same-provider/family; not independent adjudication"
+  },
+  "runtime_visible_inputs": [
+    "question",
+    "question_date",
+    "authorized_opaque_scope",
+    "original_source_messages",
+    "approved_derived_evidence",
+    "pinned_model_and_budget_settings"
+  ],
+  "evaluator_only_inputs": [
+    "benchmark_question_id",
+    "benchmark_question_type",
+    "reference_answer",
+    "prior_judge_verdict",
+    "cohort",
+    "expected_fixture_answer",
+    "evidence_labels",
+    "desired_score"
+  ],
+  "development_fixtures": {
+    "path": "benchmarks/fixtures/evidence_semantics_v1.json",
+    "cases": 13,
+    "status": "EXPOSED_SYNTHETIC_INTERNAL_REVIEW_ONLY"
+  },
+  "proposed_calibration": {
+    "validation_cases": 120,
+    "positive": 60,
+    "negative": 60,
+    "minimum_correct": 114,
+    "maximum_false_accepts": 3,
+    "maximum_false_rejects": 3,
+    "critical_integrity_failures_allowed": 0,
+    "ground_truth": "Source/reference-reviewed, never copied from old GPT-4o labels. Disclose internal-only review.",
+    "status": "NOT_BUILT_NOT_TESTED",
+    "validation_reuse_after_tuning": false
+  },
+  "bridge": {
+    "regenerate_historical_answers": false,
+    "rejudge_saved_answers": 500,
+    "status": "NOT_EXECUTED",
+    "report_separately": [
+      "old_judge_old_answers",
+      "new_judge_old_answers",
+      "new_judge_new_answers"
+    ],
+    "judge_scale_shift": "new_judge_old_answers - old_judge_old_answers",
+    "engineering_lift": "new_judge_new_answers - new_judge_old_answers",
+    "source_faithfulness": "separate audit metric; never silently replace reference-match grades"
+  },
+  "paid_readiness_blockers": [
+    "Build new transport with explicit supported reasoning/output settings and strict verdict parsing.",
+    "Pin new source/model/price/dataset hashes and independent verifier.",
+    "Create and review development and locked calibration sets.",
+    "Freeze numeric architecture promotion/cost/regression gates after cohort sizing, before paid outputs.",
+    "Prepare concrete budget and obtain exact execution authorization."
+  ],
+  "claims_forbidden_until_measured": [
+    "90% English achievement",
+    "industry-leading architecture",
+    "fully GPT-4o-free historical corpus",
+    "independent human calibration",
+    "sealed validation on exposed development cases"
+  ],
+  "paid_calls_this_change": 0
+}
