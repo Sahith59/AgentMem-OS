@@ -17,14 +17,14 @@ one-variable comparisons. Columns that matter for comparability:
 - **Answerer / Judge**: the judge is frozen (GPT-4o, the benchmark's
   official per-type prompts) in every row. We never tune the judge.
 
-## Latest measured English state (September 2026)
+## Latest measured English state (October 4, 2026)
 
 | Configuration | LongMemEval `_s` full 500 | Repeat status | Interpretation |
 |---|---:|---|---|
 | Precision-source pipeline, Luna answerer, official GPT-4o judge | **423/500 (84.6%)** | One run | Development-exposed; +5 correct versus each prior revised-pipeline repeat, but a separate configuration and no stability claim |
 | Prior revised pipeline, same answerer and judge | **418/500 (83.6%)** | Two byte-identical repeats, both 418 | Repeated result for that exact configuration; 20 question-level grades differed between repeats |
 
-The targeted 40-case, same-packet Luna/Terra model test improved 18→25 overall and 3→10 on 25 exact-evidence misses, with 15/15 stable controls in both arms. It is a development-selected diagnostic, not a 500-question score or a Terra default promotion. A broader Luna-standard versus Terra-balanced screen is prepared offline; it has no paid result yet. The verified full-set record remains 423/500 once and 418/500 twice. [PR #16](https://github.com/Sahith59/AgentMem-OS/pull/16) records the model-capacity evidence and its limit.
+The targeted 40-case, same-packet Luna/Terra model test improved 18→25 overall and 3→10 on 25 exact-evidence misses, with 15/15 stable controls in both arms. It is a development-selected diagnostic, not a 500-question score or a Terra default promotion. The completed broader Luna-standard versus Terra-balanced screen scores **84/150→92/150**, with13 gains/5 losses (net+8), below its preregistered+15 requirement. Current misses improve12/77→22/77 (net+10 versus required+12); stable controls decline54/54→52/54; all30 abstentions improve22→26. Integrity checks pass, but the candidate fails promotion gates. All18 changed grades received assistant source review; three apparent gains involve a likely judge false positive or source/category ambiguity. Official verdicts are preserved. The selected sample is not population accuracy. [Compact result and checks](../benchmarks/audits/english-combined-answer-2026-10-04/result.json), [architecture decision](ENGLISH_ARCHITECTURE_DECISION_2026-10-04.md). The verified full-set record remains 423/500 once and 418/500 twice. [PR #16](https://github.com/Sahith59/AgentMem-OS/pull/16) records the model-capacity evidence and its limit.
 
 ## Historical benchmark columns (not the current operating point)
 

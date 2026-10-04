@@ -1,0 +1,123 @@
+{
+  "scope": "Development-exposed 150-case paired screen; not population accuracy",
+  "status": "FAIL_GATES",
+  "package_sha256": "1eb39bcee4a15da860845a366221f40d91802c79922248f458d0ddf4253a32c7",
+  "metrics": {
+    "overall": {
+      "cases": 150,
+      "baseline_correct": 84,
+      "candidate_correct": 92,
+      "gains": 13,
+      "losses": 5,
+      "same_correct": 79,
+      "same_wrong": 53,
+      "net_gain": 8
+    },
+    "current_misses": {
+      "cases": 77,
+      "baseline_correct": 12,
+      "candidate_correct": 22,
+      "gains": 12,
+      "losses": 2,
+      "same_correct": 10,
+      "same_wrong": 53,
+      "net_gain": 10
+    },
+    "stable_controls": {
+      "cases": 54,
+      "baseline_correct": 54,
+      "candidate_correct": 52,
+      "gains": 0,
+      "losses": 2,
+      "same_correct": 52,
+      "same_wrong": 0,
+      "net_gain": -2
+    },
+    "all_abstentions": {
+      "cases": 30,
+      "baseline_correct": 22,
+      "candidate_correct": 26,
+      "gains": 5,
+      "losses": 1,
+      "same_correct": 21,
+      "same_wrong": 3,
+      "net_gain": 4
+    }
+  },
+  "gates": {
+    "all_150_pairs_complete": true,
+    "total_net_gain_at_least_15": false,
+    "current_miss_net_gain_at_least_12": false,
+    "stable_control_losses_at_most_2": true,
+    "candidate_stable_controls_at_least_52": true,
+    "no_net_abstention_regression": true
+  },
+  "integrity_checks": {
+    "independent_full_result_integrity": true,
+    "fresh_approval_binding": true,
+    "original_completed_jobs_identical": true,
+    "old_failed_attempt_not_inherited": true,
+    "new_jobs_and_calls_within_scope": true,
+    "lineage_sidecar": true,
+    "total_budget_and_new_reservation": true,
+    "both_failed_attempts_retained": true,
+    "additional_dispatch_ledger_reconstructs": true,
+    "total_reservation_includes_failed_attempts": true,
+    "approval_preserves_failed_reservations": true,
+    "total_attempts_within_original_600": true
+  },
+  "original_result_checks": {
+    "package_and_runner_hashes": true,
+    "approval_exact_scope": true,
+    "approval_status_and_founder_message": true,
+    "run_binding": true,
+    "all_600_logical_jobs": true,
+    "all_jobs_complete_without_error": true,
+    "all_requests_reconstruct": true,
+    "all_reservations_reconstruct": true,
+    "provider_receipts_models_and_finish": true,
+    "answers_and_verdicts_reparse": true,
+    "shared_judgments_exact": true,
+    "usage_costs_reconstruct": true,
+    "provider_request_ids_unique": true,
+    "reservation_ledger_within_cap": true,
+    "summary_reconstructs": true
+  },
+  "execution": {
+    "logical_jobs": 600,
+    "provider_calls": 555,
+    "shared_judgments": 45,
+    "reserved_usd": 26.080057,
+    "usage_cost_without_cache_discount_usd": 3.4022665,
+    "approved_cap_usd": 27.78,
+    "archived_failure_reservation_usd": 0.011525,
+    "total_reserved_including_archived_failures_usd": 26.091582,
+    "total_provider_attempts_including_archived_failures": 557
+  },
+  "new_provider_calls": 184,
+  "full500_headline_unchanged": {
+    "correct": 423,
+    "total": 500,
+    "runs": 1
+  },
+  "source_review": {
+    "all_changed_pairs_reviewed": 18,
+    "official_grades_changed": false,
+    "reviewer": "assistant; not independent human review",
+    "questionable_gains": 3,
+    "remaining_failures_by_prior_operation": {
+      "evidence_sufficiency": 3,
+      "preference_or_advice": 3,
+      "temporal_or_update": 13,
+      "aggregation_or_amount": 32,
+      "direct_recall_or_synthesis": 4
+    }
+  },
+  "limits": [
+    "Model and prompt change together.",
+    "Run spans October1 and October4; returned model aliases are not immutable weight guarantees.",
+    "Raw receipts and source excerpts are retained in local durable memory, not published here.",
+    "Usage estimate excludes cache discount and does not verify billing or failed-attempt charges.",
+    "Approval consumed; no promotion or full500 authorized."
+  ]
+}

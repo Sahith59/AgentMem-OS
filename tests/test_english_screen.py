@@ -186,6 +186,58 @@ def test_budget_stop_before_dispatch(package, tmp_path):
     assert state['jobs'] == {} and state['reserved_nusd'] == 0
 
 
+@pytest.mark.parametrize('code,category', [
+    ('rate_limit_exceeded', 'rate_limit'),
+    ('slow_down', 'rate_limit'),
+    ('insufficient_quota', 'quota_or_spend_limit'),
+    ('credit_balance_exhausted', 'quota_or_spend_limit'),
+    ('project_spend_limit_exceeded', 'quota_or_spend_limit'),
+    ('organization_usage_limit_exceeded', 'quota_or_spend_limit'),
+])
+def test_safe_provider_error_classification(code, category):
+    error = RuntimeError('PRIVATE request body and key')
+    error.status_code = 429
+    error.body = {'error': {'code': code, 'message': 'PRIVATE', 'type': 'insufficient_quota'
+                           if category == 'quota_or_spend_limit' else 'rate_limit_error'}}
+    error.request_id = 'req_known-123'
+    error.response = SimpleNamespace(headers={'retry-after': '12.5', 'authorization': 'PRIVATE'})
+    detail = runner.error_diagnostics(error)
+    assert detail['category'] == category and detail['code'] == code
+    assert detail['request_id'] == 'req_known-123' and detail['retry_after_seconds'] == 12.5
+    assert 'PRIVATE' not in json.dumps(detail)
+
+
+def test_unknown_error_does_not_guess_or_copy_arbitrary_fields():
+    error = RuntimeError('PRIVATE')
+    error.status_code = 429
+    error.code = ['PRIVATE']
+    error.type = 'PRIVATE'
+    error.body = {'code': 'PRIVATE', 'message': 'PRIVATE'}
+    error.request_id = 'sk-PRIVATE'
+    error.response = SimpleNamespace(headers={'retry-after': 'PRIVATE'})
+    assert runner.error_diagnostics(error) == {'category': 'unclassified_429', 'http_status': 429}
+    assert runner.error_diagnostics(ValueError('PRIVATE')) == {'category': 'unknown'}
+
+
+def test_quota_failure_saved_without_retry_or_reservation_release(package, tmp_path):
+    calls = []
+    def provider(req):
+        calls.append(req)
+        error = RuntimeError('PRIVATE')
+        error.status_code = 429
+        error.code = 'credit_balance_exhausted'
+        raise error
+    with pytest.raises(RuntimeError):
+        packet.run(package, tmp_path, provider, package['proposed_budget_nusd'], 'test', 'offline-test')
+    state = json.loads((tmp_path / 'checkpoint.json').read_text())
+    job = next(iter(state['jobs'].values()))
+    assert job['error_diagnostics']['category'] == 'quota_or_spend_limit'
+    assert state['reserved_nusd'] == job['reservation_nusd'] > 0
+    with pytest.raises(ValueError):
+        packet.run(package, tmp_path, provider, package['proposed_budget_nusd'], 'test', 'offline-test')
+    assert len(calls) == 1 and 'PRIVATE' not in (tmp_path / 'checkpoint.json').read_text()
+
+
 def test_cache_write_cost_is_bounded(package):
     req = packet.request(package, package['cases'][0], 'baseline', 'generate')
     response = Fake()(req)
