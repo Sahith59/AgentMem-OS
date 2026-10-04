@@ -77,3 +77,28 @@ def test_conflicting_attribution_rejected():
                         SourceTurn('y', 'assistant', '', 'Visit the park.')))
     with pytest.raises(ValueError, match='Ambiguous'):
         selection_request(value)
+
+
+def test_focus_adapter_independently_rejects_changed_dates(tmp_path):
+    from benchmarks.evaluator_v1.prepare_focus import prepare
+    from benchmarks.evaluator_v1.verify_focus import verify, hash_file
+    from benchmarks.evidence_focus import digest
+    text = '[2026/01/01] I bought three pens.'
+    package = {'cases':[{'id':str(i),'question':'How many pens?', 'context':text,
+                         'context_sha256':digest(text)} for i in range(500)]}
+    cache = {'memories':[{'mid':'m','turns':[{'role':'user','content':text}]}],
+             'queries':[{'question_id':str(i),'question':'How many pens?',
+                         'question_date':'2026/01/02','scope_keys':['m']} for i in range(500)]}
+    pp, cp = tmp_path/'p.json', tmp_path/'c.json'
+    pp.write_text(json.dumps(package)); cp.write_text(json.dumps(cache))
+    out = tmp_path/'focus'; prepare(pp, cp, out)
+    assert verify(out)['original_turns_checked'] == 500
+    report = json.loads((out/'report.json').read_text())
+    inp = Path(report['rows'][0]['input_file']['path'])
+    value = json.loads(inp.read_text()); value['turns'][0]['observed_at'] = '2099/01/01'
+    inp.write_text(json.dumps(value))
+    # Even an updated file digest cannot conceal wrong source attribution.
+    report['rows'][0]['input_file']['sha256'] = hash_file(inp)
+    (out/'report.json').write_text(json.dumps(report))
+    with pytest.raises(ValueError, match='Changed source'):
+        verify(out)

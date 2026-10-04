@@ -48,16 +48,21 @@ def verify(directory):
                     allowed[key] = turn
         if {t['id'] for t in value['turns']} != set(allowed) or len(value['turns']) != len(allowed):
             raise ValueError('Wrong scoped source population')
+        if value['turns'] != sorted(value['turns'], key=lambda t: (case['context'].index(t['text']), t['id'])):
+            raise ValueError('Changed source order')
         for turn in value['turns']:
             source = allowed[turn['id']]
-            if turn['role'] != source['role'] or turn['text'] != source['content']:
+            text = source['content']
+            date = text[1:].split(']', 1)[0] if text.startswith('[') and ']' in text else ''
+            if (set(turn) != {'id','role','observed_at','text'} or turn['observed_at'] != date
+                or turn['role'] != source['role'] or turn['text'] != text):
                 raise ValueError('Changed source text/role')
             checked += 1
         free.append(40000 - len(value['packet']))
         counts.append(len(value['turns']))
     if report['counts'] != dict(Counter(r['status'] for r in rows)):
         raise ValueError('Counts mismatch')
-    return {'status':'PASS_OFFLINE_SOURCE_BINDINGS', 'cases':500, 'original_turns_checked':checked,
+    return {'status':'PASS_OFFLINE_SOURCE_BINDINGS', 'verifier_sha256':hash_file(__file__), 'cases':500, 'original_turns_checked':checked,
         'median_source_turns':statistics.median(counts), 'minimum_free_chars':min(free),
         'median_free_chars':statistics.median(free), 'no_original_context_changes':True,
         'model_calls':0, 'selector_quality':'NOT_MEASURED', 'english_accuracy':'NOT_MEASURED'}
