@@ -59,3 +59,7 @@ The new evaluator does not unify every legacy product entrypoint. Deployment rob
 ## Subsequent paid calibration result
 
 The approved two-stage run completed: development32/32, internal validation118/120; frozen gates pass. All152 provider calls and receipts verified, no retries. The two disagreements and reference/source-policy ambiguity are preserved in the [result and next-step report](results/TERRA_CALIBRATION_2026-10-04.md). Conservative usage upper estimate$0.073447; total reservation$4.43249950 within$4.45. This supersedes the earlier not-run status for calibration only. No new English answer score, bridge, selector quality result or architecture promotion follows. The saved500-answer bridge is prepared at a$14.75 cap and still needs separate exact approval.
+
+## Subsequent saved-answer bridge result
+
+The separately approved500-call bridge is complete: Terra425/500(85.0%) versus historical423/500(84.6%) on identical Luna answers. No retries, new answers or architecture improvement. All16 changed grades and20 prospectively sampled agreements received assistant source/rubric review; a clear temporal rubric miss, likely preference errors and reference/source ambiguities remain. This supersedes pending approval/not-run statements above for the bridge only. Terra v1 is a provisional internal comparison scale, not sole closure authority. Approval consumed; no selector or Luna generation spending is authorized. [Result, audit and next gates](results/TERRA_BRIDGE_2026-10-04.md).
