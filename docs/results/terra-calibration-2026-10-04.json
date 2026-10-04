@@ -1,0 +1,65 @@
+{
+  "status": "PASS_INTERNAL_CALIBRATION",
+  "date": "2026-10-04",
+  "model": "gpt-5.6-terra",
+  "reasoning_effort": "low",
+  "max_completion_tokens": 2048,
+  "source_commit": "853d9dd74f3abf7a3e7cffce9fabf754428fb56b",
+  "development": {
+    "correct": 32,
+    "false_accepts": 0,
+    "false_rejects": 0,
+    "critical_errors": 0,
+    "intended": 32,
+    "completed": 32,
+    "reserved_nusd": 931317000,
+    "usage_upper_nusd": 14991000,
+    "tokens": {
+      "input": 5382,
+      "output": 128,
+      "reasoning": 0
+    },
+    "checkpoint_sha256": "40fc5ca13d1e5814e82482b9ca5ecc65868ad7d426e0378d0436a8c53162a3bb",
+    "package_sha256": "1a21b02c6711092a4819200e84cb794136fc93e413739f1d9f31f1b2cbf3378f"
+  },
+  "validation": {
+    "correct": 118,
+    "false_accepts": 1,
+    "false_rejects": 1,
+    "critical_errors": 0,
+    "intended": 120,
+    "completed": 120,
+    "reserved_nusd": 3501182500,
+    "usage_upper_nusd": 58456000,
+    "tokens": {
+      "input": 20800,
+      "output": 538,
+      "reasoning": 46
+    },
+    "checkpoint_sha256": "d7efde275a11c7642c266c939d3fffc0e80df624512ff23cc6e5a12ccc83ec05",
+    "package_sha256": "993157e9f0c751a512f6a575f2c9b2e0f520372a5fe8d4e16dfc25aff197ef82"
+  },
+  "calls": 152,
+  "retries": 0,
+  "failed_provider_attempts": 0,
+  "reserved_usd": 4.4324995,
+  "approved_cap_usd": 4.45,
+  "successful_usage_upper_estimate_usd": 0.073447,
+  "cost_note": "Frozen-rate conservative usage estimate, not billing invoice. Reservations are not actual charges.",
+  "independent_audit_sha256": "615ca91ed217a1cef3171d81982932be05366acfb74d035ed3bff6ce0bd1fc0f",
+  "review_sha256": "3e1f89deda415d4c47878069bf884743f88452408fef83dd72d3b01cc808cb2e",
+  "english_accuracy_change": "NOT_MEASURED",
+  "historical_english": {
+    "correct": 423,
+    "total": 500,
+    "judge": "gpt-4o",
+    "answerer": "gpt-5.6-luna",
+    "runs": 1
+  },
+  "limitations": [
+    "Internal assistant-authored/source-rubric-reviewed calibration; no independent human holdout.",
+    "120validation judgments share60paired source scenarios.",
+    "One reference/source-policy ambiguity and one clear temporal-rubric miss remain; frozen labels unchanged.",
+    "No saved-answer bridge, selector run, Luna generation or full500 run executed."
+  ]
+}
