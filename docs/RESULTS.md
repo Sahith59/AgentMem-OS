@@ -19,6 +19,8 @@ one-variable comparisons. Columns that matter for comparability:
 
 ## Latest measured English state (October 4, 2026)
 
+**Forward policy update:** GPT-4o-family inference is retired from new runs. These historical grades remain unchanged. The replacement judge is not yet calibrated, so no new-scale English score exists. See the [Luna foundation and evaluation migration](ENGLISH_LUNA_FOUNDATION_2026-10-04.md).
+
 | Configuration | LongMemEval `_s` full 500 | Repeat status | Interpretation |
 |---|---:|---|---|
 | Precision-source pipeline, Luna answerer, official GPT-4o judge | **423/500 (84.6%)** | One run | Development-exposed; +5 correct versus each prior revised-pipeline repeat, but a separate configuration and no stability claim |
