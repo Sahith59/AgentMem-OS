@@ -1,0 +1,301 @@
+{
+  "status": "BRIDGE_COMPLETE_PROVISIONAL_RESEARCH_SCALE",
+  "paid_calls": 500,
+  "retries": 0,
+  "old_correct": 423,
+  "new_correct": 425,
+  "total": 500,
+  "grade_gains": 9,
+  "grade_losses": 7,
+  "net_grade_shift": 2,
+  "reserved_nusd": 14745885000,
+  "usage_upper_nusd": 287863500,
+  "tokens": {
+    "input": 100395,
+    "output": 3073,
+    "reasoning": 983
+  },
+  "strata": {
+    "single-session-user": {
+      "total": 64,
+      "old_correct": 63,
+      "new_correct": 63
+    },
+    "multi-session": {
+      "total": 121,
+      "old_correct": 85,
+      "new_correct": 84
+    },
+    "knowledge-update": {
+      "total": 72,
+      "old_correct": 69,
+      "new_correct": 68
+    },
+    "abstention": {
+      "total": 30,
+      "old_correct": 19,
+      "new_correct": 19
+    },
+    "single-session-preference": {
+      "total": 30,
+      "old_correct": 20,
+      "new_correct": 24
+    },
+    "temporal-reasoning": {
+      "total": 127,
+      "old_correct": 113,
+      "new_correct": 112
+    },
+    "single-session-assistant": {
+      "total": 56,
+      "old_correct": 54,
+      "new_correct": 55
+    }
+  },
+  "checkpoint_sha256": "f1532103872a2f055540e11024918ad312ce713e79ca00cfd53df10e3f9335ef",
+  "package_sha256": "3c3627981cbde859ac3c03bbb1d0d9c777baf3ed823db297e6eb22ee4943be4e",
+  "audit_policy_sha256": "c94ed4f3d2f55f00dcc1d1745850bedaf123401115d5a88ba1ea95d68a574052",
+  "answer_changes": 0,
+  "architecture_accuracy_lift": "NOT_MEASURED",
+  "historical_judge": "gpt-4o",
+  "bridge_judge": "gpt-5.6-terra",
+  "answerer": "gpt-5.6-luna",
+  "judge_reasoning_effort": "low",
+  "agreement_count": 484,
+  "agreement_percent": 96.8,
+  "review": {
+    "status": "ASSISTANT_REVIEW_COMPLETE_WITH_CAVEATS",
+    "reviewer": "Codex assistant; not independent human adjudication",
+    "changed_reviewed": 16,
+    "agreements_reviewed": 20,
+    "primary_grades_modified": 0,
+    "limits": "Targeted scoped source excerpts and frozen question/reference/answer review. Not an exhaustive source-history audit or external fact check. Gold/source disagreement is preserved; no corrected headline is calculated. Review categories are judgments, not independent ground truth."
+  },
+  "case_review": [
+    {
+      "id": "09d032c9",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "Portable power bank and battery-saving advice satisfy the core personalization. Source confirms ownership; the rubric does not require every preference point."
+    },
+    {
+      "id": "1c0ddc50",
+      "group": "changed",
+      "assessment": "ambiguous",
+      "rationale": "Known podcast and audiobooks personalize the response, but light reading conflicts with the reference preference and the podcast is not new. Partial personalization versus conflicting advice is a policy ambiguity."
+    },
+    {
+      "id": "54026fce",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "Weekly virtual coffee and coworking address the remote-work social need; user explicitly wanted virtual coffee breaks."
+    },
+    {
+      "id": "57f827a0",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "The mid-century modern dresser anchors the layout advice to the stated replacement plan. Extra generic tips do not remove that match."
+    },
+    {
+      "id": "6e984302",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "Enumerated modeling tools, wire cutter and sculpting mat are the source-described purchased sculpting set."
+    },
+    {
+      "id": "8752c811",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "Sound effects is the exact title of item 27 in the original assistant list; parenthetical examples are not required."
+    },
+    {
+      "id": "a89d7624",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "Live music, Red Rocks and dinner build on the recorded Denver experience. The rubric does not require repeating Brandon Flowers. Current venue availability was not researched and is not a claim of this audit."
+    },
+    {
+      "id": "afdc33df",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "Utensil holder and granite protection directly address both personalized concerns."
+    },
+    {
+      "id": "gpt4_372c3eed_abs",
+      "group": "changed",
+      "assessment": "rubric_pass_source_caveat",
+      "rationale": "The answer explicitly says the total is not determinable, satisfying abstention. Its explanation that only high school is documented is incomplete: source also gives a four-year UCLA degree and PCC history. Reference-grade acceptance is not complete factual fidelity."
+    },
+    {
+      "id": "15745da0_abs",
+      "group": "changed",
+      "assessment": "ambiguous",
+      "rationale": "Conditional correction to vintage cameras signals an object mismatch but never explicitly says the duration for films is unknown. Source confirms cameras for three months. Abstention explicitness is ambiguous."
+    },
+    {
+      "id": "157a136e",
+      "group": "changed",
+      "assessment": "supported_correction",
+      "rationale": "A 36\u201345 range does not identify the required 43-year difference. Source gives grandma 75; user asks whether 32 is young or old, an indirect age cue. Exact reference age inference is less explicit than the reference suggests."
+    },
+    {
+      "id": "195a1a1b",
+      "group": "changed",
+      "assessment": "likely_false_rejection",
+      "rationale": "Relaxing activities satisfy the preference rubric, and user specifically wanted the Insight Timer body scan that evening. Phone-use concern is in the reference, but reviewed user turns favor guided meditation; not every preference point is required."
+    },
+    {
+      "id": "22d2cb42",
+      "group": "changed",
+      "assessment": "ambiguous",
+      "rationale": "Answer includes the required Main St location, making rejection questionable under the contains-answer rubric. However Rhythm Central is named in an earlier plan, not explicitly identified in the later completed-service report. Source does not establish the extra name with certainty."
+    },
+    {
+      "id": "75832dbd",
+      "group": "changed",
+      "assessment": "likely_false_rejection",
+      "rationale": "Medical Image Analysis and explicit medical-imaging interest match the core AI-healthcare preference. The rubric permits partial personalization. Publication recency and every named venue were not independently validated."
+    },
+    {
+      "id": "c9f37c46",
+      "group": "changed",
+      "assessment": "clear_rubric_false_rejection",
+      "rationale": "Three versus two months is an off-by-one duration that the frozen temporal rubric explicitly accepts. Source implies two months at attendance (watching started three months ago; event last month). Answer has an event-time reasoning error that the benchmark tolerance accepts."
+    },
+    {
+      "id": "gpt4_f49edff3",
+      "group": "changed",
+      "assessment": "supported_rejection_with_format_caveat",
+      "rationale": "Dates alone do not explicitly identify which event is first, second and third, so the reference-only grader cannot verify the requested event order. Source supports Feb 5 nursery, Feb 10 shower and Feb 20 case. This is under-specified answer formatting, not proof of incorrect underlying dates."
+    },
+    {
+      "id": "f9e8c073",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Five sessions explicitly recalled."
+    },
+    {
+      "id": "3c1045c8",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "User 32 minus departmental average 29.5 equals 2.5."
+    },
+    {
+      "id": "6222b6eb",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Original assistant explicitly associates 6S with SIAC_GEE; recall verified, not external technical correctness of that old assistant claim."
+    },
+    {
+      "id": "d24813b1",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Lemon poppyseed success and preference for dried lavender buds are recorded."
+    },
+    {
+      "id": "bc8a6e93",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "User explicitly baked lemon blueberry cake for niece."
+    },
+    {
+      "id": "gpt4_fe651585",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Alex adopted in January; Rachel twins born February 12. Same source conversation also contains a first-birthday inconsistency; exact dates support the reference order."
+    },
+    {
+      "id": "3ba21379",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Latest relevant user statement says switched to Ford F-150."
+    },
+    {
+      "id": "d851d5ba",
+      "group": "agreement",
+      "assessment": "reference_rejection_source_ambiguity",
+      "rationale": "Both judges reject over $8,750 versus $3,750. Source supports $1,000+$250+$500+$2,000=$3,750, but also an additional benefit concert over $5,000 said to be back in April in a March 20 session. The answer aggregates an explicit extra source event. Event chronology/reference completeness is unresolved; do not classify this solely as bad addition."
+    },
+    {
+      "id": "8cf51dda",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "All three original assistant objectives are preserved in the compressed answer."
+    },
+    {
+      "id": "505af2f5",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Almond milk, vanilla and modest honey fit the existing recipe and reduced-sugar goal."
+    },
+    {
+      "id": "19b5f2b3",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "User explicitly states two weeks in Japan."
+    },
+    {
+      "id": "dcfa8644",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "January 10 purchase to January 24 broken lace is 14 days."
+    },
+    {
+      "id": "71315a70",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "User states 10\u201312 hours on the abstract ocean sculpture."
+    },
+    {
+      "id": "d3ab962e",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Three-mile last-weekend and five-mile prior-weekend hikes sum to eight."
+    },
+    {
+      "id": "488d3006",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Original assistant recommended GR-90. This verifies recall, not external accuracy of the old travel advice."
+    },
+    {
+      "id": "06878be2",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Sony A7R IV and chosen Godox V1 anchor personalization. Individual accessory specifications/compatibility were not externally certified in this audit."
+    },
+    {
+      "id": "ccb36322",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "User explicitly says Spotify."
+    },
+    {
+      "id": "gpt4_8279ba02",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "Not mentioned is incorrect: source says bought smoker March 15; question March 25, ten days later."
+    },
+    {
+      "id": "7a87bd0c",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "User explicitly reports four weeks."
+    },
+    {
+      "id": "b3c15d39",
+      "group": "agreement",
+      "assessment": "reference_and_source_supported",
+      "rationale": "February 5 order to February 10 delivery is five days."
+    }
+  ],
+  "local_artifacts_sha256": {
+    "paid-bridge-001/independent-verification.json": "90d0debe4c02056bbf2e2e53268fb947334513ebea049e1258e91bf498dbfa99",
+    "paid-bridge-001/assistant-review.json": "f19491e580cf388f40c735bf0735cc1187122a59a3689f5e89116c13de5a81ed",
+    "bridge-approval-001.json": "4a7447cbe66d09868b139f3e1b9032a831740ed7e29632d458484ac3bb963a82",
+    "bridge-source-evidence-001.json": "2e45fe264ad9d5ac6e8fe9b39897caf8dce1e8f586664ae9ae122ef225e7d2bb",
+    "bridge-source-evidence-002.json": "d95a75fbff6ca88d84185f6eb4a32e2f3021ee3a70abfced0687aad1e2c30283",
+    "bridge-source-evidence-003.json": "1cc96b91371ca3214d4dd49643c91b5d86057d2c892ecc538b659e3e6ae3bcdc",
+    "paid-bridge-001/source-preservation-verification.json": "8ee380dd6670d61d241fbc290ea43eaa0660d48981a8229ac391dce1b2a0b417"
+  }
+}
