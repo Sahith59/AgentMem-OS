@@ -70,7 +70,10 @@ def plan_request(value: FocusInput):
     payload = {
         "question": value.question,
         "question_date": value.question_date,
-        "sources": [vars(t) for t in value.turns],
+        "sources": [
+            {"id": t.id, "role": t.role, "observed_at": t.observed_at, "text": t.text}
+            for t in value.turns
+        ],
     }
     return dict(
         SETTINGS,
