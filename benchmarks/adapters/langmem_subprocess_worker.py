@@ -35,6 +35,11 @@ _managers: dict = {}  # namespace -> (manager, store)
 
 
 def _get_manager(namespace: str):
+    from pathlib import Path
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from model_policy import require_active_model
+    require_active_model('openai:gpt-4o-mini')
     if namespace not in _managers:
         store = InMemoryStore(index={
             "dims": 1536,

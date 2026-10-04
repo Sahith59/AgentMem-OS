@@ -41,6 +41,11 @@ _reset_group_ids: set = set()
 
 
 def _get_graphiti() -> Graphiti:
+    from pathlib import Path
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from model_policy import require_active_model
+    require_active_model('gpt-4o-mini')
     global _graphiti
     if _graphiti is None:
         llm_config = LLMConfig(model="gpt-4o-mini", small_model="gpt-4o-mini")

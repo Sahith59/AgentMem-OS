@@ -130,6 +130,9 @@ ap.add_argument("--db-path", default="",
                       "that scope stored — 22 scopes held 08-05 raw turns "
                       "while 128 held 08-10 facts, in one 'single' run.")
 args = ap.parse_args()
+from model_policy import require_active_model
+require_active_model(args.gen_model)
+require_active_model(args.judge_model)
 
 # ── F-15 FIX: bind the DB BEFORE any agentmem import ──────────────────
 # db/engine.py resolves DB_PATH at IMPORT time (engine.py:94), so this
@@ -291,6 +294,7 @@ def safe_workers(model: str, requested: int) -> int:
 
 
 def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
+    require_active_model(model)
     import time as _t
     import openai as _o
     kwargs = {"model": model, "messages": [{"role": "user", "content": prompt}]}

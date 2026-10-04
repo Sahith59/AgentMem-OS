@@ -350,6 +350,10 @@ def test_resume_binding_mismatch_blocks_calls(package, completed, tmp_path, chan
     budget = package['proposed_budget_nusd'] + (1 if change == 'budget' else 0)
     auth = 'changed' if change == 'authorization' else 'synthetic-only'
     mode = 'paid' if change == 'mode' else 'offline-test'
-    with pytest.raises(ValueError, match='Resume manifest'):
+    before = (tmp_path / 'checkpoint.json').read_bytes()
+    # Retirement now takes precedence before entering the paid run at all.
+    message = 'GPT-4o family is retired' if change == 'mode' else 'Resume manifest'
+    with pytest.raises(ValueError, match=message):
         packet.run(package, tmp_path, provider, budget, auth, mode)
     assert provider.calls == 0
+    assert (tmp_path / 'checkpoint.json').read_bytes() == before

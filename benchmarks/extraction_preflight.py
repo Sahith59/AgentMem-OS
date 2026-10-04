@@ -54,6 +54,8 @@ PRICES = {  # $ per 1M tokens (input, output)
 
 
 def call(model, prompt):
+    from model_policy import require_active_model
+    require_active_model(model)
     body = {"model": model,
             "messages": [{"role": "user", "content": prompt}],
             "response_format": {"type": "json_object"}}
@@ -82,6 +84,10 @@ def call(model, prompt):
 
 
 def main():
+    from model_policy import require_active_model
+    for model in PRICES:
+        require_active_model(model)
+
     ds = json.load(open(HERE / "benchmark_cache/longmemeval_s.json"))
     mems = ds["memories"]
     import random

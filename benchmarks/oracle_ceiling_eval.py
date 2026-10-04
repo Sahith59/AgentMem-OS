@@ -74,6 +74,9 @@ ap.add_argument("--lme-split", choices=["oracle", "s"], default="oracle",
                  help="LongMemEval haystack: oracle (evidence sessions only) or s "
                       "(~40 sessions/question, the split vendor numbers use)")
 args = ap.parse_args()
+from model_policy import require_active_model
+require_active_model(args.gen_model)
+require_active_model(args.judge_model)
 
 import openai  # noqa: E402
 
@@ -125,6 +128,7 @@ def safe_workers(model: str, requested: int) -> int:
 
 
 def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
+    require_active_model(model)
     import time as _t
     import openai as _o
     kwargs = {"model": model, "messages": [{"role": "user", "content": prompt}]}
