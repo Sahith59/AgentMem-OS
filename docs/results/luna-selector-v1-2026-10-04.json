@@ -1,0 +1,27 @@
+{
+  "status": "FAILED_FROZEN_GATE",
+  "package_sha256": "017319737bef7572fe81b8d6c939aa5ce31035144ec20a40ed64fd3b93f90493",
+  "intended": 13,
+  "provider_attempts": 1,
+  "provider_responses": 1,
+  "accepted_plans": 0,
+  "unattempted": 12,
+  "automatic_retries": 0,
+  "contract_failure": "Invalid sufficiency",
+  "returned_sufficiency": "sufficient",
+  "selection_review_despite_invalid_contract": {
+    "missing_required": [],
+    "selected_excluded": [
+      "category-2"
+    ],
+    "pass": false
+  },
+  "reserved_nusd": 3043600,
+  "usage_upper_nusd": 293400,
+  "english_accuracy": "NOT_MEASURED",
+  "source_sha256": {
+    "package.json": "28c461433f732f16f58c6a5e359f50e4146c9cea6492be3174b4fbfae1e75ec8",
+    "approval.json": "7c6119537ddfebf8dbeb6af19ad1f7c13a08b2339d0e8b726636553775a80207",
+    "paid-diagnostic-001/checkpoint.json": "2f7686651d9f35d71bae0c6c7c4a48003e63e4d4ff1e0ea1b62fc6dc37ec17fd"
+  }
+}
