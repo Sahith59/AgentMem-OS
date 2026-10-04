@@ -83,12 +83,12 @@ Verbatim conversation evidence stays primary. A local 8B model proposes facts fr
 
 | Configuration | QA accuracy | Mean context sent |
 |---|---|---|
-| Precision-source pipeline, current | **84.6%** (423/500, one run; repeat pending) | 40k-character cap; mean tokens not reported |
+| Precision-source pipeline, current | **84.6%** (423/500, one historical run; new judge protocol pending) | 40k-character cap; mean tokens not reported |
 | Prior revised pipeline | **83.6%** (418/500 in each of two repeats) | 40k-character cap; mean tokens not reported |
 | Historical full-evidence Luna series | 80.0% ± 0.5 (three 500-question runs) | ~8.5k tokens |
 | AgentMem OS, 24k operating point | 76.9% ± 1.0 (n=150, mean of 3 runs) | 5,698 tokens |
 
-The English rows use different corpus and retrieval configurations. The current answerer is `gpt-5.6-luna`; the benchmark's official type-specific judge uses `gpt-4o`. See [docs/RESULTS.md](docs/RESULTS.md) for repeat counts and historical comparability limits. A 90% result has not been measured.
+The English rows use different corpus and retrieval configurations. The latest measured answerer was `gpt-5.6-luna`, with the benchmark's type-specific `gpt-4o` judge. GPT-4o-family inference is now retired for future runs; those historical grades remain unchanged. The affordable replacement judge and new scoring series require calibration. See the [Luna foundation plan](docs/ENGLISH_LUNA_FOUNDATION_2026-10-04.md). See [docs/RESULTS.md](docs/RESULTS.md) for repeat counts and historical comparability limits. A 90% result has not been measured.
 
 **Why evidence delivery matters:** historical session-coverage analysis found a large association with answer accuracy, but a session hit does not prove that its answer-bearing turn or all operands reached the packet. Later full500 audits separate retrieval gaps from answer selection, abstention and judge sensitivity. See [docs/BENCHMARKS.md](docs/BENCHMARKS.md#the-coverage-finding-the-mechanism-behind-everything) for the original analysis and [docs/RESULTS.md](docs/RESULTS.md) for the qualified current result.
 

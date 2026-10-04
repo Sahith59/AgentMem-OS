@@ -20,6 +20,7 @@ already relies on.
 import json
 import os
 import urllib.request
+from agentmem_os.benchmarks.model_policy import require_active_model
 
 from loguru import logger
 
@@ -90,7 +91,7 @@ class ProfileExtractor:
     def __init__(self, get_db_session, model: str = DEFAULT_MODEL,
                  timeout: int = 600):
         self.get_db = get_db_session
-        self.model = model
+        self.model = require_active_model(model)
         self.timeout = timeout
         self._store = None
 
@@ -101,6 +102,7 @@ class ProfileExtractor:
         return self._store
 
     def _llm(self, prompt: str) -> dict:
+        require_active_model(self.model)
         req = urllib.request.Request(
             OLLAMA_URL,
             data=json.dumps({

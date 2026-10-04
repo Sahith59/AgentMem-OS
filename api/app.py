@@ -54,7 +54,12 @@ _MODEL_ALIASES: dict[str, str] = {
 
 
 def _normalise_model(model: str) -> str:
-    return _MODEL_ALIASES.get(model, model)
+    from agentmem_os.benchmarks.model_policy import require_active_model
+    try:
+        require_active_model(model)
+        return require_active_model(_MODEL_ALIASES.get(model, model))
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from None
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -1,3 +1,4 @@
+from agentmem_os.benchmarks.model_policy import require_active_model
 import logging
 from typing import List, Dict, Tuple
 from agentmem_os.storage.manager import StorageManager
@@ -19,17 +20,19 @@ def get_embedder():
 
 class SummarizationEngine:
     def __init__(self, model_name="llama3.1", threshold=0.92):
-        self.model_name = model_name
+        self.model_name = require_active_model(model_name)
         self.threshold = threshold
         self.llm = None  # Init only when needed
 
     def _get_llm(self):
         if self.llm is None:
             import os
-            from langchain_community.chat_models import ChatLiteLLM
             # Use local Qwen 2.5 as default for summarization, configurable later
             model_name = os.environ.get("MEMNAI_SUMMARIZER_MODEL", "ollama/qwen2.5:14b")
+            require_active_model(model_name)
+            from langchain_community.chat_models import ChatLiteLLM
             self.llm = ChatLiteLLM(model=model_name, temperature=0.1)
+        require_active_model(getattr(self.llm, "model", self.model_name))
         return self.llm
 
     def extract_entities(self, text: str) -> List[str]:
@@ -66,6 +69,7 @@ class SummarizationEngine:
         return np.max(similarities) > self.threshold
 
     def compress(self, turns: List[Dict]) -> Tuple[str, List[str]]:
+        llm = self._get_llm()  # Validate before entity extraction can download a model.
         raw_text = "\n".join([f"{t['role']}: {t['content']}" for t in turns])
         entities = self.extract_entities(raw_text)
         
@@ -75,7 +79,7 @@ class SummarizationEngine:
         chunk_size = 4000
         docs = [Document(page_content=raw_text[i:i+chunk_size]) for i in range(0, len(raw_text), chunk_size)]
         
-        chain = load_summarize_chain(self._get_llm(), chain_type="map_reduce")
+        chain = load_summarize_chain(llm, chain_type="map_reduce")
         res = chain.invoke(docs)
         summary = res["output_text"].strip()
         

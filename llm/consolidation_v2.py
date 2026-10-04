@@ -50,6 +50,7 @@ import json
 import os
 import re
 import urllib.request
+from agentmem_os.benchmarks.model_policy import require_active_model
 from datetime import datetime
 
 from loguru import logger
@@ -225,7 +226,7 @@ class ConsolidationV2:
         # recorded model MUST name the actual extractor (F-20 smoke
         # caught facts stamped llama3.1 that Luna wrote).
         api_model = os.environ.get("AGENTMEM_OS_EXTRACTION_API_MODEL")
-        self.model = api_model or model
+        self.model = require_active_model(api_model or model)
         self.timeout = timeout if timeout is not None else int(
             os.environ.get("AGENTMEM_OS_LLM_TIMEOUT", "600"))
         self.store = SemanticFactStore(get_db_session)
@@ -246,7 +247,7 @@ class ConsolidationV2:
         finish_reason=="length" and is retried once at double budget,
         then raised loudly — same never-swallow rule."""
         import time as _t
-        model = os.environ["AGENTMEM_OS_EXTRACTION_API_MODEL"]
+        model = require_active_model(os.environ["AGENTMEM_OS_EXTRACTION_API_MODEL"])
         body = {"model": model,
                 "messages": [{"role": "user", "content": prompt +
                               "\n\nReturn a JSON object exactly of the "
@@ -300,6 +301,7 @@ class ConsolidationV2:
         cap, so the cap is now observable: retry once at double, then
         fail with a message that names the real cause instead of a
         parser error."""
+        require_active_model(self.model)
         req = urllib.request.Request(
             OLLAMA_URL,
             data=json.dumps({

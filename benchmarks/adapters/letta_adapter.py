@@ -58,6 +58,8 @@ class LettaAdapter(MemoryAdapter):
         self._agent_ids: dict = {}  # namespace -> agent_id
 
     def setup(self) -> None:
+        from benchmarks.model_policy import require_active_model
+        require_active_model(self._model)
         from letta_client import Letta
         self._client = Letta(base_url=self._base_url)
         self._client.agents.list(limit=1)  # verify the server is reachable
@@ -66,6 +68,8 @@ class LettaAdapter(MemoryAdapter):
         return f"{_AGENT_NAME_PREFIX}{namespace}"
 
     def reset(self, namespace: str) -> None:
+        from benchmarks.model_policy import require_active_model
+        require_active_model(self._model)
         name = self._agent_name(namespace)
         for existing in self._client.agents.list(name=name).items:
             self._client.agents.delete(existing.id)

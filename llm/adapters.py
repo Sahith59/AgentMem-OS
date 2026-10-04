@@ -1,3 +1,4 @@
+from agentmem_os.benchmarks.model_policy import require_active_model
 import litellm
 from agentmem_os.db.engine import get_session
 from agentmem_os.db.models import CostLog
@@ -12,6 +13,7 @@ class UniversalAdapter:
         Assembles context and routes to any LLM via LiteLLM.
         Logs token usage and cost automatically.
         """
+        require_active_model(model)
         # 1. Assemble context within token bounds
         context_str = self.assembler.assemble(session_id, query)
         

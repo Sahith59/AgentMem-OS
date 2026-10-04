@@ -245,6 +245,9 @@ def validate_shared_judgments(state):
 
 
 def run(package, directory, provider, budget_nusd, authorization, mode):
+    if mode == "paid":
+        from ..model_policy import require_active_package
+        require_active_package(package)
     identity = validate(package)
     if mode not in ('offline-test', 'paid') or not authorization or budget_nusd <= 0:
         raise ValueError('Explicit mode, authorization and positive budget required')
@@ -353,6 +356,8 @@ class OpenAIProvider:
                              base_url='https://api.openai.com/v1', max_retries=0, timeout=90)
 
     def __call__(self, req):
+        from ..model_policy import require_active_model
+        require_active_model(req["model"])
         result = self.client.chat.completions.create(**req)
         choice = result.choices[0]
         return {'text': choice.message.content or '', 'finish_reason': choice.finish_reason,

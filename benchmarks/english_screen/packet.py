@@ -94,6 +94,8 @@ def main():
     # Fail before constructing a provider on unapproved, corrupt or mismatched work.
     if budget != package["proposed_budget_nusd"]:
         parser.error("Budget differs from frozen proposed cap")
+    from ..model_policy import require_active_package
+    require_active_package(package)
     result = run(package, args.output, base.OpenAIProvider(), budget,
                  authorization, "paid")
     from .verification import verify_paid

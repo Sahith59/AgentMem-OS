@@ -96,6 +96,9 @@ ap.add_argument("--dry-run-cost", action="store_true",
                       "sum actual generate+judge token usage, project full-run cost, "
                       "then exit WITHOUT running the full dataset")
 args = ap.parse_args()
+from model_policy import require_active_model
+require_active_model(args.gen_model)
+require_active_model(args.judge_model)
 
 try:
     import openai
@@ -199,6 +202,7 @@ def safe_workers(model: str, requested: int) -> int:
 
 
 def _chat_with_retry(client, model, prompt, max_tokens, tries=8):
+    require_active_model(model)
     import time as _t
     import openai as _o
     kwargs = {"model": model, "messages": [{"role": "user", "content": prompt}]}

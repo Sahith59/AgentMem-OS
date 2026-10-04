@@ -60,6 +60,8 @@ VERDICT=<MERGE|NO_MERGE|NEED_CONTEXT> CONFIDENCE=<0.0-1.0>"""
 
 
 def judge(a, b, retries=2):
+    from model_policy import require_active_model
+    require_active_model(MODEL)
     body = json.dumps({
         "model": MODEL,
         "prompt": PROMPT.format(a=a, b=b),
@@ -89,6 +91,8 @@ def judge(a, b, retries=2):
 def judge_api(a, b, retries=2):
     """OpenAI-compatible chat path (OpenAI, Sarvam). Chosen when MODEL
     is not an ollama tag. Sarvam uses api-subscription-key header."""
+    from model_policy import require_active_model
+    require_active_model(MODEL)
     if MODEL.startswith("sarvam"):
         url = "https://api.sarvam.ai/v1/chat/completions"
         headers = {"api-subscription-key": os.environ["SARVAM_API_KEY"]}
@@ -122,6 +126,8 @@ def judge_api(a, b, retries=2):
     return "ERROR", 0.0, ""
 
 def main():
+    from model_policy import require_active_model
+    require_active_model(MODEL)
     pairs = []  # (a, b, label, species)
     for e in ENTITIES:
         forms = e["forms"]

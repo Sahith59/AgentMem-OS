@@ -31,6 +31,7 @@ from typing import List, Dict, Tuple, Optional, Any
 from datetime import datetime
 
 from loguru import logger
+from agentmem_os.benchmarks.model_policy import RetiredModelError
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -221,6 +222,9 @@ class ProceduralMemory:
             )
             return saved
 
+        except RetiredModelError:
+            db.rollback()
+            raise
         except Exception as e:
             logger.error(f"[ProceduralMemory] mine_patterns failed: {e}")
             db.rollback()
@@ -336,6 +340,8 @@ class ProceduralMemory:
                     [{"role": "user", "content": prompt}]
                 )
                 return result.strip()
+            except RetiredModelError:
+                raise
             except Exception:
                 pass
 

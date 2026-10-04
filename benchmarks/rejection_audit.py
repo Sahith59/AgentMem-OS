@@ -95,6 +95,9 @@ Answer with exactly one letter: A, B, C, or D."""
 
 
 def main():
+    from model_policy import require_active_model
+    require_active_model(MODEL)
+
     con = sqlite3.connect(f"file:{CORPUS}?mode=ro", uri=True)
     rows = con.execute(
         "SELECT session_id, rejections_json FROM consolidation_log "

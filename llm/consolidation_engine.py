@@ -32,6 +32,7 @@ from typing import List, Dict, Tuple, Optional, Any
 
 import numpy as np
 from loguru import logger
+from agentmem_os.benchmarks.model_policy import RetiredModelError
 
 
 class SleepConsolidationEngine:
@@ -392,6 +393,8 @@ class SleepConsolidationEngine:
         try:
             summary_text, entities = self.summarizer.compress(cluster_turns)
             return summary_text, entities
+        except RetiredModelError:
+            raise
         except Exception as e:
             logger.warning(
                 f"[ConsolidationEngine] LLM summarization failed for "

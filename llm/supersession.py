@@ -65,6 +65,7 @@ sourced from the research pass):
 import json
 import os
 import urllib.request
+from agentmem_os.benchmarks.model_policy import require_active_model
 from datetime import datetime
 
 from loguru import logger
@@ -338,6 +339,7 @@ class SupersessionJudge:
     def __init__(self, get_db_session, model: str = DEFAULT_MODEL,
                  timeout: int = 600):
         self.get_db = get_db_session
+        require_active_model(os.environ.get("AGENTMEM_OS_SUPERSESSION_API_MODEL") or model)
         self.model = model
         self.timeout = timeout
 
@@ -346,6 +348,7 @@ class SupersessionJudge:
     def _llm(self, prompt: str) -> dict:
         import os as _os
         api_model = _os.environ.get("AGENTMEM_OS_SUPERSESSION_API_MODEL")
+        require_active_model(api_model or self.model)
         if api_model:
             # F-20: cheap API judge for the high-volume yes/no calls.
             import time as _t

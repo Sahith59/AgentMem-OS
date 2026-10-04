@@ -29,6 +29,9 @@ WIPE = "--wipe-mute-judgments" in sys.argv
 
 
 def main():
+    from model_policy import require_active_model
+    require_active_model(os.environ.get("AGENTMEM_OS_SUPERSESSION_API_MODEL"))
+
     from agentmem_os.db.engine import get_session
     from agentmem_os.db.models import SemanticFact, SupersessionJudgment
     from agentmem_os.llm.supersession import SupersessionJudge

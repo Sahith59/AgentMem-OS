@@ -49,6 +49,11 @@ def _config_for(namespace: str) -> dict:
 
 
 def _get_memory(namespace: str) -> Memory:
+    from pathlib import Path
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from model_policy import require_active_model
+    require_active_model('gpt-4o-mini')
     if namespace not in _memories:
         _memories[namespace] = Memory.from_config(_config_for(namespace))
     return _memories[namespace]
