@@ -17,7 +17,7 @@ The new version uses the same GPT-5.6 Luna settings. It adds a strict output sch
 
 The model can still make a schema-valid semantic mistake. `complete` remains an unverified model claim. Documented support for [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) establishes the request format, not correct evidence selection or a successful live v2 request. The cost bound includes the output schema as input. Failed/truncated responses retain valid usage receipts separately from output acceptance; an independent review caught this accounting issue before v2 was frozen.
 
-Validation: 84 focused checks pass across v1/v2 contracts, both diagnostic runners, source rendering and capacity bounds. New v2 files pass Ruff. The old v1 package still reconstructs byte-for-byte. No v2 provider call has occurred. The opt-in experimental path is implemented; no production default or English answerer is promoted.
+Validation: 85 focused checks pass across v1/v2 contracts, both diagnostic runners, source rendering and capacity bounds. A final review replaced broad source-object serialization with an explicit four-field projection; an extended-source test proves evaluation metadata cannot enter the request through extra attributes. This did not change the existing fixture requests and is not evidence that a prior call leaked labels. New v2 files pass Ruff. The old v1 package still reconstructs byte-for-byte. No v2 provider call has occurred. The opt-in experimental path is implemented; no production default or English answerer is promoted.
 
 ## What public scores tell us—and do not tell us
 

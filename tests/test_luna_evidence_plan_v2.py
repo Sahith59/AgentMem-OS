@@ -1,6 +1,7 @@
 """Contract and original-text invariants; no claim of learned selection ability."""
 
 import json
+from dataclasses import dataclass
 
 import pytest
 
@@ -51,6 +52,19 @@ def test_strict_schema_explicitly_specifies_every_status_and_field():
     assert req["additionalProperties"] is False
     assert input_bound(request) > sum(len(m["content"].encode()) for m in request["messages"])
     assert input_bound(request) >= len(json.dumps(request["response_format"]).encode())
+
+
+def test_extended_source_metadata_cannot_leak_into_provider_request():
+    @dataclass(frozen=True)
+    class LabelledTurn(SourceTurn):
+        expected_answer: str = "DO_NOT_SEND_LABEL"
+
+    turn = LabelledTurn("a", "user", "", "I own two chairs.")
+    value = FocusInput("How many chairs?", "", turn.text, (turn,))
+    request = plan_request(value)
+    payload = json.loads(request["messages"][1]["content"])
+    assert set(payload["sources"][0]) == {"id", "role", "observed_at", "text"}
+    assert "DO_NOT_SEND_LABEL" not in json.dumps(request)
 
 
 @pytest.mark.parametrize(
