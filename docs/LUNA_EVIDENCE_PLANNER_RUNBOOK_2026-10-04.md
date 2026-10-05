@@ -22,3 +22,6 @@ Latest measured checkpoint: v2 completed 13 calls, 12 selection passes, one advi
 
 
 October5 latest preparation: [v3 semantic validation](LUNA_V3_SEMANTIC_VALIDATION_2026-10-05.md) freezes23 no-retry calls, $0.08668355 reservation, $0.09 proposed cap. Three populations are reported separately; approval is pending. Old paid outcomes remain immutable.
+
+
+Latest v3 paid checkpoint:23completed,12/13development,6/9internalvalidation,1/1capacity; overallgatefailed. No new English score. See [measured result](LUNA_V3_PAID_RESULT_2026-10-05.md). Approval consumed; preserve labels and raw outputs.

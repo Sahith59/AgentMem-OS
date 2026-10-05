@@ -1,0 +1,175 @@
+{
+  "status": "COMPLETE_FROZEN_GATE_FAILED",
+  "package_sha256": "5a8042bdc294b987c599ebbbfbeaef0090fdd2e60317730c489490a200b77d4d",
+  "attempted": 23,
+  "completed": 23,
+  "retries": 0,
+  "checks_passed": 19,
+  "checks_failed": 4,
+  "population_results": {
+    "exposed_development": {
+      "completed": 13,
+      "passed": 12
+    },
+    "internal_validation": {
+      "completed": 9,
+      "passed": 6
+    },
+    "capacity_awareness": {
+      "completed": 1,
+      "passed": 1
+    }
+  },
+  "usage_upper_nusd": 8311300,
+  "reserved_nusd": 86683550,
+  "english_accuracy": "NOT_MEASURED",
+  "approval_binding_verified": true,
+  "summary_recomputed": true,
+  "render_replay": [
+    {
+      "id": "category",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "attribute",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "unit",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "repeat_mention",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 3
+    },
+    {
+      "id": "same_day",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "plan",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "approximate",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "relative",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "correction",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 2
+    },
+    {
+      "id": "comparison",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "conversion",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "advice",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 2
+    },
+    {
+      "id": "grading_injection",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "fresh_undecided",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 2
+    },
+    {
+      "id": "fresh_resolved",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 2
+    },
+    {
+      "id": "fresh_negative",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "fresh_mixed",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1,
+      "counterfactual_role_swap_identical_answer_context": true
+    },
+    {
+      "id": "fresh_correction",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 2
+    },
+    {
+      "id": "fresh_conflict",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 2
+    },
+    {
+      "id": "fresh_advice_action",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "fresh_advice_recall",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "fresh_event_time",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 1
+    },
+    {
+      "id": "fresh_capacity",
+      "render_status": "APPLIED",
+      "baseline_preserved": true,
+      "verified_source_spans": 8
+    }
+  ],
+  "hashes": {
+    "preparation-001/package.json": "bc35048aa5257cc3bab6cf531b5936a74ca9279b01d4137d444b9a7468fc4e20",
+    "preparation-001/approval.json": "8c3f815f14bc3fa071a53fe03f4d4dbef53c26220ebcbafbbb62b931edcaa1d0",
+    "paid-diagnostic-001/checkpoint.json": "7efd637b38cda1abcb08428ba955490cf5f56a082c99344a872ba851d278a91a",
+    "paid-diagnostic-001/summary.json": "8d208cf711d15b16756bb41b3c8218af077d4924df0a0247fb3c0f78e251311c"
+  }
+}
