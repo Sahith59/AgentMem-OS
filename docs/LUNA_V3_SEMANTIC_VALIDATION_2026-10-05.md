@@ -1,5 +1,7 @@
 # Fixed-Luna v3 semantic validation: prepared, not executed
 
+Latest measured status: the approved run completed23calls with19checks passed and4failed; the gate failed. See [result and limitations](LUNA_V3_PAID_RESULT_2026-10-05.md). The following is the preserved pre-run protocol.
+
 The next experiment tests the new evidence-role selector against frozen source labels. It keeps Luna, answerer settings, provisional Terra evaluator and stored extraction corpus unchanged. There are no new model outputs or English scores. The preceding paid v2 result remains12/13 on exposed development fixtures, with the all-case gate failed.
 
 ## Population and scoring
