@@ -1,7 +1,8 @@
 """Experimental evidence roles; frozen v1/v2 and their results remain unchanged.
 
-Role assignments are unverified planner claims. Only original source text is
-rendered, in source order; no role or generated rationale becomes an answer fact.
+Role assignments are unverified planner claims. Original turn bodies and trusted
+ID/speaker/date headers are rendered in source order; no generated role assignment
+or rationale becomes an answer fact.
 """
 
 from __future__ import annotations

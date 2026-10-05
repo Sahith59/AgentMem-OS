@@ -100,6 +100,8 @@ def test_empty_uncertain_keeps_baseline_and_rejection_does_not_delete_sources():
 @pytest.mark.parametrize(
     "change",
     [
+        {"support_turn_ids": [False]},
+        {"rejected_turn_ids": ["0"]},
         {"qualification_turn_ids": ["0"]},  # overlaps support
         {"qualification_turn_ids": ["2", "1"]},
         {"qualification_turn_ids": ["1", "1"]},
