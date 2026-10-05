@@ -1,5 +1,7 @@
 # Fixed-model architecture: first selector failure and repair
 
+Latest: the subsequently approved v2 run completed with 12/13 selection passes and one miss; the all-case gate failed. See [v2 measured result](LUNA_V2_DIAGNOSTIC_RESULT_2026-10-04.md). The unmeasured-v2 descriptions below are the preserved pre-run checkpoint.
+
 October 4, 2026. The founder approved the exact 13-call Luna diagnostic at a $0.04 cap and reiterated that improvement should come from architecture. **The frozen gate failed on its first attempt.** One provider response returned, zero plans were accepted, and 12 cases were not attempted. There was no retry. This is not a completed 13-case accuracy result. No English answers or grades changed: historical 423/500 and provisional Terra 425/500 still describe the same saved answers.
 
 ## What the paid response established

@@ -16,3 +16,6 @@ Execution order:
 4. Promote only from predeclared screen and full-500 repeat evidence with an independent audit of both gains and losses. A 90% target means at least 450/500 under one fixed judge; the currently saved 425/500 Terra result is a regrade of existing answers, not a result of this planner.
 
 The likely earliest **closure decision** is four to seven focused working sessions after the selection gate and any exact paid authorizations, if the gates pass: unseen semantic review, paired screen, full-500 measurement/repeat and audit. With sustained availability, that is roughly three to seven calendar days, subject to provider and review delays. The time to **90%** cannot be estimated from offline checks; failed gates or no meaningful paired gain require a new hypothesis and another cycle. English closure can mean a defensible, repeatable baseline below 90%, if evidence does not support the target. Sarvam remains parked under the founder's current sequence.
+
+
+Latest measured checkpoint: v2 completed 13 calls, 12 selection passes, one advice/uncertainty evidence miss. No retries and no English accuracy measurement. The all-case gate remains failed. See [result and next bounded work](LUNA_V2_DIAGNOSTIC_RESULT_2026-10-04.md). Do not re-execute the completed approval as a new run.
