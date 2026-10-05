@@ -1,0 +1,416 @@
+{
+  "status": "INTERNAL_VALIDATION_NO_MODEL_OUTPUTS",
+  "provenance": "Assistant-authored after v3 adapter freeze; no model outputs consulted. Internal validation, not independent human or external generalization evidence.",
+  "cases": [
+    {
+      "id": "fresh_undecided",
+      "question": "Which train did I book for my October 8 trip?",
+      "turns": [
+        {
+          "id": "undecided-1",
+          "role": "user",
+          "observed_at": "2026-10-02",
+          "text": "I have not decided which train to book for October 8."
+        },
+        {
+          "id": "undecided-2",
+          "role": "assistant",
+          "observed_at": "2026-10-02",
+          "text": "You could take the 08:10 express."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "undecided-1"
+        ]
+      ],
+      "allowed_roles": {
+        "undecided-1": [
+          "qualification"
+        ],
+        "undecided-2": [
+          "rejected",
+          "unclassified"
+        ]
+      },
+      "allowed_sufficiency": [
+        "uncertain"
+      ],
+      "rationale": "User uncertainty limits any booking claim; advice is not a booking.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_resolved",
+      "question": "Which train did I ultimately book for October 8?",
+      "turns": [
+        {
+          "id": "resolved-1",
+          "role": "user",
+          "observed_at": "2026-10-01",
+          "text": "I have not decided which train to book for October 8."
+        },
+        {
+          "id": "resolved-2",
+          "role": "user",
+          "observed_at": "2026-10-03",
+          "text": "I booked the 09:20 regional train for October 8."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "resolved-2"
+        ],
+        [
+          "resolved-1",
+          "resolved-2"
+        ]
+      ],
+      "allowed_roles": {
+        "resolved-1": [
+          "qualification",
+          "rejected",
+          "unclassified"
+        ],
+        "resolved-2": [
+          "support",
+          "qualification"
+        ]
+      },
+      "allowed_sufficiency": [
+        "complete"
+      ],
+      "rationale": "Later explicit booking resolves earlier indecision; earlier evidence optional.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_negative",
+      "question": "Did I submit any expense reports on September 30?",
+      "turns": [
+        {
+          "id": "negative-1",
+          "role": "user",
+          "observed_at": "2026-10-01",
+          "text": "I submitted no expense reports on September 30."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "negative-1"
+        ]
+      ],
+      "allowed_roles": {
+        "negative-1": [
+          "support",
+          "qualification"
+        ]
+      },
+      "allowed_sufficiency": [
+        "complete"
+      ],
+      "rationale": "Explicit scoped denial supports a definite negative answer.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_mixed",
+      "question": "Which depot did I visit on September 29?",
+      "turns": [
+        {
+          "id": "mixed-1",
+          "role": "user",
+          "observed_at": "2026-09-30",
+          "text": "On September 29 I did not visit North depot; I visited West depot instead."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "mixed-1"
+        ]
+      ],
+      "allowed_roles": {
+        "mixed-1": [
+          "qualification"
+        ]
+      },
+      "allowed_sufficiency": [
+        "complete"
+      ],
+      "rationale": "One mixed turn must remain whole; qualification can contain decisive answer.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_correction",
+      "question": "What is the corrected final price of my desk?",
+      "turns": [
+        {
+          "id": "correction-1",
+          "role": "user",
+          "observed_at": "2026-09-10",
+          "text": "My desk cost 180 dollars."
+        },
+        {
+          "id": "correction-2",
+          "role": "user",
+          "observed_at": "2026-09-11",
+          "text": "Correction: the final desk price was 160 dollars, not 180."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "correction-2"
+        ],
+        [
+          "correction-1",
+          "correction-2"
+        ]
+      ],
+      "allowed_roles": {
+        "correction-1": [
+          "qualification",
+          "rejected",
+          "unclassified"
+        ],
+        "correction-2": [
+          "qualification"
+        ]
+      },
+      "allowed_sufficiency": [
+        "complete"
+      ],
+      "rationale": "Explicit self-contained correction suffices; original amount optional.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_conflict",
+      "question": "Which locker number did I use on September 28?",
+      "turns": [
+        {
+          "id": "conflict-1",
+          "role": "user",
+          "observed_at": "2026-09-29",
+          "text": "I used locker 14 on September 28."
+        },
+        {
+          "id": "conflict-2",
+          "role": "user",
+          "observed_at": "2026-09-29",
+          "text": "I used locker 41 on September 28, not locker 14. I am unsure which memory is right."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "conflict-1",
+          "conflict-2"
+        ]
+      ],
+      "allowed_roles": {
+        "conflict-1": [
+          "support",
+          "qualification"
+        ],
+        "conflict-2": [
+          "qualification"
+        ]
+      },
+      "allowed_sufficiency": [
+        "uncertain"
+      ],
+      "rationale": "Unresolved self-reported conflict must remain visible; later position is not resolution.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_advice_action",
+      "question": "Which restaurant did I actually reserve for October 9?",
+      "turns": [
+        {
+          "id": "advice_action-1",
+          "role": "assistant",
+          "observed_at": "2026-10-02",
+          "text": "Consider booking Cedar Kitchen for October 9."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        []
+      ],
+      "allowed_roles": {
+        "advice_action-1": [
+          "rejected",
+          "unclassified"
+        ]
+      },
+      "allowed_sufficiency": [
+        "uncertain"
+      ],
+      "rationale": "No user booking fact exists; empty uncertain is appropriate.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_advice_recall",
+      "question": "Which restaurant did the assistant recommend for October 9?",
+      "turns": [
+        {
+          "id": "advice_recall-1",
+          "role": "assistant",
+          "observed_at": "2026-10-02",
+          "text": "Consider booking Cedar Kitchen for October 9."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "advice_recall-1"
+        ]
+      ],
+      "allowed_roles": {
+        "advice_recall-1": [
+          "support"
+        ]
+      },
+      "allowed_sufficiency": [
+        "complete"
+      ],
+      "rationale": "Same advice is direct evidence when question asks about recommendation.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_event_time",
+      "question": "Which badge did I collect on September 27?",
+      "turns": [
+        {
+          "id": "event_time-1",
+          "role": "user",
+          "observed_at": "2026-10-02",
+          "text": "On September 26 I collected the silver badge."
+        },
+        {
+          "id": "event_time-2",
+          "role": "user",
+          "observed_at": "2026-09-28",
+          "text": "On September 27 I collected the bronze badge."
+        }
+      ],
+      "acceptable_evidence_sets": [
+        [
+          "event_time-2"
+        ]
+      ],
+      "allowed_roles": {
+        "event_time-1": [
+          "rejected",
+          "unclassified"
+        ],
+        "event_time-2": [
+          "support",
+          "qualification"
+        ]
+      },
+      "allowed_sufficiency": [
+        "complete"
+      ],
+      "rationale": "Reported event dates decide membership, not input or observation order.",
+      "capacity_exceeds_focus": false
+    },
+    {
+      "id": "fresh_capacity",
+      "question": "What is the total number of boxes I shipped across these nine batches?",
+      "turns": [
+        {
+          "id": "capacity-1",
+          "role": "user",
+          "observed_at": "2026-09-01",
+          "text": "Batch 1 contained 2 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-2",
+          "role": "user",
+          "observed_at": "2026-09-02",
+          "text": "Batch 2 contained 3 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-3",
+          "role": "user",
+          "observed_at": "2026-09-03",
+          "text": "Batch 3 contained 4 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-4",
+          "role": "user",
+          "observed_at": "2026-09-04",
+          "text": "Batch 4 contained 5 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-5",
+          "role": "user",
+          "observed_at": "2026-09-05",
+          "text": "Batch 5 contained 6 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-6",
+          "role": "user",
+          "observed_at": "2026-09-06",
+          "text": "Batch 6 contained 7 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-7",
+          "role": "user",
+          "observed_at": "2026-09-07",
+          "text": "Batch 7 contained 8 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-8",
+          "role": "user",
+          "observed_at": "2026-09-08",
+          "text": "Batch 8 contained 9 boxes. These are distinct batches."
+        },
+        {
+          "id": "capacity-9",
+          "role": "user",
+          "observed_at": "2026-09-09",
+          "text": "Batch 9 contained 10 boxes. These are distinct batches."
+        }
+      ],
+      "acceptable_evidence_sets": [],
+      "allowed_roles": {
+        "capacity-1": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-2": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-3": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-4": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-5": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-6": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-7": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-8": [
+          "support",
+          "unclassified"
+        ],
+        "capacity-9": [
+          "support",
+          "unclassified"
+        ]
+      },
+      "allowed_sufficiency": [
+        "uncertain"
+      ],
+      "rationale": "Every operand is needed; eight-source focus cannot cover nine separate turns. This tests capacity awareness, not complete selection.",
+      "capacity_exceeds_focus": true
+    }
+  ]
+}

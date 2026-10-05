@@ -19,3 +19,6 @@ The likely earliest **closure decision** is four to seven focused working sessio
 
 
 Latest measured checkpoint: v2 completed 13 calls, 12 selection passes, one advice/uncertainty evidence miss. No retries and no English accuracy measurement. The all-case gate remains failed. See [result and next bounded work](LUNA_V2_DIAGNOSTIC_RESULT_2026-10-04.md). Do not re-execute the completed approval as a new run.
+
+
+October5 latest preparation: [v3 semantic validation](LUNA_V3_SEMANTIC_VALIDATION_2026-10-05.md) freezes23 no-retry calls, $0.08668355 reservation, $0.09 proposed cap. Three populations are reported separately; approval is pending. Old paid outcomes remain immutable.
