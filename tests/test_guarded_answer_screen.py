@@ -203,3 +203,8 @@ def test_unknown_provider_usage_preserved_without_retry(tmp_path):
     with pytest.raises(ValueError, match="Unresolved"):
         screen.run(p, tmp_path, a, mode="offline-test", provider=good)
     assert len(calls) == 1
+
+
+def test_builder_rejects_verification_of_different_report(tmp_path):
+    with pytest.raises(ValueError, match="Exact report.json"):
+        screen.build(tmp_path / "unused-source.json", tmp_path / "different.json")

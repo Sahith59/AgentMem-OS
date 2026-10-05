@@ -146,8 +146,13 @@ def code_hashes():
 
 
 def build(source_path, focus_report_path, count=32):
+    focus_report_path = Path(focus_report_path).resolve()
+    if focus_report_path.name != "report.json":
+        raise ValueError("Exact report.json provenance path required")
+    report_bytes = focus_report_path.read_bytes()
+    report_hash = hashlib.sha256(report_bytes).hexdigest()
     source = json.loads(Path(source_path).read_text())
-    report = json.loads(Path(focus_report_path).read_text())
+    report = json.loads(report_bytes)
     if len(source["cases"]) != 500 or len(report["rows"]) != 500:
         raise ValueError("Full500 source population required")
     if source["settings"]["generate"] != ANSWER_SETTINGS:
@@ -160,7 +165,9 @@ def build(source_path, focus_report_path, count=32):
         r["id"] for r in report["rows"]
     }:
         raise ValueError("Duplicate or incomplete source population")
-    source_verification = verify_sources(Path(focus_report_path).parent)
+    source_verification = verify_sources(focus_report_path.parent)
+    if file_hash(focus_report_path) != report_hash:
+        raise ValueError("Report changed during verification")
     rows = {r["id"]: r for r in report["rows"]}
     ordered = sorted(source["cases"], key=lambda c: sha(SEED + ":" + c["id"]))
     package = dict(
@@ -175,7 +182,7 @@ def build(source_path, focus_report_path, count=32):
         code_sha256=code_hashes(),
         source_verification=source_verification,
         source_sha256=file_hash(source_path),
-        focus_report_sha256=file_hash(focus_report_path),
+        focus_report_sha256=report_hash,
         selection="sha256(seed:id), no outcome labels",
         status="OFFLINE_READY_NOT_AUTHORIZED",
         gate={
