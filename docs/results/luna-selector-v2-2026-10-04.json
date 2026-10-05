@@ -1,0 +1,101 @@
+{
+  "status": "COMPLETE_FROZEN_GATE_FAILED",
+  "package_sha256": "92f773710f7509e1cd083e226ce70ef7b465c5a84b624652f98f2c63ea49b93c",
+  "attempted": 13,
+  "completed": 13,
+  "selection_passed": 12,
+  "selection_failed": 1,
+  "automatic_retries": 0,
+  "english_accuracy": "NOT_MEASURED",
+  "reserved_nusd": 46211300,
+  "usage_upper_nusd": 3725300,
+  "approval_binding_verified": true,
+  "summary_recomputed": true,
+  "render_replay": [
+    {
+      "id": "category",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "attribute",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "unit",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "repeat_mention",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 3
+    },
+    {
+      "id": "same_day",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "plan",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "approximate",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "relative",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "correction",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 2
+    },
+    {
+      "id": "comparison",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "conversion",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    },
+    {
+      "id": "advice",
+      "render_status": "UNCHANGED_EMPTY_SELECTION",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 0
+    },
+    {
+      "id": "grading_injection",
+      "render_status": "APPLIED",
+      "original_packet_preserved": true,
+      "source_receipts_verified": 1
+    }
+  ],
+  "limitation": "Exposed development fixtures; membership pass does not measure final answer correctness. Advice selection misses required uncertainty evidence, while output is uncertain and original packet remains intact.",
+  "artifact_sha256": {
+    "preparation-v2-002/package.json": "8df4dac8efb7eeb51b63361d884aa33ea2acc114d6d9bb71344788c395799b81",
+    "preparation-v2-002/approval.json": "fbda1df8cc274351388347b19aaff68a731fcffd3ffae60c2855cb6fa7bc1f4a",
+    "paid-diagnostic-v2-001/checkpoint.json": "45f0e8a70ff1612034053d67459391c64be762829952ba396a2e5f05d09c5a1b",
+    "paid-diagnostic-v2-001/summary.json": "1eac70b77217cec0778543959294643e7b424f3b263b4d02593132584dce120e"
+  }
+}
