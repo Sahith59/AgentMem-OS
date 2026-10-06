@@ -1,0 +1,42 @@
+{
+  "status": "PASS_EXECUTION_INTEGRITY_QUALITY_GATE_FAILED",
+  "package_sha256": "207c5a4f3697be50534c3b6ac0a593c1d313334228b799bd631bbe43c96df215",
+  "checkpoint_sha256": "bcbb93e87a00fd5eaa7a37205e99814d975de0d04fb697f34f5dca2322bfa495",
+  "summary_matches": true,
+  "unique_receipts": 128,
+  "attempts": 128,
+  "complete_pairs": 32,
+  "run_count_this_turn": 1,
+  "additional_paid_runs": 0,
+  "reserved_nusd": 4349651000,
+  "usage_upper_nusd": 209432650,
+  "unreconciled_usage_attempts": [],
+  "reviews": [
+    {
+      "id": "gpt4_ab202e7f",
+      "classification": "DELIVERED_BUT_NOT_USED_OR_NOT_ADMITTED",
+      "verdicts_preserved": true,
+      "detail": "Coffee-maker donation/upgrade delivered in complete source turn; candidate still lists only four items. Attention versus semantic replacement admission is not causally isolated."
+    },
+    {
+      "id": "1c0ddc50",
+      "classification": "PAIRED_LOSS_WITH_RUBRIC_AMBIGUITY",
+      "verdicts_preserved": true,
+      "detail": "Both packets contain user preference for new podcast genres/history. Candidate suggests reading on bus, contrary to reference preference framing; no explicit source prohibition of bus reading identified. Baseline also gives broad alternatives. Do not call this independently proven semantic regression or adjust the frozen grade."
+    },
+    {
+      "id": "10d9b85a",
+      "classification": "SESSION_RETRIEVED_OPERAND_TURN_MISSING",
+      "verdicts_preserved": true,
+      "detail": "Appended opening of session containing workshop, but later user turn with April17/18 two-day workshop remains absent. April10 lecture delivered; both answers1 instead of3."
+    },
+    {
+      "id": "92a0aa75",
+      "classification": "PARTIAL_EVIDENCE_WRONG_DURATION_RELATION",
+      "verdicts_preserved": true,
+      "detail": "Candidate delivers28months until promotion but not45months totaltenure in later turn of another retrieved session. Returns28months as currentrole duration, instead of45-28=17months. Baseline abstains. No claim that arithmetic alone is model limitation."
+    }
+  ],
+  "full500_accuracy": "NOT_MEASURED",
+  "baseline_packets_temporal_cleanliness": "NOT_NEWLY_CERTIFIED"
+}

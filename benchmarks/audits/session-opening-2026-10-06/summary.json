@@ -1,0 +1,293 @@
+{
+  "status": "FAIL_OR_INCOMPLETE",
+  "attempted": 128,
+  "completed": 128,
+  "complete_pairs": 32,
+  "correct": {
+    "baseline": 29,
+    "focus": 28
+  },
+  "gains": 0,
+  "losses": 1,
+  "rows": [
+    {
+      "id": "caf9ead2",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "gpt4_93f6379c",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "7e974930",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "129d1232",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "852ce960",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "grades": {
+        "focus": false,
+        "baseline": false
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "22d2cb42",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "488d3006",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "d23cf73b",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "5025383b",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "b320f3f8",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "gpt4_af6db32f",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "1c0ddc50",
+      "grades": {
+        "baseline": true,
+        "focus": false
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "1cea1afa",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "UNCHANGED"
+    },
+    {
+      "id": "7e00a6cb",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "eac54adc",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "faba32e5",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "c8c3f81d",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "57f827a0",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "4dfccbf7",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "10d9b85a",
+      "grades": {
+        "focus": false,
+        "baseline": false
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "8b9d4367",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "1e043500",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "0ea62687",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "gpt4_4ef30696",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "c14c00dd",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "gpt4_0b2f1d21",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "UNCHANGED"
+    },
+    {
+      "id": "gpt4_b5700ca9",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "d3ab962e",
+      "grades": {
+        "baseline": true,
+        "focus": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "gpt4_fa19884c",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "08e075c7",
+      "grades": {
+        "focus": true,
+        "baseline": true
+      },
+      "retrieval_status": "APPLIED"
+    },
+    {
+      "id": "92a0aa75",
+      "grades": {
+        "focus": false,
+        "baseline": false
+      },
+      "retrieval_status": "APPLIED"
+    }
+  ],
+  "reserved_nusd": 4349651000,
+  "usage_upper_nusd": 209432650,
+  "unreconciled_usage_attempts": [],
+  "tokens_by_stage": {
+    "baseline": {
+      "input": 292531,
+      "output": 5041
+    },
+    "focus": {
+      "input": 301530,
+      "output": 4741
+    },
+    "judge_baseline": {
+      "input": 8669,
+      "output": 128
+    },
+    "judge_focus": {
+      "input": 8329,
+      "output": 429
+    }
+  },
+  "full500_accuracy": "NOT_MEASURED",
+  "mode": "paid"
+}
