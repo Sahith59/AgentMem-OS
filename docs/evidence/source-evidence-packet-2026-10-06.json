@@ -1,0 +1,381 @@
+{
+  "status": "OFFLINE_DELIVERY_ONLY",
+  "source_package_sha256": "4a2d1d8e2fcad6241b1806df92ac2883ca4edcfdd0ebad2aa2438ff6801f725b",
+  "cases": 32,
+  "paid_calls": 0,
+  "new_answers": 0,
+  "diagnostic_checks": [
+    {
+      "id": "gpt4_ab202e7f",
+      "targets": [
+        {
+          "phrase": "donated my old coffee maker",
+          "delivered": false,
+          "source_diagnostics": [
+            {
+              "id": "fefe85839f69ec892c77",
+              "session": "s43",
+              "position": 0,
+              "chars": 307,
+              "rank": null,
+              "omissions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "10d9b85a",
+      "targets": [
+        {
+          "phrase": "17th and 18th of April",
+          "delivered": true,
+          "source_diagnostics": [
+            {
+              "id": "b23d8da1f392aaff0a2e",
+              "session": "s39",
+              "position": 2,
+              "chars": 404,
+              "rank": 7,
+              "omissions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "92a0aa75",
+      "targets": [
+        {
+          "phrase": "2 years and 4 months",
+          "delivered": false,
+          "source_diagnostics": [
+            {
+              "id": "1f30b10145bb2eee3e1a",
+              "session": "s29",
+              "position": 0,
+              "chars": 335,
+              "rank": null,
+              "omissions": []
+            }
+          ]
+        },
+        {
+          "phrase": "3 years and 9 months",
+          "delivered": false,
+          "source_diagnostics": [
+            {
+              "id": "e3ddb101c6d17272a644",
+              "session": "s33",
+              "position": 2,
+              "chars": 470,
+              "rank": null,
+              "omissions": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "answer_accuracy": "NOT_MEASURED",
+  "semantics": "Source inclusion does not prove relevance, completeness, or correct answer use.",
+  "code_sha256": {
+    "llm/evidence_packet.py": "c615cf68ea2f30a6a8967afa8b931d395ef937d3fb97f0adae42290ed587d386",
+    "llm/source_turn_retrieval.py": "3cbeeaf2dd1af2e5f458d7b6832ae085e33d7d29461a19ae519c97287f0a4261",
+    "llm/context_assembler.py": "b1096636c296260acc49871a390bac1676909d9fe161f2d6b34fcdd0495ae732"
+  },
+  "previous_packet_bytes_unchanged": true,
+  "delivered_omitted_overlap": 0,
+  "full_replay_sha256": "3acddb95b6a2f7ce2a1f3c72a889aad755139ded72a3dd206941edd3fcba059d",
+  "initial_replay_sha256": "497de55fcbf7a0898e1ff3a3ff9fe5101f82190827f2c972edbb24561e333f4b",
+  "rows": [
+    {
+      "id": "caf9ead2",
+      "packet_sha256": "058258859d3c14ee1e00a1fe5fe7eca4dc2275bfd719ead30d7e3b8bbb1d8254",
+      "chars": 8875,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 110,
+      "omissions": 107
+    },
+    {
+      "id": "gpt4_93f6379c",
+      "packet_sha256": "ae57556238c3bb5dff7c5d50219ca31391674a7b81adfc5052a4d12dd91b38b0",
+      "chars": 11912,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 23,
+      "omissions": 23
+    },
+    {
+      "id": "7e974930",
+      "packet_sha256": "a93c50dd56a98af2b8dd64d009dafd572a547a8df658093006a47255d191766e",
+      "chars": 11755,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 36,
+      "omissions": 32
+    },
+    {
+      "id": "129d1232",
+      "packet_sha256": "ea4da413bee021ab67c70b748a02d281d86b568edbe2b707668b95578710fcab",
+      "chars": 11921,
+      "anchors": 8,
+      "sources": 10,
+      "selection_skips": 54,
+      "omissions": 53
+    },
+    {
+      "id": "852ce960",
+      "packet_sha256": "d2b43a8b42c5644575d63b2d3dc2e0d47d413a8ef916a0e420cc497fe6431c20",
+      "chars": 10598,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 20,
+      "omissions": 20
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "packet_sha256": "ebca352033a84087990c202857ed637a51f6db42bfd21cc9c097b915310df867",
+      "chars": 11614,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 50,
+      "omissions": 49
+    },
+    {
+      "id": "22d2cb42",
+      "packet_sha256": "8f26e18d71cdbd740197a3634f4d50d54b8f594806a1c0fb30ad9333eb9f95f1",
+      "chars": 11028,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 19,
+      "omissions": 15
+    },
+    {
+      "id": "488d3006",
+      "packet_sha256": "911ab7c35e34b2575dd454da1b43ef067fd01a9f1158e3472cb5c60286ab1268",
+      "chars": 5746,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 109,
+      "omissions": 109
+    },
+    {
+      "id": "d23cf73b",
+      "packet_sha256": "562696417a2d4350dcc0ef673a8222a2738ba00b25fb5352e9b14b602f7dedb2",
+      "chars": 10028,
+      "anchors": 8,
+      "sources": 11,
+      "selection_skips": 107,
+      "omissions": 106
+    },
+    {
+      "id": "5025383b",
+      "packet_sha256": "6f4465058c382d771cac404428820f3a0676bba93d402cc8e7325c870234d46a",
+      "chars": 11770,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 48,
+      "omissions": 46
+    },
+    {
+      "id": "b320f3f8",
+      "packet_sha256": "61c2c1954b9923bedfc01103a590143c079db9b8a96421d626bfffd127610e1d",
+      "chars": 11432,
+      "anchors": 8,
+      "sources": 14,
+      "selection_skips": 76,
+      "omissions": 76
+    },
+    {
+      "id": "gpt4_af6db32f",
+      "packet_sha256": "92d336ea2097f01162916701d92a5abba8d12f58b4934f3d351b538e570d1255",
+      "chars": 11606,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 24,
+      "omissions": 23
+    },
+    {
+      "id": "1c0ddc50",
+      "packet_sha256": "8d20ccbee3f5848318fb5007614bfa4b3837ecae07c472f25059fdfda7bffa95",
+      "chars": 11758,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 106,
+      "omissions": 103
+    },
+    {
+      "id": "1cea1afa",
+      "packet_sha256": "2018e6e017dce99a2334e22df0f70e6755adc8a99e473cd97eefb5ac7de931cb",
+      "chars": 11507,
+      "anchors": 8,
+      "sources": 9,
+      "selection_skips": 32,
+      "omissions": 31
+    },
+    {
+      "id": "7e00a6cb",
+      "packet_sha256": "3909c6ec190eab7a3aa248d26f25bacec9ebc08e3be0ccbb2add1f114729e57a",
+      "chars": 11229,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 126,
+      "omissions": 122
+    },
+    {
+      "id": "eac54adc",
+      "packet_sha256": "2dce53e0c40b7a35a452fd7c7aeddf0fd126f76a4d4225f9ab1413a8b9def94e",
+      "chars": 11933,
+      "anchors": 8,
+      "sources": 11,
+      "selection_skips": 46,
+      "omissions": 45
+    },
+    {
+      "id": "faba32e5",
+      "packet_sha256": "ab9e33ce727c0b5753059853b21bde85e2845064da459e122be2ab3d1d02e839",
+      "chars": 11618,
+      "anchors": 8,
+      "sources": 10,
+      "selection_skips": 57,
+      "omissions": 55
+    },
+    {
+      "id": "c8c3f81d",
+      "packet_sha256": "cbff49dbe0883a5e6e4d32a914978dbffb055c7fe0bc6e52df66743c9ae58c6a",
+      "chars": 11907,
+      "anchors": 8,
+      "sources": 9,
+      "selection_skips": 56,
+      "omissions": 55
+    },
+    {
+      "id": "57f827a0",
+      "packet_sha256": "ce94135097d5b9fa477ee320f341392f603062bf32ab91f6ac1ff19aaa28678f",
+      "chars": 11924,
+      "anchors": 8,
+      "sources": 15,
+      "selection_skips": 99,
+      "omissions": 97
+    },
+    {
+      "id": "4dfccbf7",
+      "packet_sha256": "28ece5303dfa4075d8265c333c7841bffc26daeffe59518a3c61bca4b7cc9606",
+      "chars": 11998,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 71,
+      "omissions": 70
+    },
+    {
+      "id": "10d9b85a",
+      "packet_sha256": "e177b06528887e437504cfe42c2da14bca67cbdad5b1514a138eda0b2c5d71a5",
+      "chars": 11934,
+      "anchors": 8,
+      "sources": 14,
+      "selection_skips": 48,
+      "omissions": 48
+    },
+    {
+      "id": "8b9d4367",
+      "packet_sha256": "2ca5d1791b23799c2cf4cb6a2c85f7dd7b158c5f7cbd2ccf05078d5585ed1dc6",
+      "chars": 11142,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 82,
+      "omissions": 81
+    },
+    {
+      "id": "1e043500",
+      "packet_sha256": "177222f0ced62f764a19e57620b793b0493e0e76317f945a87132c8df1d7aeb8",
+      "chars": 11898,
+      "anchors": 7,
+      "sources": 10,
+      "selection_skips": 8,
+      "omissions": 8
+    },
+    {
+      "id": "0ea62687",
+      "packet_sha256": "84d24433b52b5029ef6266492de80f179cd88120fe84b213392351bb9df903c3",
+      "chars": 11659,
+      "anchors": 8,
+      "sources": 13,
+      "selection_skips": 68,
+      "omissions": 63
+    },
+    {
+      "id": "gpt4_4ef30696",
+      "packet_sha256": "ef585ca0efd81859dca414db1c8c21062997bee4561f59f19a9afd0e82aa55bc",
+      "chars": 11818,
+      "anchors": 8,
+      "sources": 15,
+      "selection_skips": 113,
+      "omissions": 110
+    },
+    {
+      "id": "c14c00dd",
+      "packet_sha256": "8dabf7761a6ed2caba07d80aa6e868d5fc185002f50fb2461b9e9146ebaab5bf",
+      "chars": 11977,
+      "anchors": 8,
+      "sources": 14,
+      "selection_skips": 113,
+      "omissions": 112
+    },
+    {
+      "id": "gpt4_0b2f1d21",
+      "packet_sha256": "df9c71cb80479be0ac3a3309a4203cb16f54754bb200bb2dd70dac6d723f64b0",
+      "chars": 11761,
+      "anchors": 8,
+      "sources": 9,
+      "selection_skips": 6,
+      "omissions": 5
+    },
+    {
+      "id": "gpt4_b5700ca9",
+      "packet_sha256": "b06456f6c6607e73a70dfbbf1fe577ad709a418c927c129d5c163340e61ce0a8",
+      "chars": 11779,
+      "anchors": 8,
+      "sources": 14,
+      "selection_skips": 42,
+      "omissions": 40
+    },
+    {
+      "id": "d3ab962e",
+      "packet_sha256": "7189c9b12d04cb22920799967260cc3f05f8e82b5f2428c5a0345a583f516cc7",
+      "chars": 11945,
+      "anchors": 8,
+      "sources": 17,
+      "selection_skips": 8,
+      "omissions": 8
+    },
+    {
+      "id": "gpt4_fa19884c",
+      "packet_sha256": "9b102fdb7674e81738c4ba30e976a9206fb5ec909d8c6afa800971086122d05a",
+      "chars": 11696,
+      "anchors": 8,
+      "sources": 11,
+      "selection_skips": 93,
+      "omissions": 92
+    },
+    {
+      "id": "08e075c7",
+      "packet_sha256": "3bd39ce62763cc9ca9ab42a4a39b98952fd05c2e8d3c4ac8809c422b4615be67",
+      "chars": 11213,
+      "anchors": 8,
+      "sources": 12,
+      "selection_skips": 93,
+      "omissions": 92
+    },
+    {
+      "id": "92a0aa75",
+      "packet_sha256": "9ab28147f53136dee7006e2a7fb08055a75af4992b2f0e896419729322f37846",
+      "chars": 11632,
+      "anchors": 8,
+      "sources": 14,
+      "selection_skips": 77,
+      "omissions": 75
+    }
+  ]
+}
