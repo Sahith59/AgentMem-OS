@@ -19,3 +19,6 @@ Reservation $4.349651; cap $4.35. User explicitly approved ONE paid run this tur
 Validation:158focused tests passed and Ruff passed. Tests cover source recovery, strict budgets, no clipping, provenance/cutoff rejection, gold isolation, saved receipts, tampering, no-repeat completed execution and no retry on errors. Source-opening recovery is offline evidence only. Code commit81abd31. Independent final review and GitHub checks are pending.
 
 Runbook: use pinned Python3.13 and scikit-learn1.8.0; `uv run --no-project --python 3.13 --with scikit-learn==1.8.0 --with openai python ../codex-memory-2026-09-08/plans/2026-10-06-session-opening/execute_approved.py` from inner repo only after checks. Launcher reads credentials locally without printing them. On any error, preserve checkpoint and stop. Verify summary, unique response IDs, exact approval, source receipts and cost ledger; review every gain/loss and the known kitchen case. Record complete or partial outcome before any further recommendation.
+
+
+Execution update: the sole run completed128/128requests and failed its quality gate,29/32baseline versus28/32candidate. See [the preserved result](SESSION_OPENING_RESULT_2026-10-06.md). No second paid run was executed or authorized.
