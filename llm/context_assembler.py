@@ -530,6 +530,23 @@ class ContextAssembler:
 
         return full_context
 
+    @staticmethod
+    def assemble_source_packet(snapshot, query, *, scope, as_of, char_budget,
+                               max_anchors=8, neighbor_turns=1):
+        """Opt-in source-only assembly with exact hit identity and one budget.
+
+        Caller supplies a trusted, scoped immutable source snapshot. No database
+        reads, extra LLM calls, legacy tier mutations or automatic promotion.
+        This entrypoint returns (text, provenance_report), not a final answer.
+        """
+        from agentmem_os.llm.source_turn_retrieval import rank
+        from agentmem_os.llm.evidence_packet import pack
+
+        hits = rank(snapshot, query, scope=scope, as_of=as_of)
+        return pack(snapshot, hits, scope=scope, as_of=as_of,
+                    char_budget=char_budget, max_anchors=max_anchors,
+                    neighbor_turns=neighbor_turns)
+
     def get_budget_breakdown(self) -> dict:
         """Return token budget per section for debugging and paper evaluations."""
         return {
