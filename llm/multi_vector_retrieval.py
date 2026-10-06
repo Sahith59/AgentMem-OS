@@ -78,7 +78,7 @@ class MultiVectorRetriever:
     """
 
     def __init__(self, context_turns: int = CONTEXT_TURNS,
-                 snippet_chars: Optional[int] = None):
+                 snippet_chars: Optional[int] = None, *, encoder=None):
         import os
         self.context_turns = context_turns
         self.snippet_chars = (
@@ -89,32 +89,49 @@ class MultiVectorRetriever:
             "AGENTMEM_OS_SNIPPET_DEEP_HITS", "0"))
         self.snippet_deep_chars = int(os.environ.get(
             "AGENTMEM_OS_SNIPPET_DEEP_CHARS", "3000"))
+        self._encoder = encoder
         self.n_docs = 0
         self._turns: List[str] = []
         self._matrix = None  # normalized per-turn embeddings
 
-    def index(self, turns: List[str]) -> None:
+    def _get_encoder(self):
+        if self._encoder is not None:
+            return self._encoder
         from agentmem_os.db.entity_aliases import get_shared_encoder
+        return get_shared_encoder()
 
-        model = get_shared_encoder()
+    def index(self, turns: List[str]) -> None:
+        # A failed reindex must not leave old lexical scores paired with new
+        # dense vectors. Publish all state together only after validation.
+        self._turns, self.n_docs, self._matrix = [], 0, None
+        self._tfidf_vec, self._tfidf_matrix = None, None
+        model = self._get_encoder()
         if model is None:
             raise RuntimeError(
                 "sentence-transformers not installed — check is_available() first"
             )
-
-        self._turns = [t for t in turns if t and t.strip()]
-        self.n_docs = len(self._turns)
-        self._matrix = model.encode(
-            [f"passage: {t}" for t in self._turns],
+        filtered = [t for t in turns if t and t.strip()]
+        if not filtered:
+            return
+        matrix = model.encode(
+            [f"passage: {t}" for t in filtered],
             normalize_embeddings=True,
             show_progress_bar=False,
             batch_size=64,
         )
+        import numpy as np
 
+        matrix = np.asarray(matrix)
+        if (matrix.ndim != 2 or matrix.shape[0] != len(filtered)
+                or matrix.shape[1] == 0 or matrix.dtype.kind not in "fiu"
+                or not np.isfinite(matrix).all()):
+            raise ValueError("Invalid passage embeddings")
         from sklearn.feature_extraction.text import TfidfVectorizer
 
-        self._tfidf_vec = TfidfVectorizer(max_features=512, sublinear_tf=True, min_df=1)
-        self._tfidf_matrix = self._tfidf_vec.fit_transform(self._turns)
+        vectorizer = TfidfVectorizer(max_features=512, sublinear_tf=True, min_df=1)
+        lexical_matrix = vectorizer.fit_transform(filtered)
+        self._turns, self.n_docs, self._matrix = filtered, len(filtered), matrix
+        self._tfidf_vec, self._tfidf_matrix = vectorizer, lexical_matrix
         logger.debug(f"[MultiVectorRetriever] indexed {self.n_docs} turns (dense + tfidf)")
 
     def _snippet(self, text: str, query: str, is_hit: bool,
@@ -174,31 +191,27 @@ class MultiVectorRetriever:
         post = " [...]" if hi + 1 < len(segs) else ""
         return pre + out + post
 
-    def search(self, query: str, top_k: int = 5,
-               deep_hits: Optional[int] = None) -> List[str]:
-        """deep_hits — BREADTH-THEN-DEPTH span policy (2026-08-12,
-        measured). Fixed-width spans force a bad trade: at ±2 every hit
-        returns 5 turns, so ~5x fewer DISTINCT evidence points fit a
-        budget (fatal for multi-hop counting: full gold-session coverage
-        108/150); at 0 every hit is naked and referent-dependent answers
-        break ('how many bikes in MARCH' lost the neighbor carrying the
-        date — 4 previously-stable questions failed). Measured on both
-        axes: ctx=2 -> 108 coverage / context intact; ctx=0 -> 139 / 4
-        known context-breaks; deep_hits=4 with ±1 -> 134 coverage AND
-        context kept on all 4 known breaks.
-        None (default) = every hit expanded ±context_turns, byte-identical
-        to the old behaviour for every existing caller. An int N = the
-        top-N ranked hits carry ±1 neighbor, the rest arrive hit-only."""
+    def ranked_indices(self, query: str) -> List[Tuple[int, float]]:
+        """Return unexpanded original turn indices in the existing RRF order.
+
+        Same ranking as legacy search; source identity and neighborhood packing
+        are caller concerns. An injected encoder avoids the global model loader.
+        """
         if self._matrix is None or not self._turns:
             return []
 
-        from agentmem_os.db.entity_aliases import get_shared_encoder
-
-        model = get_shared_encoder()
-        q = model.encode(
+        model = self._get_encoder()
+        query_batch = model.encode(
             [f"query: {query}"], normalize_embeddings=True, show_progress_bar=False
-        )[0]
-        dense_sims = self._matrix @ q
+        )
+        import numpy as np
+
+        query_batch = np.asarray(query_batch)
+        if (query_batch.shape != (1, self._matrix.shape[1])
+                or query_batch.dtype.kind not in "fiu"
+                or not np.isfinite(query_batch).all()):
+            raise ValueError("Invalid query embedding")
+        dense_sims = self._matrix @ query_batch[0]
 
         from sklearn.metrics.pairwise import cosine_similarity
 
@@ -214,13 +227,29 @@ class MultiVectorRetriever:
             for rank, idx in enumerate(sims.argsort()[::-1]):
                 rrf[int(idx)] += 1.0 / (60 + rank + 1)
 
-        import numpy as np
-
         order = np.argsort(rrf)[::-1]
+        return [(int(i), float(rrf[i])) for i in order]
+
+    def search(self, query: str, top_k: int = 5,
+               deep_hits: Optional[int] = None) -> List[str]:
+        """deep_hits — BREADTH-THEN-DEPTH span policy (2026-08-12,
+        measured). Fixed-width spans force a bad trade: at ±2 every hit
+        returns 5 turns, so ~5x fewer DISTINCT evidence points fit a
+        budget (fatal for multi-hop counting: full gold-session coverage
+        108/150); at 0 every hit is naked and referent-dependent answers
+        break ('how many bikes in MARCH' lost the neighbor carrying the
+        date — 4 previously-stable questions failed). Measured on both
+        axes: ctx=2 -> 108 coverage / context intact; ctx=0 -> 139 / 4
+        known context-breaks; deep_hits=4 with ±1 -> 134 coverage AND
+        context kept on all 4 known breaks.
+        None (default) = every hit expanded ±context_turns, byte-identical
+        to the old behaviour for every existing caller. An int N = the
+        top-N ranked hits carry ±1 neighbor, the rest arrive hit-only."""
+        order = self.ranked_indices(query)
         covered = set()
         selected: List[str] = []
         n = len(self._turns)
-        for idx in order:
+        for idx, _score in order:
             if len(selected) >= top_k:
                 break
             i = int(idx)

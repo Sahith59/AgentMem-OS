@@ -31,6 +31,7 @@ class RetrievalHit:
     source_id: str
     source_sha256: str
     score: float
+    tie_order: int = 0
 
 
 def digest(text):
@@ -102,6 +103,8 @@ def pack(snapshot, hits, *, scope, as_of, char_budget, max_anchors=8, neighbor_t
             or hit.source_id not in by_id
             or not math.isfinite(hit.score)
             or hit.score < 0
+            or type(hit.tie_order) is not int
+            or hit.tie_order < 0
             or hit.source_sha256 != digest(by_id[hit.source_id].text)
         ):
             raise ValueError("Unbound retrieval hit")
@@ -112,7 +115,7 @@ def pack(snapshot, hits, *, scope, as_of, char_budget, max_anchors=8, neighbor_t
             omitted.append(dict(id=hit.source_id, reason="future_source"))
         else:
             ranked.append(hit)
-    ranked.sort(key=lambda h: (-h.score, h.source_id))
+    ranked.sort(key=lambda h: (-h.score, h.tie_order, h.source_id))
     chosen, anchor_ids = set(), []
 
     def render(ids):
