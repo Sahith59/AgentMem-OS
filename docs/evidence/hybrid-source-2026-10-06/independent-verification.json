@@ -1,0 +1,69 @@
+{
+  "schema": "hybrid-source-independent-verification-v1",
+  "verified_at_utc": "2026-10-06T21:39:27.622543+00:00",
+  "status": "PASS_WITH_NUMERIC_REPLAY_SCOPE",
+  "audit_sha256": "9039e2685b1151256fe3e43fc5c98607919a41643f1c8943b1119b5fb535c7c0",
+  "packets_sha256": "46caf43c3a3fdd22b7860c4b69d9616ca1d59e48dcafcabe798d95d805e71680",
+  "audit_freeze_sha256": "df93ec4b6af9de71076f400497c580672f162154c576f23aa9bfedcdd17c832c",
+  "input_checks": {
+    "frozen_input_sha256": true,
+    "runtime_projection_to_all_500_baseline_cases": true,
+    "corrected_cache_variant_to_original_source_join": true,
+    "all_500_label_and_checkpoint_grade_joins": true,
+    "cohort_summary_fields_recomputed": true,
+    "historical_correct": 423,
+    "historical_misses": 77,
+    "abstentions": 30,
+    "without_flagged_turns": 21,
+    "source_occurrences": 23867,
+    "future_source_occurrences": 1475
+  },
+  "packet_checks": {
+    "baseline_prefix_preserved_in_all_500": true,
+    "total_chars_lte_40000_in_all_500": true,
+    "extra_chars_lte_4000_in_all_500": true,
+    "source_receipts_checked": 2831,
+    "out_of_scope_or_future_receipts": 0,
+    "receipt_text_hash_offset_role_date_mismatches": 0,
+    "duplicate_stamped_text_sources": 2259
+  },
+  "numeric_replay": {
+    "eligible_passage_query_dot_products": 231575,
+    "empty_eligible_cases": 1,
+    "all_finite": true,
+    "cached_vector_norm_min": 0.9999998807907104,
+    "cached_vector_norm_max": 1.0000001192092896,
+    "max_float32_matmul_vs_float64_einsum_absolute_error": 1.251571102311999e-07,
+    "saved_top8_vs_replayed_float32_mismatches": 0,
+    "replayed_float32_vs_float64_top8_changes": 0,
+    "full_lower_rank_order_changed_cases": 15,
+    "interpretation": "Replayed from frozen embeddings and runtime; does not retrospectively certify unrecorded original intermediate arrays."
+  },
+  "outcome_checks": {
+    "historical_miss_cases_gaining_flagged_turn": 3,
+    "historical_miss_flagged_turns_gained": 4,
+    "all_cases_flagged_turns_lost": 0,
+    "readiness_signal": "FAIL",
+    "answer_accuracy": "NOT_MEASURED",
+    "paid_calls_recorded": 0
+  },
+  "code_binding": {
+    "frozen_multi_vector_sha256": "03235be5d2112d0ab3e52d0b5f0bc8d57263e6cadd2ed9d274e8313d325e66df",
+    "current_multi_vector_sha256": "b747bf7730f4edc2d70e949325d0b960d2ac4f54e3327cd8bd07e3a57549d801",
+    "current_differs_due_to_concurrent_finite_guard": true,
+    "other_frozen_code_hashes_match": true
+  },
+  "limits": [
+    "Coverage is exact normalized text-presence, not answer-span identity or new answer correctness.",
+    "Historical 423/500 accuracy is checkpoint-bound; no new paid answer or judge inference was run by this verification.",
+    "Numeric checks replay saved embeddings and ranking; original in-process dense arrays were not saved."
+  ],
+  "v2_parity": {
+    "audit_v2_sha256": "b3382aa65c826f73fdc23de58afd135384c271d0bf46247c51f56170418dad24",
+    "packets_v2_sha256": "46caf43c3a3fdd22b7860c4b69d9616ca1d59e48dcafcabe798d95d805e71680",
+    "audit_freeze_v2_sha256": "a74e198d0bd0bb59ccb9cf5080d5f4238c9aa3105880244872f9c11283a7a750",
+    "packet_bytes_identical_all_500": true,
+    "summaries_rows_and_checkpoint_inputs_identical": true,
+    "v2_finite_guard_code_sha256": "b747bf7730f4edc2d70e949325d0b960d2ac4f54e3327cd8bd07e3a57549d801"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "PLAN.md": "848a98aa502c693e359e331d538adbe22a4fd4c6103fc5de6ec6fac86d0d8c14",
+  "audit-freeze.json": "df93ec4b6af9de71076f400497c580672f162154c576f23aa9bfedcdd17c832c",
+  "audit-freeze-v2.json": "a74e198d0bd0bb59ccb9cf5080d5f4238c9aa3105880244872f9c11283a7a750",
+  "audit.json": "9039e2685b1151256fe3e43fc5c98607919a41643f1c8943b1119b5fb535c7c0",
+  "audit-v2.json": "b3382aa65c826f73fdc23de58afd135384c271d0bf46247c51f56170418dad24",
+  "preparation.json": "e9de7b7b99a013f3ef11909a5c7e2d992bad87d07bfbf78af17bde18863b2f20",
+  "independent-verification.json": "3fefb29ddc8658425ef995984eccc5b169548347f3c9cb4f40f8a17c1cc9d9d8",
+  "numeric-audit.json": "c497e7ac25b3ae698ba81c99bedd15c0d71b32216dcb6875beafafbfeb6929d2",
+  "legacy-parity.json": "dad8fb34787044431ef2103770efe30af0e3094b982da8f20afebbb36cbf6efb",
+  "model.json": "b3c6fd33a32a7e5dd042ac552461ca093957601172178ba38c7f13889b8fe333",
+  "model-files.json": "806f6126a10b8685be08a9156ef4d1b298b060c8df2c1597d19c54e43fcd2b55",
+  "embeddings-complete.json": "d92895a55fc92f0094ea5a02ff5e9b631d7fd97fec481b13f7faf1ffc267c9e3",
+  "mechanism-review.json": "4786db47639a56d7ad0ed12e071444c8c0188173e7d80fb6c923f936b427642c",
+  "reproduction/prepare.py": "a446f6e705ca72d68424696623418cc9dcbc8fb12dd78728eaf0eece444668b7",
+  "reproduction/embed.py": "4cfde6ee3fde61b84e2f599c7df84e181b99de82b35029650f1c324819ecf032",
+  "reproduction/audit.py": "f95c321acf676e053426aa317445e334acb6e414b3eec750f007c8f35f9eae1d",
+  "reproduction/audit_v2.py": "01f35d9996fde85b57e486a62b91b1d0df08ed977ff63a30a922416d86cae4e6",
+  "reproduction/numeric_audit.py": "c27c7f193a1724d64744c29a54f09ff66980887d8e2ef1e3fb11c69d1bc9395a",
+  "reproduction/legacy_parity.py": "bcc1bdb0bfaaeb54349db40a03f5a2bd117389b4ac3dbaf6ef407ac1b808b6f5",
+  "external/packets-v2.jsonl": "46caf43c3a3fdd22b7860c4b69d9616ca1d59e48dcafcabe798d95d805e71680",
+  "external/packets.jsonl": "46caf43c3a3fdd22b7860c4b69d9616ca1d59e48dcafcabe798d95d805e71680"
+}

@@ -1,0 +1,21 @@
+{
+  "code_sha256": {
+    "llm/multi_vector_retrieval.py": "03235be5d2112d0ab3e52d0b5f0bc8d57263e6cadd2ed9d274e8313d325e66df",
+    "llm/evidence_packet.py": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324",
+    "llm/hybrid_source_retrieval.py": "46b3db46690b74ed039a05ddfc958320c393d2ca09b0585e0e6b59980784fbda",
+    "llm/context_assembler.py": "c9216d20ddaa493cad8aa4917429a201dd63ab5b8cd80382b23f1f6d49b92aaf"
+  },
+  "plan_sha256": "848a98aa502c693e359e331d538adbe22a4fd4c6103fc5de6ec6fac86d0d8c14",
+  "script_sha256": "f95c321acf676e053426aa317445e334acb6e414b3eec750f007c8f35f9eae1d",
+  "runtime_sha256": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+  "labels_sha256": "3225604ba0b8aa0061ee868051a950efb76f96397a4b994ab98ec7850177ec01",
+  "checkpoint_sha256": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1",
+  "preparation_sha256": "e9de7b7b99a013f3ef11909a5c7e2d992bad87d07bfbf78af17bde18863b2f20",
+  "model": {
+    "model": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "library": "sentence-transformers",
+    "historical_revision": "UNRECORDED; same existing model ID, not certified byte-identical historical weights"
+  },
+  "model_files_sha256": "806f6126a10b8685be08a9156ef4d1b298b060c8df2c1597d19c54e43fcd2b55"
+}

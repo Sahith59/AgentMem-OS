@@ -1,0 +1,6503 @@
+{
+  "status": "PASS",
+  "cases": 500,
+  "empty_scopes": 1,
+  "cases_with_warnings": 498,
+  "max_absolute_error": 1.251571102311999e-07,
+  "all_finite": true,
+  "rows": [
+    {
+      "id": "001be529",
+      "finite": true,
+      "max_absolute_error": 9.343843543341279e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 514,
+      "min_score": 0.6997284889221191,
+      "max_score": 0.8964874148368835
+    },
+    {
+      "id": "00ca467f",
+      "finite": true,
+      "max_absolute_error": 9.281116652992694e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 486,
+      "min_score": 0.6962120532989502,
+      "max_score": 0.8334370851516724
+    },
+    {
+      "id": "0100672e",
+      "finite": true,
+      "max_absolute_error": 1.0051327992144365e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 486,
+      "min_score": 0.7329659461975098,
+      "max_score": 0.8813166618347168
+    },
+    {
+      "id": "01493427",
+      "finite": true,
+      "max_absolute_error": 1.018178723555252e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.7271003127098083,
+      "max_score": 0.9071450233459473
+    },
+    {
+      "id": "031748ae",
+      "finite": true,
+      "max_absolute_error": 8.487296287995605e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.7218968868255615,
+      "max_score": 0.9203035831451416
+    },
+    {
+      "id": "031748ae_abs",
+      "finite": true,
+      "max_absolute_error": 8.878415624913316e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 523,
+      "min_score": 0.7225339412689209,
+      "max_score": 0.9101536273956299
+    },
+    {
+      "id": "06878be2",
+      "finite": true,
+      "max_absolute_error": 1.0341103118260975e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 443,
+      "min_score": 0.7161076068878174,
+      "max_score": 0.8610765337944031
+    },
+    {
+      "id": "06db6396",
+      "finite": true,
+      "max_absolute_error": 8.953132057953894e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 455,
+      "min_score": 0.6829439997673035,
+      "max_score": 0.8832756876945496
+    },
+    {
+      "id": "06f04340",
+      "finite": true,
+      "max_absolute_error": 9.074974705036709e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 503,
+      "min_score": 0.7332934141159058,
+      "max_score": 0.8681191802024841
+    },
+    {
+      "id": "07741c44",
+      "finite": true,
+      "max_absolute_error": 9.539649403755845e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 508,
+      "min_score": 0.710769534111023,
+      "max_score": 0.8711791038513184
+    },
+    {
+      "id": "07741c45",
+      "finite": true,
+      "max_absolute_error": 9.428026392921396e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 527,
+      "min_score": 0.7218799591064453,
+      "max_score": 0.8779122233390808
+    },
+    {
+      "id": "078150f1",
+      "finite": true,
+      "max_absolute_error": 8.425126485356316e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 551,
+      "min_score": 0.6918004751205444,
+      "max_score": 0.8538970351219177
+    },
+    {
+      "id": "07b6f563",
+      "finite": true,
+      "max_absolute_error": 9.037073456230615e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 524,
+      "min_score": 0.7140004634857178,
+      "max_score": 0.8560957312583923
+    },
+    {
+      "id": "0862e8bf",
+      "finite": true,
+      "max_absolute_error": 9.439034265312785e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.6934395432472229,
+      "max_score": 0.8749310970306396
+    },
+    {
+      "id": "0862e8bf_abs",
+      "finite": true,
+      "max_absolute_error": 1.0872955158447439e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 523,
+      "min_score": 0.6914165616035461,
+      "max_score": 0.8152346014976501
+    },
+    {
+      "id": "08e075c7",
+      "finite": true,
+      "max_absolute_error": 1.0375915726612561e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.7199180126190186,
+      "max_score": 0.909625232219696
+    },
+    {
+      "id": "08f4fc43",
+      "finite": true,
+      "max_absolute_error": 9.529271571828701e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 468,
+      "min_score": 0.6525086164474487,
+      "max_score": 0.8274280428886414
+    },
+    {
+      "id": "0977f2af",
+      "finite": true,
+      "max_absolute_error": 9.055152827563973e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.7028778791427612,
+      "max_score": 0.8506827354431152
+    },
+    {
+      "id": "099778bb",
+      "finite": true,
+      "max_absolute_error": 1.034587242543239e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.6879816055297852,
+      "max_score": 0.8609341979026794
+    },
+    {
+      "id": "09ba9854",
+      "finite": true,
+      "max_absolute_error": 8.541961915575769e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.7458105087280273,
+      "max_score": 0.9216086864471436
+    },
+    {
+      "id": "09ba9854_abs",
+      "finite": true,
+      "max_absolute_error": 9.234956488413104e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 513,
+      "min_score": 0.7166496515274048,
+      "max_score": 0.9155624508857727
+    },
+    {
+      "id": "09d032c9",
+      "finite": true,
+      "max_absolute_error": 8.82530801771253e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 481,
+      "min_score": 0.7403794527053833,
+      "max_score": 0.8669767379760742
+    },
+    {
+      "id": "0a34ad58",
+      "finite": true,
+      "max_absolute_error": 9.534468303762367e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7389867901802063,
+      "max_score": 0.8739975690841675
+    },
+    {
+      "id": "0a995998",
+      "finite": true,
+      "max_absolute_error": 9.68517694932558e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.7401953935623169,
+      "max_score": 0.893377423286438
+    },
+    {
+      "id": "0bb5a684",
+      "finite": true,
+      "max_absolute_error": 8.456982403259872e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 253,
+      "min_score": 0.7307852506637573,
+      "max_score": 0.9083012938499451
+    },
+    {
+      "id": "0bc8ad92",
+      "finite": true,
+      "max_absolute_error": 8.7958094141527e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 443,
+      "min_score": 0.7268285751342773,
+      "max_score": 0.8779958486557007
+    },
+    {
+      "id": "0bc8ad93",
+      "finite": true,
+      "max_absolute_error": 1.0634700309264389e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 486,
+      "min_score": 0.7264756560325623,
+      "max_score": 0.8666228652000427
+    },
+    {
+      "id": "0db4c65d",
+      "finite": true,
+      "max_absolute_error": 9.359048203094744e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 462,
+      "min_score": 0.6743261218070984,
+      "max_score": 0.8723182082176208
+    },
+    {
+      "id": "0ddfec37",
+      "finite": true,
+      "max_absolute_error": 9.04862036410492e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 465,
+      "min_score": 0.7076725363731384,
+      "max_score": 0.8770976066589355
+    },
+    {
+      "id": "0ddfec37_abs",
+      "finite": true,
+      "max_absolute_error": 9.593264749252484e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 447,
+      "min_score": 0.6968512535095215,
+      "max_score": 0.8504713773727417
+    },
+    {
+      "id": "0e4e4c46",
+      "finite": true,
+      "max_absolute_error": 1.0076006007331273e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 481,
+      "min_score": 0.73847496509552,
+      "max_score": 0.8739904761314392
+    },
+    {
+      "id": "0e5e2d1a",
+      "finite": true,
+      "max_absolute_error": 8.263890238779936e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 450,
+      "min_score": 0.7256746292114258,
+      "max_score": 0.909634530544281
+    },
+    {
+      "id": "0ea62687",
+      "finite": true,
+      "max_absolute_error": 8.51563913828457e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 460,
+      "min_score": 0.735232949256897,
+      "max_score": 0.889128565788269
+    },
+    {
+      "id": "0edc2aef",
+      "finite": true,
+      "max_absolute_error": 9.722966787251153e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 475,
+      "min_score": 0.6991544365882874,
+      "max_score": 0.8548924326896667
+    },
+    {
+      "id": "0f05491a",
+      "finite": true,
+      "max_absolute_error": 9.544385703996738e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.7330542206764221,
+      "max_score": 0.9571716785430908
+    },
+    {
+      "id": "10d9b85a",
+      "finite": true,
+      "max_absolute_error": 7.640088495186603e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.7010067105293274,
+      "max_score": 0.8494685292243958
+    },
+    {
+      "id": "10e09553",
+      "finite": true,
+      "max_absolute_error": 9.614361551335548e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 472,
+      "min_score": 0.6973941326141357,
+      "max_score": 0.8881824612617493
+    },
+    {
+      "id": "118b2229",
+      "finite": true,
+      "max_absolute_error": 9.170544601477815e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7539973258972168,
+      "max_score": 0.8856493234634399
+    },
+    {
+      "id": "1192316e",
+      "finite": true,
+      "max_absolute_error": 1.053633547076771e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.7494066953659058,
+      "max_score": 0.8941247463226318
+    },
+    {
+      "id": "129d1232",
+      "finite": true,
+      "max_absolute_error": 9.196562689162135e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 451,
+      "min_score": 0.726097583770752,
+      "max_score": 0.8898352384567261
+    },
+    {
+      "id": "1568498a",
+      "finite": true,
+      "max_absolute_error": 9.137169909578802e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 478,
+      "min_score": 0.7212323546409607,
+      "max_score": 0.8990609645843506
+    },
+    {
+      "id": "15745da0",
+      "finite": true,
+      "max_absolute_error": 9.950170487549315e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7147189378738403,
+      "max_score": 0.9085488319396973
+    },
+    {
+      "id": "15745da0_abs",
+      "finite": true,
+      "max_absolute_error": 1.0742270428742984e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 547,
+      "min_score": 0.7071665525436401,
+      "max_score": 0.8910073041915894
+    },
+    {
+      "id": "157a136e",
+      "finite": true,
+      "max_absolute_error": 9.38725088772685e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 503,
+      "min_score": 0.7236634492874146,
+      "max_score": 0.8483939170837402
+    },
+    {
+      "id": "16c90bf4",
+      "finite": true,
+      "max_absolute_error": 8.724930200543213e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 509,
+      "min_score": 0.6926746368408203,
+      "max_score": 0.903674304485321
+    },
+    {
+      "id": "184da446",
+      "finite": true,
+      "max_absolute_error": 1.1006295352888884e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 473,
+      "min_score": 0.7096866369247437,
+      "max_score": 0.8675655126571655
+    },
+    {
+      "id": "18bc8abd",
+      "finite": true,
+      "max_absolute_error": 1.0340323475244162e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 436,
+      "min_score": 0.7239357829093933,
+      "max_score": 0.8707197904586792
+    },
+    {
+      "id": "18dcd5a5",
+      "finite": true,
+      "max_absolute_error": 9.895524277769852e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 503,
+      "min_score": 0.7014967203140259,
+      "max_score": 0.8987809419631958
+    },
+    {
+      "id": "1903aded",
+      "finite": true,
+      "max_absolute_error": 1.0017880858192996e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 486,
+      "min_score": 0.7324389219284058,
+      "max_score": 0.8546534776687622
+    },
+    {
+      "id": "195a1a1b",
+      "finite": true,
+      "max_absolute_error": 8.93690534908842e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 515,
+      "min_score": 0.7290158271789551,
+      "max_score": 0.8627258539199829
+    },
+    {
+      "id": "19b5f2b3",
+      "finite": true,
+      "max_absolute_error": 9.430865866022486e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 482,
+      "min_score": 0.7039061784744263,
+      "max_score": 0.8401018381118774
+    },
+    {
+      "id": "19b5f2b3_abs",
+      "finite": true,
+      "max_absolute_error": 1.0222295665496262e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 527,
+      "min_score": 0.6957569718360901,
+      "max_score": 0.82346510887146
+    },
+    {
+      "id": "1a1907b4",
+      "finite": true,
+      "max_absolute_error": 1.0202653100144232e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 532,
+      "min_score": 0.7257979512214661,
+      "max_score": 0.848921000957489
+    },
+    {
+      "id": "1a8a66a6",
+      "finite": true,
+      "max_absolute_error": 9.117693222648882e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 501,
+      "min_score": 0.7221364974975586,
+      "max_score": 0.8437886238098145
+    },
+    {
+      "id": "1b9b7252",
+      "finite": true,
+      "max_absolute_error": 1.1442857494881054e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.7193319201469421,
+      "max_score": 0.9114608764648438
+    },
+    {
+      "id": "1c0ddc50",
+      "finite": true,
+      "max_absolute_error": 1.0571645436829868e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 548,
+      "min_score": 0.7369767427444458,
+      "max_score": 0.8826054930686951
+    },
+    {
+      "id": "1c549ce4",
+      "finite": true,
+      "max_absolute_error": 1.0091655189281568e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 462,
+      "min_score": 0.7135779857635498,
+      "max_score": 0.899215579032898
+    },
+    {
+      "id": "1cea1afa",
+      "finite": true,
+      "max_absolute_error": 1.1602748528627416e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7401422262191772,
+      "max_score": 0.8961124420166016
+    },
+    {
+      "id": "1d4da289",
+      "finite": true,
+      "max_absolute_error": 8.965640785341122e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.7098473310470581,
+      "max_score": 0.8681371808052063
+    },
+    {
+      "id": "1d4e3b97",
+      "finite": true,
+      "max_absolute_error": 8.928413941511337e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7293940782546997,
+      "max_score": 0.8485329151153564
+    },
+    {
+      "id": "1da05512",
+      "finite": true,
+      "max_absolute_error": 9.415408053214946e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 462,
+      "min_score": 0.7272014021873474,
+      "max_score": 0.8872380256652832
+    },
+    {
+      "id": "1de5cff2",
+      "finite": true,
+      "max_absolute_error": 9.460522965021312e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 473,
+      "min_score": 0.7179902791976929,
+      "max_score": 0.848575234413147
+    },
+    {
+      "id": "1e043500",
+      "finite": true,
+      "max_absolute_error": 9.475616624676775e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.6958353519439697,
+      "max_score": 0.8464916944503784
+    },
+    {
+      "id": "1f2b8d4f",
+      "finite": true,
+      "max_absolute_error": 9.713588244864013e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 522,
+      "min_score": 0.7179044485092163,
+      "max_score": 0.8987222909927368
+    },
+    {
+      "id": "1faac195",
+      "finite": true,
+      "max_absolute_error": 1.02897151244008e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.6913623809814453,
+      "max_score": 0.8559406399726868
+    },
+    {
+      "id": "2133c1b5",
+      "finite": true,
+      "max_absolute_error": 8.750944235913494e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 411,
+      "min_score": 0.7314863801002502,
+      "max_score": 0.8864720463752747
+    },
+    {
+      "id": "2133c1b5_abs",
+      "finite": true,
+      "max_absolute_error": 9.493441044394757e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 368,
+      "min_score": 0.7381143569946289,
+      "max_score": 0.866534411907196
+    },
+    {
+      "id": "21436231",
+      "finite": true,
+      "max_absolute_error": 9.342607987239404e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 512,
+      "min_score": 0.7013985514640808,
+      "max_score": 0.8666372299194336
+    },
+    {
+      "id": "21d02d0d",
+      "finite": true,
+      "max_absolute_error": 9.495367936374066e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 497,
+      "min_score": 0.7030444145202637,
+      "max_score": 0.8376049399375916
+    },
+    {
+      "id": "22d2cb42",
+      "finite": true,
+      "max_absolute_error": 8.805492024421824e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 473,
+      "min_score": 0.6862141489982605,
+      "max_score": 0.8679600358009338
+    },
+    {
+      "id": "2311e44b",
+      "finite": true,
+      "max_absolute_error": 9.153069735479136e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7096437811851501,
+      "max_score": 0.8827394843101501
+    },
+    {
+      "id": "2311e44b_abs",
+      "finite": true,
+      "max_absolute_error": 1.0038772990661471e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.7210193872451782,
+      "max_score": 0.870897650718689
+    },
+    {
+      "id": "2318644b",
+      "finite": true,
+      "max_absolute_error": 8.850110644331721e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 523,
+      "min_score": 0.6891219615936279,
+      "max_score": 0.8551014065742493
+    },
+    {
+      "id": "25e5aa4f",
+      "finite": true,
+      "max_absolute_error": 8.65424687468419e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.7017917633056641,
+      "max_score": 0.8405504822731018
+    },
+    {
+      "id": "2698e78f",
+      "finite": true,
+      "max_absolute_error": 1.008296159898947e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 464,
+      "min_score": 0.7340019345283508,
+      "max_score": 0.8853862285614014
+    },
+    {
+      "id": "2698e78f_abs",
+      "finite": true,
+      "max_absolute_error": 1.1043244085851e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 462,
+      "min_score": 0.7202832698822021,
+      "max_score": 0.8315747976303101
+    },
+    {
+      "id": "26bdc477",
+      "finite": true,
+      "max_absolute_error": 9.089844343890263e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.7313928604125977,
+      "max_score": 0.8838018178939819
+    },
+    {
+      "id": "27016adc",
+      "finite": true,
+      "max_absolute_error": 9.66960098658376e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 491,
+      "min_score": 0.7266244292259216,
+      "max_score": 0.8826402425765991
+    },
+    {
+      "id": "2788b940",
+      "finite": true,
+      "max_absolute_error": 9.015809399048891e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 475,
+      "min_score": 0.7238093018531799,
+      "max_score": 0.8514219522476196
+    },
+    {
+      "id": "28bcfaac",
+      "finite": true,
+      "max_absolute_error": 9.518683663500838e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 500,
+      "min_score": 0.7261112928390503,
+      "max_score": 0.8902112245559692
+    },
+    {
+      "id": "28dc39ac",
+      "finite": true,
+      "max_absolute_error": 9.25588785616327e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 431,
+      "min_score": 0.6921610832214355,
+      "max_score": 0.8763900995254517
+    },
+    {
+      "id": "29f2956b",
+      "finite": true,
+      "max_absolute_error": 9.72460459935931e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 496,
+      "min_score": 0.7276135683059692,
+      "max_score": 0.8930820226669312
+    },
+    {
+      "id": "29f2956b_abs",
+      "finite": true,
+      "max_absolute_error": 9.586775651104773e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.7307405471801758,
+      "max_score": 0.8618707060813904
+    },
+    {
+      "id": "2a1811e2",
+      "finite": true,
+      "max_absolute_error": 8.230172143797176e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 254,
+      "min_score": 0.6465187072753906,
+      "max_score": 0.8031619787216187
+    },
+    {
+      "id": "2b8f3739",
+      "finite": true,
+      "max_absolute_error": 1.0707073250237897e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 491,
+      "min_score": 0.7131285667419434,
+      "max_score": 0.8747227787971497
+    },
+    {
+      "id": "2bf43736",
+      "finite": true,
+      "max_absolute_error": 9.688122382112141e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 478,
+      "min_score": 0.7069270610809326,
+      "max_score": 0.9399006366729736
+    },
+    {
+      "id": "2c63a862",
+      "finite": true,
+      "max_absolute_error": 9.454140448283965e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 260,
+      "min_score": 0.7367208003997803,
+      "max_score": 0.8869163393974304
+    },
+    {
+      "id": "2ce6a0f2",
+      "finite": true,
+      "max_absolute_error": 9.827617564184266e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 480,
+      "min_score": 0.7027611136436462,
+      "max_score": 0.8594121932983398
+    },
+    {
+      "id": "2e6d26dc",
+      "finite": true,
+      "max_absolute_error": 8.276513185911938e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.6856540441513062,
+      "max_score": 0.8494177460670471
+    },
+    {
+      "id": "2ebe6c90",
+      "finite": true,
+      "max_absolute_error": 1.0250538950984378e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7145178318023682,
+      "max_score": 0.8825423717498779
+    },
+    {
+      "id": "2ebe6c92",
+      "finite": true,
+      "max_absolute_error": 1.0029305608227901e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.6981849670410156,
+      "max_score": 0.8369358777999878
+    },
+    {
+      "id": "311778f1",
+      "finite": true,
+      "max_absolute_error": 1.0995207277986196e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 500,
+      "min_score": 0.7410847544670105,
+      "max_score": 0.8850768208503723
+    },
+    {
+      "id": "32260d93",
+      "finite": true,
+      "max_absolute_error": 7.856774686398893e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 524,
+      "min_score": 0.7079615592956543,
+      "max_score": 0.847508430480957
+    },
+    {
+      "id": "3249768e",
+      "finite": true,
+      "max_absolute_error": 8.951891894426467e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 475,
+      "min_score": 0.7097545266151428,
+      "max_score": 0.8819713592529297
+    },
+    {
+      "id": "352ab8bd",
+      "finite": true,
+      "max_absolute_error": 9.548618962185174e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 539,
+      "min_score": 0.7237906455993652,
+      "max_score": 0.937198281288147
+    },
+    {
+      "id": "35a27287",
+      "finite": true,
+      "max_absolute_error": 8.866604739310446e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 519,
+      "min_score": 0.724853515625,
+      "max_score": 0.8670464754104614
+    },
+    {
+      "id": "36580ce8",
+      "finite": true,
+      "max_absolute_error": 9.688988589218184e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 545,
+      "min_score": 0.663650393486023,
+      "max_score": 0.8207452297210693
+    },
+    {
+      "id": "36b9f61e",
+      "finite": true,
+      "max_absolute_error": 8.755789060455044e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.7394924759864807,
+      "max_score": 0.8892906904220581
+    },
+    {
+      "id": "370a8ff4",
+      "finite": true,
+      "max_absolute_error": 9.764605402029503e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.7272689342498779,
+      "max_score": 0.8942548036575317
+    },
+    {
+      "id": "37d43f65",
+      "finite": true,
+      "max_absolute_error": 8.382050453725753e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 533,
+      "min_score": 0.7254478931427002,
+      "max_score": 0.8914831876754761
+    },
+    {
+      "id": "37f165cf",
+      "finite": true,
+      "max_absolute_error": 1.0066960554055981e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 567,
+      "min_score": 0.6555826663970947,
+      "max_score": 0.8289461135864258
+    },
+    {
+      "id": "38146c39",
+      "finite": true,
+      "max_absolute_error": 9.067319917122063e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 538,
+      "min_score": 0.7276469469070435,
+      "max_score": 0.8581066131591797
+    },
+    {
+      "id": "3a704032",
+      "finite": true,
+      "max_absolute_error": 8.405388851606688e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.7312183380126953,
+      "max_score": 0.8403906226158142
+    },
+    {
+      "id": "3b6f954b",
+      "finite": true,
+      "max_absolute_error": 1.027082316973349e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 470,
+      "min_score": 0.6787805557250977,
+      "max_score": 0.8092540502548218
+    },
+    {
+      "id": "3ba21379",
+      "finite": true,
+      "max_absolute_error": 8.965648512493374e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 361,
+      "min_score": 0.7150818705558777,
+      "max_score": 0.8563471436500549
+    },
+    {
+      "id": "3c1045c8",
+      "finite": true,
+      "max_absolute_error": 1.0795433968979751e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 542,
+      "min_score": 0.7169547080993652,
+      "max_score": 0.8878728151321411
+    },
+    {
+      "id": "3d86fd0a",
+      "finite": true,
+      "max_absolute_error": 8.786395322424312e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 526,
+      "min_score": 0.6832833290100098,
+      "max_score": 0.8825206160545349
+    },
+    {
+      "id": "3e321797",
+      "finite": true,
+      "max_absolute_error": 8.900261416755484e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.7082211971282959,
+      "max_score": 0.8677628636360168
+    },
+    {
+      "id": "3f1e9474",
+      "finite": true,
+      "max_absolute_error": 9.277552670550193e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 515,
+      "min_score": 0.6833420991897583,
+      "max_score": 0.8676756620407104
+    },
+    {
+      "id": "3fdac837",
+      "finite": true,
+      "max_absolute_error": 9.550948876224652e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 453,
+      "min_score": 0.7032822966575623,
+      "max_score": 0.8430753946304321
+    },
+    {
+      "id": "3fe836c9",
+      "finite": true,
+      "max_absolute_error": 8.777605819965117e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 449,
+      "min_score": 0.6635621786117554,
+      "max_score": 0.8102993965148926
+    },
+    {
+      "id": "4100d0a0",
+      "finite": true,
+      "max_absolute_error": 9.479608065188216e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 523,
+      "min_score": 0.7177746295928955,
+      "max_score": 0.8561122417449951
+    },
+    {
+      "id": "41275add",
+      "finite": true,
+      "max_absolute_error": 9.164262659844269e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 531,
+      "min_score": 0.7451692819595337,
+      "max_score": 0.8898386359214783
+    },
+    {
+      "id": "41698283",
+      "finite": true,
+      "max_absolute_error": 1.028398485258819e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.7157770395278931,
+      "max_score": 0.8546286821365356
+    },
+    {
+      "id": "42ec0761",
+      "finite": true,
+      "max_absolute_error": 8.993853251038075e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.7243553996086121,
+      "max_score": 0.8959510922431946
+    },
+    {
+      "id": "4388e9dd",
+      "finite": true,
+      "max_absolute_error": 1.0524718219162565e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 477,
+      "min_score": 0.6680946350097656,
+      "max_score": 0.8257332444190979
+    },
+    {
+      "id": "45dc21b6",
+      "finite": true,
+      "max_absolute_error": 9.941404544022703e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7309836745262146,
+      "max_score": 0.8918247222900391
+    },
+    {
+      "id": "46a3abf7",
+      "finite": true,
+      "max_absolute_error": 9.868791417400047e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 503,
+      "min_score": 0.7345044612884521,
+      "max_score": 0.8624321222305298
+    },
+    {
+      "id": "488d3006",
+      "finite": true,
+      "max_absolute_error": 9.624462182777904e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 509,
+      "min_score": 0.688038170337677,
+      "max_score": 0.88918137550354
+    },
+    {
+      "id": "4adc0475",
+      "finite": true,
+      "max_absolute_error": 1.0207270773054944e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.726282000541687,
+      "max_score": 0.9019383192062378
+    },
+    {
+      "id": "4b24c848",
+      "finite": true,
+      "max_absolute_error": 9.192893712928196e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 514,
+      "min_score": 0.7168368101119995,
+      "max_score": 0.9160750508308411
+    },
+    {
+      "id": "4baee567",
+      "finite": true,
+      "max_absolute_error": 1.0357331037269546e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 514,
+      "min_score": 0.6876996755599976,
+      "max_score": 0.8991687297821045
+    },
+    {
+      "id": "4bc144e2",
+      "finite": true,
+      "max_absolute_error": 9.470735395922247e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 530,
+      "min_score": 0.6777548789978027,
+      "max_score": 0.8789833188056946
+    },
+    {
+      "id": "4c36ccef",
+      "finite": true,
+      "max_absolute_error": 8.204061563432674e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.7065342664718628,
+      "max_score": 0.8839451670646667
+    },
+    {
+      "id": "4d6b87c8",
+      "finite": true,
+      "max_absolute_error": 9.401606271275398e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7174456119537354,
+      "max_score": 0.9089292287826538
+    },
+    {
+      "id": "4dfccbf7",
+      "finite": true,
+      "max_absolute_error": 9.524813027184109e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.7151719331741333,
+      "max_score": 0.8538340926170349
+    },
+    {
+      "id": "4dfccbf8",
+      "finite": true,
+      "max_absolute_error": 9.740793749379861e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 455,
+      "min_score": 0.7116189002990723,
+      "max_score": 0.8375029563903809
+    },
+    {
+      "id": "4f54b7c9",
+      "finite": true,
+      "max_absolute_error": 9.634455377938167e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 491,
+      "min_score": 0.6991117596626282,
+      "max_score": 0.8493131995201111
+    },
+    {
+      "id": "4fd1909e",
+      "finite": true,
+      "max_absolute_error": 1.0591441945706492e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 554,
+      "min_score": 0.6610894203186035,
+      "max_score": 0.8395233154296875
+    },
+    {
+      "id": "5025383b",
+      "finite": true,
+      "max_absolute_error": 1.0657500038036005e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 446,
+      "min_score": 0.7126734256744385,
+      "max_score": 0.8529284596443176
+    },
+    {
+      "id": "505af2f5",
+      "finite": true,
+      "max_absolute_error": 9.548077151144696e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 501,
+      "min_score": 0.7221254706382751,
+      "max_score": 0.875611424446106
+    },
+    {
+      "id": "50635ada",
+      "finite": true,
+      "max_absolute_error": 9.393790612044484e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 531,
+      "min_score": 0.6925597786903381,
+      "max_score": 0.8837738037109375
+    },
+    {
+      "id": "51a45a95",
+      "finite": true,
+      "max_absolute_error": 9.828565028513481e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 529,
+      "min_score": 0.6955986022949219,
+      "max_score": 0.9055888056755066
+    },
+    {
+      "id": "51b23612",
+      "finite": true,
+      "max_absolute_error": 8.382670024786876e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 481,
+      "min_score": 0.6918224692344666,
+      "max_score": 0.8692573308944702
+    },
+    {
+      "id": "51c32626",
+      "finite": true,
+      "max_absolute_error": 8.199115342222285e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.6880340576171875,
+      "max_score": 0.8412948250770569
+    },
+    {
+      "id": "54026fce",
+      "finite": true,
+      "max_absolute_error": 1.0013158346922069e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 472,
+      "min_score": 0.7367727756500244,
+      "max_score": 0.9052209854125977
+    },
+    {
+      "id": "545bd2b5",
+      "finite": true,
+      "max_absolute_error": 9.717972493383797e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 461,
+      "min_score": 0.7584658861160278,
+      "max_score": 0.9273009300231934
+    },
+    {
+      "id": "55241a1f",
+      "finite": true,
+      "max_absolute_error": 1.1813087630319075e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 514,
+      "min_score": 0.7256791591644287,
+      "max_score": 0.8852566480636597
+    },
+    {
+      "id": "561fabcd",
+      "finite": true,
+      "max_absolute_error": 9.66193116624936e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7207977771759033,
+      "max_score": 0.8685147762298584
+    },
+    {
+      "id": "577d4d32",
+      "finite": true,
+      "max_absolute_error": 1.026253571012603e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.7344489693641663,
+      "max_score": 0.8664225339889526
+    },
+    {
+      "id": "57f827a0",
+      "finite": true,
+      "max_absolute_error": 9.22358635024878e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7210933566093445,
+      "max_score": 0.8697962760925293
+    },
+    {
+      "id": "5809eb10",
+      "finite": true,
+      "max_absolute_error": 9.587083371620508e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 606,
+      "min_score": 0.6945939660072327,
+      "max_score": 0.900835394859314
+    },
+    {
+      "id": "5831f84d",
+      "finite": true,
+      "max_absolute_error": 9.591664595909322e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 412,
+      "min_score": 0.7391605377197266,
+      "max_score": 0.8979969024658203
+    },
+    {
+      "id": "58470ed2",
+      "finite": true,
+      "max_absolute_error": 9.568650727320716e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 471,
+      "min_score": 0.7146296501159668,
+      "max_score": 0.8821638226509094
+    },
+    {
+      "id": "58bf7951",
+      "finite": true,
+      "max_absolute_error": 9.01971959343939e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 616,
+      "min_score": 0.631621241569519,
+      "max_score": 0.8514890670776367
+    },
+    {
+      "id": "58ef2f1c",
+      "finite": true,
+      "max_absolute_error": 9.097979514205434e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 518,
+      "min_score": 0.6815531253814697,
+      "max_score": 0.8482366800308228
+    },
+    {
+      "id": "59524333",
+      "finite": true,
+      "max_absolute_error": 1.0341283451786865e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 528,
+      "min_score": 0.713844895362854,
+      "max_score": 0.8873453140258789
+    },
+    {
+      "id": "5a4f22c0",
+      "finite": true,
+      "max_absolute_error": 8.758340364067863e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.6983261108398438,
+      "max_score": 0.8661186099052429
+    },
+    {
+      "id": "5a7937c8",
+      "finite": true,
+      "max_absolute_error": 1.013654726822466e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 419,
+      "min_score": 0.6704210638999939,
+      "max_score": 0.8409504890441895
+    },
+    {
+      "id": "5c40ec5b",
+      "finite": true,
+      "max_absolute_error": 8.930548167640495e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.7052481174468994,
+      "max_score": 0.8823158144950867
+    },
+    {
+      "id": "5d3d2817",
+      "finite": true,
+      "max_absolute_error": 9.449267590611043e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.7015402317047119,
+      "max_score": 0.8172532916069031
+    },
+    {
+      "id": "5e1b23de",
+      "finite": true,
+      "max_absolute_error": 1.0525844762465653e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 445,
+      "min_score": 0.6815612316131592,
+      "max_score": 0.8238567113876343
+    },
+    {
+      "id": "60036106",
+      "finite": true,
+      "max_absolute_error": 1.174830854822062e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 483,
+      "min_score": 0.6960428953170776,
+      "max_score": 0.8717038035392761
+    },
+    {
+      "id": "60159905",
+      "finite": true,
+      "max_absolute_error": 1.0459210708635425e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 448,
+      "min_score": 0.7345033884048462,
+      "max_score": 0.870256781578064
+    },
+    {
+      "id": "603deb26",
+      "finite": true,
+      "max_absolute_error": 8.348951974213037e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 472,
+      "min_score": 0.7319223880767822,
+      "max_score": 0.8799817562103271
+    },
+    {
+      "id": "60472f9c",
+      "finite": true,
+      "max_absolute_error": 1.03300165532616e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 454,
+      "min_score": 0.7263901233673096,
+      "max_score": 0.8428914546966553
+    },
+    {
+      "id": "6071bd76",
+      "finite": true,
+      "max_absolute_error": 1.0116350424027587e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 482,
+      "min_score": 0.7296955585479736,
+      "max_score": 0.8726538419723511
+    },
+    {
+      "id": "60bf93ed",
+      "finite": true,
+      "max_absolute_error": 1.0531030458782453e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.728779673576355,
+      "max_score": 0.8516262769699097
+    },
+    {
+      "id": "60bf93ed_abs",
+      "finite": true,
+      "max_absolute_error": 9.44214534337462e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.7172067761421204,
+      "max_score": 0.8302420973777771
+    },
+    {
+      "id": "60d45044",
+      "finite": true,
+      "max_absolute_error": 1.0676874317994134e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 541,
+      "min_score": 0.7081592082977295,
+      "max_score": 0.8633615970611572
+    },
+    {
+      "id": "618f13b2",
+      "finite": true,
+      "max_absolute_error": 8.926450256740992e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.7127493619918823,
+      "max_score": 0.9205518960952759
+    },
+    {
+      "id": "61f8c8f8",
+      "finite": true,
+      "max_absolute_error": 1.0194740862612406e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 459,
+      "min_score": 0.7277810573577881,
+      "max_score": 0.8825449347496033
+    },
+    {
+      "id": "6222b6eb",
+      "finite": true,
+      "max_absolute_error": 1.0897230429129934e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 497,
+      "min_score": 0.7013731002807617,
+      "max_score": 0.9337531924247742
+    },
+    {
+      "id": "6456829e",
+      "finite": true,
+      "max_absolute_error": 1.1136064093086873e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 488,
+      "min_score": 0.6892862319946289,
+      "max_score": 0.8595120906829834
+    },
+    {
+      "id": "6456829e_abs",
+      "finite": true,
+      "max_absolute_error": 1.0987484189151075e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.6924397945404053,
+      "max_score": 0.8410300016403198
+    },
+    {
+      "id": "65240037",
+      "finite": true,
+      "max_absolute_error": 9.668123424066977e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.7264362573623657,
+      "max_score": 0.8854723572731018
+    },
+    {
+      "id": "6613b389",
+      "finite": true,
+      "max_absolute_error": 8.423027231252433e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 250,
+      "min_score": 0.6682732105255127,
+      "max_score": 0.8278017044067383
+    },
+    {
+      "id": "66f24dbb",
+      "finite": true,
+      "max_absolute_error": 9.284176183399495e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 507,
+      "min_score": 0.7103935480117798,
+      "max_score": 0.8885362148284912
+    },
+    {
+      "id": "67e0d0f2",
+      "finite": true,
+      "max_absolute_error": 1.251571102311999e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.7220132946968079,
+      "max_score": 0.8668695092201233
+    },
+    {
+      "id": "681a1674",
+      "finite": true,
+      "max_absolute_error": 9.369064613018452e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.6902225017547607,
+      "max_score": 0.8787668943405151
+    },
+    {
+      "id": "69fee5aa",
+      "finite": true,
+      "max_absolute_error": 9.708415782405666e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 483,
+      "min_score": 0.7171165943145752,
+      "max_score": 0.9025521874427795
+    },
+    {
+      "id": "6a1eabeb",
+      "finite": true,
+      "max_absolute_error": 8.993179134719753e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 413,
+      "min_score": 0.7339057326316833,
+      "max_score": 0.9000808000564575
+    },
+    {
+      "id": "6a27ffc2",
+      "finite": true,
+      "max_absolute_error": 9.162790370886853e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.6974087953567505,
+      "max_score": 0.8642609715461731
+    },
+    {
+      "id": "6ade9755",
+      "finite": true,
+      "max_absolute_error": 1.0141580164546582e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 513,
+      "min_score": 0.7047551870346069,
+      "max_score": 0.8516496419906616
+    },
+    {
+      "id": "6ae235be",
+      "finite": true,
+      "max_absolute_error": 8.939872786495329e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 454,
+      "min_score": 0.7164360284805298,
+      "max_score": 0.8920230865478516
+    },
+    {
+      "id": "6aeb4375",
+      "finite": true,
+      "max_absolute_error": 9.743288753583101e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 468,
+      "min_score": 0.6890586614608765,
+      "max_score": 0.8954426050186157
+    },
+    {
+      "id": "6aeb4375_abs",
+      "finite": true,
+      "max_absolute_error": 9.851215176936989e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.6982862949371338,
+      "max_score": 0.8552737236022949
+    },
+    {
+      "id": "6b168ec8",
+      "finite": true,
+      "max_absolute_error": 8.009593976954221e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 482,
+      "min_score": 0.7287243604660034,
+      "max_score": 0.8751589059829712
+    },
+    {
+      "id": "6b7dfb22",
+      "finite": true,
+      "max_absolute_error": 8.728523703815938e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 471,
+      "min_score": 0.7302162647247314,
+      "max_score": 0.8750436305999756
+    },
+    {
+      "id": "6c49646a",
+      "finite": true,
+      "max_absolute_error": 9.325874017473978e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 429,
+      "min_score": 0.7473991513252258,
+      "max_score": 0.8434799313545227
+    },
+    {
+      "id": "6cb6f249",
+      "finite": true,
+      "max_absolute_error": 9.55387704504318e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 470,
+      "min_score": 0.7099160552024841,
+      "max_score": 0.8669101595878601
+    },
+    {
+      "id": "6d550036",
+      "finite": true,
+      "max_absolute_error": 9.342835605163913e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 505,
+      "min_score": 0.7337149977684021,
+      "max_score": 0.8386412858963013
+    },
+    {
+      "id": "6e984301",
+      "finite": true,
+      "max_absolute_error": 1.0049189513861023e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 513,
+      "min_score": 0.7323174476623535,
+      "max_score": 0.8804640769958496
+    },
+    {
+      "id": "6e984302",
+      "finite": true,
+      "max_absolute_error": 9.425496050319282e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 460,
+      "min_score": 0.7337813377380371,
+      "max_score": 0.8450330495834351
+    },
+    {
+      "id": "6f9b354f",
+      "finite": true,
+      "max_absolute_error": 9.796335942446888e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 500,
+      "min_score": 0.7089075446128845,
+      "max_score": 0.8417609930038452
+    },
+    {
+      "id": "7024f17c",
+      "finite": true,
+      "max_absolute_error": 9.836215342229337e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 483,
+      "min_score": 0.7426725029945374,
+      "max_score": 0.8882924318313599
+    },
+    {
+      "id": "70b3e69b",
+      "finite": true,
+      "max_absolute_error": 1.041099306764437e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7034908533096313,
+      "max_score": 0.8905818462371826
+    },
+    {
+      "id": "71017276",
+      "finite": true,
+      "max_absolute_error": 9.97617257691985e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 614,
+      "min_score": 0.7173352837562561,
+      "max_score": 0.8696144819259644
+    },
+    {
+      "id": "71017277",
+      "finite": true,
+      "max_absolute_error": 9.389509902923976e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.6855876445770264,
+      "max_score": 0.8094595074653625
+    },
+    {
+      "id": "71315a70",
+      "finite": true,
+      "max_absolute_error": 9.11649478130272e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 494,
+      "min_score": 0.7107702493667603,
+      "max_score": 0.9209238886833191
+    },
+    {
+      "id": "7161e7e2",
+      "finite": true,
+      "max_absolute_error": 1.0381507453693928e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 550,
+      "min_score": 0.7283744215965271,
+      "max_score": 0.9102407693862915
+    },
+    {
+      "id": "71a3fd6b",
+      "finite": true,
+      "max_absolute_error": 1.0012180307050755e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 439,
+      "min_score": 0.6981223821640015,
+      "max_score": 0.9059869050979614
+    },
+    {
+      "id": "720133ac",
+      "finite": true,
+      "max_absolute_error": 8.690645603159908e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.6919310688972473,
+      "max_score": 0.8529680967330933
+    },
+    {
+      "id": "726462e0",
+      "finite": true,
+      "max_absolute_error": 1.0599176669678911e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 501,
+      "min_score": 0.698447585105896,
+      "max_score": 0.8311364650726318
+    },
+    {
+      "id": "72e3ee87",
+      "finite": true,
+      "max_absolute_error": 1.0077146894715838e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 496,
+      "min_score": 0.6924705505371094,
+      "max_score": 0.881554901599884
+    },
+    {
+      "id": "73d42213",
+      "finite": true,
+      "max_absolute_error": 9.185221516716524e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.6710663437843323,
+      "max_score": 0.8494271039962769
+    },
+    {
+      "id": "7401057b",
+      "finite": true,
+      "max_absolute_error": 9.602989603507694e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 432,
+      "min_score": 0.7272613644599915,
+      "max_score": 0.9406357407569885
+    },
+    {
+      "id": "7405e8b1",
+      "finite": true,
+      "max_absolute_error": 1.0555791529753833e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 469,
+      "min_score": 0.7426745295524597,
+      "max_score": 0.8779296278953552
+    },
+    {
+      "id": "7527f7e2",
+      "finite": true,
+      "max_absolute_error": 1.0387013182899807e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.7160357236862183,
+      "max_score": 0.8954188823699951
+    },
+    {
+      "id": "75499fd8",
+      "finite": true,
+      "max_absolute_error": 9.295978320444931e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 491,
+      "min_score": 0.6997487545013428,
+      "max_score": 0.8330022096633911
+    },
+    {
+      "id": "75832dbd",
+      "finite": true,
+      "max_absolute_error": 9.354775176717567e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7263393998146057,
+      "max_score": 0.8881585001945496
+    },
+    {
+      "id": "75f70248",
+      "finite": true,
+      "max_absolute_error": 1.0120626192655635e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.7419061064720154,
+      "max_score": 0.8502510786056519
+    },
+    {
+      "id": "76d63226",
+      "finite": true,
+      "max_absolute_error": 1.0904554170743097e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.7062405347824097,
+      "max_score": 0.8676174879074097
+    },
+    {
+      "id": "778164c6",
+      "finite": true,
+      "max_absolute_error": 9.38219910651128e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 542,
+      "min_score": 0.6873219013214111,
+      "max_score": 0.8903961181640625
+    },
+    {
+      "id": "77eafa52",
+      "finite": true,
+      "max_absolute_error": 8.942780116427684e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 527,
+      "min_score": 0.7132123708724976,
+      "max_score": 0.872895359992981
+    },
+    {
+      "id": "7a87bd0c",
+      "finite": true,
+      "max_absolute_error": 1.0037232689441566e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.7527646422386169,
+      "max_score": 0.890450656414032
+    },
+    {
+      "id": "7a8d0b71",
+      "finite": true,
+      "max_absolute_error": 1.0076440370987427e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.7353420257568359,
+      "max_score": 0.8971081972122192
+    },
+    {
+      "id": "7e00a6cb",
+      "finite": true,
+      "max_absolute_error": 9.752298368859158e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 564,
+      "min_score": 0.6982280015945435,
+      "max_score": 0.8577329516410828
+    },
+    {
+      "id": "7e974930",
+      "finite": true,
+      "max_absolute_error": 1.1129648525010083e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 502,
+      "min_score": 0.7181081771850586,
+      "max_score": 0.9013713598251343
+    },
+    {
+      "id": "8077ef71",
+      "finite": true,
+      "max_absolute_error": 9.025333591594631e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 554,
+      "min_score": 0.6730530261993408,
+      "max_score": 0.8581686019897461
+    },
+    {
+      "id": "80ec1f4f",
+      "finite": true,
+      "max_absolute_error": 9.076858875634031e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.7014546990394592,
+      "max_score": 0.8411334156990051
+    },
+    {
+      "id": "80ec1f4f_abs",
+      "finite": true,
+      "max_absolute_error": 9.202373640881945e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.7102535963058472,
+      "max_score": 0.8303664326667786
+    },
+    {
+      "id": "81507db6",
+      "finite": true,
+      "max_absolute_error": 1.0225849478295856e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.7181164026260376,
+      "max_score": 0.8461481928825378
+    },
+    {
+      "id": "830ce83f",
+      "finite": true,
+      "max_absolute_error": 9.874583806190884e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 511,
+      "min_score": 0.6538573503494263,
+      "max_score": 0.8129322528839111
+    },
+    {
+      "id": "8464fc84",
+      "finite": true,
+      "max_absolute_error": 1.1753834883165837e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.7098174095153809,
+      "max_score": 0.8569554090499878
+    },
+    {
+      "id": "852ce960",
+      "finite": true,
+      "max_absolute_error": 9.657729560519357e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 396,
+      "min_score": 0.7166407704353333,
+      "max_score": 0.9129287004470825
+    },
+    {
+      "id": "853b0a1d",
+      "finite": true,
+      "max_absolute_error": 9.754752761104157e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 512,
+      "min_score": 0.7057195901870728,
+      "max_score": 0.9067108631134033
+    },
+    {
+      "id": "8550ddae",
+      "finite": true,
+      "max_absolute_error": 9.607658035815092e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 453,
+      "min_score": 0.71026611328125,
+      "max_score": 0.8648619055747986
+    },
+    {
+      "id": "85fa3a3f",
+      "finite": true,
+      "max_absolute_error": 1.0365403746437352e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7213801145553589,
+      "max_score": 0.9160654544830322
+    },
+    {
+      "id": "86b68151",
+      "finite": true,
+      "max_absolute_error": 9.36266515427775e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7169992327690125,
+      "max_score": 0.8923104405403137
+    },
+    {
+      "id": "86f00804",
+      "finite": true,
+      "max_absolute_error": 9.383216426073204e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 503,
+      "min_score": 0.7364192605018616,
+      "max_score": 0.8536800742149353
+    },
+    {
+      "id": "8752c811",
+      "finite": true,
+      "max_absolute_error": 1.0126401561727505e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7329407930374146,
+      "max_score": 0.9017657041549683
+    },
+    {
+      "id": "87f22b4a",
+      "finite": true,
+      "max_absolute_error": 8.82975568217148e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7337908744812012,
+      "max_score": 0.9137768149375916
+    },
+    {
+      "id": "88432d0a",
+      "finite": true,
+      "max_absolute_error": 9.109688936526084e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.7428744435310364,
+      "max_score": 0.8646889328956604
+    },
+    {
+      "id": "88432d0a_abs",
+      "finite": true,
+      "max_absolute_error": 1.1399022037394957e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.7320413589477539,
+      "max_score": 0.8485317826271057
+    },
+    {
+      "id": "89527b6b",
+      "finite": true,
+      "max_absolute_error": 9.340474083074923e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.7019472122192383,
+      "max_score": 0.8437306880950928
+    },
+    {
+      "id": "8979f9ec",
+      "finite": true,
+      "max_absolute_error": 8.773196302769293e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 469,
+      "min_score": 0.7309036254882812,
+      "max_score": 0.8714621663093567
+    },
+    {
+      "id": "89941a93",
+      "finite": true,
+      "max_absolute_error": 9.717981530599218e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 528,
+      "min_score": 0.7277592420578003,
+      "max_score": 0.8774095177650452
+    },
+    {
+      "id": "89941a94",
+      "finite": true,
+      "max_absolute_error": 9.098049857936275e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 523,
+      "min_score": 0.6897271871566772,
+      "max_score": 0.864282488822937
+    },
+    {
+      "id": "8a137a7f",
+      "finite": true,
+      "max_absolute_error": 9.765180530862949e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 512,
+      "min_score": 0.6860142946243286,
+      "max_score": 0.8607587814331055
+    },
+    {
+      "id": "8a2466db",
+      "finite": true,
+      "max_absolute_error": 9.882311413633715e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 508,
+      "min_score": 0.712056577205658,
+      "max_score": 0.8786078691482544
+    },
+    {
+      "id": "8aef76bc",
+      "finite": true,
+      "max_absolute_error": 9.470575634829004e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 492,
+      "min_score": 0.7174471020698547,
+      "max_score": 0.8428500890731812
+    },
+    {
+      "id": "8b9d4367",
+      "finite": true,
+      "max_absolute_error": 9.440040216190937e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 537,
+      "min_score": 0.694683313369751,
+      "max_score": 0.8728656768798828
+    },
+    {
+      "id": "8c18457d",
+      "finite": true,
+      "max_absolute_error": 8.736216816629394e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 292,
+      "min_score": 0.7342426180839539,
+      "max_score": 0.8353788256645203
+    },
+    {
+      "id": "8cf4d046",
+      "finite": true,
+      "max_absolute_error": 8.928714589906406e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 468,
+      "min_score": 0.7224092483520508,
+      "max_score": 0.8491098880767822
+    },
+    {
+      "id": "8cf51dda",
+      "finite": true,
+      "max_absolute_error": 1.0327929944597969e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 454,
+      "min_score": 0.7332649230957031,
+      "max_score": 0.9003194570541382
+    },
+    {
+      "id": "8e91e7d9",
+      "finite": true,
+      "max_absolute_error": 1.0171669639902348e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.7207680940628052,
+      "max_score": 0.8519603610038757
+    },
+    {
+      "id": "8e9d538c",
+      "finite": true,
+      "max_absolute_error": 9.811440437879071e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 486,
+      "min_score": 0.6891531944274902,
+      "max_score": 0.899264931678772
+    },
+    {
+      "id": "8ebdbe50",
+      "finite": true,
+      "max_absolute_error": 1.1282548384450308e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.7091567516326904,
+      "max_score": 0.8665703535079956
+    },
+    {
+      "id": "8fb83627",
+      "finite": true,
+      "max_absolute_error": 8.684121843849368e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7036446928977966,
+      "max_score": 0.8807801008224487
+    },
+    {
+      "id": "91b15a6e",
+      "finite": true,
+      "max_absolute_error": 9.34519204243145e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.731969952583313,
+      "max_score": 0.88491290807724
+    },
+    {
+      "id": "92a0aa75",
+      "finite": true,
+      "max_absolute_error": 9.243470389108666e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 455,
+      "min_score": 0.7231849431991577,
+      "max_score": 0.8690167665481567
+    },
+    {
+      "id": "945e3d21",
+      "finite": true,
+      "max_absolute_error": 8.958630015598601e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.7136929035186768,
+      "max_score": 0.8778427839279175
+    },
+    {
+      "id": "94f70d80",
+      "finite": true,
+      "max_absolute_error": 9.096460296120767e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.7251380085945129,
+      "max_score": 0.8848893642425537
+    },
+    {
+      "id": "95228167",
+      "finite": true,
+      "max_absolute_error": 1.0194216004677514e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 507,
+      "min_score": 0.7307827472686768,
+      "max_score": 0.872446596622467
+    },
+    {
+      "id": "95bcc1c8",
+      "finite": true,
+      "max_absolute_error": 9.698826985982123e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.6754446029663086,
+      "max_score": 0.8392316699028015
+    },
+    {
+      "id": "982b5123",
+      "finite": true,
+      "max_absolute_error": 7.83552601690829e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 275,
+      "min_score": 0.6882075071334839,
+      "max_score": 0.825602114200592
+    },
+    {
+      "id": "982b5123_abs",
+      "finite": true,
+      "max_absolute_error": 8.46557460798536e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 329,
+      "min_score": 0.690831184387207,
+      "max_score": 0.8343503475189209
+    },
+    {
+      "id": "993da5e2",
+      "finite": true,
+      "max_absolute_error": 8.76102552727076e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 352,
+      "min_score": 0.7148857712745667,
+      "max_score": 0.8521389365196228
+    },
+    {
+      "id": "9a707b81",
+      "finite": true,
+      "max_absolute_error": 8.803222428799273e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 530,
+      "min_score": 0.7166708707809448,
+      "max_score": 0.8498133420944214
+    },
+    {
+      "id": "9a707b82",
+      "finite": true,
+      "max_absolute_error": 1.089884158478327e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 532,
+      "min_score": 0.7368119955062866,
+      "max_score": 0.8578207492828369
+    },
+    {
+      "id": "9aaed6a3",
+      "finite": true,
+      "max_absolute_error": 1.1601419080964348e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 541,
+      "min_score": 0.704578161239624,
+      "max_score": 0.878326416015625
+    },
+    {
+      "id": "9bbe84a2",
+      "finite": true,
+      "max_absolute_error": 1.0319353538346121e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 447,
+      "min_score": 0.7225615978240967,
+      "max_score": 0.86604243516922
+    },
+    {
+      "id": "9d25d4e0",
+      "finite": true,
+      "max_absolute_error": 9.048847871007126e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7364640235900879,
+      "max_score": 0.8654739856719971
+    },
+    {
+      "id": "9ea5eabc",
+      "finite": true,
+      "max_absolute_error": 9.173266768414123e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 537,
+      "min_score": 0.7328264713287354,
+      "max_score": 0.8692626953125
+    },
+    {
+      "id": "9ee3ecd6",
+      "finite": true,
+      "max_absolute_error": 9.281511315073487e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.7147353291511536,
+      "max_score": 0.8990352749824524
+    },
+    {
+      "id": "a06e4cfe",
+      "finite": true,
+      "max_absolute_error": 9.281880952727306e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 534,
+      "min_score": 0.7065528035163879,
+      "max_score": 0.9222843050956726
+    },
+    {
+      "id": "a08a253f",
+      "finite": true,
+      "max_absolute_error": 9.169655590390846e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 560,
+      "min_score": 0.7203400135040283,
+      "max_score": 0.9054376482963562
+    },
+    {
+      "id": "a11281a2",
+      "finite": true,
+      "max_absolute_error": 9.255157995546881e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 457,
+      "min_score": 0.7363571524620056,
+      "max_score": 0.8819476366043091
+    },
+    {
+      "id": "a1cc6108",
+      "finite": true,
+      "max_absolute_error": 9.252769084255874e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 492,
+      "min_score": 0.6661078333854675,
+      "max_score": 0.8446387052536011
+    },
+    {
+      "id": "a1eacc2a",
+      "finite": true,
+      "max_absolute_error": 8.849583343906176e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.6773624420166016,
+      "max_score": 0.8750569820404053
+    },
+    {
+      "id": "a2f3aa27",
+      "finite": true,
+      "max_absolute_error": 9.286204938341314e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 448,
+      "min_score": 0.7378610372543335,
+      "max_score": 0.8905053734779358
+    },
+    {
+      "id": "a3045048",
+      "finite": true,
+      "max_absolute_error": 1.0041621467671291e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 361,
+      "min_score": 0.7098824977874756,
+      "max_score": 0.849030613899231
+    },
+    {
+      "id": "a3332713",
+      "finite": true,
+      "max_absolute_error": 9.395989597482668e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.7422847151756287,
+      "max_score": 0.8904956579208374
+    },
+    {
+      "id": "a346bb18",
+      "finite": true,
+      "max_absolute_error": 1.0749176304614139e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 478,
+      "min_score": 0.6890861392021179,
+      "max_score": 0.8569328784942627
+    },
+    {
+      "id": "a3838d2b",
+      "finite": true,
+      "max_absolute_error": 9.049349047884903e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 48,
+      "min_score": 0.7022955417633057,
+      "max_score": 0.7873284816741943
+    },
+    {
+      "id": "a40e080f",
+      "finite": true,
+      "max_absolute_error": 9.884084550826344e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 529,
+      "min_score": 0.7179861068725586,
+      "max_score": 0.9060370922088623
+    },
+    {
+      "id": "a4996e51",
+      "finite": true,
+      "max_absolute_error": 9.744896178887075e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 512,
+      "min_score": 0.7268970608711243,
+      "max_score": 0.8766218423843384
+    },
+    {
+      "id": "a82c026e",
+      "finite": true,
+      "max_absolute_error": 1.0194555555287366e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.687078595161438,
+      "max_score": 0.8346964120864868
+    },
+    {
+      "id": "a89d7624",
+      "finite": true,
+      "max_absolute_error": 8.989546418369798e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 496,
+      "min_score": 0.7148213982582092,
+      "max_score": 0.8693235516548157
+    },
+    {
+      "id": "a96c20ee",
+      "finite": true,
+      "max_absolute_error": 9.407142176343086e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.6819667220115662,
+      "max_score": 0.8067841529846191
+    },
+    {
+      "id": "a96c20ee_abs",
+      "finite": true,
+      "max_absolute_error": 8.92620131143218e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 535,
+      "min_score": 0.6849550008773804,
+      "max_score": 0.8001067638397217
+    },
+    {
+      "id": "a9f6b44c",
+      "finite": true,
+      "max_absolute_error": 9.031665959557955e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.6912469863891602,
+      "max_score": 0.8529362678527832
+    },
+    {
+      "id": "aae3761f",
+      "finite": true,
+      "max_absolute_error": 1.0057723298650956e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7192956805229187,
+      "max_score": 0.8545041084289551
+    },
+    {
+      "id": "ac031881",
+      "finite": true,
+      "max_absolute_error": 9.8455538832809e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 529,
+      "min_score": 0.7345061302185059,
+      "max_score": 0.8940758109092712
+    },
+    {
+      "id": "ad7109d1",
+      "finite": true,
+      "max_absolute_error": 1.03724603350841e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.7221541404724121,
+      "max_score": 0.8602408170700073
+    },
+    {
+      "id": "af082822",
+      "finite": true,
+      "max_absolute_error": 1.0006841433263247e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7034800052642822,
+      "max_score": 0.8241803646087646
+    },
+    {
+      "id": "af8d2e46",
+      "finite": true,
+      "max_absolute_error": 1.0856141319237622e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7228966355323792,
+      "max_score": 0.8900560736656189
+    },
+    {
+      "id": "afdc33df",
+      "finite": true,
+      "max_absolute_error": 1.0709974918032827e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 502,
+      "min_score": 0.7157824039459229,
+      "max_score": 0.8793074488639832
+    },
+    {
+      "id": "affe2881",
+      "finite": true,
+      "max_absolute_error": 9.46433618143061e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.6971133947372437,
+      "max_score": 0.8959959745407104
+    },
+    {
+      "id": "b01defab",
+      "finite": true,
+      "max_absolute_error": 9.829389990834159e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 503,
+      "min_score": 0.716694712638855,
+      "max_score": 0.905440628528595
+    },
+    {
+      "id": "b0479f84",
+      "finite": true,
+      "max_absolute_error": 8.827353237261804e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 502,
+      "min_score": 0.7145870923995972,
+      "max_score": 0.8626002669334412
+    },
+    {
+      "id": "b29f3365",
+      "finite": true,
+      "max_absolute_error": 8.522590244641748e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 376,
+      "min_score": 0.7243863344192505,
+      "max_score": 0.8863584995269775
+    },
+    {
+      "id": "b320f3f8",
+      "finite": true,
+      "max_absolute_error": 9.427744585011055e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 463,
+      "min_score": 0.6823539733886719,
+      "max_score": 0.8169783353805542
+    },
+    {
+      "id": "b3c15d39",
+      "finite": true,
+      "max_absolute_error": 9.539973211403208e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 502,
+      "min_score": 0.7141513228416443,
+      "max_score": 0.8755456805229187
+    },
+    {
+      "id": "b46e15ed",
+      "finite": true,
+      "max_absolute_error": 1.0526950211531272e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 478,
+      "min_score": 0.7238059043884277,
+      "max_score": 0.8559747934341431
+    },
+    {
+      "id": "b46e15ee",
+      "finite": true,
+      "max_absolute_error": 9.772546782915725e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 457,
+      "min_score": 0.7048966884613037,
+      "max_score": 0.8216347098350525
+    },
+    {
+      "id": "b5ef892d",
+      "finite": true,
+      "max_absolute_error": 1.0716629827989266e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7258469462394714,
+      "max_score": 0.8647950887680054
+    },
+    {
+      "id": "b6019101",
+      "finite": true,
+      "max_absolute_error": 9.331626316111397e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 510,
+      "min_score": 0.7235058546066284,
+      "max_score": 0.9058275818824768
+    },
+    {
+      "id": "b6025781",
+      "finite": true,
+      "max_absolute_error": 9.920081112113621e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 460,
+      "min_score": 0.739695131778717,
+      "max_score": 0.8987503051757812
+    },
+    {
+      "id": "b759caee",
+      "finite": true,
+      "max_absolute_error": 1.0591163557283068e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7002993822097778,
+      "max_score": 0.8966420292854309
+    },
+    {
+      "id": "b86304ba",
+      "finite": true,
+      "max_absolute_error": 9.310299753373386e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 456,
+      "min_score": 0.7315288186073303,
+      "max_score": 0.8552581071853638
+    },
+    {
+      "id": "b9cfe692",
+      "finite": true,
+      "max_absolute_error": 8.22497175922976e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 145,
+      "min_score": 0.6978490352630615,
+      "max_score": 0.8139795064926147
+    },
+    {
+      "id": "ba358f49",
+      "finite": true,
+      "max_absolute_error": 8.870592393961374e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 409,
+      "min_score": 0.7139649987220764,
+      "max_score": 0.8499336242675781
+    },
+    {
+      "id": "ba358f49_abs",
+      "finite": true,
+      "max_absolute_error": 9.244460441593105e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 477,
+      "min_score": 0.7114191055297852,
+      "max_score": 0.8417384028434753
+    },
+    {
+      "id": "ba61f0b9",
+      "finite": true,
+      "max_absolute_error": 9.556022706469491e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 454,
+      "min_score": 0.6814953088760376,
+      "max_score": 0.8895475268363953
+    },
+    {
+      "id": "bb7c3b45",
+      "finite": true,
+      "max_absolute_error": 1.1143758238407742e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7231372594833374,
+      "max_score": 0.8921304941177368
+    },
+    {
+      "id": "bbf86515",
+      "finite": true,
+      "max_absolute_error": 8.791841232813624e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 429,
+      "min_score": 0.7015308141708374,
+      "max_score": 0.8647347688674927
+    },
+    {
+      "id": "bc149d6b",
+      "finite": true,
+      "max_absolute_error": 9.760667873948137e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.7365233898162842,
+      "max_score": 0.8682839870452881
+    },
+    {
+      "id": "bc8a6e93",
+      "finite": true,
+      "max_absolute_error": 9.050088689566138e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 537,
+      "min_score": 0.7031902074813843,
+      "max_score": 0.8411186933517456
+    },
+    {
+      "id": "bc8a6e93_abs",
+      "finite": true,
+      "max_absolute_error": 1.0012874440690211e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.6777527332305908,
+      "max_score": 0.8264504671096802
+    },
+    {
+      "id": "bcbe585f",
+      "finite": true,
+      "max_absolute_error": 1.0135159389523807e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 453,
+      "min_score": 0.6696276068687439,
+      "max_score": 0.8673912882804871
+    },
+    {
+      "id": "bf659f65",
+      "finite": true,
+      "max_absolute_error": 8.606312817960315e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7435448169708252,
+      "max_score": 0.8708732724189758
+    },
+    {
+      "id": "c14c00dd",
+      "finite": true,
+      "max_absolute_error": 9.90108950382762e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 492,
+      "min_score": 0.7314635515213013,
+      "max_score": 0.8644814491271973
+    },
+    {
+      "id": "c18a7dc8",
+      "finite": true,
+      "max_absolute_error": 9.147428281508496e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 509,
+      "min_score": 0.7281867265701294,
+      "max_score": 0.8280043601989746
+    },
+    {
+      "id": "c19f7a0b",
+      "finite": true,
+      "max_absolute_error": 8.518084482211918e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 478,
+      "min_score": 0.7356383800506592,
+      "max_score": 0.851536214351654
+    },
+    {
+      "id": "c2ac3c61",
+      "finite": true,
+      "max_absolute_error": 9.667456546402775e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 528,
+      "min_score": 0.7193416357040405,
+      "max_score": 0.8538139462471008
+    },
+    {
+      "id": "c4a1ceb8",
+      "finite": true,
+      "max_absolute_error": 9.574521242505796e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 488,
+      "min_score": 0.7117742300033569,
+      "max_score": 0.8580225706100464
+    },
+    {
+      "id": "c4ea545c",
+      "finite": true,
+      "max_absolute_error": 1.0324265753425266e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.7386778593063354,
+      "max_score": 0.8779390454292297
+    },
+    {
+      "id": "c4f10528",
+      "finite": true,
+      "max_absolute_error": 9.264748290771507e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.6865612268447876,
+      "max_score": 0.851210355758667
+    },
+    {
+      "id": "c5e8278d",
+      "finite": true,
+      "max_absolute_error": 8.532484407908214e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 469,
+      "min_score": 0.6911373138427734,
+      "max_score": 0.8577158451080322
+    },
+    {
+      "id": "c6853660",
+      "finite": true,
+      "max_absolute_error": 1.0732589394990555e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 477,
+      "min_score": 0.7324248552322388,
+      "max_score": 0.8774622678756714
+    },
+    {
+      "id": "c7cf7dfd",
+      "finite": true,
+      "max_absolute_error": 8.975016130285951e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 520,
+      "min_score": 0.7009490132331848,
+      "max_score": 0.901232123374939
+    },
+    {
+      "id": "c7dc5443",
+      "finite": true,
+      "max_absolute_error": 9.397574118885643e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 478,
+      "min_score": 0.7072223424911499,
+      "max_score": 0.8614894151687622
+    },
+    {
+      "id": "c8090214",
+      "finite": true,
+      "max_absolute_error": 1.1043026393320332e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 295,
+      "min_score": 0.7101761698722839,
+      "max_score": 0.8393275141716003
+    },
+    {
+      "id": "c8090214_abs",
+      "finite": true,
+      "max_absolute_error": 1.0033884700888507e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 104,
+      "min_score": 0.717906653881073,
+      "max_score": 0.8248348832130432
+    },
+    {
+      "id": "c8c3f81d",
+      "finite": true,
+      "max_absolute_error": 9.723707528053183e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.6860023736953735,
+      "max_score": 0.8927516937255859
+    },
+    {
+      "id": "c8f1aeed",
+      "finite": true,
+      "max_absolute_error": 8.832997588914537e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 504,
+      "min_score": 0.7170241475105286,
+      "max_score": 0.8948925733566284
+    },
+    {
+      "id": "c960da58",
+      "finite": true,
+      "max_absolute_error": 9.997279204476683e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 504,
+      "min_score": 0.7172842025756836,
+      "max_score": 0.871711254119873
+    },
+    {
+      "id": "c9f37c46",
+      "finite": true,
+      "max_absolute_error": 6.769494964586897e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 36,
+      "min_score": 0.7357257604598999,
+      "max_score": 0.8039275407791138
+    },
+    {
+      "id": "caf03d32",
+      "finite": true,
+      "max_absolute_error": 9.83839936186115e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7207518815994263,
+      "max_score": 0.8838008642196655
+    },
+    {
+      "id": "caf9ead2",
+      "finite": true,
+      "max_absolute_error": 9.871922568294167e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 466,
+      "min_score": 0.7126293182373047,
+      "max_score": 0.8916943073272705
+    },
+    {
+      "id": "cc06de0d",
+      "finite": true,
+      "max_absolute_error": 9.332852668464398e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 462,
+      "min_score": 0.6864914894104004,
+      "max_score": 0.8856685161590576
+    },
+    {
+      "id": "cc539528",
+      "finite": true,
+      "max_absolute_error": 1.0433249042485215e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 496,
+      "min_score": 0.7148077487945557,
+      "max_score": 0.887262225151062
+    },
+    {
+      "id": "cc5ded98",
+      "finite": true,
+      "max_absolute_error": 9.116425103705694e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7207213044166565,
+      "max_score": 0.9128568172454834
+    },
+    {
+      "id": "cc6d1ec1",
+      "finite": true,
+      "max_absolute_error": 8.768908943412868e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 374,
+      "min_score": 0.7056176662445068,
+      "max_score": 0.8262423276901245
+    },
+    {
+      "id": "ccb36322",
+      "finite": true,
+      "max_absolute_error": 8.478720192606204e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 471,
+      "min_score": 0.7195703387260437,
+      "max_score": 0.841975748538971
+    },
+    {
+      "id": "ce6d2d27",
+      "finite": true,
+      "max_absolute_error": 8.803456064132575e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.7199456691741943,
+      "max_score": 0.8694577813148499
+    },
+    {
+      "id": "ceb54acb",
+      "finite": true,
+      "max_absolute_error": 1.0054315957575e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7255180478096008,
+      "max_score": 0.8939501643180847
+    },
+    {
+      "id": "cf22b7bf",
+      "finite": true,
+      "max_absolute_error": 1.0781717629804177e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 550,
+      "min_score": 0.7474222183227539,
+      "max_score": 0.9112967252731323
+    },
+    {
+      "id": "d01c6aa8",
+      "finite": true,
+      "max_absolute_error": 9.616571339243762e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 219,
+      "min_score": 0.7205088138580322,
+      "max_score": 0.8335973024368286
+    },
+    {
+      "id": "d23cf73b",
+      "finite": true,
+      "max_absolute_error": 9.773264098011936e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 512,
+      "min_score": 0.7394600510597229,
+      "max_score": 0.889789342880249
+    },
+    {
+      "id": "d24813b1",
+      "finite": true,
+      "max_absolute_error": 8.480521562770349e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 485,
+      "min_score": 0.7266790866851807,
+      "max_score": 0.8734108209609985
+    },
+    {
+      "id": "d3ab962e",
+      "finite": true,
+      "max_absolute_error": 9.548788515445494e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 530,
+      "min_score": 0.7124297618865967,
+      "max_score": 0.823436439037323
+    },
+    {
+      "id": "d52b4f67",
+      "finite": true,
+      "max_absolute_error": 8.352049796211958e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.6978467702865601,
+      "max_score": 0.8227534294128418
+    },
+    {
+      "id": "d596882b",
+      "finite": true,
+      "max_absolute_error": 9.596556937996326e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7213181257247925,
+      "max_score": 0.8748080730438232
+    },
+    {
+      "id": "d6062bb9",
+      "finite": true,
+      "max_absolute_error": 8.638672843730433e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 532,
+      "min_score": 0.7281309366226196,
+      "max_score": 0.8764935731887817
+    },
+    {
+      "id": "d6233ab6",
+      "finite": true,
+      "max_absolute_error": 9.349839547034833e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 437,
+      "min_score": 0.7300863265991211,
+      "max_score": 0.8501595258712769
+    },
+    {
+      "id": "d682f1a2",
+      "finite": true,
+      "max_absolute_error": 9.957473390276306e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 469,
+      "min_score": 0.7192233800888062,
+      "max_score": 0.8797163963317871
+    },
+    {
+      "id": "d7c942c3",
+      "finite": true,
+      "max_absolute_error": 8.792025973924922e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 508,
+      "min_score": 0.73511803150177,
+      "max_score": 0.9093295335769653
+    },
+    {
+      "id": "d851d5ba",
+      "finite": true,
+      "max_absolute_error": 9.49162650698554e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 533,
+      "min_score": 0.7099542617797852,
+      "max_score": 0.8832312226295471
+    },
+    {
+      "id": "d905b33f",
+      "finite": true,
+      "max_absolute_error": 8.549987673411863e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 504,
+      "min_score": 0.7073262929916382,
+      "max_score": 0.8681381940841675
+    },
+    {
+      "id": "dad224aa",
+      "finite": true,
+      "max_absolute_error": 9.650568588703834e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 521,
+      "min_score": 0.7383179664611816,
+      "max_score": 0.8952733874320984
+    },
+    {
+      "id": "db467c8c",
+      "finite": true,
+      "max_absolute_error": 9.330891359571325e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 447,
+      "min_score": 0.7459491491317749,
+      "max_score": 0.892042875289917
+    },
+    {
+      "id": "dc439ea3",
+      "finite": true,
+      "max_absolute_error": 8.818067120941464e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.6949434280395508,
+      "max_score": 0.8862817287445068
+    },
+    {
+      "id": "dccbc061",
+      "finite": true,
+      "max_absolute_error": 1.0256515581286152e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 505,
+      "min_score": 0.6679357886314392,
+      "max_score": 0.8187522292137146
+    },
+    {
+      "id": "dcfa8644",
+      "finite": true,
+      "max_absolute_error": 9.507224851823537e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 325,
+      "min_score": 0.7280858755111694,
+      "max_score": 0.8871371746063232
+    },
+    {
+      "id": "dd2973ad",
+      "finite": true,
+      "max_absolute_error": 9.939356404586874e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7290154695510864,
+      "max_score": 0.8759022951126099
+    },
+    {
+      "id": "dfde3500",
+      "finite": true,
+      "max_absolute_error": 9.37759867536414e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 480,
+      "min_score": 0.685916543006897,
+      "max_score": 0.8926239609718323
+    },
+    {
+      "id": "e01b8e2f",
+      "finite": true,
+      "max_absolute_error": 9.269039824566505e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 523,
+      "min_score": 0.7320458292961121,
+      "max_score": 0.8581866025924683
+    },
+    {
+      "id": "e25c3b8d",
+      "finite": true,
+      "max_absolute_error": 1.1141881939291665e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 530,
+      "min_score": 0.7300600409507751,
+      "max_score": 0.9108092784881592
+    },
+    {
+      "id": "e3038f8c",
+      "finite": true,
+      "max_absolute_error": 1.01295690058123e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 458,
+      "min_score": 0.7143840193748474,
+      "max_score": 0.873023509979248
+    },
+    {
+      "id": "e3fc4d6e",
+      "finite": true,
+      "max_absolute_error": 8.822217600901183e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 519,
+      "min_score": 0.6892918348312378,
+      "max_score": 0.8681132793426514
+    },
+    {
+      "id": "e47becba",
+      "finite": true,
+      "max_absolute_error": 8.952474184198422e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 550,
+      "min_score": 0.6939601898193359,
+      "max_score": 0.8346861600875854
+    },
+    {
+      "id": "e48988bc",
+      "finite": true,
+      "max_absolute_error": 8.52210882973381e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 530,
+      "min_score": 0.6978280544281006,
+      "max_score": 0.9037734270095825
+    },
+    {
+      "id": "e493bb7c",
+      "finite": true,
+      "max_absolute_error": 9.370081466286706e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.656700849533081,
+      "max_score": 0.8520451784133911
+    },
+    {
+      "id": "e4e14d04",
+      "finite": true,
+      "max_absolute_error": 9.633675268627684e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 343,
+      "min_score": 0.6903246641159058,
+      "max_score": 0.8515839576721191
+    },
+    {
+      "id": "e56a43b9",
+      "finite": true,
+      "max_absolute_error": 1.0478739176367213e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 448,
+      "min_score": 0.7122015357017517,
+      "max_score": 0.8862554430961609
+    },
+    {
+      "id": "e5ba910e_abs",
+      "finite": true,
+      "max_absolute_error": 9.773077813690634e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 522,
+      "min_score": 0.7224798202514648,
+      "max_score": 0.878074049949646
+    },
+    {
+      "id": "e6041065",
+      "finite": true,
+      "max_absolute_error": 9.646103049654187e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 493,
+      "min_score": 0.7234190106391907,
+      "max_score": 0.8787845373153687
+    },
+    {
+      "id": "e61a7584",
+      "finite": true,
+      "max_absolute_error": 8.797257677883863e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 432,
+      "min_score": 0.7199230790138245,
+      "max_score": 0.8978304862976074
+    },
+    {
+      "id": "e66b632c",
+      "finite": true,
+      "max_absolute_error": 9.63140194265577e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.7062666416168213,
+      "max_score": 0.8970987200737
+    },
+    {
+      "id": "e831120c",
+      "finite": true,
+      "max_absolute_error": 9.396160205454862e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 481,
+      "min_score": 0.7321878671646118,
+      "max_score": 0.9059444069862366
+    },
+    {
+      "id": "e8a79c70",
+      "finite": true,
+      "max_absolute_error": 9.390902500072684e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 483,
+      "min_score": 0.7137553095817566,
+      "max_score": 0.8761502504348755
+    },
+    {
+      "id": "e9327a54",
+      "finite": true,
+      "max_absolute_error": 9.664092182060102e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 533,
+      "min_score": 0.7043344378471375,
+      "max_score": 0.8682856559753418
+    },
+    {
+      "id": "e982271f",
+      "finite": true,
+      "max_absolute_error": 8.94840470611058e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 589,
+      "min_score": 0.6933250427246094,
+      "max_score": 0.8770805597305298
+    },
+    {
+      "id": "eac54adc",
+      "finite": true,
+      "max_absolute_error": 8.630165704293091e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 464,
+      "min_score": 0.7221906185150146,
+      "max_score": 0.8625771403312683
+    },
+    {
+      "id": "eac54add",
+      "finite": true,
+      "max_absolute_error": 9.906147713234503e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.7127987146377563,
+      "max_score": 0.8116947412490845
+    },
+    {
+      "id": "eaca4986",
+      "finite": true,
+      "max_absolute_error": 8.003035134596104e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 513,
+      "min_score": 0.6981498003005981,
+      "max_score": 0.8413910865783691
+    },
+    {
+      "id": "eace081b",
+      "finite": true,
+      "max_absolute_error": 1.0341208067643493e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.713653564453125,
+      "max_score": 0.895464301109314
+    },
+    {
+      "id": "ec81a493",
+      "finite": true,
+      "max_absolute_error": 9.816145873919879e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.6576827168464661,
+      "max_score": 0.8500879406929016
+    },
+    {
+      "id": "ed4ddc30",
+      "finite": true,
+      "max_absolute_error": 9.830597758053727e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 535,
+      "min_score": 0.7205489873886108,
+      "max_score": 0.8795610666275024
+    },
+    {
+      "id": "edced276",
+      "finite": true,
+      "max_absolute_error": 1.0346545220585313e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 482,
+      "min_score": 0.7382400035858154,
+      "max_score": 0.8734028339385986
+    },
+    {
+      "id": "edced276_abs",
+      "finite": true,
+      "max_absolute_error": 1.0157512109199018e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 544,
+      "min_score": 0.7180957794189453,
+      "max_score": 0.8475465178489685
+    },
+    {
+      "id": "eeda8a6d",
+      "finite": true,
+      "max_absolute_error": 9.36740359724908e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 513,
+      "min_score": 0.7094700932502747,
+      "max_score": 0.8616684675216675
+    },
+    {
+      "id": "eeda8a6d_abs",
+      "finite": true,
+      "max_absolute_error": 9.909705911415045e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 477,
+      "min_score": 0.7084144353866577,
+      "max_score": 0.878732442855835
+    },
+    {
+      "id": "ef66a6e5",
+      "finite": true,
+      "max_absolute_error": 1.036921382091549e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 445,
+      "min_score": 0.6901021003723145,
+      "max_score": 0.8337780237197876
+    },
+    {
+      "id": "ef9cf60a",
+      "finite": true,
+      "max_absolute_error": 9.338638740086225e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 522,
+      "min_score": 0.7229869961738586,
+      "max_score": 0.8907126188278198
+    },
+    {
+      "id": "efc3f7c2",
+      "finite": true,
+      "max_absolute_error": 8.351586633370545e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 497,
+      "min_score": 0.7460459470748901,
+      "max_score": 0.8799582719802856
+    },
+    {
+      "id": "f0853d11",
+      "finite": true,
+      "max_absolute_error": 9.988448534947736e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 488,
+      "min_score": 0.6820698380470276,
+      "max_score": 0.8074763417243958
+    },
+    {
+      "id": "f0e564bc",
+      "finite": true,
+      "max_absolute_error": 8.700982867537732e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 508,
+      "min_score": 0.7182931303977966,
+      "max_score": 0.8740808963775635
+    },
+    {
+      "id": "f35224e0",
+      "finite": true,
+      "max_absolute_error": 8.970418741149899e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 515,
+      "min_score": 0.6955012083053589,
+      "max_score": 0.8724707365036011
+    },
+    {
+      "id": "f4f1d8a4",
+      "finite": true,
+      "max_absolute_error": 1.0730150046267539e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 585,
+      "min_score": 0.6863192319869995,
+      "max_score": 0.8538349866867065
+    },
+    {
+      "id": "f4f1d8a4_abs",
+      "finite": true,
+      "max_absolute_error": 8.175192323101044e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.6895126104354858,
+      "max_score": 0.826643705368042
+    },
+    {
+      "id": "f523d9fe",
+      "finite": true,
+      "max_absolute_error": 1.0628093949360817e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.7140894532203674,
+      "max_score": 0.8945579528808594
+    },
+    {
+      "id": "f685340e",
+      "finite": true,
+      "max_absolute_error": 9.645887455445035e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 424,
+      "min_score": 0.7294284105300903,
+      "max_score": 0.91008460521698
+    },
+    {
+      "id": "f685340e_abs",
+      "finite": true,
+      "max_absolute_error": 8.745162705103837e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 456,
+      "min_score": 0.7254816889762878,
+      "max_score": 0.8865809440612793
+    },
+    {
+      "id": "f8c5f88b",
+      "finite": true,
+      "max_absolute_error": 9.535037981400762e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 487,
+      "min_score": 0.7037947177886963,
+      "max_score": 0.8496652841567993
+    },
+    {
+      "id": "f9e8c073",
+      "finite": true,
+      "max_absolute_error": 9.273423140498949e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 504,
+      "min_score": 0.6756291389465332,
+      "max_score": 0.875990629196167
+    },
+    {
+      "id": "faba32e5",
+      "finite": true,
+      "max_absolute_error": 8.786561422891026e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 473,
+      "min_score": 0.6859743595123291,
+      "max_score": 0.8836847543716431
+    },
+    {
+      "id": "fca70973",
+      "finite": true,
+      "max_absolute_error": 9.588803040472271e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 442,
+      "min_score": 0.7303285002708435,
+      "max_score": 0.8593059182167053
+    },
+    {
+      "id": "fca762bc",
+      "finite": true,
+      "max_absolute_error": 8.816145669054976e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 459,
+      "min_score": 0.736423134803772,
+      "max_score": 0.86076420545578
+    },
+    {
+      "id": "fea54f57",
+      "finite": true,
+      "max_absolute_error": 9.208155460349587e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 527,
+      "min_score": 0.6945356726646423,
+      "max_score": 0.9246659278869629
+    },
+    {
+      "id": "gpt4_0a05b494",
+      "finite": true,
+      "max_absolute_error": 1.0808543682294669e-07,
+      "warnings": [],
+      "sources": 4,
+      "min_score": 0.715151309967041,
+      "max_score": 0.757026195526123
+    },
+    {
+      "id": "gpt4_0b2f1d21",
+      "finite": true,
+      "max_absolute_error": 8.747217439264432e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 158,
+      "min_score": 0.6483154296875,
+      "max_score": 0.8028914332389832
+    },
+    {
+      "id": "gpt4_15e38248",
+      "finite": true,
+      "max_absolute_error": 9.273867862535923e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 470,
+      "min_score": 0.7361381649971008,
+      "max_score": 0.8612104058265686
+    },
+    {
+      "id": "gpt4_18c2b244",
+      "finite": true,
+      "max_absolute_error": 9.212525864388255e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7166941165924072,
+      "max_score": 0.8646283745765686
+    },
+    {
+      "id": "gpt4_1916e0ea",
+      "finite": true,
+      "max_absolute_error": 8.668451056959015e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 533,
+      "min_score": 0.7359781265258789,
+      "max_score": 0.879592776298523
+    },
+    {
+      "id": "gpt4_194be4b3",
+      "finite": true,
+      "max_absolute_error": 9.66959337045381e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7431639432907104,
+      "max_score": 0.850923478603363
+    },
+    {
+      "id": "gpt4_1a1dc16d",
+      "finite": true,
+      "max_absolute_error": 9.133470679767441e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 175,
+      "min_score": 0.6696906089782715,
+      "max_score": 0.7826106548309326
+    },
+    {
+      "id": "gpt4_1d4ab0c9",
+      "finite": true,
+      "max_absolute_error": 9.60538113492504e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 483,
+      "min_score": 0.7358589172363281,
+      "max_score": 0.8832218647003174
+    },
+    {
+      "id": "gpt4_1d80365e",
+      "finite": true,
+      "max_absolute_error": 9.613720575174511e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 517,
+      "min_score": 0.7153470516204834,
+      "max_score": 0.8655065298080444
+    },
+    {
+      "id": "gpt4_1e4a8aeb",
+      "finite": true,
+      "max_absolute_error": 1.0031171437940856e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.6975165009498596,
+      "max_score": 0.8480013012886047
+    },
+    {
+      "id": "gpt4_1e4a8aec",
+      "finite": true,
+      "max_absolute_error": 8.827433739533319e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.6951209306716919,
+      "max_score": 0.835567057132721
+    },
+    {
+      "id": "gpt4_213fd887",
+      "finite": true,
+      "max_absolute_error": 1.0336990818871072e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 253,
+      "min_score": 0.6861467957496643,
+      "max_score": 0.7644689083099365
+    },
+    {
+      "id": "gpt4_21adecb5",
+      "finite": true,
+      "max_absolute_error": 9.732572836540498e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 511,
+      "min_score": 0.7069331407546997,
+      "max_score": 0.8491236567497253
+    },
+    {
+      "id": "gpt4_2312f94c",
+      "finite": true,
+      "max_absolute_error": 9.399870837256685e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 115,
+      "min_score": 0.6806960701942444,
+      "max_score": 0.7678267955780029
+    },
+    {
+      "id": "gpt4_2487a7cb",
+      "finite": true,
+      "max_absolute_error": 8.311080279543859e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 135,
+      "min_score": 0.7047958374023438,
+      "max_score": 0.8288077116012573
+    },
+    {
+      "id": "gpt4_2655b836",
+      "finite": true,
+      "max_absolute_error": 7.978925153917515e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 214,
+      "min_score": 0.684415340423584,
+      "max_score": 0.8312341570854187
+    },
+    {
+      "id": "gpt4_2ba83207",
+      "finite": true,
+      "max_absolute_error": 1.212677017692343e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 502,
+      "min_score": 0.7157931327819824,
+      "max_score": 0.8766672015190125
+    },
+    {
+      "id": "gpt4_2c50253f",
+      "finite": true,
+      "max_absolute_error": 8.455867095413794e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 506,
+      "min_score": 0.7573494911193848,
+      "max_score": 0.8788039088249207
+    },
+    {
+      "id": "gpt4_2d58bcd6",
+      "finite": true,
+      "max_absolute_error": 9.369862441488408e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 469,
+      "min_score": 0.6665486097335815,
+      "max_score": 0.866416335105896
+    },
+    {
+      "id": "gpt4_2f56ae70",
+      "finite": true,
+      "max_absolute_error": 0.0,
+      "warnings": [],
+      "sources": 0,
+      "min_score": null,
+      "max_score": null
+    },
+    {
+      "id": "gpt4_2f584639",
+      "finite": true,
+      "max_absolute_error": 9.099802400491797e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 95,
+      "min_score": 0.7286009192466736,
+      "max_score": 0.8723865747451782
+    },
+    {
+      "id": "gpt4_2f8be40d",
+      "finite": true,
+      "max_absolute_error": 9.631942610166533e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7166478633880615,
+      "max_score": 0.8628438711166382
+    },
+    {
+      "id": "gpt4_2f91af09",
+      "finite": true,
+      "max_absolute_error": 1.079310260054811e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 515,
+      "min_score": 0.7213971614837646,
+      "max_score": 0.8813925981521606
+    },
+    {
+      "id": "gpt4_31ff4165",
+      "finite": true,
+      "max_absolute_error": 9.926381905334125e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 457,
+      "min_score": 0.7285805344581604,
+      "max_score": 0.8717523813247681
+    },
+    {
+      "id": "gpt4_372c3eed",
+      "finite": true,
+      "max_absolute_error": 9.106033105332756e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 465,
+      "min_score": 0.7209720611572266,
+      "max_score": 0.8480837941169739
+    },
+    {
+      "id": "gpt4_372c3eed_abs",
+      "finite": true,
+      "max_absolute_error": 1.0295815155991761e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.7142119407653809,
+      "max_score": 0.8351828455924988
+    },
+    {
+      "id": "gpt4_385a5000",
+      "finite": true,
+      "max_absolute_error": 8.447968447011789e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 301,
+      "min_score": 0.6475965976715088,
+      "max_score": 0.7632732391357422
+    },
+    {
+      "id": "gpt4_45189cb4",
+      "finite": true,
+      "max_absolute_error": 9.760060803998272e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 501,
+      "min_score": 0.7021788358688354,
+      "max_score": 0.8251605033874512
+    },
+    {
+      "id": "gpt4_468eb063",
+      "finite": true,
+      "max_absolute_error": 1.0340568779021453e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.6677107810974121,
+      "max_score": 0.8078727126121521
+    },
+    {
+      "id": "gpt4_468eb064",
+      "finite": true,
+      "max_absolute_error": 9.607968343150475e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 460,
+      "min_score": 0.7108981609344482,
+      "max_score": 0.8335464000701904
+    },
+    {
+      "id": "gpt4_483dd43c",
+      "finite": true,
+      "max_absolute_error": 8.251703753625605e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 243,
+      "min_score": 0.6849812865257263,
+      "max_score": 0.8206058740615845
+    },
+    {
+      "id": "gpt4_4929293a",
+      "finite": true,
+      "max_absolute_error": 8.835618614533303e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 486,
+      "min_score": 0.6335475444793701,
+      "max_score": 0.7951987981796265
+    },
+    {
+      "id": "gpt4_4929293b",
+      "finite": true,
+      "max_absolute_error": 8.995360278873932e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 469,
+      "min_score": 0.7354748249053955,
+      "max_score": 0.8332692980766296
+    },
+    {
+      "id": "gpt4_4cd9eba1",
+      "finite": true,
+      "max_absolute_error": 7.573775462343946e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 24,
+      "min_score": 0.7522302865982056,
+      "max_score": 0.7960653901100159
+    },
+    {
+      "id": "gpt4_4edbafa2",
+      "finite": true,
+      "max_absolute_error": 7.173224381151755e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 46,
+      "min_score": 0.7089805006980896,
+      "max_score": 0.7633343935012817
+    },
+    {
+      "id": "gpt4_4ef30696",
+      "finite": true,
+      "max_absolute_error": 1.0009321149695438e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 520,
+      "min_score": 0.7212566137313843,
+      "max_score": 0.8599427938461304
+    },
+    {
+      "id": "gpt4_4fc4f797",
+      "finite": true,
+      "max_absolute_error": 1.0505776404379219e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 472,
+      "min_score": 0.7210991382598877,
+      "max_score": 0.9013787508010864
+    },
+    {
+      "id": "gpt4_5438fa52",
+      "finite": true,
+      "max_absolute_error": 1.0088662283358474e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 346,
+      "min_score": 0.6695462465286255,
+      "max_score": 0.7834875583648682
+    },
+    {
+      "id": "gpt4_5501fe77",
+      "finite": true,
+      "max_absolute_error": 1.0071108169640297e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7234587669372559,
+      "max_score": 0.8777114152908325
+    },
+    {
+      "id": "gpt4_59149c77",
+      "finite": true,
+      "max_absolute_error": 8.968678910648009e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 484,
+      "min_score": 0.7081972360610962,
+      "max_score": 0.8738160729408264
+    },
+    {
+      "id": "gpt4_59149c78",
+      "finite": true,
+      "max_absolute_error": 9.502388786941651e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 497,
+      "min_score": 0.6820278167724609,
+      "max_score": 0.8368709087371826
+    },
+    {
+      "id": "gpt4_59c863d7",
+      "finite": true,
+      "max_absolute_error": 8.195546974398837e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 481,
+      "min_score": 0.7153418064117432,
+      "max_score": 0.8601341843605042
+    },
+    {
+      "id": "gpt4_5dcc0aab",
+      "finite": true,
+      "max_absolute_error": 9.40738444921152e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 253,
+      "min_score": 0.6744383573532104,
+      "max_score": 0.8266201019287109
+    },
+    {
+      "id": "gpt4_61e13b3c",
+      "finite": true,
+      "max_absolute_error": 9.835567371663245e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.7120209336280823,
+      "max_score": 0.8786417245864868
+    },
+    {
+      "id": "gpt4_65aabe59",
+      "finite": true,
+      "max_absolute_error": 9.888741991925798e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 243,
+      "min_score": 0.692306637763977,
+      "max_score": 0.8175151944160461
+    },
+    {
+      "id": "gpt4_68e94287",
+      "finite": true,
+      "max_absolute_error": 9.054905525385237e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 491,
+      "min_score": 0.685423731803894,
+      "max_score": 0.8292751312255859
+    },
+    {
+      "id": "gpt4_68e94288",
+      "finite": true,
+      "max_absolute_error": 9.516404597675887e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 459,
+      "min_score": 0.7264183163642883,
+      "max_score": 0.8437507748603821
+    },
+    {
+      "id": "gpt4_6dc9b45b",
+      "finite": true,
+      "max_absolute_error": 1.0171408937331705e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 565,
+      "min_score": 0.6557683944702148,
+      "max_score": 0.8193865418434143
+    },
+    {
+      "id": "gpt4_6ed717ea",
+      "finite": true,
+      "max_absolute_error": 6.627683335480583e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 128,
+      "min_score": 0.6686278581619263,
+      "max_score": 0.7728729248046875
+    },
+    {
+      "id": "gpt4_70e84552",
+      "finite": true,
+      "max_absolute_error": 7.801270274221395e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 207,
+      "min_score": 0.6942049264907837,
+      "max_score": 0.8328577280044556
+    },
+    {
+      "id": "gpt4_70e84552_abs",
+      "finite": true,
+      "max_absolute_error": 7.79257542937728e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 234,
+      "min_score": 0.6822897791862488,
+      "max_score": 0.7644507884979248
+    },
+    {
+      "id": "gpt4_731e37d7",
+      "finite": true,
+      "max_absolute_error": 9.748678864163196e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 525,
+      "min_score": 0.7008231282234192,
+      "max_score": 0.8748257160186768
+    },
+    {
+      "id": "gpt4_74aed68e",
+      "finite": true,
+      "max_absolute_error": 9.324452210357492e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 480,
+      "min_score": 0.7330279350280762,
+      "max_score": 0.8702292442321777
+    },
+    {
+      "id": "gpt4_76048e76",
+      "finite": true,
+      "max_absolute_error": 9.76704076505186e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 125,
+      "min_score": 0.6932458877563477,
+      "max_score": 0.789179801940918
+    },
+    {
+      "id": "gpt4_78cf46a3",
+      "finite": true,
+      "max_absolute_error": 1.0417661755468544e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 276,
+      "min_score": 0.6545584797859192,
+      "max_score": 0.7747471332550049
+    },
+    {
+      "id": "gpt4_7a0daae1",
+      "finite": true,
+      "max_absolute_error": 1.0084535340126877e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 561,
+      "min_score": 0.7318295240402222,
+      "max_score": 0.8557097911834717
+    },
+    {
+      "id": "gpt4_7abb270c",
+      "finite": true,
+      "max_absolute_error": 9.614758700315917e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.6826188564300537,
+      "max_score": 0.8236136436462402
+    },
+    {
+      "id": "gpt4_7bc6cf22",
+      "finite": true,
+      "max_absolute_error": 9.025351177527341e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 519,
+      "min_score": 0.7082312107086182,
+      "max_score": 0.873862624168396
+    },
+    {
+      "id": "gpt4_7ca326fa",
+      "finite": true,
+      "max_absolute_error": 1.0652606075023385e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.6595964431762695,
+      "max_score": 0.8070789575576782
+    },
+    {
+      "id": "gpt4_7ddcf75f",
+      "finite": true,
+      "max_absolute_error": 8.856734079465411e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 480,
+      "min_score": 0.7116004824638367,
+      "max_score": 0.8648531436920166
+    },
+    {
+      "id": "gpt4_7de946e7",
+      "finite": true,
+      "max_absolute_error": 9.403929857043636e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 421,
+      "min_score": 0.6923760771751404,
+      "max_score": 0.8395228981971741
+    },
+    {
+      "id": "gpt4_7f6b06db",
+      "finite": true,
+      "max_absolute_error": 1.0228070101980791e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 558,
+      "min_score": 0.7243521809577942,
+      "max_score": 0.8591344356536865
+    },
+    {
+      "id": "gpt4_7fce9456",
+      "finite": true,
+      "max_absolute_error": 1.0329975119738322e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 497,
+      "min_score": 0.6662289500236511,
+      "max_score": 0.8837904334068298
+    },
+    {
+      "id": "gpt4_8279ba02",
+      "finite": true,
+      "max_absolute_error": 1.0288356766530171e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 489,
+      "min_score": 0.7265621423721313,
+      "max_score": 0.851000964641571
+    },
+    {
+      "id": "gpt4_8279ba03",
+      "finite": true,
+      "max_absolute_error": 1.0236244607497724e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 500,
+      "min_score": 0.7156115770339966,
+      "max_score": 0.8297010064125061
+    },
+    {
+      "id": "gpt4_85da3956",
+      "finite": true,
+      "max_absolute_error": 8.649278204764244e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 505,
+      "min_score": 0.6953022480010986,
+      "max_score": 0.8510417938232422
+    },
+    {
+      "id": "gpt4_88806d6e",
+      "finite": true,
+      "max_absolute_error": 8.266282058855268e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 432,
+      "min_score": 0.6684442758560181,
+      "max_score": 0.827996015548706
+    },
+    {
+      "id": "gpt4_8c8961ae",
+      "finite": true,
+      "max_absolute_error": 9.255248967221519e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 246,
+      "min_score": 0.6795681715011597,
+      "max_score": 0.826492190361023
+    },
+    {
+      "id": "gpt4_8e165409",
+      "finite": true,
+      "max_absolute_error": 1.0373463410484618e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 480,
+      "min_score": 0.7251505851745605,
+      "max_score": 0.8878808617591858
+    },
+    {
+      "id": "gpt4_93159ced",
+      "finite": true,
+      "max_absolute_error": 1.1248495102034184e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 345,
+      "min_score": 0.7440212368965149,
+      "max_score": 0.8916794657707214
+    },
+    {
+      "id": "gpt4_93159ced_abs",
+      "finite": true,
+      "max_absolute_error": 9.367085973543965e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 474,
+      "min_score": 0.7450194954872131,
+      "max_score": 0.8591036796569824
+    },
+    {
+      "id": "gpt4_93f6379c",
+      "finite": true,
+      "max_absolute_error": 9.94631642603494e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 186,
+      "min_score": 0.6843334436416626,
+      "max_score": 0.8098298907279968
+    },
+    {
+      "id": "gpt4_98f46fc6",
+      "finite": true,
+      "max_absolute_error": 9.380368148903528e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.665296733379364,
+      "max_score": 0.8079608082771301
+    },
+    {
+      "id": "gpt4_9a159967",
+      "finite": true,
+      "max_absolute_error": 6.848984035467964e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 84,
+      "min_score": 0.7265211939811707,
+      "max_score": 0.8269216418266296
+    },
+    {
+      "id": "gpt4_a1b77f9c",
+      "finite": true,
+      "max_absolute_error": 8.852623345489974e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.7486624121665955,
+      "max_score": 0.8648908138275146
+    },
+    {
+      "id": "gpt4_a2d1d1f6",
+      "finite": true,
+      "max_absolute_error": 9.25650374128395e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.7074284553527832,
+      "max_score": 0.8680453896522522
+    },
+    {
+      "id": "gpt4_a56e767c",
+      "finite": true,
+      "max_absolute_error": 1.0132698657905337e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 477,
+      "min_score": 0.6718095541000366,
+      "max_score": 0.8418978452682495
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "finite": true,
+      "max_absolute_error": 9.835965186777429e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 481,
+      "min_score": 0.7321151494979858,
+      "max_score": 0.8638129234313965
+    },
+    {
+      "id": "gpt4_af6db32f",
+      "finite": true,
+      "max_absolute_error": 9.832683200983183e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 476,
+      "min_score": 0.7084445357322693,
+      "max_score": 0.8449605107307434
+    },
+    {
+      "id": "gpt4_b0863698",
+      "finite": true,
+      "max_absolute_error": 9.169203762926514e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 457,
+      "min_score": 0.7144689559936523,
+      "max_score": 0.8711616396903992
+    },
+    {
+      "id": "gpt4_b4a80587",
+      "finite": true,
+      "max_absolute_error": 7.266423462937155e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 73,
+      "min_score": 0.6913869380950928,
+      "max_score": 0.7960731983184814
+    },
+    {
+      "id": "gpt4_b5700ca0",
+      "finite": true,
+      "max_absolute_error": 9.918145038589898e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 500,
+      "min_score": 0.6839717030525208,
+      "max_score": 0.8390789031982422
+    },
+    {
+      "id": "gpt4_b5700ca9",
+      "finite": true,
+      "max_absolute_error": 9.601670458714295e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 537,
+      "min_score": 0.680995762348175,
+      "max_score": 0.9048948884010315
+    },
+    {
+      "id": "gpt4_c27434e8",
+      "finite": true,
+      "max_absolute_error": 9.242197096526183e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 446,
+      "min_score": 0.6703203916549683,
+      "max_score": 0.8528821468353271
+    },
+    {
+      "id": "gpt4_c27434e8_abs",
+      "finite": true,
+      "max_absolute_error": 8.93054434847329e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 290,
+      "min_score": 0.6687314510345459,
+      "max_score": 0.7831642627716064
+    },
+    {
+      "id": "gpt4_cd90e484",
+      "finite": true,
+      "max_absolute_error": 9.772673514873986e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 140,
+      "min_score": 0.7210626006126404,
+      "max_score": 0.8301980495452881
+    },
+    {
+      "id": "gpt4_d12ceb0e",
+      "finite": true,
+      "max_absolute_error": 8.843085375076498e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 477,
+      "min_score": 0.7484466433525085,
+      "max_score": 0.8639583587646484
+    },
+    {
+      "id": "gpt4_d31cdae3",
+      "finite": true,
+      "max_absolute_error": 9.273954870714363e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 336,
+      "min_score": 0.6776950359344482,
+      "max_score": 0.7934298515319824
+    },
+    {
+      "id": "gpt4_d6585ce8",
+      "finite": true,
+      "max_absolute_error": 7.890854369918543e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 491,
+      "min_score": 0.7173004150390625,
+      "max_score": 0.854800820350647
+    },
+    {
+      "id": "gpt4_d6585ce9",
+      "finite": true,
+      "max_absolute_error": 8.453161970400913e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 438,
+      "min_score": 0.6954811811447144,
+      "max_score": 0.838112473487854
+    },
+    {
+      "id": "gpt4_d84a3211",
+      "finite": true,
+      "max_absolute_error": 9.922761201597297e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7413921356201172,
+      "max_score": 0.8689248561859131
+    },
+    {
+      "id": "gpt4_d9af6064",
+      "finite": true,
+      "max_absolute_error": 5.9808075825174e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 49,
+      "min_score": 0.704689085483551,
+      "max_score": 0.7857159376144409
+    },
+    {
+      "id": "gpt4_e05b82a6",
+      "finite": true,
+      "max_absolute_error": 9.666667222241188e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 497,
+      "min_score": 0.7248529195785522,
+      "max_score": 0.865363597869873
+    },
+    {
+      "id": "gpt4_e061b84f",
+      "finite": true,
+      "max_absolute_error": 9.954377322429764e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 467,
+      "min_score": 0.7158228158950806,
+      "max_score": 0.8291810750961304
+    },
+    {
+      "id": "gpt4_e061b84g",
+      "finite": true,
+      "max_absolute_error": 9.710178971999994e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 566,
+      "min_score": 0.7296180725097656,
+      "max_score": 0.8402054309844971
+    },
+    {
+      "id": "gpt4_e072b769",
+      "finite": true,
+      "max_absolute_error": 8.825229769193754e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 444,
+      "min_score": 0.7329990267753601,
+      "max_score": 0.8946355581283569
+    },
+    {
+      "id": "gpt4_e414231e",
+      "finite": true,
+      "max_absolute_error": 9.018041802200116e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 507,
+      "min_score": 0.7437947988510132,
+      "max_score": 0.8792855143547058
+    },
+    {
+      "id": "gpt4_e414231f",
+      "finite": true,
+      "max_absolute_error": 9.323338101552281e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 490,
+      "min_score": 0.7064497470855713,
+      "max_score": 0.8537823557853699
+    },
+    {
+      "id": "gpt4_ec93e27f",
+      "finite": true,
+      "max_absolute_error": 9.408799184207339e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 516,
+      "min_score": 0.7006614804267883,
+      "max_score": 0.8630346059799194
+    },
+    {
+      "id": "gpt4_f2262a51",
+      "finite": true,
+      "max_absolute_error": 1.0629525160066322e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 479,
+      "min_score": 0.6912618279457092,
+      "max_score": 0.8282490968704224
+    },
+    {
+      "id": "gpt4_f420262c",
+      "finite": true,
+      "max_absolute_error": 9.100200060174757e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 495,
+      "min_score": 0.7082340717315674,
+      "max_score": 0.8477662801742554
+    },
+    {
+      "id": "gpt4_f420262d",
+      "finite": true,
+      "max_absolute_error": 9.144976431674223e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 454,
+      "min_score": 0.6873518824577332,
+      "max_score": 0.8322732448577881
+    },
+    {
+      "id": "gpt4_f49edff3",
+      "finite": true,
+      "max_absolute_error": 1.0216039514343578e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 498,
+      "min_score": 0.7061640024185181,
+      "max_score": 0.823131263256073
+    },
+    {
+      "id": "gpt4_fa19884c",
+      "finite": true,
+      "max_absolute_error": 1.0073245571007305e-07,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 507,
+      "min_score": 0.726008415222168,
+      "max_score": 0.8701062202453613
+    },
+    {
+      "id": "gpt4_fa19884d",
+      "finite": true,
+      "max_absolute_error": 9.162655523198282e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 556,
+      "min_score": 0.7009714245796204,
+      "max_score": 0.8341602683067322
+    },
+    {
+      "id": "gpt4_fe651585",
+      "finite": true,
+      "max_absolute_error": 9.314695503803705e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 391,
+      "min_score": 0.6436624526977539,
+      "max_score": 0.7815214991569519
+    },
+    {
+      "id": "gpt4_fe651585_abs",
+      "finite": true,
+      "max_absolute_error": 9.257982369614837e-08,
+      "warnings": [
+        "divide by zero encountered in matmul",
+        "overflow encountered in matmul",
+        "invalid value encountered in matmul"
+      ],
+      "sources": 50,
+      "min_score": 0.6781712770462036,
+      "max_score": 0.732629656791687
+    }
+  ],
+  "interpretation": "Every actual query/source dot product finite and agrees within1e-6 with direct float64 contraction. Numerical warning cause not proven; no nonfinite/overflow result observed. Original warnings preserved."
+}

@@ -1,0 +1,23 @@
+{
+  "done": 231309,
+  "total": 231309,
+  "elapsed_seconds": 993.18,
+  "device": "mps",
+  "max_seq_length": 512,
+  "model": {
+    "model": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "library": "sentence-transformers",
+    "historical_revision": "UNRECORDED; same existing model ID, not certified byte-identical historical weights"
+  },
+  "versions": {
+    "torch": "2.13.0",
+    "sentence-transformers": "5.6.1",
+    "numpy": "2.1.3",
+    "scikit-learn": "1.5.2"
+  },
+  "paid_calls": 0,
+  "runtime_sha256": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+  "keys_sha256": "6e398bcbad625ccb2f6320849170e6c4678d9a966f679a9e8397893bcc50d003",
+  "vectors_sha256": "a27105ac43379d76bfc4f20ff97e87231afff57bd9b721aa9fbf54d6308e78d4"
+}
