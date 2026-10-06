@@ -547,6 +547,18 @@ class ContextAssembler:
                     char_budget=char_budget, max_anchors=max_anchors,
                     neighbor_turns=neighbor_turns)
 
+    @staticmethod
+    def assemble_hybrid_source_packet(snapshot, query, baseline, *, scope, as_of,
+                                     encoder=None, char_budget=40000,
+                                     extra_budget=4000, max_anchors=8, neighbor_turns=1):
+        """Opt-in existing hybrid ranking with source-bound, additive packing."""
+        from agentmem_os.llm.hybrid_source_retrieval import supplement
+
+        return supplement(snapshot, query, baseline, scope=scope, as_of=as_of,
+                          encoder=encoder, char_budget=char_budget,
+                          extra_budget=extra_budget, max_anchors=max_anchors,
+                          neighbor_turns=neighbor_turns)
+
     def get_budget_breakdown(self) -> dict:
         """Return token budget per section for debugging and paper evaluations."""
         return {

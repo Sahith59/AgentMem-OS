@@ -1,0 +1,179 @@
+{
+  "schema": "hybrid-source-mechanism-review-v1",
+  "all_missing_flagged_turns_by_recorded_reason": {
+    "not_top8_or_neighbor": 169,
+    "context_budget_nonfit": 7,
+    "anchor_budget_nonfit": 8,
+    "anchor_budget_nonfit+context_budget_nonfit": 2,
+    "future_ineligible": 12
+  },
+  "historical_miss_missing_flagged_turns_by_recorded_reason": {
+    "not_top8_or_neighbor": 66,
+    "anchor_budget_nonfit": 3,
+    "anchor_budget_nonfit+context_budget_nonfit": 1,
+    "context_budget_nonfit": 2,
+    "future_ineligible": 1
+  },
+  "examples": [
+    {
+      "id": "09d032c9",
+      "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
+      "kind": "historical_miss_gaining_flagged_turn",
+      "sources": [
+        {
+          "source": {
+            "id": "73ba7cd074748e15e617c0ea",
+            "position": 0,
+            "role": "user",
+            "text": "[2023/05/27 (Sat) 05:53] I'm looking for some advice on the best way to organize my tech accessories, like my new portable power bank and wireless charging pad, when I'm traveling.",
+            "session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+            "date": "2023/05/27 (Sat) 05:53"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": true,
+          "anchor_rank": 7,
+          "omissions": []
+        }
+      ]
+    },
+    {
+      "id": "10d9b85a",
+      "question": "How many days did I spend attending workshops, lectures, and conferences in April?",
+      "kind": "known_missing_source_probe",
+      "sources": [
+        {
+          "source": {
+            "id": "b483864998f1b92c6610bd72",
+            "position": 2,
+            "role": "user",
+            "text": "[2023/05/01 (Mon) 20:24] I actually learned about standardization and normalization in a 2-day workshop I attended on the 17th and 18th of April, but I'm still a bit unclear on when to use each. The workshop covered a lot of topics, including supervised learning and deep learning, but I didn't get a chance to ask about this specific question. Can you give me an example of when you would use standardization over normalization?",
+            "session": "lme-session-88aa13fc3e5b0b1a01b4efeb80c29eedcbb227bd7697104baa063aca40515f98",
+            "date": "2023/05/01 (Mon) 20:24"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": false,
+          "anchor_rank": null,
+          "omissions": []
+        }
+      ]
+    },
+    {
+      "id": "1a8a66a6",
+      "question": "How many magazine subscriptions do I currently have?",
+      "kind": "historical_miss_gaining_flagged_turn",
+      "sources": [
+        {
+          "source": {
+            "id": "5f81e5ff46058a270c4f3d2e",
+            "position": 0,
+            "role": "user",
+            "text": "[2023/04/01 (Sat) 00:37] I've been trying to reduce my carbon footprint lately, and I'm looking for some eco-friendly product recommendations. Specifically, I'm in the market for a reusable water bottle. Do you have any suggestions? By the way, I just canceled my Forbes magazine subscription in early March because I wasn't finding the articles that interesting, but I've been enjoying other publications like The New Yorker, which I subscribed to in early February.",
+            "session": "lme-session-9c921602e419feee935280a3ce6f2ee22a4bb4b91649c660983e837401bbfc11",
+            "date": "2023/04/01 (Sat) 00:37"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": true,
+          "anchor_rank": 3,
+          "omissions": []
+        },
+        {
+          "source": {
+            "id": "c7c37653046239e2814246c7",
+            "position": 0,
+            "role": "user",
+            "text": "[2023/04/01 (Sat) 19:02] I've been trying to reduce my plastic usage lately, and I was wondering if you could suggest some eco-friendly alternatives to single-use plastics in daily life. By the way, speaking of staying informed, I've been loving my subscription to The New Yorker magazine, which I subscribed to in early February - the weekly issues have been keeping me up-to-date on current events and culture.",
+            "session": "lme-session-af86608315fdc6d5fa51704c0d3c251b6981ef1a7093dbad271eb0e908f15e99",
+            "date": "2023/04/01 (Sat) 19:02"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": true,
+          "anchor_rank": 7,
+          "omissions": []
+        }
+      ]
+    },
+    {
+      "id": "92a0aa75",
+      "question": "How long have I been working in my current role?",
+      "kind": "known_missing_source_probe",
+      "sources": [
+        {
+          "source": {
+            "id": "cd80e8eec78d4d2f4b25e9d5",
+            "position": 0,
+            "role": "user",
+            "text": "[2023/05/27 (Sat) 19:34] I'm looking to create a presentation for an upcoming conference, and I need some help with designing the slides. Do you have any templates or design tips you can share? By the way, I've been in marketing for a while now, started as a Marketing Coordinator and worked my way up to Senior Marketing Specialist after 2 years and 4 months.",
+            "session": "lme-session-4562241059e9999dc733538ea5cd4eebd5370aba945d1ffb823c88dc178376f1",
+            "date": "2023/05/27 (Sat) 19:34"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": false,
+          "anchor_rank": 8,
+          "omissions": [
+            {
+              "id": "cd80e8eec78d4d2f4b25e9d5",
+              "reason": "anchor_budget_nonfit"
+            }
+          ]
+        },
+        {
+          "source": {
+            "id": "1cb5bc02ec0595c894cd5360",
+            "position": 2,
+            "role": "user",
+            "text": "[2023/05/29 (Mon) 18:32] I like the idea of influencer partnerships and user-generated content campaigns. I've been thinking about my 3 years and 9 months experience in the company and I've realized that I've built a strong understanding of our target audience. I think I can leverage that to identify the right influencers and create a successful UGC campaign. Can you provide more information on how to measure the success of these campaigns and what kind of budget I should allocate for them?",
+            "session": "lme-session-338b425a073c3e214046d3dfd780daaae80bbf9d1d9d84f229d0f0bd3cda97d0",
+            "date": "2023/05/29 (Mon) 18:32"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": false,
+          "anchor_rank": null,
+          "omissions": []
+        }
+      ]
+    },
+    {
+      "id": "d851d5ba",
+      "question": "How much money did I raise for charity in total?",
+      "kind": "historical_miss_gaining_flagged_turn",
+      "sources": [
+        {
+          "source": {
+            "id": "45dca31a40fb8f59996add3f",
+            "position": 0,
+            "role": "user",
+            "text": "[2023/03/20 (Mon) 19:19] I'm planning to participate in a charity cycling event next month and I want to make sure I'm prepared. Can you give me some tips on how to train for it? By the way, I've been getting more into charity events lately - I helped raise $2,000 for a local animal shelter on January 20th, and it was an amazing experience!",
+            "session": "lme-session-d2760506dc668fdbc82cd0afbf4e1211490f520d1da2f686cd611b2aff3e6d40",
+            "date": "2023/03/20 (Mon) 19:19"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": true,
+          "anchor_rank": 4,
+          "omissions": []
+        }
+      ]
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "question": "How many kitchen items did I replace or fix?",
+      "kind": "known_missing_source_probe",
+      "sources": [
+        {
+          "source": {
+            "id": "153a07dec572a1c429fa6eee",
+            "position": 0,
+            "role": "user",
+            "text": "[2023/05/30 (Tue) 03:52] I'm looking for some new breakfast recipes. I've been getting bored with my usual options and I recently got a fancy espresso machine from my sister as a gift, so I'd love to incorporate that into my morning routine. By the way, I donated my old coffee maker to Goodwill and I'm really enjoying the upgrade.",
+            "session": "lme-session-0fcfa853766533cb26341a201220f20705147bbb69ea4cdc5bdd4caaa9b0655b",
+            "date": "2023/05/30 (Tue) 03:52"
+          },
+          "baseline_stamped_text_present": false,
+          "candidate_stamped_text_present": false,
+          "anchor_rank": null,
+          "omissions": []
+        }
+      ]
+    }
+  ],
+  "interpretation": "Evaluator-only text-presence proxies. Not causal answer-error counts. not_top8_or_neighbor does not mean absent from the full ranked pool. Future-source exclusion is intended, not a defect. Two gain cases already have recorded answer/reference ambiguities; no recovered answer claimed."
+}
