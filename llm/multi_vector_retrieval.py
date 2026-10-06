@@ -212,6 +212,8 @@ class MultiVectorRetriever:
                 or not np.isfinite(query_batch).all()):
             raise ValueError("Invalid query embedding")
         dense_sims = self._matrix @ query_batch[0]
+        if not np.isfinite(dense_sims).all():
+            raise ValueError("Nonfinite dense similarities")
 
         from sklearn.metrics.pairwise import cosine_similarity
 

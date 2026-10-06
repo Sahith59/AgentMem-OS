@@ -229,3 +229,15 @@ def test_empty_vocabulary_reindex_is_explicit_and_clears_state():
     with pytest.raises(ValueError, match="empty vocabulary"):
         retriever.index(["!!!"])
     assert retriever.ranked_indices("alpha") == []
+
+
+def test_finite_inputs_with_overflowing_similarity_fail_closed():
+    class Huge:
+        def encode(self, texts, **kwargs):
+            return np.full((len(texts), 2), 1e308)
+
+    retriever = MultiVectorRetriever(encoder=Huge())
+    retriever.index(["alpha story"])
+    with np.errstate(over="ignore", invalid="ignore"):
+        with pytest.raises(ValueError, match="Nonfinite dense"):
+            retriever.ranked_indices("alpha")
