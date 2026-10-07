@@ -1,0 +1,30 @@
+{
+  "schema": "source-unit-compiler-independent-review-v1",
+  "status": "PASS_NO_BLOCKING_STRUCTURAL_FINDING",
+  "inspected_sha256": {
+    "policy": "8f54cf7a8dbf3bf2d5862e8595f0d6d94746e6799efb82a91e59a2de2bed8b3c",
+    "contract": "35972491218b6051be9493ccef60c5ffd18ead1fce3b94c341ba8e8b2f1bc171",
+    "compiler": "c74e26a7d93f3c5e2539084f1893813559b8032996eaefcc7796e3a18bb5e926",
+    "focused_tests": "f8493cde4145565f396f0cd0e7545f889a704935acff23d89cc79aa96c6c8528",
+    "underlying_source": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324"
+  },
+  "scope": "Read-only static review plus 700 additional deterministic standalone adversarial calls; no app database imports, paid calls, answer packets or model inference.",
+  "verified": [
+    "Snapshot digest binds the complete ordered source tuple, including unreferenced and future original turns; exact question hash and as-of representation are checked.",
+    "Quote source IDs, full-source and exact selected Unicode-codepoint slice hashes and ranges are validated against immutable originals.",
+    "Roots, typed dependency endpoints, cycles, duplicate edges, orphan spans, overlapping source ranges and unresolved declarations are checked before emission.",
+    "Future source or declared unresolved dependency refuses the entire unit with empty preview; budget nonfit also returns empty preview and no quote receipts.",
+    "Preview uses one JSON object per physical line; emitted and omitted ranges partition each referenced original source. Adjacent spans coalesce without losing individual decoded receipt offsets.",
+    "Independent 500-case deterministic probe covered newline, CR, tab, NEL, U+2028, U+2029, combining marks, emoji, backslash, JSON-like framing, exact decoded quote receipts and one-character-under budget refusal.",
+    "Additional 200 deterministic multi-span cases verified adjacent coalescence, every decoded per-span receipt, and complete selected/omitted partition of each referenced source."
+  ],
+  "adversarial_probe_cases": 700,
+  "blockers": [],
+  "scope_limits": [
+    "Typed edges and proposer declarations are structurally checked, not semantically validated. A proposal can omit a necessary negation, correction, antecedent, event distinction or out-of-window qualifier and still receive structural PASS. Semantic completeness remains NOT_CERTIFIED.",
+    "Refused reports contain source/span IDs and dependency metadata; budget refusals expose required character length, while quote content, emitted ranges and receipts remain absent. Keep reports internal if metadata confidentiality matters.",
+    "Dependency graph details are in the companion report, not the JSONL preview itself. Preserve their binding and inspect both together.",
+    "No real-source all500 stress replay or retrieval/candidate/answer-gain audit was part of this review; those are separate later gates."
+  ],
+  "readiness": "AUDIT_PREVIEW_ONLY_NO_RUNTIME_PROMOTION"
+}

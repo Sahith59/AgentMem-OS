@@ -1,0 +1,47 @@
+{
+  "status": "PASS_INDEPENDENT_STRUCTURAL_REPLAY",
+  "inputs_sha256": {
+    "runtime": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "policy": "8f54cf7a8dbf3bf2d5862e8595f0d6d94746e6799efb82a91e59a2de2bed8b3c",
+    "script": "a27d0f075de7e600d98e961298e22cc1eb3ba4e3adc951966bff58b0474deec9",
+    "freeze": "cfde3a6e2f7b2772f1c06a8f547b13a53664c9f1910e4368d0651543de76165d",
+    "batches": "5eed09ea749e1f5d0fdadb9f23eb4f533ce3d8bf3476256c9621c8aec55cb01c",
+    "audit": "944d0c1eb6f44d534cc7ae4ae4bfc8e494c5a158b0d1a03cfb4cb0cae34bd10c",
+    "code": {
+      "llm/source_unit_contract.py": "35972491218b6051be9493ccef60c5ffd18ead1fce3b94c341ba8e8b2f1bc171",
+      "llm/source_unit_compiler.py": "c74e26a7d93f3c5e2539084f1893813559b8032996eaefcc7796e3a18bb5e926",
+      "llm/evidence_packet.py": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324",
+      "tests/test_source_unit_compiler.py": "f8493cde4145565f396f0cd0e7545f889a704935acff23d89cc79aa96c6c8528"
+    }
+  },
+  "counts": {
+    "cases": 500,
+    "scoped_turn_occurrences": 246750,
+    "eligible_turn_occurrences": 231575,
+    "excluded_future_turn_occurrences": 15175,
+    "batches": 2008,
+    "quotes": 231575,
+    "receipts": 231575,
+    "budget_refusals": 499,
+    "future_refusals": 76,
+    "empty_eligible_cases": 1,
+    "escaped_unicode_batches": 21,
+    "max_batch_used_chars": 276069
+  },
+  "checks": [
+    "independent strict-timestamp eligibility and original-order 128-turn coverage for all cases",
+    "independent canonical snapshot hash including all scoped text and future turns",
+    "frozen script/code/input and artifact cross-hashes",
+    "compiler replay exact preview/report hashes for every batch",
+    "independent JSONL metadata and quote equality to original full role/date/text",
+    "JSON string token and report receipt offset/hash decoding for every quote",
+    "first-batch one-character-short budget refusal in each nonempty case",
+    "first future turn refusal in each case with future source"
+  ],
+  "limitations": [
+    "100000000-character stress budget only; does not establish 4000/40000-character answer-packet fit",
+    "whole-turn structural test without dependency graphs or span compaction in real-source batches",
+    "does not establish semantic completeness, selection quality, answer accuracy, or paid-call effects",
+    "compiler replay uses frozen compiler implementation; independent checks verify source-to-output structure and reported hashes"
+  ]
+}

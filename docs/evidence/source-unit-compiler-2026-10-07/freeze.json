@@ -1,0 +1,16 @@
+{
+  "policy_sha256": "8f54cf7a8dbf3bf2d5862e8595f0d6d94746e6799efb82a91e59a2de2bed8b3c",
+  "script_sha256": "a27d0f075de7e600d98e961298e22cc1eb3ba4e3adc951966bff58b0474deec9",
+  "code_sha256": {
+    "llm/source_unit_contract.py": "35972491218b6051be9493ccef60c5ffd18ead1fce3b94c341ba8e8b2f1bc171",
+    "llm/source_unit_compiler.py": "c74e26a7d93f3c5e2539084f1893813559b8032996eaefcc7796e3a18bb5e926",
+    "llm/evidence_packet.py": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324",
+    "tests/test_source_unit_compiler.py": "f8493cde4145565f396f0cd0e7545f889a704935acff23d89cc79aa96c6c8528"
+  },
+  "runtime_sha256": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+  "selection": "ALL eligible original turns in batches of128; FULL original bodies",
+  "purpose": "STRUCTURE_ONLY; NOT candidate retrieval or compaction; labels never loaded",
+  "stress_budget_chars": 100000000,
+  "answer_budget_change": false,
+  "paid_calls": 0
+}
