@@ -1,0 +1,155 @@
+{
+  "schema": "source-unit-focused-review-v1",
+  "case_id": "gpt4_d84a3211",
+  "dossier_sha256": "cb1b3c344b8c6e1a32d309c48af4cbfdf7b119b2cb5eefa3d68601c81a721b42",
+  "reviewer": "root assistant; benchmark development-exposed",
+  "inputs": "Dossier only; no gold/reference answers or historical grades loaded",
+  "review_depth": "All8proposal source texts read completely. Baseline relevant money/bike/date lines and exact whole-body witnesses checked. Additional3original user expense turns read. Other495source records not all semantically reviewed; keyword scan also returned an unrelated business-class flight, which was rejected as irrelevant.",
+  "source_rows": [
+    {
+      "unit_id": "review-0",
+      "source_id": "5db72697f30389457578eff4",
+      "source_sha256": "5e755e50f03d76d626665ec1312581c1ccfc115f410416fc798cf606cbf7aa8a",
+      "classification": "IRRELEVANT_TO_EXPENSE_SUM",
+      "reason": "Mileage347 is distance, not money spent.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 35726,
+        "end": 35989,
+        "sha256": "5e755e50f03d76d626665ec1312581c1ccfc115f410416fc798cf606cbf7aa8a"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-1",
+      "source_id": "661209d070210d884b546257",
+      "source_sha256": "23bb0161f9209f63b4178bf5e4e629f59c7bbcc6dcc08bc3b40c9dd941f1d81e",
+      "classification": "DUPLICATE_KNOWN_AMOUNT",
+      "reason": "Installed lights$40 already appears in the legacy packet as the same complete turn and extracted facts. Event identity must be resolved before counting repeated mentions.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 21464,
+        "end": 21857,
+        "sha256": "23bb0161f9209f63b4178bf5e4e629f59c7bbcc6dcc08bc3b40c9dd941f1d81e"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-2",
+      "source_id": "fd29bc0c49cdca76d3e09f67",
+      "source_sha256": "812199034249c57e3527032806dae5991c739f8d6badd4cca9fb35683b92f33b",
+      "classification": "IRRELEVANT_TO_EXPENSE_SUM",
+      "reason": "Mileage347 and a1000-mile goal do not supply an expense amount.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 25574,
+        "end": 25848,
+        "sha256": "812199034249c57e3527032806dae5991c739f8d6badd4cca9fb35683b92f33b"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-3",
+      "source_id": "3b1f2c6a4a79aadb1fb9eee5",
+      "source_sha256": "ed9869e8dda7a69069752867ee7af9867776f8f49f6d0124c624fb70e6a1736a",
+      "classification": "IRRELEVANT_TO_EXPENSE_SUM",
+      "reason": "Considering a ride after yoga does not establish spending.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 28284,
+        "end": 28480,
+        "sha256": "ed9869e8dda7a69069752867ee7af9867776f8f49f6d0124c624fb70e6a1736a"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-4",
+      "source_id": "bdf3fe4c5719c3b38abad65f",
+      "source_sha256": "a20c1e843bd9bbe62cc069c6ce93a1d3819f8d1940ec456015723ecdc52c1bd2",
+      "classification": "IRRELEVANT_TO_EXPENSE_SUM",
+      "reason": "Repeated mileage and a future mileage goal are not expenses.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 21160,
+        "end": 21459,
+        "sha256": "a20c1e843bd9bbe62cc069c6ce93a1d3819f8d1940ec456015723ecdc52c1bd2"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-5",
+      "source_id": "1f81e8e8e1ddf32215035ac1",
+      "source_sha256": "da5ea0498823733f4c2f3ef499cf004848ed7e5e6fa974d1ec66391f4dfb73e9",
+      "classification": "UNRESOLVED_COST_NOT_STATED",
+      "reason": "A prior tune-up and a planned future appointment are mentioned, but no fee is supplied. Do not infer zero or invent the amount.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 26345,
+        "end": 26550,
+        "sha256": "da5ea0498823733f4c2f3ef499cf004848ed7e5e6fa974d1ec66391f4dfb73e9"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-6",
+      "source_id": "0777043ce5bf9e19b4099451",
+      "source_sha256": "809b1fccd7a1a321c183706b7de8b782b9113e2d38ec6a680d37b8b998e8b77d",
+      "classification": "IRRELEVANT_TO_EXPENSE_SUM",
+      "reason": "A June road-trip plan is not an incurred expense. Distinct body absent from baseline does not make it new answer information.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": null,
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    },
+    {
+      "unit_id": "review-7",
+      "source_id": "6dee02aa41e427d7a8a0bec3",
+      "source_sha256": "6b3d8ab685b603ff0f7c0a06575ef815e293251805b4d4ff9f59c29160c26b34",
+      "classification": "IRRELEVANT_TO_EXPENSE_SUM",
+      "reason": "Assistant insurance advice is not a user purchase or paid premium.",
+      "complete_source_read": true,
+      "baseline_exact_body_witness": {
+        "start": 21862,
+        "end": 24519,
+        "sha256": "6b3d8ab685b603ff0f7c0a06575ef815e293251805b4d4ff9f59c29160c26b34"
+      },
+      "semantic_completeness": "NOT_CERTIFIED",
+      "answer_repair_claim": false
+    }
+  ],
+  "additional_source_checks": [
+    {
+      "source_id": "64c1008b862c0c47bde0c5eb",
+      "sha256": "1e830790f3f841382dbc02c3f1dc2110ed53a23d75da9c3c0a76add6e9d840dd",
+      "observation": "Original user expense statement inspected; no exhaustive expense-set or correction-absence certification."
+    },
+    {
+      "source_id": "950d7e4cc7447cbfb49dc27b",
+      "sha256": "153253ac5a7df1cc03a6c1d5dba72f11767a716f17f82d5f3e1ace4be0e6c3e1",
+      "observation": "Original user expense statement inspected; no exhaustive expense-set or correction-absence certification."
+    },
+    {
+      "source_id": "725cdda5135f58edb9c9f844",
+      "sha256": "fa8a149c878576d0c5a92035f67624956d962ce1914f07f0222c98a9c1024e8f",
+      "observation": "Original user expense statement inspected; no exhaustive expense-set or correction-absence certification."
+    }
+  ],
+  "answer_sufficiency": "UNRESOLVED_EXHAUSTIVENESS_AND_EVENT_IDENTITY",
+  "counts": {
+    "duplicate_known_amount": 1,
+    "irrelevant_to_expense_sum": 6,
+    "unresolved_cost": 1,
+    "known_complete_source_bodies": 7
+  },
+  "status": "FOCUSED_REVIEW_ONLY_NO_NEW_ANSWER_INFORMATION_ESTABLISHED",
+  "source_unit_dossier_unchanged": true,
+  "answer_path_eligible": false,
+  "paid_run_ready": false,
+  "new_answers": 0
+}

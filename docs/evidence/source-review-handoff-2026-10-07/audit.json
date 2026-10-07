@@ -1,0 +1,5023 @@
+{
+  "status": "PASS_REVIEW_INPUT_INTEGRITY_ONLY",
+  "cases": 500,
+  "eligible_source_occurrences": 231575,
+  "future_source_occurrences_excluded": 15175,
+  "whole_hit_example_units": 3988,
+  "compiler_preview_only": 3953,
+  "compiler_refused": 35,
+  "review_sample_ids": [
+    "60bf93ed",
+    "852ce960",
+    "gpt4_d84a3211"
+  ],
+  "all_semantic_statuses": "UNREVIEWED",
+  "new_answer_packets": 0,
+  "paid_calls": 0,
+  "new_answers": 0,
+  "semantic_proposer": "NOT_IMPLEMENTED",
+  "answer_accuracy": "NOT_MEASURED",
+  "rows": [
+    {
+      "id": "001be529",
+      "sources": 514,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7e59f786ca4fc8b4b441f3954ee7de583c3936fb5237f6b38da98285426a4ae1",
+      "file_sha256": "2bebc62b261c2e1af006c15d3bdfe39caa7ea4c18bb8fed945d1a640fb1c8eee",
+      "file_chars": 710738,
+      "review_sample": false
+    },
+    {
+      "id": "00ca467f",
+      "sources": 486,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "89a9093457b019f28c3b948592223c4029ad8aa0a7df8ab60d5850615d812459",
+      "file_sha256": "d1ed9b1aede642d7c2fde135083f5f23c19fbdd06df3fae47079138b6b2d73c3",
+      "file_chars": 712111,
+      "review_sample": false
+    },
+    {
+      "id": "0100672e",
+      "sources": 486,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "48617e03160a7172bfb9f552630bc264adeb1aec511d7ac422884c898c1e02e5",
+      "file_sha256": "fd1ee6cd938e27114f02721a1477c83dd5c5b21a119749fdc1f3b177d00020b5",
+      "file_chars": 719710,
+      "review_sample": false
+    },
+    {
+      "id": "01493427",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "51ba5b7045c603a3827e1cfd97be4e4dc906d8b3ffec017d4714fe9fdb54ef47",
+      "file_sha256": "73101dc11133682497e972eb07607a775b511c9f5aa9b46b0558faf240efff29",
+      "file_chars": 707883,
+      "review_sample": false
+    },
+    {
+      "id": "031748ae",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "94e53666542f1b881469f6e847ff0fc428ec7c02802b22e6df43f905da12191a",
+      "file_sha256": "2be8d177253c48729c0e1773b81232b8b3b67e77b7e919ee9b37198c10c75d21",
+      "file_chars": 718399,
+      "review_sample": false
+    },
+    {
+      "id": "031748ae_abs",
+      "sources": 523,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b9facbd496b6f1e4cd483387a2c4d8f866a7773abe0e0905c52e999b48704969",
+      "file_sha256": "98c313f4b1af672aa848912abc06a7346ef4fddb8310b9fe79094e0800227935",
+      "file_chars": 726891,
+      "review_sample": false
+    },
+    {
+      "id": "06878be2",
+      "sources": 443,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "200cb88da24c3ce24b56f1d5f1a11f240d0498670f2e26a055a0308385641d4d",
+      "file_sha256": "a77e7413506cf08db03b76141e7737add8463fceb626f0a2cb5dd518ae864853",
+      "file_chars": 697743,
+      "review_sample": false
+    },
+    {
+      "id": "06db6396",
+      "sources": 455,
+      "future_excluded": 24,
+      "proposals": 8,
+      "dossier_sha256": "e427a0efa23273e20969512085970ff001a35c0e173f1fb5aa815099dea457f7",
+      "file_sha256": "21f899c95e7e34c36f4bb2eecb6ac26feec1bd980550a841d28d332abb3f70ce",
+      "file_chars": 689296,
+      "review_sample": false
+    },
+    {
+      "id": "06f04340",
+      "sources": 503,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c91cfd9b474db39a830cad4bb1d0cf8089a3bf3040e030a08a4c522dc1fcc360",
+      "file_sha256": "72d6a4c964ca1503eee22b428eb6058d9c429ed185841d2fff2c54c406656318",
+      "file_chars": 722223,
+      "review_sample": false
+    },
+    {
+      "id": "07741c44",
+      "sources": 508,
+      "future_excluded": 5,
+      "proposals": 8,
+      "dossier_sha256": "4c05481b671323cea6d70b1e0341aa279dfc1b762de7b2d8cec238d7f02ef25e",
+      "file_sha256": "1275f948e7ca9d43d27ea1eee5ae3b873c9b681c5d4a23e61d539d8a6531aadb",
+      "file_chars": 727007,
+      "review_sample": false
+    },
+    {
+      "id": "07741c45",
+      "sources": 527,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fdb43e0bf928d66316794540d052f0261bac348231ca3122095f515718532ad9",
+      "file_sha256": "ac1f8b111d80f3af011bf58fc830ce479669caec10671224eac6598cafb1740c",
+      "file_chars": 700726,
+      "review_sample": false
+    },
+    {
+      "id": "078150f1",
+      "sources": 551,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "05f5b0ba2d4fd1e1106be85476266fbe1d9ae3585ac80520825f948e95add09a",
+      "file_sha256": "6421cf33f7dd2ed3d1b7f16bf4c023c9666bca97db86ea1d4e6e16d458d3a92b",
+      "file_chars": 722209,
+      "review_sample": false
+    },
+    {
+      "id": "07b6f563",
+      "sources": 524,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "21b73302f73057d3a81523c9a99bf99a94a86b0a6424c93f958f387866ce7b2b",
+      "file_sha256": "fa3f3e9234149f0537e21c5f30db64e2289d962f9c6b88cce98ad0a30d480ee2",
+      "file_chars": 726516,
+      "review_sample": false
+    },
+    {
+      "id": "0862e8bf",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f55503735deb65dbb4fc1d89e8a6d8ae0da68ed31ab142a0f7aa108267e8b488",
+      "file_sha256": "2d02ffea4459316069afe1f543582550952e490b67e5c844f9891b65784eab20",
+      "file_chars": 697411,
+      "review_sample": false
+    },
+    {
+      "id": "0862e8bf_abs",
+      "sources": 523,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "772517b9be4cccd36bf399725913960acdb71f8eeda39420254935d3a6427e9f",
+      "file_sha256": "dd2d37b29114c09f9714aae49433ad7214a4e8a75c28f1554b7cc68f19a296dc",
+      "file_chars": 708587,
+      "review_sample": false
+    },
+    {
+      "id": "08e075c7",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "865589ea688067f1176a4fc8624fa71f8a878ecc35d9c74ccefa361be819f230",
+      "file_sha256": "5d40219c272f8367f580ce90df9ed7becf95553a1fd991ffe267d5b5c0731f7a",
+      "file_chars": 720361,
+      "review_sample": false
+    },
+    {
+      "id": "08f4fc43",
+      "sources": 468,
+      "future_excluded": 12,
+      "proposals": 8,
+      "dossier_sha256": "6a8f3a84eb91550f5d9e4b4548d4cfdf223156bfe9d19453950cb5c4adc9cb3f",
+      "file_sha256": "12e695d20f0838e7d94b5d61f21a65cb1c6a8d2114b43095b450681d8a060725",
+      "file_chars": 700685,
+      "review_sample": false
+    },
+    {
+      "id": "0977f2af",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a417cfaebc1431ddaf72d9220fcde27da3478b442b5fc47e29781853bcb6f8ad",
+      "file_sha256": "82affe2c98b7418a69c1dbdf2a3108957c64db522fc6d1f1f72e8131d22f68aa",
+      "file_chars": 706317,
+      "review_sample": false
+    },
+    {
+      "id": "099778bb",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "55a77d4deb510f9fad2cc09b80f27a0c72a490b7f241b30464996726ac0540d8",
+      "file_sha256": "13687afacaf9ed243ac3537e8d286701d6b493496473c6120e8ebc1bb8221bde",
+      "file_chars": 726690,
+      "review_sample": false
+    },
+    {
+      "id": "09ba9854",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d663c501b2e010c8bd206040645b73c206e5b2ae3142dfda8e4c0238806ba305",
+      "file_sha256": "22b54495665bcbff7ffb84c8e7c277cf7929a3104a36a154a09dff8065d90d00",
+      "file_chars": 702577,
+      "review_sample": false
+    },
+    {
+      "id": "09ba9854_abs",
+      "sources": 513,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bed729eb62b2cf6b77dbe9f22eb73ca06fa44bf06b4af160af8d57e242bdd152",
+      "file_sha256": "3e7c9219ffecccbdc74f1d53490301fa1a9552ae4b75c9f12eebd1ebe155e23b",
+      "file_chars": 716878,
+      "review_sample": false
+    },
+    {
+      "id": "09d032c9",
+      "sources": 481,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8679781ca998cc8de8af0bcebcddb1ec8bf67ab4d4f3f7d35f548312b3f03e11",
+      "file_sha256": "585e66655e992bf3afe14358058826d03ed34cfdaa9d53187a242b7544cf395a",
+      "file_chars": 702838,
+      "review_sample": false
+    },
+    {
+      "id": "0a34ad58",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "26c2189d96cb65ac71864811104d3c33b7312d316a121401c0cd374794a1af87",
+      "file_sha256": "5a3832ad0951ea8105dc010ae52cb98042f6f4dc337663a8946e939c88bfded6",
+      "file_chars": 720763,
+      "review_sample": false
+    },
+    {
+      "id": "0a995998",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "976a7d5681d7d01d15fe2079e2571fd5b3bc36a84314ef2a785e27d5edbe22a0",
+      "file_sha256": "05eba469ad9b4b9e761a93fbea9f834292f8a6194d7f2c44f47b58cee96a8f46",
+      "file_chars": 722825,
+      "review_sample": false
+    },
+    {
+      "id": "0bb5a684",
+      "sources": 253,
+      "future_excluded": 210,
+      "proposals": 8,
+      "dossier_sha256": "ca6d81b3a1c76bd1dcb7e0d7c8d74b616c5151600d55d318d8b8f0877265a882",
+      "file_sha256": "6dbed33de0f325541de7a29baf6a4e69f7e56072898e778055b7dc3f6a53898b",
+      "file_chars": 434755,
+      "review_sample": false
+    },
+    {
+      "id": "0bc8ad92",
+      "sources": 443,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "98d912d121f0dc29474efca5a06526be299d101e6a2405b4114ba65c6976e264",
+      "file_sha256": "54f7addc629c0d8be00e024e09d08a7af434c8b5aea918a94eb9e9463be8faa5",
+      "file_chars": 687349,
+      "review_sample": false
+    },
+    {
+      "id": "0bc8ad93",
+      "sources": 486,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e4e605d7a4ee330cd595df78b4aaebfee6e02c23e6e5f31d1488edd8279c2771",
+      "file_sha256": "82b6a0a07d374aa07ceab952c638bcd263f9f2783892111b31d53254c530b947",
+      "file_chars": 717738,
+      "review_sample": false
+    },
+    {
+      "id": "0db4c65d",
+      "sources": 462,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "646e95b2ede166f2fabc34d4cf1400b8e4c89789f42d0d9d18a47e4e93b39f3c",
+      "file_sha256": "4f2a7cf5f99aca6e5c14de698afbab98a2e3d4c8c4d65d6cd3026886ba0bb279",
+      "file_chars": 686707,
+      "review_sample": false
+    },
+    {
+      "id": "0ddfec37",
+      "sources": 465,
+      "future_excluded": 18,
+      "proposals": 8,
+      "dossier_sha256": "8a1f9dd1f26b3466469be3c77539e0770fe2b6ac4388fc39931fd41799275da9",
+      "file_sha256": "d20e388b697e696faf2edf32815477b43a9ab4e4603703cf42ed7229e2caeca9",
+      "file_chars": 682710,
+      "review_sample": false
+    },
+    {
+      "id": "0ddfec37_abs",
+      "sources": 447,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2caf48e1784d6b7d4eb726ab7dd4c35470ab8028e11a0d441aeed873b940281e",
+      "file_sha256": "17a97bbc3ad854b6f60f9759d1b6f9583d4b18f4aa1650e67ff9da068653cbbf",
+      "file_chars": 701367,
+      "review_sample": false
+    },
+    {
+      "id": "0e4e4c46",
+      "sources": 481,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8b4060882ef0e97f9df3eea278f4d81c73ccffda47ebdf49ec8e3a7b013346ed",
+      "file_sha256": "da05987c4d24e66100f0bf5dbbb8dda12c37ede7fc5f203eed5a647cb20793a2",
+      "file_chars": 715360,
+      "review_sample": false
+    },
+    {
+      "id": "0e5e2d1a",
+      "sources": 450,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "013776176820cd967e0f287bb012c39b3786be1a854944c6bac4b34f38443dd7",
+      "file_sha256": "f36904c26649539e57cfb87b7e591a644713fd52725c762fce7290456c345e00",
+      "file_chars": 698956,
+      "review_sample": false
+    },
+    {
+      "id": "0ea62687",
+      "sources": 460,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8f5c12c747ab33b9de613c16c53b461bd17a737c549275ba83e9347e281ead06",
+      "file_sha256": "9b53dc4d601dda2379749399c116ba4e1fea80d0daae79d8c024fb720f98badf",
+      "file_chars": 698484,
+      "review_sample": false
+    },
+    {
+      "id": "0edc2aef",
+      "sources": 475,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2cac0ff07d3744c2cae3e10d1d223eead213f2e8d4c38e0eab0eb4f7d5cfa9b3",
+      "file_sha256": "29e82f4961995ad36964b0161daf20d6da9847d7e6d77d390dcf97a47225517e",
+      "file_chars": 718967,
+      "review_sample": false
+    },
+    {
+      "id": "0f05491a",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "02940fe57ded23a9823a375bc39d047daf966a6b7b63bb7631a7adc6c7e75ba4",
+      "file_sha256": "ca1bddc8602e1501968fbb3bbf15fc46493d8fcf722495e6bf42a5ed7dbbb8ff",
+      "file_chars": 698401,
+      "review_sample": false
+    },
+    {
+      "id": "10d9b85a",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "64ec9305b836ceede261ae1421df7f16589517c063ec300e25f011318931f3ae",
+      "file_sha256": "0b3798d7290c2ca587e18258f6f98117f1538ed8638d46e9f3bdb34e895a08d5",
+      "file_chars": 704554,
+      "review_sample": false
+    },
+    {
+      "id": "10e09553",
+      "sources": 472,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f2b4a19c1e53dabdda2ec28bed5a93ecc003cd653d8d0e360ec62fe5bb84bd18",
+      "file_sha256": "049f5e7e01be54d670b46721133b07ac306aeed9b85a62ccea9454d50900c9d7",
+      "file_chars": 695916,
+      "review_sample": false
+    },
+    {
+      "id": "118b2229",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "20d44fa2d5ca49062a893c66af1214f2550b730f58cdb2615cbd0cc0b8b0e590",
+      "file_sha256": "086cddad6f4655df9dbd7f61898343604f4ca4cff6d45e7384bf2360893e66b8",
+      "file_chars": 702954,
+      "review_sample": false
+    },
+    {
+      "id": "1192316e",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "08448c2e0ec9278b3dbc663c6f3b5038d577820a2f204ab8b4c6ef4cd3bcd528",
+      "file_sha256": "90724b826fc26a9fa9592719cc7358725fd5b2dc69cd81d027a49d38ac9336fb",
+      "file_chars": 700252,
+      "review_sample": false
+    },
+    {
+      "id": "129d1232",
+      "sources": 451,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fab7c9ea2147def7d0d5b2f9c137b6daced1380837d82bf51e198b3e6fd453d0",
+      "file_sha256": "9100643266fccd6c75aed7c5682ec7647d06003991efd9e6284167fb294d26ba",
+      "file_chars": 689592,
+      "review_sample": false
+    },
+    {
+      "id": "1568498a",
+      "sources": 478,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b4cde272d472f48d7e18fc566854f7f5f186254a291d329fdaf423927875c204",
+      "file_sha256": "7a4a6d484cb9c7568c75a2e0e658b7718cb1b236d6436814805a8dcdba9bcca7",
+      "file_chars": 692534,
+      "review_sample": false
+    },
+    {
+      "id": "15745da0",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "eb690db45567264e884b27fa9b226fc5b5f18a6e4c89f30146118cf85da79b9c",
+      "file_sha256": "24dc09e95e6eb93746c0613cb8770c97ec30d6f95c73eae88ad1f41f93c16a1f",
+      "file_chars": 705771,
+      "review_sample": false
+    },
+    {
+      "id": "15745da0_abs",
+      "sources": 547,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a7da610df1658ad2322833178fbe2c3a3984996b8888c12f912eefa6873d4921",
+      "file_sha256": "7c35fb647fc15e00b635ea42b661168aea15a7ed26651320cbb3ecb1fc74b231",
+      "file_chars": 711089,
+      "review_sample": false
+    },
+    {
+      "id": "157a136e",
+      "sources": 503,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "339c0b0819b28045d023e6b182a148b464a045ed2a5da9a78e25c346c891f713",
+      "file_sha256": "9fdacde93d05830a3986e7e048ee582d9414f6fbc4d9be5bf5f5dcd3c586fe2b",
+      "file_chars": 715291,
+      "review_sample": false
+    },
+    {
+      "id": "16c90bf4",
+      "sources": 509,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1c4db6587ae0f3c5b0d05589027b5de2f8f0b202fb6031b5a18e3923288d8fba",
+      "file_sha256": "96629e238266036916732a5f312cb3904a04d6df35d294bd6a4afafb8ece6e63",
+      "file_chars": 719364,
+      "review_sample": false
+    },
+    {
+      "id": "184da446",
+      "sources": 473,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4077d098000b982e3ce853bd8f70b8dd19b27fb59258d396a46c922f0f5b1fa0",
+      "file_sha256": "60fa91a3315d280d2ff399d54d3ccebd044192924736cfad2ea4aa5f6f1b91b7",
+      "file_chars": 696779,
+      "review_sample": false
+    },
+    {
+      "id": "18bc8abd",
+      "sources": 436,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2003f27f2439be0d4774120199c56dd12a7c6533ec54cbd20fcae1dc2802a9af",
+      "file_sha256": "171dc7dd21302bed34c2c6ecf7fa150778999239d7a6737f7b3c34ffb88c2b78",
+      "file_chars": 684754,
+      "review_sample": false
+    },
+    {
+      "id": "18dcd5a5",
+      "sources": 503,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "30d82ded2a66fd6fc7c1448ff3bd49be9d2f12041814dfe090a7acf0e08aa27c",
+      "file_sha256": "76b51a3d3bed70505f3bb14a7e6e541c647d59002128f4ee8c74febe108e9540",
+      "file_chars": 725353,
+      "review_sample": false
+    },
+    {
+      "id": "1903aded",
+      "sources": 486,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "56fe3196b7e7fc36e5d21a063b5cced634d4e56b7b799f8d56a0f41146f8980e",
+      "file_sha256": "a44c63991f1ca71fcf1c44802ef7cdefe29bf5ffb9ef26571a4694e8afff3efd",
+      "file_chars": 710331,
+      "review_sample": false
+    },
+    {
+      "id": "195a1a1b",
+      "sources": 515,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ae010d71a4ce0e7ff7da52e8a0bdac288dbc50e55b56f71cd5c337dbc94b80c2",
+      "file_sha256": "eb168776157515ccff0f168652178c5e671d4d28f592548e6e3c0664d4def6f9",
+      "file_chars": 725247,
+      "review_sample": false
+    },
+    {
+      "id": "19b5f2b3",
+      "sources": 482,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "167779be754e2422ac8fb14a2ac47c2014fb757e9c8919d01678ca91d3633d1c",
+      "file_sha256": "72c58aaad681f531190690861707cafef1fb986a8699aa9678cb6e6716caf876",
+      "file_chars": 698846,
+      "review_sample": false
+    },
+    {
+      "id": "19b5f2b3_abs",
+      "sources": 527,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4ab79ada58a3b6ee19d0509525f80939a629c6efb4bcaa90d6f6f9e07d194595",
+      "file_sha256": "73856bf18254d47fdffddb59eb40333c3e58f108da0f858646c2ee1e64d3e048",
+      "file_chars": 712743,
+      "review_sample": false
+    },
+    {
+      "id": "1a1907b4",
+      "sources": 532,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bef87de0a204838a580de79ee75ce849d9febd144a0a12f5119720f9fe91e270",
+      "file_sha256": "f24b1d6c501eb1b513ff7e6c7bb543220f857d4a0450590c7ce523763220d384",
+      "file_chars": 734551,
+      "review_sample": false
+    },
+    {
+      "id": "1a8a66a6",
+      "sources": 501,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "701659964adb712fda17192d1b5da91e272e666ed3477d501b32345a42d37aff",
+      "file_sha256": "31f9aca6b5e96928d797ac922d4f9270f27e1d79adbed3414ee867a0b15bda02",
+      "file_chars": 719217,
+      "review_sample": false
+    },
+    {
+      "id": "1b9b7252",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9461730824798ae21803e6a754a16cd82acb3dccb34eca44307024a472f28aed",
+      "file_sha256": "8de18a2c026c7f6118ed014b3f00a5ae086299218745fd104b72fd83dc91cd92",
+      "file_chars": 697139,
+      "review_sample": false
+    },
+    {
+      "id": "1c0ddc50",
+      "sources": 548,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b1f43562b7413a45ca953cf2b9a674beed954ff90da06c00e6971a21fa6c344b",
+      "file_sha256": "2edace7076a26fd0eb957502f3d7c5396bc141dd9922308e023f302091d1f7ed",
+      "file_chars": 727973,
+      "review_sample": false
+    },
+    {
+      "id": "1c549ce4",
+      "sources": 462,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "26a55cb9518f0bdc91d34b2e3ec1d1c30a7e00f7186e3413beee871d5530ddb0",
+      "file_sha256": "c1547e43998b325a2f18e0e6d3c365f4df66907275247f18bce1c79644a6d8b9",
+      "file_chars": 704644,
+      "review_sample": false
+    },
+    {
+      "id": "1cea1afa",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "044a7a49fa3c9cac21ec136c468cecf7f966479fdfe8534f89ee2923b679379b",
+      "file_sha256": "c56c8e190fc46467ad4afba1487b71b9caac72032592de48c06f60286d4b7825",
+      "file_chars": 709497,
+      "review_sample": false
+    },
+    {
+      "id": "1d4da289",
+      "sources": 506,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2e536cc01963e840321d83b444f0ace5f852ca48d96731f76d8c96572581f6b5",
+      "file_sha256": "616a4d2e25ffebb9abab174416d8ad6cdd2e35a8e1dc02594479e5f782ec0836",
+      "file_chars": 733799,
+      "review_sample": false
+    },
+    {
+      "id": "1d4e3b97",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "429181c3fccc1d5943c0d8b64ac306a430e9011828a2106f096182141d0c5ba7",
+      "file_sha256": "8ab74823f67eb692ebef15d6490c91d3e12073b1870ee33dbbe49a35627914bc",
+      "file_chars": 704268,
+      "review_sample": false
+    },
+    {
+      "id": "1da05512",
+      "sources": 462,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8740551b610680ccf78951f26c3ddf3ddb3b9c7b88632cd2dc1d853ec52b92c1",
+      "file_sha256": "182bca38228db6235b11a7e55cb9a0269e4c818931db873cb5eeb864936ce326",
+      "file_chars": 713048,
+      "review_sample": false
+    },
+    {
+      "id": "1de5cff2",
+      "sources": 473,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d69620913464adc5096abca3da9c886746d2d3092d0ae7b7ab91e0f2458c14b7",
+      "file_sha256": "7c2525a5b170a00fc5f84760f574285562ec17e6af26d76d0cf6ff2d2e59c68c",
+      "file_chars": 704670,
+      "review_sample": false
+    },
+    {
+      "id": "1e043500",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "81524dc85dc246f4ffddcaf33d0dc7c51c72cfa9422bb6bd8b78888133e6dcc2",
+      "file_sha256": "4082bc89fe78632cb59f505ed996756224ae9095c701f47fb817b04b2b753807",
+      "file_chars": 730225,
+      "review_sample": false
+    },
+    {
+      "id": "1f2b8d4f",
+      "sources": 522,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "52a21b391eae51b14a691ddc5acbf516efa677d6621b0a6e26f6d8900b0e705f",
+      "file_sha256": "7eaa86f82222e002191636a1139549f48db66ba122e783f6057ed3bbf9f2de62",
+      "file_chars": 719208,
+      "review_sample": false
+    },
+    {
+      "id": "1faac195",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "91886fcd8c3cd2eb8dc9d4abf16b8bb39d727ee0d153e5ca0a3aed9f9994425e",
+      "file_sha256": "6f9c00fababd282b57e78798ab1daa563b3ea6394d156ec039cb18dddec4f9e9",
+      "file_chars": 691998,
+      "review_sample": false
+    },
+    {
+      "id": "2133c1b5",
+      "sources": 411,
+      "future_excluded": 112,
+      "proposals": 8,
+      "dossier_sha256": "04627a1821837961dcf3f148baa17deb459e85673184f10c3cd5af9202c47d93",
+      "file_sha256": "624e84b6227f83ce063b058079fe6ac06f0f61a24d202f87a346db4735ecaa7c",
+      "file_chars": 576138,
+      "review_sample": false
+    },
+    {
+      "id": "2133c1b5_abs",
+      "sources": 368,
+      "future_excluded": 108,
+      "proposals": 8,
+      "dossier_sha256": "1235829c78236788023ce75b6de2d3457d327db304448f7df799bcf12bef6161",
+      "file_sha256": "f8e946985922479831ae2a4dc6f55e873d726bbe0cc48e16c2199bd34c09226d",
+      "file_chars": 536301,
+      "review_sample": false
+    },
+    {
+      "id": "21436231",
+      "sources": 512,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "67e9b07ebd7813d01b4e235490ef4f5cefd459d31060ec28af746fa47a7214f1",
+      "file_sha256": "4fe14c656a57d235caa216c5146f7b011c3d808c1c95b95466f0ba64c802e90c",
+      "file_chars": 710632,
+      "review_sample": false
+    },
+    {
+      "id": "21d02d0d",
+      "sources": 497,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6e615be965b9cdf8c7ef0f46dc36fea4a84271e54da4ba97f30de09d9926d156",
+      "file_sha256": "71e716a3e402ed631ca993076ce5501bd55965ebe666c8c31306040b3d6d99df",
+      "file_chars": 715945,
+      "review_sample": false
+    },
+    {
+      "id": "22d2cb42",
+      "sources": 473,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "28a960803e41ea0bede88e6ec34eeecba6f3bc0c9222980a5f7a579ff0b89f4c",
+      "file_sha256": "02ee78fda3350d261117213f5057e9963d33a9a55372503c17b1bfffcee37a26",
+      "file_chars": 700283,
+      "review_sample": false
+    },
+    {
+      "id": "2311e44b",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b7d8ab374baa7f10a99fbebef071f47182d624ecfc9cfa5ec31652e1e7b9860c",
+      "file_sha256": "93706fcfcd5305ba40047239a42c7b233f1915549b972f3a1879c0672d864dd1",
+      "file_chars": 721442,
+      "review_sample": false
+    },
+    {
+      "id": "2311e44b_abs",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2ed0b0dbaa54a2cec166d99994c0b0b9ac81c25881e33a08a0fa656b969169dc",
+      "file_sha256": "f30a738ea535e2c07daec8ebb76a73ebb4729238e9a2ecf471e09df9dcbd80de",
+      "file_chars": 723383,
+      "review_sample": false
+    },
+    {
+      "id": "2318644b",
+      "sources": 523,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fda88921ea67753e900009a3614356e272e09e95235d3f15e2797153e2439aa5",
+      "file_sha256": "e7ddc4517be1e5a232326b5e604cb989fdce9b8f1158c9835830329aaffe612f",
+      "file_chars": 708283,
+      "review_sample": false
+    },
+    {
+      "id": "25e5aa4f",
+      "sources": 506,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b3ef750a20071e9781bcc7e7f1302f9227a893eb8663963e76b6a1856c825610",
+      "file_sha256": "298b8e4e29eab04723c30d20c32317b957982af4a49375c1ed2546053a39fbef",
+      "file_chars": 713406,
+      "review_sample": false
+    },
+    {
+      "id": "2698e78f",
+      "sources": 464,
+      "future_excluded": 14,
+      "proposals": 8,
+      "dossier_sha256": "048e0ba7e4497315899937028831c1b556ebbc472dbc28246ff8ccab38ce55b5",
+      "file_sha256": "e276660fb62ee0b324e0bc51bdc6bb168534bf8d87bb7e77373fff69eb03197e",
+      "file_chars": 677136,
+      "review_sample": false
+    },
+    {
+      "id": "2698e78f_abs",
+      "sources": 462,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b14c0e51c3485e6846bd8b64653b1dc18a87656b005f07a3c16df1e74f275908",
+      "file_sha256": "72ef8b77d4e7d256f484cf8b3a67dfb42b575e1758c155436b7e7fe208685145",
+      "file_chars": 693230,
+      "review_sample": false
+    },
+    {
+      "id": "26bdc477",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5b75b119036c3ed9c6232431a1be5bc0ad26d9eaa4d8eae881eba4b2b05b9eb5",
+      "file_sha256": "3c94491a68921f821bff52ab62ca37809509cadee866d81ebcbe9a455f9e2487",
+      "file_chars": 726927,
+      "review_sample": false
+    },
+    {
+      "id": "27016adc",
+      "sources": 491,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "44ec742aaa88166baaf41c70ae6ed72ce0acd777d5ad98f8071dd7f5e5bd999a",
+      "file_sha256": "90192bc0c359c8997efa624dce72101c179152e209971e45a32fab2908126064",
+      "file_chars": 718461,
+      "review_sample": false
+    },
+    {
+      "id": "2788b940",
+      "sources": 475,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7e4dc76a4cc048e7c62350a4a8da2a063bfd3781dad1f901c70d1c0cfead9545",
+      "file_sha256": "05fbc3998a998148ba4215d3a149e7524a4d319e08e3dca2540e819c274e498e",
+      "file_chars": 698571,
+      "review_sample": false
+    },
+    {
+      "id": "28bcfaac",
+      "sources": 500,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "70f0f6cf4ed5c3175362d42f6dc2513c986b71c760112027eca82788b3d588a2",
+      "file_sha256": "e0fa7c86f141ab265b6cd9f70cfc5d1cd456fd32cce406ee34df1625416eef21",
+      "file_chars": 711053,
+      "review_sample": false
+    },
+    {
+      "id": "28dc39ac",
+      "sources": 431,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "15c99d4bc90b0c8566da39472555fa28e0509e89010c33a5a7bcd1e43419c104",
+      "file_sha256": "944247fde07428ed2274e1105eb7d46b9ee6c8c09bb0408fc9cdbb26b641198b",
+      "file_chars": 686630,
+      "review_sample": false
+    },
+    {
+      "id": "29f2956b",
+      "sources": 496,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e6b8433f8cff9283631104e0ff5851cf0232b45be5ec8051ff9bb07733b246a5",
+      "file_sha256": "a89668a81d6a684359d3e096d5fa250017e41051b912cb7f728c1f5003e74392",
+      "file_chars": 701492,
+      "review_sample": false
+    },
+    {
+      "id": "29f2956b_abs",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "feeda33ee4f9161ae8f4e9faf7a27f2892043d7a7aeffae88717cb2e48949b67",
+      "file_sha256": "bba297dd5b3a1bd2a37fd198e9943e117e6df0f96c0a776287c23113be2e7720",
+      "file_chars": 727979,
+      "review_sample": false
+    },
+    {
+      "id": "2a1811e2",
+      "sources": 254,
+      "future_excluded": 225,
+      "proposals": 8,
+      "dossier_sha256": "71cb913c29e150e3ff2dca1aca5c7203ead60baaf3ece78646774625fc39ac6c",
+      "file_sha256": "ad951e77323c4eb1dc0556a4b1358114f4c3d227225c4e4d147c91296e74ee13",
+      "file_chars": 412408,
+      "review_sample": false
+    },
+    {
+      "id": "2b8f3739",
+      "sources": 491,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "535e22cf8a7ee91f6bc2dc589e40b8ec779e8ada19a23588a71d980a67a452a6",
+      "file_sha256": "4355105fe5f72a201aef0b12c370948dec0d0865a25caa0ab3a2d23f67c6b1a5",
+      "file_chars": 721113,
+      "review_sample": false
+    },
+    {
+      "id": "2bf43736",
+      "sources": 478,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "17cc55b94421021cf7bcdbe06a5e3703653434902e42099ca1780f96803b7598",
+      "file_sha256": "1bd019a6a58d324ad03f4290f942984a2d41eae2c40961201c82cde120a651b8",
+      "file_chars": 710712,
+      "review_sample": false
+    },
+    {
+      "id": "2c63a862",
+      "sources": 260,
+      "future_excluded": 269,
+      "proposals": 8,
+      "dossier_sha256": "80cae39a139835df135a3835e6f337be807f2b9922c822849571bfe5453609f4",
+      "file_sha256": "3b895144bc26b365796fd5193d8e6543ff8dedf92fad1d43e47d3e463b133dca",
+      "file_chars": 405992,
+      "review_sample": false
+    },
+    {
+      "id": "2ce6a0f2",
+      "sources": 480,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ce1a39c9c23669f39404015207ab6fd3f187b923d965e3bd0eb689ae26bcee44",
+      "file_sha256": "5342b75063c01de453350b8d7830b1d92a857ae38256d4430309ae4b46daf2be",
+      "file_chars": 714150,
+      "review_sample": false
+    },
+    {
+      "id": "2e6d26dc",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4929c06cdb8c1fe50dcb7055ffbedbe862459edf3994ef8921e9fe4419bfe7a7",
+      "file_sha256": "e4ec7d95d73bda0660d1e50fd615206315ca30506903ac414551f7cb5a076c35",
+      "file_chars": 701054,
+      "review_sample": false
+    },
+    {
+      "id": "2ebe6c90",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "83865fa280ab8c2466648386cf22af2262b85fbdd0e315b1d6f1d24157f02e0b",
+      "file_sha256": "abcb6747378b322849995e15ac940fc47a1b00a27352415244bfb5633890d080",
+      "file_chars": 711888,
+      "review_sample": false
+    },
+    {
+      "id": "2ebe6c92",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a568fc158f871a9ae6c626749e1d917b6b2c9f6fa72e7911b46223a4842a9633",
+      "file_sha256": "40e96c24c751f623f5659856be2883b47511f109e94cb2c05b0b8b87be014a2b",
+      "file_chars": 707402,
+      "review_sample": false
+    },
+    {
+      "id": "311778f1",
+      "sources": 500,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "af93efff80fc3d80b8939426f1e8824cec56e8297fca8e0a6263f731e85c2c0e",
+      "file_sha256": "50852b0bd0405e0b75cd82906e3dbf4c586f8ff821a2d5be7b5f106594265116",
+      "file_chars": 735056,
+      "review_sample": false
+    },
+    {
+      "id": "32260d93",
+      "sources": 524,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fdd318b1c7ca9a02669a4cffbca9072d218ab4071df52ae840a2929995220067",
+      "file_sha256": "f3896a60a469d2dfc73dbc51109e5026fb1fad10e43d0425ab082f6d9471fd70",
+      "file_chars": 704167,
+      "review_sample": false
+    },
+    {
+      "id": "3249768e",
+      "sources": 475,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5575acb8dc51bbfb1c5150f99ea61bbc1f24deb5531b5b5b479d80efd97769a6",
+      "file_sha256": "879483fdc181248d782583a8912afccb9f2abf0a0b4d3567375989081eb408e6",
+      "file_chars": 709045,
+      "review_sample": false
+    },
+    {
+      "id": "352ab8bd",
+      "sources": 539,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1020f74137da7f9e18935fecd201233e33b0f22be5033c0f89bba5586de82d2d",
+      "file_sha256": "b4260862c737eed090152f5d93db3d9db2db9b8befce7e8704a465dedf51caeb",
+      "file_chars": 723167,
+      "review_sample": false
+    },
+    {
+      "id": "35a27287",
+      "sources": 519,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8b5bfaacaeaab3850d42b77f5b48a6841661fdc4d1105474f4436fac648d1fe4",
+      "file_sha256": "af4b4826b883d5a32f0becd81292d77743b2a5c134b9deb06ad7afbce148fb82",
+      "file_chars": 714224,
+      "review_sample": false
+    },
+    {
+      "id": "36580ce8",
+      "sources": 545,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8c41ef87450c9bbdd33e4fa1a886e86d639fdb255ceda448fa923bfb12cae774",
+      "file_sha256": "64b9a0c6ca0f6cf464fe2e5212e60e93ee535e67579f610d7d0dc86a3c1d18f3",
+      "file_chars": 719781,
+      "review_sample": false
+    },
+    {
+      "id": "36b9f61e",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ecbfd8c7dd46d0fddf385cdca56ce08a4487b863cf053d09a5e76a914a17ecb5",
+      "file_sha256": "5f553819fb17d8c9779a230c33070584ff43a83264d7635573f7adfdc19cb393",
+      "file_chars": 712998,
+      "review_sample": false
+    },
+    {
+      "id": "370a8ff4",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "007133be1350bdd3414fe53bc15208cf8fadba7d649ff0b8f1ea57c6a7cdc77e",
+      "file_sha256": "c9d07052f69b5f6a2d9cef2d508688287625d6c3ccd25fc425cd97c613889bee",
+      "file_chars": 704220,
+      "review_sample": false
+    },
+    {
+      "id": "37d43f65",
+      "sources": 533,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6ddfc3da32f441dfb1bd7ece0cb0ad3553200842fdbeffef9216bfda2e303172",
+      "file_sha256": "9010942530b119195c331c6a54c8eae0494475d4c29999a8f361ea4426f46c17",
+      "file_chars": 714821,
+      "review_sample": false
+    },
+    {
+      "id": "37f165cf",
+      "sources": 567,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0e25d113f3863a95a67a9e9eda71d6f68259b72a416ab43176883a20c3ab0a7b",
+      "file_sha256": "d6c3007349d8fb3cef14107ebbbd538b94c3d62efad6bb952d5b0e4027fd7860",
+      "file_chars": 739474,
+      "review_sample": false
+    },
+    {
+      "id": "38146c39",
+      "sources": 538,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ec39a05d13989a4bbf5048fa219c14f3e6604d9174e45623a5943a0289619e26",
+      "file_sha256": "5159643cd476c1ad25b4ea960b74ba9dca310e27d4c4f20395538b94ac07a255",
+      "file_chars": 720798,
+      "review_sample": false
+    },
+    {
+      "id": "3a704032",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "475231056d26112ff7ecb30771a6ac539d6844c341fe4538a9502159cf9bce8b",
+      "file_sha256": "f7fcaaf00be8140844b3383727b7d4401d66914b59f349883173b24930086fdd",
+      "file_chars": 706975,
+      "review_sample": false
+    },
+    {
+      "id": "3b6f954b",
+      "sources": 470,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "27a241b9478ecd88fdcee083c49af1b84402c0c62cec8976d6069ac121e17235",
+      "file_sha256": "7458919eb7c443ec9eab45a09fae577d5055631546a3e178b37ff04f00985e60",
+      "file_chars": 695297,
+      "review_sample": false
+    },
+    {
+      "id": "3ba21379",
+      "sources": 361,
+      "future_excluded": 70,
+      "proposals": 8,
+      "dossier_sha256": "b319436e65b733b643aca290d4ff75413ab2f19ca0fa0bc2a196717be0abd1ef",
+      "file_sha256": "b27e10a51c5920ad9711a5b610cf380d30c2fb60acd2bfa2442aa9564ec365a3",
+      "file_chars": 592581,
+      "review_sample": false
+    },
+    {
+      "id": "3c1045c8",
+      "sources": 542,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9cd1ebbb6052fc97c29ead106894a26e22b3f2c460c63120d5210628643c9548",
+      "file_sha256": "8f6e075029b5150a7fa6e6485b90d82e0ae84c380b4ee8f1d21a91519bef7ceb",
+      "file_chars": 707181,
+      "review_sample": false
+    },
+    {
+      "id": "3d86fd0a",
+      "sources": 526,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9fa3958bb5c520352bdb07dd6dec388ccf57cd31e6112967961257697f100a8b",
+      "file_sha256": "2dec36076ab324e5158246498cf4dbaf84940845a0c153bb9590a7aa2324aa1d",
+      "file_chars": 706729,
+      "review_sample": false
+    },
+    {
+      "id": "3e321797",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f693263755f44c164490c4cb92a95cb9a5846818ff9743577b30226b165f9e22",
+      "file_sha256": "b18245569f841b7879841f70013f66380c3eab5baa4c7a00a8564041ab0ffab3",
+      "file_chars": 718171,
+      "review_sample": false
+    },
+    {
+      "id": "3f1e9474",
+      "sources": 515,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9c2485088d713544efca4cb3c72c2a8c60a6d93b38639861970b7a0d577adfd1",
+      "file_sha256": "d6016b355f47d1e39130b2ba55b77ee83da675997b78ad143b5dd454a8ca0f0d",
+      "file_chars": 728027,
+      "review_sample": false
+    },
+    {
+      "id": "3fdac837",
+      "sources": 453,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b083b55a654b630210417a39e2dc24727c80531a1c1a858dee9057a6f915c13c",
+      "file_sha256": "08e414571e2cdd9990fa32cee7cff3f65ea7093364c82afc8dafcce8ad0b54dd",
+      "file_chars": 681309,
+      "review_sample": false
+    },
+    {
+      "id": "3fe836c9",
+      "sources": 449,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7b3a0a15487e154152f144629d892a0e23ae4b402cb21e47215177a8220c3279",
+      "file_sha256": "3380a038d4b4d72eacdff97f092a3a1a62f6e5282dde0b207213aa97357ee105",
+      "file_chars": 706854,
+      "review_sample": false
+    },
+    {
+      "id": "4100d0a0",
+      "sources": 523,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8565276eeacd3458425eca79b8412b8f5c504ba0abb377d7c37e5049373c3631",
+      "file_sha256": "daac451a276b6d662fd4d6f2a0b6f1ff7f78cf4c60fd4369b5cb58cabc44ae38",
+      "file_chars": 719675,
+      "review_sample": false
+    },
+    {
+      "id": "41275add",
+      "sources": 531,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8d0f4d0b8dbe2e5d4a90611bbcc409993df72b58f15d8726fb8b831cb83c4994",
+      "file_sha256": "46b2bbcb41330da7f0e3eac44c5d4fdeaf774507a4867445551c4fcc78a7ba65",
+      "file_chars": 726907,
+      "review_sample": false
+    },
+    {
+      "id": "41698283",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0bb788ffa2ce12fbacd3ab72af543e0466c2285b53073f27dc35c5d724ebe6cf",
+      "file_sha256": "9c8a4370cec925b79a55509a51ffd56d522cc7bd20259845a8f32441473e0471",
+      "file_chars": 696328,
+      "review_sample": false
+    },
+    {
+      "id": "42ec0761",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b2de833ae41a2c4e988082a26eac9bac74c90c2aa8d06970b546f1729ff19b6f",
+      "file_sha256": "9a774d00d42ade0c6c58ffbe9d4bd8e4610c031fab36574fec921bf472632a81",
+      "file_chars": 722068,
+      "review_sample": false
+    },
+    {
+      "id": "4388e9dd",
+      "sources": 477,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0fb07ce0f68731d9c5050a51c64cfe92772ba194d56ab32d5ca988d7e0fdb603",
+      "file_sha256": "8b63a7c09d388ecefe9155f52cf970f0bd55c6d201659590a79699d9e08d7ae9",
+      "file_chars": 699595,
+      "review_sample": false
+    },
+    {
+      "id": "45dc21b6",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1582a039ce746dc5083ede67fed0bdb6c8a86a2f326498dfec912f49778d4be4",
+      "file_sha256": "70c485572c9f0cacaf849adffa8f671849b6465eca96f6314ae9c3c58f27996b",
+      "file_chars": 688710,
+      "review_sample": false
+    },
+    {
+      "id": "46a3abf7",
+      "sources": 503,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2ce49d0f4800c0c08b3c6499c81be8db48a3082c37e073d34b23c8fbd8979e48",
+      "file_sha256": "59ae23802c38d5080c49a7643b9c142ec43ccca3abb8d0ceca38bb19baa28c4a",
+      "file_chars": 722300,
+      "review_sample": false
+    },
+    {
+      "id": "488d3006",
+      "sources": 509,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a511a3f3d9c269878cfaf95a25c158f8b4c36ff633516985d67caed66e917ab5",
+      "file_sha256": "c776c313db1f419868a2cbaa91f42479023c2d1c2c2494d45cae77366d578cc7",
+      "file_chars": 717320,
+      "review_sample": false
+    },
+    {
+      "id": "4adc0475",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0faf9ff6be7640c0922b566568f62779126c713c32e25450f02c25e63377f4ba",
+      "file_sha256": "40ee574d04c478646309439abd9fa28f2bfc5442119f019987eeb41b260a364f",
+      "file_chars": 722870,
+      "review_sample": false
+    },
+    {
+      "id": "4b24c848",
+      "sources": 514,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3acfb55255db39b48fa7e3de9f0ae1be03ac8a6b20d75ce0c02b641eb6f97170",
+      "file_sha256": "846caff80a8c4da80d5b5d6671d16872df0bad360cf0942d8b4b8d4907fa7f41",
+      "file_chars": 716167,
+      "review_sample": false
+    },
+    {
+      "id": "4baee567",
+      "sources": 514,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4fc24331e29ec7c0ef0c733e3998ed2f1efd867290aeb552dde5d48a474e87ba",
+      "file_sha256": "a773fd099152a75cb1ee0ac9c55726a070ac070c18d281e692e2b50629227f6b",
+      "file_chars": 704361,
+      "review_sample": false
+    },
+    {
+      "id": "4bc144e2",
+      "sources": 530,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "814b03ef0b236a01b849c98ff149e74dba0a2b1a49459a48b692e0b94c429017",
+      "file_sha256": "4e6e8740dc09a2db9bda8d1e72e4ac6f7655fd5afc4d5792a114b95a95dd6468",
+      "file_chars": 726242,
+      "review_sample": false
+    },
+    {
+      "id": "4c36ccef",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bb0100483ec3293d5047e247fe2a2607ce972c9d9100e44ed8ebdc1cabe3e73e",
+      "file_sha256": "2372ef50d4c80fe1fb216735ff0dc56377fdddbbe6b04163955720f2ac1176d2",
+      "file_chars": 724757,
+      "review_sample": false
+    },
+    {
+      "id": "4d6b87c8",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b9931abd59a1774bd08fcdc5dbc8198d6453c38d51378cf6e8b6544610aa37c1",
+      "file_sha256": "2fa66a001dfa6de69ff4ebe60bf52df1f55e18677df2b224d1bde4929c04a2e1",
+      "file_chars": 706299,
+      "review_sample": false
+    },
+    {
+      "id": "4dfccbf7",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2154b8e9bc53090b3422ff586b4f0043abb9fa67b5aaee19992be64e4778d1d8",
+      "file_sha256": "701b375b24fdf2de28174ce2da066ad0a5484c102edede7ddf6ff8864545c229",
+      "file_chars": 721810,
+      "review_sample": false
+    },
+    {
+      "id": "4dfccbf8",
+      "sources": 455,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2a2669e185a5c0720eeec9db9c927e09a40070042e5c3e52a50dae1c9fa9b1c0",
+      "file_sha256": "56912a1d204835851c8577f8917fa7cb92964c8fd4f36f9eed461ea4b0d20356",
+      "file_chars": 701053,
+      "review_sample": false
+    },
+    {
+      "id": "4f54b7c9",
+      "sources": 491,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1c2a449e5d9ca7c0e9e041bca6ead337ad9cc115896b93946553bb1a29f5a0d8",
+      "file_sha256": "0be5be2bb4853d3eb1c514481da8b1a4b1037114e1191a6609833a98fb9c2fd8",
+      "file_chars": 679627,
+      "review_sample": false
+    },
+    {
+      "id": "4fd1909e",
+      "sources": 554,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d2d16756a8978c02bbf0164b61e9a93d8e8e8344f2adb75d291dda626f4f399d",
+      "file_sha256": "c572ed368d7530cd95efd8d65b9df2b4e843f630900276da861bfcd64ccd98df",
+      "file_chars": 728676,
+      "review_sample": false
+    },
+    {
+      "id": "5025383b",
+      "sources": 446,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ce578e42634068570e3ea281db6b2730337639f5c7451f8af2e173e4635d0981",
+      "file_sha256": "0ec3294c818d25b957b6eb371af78ea197185e6b6c474d92e62e1f04faae511e",
+      "file_chars": 679243,
+      "review_sample": false
+    },
+    {
+      "id": "505af2f5",
+      "sources": 501,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bc3e22585157b6c704e0d04f12d50e4af7c9de737e350b84159fe2d4b6dbdd23",
+      "file_sha256": "9825fb606796f4af31321f24e28714af6080a0ff1a2a5bf3a58f41b7bccc0350",
+      "file_chars": 714486,
+      "review_sample": false
+    },
+    {
+      "id": "50635ada",
+      "sources": 531,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "74e2c0393939f06cfea0723bc9f11c68e6042dfa3443a1dbab22a13ff5ab2d50",
+      "file_sha256": "23ae7e50297da36da08a838dfb0116634492afe98cc31073746f4dd4701d33ca",
+      "file_chars": 724937,
+      "review_sample": false
+    },
+    {
+      "id": "51a45a95",
+      "sources": 529,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ee07c13e43a4b6289a1dd9aa1973909d7ea406747b51641d901b40ec801e7e0c",
+      "file_sha256": "df486084cd69576f3e3ef0c8a00f195357188e5e6eb2c92942b4387bbe136fea",
+      "file_chars": 734712,
+      "review_sample": false
+    },
+    {
+      "id": "51b23612",
+      "sources": 481,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "549e3a65fc04453d598822f3ae6e47cd5101ca5424a38d83cf6c916a6db91fc5",
+      "file_sha256": "e2d967021c3fe931df068b9001de7520b86e43ce97851f60616a982421c95c4c",
+      "file_chars": 702728,
+      "review_sample": false
+    },
+    {
+      "id": "51c32626",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3bd05695abd3d2c65bd342779136bbe3746a16cc2e2c750edd4bc95703e2b717",
+      "file_sha256": "87aa86257b7556ad493dc634fc545cb0bfad8d96019e1191c66188f1b95640a1",
+      "file_chars": 719498,
+      "review_sample": false
+    },
+    {
+      "id": "54026fce",
+      "sources": 472,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "89fb2d29ba99f59c57dd880d243ab4be1c0d43975b055b57bdb4fe3431c43df5",
+      "file_sha256": "d13b03dff4aab246195412be15628bafdd0671b973a516ffa303cdc9659f5368",
+      "file_chars": 704501,
+      "review_sample": false
+    },
+    {
+      "id": "545bd2b5",
+      "sources": 461,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "da80998865e13d125578b1d8d75aa275273e2ba1cf6d73780981f28bbbe1d5ab",
+      "file_sha256": "6ef025ae139928614c89b2b008b9b106f4e6a7d2ccddd72cb74d52d3ea628026",
+      "file_chars": 696593,
+      "review_sample": false
+    },
+    {
+      "id": "55241a1f",
+      "sources": 514,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "945c221cb142e6574959aefe91b12d396beff0ca1292638ce3415ff20d30060e",
+      "file_sha256": "58a87c5a5953177543b579638cc556e5df364ad9c1b3c573c5f7d3dd314e31e8",
+      "file_chars": 723919,
+      "review_sample": false
+    },
+    {
+      "id": "561fabcd",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9298782e52c21581c35cce3aadd44123fa08d6de0c3e4e8b275bd9ebc582cb54",
+      "file_sha256": "4e25031f726e171c249fad114bfd0e5192c4db620e5019e1c9b7a0d57d4dec19",
+      "file_chars": 699974,
+      "review_sample": false
+    },
+    {
+      "id": "577d4d32",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b3129a552ed96b6a07d2c0fd28ec3d3f28be27caea3e6322e8b9dd537448e941",
+      "file_sha256": "94ee2b8719e1110f3ba3986b0d4c8692ac0b8cd1f3b92cbfaec9a96ff2e238eb",
+      "file_chars": 721412,
+      "review_sample": false
+    },
+    {
+      "id": "57f827a0",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f7a44d8d9a660a5c1e47091b571cdfcd75392b3f5b0dc733d7541f11da66c36c",
+      "file_sha256": "7899c1399c1cc5099bb425fe80ec9679cb41b2dab0143f9c5fc7b1092969243d",
+      "file_chars": 723646,
+      "review_sample": false
+    },
+    {
+      "id": "5809eb10",
+      "sources": 606,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5964ffe83a77c89a08a2d494901115ea9340f2545005f78db9a7d8567ea93d24",
+      "file_sha256": "13c52556d25a1af8b74995e39ad48a7ae16562db17cfe17950a0b643010bc6fb",
+      "file_chars": 742952,
+      "review_sample": false
+    },
+    {
+      "id": "5831f84d",
+      "sources": 412,
+      "future_excluded": 10,
+      "proposals": 8,
+      "dossier_sha256": "99ab6108b8353b2f038b37bd397c72e6a961355381b497c4511520b88f676d55",
+      "file_sha256": "ed2bd375238cc7a68f35c0fed0115680cc7fcd71ac6cb5dc38e7fed17f55ccc3",
+      "file_chars": 682752,
+      "review_sample": false
+    },
+    {
+      "id": "58470ed2",
+      "sources": 471,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1a36f1f1d8a8ddc71c9471d98b058a1b34feb3fd8650ed5dd1e5670a5b7adc3b",
+      "file_sha256": "72d2a467032a8a684300aac5bc1c4c5210134ae2200c71ed2c6f582c00e19937",
+      "file_chars": 710564,
+      "review_sample": false
+    },
+    {
+      "id": "58bf7951",
+      "sources": 616,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "57bd88632756e853929b443b985939caa196b7d403d031cf903446df9537fcbd",
+      "file_sha256": "1488426b4a64519b4e6e2d1d7429968b83120eb4a78905a05c2a7890ff711587",
+      "file_chars": 742288,
+      "review_sample": false
+    },
+    {
+      "id": "58ef2f1c",
+      "sources": 518,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5048dd70545906dd0fcfd1c8b86939685a6d8064997a41ec3586d96fe1a07480",
+      "file_sha256": "11e1b15f9c898866f66907a9c1377434b7e1672eb5498a9d42d135519dea4c60",
+      "file_chars": 713749,
+      "review_sample": false
+    },
+    {
+      "id": "59524333",
+      "sources": 528,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3afda62d0f4407c5ff49c34c3ee1b5b598f6590cdf3d7fa74167aa0310cd5912",
+      "file_sha256": "8eb6df130e63800b571664b9eaf152057b1b46b6e503f8ec4714d27c2a3eca14",
+      "file_chars": 718605,
+      "review_sample": false
+    },
+    {
+      "id": "5a4f22c0",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c9a546d5c0186978750d578c8c08808497a1ba1a590d55244c6683b173599599",
+      "file_sha256": "29c0211dc3ac8777640daf4e0bd0685726b2ba6081c174d996dfd38d1dfea909",
+      "file_chars": 722422,
+      "review_sample": false
+    },
+    {
+      "id": "5a7937c8",
+      "sources": 419,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bb7163661c8243e8f0f8df2a00060589b301e44b5544bcd038394892bb2c2a71",
+      "file_sha256": "29e09da85b1f8ab5a20490536a8ba3362046a86b3d959bbababb0494b64777da",
+      "file_chars": 679425,
+      "review_sample": false
+    },
+    {
+      "id": "5c40ec5b",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ce0a879f936e132f3b4ac95b097f31c5a917d87d0b53a5294a86aebc20358156",
+      "file_sha256": "c28b64ea3ca3e657393b3e96450f9ce804790eb327824bdb1c7e1894f51036fe",
+      "file_chars": 704154,
+      "review_sample": false
+    },
+    {
+      "id": "5d3d2817",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "41471744c1a61473328c26bab8f9033edbdae4380e28ce18674874445cadee93",
+      "file_sha256": "4592c77f9ba25cdba39176e5d9e45a3c3dbf66ade1e704e9a51be92b8e2c75c5",
+      "file_chars": 720569,
+      "review_sample": false
+    },
+    {
+      "id": "5e1b23de",
+      "sources": 445,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9228987bd0ad4ad66076acc4383652fb7fb750c337d81ebb527e5711adc710f1",
+      "file_sha256": "eb73bf70977bb3120bfe3fa9dd645328e59b05e74dbf2346fd0921e46175f6d0",
+      "file_chars": 693776,
+      "review_sample": false
+    },
+    {
+      "id": "60036106",
+      "sources": 483,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "00323eb04c20f7fbf31f4c5d36635ed6c474451a2eecbf5678d8f0e194057fee",
+      "file_sha256": "3fd0f785b8d0c58510b56308661234d83a143aa7f8a4f2d1b06925db1ad033ac",
+      "file_chars": 709746,
+      "review_sample": false
+    },
+    {
+      "id": "60159905",
+      "sources": 448,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e90aa14da21daa864457318f8c1572c9b309d595ad6cdb1440f963261d098a85",
+      "file_sha256": "cc07ff425bbbb8b06aeac2d428dc8258e34d0adcab39ce5661770d6b33568dda",
+      "file_chars": 697201,
+      "review_sample": false
+    },
+    {
+      "id": "603deb26",
+      "sources": 472,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3bec3198b1bf7d82ceb5597f239eee2dd2fa6349df049bf05906298001207477",
+      "file_sha256": "142b97c9e0ecf1edc8ae466af88bb5442c07c6f534adb7f5b2ed90551ce0d62f",
+      "file_chars": 708839,
+      "review_sample": false
+    },
+    {
+      "id": "60472f9c",
+      "sources": 454,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ce1c095bf9b70817880668a1655c2e179b2e5fed003a6159c1e706d73917e271",
+      "file_sha256": "d4569c554d7401dc4d2569e057cb984cb99cab28c4eae45898d9cfedbb24f8cc",
+      "file_chars": 671860,
+      "review_sample": false
+    },
+    {
+      "id": "6071bd76",
+      "sources": 482,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d8bfb56f76e3480098752ea3ff8afed7bca1c5b6c392cbd5da1a1b2e17263261",
+      "file_sha256": "7c18287c25f205a8cd381e55279195da63a7a9449b98fa096fa6d63861656712",
+      "file_chars": 703573,
+      "review_sample": false
+    },
+    {
+      "id": "60bf93ed",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7d4dad50a06a3f5252d31073886793313c4cc85f3275664c15fef0a1118e89c6",
+      "file_sha256": "a6996c44e097f7d8f383d669fb826217070bf87c19f981fc73818516849c4e01",
+      "file_chars": 717559,
+      "review_sample": true
+    },
+    {
+      "id": "60bf93ed_abs",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a1b293bafaafdd6d67c5f47db70228ff599abc8534298f0076a7d144e349f50e",
+      "file_sha256": "9b896b75c28de5fc68c81749b87b3337262b69eb56a362ed0522fc18af88540f",
+      "file_chars": 718115,
+      "review_sample": false
+    },
+    {
+      "id": "60d45044",
+      "sources": 541,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7ca8c8db879a735e4fdb02b170dbefee034bc1969ecb0318be1b4ad3d2b32515",
+      "file_sha256": "be1037f289ad5cc5d4b80ef31ddf9ba7593a61bc67c76a7d2d2c8ed164b4e4e0",
+      "file_chars": 725934,
+      "review_sample": false
+    },
+    {
+      "id": "618f13b2",
+      "sources": 506,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6eba7b1eee01fb91a13eb1505ef2f940ce570ab29bd17317d13850a750df3fba",
+      "file_sha256": "f05abdaed7148f0ba56a572e11c20b57016000e26be916f367b2956b9f7d0b8a",
+      "file_chars": 730909,
+      "review_sample": false
+    },
+    {
+      "id": "61f8c8f8",
+      "sources": 459,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4668c5e90e6f2f26f66eff77debbdec005967e23bed3d8b765abe5b22c855d18",
+      "file_sha256": "2a70c8ae8859df6c207b90232d4d4d0c815f27e4abf0a215e030887daf23977f",
+      "file_chars": 718875,
+      "review_sample": false
+    },
+    {
+      "id": "6222b6eb",
+      "sources": 497,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "54a7eb3bededbd399d241fee27d6eee9ad9bf39e591a98694bfa4c28b623fe3a",
+      "file_sha256": "293c83f2c4ffe60b1395c34e1cb6d666976ffcb53dcdc38a89e285205ca6ea58",
+      "file_chars": 736418,
+      "review_sample": false
+    },
+    {
+      "id": "6456829e",
+      "sources": 488,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "089ca619e0d0d4323760475f6054b022a872d6f5b0148ad4884fff8cea0d9821",
+      "file_sha256": "f47318aa257fc8c6e003ba9a1661f2b1b483cfea04d99ca7580d1d0f90db2e12",
+      "file_chars": 713696,
+      "review_sample": false
+    },
+    {
+      "id": "6456829e_abs",
+      "sources": 494,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "abec22bfd4c9901db5fcbeee97aefde881d55ee526c5acbd30ca5cb20b76bc36",
+      "file_sha256": "279948046a5c74c48c0a4c650c916f7e15350ae0c5f473acc00ff82df9e47b16",
+      "file_chars": 703252,
+      "review_sample": false
+    },
+    {
+      "id": "65240037",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0aa72032b1775fb697f5a5aff54f167a68b2cad604695600518cb03a68a63910",
+      "file_sha256": "b85c1cafb4f5239427684e573d6b292fc87a4cc417dedc275fe06834f941a41d",
+      "file_chars": 709439,
+      "review_sample": false
+    },
+    {
+      "id": "6613b389",
+      "sources": 250,
+      "future_excluded": 202,
+      "proposals": 8,
+      "dossier_sha256": "2390efa712b0f4f4c64676c609ae93217c7ae79127af0237294355c62fc3bb37",
+      "file_sha256": "cf4a3630730631de1e95b60a40d1ca12706f7c31e0c3bcaa158af1a9a11edefe",
+      "file_chars": 404497,
+      "review_sample": false
+    },
+    {
+      "id": "66f24dbb",
+      "sources": 507,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "50c7c4a4dcddd1c684d408bfb0f7918969f80d07a08e26b284b2d9f7a16f7195",
+      "file_sha256": "830af00b5d79478a3d5ff2c4ec952f56d2c26d2db3f3f032109d64531876fb79",
+      "file_chars": 708472,
+      "review_sample": false
+    },
+    {
+      "id": "67e0d0f2",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2f4dcde37b93b326f13c0be6a60e5f8e98c736b285749cb015ae5f9853dcdbe9",
+      "file_sha256": "86297f50414451ade7be9af5b8955d23a9745e13c90884ea3e9ee6193e8b9bcb",
+      "file_chars": 720999,
+      "review_sample": false
+    },
+    {
+      "id": "681a1674",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ddb55ed2e87f844f0d26ab22db2530bd541cba821f76780143ba7c2e46d25939",
+      "file_sha256": "31829b530579aacd6087237ab8ce0ac04ce923506c3b59cbb2591e017bdf5a38",
+      "file_chars": 705776,
+      "review_sample": false
+    },
+    {
+      "id": "69fee5aa",
+      "sources": 483,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b9b4346edfe5bc0fbcbe1ca964792a38c8a5b17c4204e9e57b7e45c252557730",
+      "file_sha256": "e701fc4d433612fe77b2e5fa0906320b00a73e2def3c714a4bc8ff9c2731007c",
+      "file_chars": 703713,
+      "review_sample": false
+    },
+    {
+      "id": "6a1eabeb",
+      "sources": 413,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0a9224bd2a3f72469f260c21b6fe2d0fe2626ef2782c582820098905625877d4",
+      "file_sha256": "ccfd1c3d7ad2c005c2aa7d5331230027e00ac584878dc2f779a9301d50bd88a6",
+      "file_chars": 683150,
+      "review_sample": false
+    },
+    {
+      "id": "6a27ffc2",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "19a7b47f93fa660398bc3a17f9860e798a7e30471c44587822c0641ecc4abf7e",
+      "file_sha256": "ade444c6315e53195e6bb450d0f88a286f97bb7b9a6139bc05d961b8f31f2528",
+      "file_chars": 709719,
+      "review_sample": false
+    },
+    {
+      "id": "6ade9755",
+      "sources": 513,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "35de8188ddc92346bf05076fa281935fd748d860752a85ab3073d17c631deb39",
+      "file_sha256": "a3a88549863171c6818aa714095114af004e87dac45f85493f41169be3fe58e3",
+      "file_chars": 716220,
+      "review_sample": false
+    },
+    {
+      "id": "6ae235be",
+      "sources": 454,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a24ede2b58b68780e29e2e9a269ed05e7908ce3c1f9c356dc8f65f8b9c6ee309",
+      "file_sha256": "eef8dd7b45f01702e41ea5ad05fc4bac805d72837fdb1fe71221b69718584a82",
+      "file_chars": 710211,
+      "review_sample": false
+    },
+    {
+      "id": "6aeb4375",
+      "sources": 468,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3c1b65735bc686d395aacb92f9e341cd9289b8fdd2d240dd2ec3f4b3e7598775",
+      "file_sha256": "9d25174873d5c8d83505c0ebb6be8f89f774c6530f89e51405eef3711076ac80",
+      "file_chars": 687443,
+      "review_sample": false
+    },
+    {
+      "id": "6aeb4375_abs",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "78d251ab4d038c875c3015d614b5f2bb6c808218ff76192aa0923d9dcd2452d9",
+      "file_sha256": "d12f780653ba20001ee3caa27e763f12ff547f35faaa282e805d48ed2f9f5c27",
+      "file_chars": 717958,
+      "review_sample": false
+    },
+    {
+      "id": "6b168ec8",
+      "sources": 482,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d26a0e00445a27a89863309a155824d65b2de9d4336b3470ea99b9083b8f86a0",
+      "file_sha256": "81038a95c56465bb7f0135868c9cb0a9861e3e71c825f3b5e8b4d127a1947ecd",
+      "file_chars": 718356,
+      "review_sample": false
+    },
+    {
+      "id": "6b7dfb22",
+      "sources": 471,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6bc2e7bdba8772ba8e06ea22454d0d9e65183638ab4a8f4d3054b2e56e3b7186",
+      "file_sha256": "27afb763a126d567cb3f94b86bfeb5e06bfac774d885304ee648d91a33e45b14",
+      "file_chars": 706212,
+      "review_sample": false
+    },
+    {
+      "id": "6c49646a",
+      "sources": 429,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bb31624ad40e8ba0853bb9a7f2e20d8a33b3b35c90121d726e1a566e601fc9f5",
+      "file_sha256": "f80013814c397667eb381f4823ae9ee6e1e6b785db0da2c6475812ab05b6c798",
+      "file_chars": 705191,
+      "review_sample": false
+    },
+    {
+      "id": "6cb6f249",
+      "sources": 470,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3d2c42250911f478c6cd73bf53ceecddd12ca37ece46899e8ab7d2ee1efab63d",
+      "file_sha256": "f04c87a536015e26a25f931ff8068c47ced81c0524bf6fcfb97a73bb08541bbe",
+      "file_chars": 694427,
+      "review_sample": false
+    },
+    {
+      "id": "6d550036",
+      "sources": 505,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "eea8301e36e5cb4c50b3e8e9f6a23c2548132212bed6cbf516b26f4db3ae69a7",
+      "file_sha256": "e1efcb4df442f00491c0b60df4fc410aafe83da6744173c7e254fa1b52e581ce",
+      "file_chars": 697059,
+      "review_sample": false
+    },
+    {
+      "id": "6e984301",
+      "sources": 513,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d152ca353a5af85d25899897db6bff01b99de0d5e9ed92e337a05a11cc95bc5b",
+      "file_sha256": "6d84d34726b99b70fc9b294b0221f9cde55aae3961a7ae4baff1dca8c8fcf111",
+      "file_chars": 733605,
+      "review_sample": false
+    },
+    {
+      "id": "6e984302",
+      "sources": 460,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e6bad04bf4a9b4303eec19081b9596f3a729cfbb01b8ae8658dd91678390983c",
+      "file_sha256": "f6f739c21191fedde609d62680ef9a4e5eedb82dcea0f0dad9ae9ff00846e9df",
+      "file_chars": 702045,
+      "review_sample": false
+    },
+    {
+      "id": "6f9b354f",
+      "sources": 500,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "999ef258b0c735ebcdd2d600179e88be5519b91c994aa43b987b684deedca240",
+      "file_sha256": "f18212052697a26352c4337fdcd2490cf03d52047e6892920185f41d452c6edd",
+      "file_chars": 728457,
+      "review_sample": false
+    },
+    {
+      "id": "7024f17c",
+      "sources": 483,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c219c3288e047b09880fc6c3cce3f72805295c83688fb62e6b7cef7effd4f547",
+      "file_sha256": "d168aefa33206a42c28dd73fdb0c5a51a0a0639308ecc8a66e9cac4e7f7167da",
+      "file_chars": 712010,
+      "review_sample": false
+    },
+    {
+      "id": "70b3e69b",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "94eba31454bd5b73f181222fb8ddfcafbadd5f9cc1026ca5bfa03c37378549b6",
+      "file_sha256": "727fdbc045075ae0df22b6a92afd5fdc6fdf595d31561de6e25acc96b108c656",
+      "file_chars": 720411,
+      "review_sample": false
+    },
+    {
+      "id": "71017276",
+      "sources": 614,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4121451810c5e87784e143b09571c9dac3288246dc756ad15e83cb4b87b6471b",
+      "file_sha256": "5895b2849c2817d2002881a56a7f7e9a512d19a2d8f10355cc6e2a0fe362715f",
+      "file_chars": 728197,
+      "review_sample": false
+    },
+    {
+      "id": "71017277",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c3d4a871b558c7da694674eae9720b439459a61ceb9b4292585f6da07818ce07",
+      "file_sha256": "b39b552650ea00c4018a9a1409e189d5bf0dd3a6915b4c9693d6cb64b4e828e3",
+      "file_chars": 714753,
+      "review_sample": false
+    },
+    {
+      "id": "71315a70",
+      "sources": 494,
+      "future_excluded": 20,
+      "proposals": 8,
+      "dossier_sha256": "a956990e48433c69a0a060bb835774e03a39ec2ed020104f909a44c1e93d791c",
+      "file_sha256": "780af17ee47a5c2c8ca22c367a1af5f114d3156c5216c9153c2c8e6bada284f6",
+      "file_chars": 704812,
+      "review_sample": false
+    },
+    {
+      "id": "7161e7e2",
+      "sources": 550,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c0368d6d48be66fcba9da000b3c4f21af2d9817d80cdf956b175f4f273e9abe9",
+      "file_sha256": "dfa8d96475ea94a5f8995ee25a969a248998b7022e19e44769389c15532d6537",
+      "file_chars": 724860,
+      "review_sample": false
+    },
+    {
+      "id": "71a3fd6b",
+      "sources": 439,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d552eb95059b734ecfa148042011491d75423747a5dc0a4a98f54aa8b8976f03",
+      "file_sha256": "00e86a6146f4d799e2798fcb5f1827173d7dc426e09f1e13d8f662e4145c5e26",
+      "file_chars": 691411,
+      "review_sample": false
+    },
+    {
+      "id": "720133ac",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3cdad8f2db052b860de80ac963d217f4c3eccf1d85d631f0d10043e5552234fb",
+      "file_sha256": "7683af4946152ec15a0efb0e23220c76b0836723eeada893d56f800feb7294c6",
+      "file_chars": 718996,
+      "review_sample": false
+    },
+    {
+      "id": "726462e0",
+      "sources": 501,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "85f71a6899dbd818579c8083cab244d44de885811f7f04b3c1413f04528908f0",
+      "file_sha256": "4e76c2358d5e11b0e1bab2e9a31758b581cbd4b346323e301a05f89b7212cc4a",
+      "file_chars": 706809,
+      "review_sample": false
+    },
+    {
+      "id": "72e3ee87",
+      "sources": 496,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1a26f47681f356b09ca61d08dec19d9915c4a12c39de6578803c2278a6b6dbe6",
+      "file_sha256": "5eb8501ee90b6d9b6a0108db6daa1a139b27a28258e8c78dfe1219e3c92653f2",
+      "file_chars": 714033,
+      "review_sample": false
+    },
+    {
+      "id": "73d42213",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "48a702014a0626aa88c7cfc6470aa38f79ba369e332ba0eb4847e825f3e5786a",
+      "file_sha256": "7fda082001741ca6a7a734cf7b3e53d34609801be2e1c8930c4ab203cfc348b5",
+      "file_chars": 715416,
+      "review_sample": false
+    },
+    {
+      "id": "7401057b",
+      "sources": 432,
+      "future_excluded": 14,
+      "proposals": 8,
+      "dossier_sha256": "87dc4de7ff12bf6a6569d5ddfb00ad9c79103663d26da93027aedd69614046a1",
+      "file_sha256": "43d7abb554b79dc7d8f8142830ade0d1e8da2e128ca388e1b782d264b7ed7e3a",
+      "file_chars": 656431,
+      "review_sample": false
+    },
+    {
+      "id": "7405e8b1",
+      "sources": 469,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d8439f12182d4d5a5f8f25f058a85601f5a586a3f15b16d066bbf4696c5af9ad",
+      "file_sha256": "477d724e30d74f0617a1374ab7e262b7ddd28dacd602c6abe30dcf871d412af5",
+      "file_chars": 712625,
+      "review_sample": false
+    },
+    {
+      "id": "7527f7e2",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "adb91a38492b773ebce4019a99846b8de91695636575c77c31959dfd1691039c",
+      "file_sha256": "a15714519d34918cc50d360bce95f8db74cf330b4fc6ae9b38a870b9127354f6",
+      "file_chars": 714792,
+      "review_sample": false
+    },
+    {
+      "id": "75499fd8",
+      "sources": 491,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a2da0ce1f0e6f8f035923581b04b49cb63d89f65498eeeec1d11ccfcb6830893",
+      "file_sha256": "177224da87f4647d5110881556aa21e04f1da5e0a7a3bc3f8ef70723bcb9fd0f",
+      "file_chars": 717250,
+      "review_sample": false
+    },
+    {
+      "id": "75832dbd",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3a7f4b1e78a0d3a4f9eae0bf5b360db351b3af53e446401b3603d2a99f4619e5",
+      "file_sha256": "cc4d285ece87b4d30bd0482e5c016b13e3c9a3a77f7af3bb702fcc4a6fa3ae77",
+      "file_chars": 693376,
+      "review_sample": false
+    },
+    {
+      "id": "75f70248",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "462bb04c0c574a0074f8b7d640eaf193c664354f52f7098fcdbf98faf0febd44",
+      "file_sha256": "dad5643ccba6f8643b95c745944c634c7d78f5abe4467a156c1dc99c68b47747",
+      "file_chars": 719221,
+      "review_sample": false
+    },
+    {
+      "id": "76d63226",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "01d48eb39fd736269cfacd9276c01fea8bdd4a1d9be3a2be1f247b8094fe5c7a",
+      "file_sha256": "c64813dbd8df5ec03f261bcf30db63efd0ed39299169cf5b8c3365a61edd9f08",
+      "file_chars": 704198,
+      "review_sample": false
+    },
+    {
+      "id": "778164c6",
+      "sources": 542,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d46b96152c2f600f6ff8297d9b15bc7e543fcbc04f7e274d27384dfc1381ac4e",
+      "file_sha256": "b5780371a2eaeb1d608b3bb6eda5a0255b01779cd67de9a989be455f078e3468",
+      "file_chars": 709377,
+      "review_sample": false
+    },
+    {
+      "id": "77eafa52",
+      "sources": 527,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d653bf0282660522a0c28b4f7c54ae38cb2bd6be39a6a07eda3a8b18817bd3d2",
+      "file_sha256": "08c3c7a7e3c3b64b7460d8f264bb080b677664fcbbe6a84d235c871e56d1f8fa",
+      "file_chars": 722851,
+      "review_sample": false
+    },
+    {
+      "id": "7a87bd0c",
+      "sources": 476,
+      "future_excluded": 30,
+      "proposals": 8,
+      "dossier_sha256": "1553ee16acf7182528f34d391cb0723494f837acd2739254c83519451d26adb1",
+      "file_sha256": "50659b1ae1b487b39ba11d2aa709b8be489d1edad3d4d895e823bb73f1678fd5",
+      "file_chars": 690087,
+      "review_sample": false
+    },
+    {
+      "id": "7a8d0b71",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7c6b3046b7e35deba3ff5cf33191e74a1cf5974f83ea7ecadddd330fc8a59c6a",
+      "file_sha256": "4e489c4c73f735414a98e5859a062ed8e28766498d7572d84706fc66c544f4c8",
+      "file_chars": 709991,
+      "review_sample": false
+    },
+    {
+      "id": "7e00a6cb",
+      "sources": 564,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ee08860a02793c1d30e9ae6c132260b56d92789dfac0be86d9e870c8aeafc881",
+      "file_sha256": "7c38964190f0a37bbf2aabd8ee1f38633adf772a739a968117b7b8d3fa12c975",
+      "file_chars": 729706,
+      "review_sample": false
+    },
+    {
+      "id": "7e974930",
+      "sources": 502,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0fdfe9ab955b62f7ca4025444b1cf33512f8618b9d99a946cff7ed55388dedec",
+      "file_sha256": "9cfe7bd2d86ea2b40795f3667da04ef3e6b7503f8b628899589e0cc67af56802",
+      "file_chars": 693968,
+      "review_sample": false
+    },
+    {
+      "id": "8077ef71",
+      "sources": 554,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "60daf467b38c43beea325a2c852302c96d7ab1dc8ed0d696c62f3f4649b19ba0",
+      "file_sha256": "00d5bf35873e049adaf4c2747f152dfb5b2a52b6d3cf41419a09d3b5bfd44fd0",
+      "file_chars": 719469,
+      "review_sample": false
+    },
+    {
+      "id": "80ec1f4f",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5da7ec4687d70d0c5be289bbd027c9ef18349ecad79ef99380540fb64065c5cf",
+      "file_sha256": "47b68e337b33a369576378bc3b8b34e89837a4ffcc3516f05e5f9573aadf815b",
+      "file_chars": 715008,
+      "review_sample": false
+    },
+    {
+      "id": "80ec1f4f_abs",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "72922d72fd8454d2b295d9ff40ab087739032e77927d94ed38b7243bbfc3d61e",
+      "file_sha256": "d3d34f40e56cd268956e4d0e491bc7731bd96e7768bc0eb43fbabadd2f6877ed",
+      "file_chars": 708884,
+      "review_sample": false
+    },
+    {
+      "id": "81507db6",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "75c62ada28d58773ebd648a5186250448d723f9c576735f2d8f820e63340636d",
+      "file_sha256": "b77f4c7ba5e65f88a27da695902947e03bc345eaeab9e5480871d4631b8204c5",
+      "file_chars": 734551,
+      "review_sample": false
+    },
+    {
+      "id": "830ce83f",
+      "sources": 511,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6bea825eef83db1bae2a77117ac8f560cded8f99c4dee98149f3641153c8437e",
+      "file_sha256": "4e65450d27871ab065e9b1ef3a839627e3e38d6f0558ac4b1701960790f42496",
+      "file_chars": 711189,
+      "review_sample": false
+    },
+    {
+      "id": "8464fc84",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2fc5231a0adfc970a26b3ebf78134edfc73fe86481f22c105e974e84c90fa62b",
+      "file_sha256": "540da4587fd7c5967ba9ea8179318b7b6d03342a9bde2908be24799b4cee9328",
+      "file_chars": 704992,
+      "review_sample": false
+    },
+    {
+      "id": "852ce960",
+      "sources": 396,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "096ed13288a9a651b2f838f3edb0d33dae417ff4ec3f83c4d3920e299088bce6",
+      "file_sha256": "82365c5d5f27822edf6c3a62b506993937d7e89262e7df94e5a7c55108db3960",
+      "file_chars": 685085,
+      "review_sample": true
+    },
+    {
+      "id": "853b0a1d",
+      "sources": 512,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d7282bbb15d19e907c0a69191c006cc5f68430d937a27e4e0b746705ecbaee98",
+      "file_sha256": "d2722c0c6be9b3689aa0d0aba738575892394003e3603c505a9a3deda01c891f",
+      "file_chars": 717966,
+      "review_sample": false
+    },
+    {
+      "id": "8550ddae",
+      "sources": 453,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "24f0062f57674e77a5a77252d25cc963f9e6a8d12efa001453dca0bd2da3f439",
+      "file_sha256": "0d99ec85b1839be399fad7375514be8caeee3535392949d54582dc290a1f28ed",
+      "file_chars": 705760,
+      "review_sample": false
+    },
+    {
+      "id": "85fa3a3f",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c2b4a778567784f9b59b129010d9503640513cb7e615c7554ba827c60601a27e",
+      "file_sha256": "6f039b3b258ac5c1941f750a496626d87d3871358ace1de88426b7870544aa70",
+      "file_chars": 706556,
+      "review_sample": false
+    },
+    {
+      "id": "86b68151",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8a3f4976ceec9876d523d5203d0bfe504e08972e4941bb88bd3b577b2629d10c",
+      "file_sha256": "9028c90c37b8bd823cfd75a9b7afd45ec8154a4d605a08318111c83467969d01",
+      "file_chars": 711966,
+      "review_sample": false
+    },
+    {
+      "id": "86f00804",
+      "sources": 503,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "943b0e9212b6b8987cc50a86723b16260da7ffddda668aacae291e1d5cae8ac7",
+      "file_sha256": "dbb2cf32fa38926a5373edf8ceaf7445d41a1299cf1846e6e61e2fc17bcaba61",
+      "file_chars": 703297,
+      "review_sample": false
+    },
+    {
+      "id": "8752c811",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e04394d01aaa81d48bbfeb720fd3c2b4a0f1d8c5effd9759206ff7af74cc1657",
+      "file_sha256": "77a7b7f0015145b19ba6a4d60d1fe6a3f3968736450e4e9e4ce48fc9cc9951c8",
+      "file_chars": 702550,
+      "review_sample": false
+    },
+    {
+      "id": "87f22b4a",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7963bfaf6de204418898f7631513b5d41cc81ab182bbaed9f6d929f18744014c",
+      "file_sha256": "5fad3e9906fb9444f3a3693225da648610a911a675e389946935b3d96d50ed99",
+      "file_chars": 714991,
+      "review_sample": false
+    },
+    {
+      "id": "88432d0a",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "347bdf2e552100e0224b5e9b3600045d1730cf5774651df02280b0e6bf5673f0",
+      "file_sha256": "c14db02f48a894538356d86ab44cbfc87ce91c0442fc79dfc22971a35f4a59e7",
+      "file_chars": 717458,
+      "review_sample": false
+    },
+    {
+      "id": "88432d0a_abs",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0a2f2d3e7be3fd355abb414cdc67ef03ce9bc3e007ab477d5c637eeb65e326fd",
+      "file_sha256": "cde4b77f5c9023e6cfc7e4cbc8172036339cd9f95277d5a9b7ff3c526cf44602",
+      "file_chars": 703799,
+      "review_sample": false
+    },
+    {
+      "id": "89527b6b",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9c001646a6ecb654afaeb73d43c40c186c230debcdbbe9303820f3e3dc3154c2",
+      "file_sha256": "6f828915fe5dc4c48143d144c2ea20282a9d0f0b6af3f6fb99c1c298a21b5018",
+      "file_chars": 707167,
+      "review_sample": false
+    },
+    {
+      "id": "8979f9ec",
+      "sources": 469,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fc357e622ad28dbd975dcd10551509a9a25aa480f7e3f43be2127590f36937f3",
+      "file_sha256": "ad384ef84d24f90b945081bc04cea5218a5bf62e2979beec51bda2294b43d0de",
+      "file_chars": 716154,
+      "review_sample": false
+    },
+    {
+      "id": "89941a93",
+      "sources": 528,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5a2afa474a04ec56502c3b4111f9960212b4ab21c6018afd34143039198dbf6f",
+      "file_sha256": "1a147393dae6e73d3bbb2c31e561cac59e8493d633a54c287eeed730fac347bd",
+      "file_chars": 734316,
+      "review_sample": false
+    },
+    {
+      "id": "89941a94",
+      "sources": 523,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b60fa1d6924e9ac13662476c106db6524e9632d0fdb389597922887d0719b644",
+      "file_sha256": "366b65c2472b7dffa2f0979c84b31f491d07e72fcc2b3c2c877b504318cf3903",
+      "file_chars": 727350,
+      "review_sample": false
+    },
+    {
+      "id": "8a137a7f",
+      "sources": 512,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "66f9e83a3fea0c4c82a252eb01ca5739163dcaa6fd43f75ac2fc341eb820e6f2",
+      "file_sha256": "5e1d66b95878b764b5294968f4835e3575e0d0d405707e43a65a9f3b62220c9f",
+      "file_chars": 710139,
+      "review_sample": false
+    },
+    {
+      "id": "8a2466db",
+      "sources": 508,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "da526b8756a66c5ff594b740e41fc791aca69f06827587ae51708a88ac1a7fb1",
+      "file_sha256": "17a4bbf12537390eeaae1416397fa5dc41cbbf1a49c4e21bb6032a2c4e5d3d6c",
+      "file_chars": 723896,
+      "review_sample": false
+    },
+    {
+      "id": "8aef76bc",
+      "sources": 492,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1543003db696dc8164d6a4aaec1dc9a99802dccecee8c39e5a02201ab9b8dbde",
+      "file_sha256": "0df87365882c89ddf7f9fb748069de257a9f28cc3c5f0f3cae1117845dcb2984",
+      "file_chars": 713245,
+      "review_sample": false
+    },
+    {
+      "id": "8b9d4367",
+      "sources": 537,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ec231a9d9c14b83ff35b5a8939cc7a26922305c2a81a6cb52395d18c8312095f",
+      "file_sha256": "0735b7c8c00d88949d1c8f6b9d9d26d40d5ba512f8df2c61252090daf1cd3e92",
+      "file_chars": 730245,
+      "review_sample": false
+    },
+    {
+      "id": "8c18457d",
+      "sources": 292,
+      "future_excluded": 142,
+      "proposals": 8,
+      "dossier_sha256": "48b503d97b4df5d9f2d4ef68daf47d70a430d5d8b6bbf0dc9339d0fdc614db1d",
+      "file_sha256": "dbf9afd6bb083c8c087294a732d5d2bcac162be5532450ce8f05f0c39bf4a170",
+      "file_chars": 468251,
+      "review_sample": false
+    },
+    {
+      "id": "8cf4d046",
+      "sources": 468,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b805e777467f7c070b90a4e7bb31f9fa275b775c3304230689908c98338900f9",
+      "file_sha256": "a1b5872ac7ab764a52a4230190a07fcddbad9a2bd3729f2219fd880064872916",
+      "file_chars": 692556,
+      "review_sample": false
+    },
+    {
+      "id": "8cf51dda",
+      "sources": 454,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2ff121af121a71825ae6adeda0ffdcdce495843a0ed8b4021cfd1975f426bf89",
+      "file_sha256": "472238a855eb88ee6c5b339a4eea6f28d77f27a1b93fd77285f0a48bafaf9263",
+      "file_chars": 705313,
+      "review_sample": false
+    },
+    {
+      "id": "8e91e7d9",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "47e1df964b50d41ab3637592dcc253588878f9798d2d31fd261dbec882f76131",
+      "file_sha256": "873cb816bc271e1045b2deedc1006393cf9fe07a8c0ab903ae9d4771944680c9",
+      "file_chars": 715623,
+      "review_sample": false
+    },
+    {
+      "id": "8e9d538c",
+      "sources": 486,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f88f7dfbc69bf16db394591b3ee7369b55570ef08bc673e8a452eeebad53cf6f",
+      "file_sha256": "2498ee550aa43d82940eb3c278427d185e5f4931865158ddc414eed69501899c",
+      "file_chars": 699764,
+      "review_sample": false
+    },
+    {
+      "id": "8ebdbe50",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ce24c32880160dde04e57aebf3542862e1a21f03edd86d54bdd6c0e00a0bfd18",
+      "file_sha256": "1a7d04271be4d224caabab464f4b9d81666362b3fa4599684b2723ebf35d51e3",
+      "file_chars": 716653,
+      "review_sample": false
+    },
+    {
+      "id": "8fb83627",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f62632929df54bb9d893137940b5389f751262ed28a03e8e3b6dafbada4c1b62",
+      "file_sha256": "e3bee50f01c272e7002b6619a28931fbf9125ec9f8fffe696d4d413bb11d76c5",
+      "file_chars": 700556,
+      "review_sample": false
+    },
+    {
+      "id": "91b15a6e",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "748ff9710bd4c214452720c1488edc55c0a5c1402fdf438f9b8b4567aab15063",
+      "file_sha256": "04bf299716561d6586199bdab5c3c336d10e873e24afecad3bb7967f8d335b2e",
+      "file_chars": 718919,
+      "review_sample": false
+    },
+    {
+      "id": "92a0aa75",
+      "sources": 455,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d6b76420e51f81c2ac074684ccb4808af0534465604a61b9c146df5fb74ba7b0",
+      "file_sha256": "dae0f51822a3a0d10f3b944b1f99ee274a0e7b369e4d3cfa79eb5a70085bee49",
+      "file_chars": 703593,
+      "review_sample": false
+    },
+    {
+      "id": "945e3d21",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9d7a1eeda9ea809e49ac1ffb4333d9edaa08138bb89b2685bd668cc60fafd4c1",
+      "file_sha256": "e9c870fe2ea5e811e0c0e5364e5fc40850d638dc1e42612612d55d22e85f76de",
+      "file_chars": 720194,
+      "review_sample": false
+    },
+    {
+      "id": "94f70d80",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6c071253aafda46a94d5b55bddb4f7f50991b07d1360dd9a172cb986cd5cf61e",
+      "file_sha256": "bac1fdcaba280651e3dbdb09522e8bae8649ffcdf02666f167ae347c7e8e737b",
+      "file_chars": 716538,
+      "review_sample": false
+    },
+    {
+      "id": "95228167",
+      "sources": 507,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3979d4449c26358e4d2e9ee0b47453fcd3006ec4069b229e9b8ff3c29d4a2051",
+      "file_sha256": "6efb80f302845845acdc91b73ecb3df16ce29b8ce39f1d9a1c1dcce6243b4605",
+      "file_chars": 724540,
+      "review_sample": false
+    },
+    {
+      "id": "95bcc1c8",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "017ae709352723cc6fc5fb130aa94556727ec880f66f96bf3b6af2d568bcfe01",
+      "file_sha256": "e0f5ba8f47acdd2aaa65a8c80f815a82d1ca8ea57e2e5d22f6fc97a5bf401ca2",
+      "file_chars": 717856,
+      "review_sample": false
+    },
+    {
+      "id": "982b5123",
+      "sources": 275,
+      "future_excluded": 198,
+      "proposals": 8,
+      "dossier_sha256": "0c2b5a6993d4e667a48e8d639cdbe921be67ebcc6a908e712433a95a1e5d50c2",
+      "file_sha256": "1dd3d9f70d0eded751b389ad104b696158d97624a4070e4394d4593a0274384a",
+      "file_chars": 457788,
+      "review_sample": false
+    },
+    {
+      "id": "982b5123_abs",
+      "sources": 329,
+      "future_excluded": 176,
+      "proposals": 8,
+      "dossier_sha256": "dc2bbea314eeae3407d259d6771ba055d08cb89dfbab1defde1854d7ba322851",
+      "file_sha256": "978e9a858361b65538b4449f31dc77816a92b678a6446ee2b625d48e31e82225",
+      "file_chars": 500744,
+      "review_sample": false
+    },
+    {
+      "id": "993da5e2",
+      "sources": 352,
+      "future_excluded": 134,
+      "proposals": 8,
+      "dossier_sha256": "2501e8b58194317e71694f26ba4795570f12f2c3a08fd68c5be99c775874fc6a",
+      "file_sha256": "a8c0d74b3d952b964da4e146f726ece295369884533cd74a8990087546afda34",
+      "file_chars": 541607,
+      "review_sample": false
+    },
+    {
+      "id": "9a707b81",
+      "sources": 530,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7032c94de43edd7dddf9f934190104df5deeb09ee214080cf12d2f1454ea556d",
+      "file_sha256": "f7a071e4743fc6712746dcf2e1b40b0bae41f411504ae70c3f7d02949ab558fb",
+      "file_chars": 708390,
+      "review_sample": false
+    },
+    {
+      "id": "9a707b82",
+      "sources": 532,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "325fabe4b1fcf632fa7bf09eb96df1e26754002b88fe6f1271247da894a9d489",
+      "file_sha256": "ace468499e081a0559ee7d235309ee281d37b0ed93f19fe1d76308570f47d594",
+      "file_chars": 724928,
+      "review_sample": false
+    },
+    {
+      "id": "9aaed6a3",
+      "sources": 541,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e9da06203642accb9149cf5d231fcdabf73082b01a2c4781e6015ff40fe47d78",
+      "file_sha256": "dbc2dce8cb59d927d8b5d86690766d160036a7e895a4213fd3b1c63208f12b29",
+      "file_chars": 729502,
+      "review_sample": false
+    },
+    {
+      "id": "9bbe84a2",
+      "sources": 447,
+      "future_excluded": 12,
+      "proposals": 8,
+      "dossier_sha256": "cfcc490366bd15db446210363228a292b54be72831c46cafcc9a5a8081879676",
+      "file_sha256": "e8a9cae7ba537e63e6a7e6471f002022cd9c2cc12b432ebaab72b02df2ad0e8e",
+      "file_chars": 690005,
+      "review_sample": false
+    },
+    {
+      "id": "9d25d4e0",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5ace08a5aacc9d8e72640aff55316c6f356ccc199ac74b67edcbd4eef536e13a",
+      "file_sha256": "1ee1740c205eb5f2361d1591366d2ae7aa32c797b7a0dab6e79f66efb40b76ff",
+      "file_chars": 726030,
+      "review_sample": false
+    },
+    {
+      "id": "9ea5eabc",
+      "sources": 537,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e3d53df5c4eaa580cc2cb9496a5b6adfcfe01d3f6a5646a1759c00ce3828bd4b",
+      "file_sha256": "50f0486e964bb39d938b4223124e36eed6b725c622dd9089792e11f3651886d0",
+      "file_chars": 702989,
+      "review_sample": false
+    },
+    {
+      "id": "9ee3ecd6",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ae1782b42762d7a09e2b5c4259327c29d002f0d2bf7142236c7ca44216c21946",
+      "file_sha256": "926af144915aa64b85c30ed57382e3b75a1918ae8436325c9a458b17fb2b5eff",
+      "file_chars": 704689,
+      "review_sample": false
+    },
+    {
+      "id": "a06e4cfe",
+      "sources": 534,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8b66f500fe59d6b40ae3df254b744b9b5732bc483d85eb24f242eef1c36bdda8",
+      "file_sha256": "2e506e7465cdcf6571fd8de480292764f331df831478f1eec7551908b322fb36",
+      "file_chars": 740575,
+      "review_sample": false
+    },
+    {
+      "id": "a08a253f",
+      "sources": 560,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bb9b38771f7efdecd6b49a4df0073253bcd48079367eceb639cc37b381b1c08e",
+      "file_sha256": "e89a3f46db464fdcede22938ba0f7b6c442b4793b175dac5adb7c2b0fcfd6f7e",
+      "file_chars": 720556,
+      "review_sample": false
+    },
+    {
+      "id": "a11281a2",
+      "sources": 457,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "89a35b8944702f74977274910a92e67997d0188c3f163dd24ae669f8fe0af60c",
+      "file_sha256": "bc73e44f83d88be16d880be712762af5a0c0a9f79128e422df615aa75b451e96",
+      "file_chars": 709547,
+      "review_sample": false
+    },
+    {
+      "id": "a1cc6108",
+      "sources": 492,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4e52bfc408110253a9341b1b9c552e640f56cfa729c61e3158a731ea72c988f6",
+      "file_sha256": "61e8c365211fc505a1c2c873dabb9b5ded17ebb0dc523544cdcac35f768e9263",
+      "file_chars": 708684,
+      "review_sample": false
+    },
+    {
+      "id": "a1eacc2a",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b4f6ac69a5702c6f00eeadb3be8e5a375577e4cdf8dba971fa991aed6088fafb",
+      "file_sha256": "051ef191aaa0610343b6945a965a063666256a88314dfd6ccd5dce79df90f440",
+      "file_chars": 715149,
+      "review_sample": false
+    },
+    {
+      "id": "a2f3aa27",
+      "sources": 448,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0f27d14a3b7db2cd957948f7e35af404692474638053c78005b032011c00e913",
+      "file_sha256": "645ed0fab0ab47a5dd0c8901bf2ea4ee30a2d3a8aff43a0219f4e16b7895eaea",
+      "file_chars": 699345,
+      "review_sample": false
+    },
+    {
+      "id": "a3045048",
+      "sources": 361,
+      "future_excluded": 223,
+      "proposals": 8,
+      "dossier_sha256": "ba3e379ed84edd1686e55ae6cdf43e0a35766cc2cf3f71998838cd8805e2b071",
+      "file_sha256": "8c0e3d50265fda0095f6e507d58bb11d973dfb938040de43f577174dbc6656fe",
+      "file_chars": 493808,
+      "review_sample": false
+    },
+    {
+      "id": "a3332713",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f304d3991d7df6ea74c3ffdc3bc55fa492502b2087fdf1c5585ebea0fa343ce8",
+      "file_sha256": "fa7584c720b9270a755608bc2c425d7c4ccd2526d117c3dcc79f5ca4d9893f6e",
+      "file_chars": 701381,
+      "review_sample": false
+    },
+    {
+      "id": "a346bb18",
+      "sources": 478,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b62dc2076013c84894fd67dc89e1e2b53c8368f29b3580925d67af303f516150",
+      "file_sha256": "de1d4143772752091ffa416f00a6b6a649bb17a91523147d92dd296791fd555b",
+      "file_chars": 716667,
+      "review_sample": false
+    },
+    {
+      "id": "a3838d2b",
+      "sources": 48,
+      "future_excluded": 436,
+      "proposals": 8,
+      "dossier_sha256": "7fd81dd138f3c82b88fbbf6b67a6f00d31d98535074a2e432db1501311032ccd",
+      "file_sha256": "b23161a3c9863d3c300ed4fc18ce01a0c3c6ce34c1eadc767c4bd9e1f318371e",
+      "file_chars": 124998,
+      "review_sample": false
+    },
+    {
+      "id": "a40e080f",
+      "sources": 529,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "292dfaa261d539c2359b46affb619781eea8442e4ab549f70e7aec5b3c36d55b",
+      "file_sha256": "8ac2742a6f8876d7a1ea4fa26cbf959877739afb82c105fce1f7766f4459ce51",
+      "file_chars": 721844,
+      "review_sample": false
+    },
+    {
+      "id": "a4996e51",
+      "sources": 512,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0132fb5569381df6d35c6388d63cba243e1dcb676d041090ebd271336ba5de3f",
+      "file_sha256": "2f0378ea6a4e50fa6909b5b9c897c8f7c10d5044fd29686c6a1cabd665751cf9",
+      "file_chars": 723884,
+      "review_sample": false
+    },
+    {
+      "id": "a82c026e",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "180ca28bb8aa17d4560009663a4fd8479087a06e160978e5ec36baf1ef5c2a07",
+      "file_sha256": "f6d5ed286f969c0d1bd851b3bb2cb7d941f03aecc3c0404c6daa1e0178f3ee96",
+      "file_chars": 712358,
+      "review_sample": false
+    },
+    {
+      "id": "a89d7624",
+      "sources": 496,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e70a57bad534e0a678b2f863a617bb5ba040624e7e187f1ce8f0ddbe75618992",
+      "file_sha256": "c9f2b960c03233295b57b1391ab078cd973e58737fa91ca9031d83019e277064",
+      "file_chars": 715888,
+      "review_sample": false
+    },
+    {
+      "id": "a96c20ee",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "04bf0e2c7da3b04546874c84f7a9f7476e488b48444f65bc0ce98178fe799e4c",
+      "file_sha256": "a41acd197fd490f9c4ae67a7bf2ca9fd040c38ea65c74885422406256ce524a4",
+      "file_chars": 706240,
+      "review_sample": false
+    },
+    {
+      "id": "a96c20ee_abs",
+      "sources": 535,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "93e1781634245ea492c02dc5abc7ee36263d9d3bb590af00b6e97b88d302ed51",
+      "file_sha256": "9bee2b554172568296946486322892c0ffeb5ffdf3b00298715af693fd2ec8cd",
+      "file_chars": 740909,
+      "review_sample": false
+    },
+    {
+      "id": "a9f6b44c",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "314c1208c8fda082f0dca713c0eed74e949667d52b314b89508cce296645b446",
+      "file_sha256": "14e2b81f46466cb6ae95786af278822854359a54bf5813deb77440e1914bf9a0",
+      "file_chars": 712948,
+      "review_sample": false
+    },
+    {
+      "id": "aae3761f",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e31043fae392aa8b9e36275b1eba8928c5f48bf48238040af90a20b4769914c2",
+      "file_sha256": "03b910244168575612d4199001a261058d1ec8305ea18c6096ed2611e613d071",
+      "file_chars": 693521,
+      "review_sample": false
+    },
+    {
+      "id": "ac031881",
+      "sources": 529,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3d2b23ed3f7024208ec98912e1f6bd30d54808357cc1400bbcbfe86df3e755ef",
+      "file_sha256": "636923e1a9bc7e1ff35ddcd8c244c538b3284e3f0649de3268a9033aaa3067d0",
+      "file_chars": 708985,
+      "review_sample": false
+    },
+    {
+      "id": "ad7109d1",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ce9d2654d46c6dce94fbcb6cfb3fd2d4d49a107d0be967c2646874446d37b260",
+      "file_sha256": "545b8b4bb8f0e4230c330333854cafb68b9a3ffd02b80b32170492f138645534",
+      "file_chars": 696336,
+      "review_sample": false
+    },
+    {
+      "id": "af082822",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8ff6b595199064002aa0f6815cc5a4b72bc2aba7dc86fe7dca1d921ef199c54e",
+      "file_sha256": "a256daa902c68d0cf82f5e2952099e77e43209864b7efabe8d1f36a4bf2d721f",
+      "file_chars": 703549,
+      "review_sample": false
+    },
+    {
+      "id": "af8d2e46",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "53d4f62b089e3d411fed30ac0ba2aeb0bd530f2c068c08c1f909f93ca5fab4c1",
+      "file_sha256": "970bbed9ccf3a9d1da0f127b39562c7ca641331b167d89be741da23a2cfb6d22",
+      "file_chars": 705012,
+      "review_sample": false
+    },
+    {
+      "id": "afdc33df",
+      "sources": 502,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "709832f0254db1a7972de486fcdadcde9088a737d29eb111ab7bd29456c06cb7",
+      "file_sha256": "29fa0fe5a8d76aa30fb9b9c440bf7c219a29f9415ef39007cb6cf1943ae7da02",
+      "file_chars": 728383,
+      "review_sample": false
+    },
+    {
+      "id": "affe2881",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "803cbe51e73045e02ac2edbaf0b8c9b6f803655fa216924b841d8f9f0d81bfaf",
+      "file_sha256": "0bb0138e4811d33d75c2d66daedb0b740abbe9537c501d8704f5177b0736dfcd",
+      "file_chars": 705776,
+      "review_sample": false
+    },
+    {
+      "id": "b01defab",
+      "sources": 503,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "638e468676852f9fc022204f86af91433648d5e83a42337f5603c5b5f915908f",
+      "file_sha256": "5a77b7a7daf1b10d52ba94b65e7f9251637b52bdaf239d01cefbe05e061570c4",
+      "file_chars": 729546,
+      "review_sample": false
+    },
+    {
+      "id": "b0479f84",
+      "sources": 502,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5bcb12ea0672abfba3bc69991e881d302f571e8a0912354a46e7c0b0fbe9c2b8",
+      "file_sha256": "a1be274a0f1e36f9f8edcbe3f261de5042a128d47c62ad5a7d3a012229e871fc",
+      "file_chars": 717034,
+      "review_sample": false
+    },
+    {
+      "id": "b29f3365",
+      "sources": 376,
+      "future_excluded": 118,
+      "proposals": 8,
+      "dossier_sha256": "bd7956947a06dffb6cf8c3432161271f66a1e3f68fc3c2ea90e8f3b6e425018c",
+      "file_sha256": "502a2d5f0539cb85ab754f185ff139f61ec9a0ec32af16f80b3c0718f24461b3",
+      "file_chars": 567690,
+      "review_sample": false
+    },
+    {
+      "id": "b320f3f8",
+      "sources": 463,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "94becac0cd45b4299e272a59c04948f288e9f1b85f6328a268ccb5da844243cc",
+      "file_sha256": "f834a7eeaf183a4691a93a485c1d647943837961327fa8712c07951a24315ff7",
+      "file_chars": 697319,
+      "review_sample": false
+    },
+    {
+      "id": "b3c15d39",
+      "sources": 502,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "690e500f5d08f0119617ac72ef4f02c333d4de5622f25c74648c2b43059ac952",
+      "file_sha256": "043cd532dd00c0154d04e120709b1d329a5157fcf061da4f171bafc8a3761c3e",
+      "file_chars": 686914,
+      "review_sample": false
+    },
+    {
+      "id": "b46e15ed",
+      "sources": 478,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b6364d491b47f61b8ce49ca5492461c990f0ad4047cc5725ea2550d47278bd39",
+      "file_sha256": "25cd92c4806702965be7049cb5823af38ec6783304d49174c2216cb43a10f31f",
+      "file_chars": 711756,
+      "review_sample": false
+    },
+    {
+      "id": "b46e15ee",
+      "sources": 457,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "461797ab522dc0bbfc27bd078a7e5401fd8821a4b29cb0958382facc8fa81ba4",
+      "file_sha256": "c555e185adb1b931f656ffdf41459d7a0d338361310aa99f16f463692481bc6c",
+      "file_chars": 688874,
+      "review_sample": false
+    },
+    {
+      "id": "b5ef892d",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "23c416a0f90e739c1ba105c574f6ff3318fe09903553108697903f2482dae16a",
+      "file_sha256": "b3ebc416f20c246f0492ae03d199369835f8c149f8587e8854e64aeebc21cb3d",
+      "file_chars": 723916,
+      "review_sample": false
+    },
+    {
+      "id": "b6019101",
+      "sources": 510,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "aa5f2ebd072ea5b566ef283e9fc078b17fce5978f95e208941b3802b3d4da374",
+      "file_sha256": "d4f65962b0dbae1697f0af61a5f89c13c756372321cec3795661a901fc06df57",
+      "file_chars": 724595,
+      "review_sample": false
+    },
+    {
+      "id": "b6025781",
+      "sources": 460,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d96b2bcfa55e964ac1d81739f8a85fd2677228d0227582dedfb45e485aa63c6e",
+      "file_sha256": "e1625ae282df95d1b3f7d63c2391a6045166c21ab7fdb94dcfb091d15d96d73d",
+      "file_chars": 704352,
+      "review_sample": false
+    },
+    {
+      "id": "b759caee",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "21d5158c7322a275140fc745812f4c71bc7f19bf801a179a71a0f0c428a258b5",
+      "file_sha256": "488910fe8932ff6154a423d9010a07b170e31bf38ec2c30afa698defa5028c74",
+      "file_chars": 726954,
+      "review_sample": false
+    },
+    {
+      "id": "b86304ba",
+      "sources": 456,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "84edfbd9302c29569bf7d3e4935e4d9b7a432c7999d136ce9aa5930080782301",
+      "file_sha256": "6ea09046f947651a08a46f8a65a193b33d0a3d75e00d46099138c28cdffb938e",
+      "file_chars": 675293,
+      "review_sample": false
+    },
+    {
+      "id": "b9cfe692",
+      "sources": 145,
+      "future_excluded": 347,
+      "proposals": 8,
+      "dossier_sha256": "ae486f17d80a8b7c087db576794d22875a54460d7b02a03ad41713de713c4aa2",
+      "file_sha256": "8aad14a8494e8685d6d5979cf0fa1f4f941a5608f9cb0459e9522831275f3fd2",
+      "file_chars": 253148,
+      "review_sample": false
+    },
+    {
+      "id": "ba358f49",
+      "sources": 409,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8be92999ac70fc13eaa17e68ecf6feb65da7143ad44da11986065a937eb55b12",
+      "file_sha256": "926077cb01b5c032f66601352ee5d3d1fd13ab85ebc4d3684997daf90cfa0e78",
+      "file_chars": 680895,
+      "review_sample": false
+    },
+    {
+      "id": "ba358f49_abs",
+      "sources": 477,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "db8ea4ce0266a06abb59c186d0018143f2d38f956dcf68063db45e4780ca4ed1",
+      "file_sha256": "fd3724d8f5f627a6dba4285b939cbdb8c83f0f7ceab051322cbba921ff362db1",
+      "file_chars": 720212,
+      "review_sample": false
+    },
+    {
+      "id": "ba61f0b9",
+      "sources": 454,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2a2cb48d3b75129e86bfc29a6f3f80244d04d977cc1031371d12145708c21fb0",
+      "file_sha256": "8dddee8038b345215e1b57ba992dbb7b12de55ff906f28a60284b6d24a9b19e2",
+      "file_chars": 711945,
+      "review_sample": false
+    },
+    {
+      "id": "bb7c3b45",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8ed1555bba73581338415ddaf677ae8e3e5a3e1e1102910431db5ea5ee7de8b0",
+      "file_sha256": "47f4fa2fd59010f320da1b03269718bdce6ef2783bb1833392c4b4e981a14966",
+      "file_chars": 703641,
+      "review_sample": false
+    },
+    {
+      "id": "bbf86515",
+      "sources": 429,
+      "future_excluded": 58,
+      "proposals": 8,
+      "dossier_sha256": "40c9d8c3169e39cee9063ac1f4d6904f2e25b4d3b3e11feeac65ba200c467047",
+      "file_sha256": "3e589839aea48bd26de5a3520a774ed27f6b6d83eae690f8b3ff426110a19165",
+      "file_chars": 626357,
+      "review_sample": false
+    },
+    {
+      "id": "bc149d6b",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bd07782c5d1700fae6f288d2e0ae782eb2654652f82245cde65473150e7809fe",
+      "file_sha256": "8c5f6be6e68afb0304b3014d7f95f7dd52be2203952d0f77f59e55c1cfaccf29",
+      "file_chars": 697006,
+      "review_sample": false
+    },
+    {
+      "id": "bc8a6e93",
+      "sources": 537,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6996d3ea596c455032a8bbf8a1873d1ab7505183e5562329c91963ded6b5ac05",
+      "file_sha256": "bd8b9469a1e12df8669825bb52446eb75b2e7bb4d33d34ddba027271d599e5d6",
+      "file_chars": 723858,
+      "review_sample": false
+    },
+    {
+      "id": "bc8a6e93_abs",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a9064d4a4a1bdb928bb700d9ab1d87fa57072c8afb8c549183fbc15be505b68a",
+      "file_sha256": "eb8adaa5dce15da25652a74886294a3f67484900b922b47d31191b4ffa4c2503",
+      "file_chars": 715525,
+      "review_sample": false
+    },
+    {
+      "id": "bcbe585f",
+      "sources": 453,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5973ec38935d24c93c94001be4d558699de1a7ef0102f22cad5c337896e8c60d",
+      "file_sha256": "bf1cd052e1dedce2727fe50c318e5c52dfe878defc34d7a2222ba31e97bc6806",
+      "file_chars": 705636,
+      "review_sample": false
+    },
+    {
+      "id": "bf659f65",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b1b52033c4d0bfb00fd9bdedae60981847dbcafa1eef1edbce0d442dbb587c17",
+      "file_sha256": "9d8e0411caad0383fcca6e8c14dcb742d5a0f87b5a630e0aef7a8a30b550cc14",
+      "file_chars": 712970,
+      "review_sample": false
+    },
+    {
+      "id": "c14c00dd",
+      "sources": 492,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "06d6b739e99466e5ca1fff7d9ec55766f292ba6f52c6c3d830d008fab9c28fae",
+      "file_sha256": "c59a613986d80fc321ec5eef010ca165cf202b6209873f137ba5ff076b449721",
+      "file_chars": 713083,
+      "review_sample": false
+    },
+    {
+      "id": "c18a7dc8",
+      "sources": 509,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0581b33cb8a604b019ab3c439ed44dd2fb75191bd8a3d86a3880582492c3919c",
+      "file_sha256": "f302e58c4dfcddf94035fc4e249b368b67deb905359f99440d3ac1b91b797c93",
+      "file_chars": 731268,
+      "review_sample": false
+    },
+    {
+      "id": "c19f7a0b",
+      "sources": 478,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1fe50bb1964b6d467bf531af5cec7f65c729c5b184f17c403c9dd3b00880eae3",
+      "file_sha256": "4f0e84ef6d096d73660c64615ee72e2c7d6801a5711bbb25f682bce9c4f8d7cf",
+      "file_chars": 702831,
+      "review_sample": false
+    },
+    {
+      "id": "c2ac3c61",
+      "sources": 528,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "611c16f15aba0ecf9e25167fd9f1309a855f87ced1e29231c8166582f4a5a7c9",
+      "file_sha256": "614078ea4d9d4b6ce8e5e4266e709500428ff4e6b42dd871b9ad12c6672b8a09",
+      "file_chars": 738616,
+      "review_sample": false
+    },
+    {
+      "id": "c4a1ceb8",
+      "sources": 488,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "aece9eb565114d7eb5416df2b82e5176c4536a98c54ba04309c21d2d0139d69f",
+      "file_sha256": "21a820a65bd8ff9bb7c63fb359cf6016ae13b039e60b6942c10f8892008d73b0",
+      "file_chars": 722573,
+      "review_sample": false
+    },
+    {
+      "id": "c4ea545c",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "03330c023296ac4d2765c027788b379f97eef3feabf1a8c1675430d0ac0da059",
+      "file_sha256": "dd6607b37893fa2221b7a79a1b3aef24c54a5264953e1880a919a558cf25a05f",
+      "file_chars": 712177,
+      "review_sample": false
+    },
+    {
+      "id": "c4f10528",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "902a2a109f410ff812f8a948a37ea4d73ea10d7b1828ae2e587704999c730a47",
+      "file_sha256": "85a9e53301c0c6129f1e70dfbc05f8593b37e21a423bf498fa0ed7db284be676",
+      "file_chars": 712792,
+      "review_sample": false
+    },
+    {
+      "id": "c5e8278d",
+      "sources": 469,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "82cf2fd233451d6c1eb8939455a9a899a2e555d5e3cd139903949efe80b74ea2",
+      "file_sha256": "f0c488d3945f84433e642b56c254e8bcacde06fad81afc59d5609fafedb656fc",
+      "file_chars": 705722,
+      "review_sample": false
+    },
+    {
+      "id": "c6853660",
+      "sources": 477,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "99bf3cedaf6d7e3da7480878b316a5338dcc4be559eb2efc0499d156f704cfa6",
+      "file_sha256": "436148985c1eb38f8e250b8b4676eda29502e2d107385de6ce5f04ab99702df3",
+      "file_chars": 713264,
+      "review_sample": false
+    },
+    {
+      "id": "c7cf7dfd",
+      "sources": 520,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0d1b0ff07e30eaef2505f3e2dea9458a03d059465f8178707fef18eeb5c9fcf4",
+      "file_sha256": "7a58f14f00dcea5985558112454a4dd273d5b3be23cd72a95c9e1118b35505fa",
+      "file_chars": 718298,
+      "review_sample": false
+    },
+    {
+      "id": "c7dc5443",
+      "sources": 478,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d2b85f2290e7b46705633c4e72d264203f168e241265bd14e6e2c92c9167c4d2",
+      "file_sha256": "c9cd626f06fd43d2e267d424d4298dded6d410a521ca727679c4f7dd28b1f448",
+      "file_chars": 715440,
+      "review_sample": false
+    },
+    {
+      "id": "c8090214",
+      "sources": 295,
+      "future_excluded": 164,
+      "proposals": 8,
+      "dossier_sha256": "cc1ae1bdd57356a6490e7ab1080a4e4d63a92a3f933ba3a228e19abcc991f58f",
+      "file_sha256": "0d7a95ece2ce97e4f0d03ea5a77b1fca78f27c5637a1c7653b232343447238b4",
+      "file_chars": 479953,
+      "review_sample": false
+    },
+    {
+      "id": "c8090214_abs",
+      "sources": 104,
+      "future_excluded": 402,
+      "proposals": 8,
+      "dossier_sha256": "39901a4993e67293582a38dd7200799406d09542a49c7e6572d8321ad82068b2",
+      "file_sha256": "b6719a0a29267d963c8d6b752a62e172b00ff879a33ae417e32a8bed72a991b5",
+      "file_chars": 211359,
+      "review_sample": false
+    },
+    {
+      "id": "c8c3f81d",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ada85e6a918b4e8e494f0ee6c912953e5112c37ba916fc7dc1955189d5174ef6",
+      "file_sha256": "cabcedc652ce4ce10a4e317d8437ca17224304ff5f8971ad45cd939154af68e6",
+      "file_chars": 715148,
+      "review_sample": false
+    },
+    {
+      "id": "c8f1aeed",
+      "sources": 504,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d10f2b699373f796a501d25f8a6afadd0e41005d8a97bd03d7d5f91d950a78ed",
+      "file_sha256": "f4e8ccaa7fb3386870eaf88550ded407ac89a3670809c6039721bec343c34698",
+      "file_chars": 706029,
+      "review_sample": false
+    },
+    {
+      "id": "c960da58",
+      "sources": 504,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fd8926ead3443ae4638ee1d4bb4de01aad09e362123679d913f2fcb937c61464",
+      "file_sha256": "451f7d4db4366c6d26935f7e5737f50f797cdad908359dcf68a4125cb0535e09",
+      "file_chars": 711344,
+      "review_sample": false
+    },
+    {
+      "id": "c9f37c46",
+      "sources": 36,
+      "future_excluded": 475,
+      "proposals": 8,
+      "dossier_sha256": "475c933d32040f283a5c7cd985eba1d87d5e8d0dedb625ae2880fc3d42c619c9",
+      "file_sha256": "986953fbe7ee42a1c85c47dc617fda18033d2e2351f7aa25ea3f06b498f5d4f3",
+      "file_chars": 131767,
+      "review_sample": false
+    },
+    {
+      "id": "caf03d32",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8f6d01103798c550d08c1fb86fafcbc503dd99a2310b5345c9cc638571157042",
+      "file_sha256": "553cd18858e27374cb875b0636d8acc3bc6bfe69e5136c460e0051e294fedd8b",
+      "file_chars": 704118,
+      "review_sample": false
+    },
+    {
+      "id": "caf9ead2",
+      "sources": 466,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "162154ffde7d68b409cef4cbf8e3c26a8971fb72d39fe4aaccbb46415fb0463f",
+      "file_sha256": "5366cd666be5ceddb17d18babfe54ef7d87c6fd974578f92d7be8320410a42f3",
+      "file_chars": 709522,
+      "review_sample": false
+    },
+    {
+      "id": "cc06de0d",
+      "sources": 462,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "bd2e2f5b270db0b35ace580a7d54d5a605f0dd578c4588e9ba5399e27af7d115",
+      "file_sha256": "2e54af769e9d9fe3e1437d1bd65613826e5c8537b4e60b51b0aae66c5bac75d2",
+      "file_chars": 700814,
+      "review_sample": false
+    },
+    {
+      "id": "cc539528",
+      "sources": 496,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ff34f7553f3df742dffacc5fe1229cbc39879b0b571598ec7a84331105b79ed0",
+      "file_sha256": "c84cf6d6cce72dddd0f05e6d136bfc352f35b5f1c49109062deff9073e0cca92",
+      "file_chars": 711277,
+      "review_sample": false
+    },
+    {
+      "id": "cc5ded98",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "12f14dd60238b5e781dfacc3283afedd9f0edcb3f31e5543ca993e95f2f52598",
+      "file_sha256": "44510c821da22babe3a8a89c31d8dde703982b83eac228f0f07f70c000a33aaf",
+      "file_chars": 689296,
+      "review_sample": false
+    },
+    {
+      "id": "cc6d1ec1",
+      "sources": 374,
+      "future_excluded": 83,
+      "proposals": 8,
+      "dossier_sha256": "95197795aba38f7f85bd8f50dd8ba0a1c251b962cf516f9a8c13fc73d881f3e1",
+      "file_sha256": "581634b94ee8748204547ae00a46985faf79247e481ed423b4bde99cd22d066a",
+      "file_chars": 584720,
+      "review_sample": false
+    },
+    {
+      "id": "ccb36322",
+      "sources": 471,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5647e215f03eaa3afe51405cab887f28aefc0af0ce94be5128c8e03689b1a20a",
+      "file_sha256": "58de93ba93c1784e5b568cb1d74184ac7556eaee61eb82bb878be203cdf38cd7",
+      "file_chars": 703440,
+      "review_sample": false
+    },
+    {
+      "id": "ce6d2d27",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e9985a80c3cd479e37c6624f6adf744cae53800854c960b3c3053e24116da2eb",
+      "file_sha256": "80051c45c6851f9f4383b84474baa47a78beb71fbc52864c665f4eb99af6e1cd",
+      "file_chars": 720733,
+      "review_sample": false
+    },
+    {
+      "id": "ceb54acb",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0be2b1e8c3fbc567871819e0a6fe96f078485cfda6533a3eb5421ca310e20560",
+      "file_sha256": "0620f9dd5b978285f66b4bd1b4ed3238fc03972a25045541fa359bf81d8e0fb4",
+      "file_chars": 715596,
+      "review_sample": false
+    },
+    {
+      "id": "cf22b7bf",
+      "sources": 550,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "69d27227ec515b9d1bb5da667b84c5587f12d16c499ec46f37caaa76dd5ed86e",
+      "file_sha256": "8cd9e033894009ee523f579a851ba5ec19f404ce1f9f96ac52f80fcbedbbbdef",
+      "file_chars": 732097,
+      "review_sample": false
+    },
+    {
+      "id": "d01c6aa8",
+      "sources": 219,
+      "future_excluded": 210,
+      "proposals": 8,
+      "dossier_sha256": "cfc5b7b6443307e3450d3e91028d8d309a4c312b2db6347d2fa745964379aea8",
+      "file_sha256": "f613dfc1e459b4be7fed12bccfa56d58c81fdfdaa4462aaf1f6f86f340ad2538",
+      "file_chars": 404370,
+      "review_sample": false
+    },
+    {
+      "id": "d23cf73b",
+      "sources": 512,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b1ae2a5635866d85ac8bc98bc44a5a38cb8a06f8a2938dd6f853cd764b886e16",
+      "file_sha256": "3e1e6e6a62660bcdf84d24112d79306ba6df5d53ed525ff8a3fb24681ed3121a",
+      "file_chars": 713113,
+      "review_sample": false
+    },
+    {
+      "id": "d24813b1",
+      "sources": 485,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3727f7446f5dc626ec7bb815dd03db8d92b6bca96b0a4e17fa708a88aa119e85",
+      "file_sha256": "f8d111c2d02a1a2fbbb946728c676cd1cad7f6020e240e7b503af2aec92a017c",
+      "file_chars": 695740,
+      "review_sample": false
+    },
+    {
+      "id": "d3ab962e",
+      "sources": 530,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "77f8b16d2c4db6d6caa329c740d1f4e7556e698e49a9fe486f85ae923bfbed52",
+      "file_sha256": "1dab3749cce974302279379f63d17ad252b46f1a789c78a87ea0b7eeb7749e52",
+      "file_chars": 722438,
+      "review_sample": false
+    },
+    {
+      "id": "d52b4f67",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "80a5ab533ca7f705afada2ea890e23b3e30e26bfd7dc0a3f20ed99ba4184d157",
+      "file_sha256": "563aaf9ca24e735d95e9a99f9b3af7bc03ebdc8a1ddaae2af328c0d5bd9e5a24",
+      "file_chars": 708626,
+      "review_sample": false
+    },
+    {
+      "id": "d596882b",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a6fdb52911418112051a28e00b8ab4edd18215a81ac9d328e7915db2f165713d",
+      "file_sha256": "0fa2da83ad0815af16760813cf426ee8adca88ebf2e4967515479c825fba9875",
+      "file_chars": 710487,
+      "review_sample": false
+    },
+    {
+      "id": "d6062bb9",
+      "sources": 532,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4eab6c171a2aeb43e6891ed4408fbfae774a25349f30069053330702b709c75c",
+      "file_sha256": "208aecb5bcca529bf50d56cc94d79ae37ad65cbfa92febcd4392f50190287bed",
+      "file_chars": 737930,
+      "review_sample": false
+    },
+    {
+      "id": "d6233ab6",
+      "sources": 437,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "93595efe1c9b84753eeaaba123af7669c00adb0ef59727499bbb63a4059c8df0",
+      "file_sha256": "31c7ca82e165ea3c2d61ef9ca02942cca8f2bb82bcab597c26cdbf4a253f7cca",
+      "file_chars": 686545,
+      "review_sample": false
+    },
+    {
+      "id": "d682f1a2",
+      "sources": 469,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e7143224161c08c04ab52e1eeedf3d2b24d8a422b67be70667967dfe94536839",
+      "file_sha256": "4414471b1f809fc3aa514153a80b841403748163b364b0feed647734cb279acd",
+      "file_chars": 706615,
+      "review_sample": false
+    },
+    {
+      "id": "d7c942c3",
+      "sources": 508,
+      "future_excluded": 12,
+      "proposals": 8,
+      "dossier_sha256": "49be8920d315228db3ba7d34c7ad95b3d25aa192088ea9b36accd46a7758d429",
+      "file_sha256": "8436eac648ac87f3081ac57776b611867ee26999be3eebe5a0ff14e97ca069fc",
+      "file_chars": 709125,
+      "review_sample": false
+    },
+    {
+      "id": "d851d5ba",
+      "sources": 533,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3b51efef85c3b0aada6f77fed8604b6d135222f01c3c540c714c238aef2ed71a",
+      "file_sha256": "2cd198781a35d203722fad66e205cbd11c0dd85ce64861b1a7a34b07ca90d42d",
+      "file_chars": 723630,
+      "review_sample": false
+    },
+    {
+      "id": "d905b33f",
+      "sources": 504,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5ff43c2fff2596b78beab7c29a1febb93316a3b73a92fabf6d9d9aabab812988",
+      "file_sha256": "b4077bc33dc7cf84c68b0ef81a4aba8f6fcbaa232356be036b311f219089b444",
+      "file_chars": 719977,
+      "review_sample": false
+    },
+    {
+      "id": "dad224aa",
+      "sources": 521,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5a3b445eed5fd07d294848a5e61e82af86109b88004c8f8c6071575deb4d65c0",
+      "file_sha256": "7373dcba4b3c5183786caf102a1398719d388f99b7d5042888204895692d2f8e",
+      "file_chars": 722802,
+      "review_sample": false
+    },
+    {
+      "id": "db467c8c",
+      "sources": 447,
+      "future_excluded": 28,
+      "proposals": 8,
+      "dossier_sha256": "4c39cb8e2b4b35c0a4a3decc2351630b12f59ca7a0e2bf8dc8cbeff7d2be6387",
+      "file_sha256": "abfa95838d9e9fe0f3559f55a155a73a3a8bdeff569c2e01e2b87aabbe5f402c",
+      "file_chars": 684170,
+      "review_sample": false
+    },
+    {
+      "id": "dc439ea3",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "98be25867016e4bfe902f39661b99db0ddbde5359091711e5fee5245b4812527",
+      "file_sha256": "e039ec679e1124ff8f41235a8d143326274f968673293fc0e8ab7e77da3e374d",
+      "file_chars": 711169,
+      "review_sample": false
+    },
+    {
+      "id": "dccbc061",
+      "sources": 505,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2165119a2b9b572ec7a7b77c0660b759b0cc22df8ed1c9ae592b606d10a5db09",
+      "file_sha256": "e1ff87c68218bf365ddae91343c533bbc1278bd7bd58371d77a15e1bed514b4a",
+      "file_chars": 700832,
+      "review_sample": false
+    },
+    {
+      "id": "dcfa8644",
+      "sources": 325,
+      "future_excluded": 145,
+      "proposals": 8,
+      "dossier_sha256": "b60470dfc0fe47654d750be360f3390db981dc8781a0f1f5d1c4dc9c923d7b20",
+      "file_sha256": "51cf4158f9fb302c79487299cc0c167616509f589dd7ef6e372f38ff166dfe2d",
+      "file_chars": 492724,
+      "review_sample": false
+    },
+    {
+      "id": "dd2973ad",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4323b8782cfbf08da2ed65bca7afc38e9861babca7257b3743f5b919871f6f52",
+      "file_sha256": "7bb98fad2e89fbf98a0a6e70f5aa8d6e6cc6c665f2eb12816368b55d23b87f94",
+      "file_chars": 724142,
+      "review_sample": false
+    },
+    {
+      "id": "dfde3500",
+      "sources": 480,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5e3b8a5d4ca3d6fa69a1cee08821025a180b30b50ce30055a19f8bb51cc4f620",
+      "file_sha256": "b8e3cd89c6289b2f36279297c20eb0eb8e1b44d41f3417fe5f7ab07177f72faf",
+      "file_chars": 712198,
+      "review_sample": false
+    },
+    {
+      "id": "e01b8e2f",
+      "sources": 523,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8587d5c37380e87fd44141ab6371a4b7501719ce7788020e0482d729e9314e44",
+      "file_sha256": "9ca3111cf9e3d160cf0a3462c9ddbda3935c5eb3af9e1b999a437c1f20a05dea",
+      "file_chars": 713664,
+      "review_sample": false
+    },
+    {
+      "id": "e25c3b8d",
+      "sources": 530,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c55cbfc14b6002a97808ba6bb88d33dc2b257859ae44fb4828c6e2a65539aa6e",
+      "file_sha256": "97cef468949b33aaa650d97a2d91854cd53c7eaf4f9ebddddcb6bc16be3e8cfc",
+      "file_chars": 729545,
+      "review_sample": false
+    },
+    {
+      "id": "e3038f8c",
+      "sources": 458,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "10303d5f61abdc067cbd5e4a7c96343555001f2c3451fe832f503db0b3a3d0e6",
+      "file_sha256": "deff287b743ea73b8c7323b2af9efe8b956b38113beee27302a280685fac516f",
+      "file_chars": 699282,
+      "review_sample": false
+    },
+    {
+      "id": "e3fc4d6e",
+      "sources": 519,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "53e7cd9a28a787975a757d03e528724abb6e77cc40136c8847e93dd3eb8d74b0",
+      "file_sha256": "588119e8783ed6f59da975bcd44035098345843a7f3b467e8fa8c7c06f89d1f5",
+      "file_chars": 733488,
+      "review_sample": false
+    },
+    {
+      "id": "e47becba",
+      "sources": 550,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "faf5cb25579775b239a1aadf7628a0484e2b3b991fd0c0ef8cb742659058a7c1",
+      "file_sha256": "4980593f9392754821371538f537c2e2349f65ebe1344fc6733a8e8406f26d46",
+      "file_chars": 721150,
+      "review_sample": false
+    },
+    {
+      "id": "e48988bc",
+      "sources": 530,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "aa0e487da83f1febcbb03d20f94eaf9c758da5e66bb9568c8e1c6b0a123c1cba",
+      "file_sha256": "85fdf7d5c09f5b69f217baded87f7a96fc4a55598e6866af9ed35bc751505589",
+      "file_chars": 736212,
+      "review_sample": false
+    },
+    {
+      "id": "e493bb7c",
+      "sources": 506,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "da91a163c0cb73c191137ca88b2ea583aed5d9e05d8ae1c6e33bb0801796fc76",
+      "file_sha256": "783dedb6dc4a25e985394e6be8bed191d508dcf742de18dfc01635df58c377d4",
+      "file_chars": 725302,
+      "review_sample": false
+    },
+    {
+      "id": "e4e14d04",
+      "sources": 343,
+      "future_excluded": 118,
+      "proposals": 8,
+      "dossier_sha256": "c4cb4247561fe2894c3b223571b6ccc702110b19b1e3d391db5d768b37a7c241",
+      "file_sha256": "224775f1a2eb2430f5a89dd833e8ec8c8fbdc1e6fbb511696b96ab5beb0683c4",
+      "file_chars": 542534,
+      "review_sample": false
+    },
+    {
+      "id": "e56a43b9",
+      "sources": 448,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e9c20a94bc99b298fc46b5899dabd79fbf73b098116b06cef1d9e1c5b2a41ee0",
+      "file_sha256": "3778a8b9e891983e9f05488127b9153236fb66beb268b832ce20fbfb4d3dbb89",
+      "file_chars": 685475,
+      "review_sample": false
+    },
+    {
+      "id": "e5ba910e_abs",
+      "sources": 522,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4a58bb02bb8e3305ddc1f63dcc6e1eb53f8d38bcd0e06180a196df65ccba8a38",
+      "file_sha256": "714aa07f7599b199fe69b6c0d5ca4a4754797594cc5b7762ee536504a7d31fd8",
+      "file_chars": 708738,
+      "review_sample": false
+    },
+    {
+      "id": "e6041065",
+      "sources": 493,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "afa69aeae0426f7fbe1eae30ccce5e801e2c3e3203cb48d3e266937ff1aebb28",
+      "file_sha256": "79912418b76ed2c3c689db0624ca45900d9a2e90cd7b75ae6bafc8ec9a35c5f7",
+      "file_chars": 709143,
+      "review_sample": false
+    },
+    {
+      "id": "e61a7584",
+      "sources": 432,
+      "future_excluded": 64,
+      "proposals": 8,
+      "dossier_sha256": "1615e687468b8557545e198aa7eb69e6796f261fbf06117a7e46f5d4cd3e0d00",
+      "file_sha256": "f65455654a7aefba74c5767f9a8fc54b8029d705f7bebd940d314dc576270065",
+      "file_chars": 639103,
+      "review_sample": false
+    },
+    {
+      "id": "e66b632c",
+      "sources": 506,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "f22ccccc674792ec80acff5640d453f5a5dbee901ab277d37ca30aec12eff503",
+      "file_sha256": "d266fe2f2350cb24706068f31131757dd181a31a35882d34bc459aac64d9d929",
+      "file_chars": 722038,
+      "review_sample": false
+    },
+    {
+      "id": "e831120c",
+      "sources": 481,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8b18ef2b48d6ba3b73986f12f61edea29811c9662ea00061e685e36c7d175645",
+      "file_sha256": "bcea2423182e94794e331693c5867637e660f1cd53295ecfd3bea642e562c7d2",
+      "file_chars": 694421,
+      "review_sample": false
+    },
+    {
+      "id": "e8a79c70",
+      "sources": 483,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "faa8ca8da04679e1717b28d8a55ae0913d9120c5b8fcc088b39e94c7b4d50ebe",
+      "file_sha256": "049559a1955c675f0d2a5b4a4e0a02ed75748c5a1ebea3dbe0b61e50d52be9b3",
+      "file_chars": 711418,
+      "review_sample": false
+    },
+    {
+      "id": "e9327a54",
+      "sources": 533,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0bf4693dcf6183a2ba4a9418d4e92676c4a9b87e504e8b9440dc611712e2c4bf",
+      "file_sha256": "bd569b376b6f03d3e1e4723d04b7db86994bdcc82c3175b50eddac89ebd3366c",
+      "file_chars": 717757,
+      "review_sample": false
+    },
+    {
+      "id": "e982271f",
+      "sources": 589,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "22f6228c4822153ace59a6c575527f1399724457492d571158d80fc5e9ce5cae",
+      "file_sha256": "9757f1bb17b7c3122d8c80cf3fc9968197135101eecb97eb2860afc519b4a28e",
+      "file_chars": 753065,
+      "review_sample": false
+    },
+    {
+      "id": "eac54adc",
+      "sources": 464,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b15be70ec51e401608319d8e117c38458e2f268ac47a160afbf85770840e92c3",
+      "file_sha256": "6d9e562ff4700eeef3e41aff932c6e370078654191c0b15383e7b468fc9a15e9",
+      "file_chars": 705554,
+      "review_sample": false
+    },
+    {
+      "id": "eac54add",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "07cd90252ea73453aaa7565e0fbfc3e378e519de0364eab587140936d5be58ed",
+      "file_sha256": "a86fb8c8c30fbc0322679e7ae8a47d5f0afe8a590cb944dbe1b81515fd991617",
+      "file_chars": 700791,
+      "review_sample": false
+    },
+    {
+      "id": "eaca4986",
+      "sources": 513,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3309c716089a1d91e15e35ba4a643ec61b7d4d374a803975a1e729153708824e",
+      "file_sha256": "77766f230e4f99de2e7a6e3824de9b21dce9d7777af8dde208ebecc0c115fe26",
+      "file_chars": 724409,
+      "review_sample": false
+    },
+    {
+      "id": "eace081b",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d4ef6c397903c0cd23ea6f58d8a891347bab3b30c15eb6688fa8fcfea6319612",
+      "file_sha256": "e2b9b7764027b6bea0d99b212f5e3555a12a1df36de4c822d1246c81d02d3f8a",
+      "file_chars": 715615,
+      "review_sample": false
+    },
+    {
+      "id": "ec81a493",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "80984437d633e7a383669ce7fbfcef03ca4111f98dbd82ce0d3fe7481395a9b8",
+      "file_sha256": "b73d9bf5a415ba9c04ffe1eebbf7dcddb34ce0178e1d0ed9276cb7e463f2b1d7",
+      "file_chars": 731852,
+      "review_sample": false
+    },
+    {
+      "id": "ed4ddc30",
+      "sources": 535,
+      "future_excluded": 8,
+      "proposals": 8,
+      "dossier_sha256": "ddbc9bf77f792ddea872651dcd1405e9f6ec2c5db4e685168246fe0f70175bb5",
+      "file_sha256": "1bd1523805dfbdbb488fdc16993b98f89dfce12495ae01c463217325e4dc20e5",
+      "file_chars": 716748,
+      "review_sample": false
+    },
+    {
+      "id": "edced276",
+      "sources": 482,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "18ae854bece93b3158e9a4f75e3a2105b56f30535c5508d77b474f7e0f3977d1",
+      "file_sha256": "6c72a8a9db18b8fa43fe62369bef181b3ada9d7fbf48607a572c795d937dc4b8",
+      "file_chars": 710283,
+      "review_sample": false
+    },
+    {
+      "id": "edced276_abs",
+      "sources": 544,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4400a4771672347bbb4ec68d0ac9e6d690ec4893683c5cb71cc18d34e5b71a83",
+      "file_sha256": "4d3b35dfd2a77d3855573cd7f02e771a13d1f4bfd8dad8a4cf1fb13d4eb08d9d",
+      "file_chars": 728257,
+      "review_sample": false
+    },
+    {
+      "id": "eeda8a6d",
+      "sources": 513,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0cb6906a94fb0784b00f3185f1bf6c278832b0afb6298de5d2501344966cfcc9",
+      "file_sha256": "7dbe8d48fb6495b8f6d76f31355418b84bdbf6bc3b2cfc469c0bbb0fbba5fb7b",
+      "file_chars": 729755,
+      "review_sample": false
+    },
+    {
+      "id": "eeda8a6d_abs",
+      "sources": 477,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2aa0d5c966afde4bb1723c451d3814a2023e5bd63d372397ddd9bfa5740d757e",
+      "file_sha256": "719b08bd6a13d679c77f8f36cf5e2c81aca2d33cbb68098bcb9662f41078bcc0",
+      "file_chars": 690136,
+      "review_sample": false
+    },
+    {
+      "id": "ef66a6e5",
+      "sources": 445,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "5890e6a2d004c6d658ec0dcb28a2eaea8201521edcfe5d7ab551db11a0854f40",
+      "file_sha256": "978322b004f9434b104032af17f8bd755b3356aa4a6177ecc9ba46651caf785f",
+      "file_chars": 685723,
+      "review_sample": false
+    },
+    {
+      "id": "ef9cf60a",
+      "sources": 522,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6c1f3c8e122dac5f7e088fa05e25ddfc48b75931dd3bb18ff8a837f5247d5417",
+      "file_sha256": "e284d51fa96b81f0a1e357d640006604dab0dc15ef74bf5cedd410c7f4e56abf",
+      "file_chars": 729408,
+      "review_sample": false
+    },
+    {
+      "id": "efc3f7c2",
+      "sources": 497,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e42fbf545ec2998b18c96601b4e9939dcdccbbe7df406922942958c55f3dc59b",
+      "file_sha256": "99d2dddf4044f0e81604645b88dddc5024d56521ccc83cccc087153df364feeb",
+      "file_chars": 709656,
+      "review_sample": false
+    },
+    {
+      "id": "f0853d11",
+      "sources": 488,
+      "future_excluded": 12,
+      "proposals": 8,
+      "dossier_sha256": "91228706d1525193b6cf19f951a7f67b88dff1d7072c9587ea79a62df8d8520a",
+      "file_sha256": "d86c37186cc10c7b27697dabb6102fff07e11869e26f48f798a17818d1b1799b",
+      "file_chars": 693374,
+      "review_sample": false
+    },
+    {
+      "id": "f0e564bc",
+      "sources": 508,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3d6bbd44c8807b0878a7c5b6ef67fe7963a3b4303d20180f6a9a10cbb63a0fdf",
+      "file_sha256": "0fe297bed902766c46a91d89d97ea4b0c112918153c0795ee4ff111a164e9572",
+      "file_chars": 712231,
+      "review_sample": false
+    },
+    {
+      "id": "f35224e0",
+      "sources": 515,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "160453ecc7626a23447fdecfec966ba1f44c8933a4fb7cae1a23046e66faca8e",
+      "file_sha256": "18a79d585387da12b74c217210b8e12d225e0c0316896c113617de8a3ecdbbb4",
+      "file_chars": 719674,
+      "review_sample": false
+    },
+    {
+      "id": "f4f1d8a4",
+      "sources": 585,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "81f5a98c43a9c0897a5cbf5c24680b025192a2d88c2cf04028e9bef5fe4a08c8",
+      "file_sha256": "dbc4d63b2c7a7c764293010176ea8206ec8189d3ad83863c19679f32f5cdba3e",
+      "file_chars": 750198,
+      "review_sample": false
+    },
+    {
+      "id": "f4f1d8a4_abs",
+      "sources": 506,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "111a5a554cc1caa3d2a2d646af1ae308c1d01bbf8d4cf292307b836d12de7c0b",
+      "file_sha256": "bb73739d6960a980e888fd154990568965c37c0da903fc0d90d4dffded7e5cf7",
+      "file_chars": 718803,
+      "review_sample": false
+    },
+    {
+      "id": "f523d9fe",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2a31f406588d868c7fc86dde8ee92e5a4b0906204256bf11e8c423fb481fe782",
+      "file_sha256": "eedbe8067c9e10c1a5ca3c235f166a19be48672dd70e20a265bcce8c0432e475",
+      "file_chars": 719506,
+      "review_sample": false
+    },
+    {
+      "id": "f685340e",
+      "sources": 424,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7148bd3dbfdd15667d6971378113b463fd23c76c9ff04fbf041ee6e11a5e2cb8",
+      "file_sha256": "84763b6b018a517a1b3d1a9186d0023e30329ec7a15e4e6f78f8230f3a5ae0e2",
+      "file_chars": 689112,
+      "review_sample": false
+    },
+    {
+      "id": "f685340e_abs",
+      "sources": 456,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "edcc792e93af85a791269c29d49fe98b96ae894a5f1fb7ca04e4127772b335e2",
+      "file_sha256": "def825d24836a2e20a4960287f7c0c2c8f3b15babb5b7daa7ca460e0ee49494a",
+      "file_chars": 707846,
+      "review_sample": false
+    },
+    {
+      "id": "f8c5f88b",
+      "sources": 487,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0e62ed655e2c442899d7e25bcf22b523c56853e15eeeee1d5e0d66dee86231e2",
+      "file_sha256": "ba72cd655ccc466b26a93edc0b7c9649edd6a90d3e0a18c2cf82232807d91dd3",
+      "file_chars": 708827,
+      "review_sample": false
+    },
+    {
+      "id": "f9e8c073",
+      "sources": 504,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e6125b89fb68a1dee56da2230f96be33072518a40bcb5ede5bd194adca514355",
+      "file_sha256": "456fdab93db3296ec1e58c0a7998aa48f106a96bb1e8184cc870fb176358c6b6",
+      "file_chars": 727427,
+      "review_sample": false
+    },
+    {
+      "id": "faba32e5",
+      "sources": 473,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0a93c32ad213fe16b42a54bb4b95b1006e55fdfad31ca14761f8aea40e73ef5d",
+      "file_sha256": "d534f383ede7249eddee8cfd73707512c31bd748d9cde6d514e83a3d079bdc69",
+      "file_chars": 724462,
+      "review_sample": false
+    },
+    {
+      "id": "fca70973",
+      "sources": 442,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "df386ad34aa74f3ca1181b3767c7dc7cf62d93a4ab7ad6b417e53fb55bb820c2",
+      "file_sha256": "fcb431cb1f3c96ea3e9c433ab61570449780b56a008e313745ea2f565246d864",
+      "file_chars": 682024,
+      "review_sample": false
+    },
+    {
+      "id": "fca762bc",
+      "sources": 459,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8d2c9d13df3a3cc041994421e7a401e8d254eb702b8151d53caa52258ca97dad",
+      "file_sha256": "45e6e003877e0f25980f94741e6ddb20323f5751093f4f369d7421dfb35922e7",
+      "file_chars": 696815,
+      "review_sample": false
+    },
+    {
+      "id": "fea54f57",
+      "sources": 527,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "e4d631862ade6198716218074d22522af5bf7c8b9f7ccbcdbbd8a3836ed3ae43",
+      "file_sha256": "a02dcf00fa2dbdcb0fdb7dc6b50370d2893fa221ea366530e5d8d906d3c84c16",
+      "file_chars": 717577,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_0a05b494",
+      "sources": 4,
+      "future_excluded": 502,
+      "proposals": 4,
+      "dossier_sha256": "8a6ea6de37fd936418a3f10036eab93e097af0f49806e77ffb3ea037667ae2d8",
+      "file_sha256": "6866ef4f2e93840cb73d608c08e3e8f51284600177ec7e2df39366de966465fe",
+      "file_chars": 72559,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_0b2f1d21",
+      "sources": 158,
+      "future_excluded": 339,
+      "proposals": 8,
+      "dossier_sha256": "6cf355107eec96c811af215f4d9fb7466f5bbcdec72e1eb27342e7fc7ce18ac3",
+      "file_sha256": "d4a311db24c51724dffd69a3bacd00bada35155f2ecdf33f3f33ea8714c2235a",
+      "file_chars": 277984,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_15e38248",
+      "sources": 470,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0dba1e3652cbe199aeb5642b5bfafa99bb9bb02650f937a1699df3733f7274b6",
+      "file_sha256": "a975f28b18fa61ff7ee7940623919b6b6b3a87e874b6fbfb878780d54618ae29",
+      "file_chars": 711807,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_18c2b244",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "01867f0bcb91927e38b42be1f4bc6713663f5fb528b148f44084febe50bb12c7",
+      "file_sha256": "e9424378370974f1802ab9896c84853d132d1a3134f2ade06809544921885873",
+      "file_chars": 741274,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_1916e0ea",
+      "sources": 533,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "60afdef7542e1a8c62e3fb9062137eb25f76409cd378aa58aeee38db1c3cfafb",
+      "file_sha256": "356cabf449f9fbb415cc552d90edd6ca93328ace78c0bcc0638e0a6f53ff9a63",
+      "file_chars": 722153,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_194be4b3",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6a2d7b0be08d09d0a7f99fcb46273ddc21f0e7a0922075606b1e239ca4ad5562",
+      "file_sha256": "cd776d1c78764a40b438b1d74c5e606e88424cb3e3def0cfdc1f8247918b6046",
+      "file_chars": 694606,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_1a1dc16d",
+      "sources": 175,
+      "future_excluded": 278,
+      "proposals": 8,
+      "dossier_sha256": "a171a7de362db61600e208b191e2397d13bb75cd929fc1de8726668848d018c9",
+      "file_sha256": "cb3e6bf408d70fbbbc3203503443ca8ccce89b64904011f9d9a778caad0ad21e",
+      "file_chars": 338275,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_1d4ab0c9",
+      "sources": 483,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "29990daa60190d33508693b4c11e82034c022db36207f5656ee52cef8d4e8f6a",
+      "file_sha256": "366cc89b848edcac045c9ad34a4e32f6249302883df2269e75da2ea226788026",
+      "file_chars": 707869,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_1d80365e",
+      "sources": 517,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "96dbe8cf2912d643ab8fe25247de9ffd7dfcad4e52edba6d661771c4a5dab9e1",
+      "file_sha256": "fa414df59e879ed377565a74f7bd83f53edf1ae1b1bbe1c6d55356bbe0ee577c",
+      "file_chars": 733224,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_1e4a8aeb",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a64f2525ed51047dfad4c11ed2535ef953cc37f9b5901cf743e40d074d8f882f",
+      "file_sha256": "bf12dc631bde48bfac25bb48b2e6fcbdc8c77324bcabb682361ea6a0ca939022",
+      "file_chars": 721708,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_1e4a8aec",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "cffdc92e90ba0caae44538711192476b4de4f612cd27a7ba5e6291dc8d0b1457",
+      "file_sha256": "754705e06d03f0b70d612956a72fe4cd67066d141cfa1454852bc901949173fb",
+      "file_chars": 712669,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_213fd887",
+      "sources": 253,
+      "future_excluded": 193,
+      "proposals": 8,
+      "dossier_sha256": "d940d522237d687ea0e893b7ed3f1a5f1e8a02f486568c447b44cccd71d1c660",
+      "file_sha256": "6eb29c6785db3f215578d47740a99d922e28524628302b4e9cd3b4096453bb4b",
+      "file_chars": 433070,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_21adecb5",
+      "sources": 511,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fa7d49fb42effc18d52ea4ff11ca1b2b248688565583b0f5789ee596ec24224e",
+      "file_sha256": "41506f16dc0f96936cea55af3cb023cb170a0476966869939620da13a9f9ddd3",
+      "file_chars": 725680,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2312f94c",
+      "sources": 115,
+      "future_excluded": 352,
+      "proposals": 8,
+      "dossier_sha256": "107fecaa37ec514d9fa5514c2f2d019814bb3f943c3f39e8fb01d42e9c8b63e5",
+      "file_sha256": "ef6384dbdcf583b6f4bbdde8c2a5680ce39c834faa184510f5bf5c277a2092b0",
+      "file_chars": 221774,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2487a7cb",
+      "sources": 135,
+      "future_excluded": 360,
+      "proposals": 8,
+      "dossier_sha256": "1a74e4da770b8b89546e09204fe2267da9ac71bc0991f082426625e2e6944815",
+      "file_sha256": "ef07c1c5c4c838da1362cd2a47827ba901c516dfd9e9547f741a41aaced6f02c",
+      "file_chars": 258445,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2655b836",
+      "sources": 214,
+      "future_excluded": 251,
+      "proposals": 8,
+      "dossier_sha256": "d27aaecae50a3219c083b7184daed6804359cd01c0622b42516b244da21068e5",
+      "file_sha256": "2a0ee835598912cd26f4f81b94c7c0ff08c89403f0dcb8c352ad6446868d8318",
+      "file_chars": 380854,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2ba83207",
+      "sources": 502,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0ff6c7212122095a061248f5e752e06b569d2f6a8386b878bb8ccd0d0df5c5b6",
+      "file_sha256": "5426f1df01635c7c3f522adfbd4603b8f62a4600b8f6af6d2c95b6fe7cfa299a",
+      "file_chars": 719670,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2c50253f",
+      "sources": 506,
+      "future_excluded": 85,
+      "proposals": 8,
+      "dossier_sha256": "de8645eaa2d285fdf2fd0f5fbd64ee2a495e18aa649b14a8abc98fc6a3144bbf",
+      "file_sha256": "37b2fbc3612006be2c6a0babc462420b6108d9cf3592f2cf9e20ef2bd6854463",
+      "file_chars": 644802,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2d58bcd6",
+      "sources": 469,
+      "future_excluded": 14,
+      "proposals": 8,
+      "dossier_sha256": "2ee323c1492084123730cdf18499deeef5cafc00fa3cd7219d56fc192e16c37e",
+      "file_sha256": "f0840e72b23ba8453b5f5cc339552077badca4eb675f32a433289eb28bed3410",
+      "file_chars": 671421,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2f56ae70",
+      "sources": 0,
+      "future_excluded": 458,
+      "proposals": 0,
+      "dossier_sha256": "98d6f1626d26f9d62ecfb25383e719c55d1fb35537d74e0cf3055b2fb30195b1",
+      "file_sha256": "12b54aedf8327a0e7c166d1bcf578aab4216511b2d5a029dd179d8983a6723ac",
+      "file_chars": 53230,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2f584639",
+      "sources": 95,
+      "future_excluded": 377,
+      "proposals": 8,
+      "dossier_sha256": "e8e07249a48f3c8cc233b99b865bcfc2b7ec54c71c8473300ce0f2d9e7f3f4b2",
+      "file_sha256": "b24a1c8669b31ae72f9c39afdb46c2d80bf79cbc8e852c28d82787a729e28266",
+      "file_chars": 197529,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2f8be40d",
+      "sources": 474,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0fe577f1bd6e1b9b6273f9d8169d4e54becd7e33dd16cbbadf39dbb5fdfe010d",
+      "file_sha256": "e743c6251fa79d73bcd4358ae87a93820d460252447c660821f1af14baeea0bb",
+      "file_chars": 706036,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_2f91af09",
+      "sources": 515,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "23fffa990fa92a5674b12a0e9ad33bfe1c1912caebde8f5973348bb0d321a408",
+      "file_sha256": "6ad2ad1ef39db992145e3de0b719e948dee10bafc6aec46e78d93abf2865715b",
+      "file_chars": 729138,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_31ff4165",
+      "sources": 457,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9b766fe1b4fab0c7fbc3e9f5ecc00ec50ce1ed898265d8c076b476a83fa610d5",
+      "file_sha256": "7f5fc4e38986d1417dbd1607fbb8f1e9df23e3ea8858bcb58c763062823c1694",
+      "file_chars": 687627,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_372c3eed",
+      "sources": 465,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "29732a6982fc1f183f79caa698ef50cf2869662dda31c13049c00ebfa241e099",
+      "file_sha256": "fa12d38200398ec55876366ab4aa65409b4215c522570d4720d9413d16b4fa8e",
+      "file_chars": 705417,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_372c3eed_abs",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "990d40c9601c9d2de7a39ce2cceb6597acc916fdb65340ddc68e9db0df54ce35",
+      "file_sha256": "f130fc14a30441024e07eedae3dbb2d9850e4b6f2ec4ec691bbbbed6af23fbf5",
+      "file_chars": 716917,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_385a5000",
+      "sources": 301,
+      "future_excluded": 192,
+      "proposals": 8,
+      "dossier_sha256": "af2e76c65e902382a6428cf2de9ac399fc2c75a86e704906b7611006fb7499e9",
+      "file_sha256": "0412618fa465ff7a1af6510c0a26e10cb81c92786567634edf51ac78568737d3",
+      "file_chars": 451556,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_45189cb4",
+      "sources": 501,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "c5954b3876eafc3fdcd367cfa1fb82762ae3645126395260ae32bbba7c7c2feb",
+      "file_sha256": "cc9ac260f82b08ee7e8f31b30cb3fbf856c6195a6e92d9f4d56ac5c858b8c28a",
+      "file_chars": 713266,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_468eb063",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b017fd3fa7f6003e5b08cf56ac2519a610c2fda2f9198dbee1651e174a70d4f7",
+      "file_sha256": "df7320a7bcb9630b30e9a7605465e7cd604a392e8f2645826048b0af3ff1b876",
+      "file_chars": 694252,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_468eb064",
+      "sources": 460,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "03a4ad2f7207355704ee6cbaf23c806a8f2dcd3a52930321b56e33211b55a928",
+      "file_sha256": "b6f7d8ae6372f0380be48c0bd3590a749272d863882a545427d285e8bdbef3c9",
+      "file_chars": 699828,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_483dd43c",
+      "sources": 243,
+      "future_excluded": 289,
+      "proposals": 8,
+      "dossier_sha256": "76bb743eef20c3ba32b3f680a92770566e131ed05886c64136f426c9e229e1d4",
+      "file_sha256": "c153fe18be6ca1ddf22ffa64ee0eb0f2b21cd7b15a2aebe0ddc29db94098f13c",
+      "file_chars": 374649,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_4929293a",
+      "sources": 486,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "40b29ba3b018bb2b721dfb120d44e46f3ffebdf3d38c44887e58cb49b1ecb057",
+      "file_sha256": "bf13c8406fcc8f7fce2ba1f7f87c56b53b4867c0279f252111e52afc94a94c0b",
+      "file_chars": 728538,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_4929293b",
+      "sources": 469,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fe01b10a4d736414fb1e5b81592ac9fe7adaaf2ddb6998f9d7888e3b23126af8",
+      "file_sha256": "5774291234e83e8f7899169afee695d4677b4388bac606767d80eb98dc2f3198",
+      "file_chars": 718144,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_4cd9eba1",
+      "sources": 24,
+      "future_excluded": 476,
+      "proposals": 8,
+      "dossier_sha256": "72d06f40d2177b6683945da1154295f01c72b4312a76df7ddb79229ddb889d29",
+      "file_sha256": "c0472de02bcc7cab0a505a5669c0d15df0ff6cdee525e1cbc49e5d79e9a97d69",
+      "file_chars": 115862,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_4edbafa2",
+      "sources": 46,
+      "future_excluded": 414,
+      "proposals": 8,
+      "dossier_sha256": "da334a997c9079929343a3b2d00c7e85b2eda119bd6c7383323f7b7f509c6a37",
+      "file_sha256": "ce1075dfd6116345867c750763fe3225658fec6c47d0806110520a2c66415029",
+      "file_chars": 153371,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_4ef30696",
+      "sources": 520,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "638986650406ff9aacf3679548e875a9220a7a744f6760c0809f3508389875e8",
+      "file_sha256": "a1bcc65bf6df634d9bb8902f47c0073dfc19943648b3e1416430a302f9d1016e",
+      "file_chars": 720770,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_4fc4f797",
+      "sources": 472,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2144491139553e1a5c9c9f19009aefb50840873dc4e4ff9b5c24983aeab86391",
+      "file_sha256": "4f7437ca9dec840863d4135e74c820d9f95a86f0f38f57a31db8831a79623c58",
+      "file_chars": 695590,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_5438fa52",
+      "sources": 346,
+      "future_excluded": 167,
+      "proposals": 8,
+      "dossier_sha256": "f6d161e1373377806708f2a42bb2eefc320d1e44730f309386fdc372307dd992",
+      "file_sha256": "b1cc76f650060a4087fc5faccf20c50043f4ca083560ba01ea3a7fb027b35205",
+      "file_chars": 495997,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_5501fe77",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "39a1d23bfbe5c2e5cf913d64d9007becee449f895e232dc7d681eb1e8ed99f7b",
+      "file_sha256": "190a198d6915916349ff8fd295443e027eb316754dc293d57e6a72721c5e5dc9",
+      "file_chars": 737860,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_59149c77",
+      "sources": 484,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d4023351ad69c7f7dae493a62f603cf9eb788db9cb91b16395c43550650e1189",
+      "file_sha256": "db3a0d87635ba5e23017386527ad42641ac3c66245e578f27fefc8f6d73cb3eb",
+      "file_chars": 722295,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_59149c78",
+      "sources": 497,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "4e50e4fd07ee40138a8b1c407b2f1fd02008a5cd57fee29e9b9b7609f2ea9015",
+      "file_sha256": "ababdc620ee34e9dabfc040edd20ea0f774f1ff8442a54d89d12aa4875d1c973",
+      "file_chars": 719319,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_59c863d7",
+      "sources": 481,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b98870c88693e7bfdb8e71aaf58491de682650626bb86ec837edb3d6e025402d",
+      "file_sha256": "c09b157ea513862446b5d2a71d6cee587bf5bac6386fb3e4cd7906eb8e198f96",
+      "file_chars": 707772,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_5dcc0aab",
+      "sources": 253,
+      "future_excluded": 294,
+      "proposals": 8,
+      "dossier_sha256": "8d6911a8c59c553a20f0f207269f1fc85f7d3512675f562668d01a2f19043e8c",
+      "file_sha256": "6040a41f9e3224b08291e76d29f88d963f642975aeeb68ea59769c5786aa4cb8",
+      "file_chars": 372342,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_61e13b3c",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "265c4dd4ded6d0c293a4aa2e6b51ef857e02b9d752179efa853109e510061999",
+      "file_sha256": "0805de4599ce3c2d8b47815af22e522860b67095f3e75a8d58d4dfda33481c9a",
+      "file_chars": 704936,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_65aabe59",
+      "sources": 243,
+      "future_excluded": 209,
+      "proposals": 8,
+      "dossier_sha256": "b0dc8f516708af783c999f056bab3d8f871ea538b6129c3a043785931d6f977e",
+      "file_sha256": "969f667afc20479cd6fd0df8197bfdfde4f34d7090c2cf9c79dd8ff9b80b5a0f",
+      "file_chars": 431294,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_68e94287",
+      "sources": 491,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "1c0db31ee1200a45da76c755d421f46fec508511314d45268b29091a5e4225af",
+      "file_sha256": "4ea4db679a1d9bf18a2bb1b6ae38b30928855191ac414b2e96100e14d88f2060",
+      "file_chars": 712364,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_68e94288",
+      "sources": 459,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b9313a23b8cb260dec10a01f0a77a607ac375043a492dec2dfd22e18627d4f1b",
+      "file_sha256": "6bf60cb41cd0a060c909a45a1ab7d64213879bcdd80ae422c190f62db0c29ca6",
+      "file_chars": 692542,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_6dc9b45b",
+      "sources": 565,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7ff0602f6fd69a1f6d365a78df62b3a78398a95735d95c6278dab7e20a7ad7a6",
+      "file_sha256": "37180abc06bcb0f25c4ff97c8c80b50be1e226982a326d90b1b7ed3cfb75cd16",
+      "file_chars": 717906,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_6ed717ea",
+      "sources": 128,
+      "future_excluded": 361,
+      "proposals": 8,
+      "dossier_sha256": "188dfb5c45281177538b5753d4620ae933c11ceb15b79b1b05596b2f65701d9f",
+      "file_sha256": "f7ba93fc74272c25f0e1a6fda7a95bbd07bd8adc74253f025cad83bb2971f052",
+      "file_chars": 265799,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_70e84552",
+      "sources": 207,
+      "future_excluded": 260,
+      "proposals": 8,
+      "dossier_sha256": "5cc9cd10f4d30d004a83364185161ca31e0fcc8f4100d827902e07f56b41a721",
+      "file_sha256": "329908632485688e9c54ae811d7b090ef8f8c75c16ce5827d2231c25eed56bd3",
+      "file_chars": 366841,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_70e84552_abs",
+      "sources": 234,
+      "future_excluded": 286,
+      "proposals": 8,
+      "dossier_sha256": "992019e3ccd73d6062197cb7afa9fd1af00e7c5c9909e354f57f3dfd4d408357",
+      "file_sha256": "f6b6897759e92dde5d50e28d82180fba54ddb0b0343861c0a15a19a4985579fc",
+      "file_chars": 361825,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_731e37d7",
+      "sources": 525,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6b3584725f91fe1a671224f837d485dfafc07e7f430ba1527d6734c1e957a136",
+      "file_sha256": "bc56f174c088ba5af84a184bb3647f57b52eaabce383bbae722e6ebd20b83d03",
+      "file_chars": 716050,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_74aed68e",
+      "sources": 480,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "cfdc68c051d0ed074d03ad1fa0704693be6f268da05c5bcc5f3666ade495e997",
+      "file_sha256": "df5cafafcfc55499bc84a5afb03ffafc59baa94013b96d163176ac2d1e5fbe58",
+      "file_chars": 708882,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_76048e76",
+      "sources": 125,
+      "future_excluded": 357,
+      "proposals": 8,
+      "dossier_sha256": "e535c09315127fae7e330a097a9398b68af02b564765aa594cacc609d736af3b",
+      "file_sha256": "76730dfd9cdcf1c8233fc9863f58a62129dac9a871c0b1cb48c5f398ec358144",
+      "file_chars": 252931,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_78cf46a3",
+      "sources": 276,
+      "future_excluded": 229,
+      "proposals": 8,
+      "dossier_sha256": "0037ef52db801cf179039fb2417d9a69e5f0508aa5cdccd3e21ecc81d2ccad4d",
+      "file_sha256": "90e9ea8d6c9a01bb497cfb6e9a4e2060dbe952b3e045840e40f479baf00e7474",
+      "file_chars": 413014,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7a0daae1",
+      "sources": 561,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7f5d0d952cf5339337ab08c6249dbd29a3ce1a7688dea2c3c8a3079afd87a5a6",
+      "file_sha256": "329a83152585bf0629a2df8339ce965eed2b9f451d902fe0afca2f58d3993d88",
+      "file_chars": 739788,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7abb270c",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3bee88d4830984fcc3192e15dee91b57fc17ac77907401781b9eb5d0d0725dc0",
+      "file_sha256": "702e8cca4233a781ff40977341517dcdc71550895c6d566c661c9d1b42497146",
+      "file_chars": 695818,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7bc6cf22",
+      "sources": 519,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "975871cfd239f3ed6496e3fc30e1bf223839cd8c8045a6309f26571937946837",
+      "file_sha256": "ef8daf120576da253d85f02e181e9e01e0f010a027c21c7c9b663de02058aef8",
+      "file_chars": 726984,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7ca326fa",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3ca7ac12acf5a634102b2bfcfe0f00c6af427ecde6a9a3e195c39567f4886484",
+      "file_sha256": "6322f28aa023533121ab95cbac9d90e07d25a0a510a02914eeac3211256a4dcc",
+      "file_chars": 712264,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7ddcf75f",
+      "sources": 480,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "2effbd493ccf93f8c22d4e87b25f14aa85fa872a5ab66abc37b588c62686310b",
+      "file_sha256": "a85756bd5dcbe6016517a78039d35455f09707b8b274841ccec5549800a19452",
+      "file_chars": 699296,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7de946e7",
+      "sources": 421,
+      "future_excluded": 112,
+      "proposals": 8,
+      "dossier_sha256": "f8396e5dbd4ee5bcbfd96b7e7f24152f4e42662f0b93b93a2cafa1ba31f07b0b",
+      "file_sha256": "a2a2206dc22a2980d62b1db9d88409f3d92609a7ae43038ec51f4fc0967b9d82",
+      "file_chars": 594740,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7f6b06db",
+      "sources": 558,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "8a22fe358cd5773978973ecff737bc319f21cef50078cd3751a6116e43b6df40",
+      "file_sha256": "4342b9b8b0f8a613257779cb87dd8f9f91f3dab106b60ff1a9a63f116fa1a5b9",
+      "file_chars": 711020,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_7fce9456",
+      "sources": 497,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a51179deaab748dfa99e4c38552eb2d7106254a31ec003e94ed1cd7b7b10bb3d",
+      "file_sha256": "5eb4204c3d3c8b1e176d721e0fa49000d1267d8b47f294d2257c63c879f44dec",
+      "file_chars": 725854,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_8279ba02",
+      "sources": 489,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ebe35a1bf8b911a14f0b563c6d13f611898e1f7761c3512f9941d93b9b86050b",
+      "file_sha256": "73f328989a7d847a5f7e31e498cee4ac567c2bb7d42b4e9b06f6085ed70842c3",
+      "file_chars": 691141,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_8279ba03",
+      "sources": 500,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9e6596b0d0db07f7fba26f41dce91be58e9d5be0cead69f818222fcb065a1fe6",
+      "file_sha256": "d76f3b4ca9256dcff369e09a93b4efb80049618ffaf0a35724c97814828fd256",
+      "file_chars": 719226,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_85da3956",
+      "sources": 505,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "da186c1071285341a137af09f57f51e068fce7f05172dac72e059f6f710029f9",
+      "file_sha256": "8efbe7bd9607e3946c7e38a1597f21055e6b7d8e1d62b2213ebd11c65fc8c9a8",
+      "file_chars": 710621,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_88806d6e",
+      "sources": 432,
+      "future_excluded": 61,
+      "proposals": 8,
+      "dossier_sha256": "370ea83e67c786deca14ce2d37f5bd0b21c06227c13490aa5e14f7fcff3bb7fa",
+      "file_sha256": "59bb72f4f2df35884c698d69e7c7f349727d8c10707903145534135222eb2fe2",
+      "file_chars": 658189,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_8c8961ae",
+      "sources": 246,
+      "future_excluded": 239,
+      "proposals": 8,
+      "dossier_sha256": "a47f84234bea115c8cbfa81a4235b055f58f21f35b9a6fb3eec3464b9afc4d02",
+      "file_sha256": "55787adaeec2db4d603c32d9261175b67eff3fde72c53bcf730e0514cd547286",
+      "file_chars": 394889,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_8e165409",
+      "sources": 480,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3c172ac47b2fad8badf37d1c3a54ee547d32e06b305166991839852dc4085ef9",
+      "file_sha256": "6c1a9dbfc3cd9d738089dd0f11636793f217daac018050b519ab00e7318130fd",
+      "file_chars": 698145,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_93159ced",
+      "sources": 345,
+      "future_excluded": 99,
+      "proposals": 8,
+      "dossier_sha256": "1503ca145a6431e050d800ec9f680e7602dba6a2207312b464162b86d92b252b",
+      "file_sha256": "dc9566b4c55ce6ab9e68c1716e1addbd46377e68f2f9f5efb782d476f16ad293",
+      "file_chars": 574036,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_93159ced_abs",
+      "sources": 474,
+      "future_excluded": 134,
+      "proposals": 8,
+      "dossier_sha256": "99e2772da91625a3b374c13e060fb394509f1f53cc25e80b8043656a2608a89e",
+      "file_sha256": "1a3779aff8124cbf100fef341ebd59c2480ba2eb0eab8cdb01a71973625d79c0",
+      "file_chars": 548884,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_93f6379c",
+      "sources": 186,
+      "future_excluded": 259,
+      "proposals": 8,
+      "dossier_sha256": "b9c2549491172f2e21fe02792a835786e5a295c85b9622d92174f6350f078b60",
+      "file_sha256": "4d44a5d58d1de79afab37c77c42b3b7012f112bd65e8bf5697b06a605cd17bab",
+      "file_chars": 358322,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_98f46fc6",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "51546242d34bb4391363b380931afdc0fddfe9415b01bcde416f3b87c0c00198",
+      "file_sha256": "d4242e3f27c9e975180b5bf86cb2dae1c6fd1609a2ed5d51d82ee0038693c3e2",
+      "file_chars": 724806,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_9a159967",
+      "sources": 84,
+      "future_excluded": 386,
+      "proposals": 8,
+      "dossier_sha256": "52086c5b423171ee156c9b1fd2075c33bad556188e82f470602808d27b53febe",
+      "file_sha256": "a5e6eef9bf8de362039683396b7d10c8bd6e256784b4003d91a78b48b8ef2eb0",
+      "file_chars": 193763,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_a1b77f9c",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "40c709d86c1c4de5ef452504408703b83b4c2acb828605019415a0fced1583e1",
+      "file_sha256": "f0c8927957c6a4180e75c43010ae5bed7a0fbfe8bfbdfd1a72915bc8f50bc11b",
+      "file_chars": 723185,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_a2d1d1f6",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a79b656342b0a3ee9d73cccd1c90b10a55b25611d872c00f1427fd54717cbe7d",
+      "file_sha256": "11567ebda7ce8e00363ac054940767a530f7afd8eb1b127b32bac56f471ebcc3",
+      "file_chars": 714714,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_a56e767c",
+      "sources": 477,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "a87759de1fc282cfbffb13f10381437eabd0fb08b13b9b94b1efc1acc349b885",
+      "file_sha256": "b8a5a3481534d942a7efacbf55cec3ff24fb07e76e81f973f27aeb622e1c40e0",
+      "file_chars": 709944,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "sources": 481,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "042b6888d64564a6f3c23c5df8e0c7a4e4f9e9702bce9eb9327c413fbd04f274",
+      "file_sha256": "347b40bf63fc4932c6d27d565fd2e6fa348ae8b14b7d92a62fd928c838f5dad2",
+      "file_chars": 709859,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_af6db32f",
+      "sources": 476,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "081888549f87cd83bfb741b395299e4ab8d50ae6be52a7763f5c74b026bad541",
+      "file_sha256": "aa713a2f47f218590961959e4f6ceaed8920bd57a45eceb259a615b661f22ab9",
+      "file_chars": 711456,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_b0863698",
+      "sources": 457,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "32b55204ce7ba0ba0eb0030233cea1c16f6244ca1d80876f14f4e1410f65d168",
+      "file_sha256": "68538f779512593f45b466cb23a744503a6bfba0a8cc1e955683d343620fcb2d",
+      "file_chars": 710185,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_b4a80587",
+      "sources": 73,
+      "future_excluded": 469,
+      "proposals": 8,
+      "dossier_sha256": "2cd34c897a076458fc0acfa43c3220f1605baa66f7f9282af1045562b96a9616",
+      "file_sha256": "024075b6ed5723585cff1b9166c8ee1811828dbfe4d66a7fe01b61be2de1f830",
+      "file_chars": 176445,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_b5700ca0",
+      "sources": 500,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "7477b4e0430f7d33c06cb292e70e1ca62926d3a08180a5b644542ecc879c6edf",
+      "file_sha256": "e247e020cad74790d3f3bcc7996e3688cbe7d749bd278485c5d251825e33b8e6",
+      "file_chars": 718178,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_b5700ca9",
+      "sources": 537,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "94deeb9707a52e1d88beb507a3da5d3334113d721ecca6508d91cc71b73fb8b2",
+      "file_sha256": "92f4312c6587e1717d97d9d885f425118c0c8cbd3701093b568ee9d50b7cdce7",
+      "file_chars": 719126,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_c27434e8",
+      "sources": 446,
+      "future_excluded": 54,
+      "proposals": 8,
+      "dossier_sha256": "59e42f574ecb74d0198c155c14c2ce110844abc4990504500ede305f104653ab",
+      "file_sha256": "4c9574c5911732a5bcd5ac6cbf71a85633488c2af9870bf54a1c04f1ecc1f261",
+      "file_chars": 653371,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_c27434e8_abs",
+      "sources": 290,
+      "future_excluded": 192,
+      "proposals": 8,
+      "dossier_sha256": "8209ac18900231e8b4ca60818a70169bbd72e2464e6cecbbdbc30ca6c16d8da5",
+      "file_sha256": "61352f2e0dd5c548eec909ad7a321d9c29ca60c62032efbba350478b00d7ac98",
+      "file_chars": 502815,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_cd90e484",
+      "sources": 140,
+      "future_excluded": 368,
+      "proposals": 8,
+      "dossier_sha256": "ad31ffa0a5d48dfcaf23a16eb2c351427b2a8de487d61644ae6b894f97732167",
+      "file_sha256": "9eae5da89ed97923c9f2ce3d148cabafdbfaecbb897d9e80d819c3e9ac430c3a",
+      "file_chars": 247427,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_d12ceb0e",
+      "sources": 477,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d6505cba576eca5a53750112be520176b6c447f67be41786111ff70ae9bbad35",
+      "file_sha256": "b176d02c6eade5b5d9d248e2cd213d61cc70b6b75b173e1824b70d19c82fda46",
+      "file_chars": 697394,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_d31cdae3",
+      "sources": 336,
+      "future_excluded": 144,
+      "proposals": 8,
+      "dossier_sha256": "6ed863f92b9cde4a8e34dcab371a0ec6028e29dcca3350675cf9e64339e8851c",
+      "file_sha256": "004c408debd79b9d773491dae213f2d568bb2e76fceeea18752a64b4febd8254",
+      "file_chars": 514046,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_d6585ce8",
+      "sources": 491,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "cd3fc2e1080b6742bb0a99fbee057a81237f223da9c4d50e735b61ced569afb1",
+      "file_sha256": "4dc3fb61a2488f8bd0dac07e03d886d818e70245b3909a152dd36bbeb430969b",
+      "file_chars": 706379,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_d6585ce9",
+      "sources": 438,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "74e64c7406e21a410268643cc3f2ae51ab8ee21bc3574914331668519407a36b",
+      "file_sha256": "98ab30b3dbc5200c7a504f528b81f0d7d21aed9727d0cb4b8798895823bfe3b9",
+      "file_chars": 687338,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_d84a3211",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "cb1b3c344b8c6e1a32d309c48af4cbfdf7b119b2cb5eefa3d68601c81a721b42",
+      "file_sha256": "e505942703f1131f7d2ffd58ad1953ebdd58965b5f3f4787f94373362bd366c3",
+      "file_chars": 712165,
+      "review_sample": true
+    },
+    {
+      "id": "gpt4_d9af6064",
+      "sources": 49,
+      "future_excluded": 485,
+      "proposals": 8,
+      "dossier_sha256": "70f1a3d1c9d21c67db3593b59124875da4d769c7279ed3ef16a70bfb1da9361c",
+      "file_sha256": "8c6ca7ff706faa940f69acc3d2cbb462aa516dcfec70aa8341bb4446d737893f",
+      "file_chars": 134490,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_e05b82a6",
+      "sources": 497,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "417c92509f64a99a08f86639ce127d511a7c4400614127556aa7644928cbcd23",
+      "file_sha256": "ea1e3738debff5f4b10fcc6e7b49a98d4b165a5b6a3cafe03d49b245c533e220",
+      "file_chars": 719095,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_e061b84f",
+      "sources": 467,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "b06179f03bc6d2743c4ca6e31474e77ad5d6d1bf991da4b4909488fafe731de8",
+      "file_sha256": "7c294748d10ce9dd2aa0b3e6ad3a1618007b5115727a59d2d08c08a1c0240c8f",
+      "file_chars": 686898,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_e061b84g",
+      "sources": 566,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "3a69a0e82e32896bb10a0b962cf27c45e0e4d0fd27ec91053055bde0f952063d",
+      "file_sha256": "76f1208822407107b2bf4eac546694900730385928e279d7c73e4cbaefbcb53b",
+      "file_chars": 734455,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_e072b769",
+      "sources": 444,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "d222994511e3ef28c22da5f9cf9618cc8fb4036c8d4b63fafb85e29ba4517faa",
+      "file_sha256": "bc7190c8f480d1fdeec7360ed237159ecb55c4b98ec8d72c2fd7ea20150a56c5",
+      "file_chars": 711300,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_e414231e",
+      "sources": 507,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "37f50334db12d1c06bf87249dbb8848768477f88c2aba08eb0a3b75c526624c5",
+      "file_sha256": "fc0fe0e90efb4f0c268f7c92c7516a11c99e8abbdf713d7ec90d78a0227a7b1e",
+      "file_chars": 722399,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_e414231f",
+      "sources": 490,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "0227c9544b2dc04448f77f2d53a19c2c84178591dae537bb52f9b0aaa7382f01",
+      "file_sha256": "eb30500abf2119154baba58279c96388463de64b7ec154d3faf796384991200a",
+      "file_chars": 707598,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_ec93e27f",
+      "sources": 516,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "9ca69cfa59f246eda3e2b4d19aff6bd193a28784c77051c16ae787deed7dc68c",
+      "file_sha256": "945f194c1acf9f3c64821b230cee95a5f5a8368416a41211e8387850cb32f2aa",
+      "file_chars": 723881,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_f2262a51",
+      "sources": 479,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6ff163c9fb6292742e4bf4ce1b86b2be983152ee231eff1a4d83ac395d578422",
+      "file_sha256": "a81ba5a3c1526d8f2492a057855a5151e5ff37098f149491f3fb8a035207b4f9",
+      "file_chars": 704501,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_f420262c",
+      "sources": 495,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "823403d446eb4db89d8f330daa4af5477cbe7018bcc51e2accbd7bbae651a5b9",
+      "file_sha256": "7c8c71ec63813e8adc502c222d1f21dd755c1ba72524922a9f199ddb3e3c560c",
+      "file_chars": 714721,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_f420262d",
+      "sources": 454,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6f3efbcb472122264b9c83f1b94b12a6ff5522e94d10bfde7b246edd45e95368",
+      "file_sha256": "271c91bcf772bbbb6341b914ef649fe7cd2e96fd91004854c2f966092495dd5f",
+      "file_chars": 700590,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_f49edff3",
+      "sources": 498,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "fc0c08e55d08f2ac77a5d7f73afd9318a2b1a5344d05b134feb9e30498f67281",
+      "file_sha256": "5e03a7248b431f5782fa5231e3eaddd167c1668147d526024e561afdd7731369",
+      "file_chars": 712009,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_fa19884c",
+      "sources": 507,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "ab78cee9c13e0ec453c8bcdcf592fdcf2f0cb7360f69e72b9797e3be1e3985a5",
+      "file_sha256": "63a980c5739e8e2d71ade2489c546331d46ee9c0a4e3361c73f9bcf829b72d86",
+      "file_chars": 700453,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_fa19884d",
+      "sources": 556,
+      "future_excluded": 0,
+      "proposals": 8,
+      "dossier_sha256": "6fae545a828096724f156089d3e2b3d27aab106417af4833ae1def12d5bcec51",
+      "file_sha256": "db1e689df1829602f151c5093a98194a74246ee7e21bfeabc098fb525ae7ba97",
+      "file_chars": 735189,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_fe651585",
+      "sources": 391,
+      "future_excluded": 80,
+      "proposals": 8,
+      "dossier_sha256": "087949b16ef71d7e7101832977ec3adf8382b219535defbd8fdca1da6966ca9b",
+      "file_sha256": "182f7561cab9d5ba6061cc17b324733bc1a501433046ca25e468116cdd1cd3f9",
+      "file_chars": 587290,
+      "review_sample": false
+    },
+    {
+      "id": "gpt4_fe651585_abs",
+      "sources": 50,
+      "future_excluded": 442,
+      "proposals": 8,
+      "dossier_sha256": "6a8930c90dd51fb9ff4fac47250807db53a56019db59fb0a526f2488d09a5339",
+      "file_sha256": "582bf3873764e82d5cd4647c6d4a813c74de1eca65c7b2ac8837155cd7fa1ed0",
+      "file_chars": 166206,
+      "review_sample": false
+    }
+  ],
+  "elapsed_seconds": 22.285363333998248
+}

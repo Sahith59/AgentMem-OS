@@ -1,0 +1,290 @@
+{
+  "status": "FOCUSED_SEMANTIC_SMOKE_REVIEW_ONLY",
+  "case_id": "852ce960",
+  "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
+  "as_of": "2023-12-18T04:17:00",
+  "dossier_sha256": "096ed13288a9a651b2f838f3edb0d33dae417ff4ec3f83c4d3920e299088bce6",
+  "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+  "eligible_source_rows_available": 396,
+  "proposal_count": 8,
+  "review_depth": {
+    "proposed_turns_read_full": 8,
+    "eligible_source_rows_read_full": 0,
+    "eligible_source_rows_keyword_filtered": "Wells Fargo / pre-approved / mortgage yielded six source rows; their relevant spans and roles were inspected, with two assistant amount-bearing rows used as supporting context",
+    "baseline": "searched full baseline for Wells Fargo, pre-approved, mortgage, $350,000, $400,000, and checked exact full-body presence for all eight proposals",
+    "limits": "No full semantic reading of all 396 eligible sources; no grades, reference answers, or answer model calls. Baseline is legacy mixed evidence, not an identity or truth oracle."
+  },
+  "classification_counts": {
+    "duplicate_info": 2,
+    "potentially_new": 0,
+    "irrelevant": 6,
+    "unresolved": 0
+  },
+  "proposals": [
+    {
+      "rank": 0,
+      "proposal_id": "review-0",
+      "source_id": "6336793d11130d3fbc5b7147",
+      "source_sha256": "73fa26b855ae592ac16b67bd8afe7a234ddfc1e3b68a1a0d427bba28701c6115",
+      "source_role": "user",
+      "source_observed_at": "2023-08-11T00:01:00",
+      "source_session": "lme-session-a6fe384fa8f49b7449b7dc05a977dcd28ed655ad164e3a72d93a841f3a19ab40",
+      "source_position": 2,
+      "source_text": "[2023/08/11 (Fri) 00:01] I'm actually buying a $325,000 house, and I got pre-approved for $350,000 from Wells Fargo. What would be the estimated closing costs for my situation?",
+      "source_offset": [
+        0,
+        176
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        11089,
+        11265
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "duplicate_info",
+      "reason": "Direct Aug 11 user statement of $350,000; exact full body and the amount already occur in the baseline. A later Nov 30 user statement gives $400,000, so this older amount alone cannot settle which approval the question references.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 1,
+      "proposal_id": "review-1",
+      "source_id": "0b85cc3d2987b395fbfafb4a",
+      "source_sha256": "3f0ed2675cb52217d3e7be251e9676027bdc342ee0522f3b504a3db9b0affaf5",
+      "source_role": "user",
+      "source_observed_at": "2023-11-01T08:51:00",
+      "source_session": "lme-session-8f7e8553d64e0c9b7dd8cad2a9b29da8e921298b1f689d279f369165c89109b9",
+      "source_position": 5,
+      "source_text": "[2023/11/01 (Wed) 08:51] Thanks, this conversation was super helpful, and I am now content!",
+      "source_offset": [
+        0,
+        91
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        24336,
+        24427
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "irrelevant",
+      "reason": "Closing of an unrelated conversation; no Wells Fargo or approval amount.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 2,
+      "proposal_id": "review-2",
+      "source_id": "0a81d1a3c8d549a9ed9b5342",
+      "source_sha256": "095a90ff81e68a7fae7dbadd49ba1607b67466f421e84deeb8172485fc1052d4",
+      "source_role": "user",
+      "source_observed_at": "2023-11-30T00:36:00",
+      "source_session": "lme-session-dcd9d2898afe2e8a969a7dc8aabeb068024a4988f7d2b89cf348984bc137d85e",
+      "source_position": 0,
+      "source_text": "[2023/11/30 (Thu) 00:36] I'm planning to move into my new home soon and I need to set up cable and TV services. Can you recommend some providers in my area and their prices? By the way, I'm really looking forward to finally owning a home, it's been a long process, but it'll be worth it to have a backyard like the one I'll have - remember when I got pre-approved for $400,000 from Wells Fargo?",
+      "source_offset": [
+        0,
+        394
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        28650,
+        29044
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "duplicate_info",
+      "reason": "Direct Nov 30 user reminder of $400,000 from Wells Fargo; exact full body and a same-amount baseline fact already occur in the baseline. The older $350,000 statement remains a conflict to interpret.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 3,
+      "proposal_id": "review-3",
+      "source_id": "eb8e9c8a6b3df6900ce80f79",
+      "source_sha256": "ff540d047e2f9d7d9e0090557d9f7c9dd12708f71e3d1aa662870f43c3b85c52",
+      "source_role": "user",
+      "source_observed_at": "2023-11-20T07:10:00",
+      "source_session": "lme-session-0156bf4191201716bb9705cac673c69b640072342e04a3a8647cf60526afb900",
+      "source_position": 8,
+      "source_text": "[2023/11/20 (Mon) 07:10] I was thinking of using Kayak to compare prices on hotels, do you think that's a good idea?",
+      "source_offset": [
+        0,
+        116
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        25834,
+        25950
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "irrelevant",
+      "reason": "Hotel-price comparison question; no mortgage approval fact.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 4,
+      "proposal_id": "review-4",
+      "source_id": "f52bf33a8256d5d1dc4dab46",
+      "source_sha256": "64b985a832946debd3bf608851b961f5d22f834a52f6b0c8fad4023bdf335874",
+      "source_role": "user",
+      "source_observed_at": "2023-10-27T18:02:00",
+      "source_session": "lme-session-4cbfc52691bca40b90063290c92d3ee2886d7ee2f7b5dcad9b07e84d2af1d280",
+      "source_position": 8,
+      "source_text": "[2023/10/27 (Fri) 18:02] I think I got cut off! It seems like my previous response was truncated. I apologize for the inconvenience. Here is the rest of the response:\n\n* Body: \"I'm particularly drawn to [Company Name]'s commitment to using data to drive business decisions. As a certified Data Analyst, I understand the importance of data quality, data governance, and effective communication of insights to stakeholders. I'm excited to bring my skills and experience to a team that shares my passion for data analysis.\"\n* Closing: \"Thank you for considering my application. I'm looking forward to discussing my qualifications further and learning more about the Data Analyst role at [Company Name].\"\n\nRemember to customize your application materials to the specific company and position, and don't hesitate to reach out if you have any questions or need further guidance!",
+      "source_offset": [
+        0,
+        872
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        20723,
+        21595
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "irrelevant",
+      "reason": "Data Analyst application advice text; no mortgage approval fact.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 5,
+      "proposal_id": "review-5",
+      "source_id": "7a1fa7fcccec177c0f6d9b92",
+      "source_sha256": "6755e4d9890aeb79519e14b4c6c10a158b7398fc0189105c45289491685f8073",
+      "source_role": "user",
+      "source_observed_at": "2023-08-17T02:26:00",
+      "source_session": "lme-session-bb83dcd710af3c20ec2f5bc00c6308e9096d868ca0a602842dd664a89ecdd327",
+      "source_position": 0,
+      "source_text": "[2023/08/17 (Thu) 02:26] I'm planning to participate in another charity cycling event soon and I was wondering if you could give me some tips on how to prepare for it, especially with training and fundraising. By the way, I recently participated in a similar event, \"Ride for a Reason\" on March 25th, which had around 200 participants and was a great experience.",
+      "source_offset": [
+        0,
+        362
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        11270,
+        11632
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "irrelevant",
+      "reason": "Charity cycling event history; no mortgage approval fact.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 6,
+      "proposal_id": "review-6",
+      "source_id": "8994bb58fa8a43b6b2b06670",
+      "source_sha256": "cf61665065e026e67694fb722dc1da572bebcac8e96bb3ed5a676835b255f7e9",
+      "source_role": "user",
+      "source_observed_at": "2023-08-11T00:01:00",
+      "source_session": "lme-session-a6fe384fa8f49b7449b7dc05a977dcd28ed655ad164e3a72d93a841f3a19ab40",
+      "source_position": 10,
+      "source_text": "[2023/08/11 (Fri) 00:01] Can you help me understand how much I'll need to pay each month for my mortgage payment, property taxes, and insurance?",
+      "source_offset": [
+        0,
+        144
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": [
+        36950,
+        37094
+      ],
+      "baseline_full_body_literal_present": true,
+      "classification": "irrelevant",
+      "reason": "Mortgage-payment estimate request; establishes a mortgage topic but states no approval amount.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    },
+    {
+      "rank": 7,
+      "proposal_id": "review-7",
+      "source_id": "e2d7be32c62cfc345d21323a",
+      "source_sha256": "608b80c74f20653878757ecfb6a77475ed98de6be02442bd7ea31bf55d26b384",
+      "source_role": "user",
+      "source_observed_at": "2023-11-29T08:11:00",
+      "source_session": "lme-session-e15d50f2f79cf452ca4ca7be8444d551493c81102b6f5a058159323286126640",
+      "source_position": 0,
+      "source_text": "[2023/11/29 (Wed) 08:11] I'm thinking of planning a road trip soon and I want to make sure my car is in good condition. Can you help me with some tips on how to prepare my vehicle for a long drive? By the way, I recently got my car serviced at the dealership on the 15th of last month, and they replaced my brake pads, which cost around $350.",
+      "source_offset": [
+        0,
+        342
+      ],
+      "baseline_sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "baseline_full_body_offset": null,
+      "baseline_full_body_literal_present": false,
+      "classification": "irrelevant",
+      "reason": "A new-to-baseline car brake-pad cost of about $350, unrelated to the Wells Fargo mortgage approval. Literal body absence does not make it useful new answer information.",
+      "classification_scope": "PROPOSAL_TURN_VS_INSPECTED_BASELINE_AND_FILTERED_ELIGIBLE_SOURCES_ONLY"
+    }
+  ],
+  "additional_witnesses": [
+    {
+      "container": "baseline",
+      "source_id": null,
+      "sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "offset": [
+        1186,
+        1331
+      ],
+      "text": "The user was pre-approved for a $350,000 mortgage from Wells Fargo.  [UPDATED 2023/11/30: The user was pre-approved for $400,000 by Wells Fargo.]"
+    },
+    {
+      "container": "baseline",
+      "source_id": null,
+      "sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "offset": [
+        1276,
+        1330
+      ],
+      "text": "The user was pre-approved for $400,000 by Wells Fargo."
+    },
+    {
+      "container": "baseline",
+      "source_id": null,
+      "sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "offset": [
+        11114,
+        11205
+      ],
+      "text": "I'm actually buying a $325,000 house, and I got pre-approved for $350,000 from Wells Fargo."
+    },
+    {
+      "container": "baseline",
+      "source_id": null,
+      "sha256": "c67c722a311554a4d9e857bda4ad3c103dcb16cf177492cf13c2e8b2ce30810f",
+      "offset": [
+        28981,
+        29044
+      ],
+      "text": "remember when I got pre-approved for $400,000 from Wells Fargo?"
+    },
+    {
+      "container": "source",
+      "source_id": "9559d10cfa5a14f579b5f07c",
+      "sha256": "4c43690e0dd5ee777d2ddc360c93ba87bf062028ce8884ebb4dbb7f16e2452ff",
+      "offset": [
+        64,
+        144
+      ],
+      "text": "Based on your pre-approval amount of $350,000 and the purchase price of $325,000"
+    },
+    {
+      "container": "source",
+      "source_id": "c07af98c13a6f139e8f18f13",
+      "sha256": "44c571739b4055702b09ce03fe33ef5ad33d117472502e3371f6a22bb666cf2d",
+      "offset": [
+        122,
+        168
+      ],
+      "text": "Based on your pre-approval for a $350,000 loan"
+    },
+    {
+      "container": "source",
+      "source_id": "0a81d1a3c8d549a9ed9b5342",
+      "sha256": "095a90ff81e68a7fae7dbadd49ba1607b67466f421e84deeb8172485fc1052d4",
+      "offset": [
+        331,
+        394
+      ],
+      "text": "remember when I got pre-approved for $400,000 from Wells Fargo?"
+    }
+  ],
+  "interpretation": "The two amount-bearing proposed user turns repeat facts already printed in the baseline. They contain different amounts at different dates. This review does not decide which amount the question intends, whether approvals refer to one evolving loan, or whether an answerer would resolve the conflict. The other six proposed turns add no explicit Wells Fargo approval amount. The car cost is literal-new but answer-irrelevant.",
+  "semantic_completeness": "NOT_CERTIFIED",
+  "answer_path_eligible": false,
+  "paid_run_ready": false
+}

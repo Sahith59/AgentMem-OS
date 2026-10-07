@@ -1,0 +1,15 @@
+{
+  "focused_tests": 83,
+  "new_dossier_tests": 32,
+  "command_scope": [
+    "tests/test_source_unit_review.py",
+    "tests/test_source_unit_compiler.py",
+    "tests/test_evidence_packet.py"
+  ],
+  "pure_test_invocation": "Plugin/conftest disabled; no DB/network modules in chosen tests",
+  "warning": "Expected unknown asyncio_mode because plugins disabled; all selected tests synchronous",
+  "ruff_new_files": "PASS",
+  "diff_check": "PASS",
+  "paid_calls": 0,
+  "new_answers": 0
+}

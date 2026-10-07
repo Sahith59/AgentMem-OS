@@ -1,0 +1,19 @@
+{
+  "schema": "source-review-public-evidence-v1",
+  "files_sha256": {
+    "POLICY.md": "90adc95e3ffcebaa409677535e782855f6502d97b184249c2db96b0074017990",
+    "REPORT.md": "55cb7465f9d6bd45df00cb28c9fa30223ab3a39514e775a43d5545e69735ab16",
+    "PARALLEL_PLAN.md": "e5cbb5b6ffe11635134ba4086fe7c05172acf464540358fee012b5d08ab30d9e",
+    "audit.py": "338c1ce90503e6b2e4980651f948d4cbdbd0bcf1a77eda40ffadc875a1534cb7",
+    "freeze.json": "79243059b9c33dffeed3db43c33ceccfc35ad1fc60c4755d987b1feeaa295885",
+    "audit.json": "f0f2357204a2a161e2f937fa4d73b5f889c3fa256cf21ad82f5ad5444245e896",
+    "validation.json": "d235e667ce8936e6f02a0771051432f1facc08aafc7a0d32a8d8d24cd6343838",
+    "independent-verification.json": "c17115826afddd31e87abc9c2e993aaaaf399046fe4a3aeb6f7a4e21905b5960",
+    "review-60bf93ed.json": "f6d326863832f86520a5c853dad672bfb7322c7359369ca9c6c5f77d4df0ed43",
+    "review-852ce960.json": "b606a655aed9abf0d154ef70e23eaa019f257dc642dca9c593472a5033657d43",
+    "review-gpt4_d84a3211.json": "7349338023b39892c2d09ec2f9f54a140c096febcf77a8be963c1e8867d7cd67",
+    "sarvam-first-five-draft.json": "2265a8eb06f3cfdda402f3fe9b9a1ca92831b3e4e006ecf1b73d8423a273cbdb",
+    "sarvam-first-five-evaluator-only.json": "fa02346830ea5ffd26c32c09aa52a03638028e54b701e89242da994b6f134518"
+  },
+  "local_only": "All500fullreviewdossiers; hashes andcounts in audit.json. Frozen runtime/hit records remain in prior memory. Scripts require original memory layout. No new source selection or answer output."
+}
