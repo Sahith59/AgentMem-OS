@@ -1,0 +1,59 @@
+{
+  "status": "REPRODUCED_AND_FIXED_OPT_IN",
+  "input_chunks": [
+    "[2024/02/01] I bought the red bike, only after the refund. RANK_ZERO_NEW_FACT.",
+    "[2020/01/01] LOW_RANK_OLD_FACT older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. "
+  ],
+  "token_budget": 60,
+  "legacy_section": "<[SEMANTIC MEMORY]>\n[2020/01/01] LOW_RANK_OLD_FACT older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler. older filler.\n</[SEMANTIC MEMORY]>",
+  "candidate_section": "<[SEMANTIC MEMORY]>\n[2024/02/01] I bought the red bike, only after the refund. RANK_ZERO_NEW_FACT.\n</[SEMANTIC MEMORY]>",
+  "legacy_contains_complete_rank0": false,
+  "candidate_contains_complete_rank0": true,
+  "candidate_tokens": 38,
+  "candidate_chars": 119,
+  "candidate_receipt": {
+    "schema": "whole-ranked-chunk-packing-v1",
+    "policy": "whole_rank_v1",
+    "input_sha256": [
+      "2aaa90608a0c0651f3a943d559360c3dfe546d5761e1b4383355e2af3321407a",
+      "374ddb4c65f974eab6673b65f2c5e285f72c573ed882b0c248edd44f1e0eaaf4"
+    ],
+    "section_sha256": "7e2cff39b6eb769d3295cc165218af4d5be804b20bc818175b6ed14a50821109",
+    "token_budget": 60,
+    "char_budget": 240,
+    "used_chars": 119,
+    "used_tokens": 38,
+    "chronological": true,
+    "admitted_indices": [
+      0
+    ],
+    "presentation_indices": [
+      0
+    ],
+    "decisions": [
+      {
+        "index": 0,
+        "status": "admitted"
+      },
+      {
+        "index": 1,
+        "status": "character_nonfit",
+        "trial_chars": 575
+      }
+    ],
+    "receipts": [
+      {
+        "index": 0,
+        "start": 20,
+        "end": 98,
+        "sha256": "2aaa90608a0c0651f3a943d559360c3dfe546d5761e1b4383355e2af3321407a"
+      }
+    ],
+    "preservation": "COMPLETE_INPUT_CHUNKS_ONLY",
+    "original_source_identity": "NOT_CERTIFIED",
+    "semantic_completeness": "NOT_CERTIFIED",
+    "answer_accuracy": "NOT_MEASURED"
+  },
+  "answer_accuracy": "NOT_MEASURED",
+  "paid_calls": 0
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS_500_CONTEXTS_NO_LABELS_LOADED",
+  "legacy_exact": 500,
+  "candidate_complete": 500,
+  "legacy_trace_sha256": "45f52858b923aa489dd19d96d974a0053f78399046e4d8bdf5b538e3c3dd5604",
+  "candidate_trace_sha256": "073130d0cf6113fe187ac1fddd1076bbd95244feb4ca428270b55a9ed7a13ec3",
+  "pre_supplement_changed": 442,
+  "final_changed": 442,
+  "supplement_changed": 64,
+  "db_copy_sha256_after_run": "b7717c386ce255891ef9a2ff3c9495a1297f574ea86cd050758ed92bc026ce17",
+  "source_db_sha256_after_run": "b7717c386ce255891ef9a2ff3c9495a1297f574ea86cd050758ed92bc026ce17",
+  "freeze_sha256": "77f4a9e933ca574a97b5ededd5b3b0c8b0779bee38c4cb2fe29c64cb9376dec2",
+  "paid_calls": 0,
+  "new_answers": 0,
+  "new_embeddings": 0
+}

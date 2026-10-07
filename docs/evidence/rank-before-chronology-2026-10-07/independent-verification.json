@@ -1,0 +1,47 @@
+{
+  "schema": "rank-before-chronology-independent-verification-v1",
+  "status": "PASS_STRUCTURAL_REPLAY",
+  "input_sha256": {
+    "freeze": "77f4a9e933ca574a97b5ededd5b3b0c8b0779bee38c4cb2fe29c64cb9376dec2",
+    "phase1": "64076ec7526aa2f1c12f48f1110e832929bd0a5836e0566e2d2c1c3cbf3f8d81",
+    "legacy_traces": "45f52858b923aa489dd19d96d974a0053f78399046e4d8bdf5b538e3c3dd5604",
+    "candidate_traces": "073130d0cf6113fe187ac1fddd1076bbd95244feb4ca428270b55a9ed7a13ec3",
+    "corrected_package": "461514b60a50845c130ee65b8bffdb2054f3ab198994e923feeabcf65873f67c",
+    "precision_package": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab",
+    "source_db": "b7717c386ce255891ef9a2ff3c9495a1297f574ea86cd050758ed92bc026ce17"
+  },
+  "counts": {
+    "cases": 500,
+    "whole_policy": 442,
+    "reserve_fallback": 58,
+    "no_raw_section": 0,
+    "raw_receipts": 13138,
+    "precision_receipts_control": 652,
+    "precision_receipts_candidate": 598,
+    "pre_supplement_changed": 442,
+    "final_changed": 442,
+    "supplement_membership_changed": 64,
+    "source_block_truncated": 0,
+    "source_block_ambiguous": 0
+  },
+  "checks": [
+    "all frozen source/code hashes current",
+    "physical-line JSONL parse and exact 500 joins",
+    "legacy corrected and precision contexts byte-identical to frozen packages",
+    "identical ranked raw inputs and adapter receipts across arms",
+    "separate actual-TokenCounter greedy replay of every whole_rank_v1 section and decision",
+    "whole input chunk offsets/hashes, section framing and budgets",
+    "reserve fallback byte-identical",
+    "raw section never clipped by final 40000-character cap",
+    "precision supplement receipt offsets/hashes and 4000-character addition bound"
+  ],
+  "limits": [
+    "Only the saved ranked input and outputs are replayed; database retrieval was not rerun independently.",
+    "An input chunk may already be truncated by the fixed retriever; raw full-chunk preservation is not original source identity or semantic completeness.",
+    "No answers, grades, annotated-source gains/losses, or causal score claims are certified here.",
+    "Candidate changes the available space for unchanged precision supplementation; raw-stage attribution requires separate stage-specific review."
+  ],
+  "paid_calls": 0,
+  "new_embeddings": 0,
+  "new_answers": 0
+}

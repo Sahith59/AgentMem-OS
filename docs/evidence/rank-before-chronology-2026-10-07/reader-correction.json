@@ -1,0 +1,13 @@
+{
+  "reason": "str.splitlines split literal Unicode separators in valid JSON strings; initial evaluators failed before writing metrics",
+  "correction": "file iteration at physical newline boundaries only",
+  "original_freeze_unchanged": "77f4a9e933ca574a97b5ededd5b3b0c8b0779bee38c4cb2fe29c64cb9376dec2",
+  "original_runner": "ed0142b82f4882840b97180141acc7ef237d8d40f36af3059fdfadc218dac2f2",
+  "corrected_evaluator": "5f022a840cfea0676d63b00754e830857634f862e9902fa9690d35fef42c0bbf",
+  "original_mechanism_script": "4392c718693488076d08bd83edf21975b7dcafedd0c4bce41a98261279951d9c",
+  "corrected_mechanism_script": "be422999f689bba827ab4275c8e62ab4a35cd3107078adb5fbdac2cd073b12eb",
+  "legacy_traces": "45f52858b923aa489dd19d96d974a0053f78399046e4d8bdf5b538e3c3dd5604",
+  "candidate_traces": "073130d0cf6113fe187ac1fddd1076bbd95244feb4ca428270b55a9ed7a13ec3",
+  "candidate_packets_changed": false,
+  "generation_rerun": false
+}

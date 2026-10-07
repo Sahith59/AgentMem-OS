@@ -1,0 +1,121 @@
+{
+  "schema": "rank-before-chronology-independent-evaluation-v1",
+  "status": "PASS_METRIC_REPLAY_NEGATIVE_GATE",
+  "input_sha256": {
+    "audit": "848280a852ccb0ade47a79eb1054785df9cc0fa2c4ce932973fde5acc7140b78",
+    "mechanism_audit": "5870063e3154e0c492ff681cbf82362ab6e6e0b64bf68658a659a82378e7324e",
+    "reader_correction": "6c258741eb17922997919243ad5d3071d0262fe533ba6041e75dcb343a75b418",
+    "evaluate_v2": "5f022a840cfea0676d63b00754e830857634f862e9902fa9690d35fef42c0bbf",
+    "mechanism_v2": "be422999f689bba827ab4275c8e62ab4a35cd3107078adb5fbdac2cd073b12eb",
+    "upstream": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "checkpoint": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1",
+    "legacy_traces": "45f52858b923aa489dd19d96d974a0053f78399046e4d8bdf5b538e3c3dd5604",
+    "candidate_traces": "073130d0cf6113fe187ac1fddd1076bbd95244feb4ca428270b55a9ed7a13ec3"
+  },
+  "counts": {
+    "cases": 500,
+    "historical_correct": 423,
+    "historical_miss": 77,
+    "abstention": 30,
+    "annotated_turns": 896,
+    "gain_cases_all": 12,
+    "loss_cases_all": 0,
+    "gained_turns_all": 12,
+    "lost_turns_all": 0,
+    "gain_cases_miss": 5,
+    "loss_cases_miss": 0,
+    "gained_turns_miss": 5,
+    "lost_turns_miss": 0,
+    "gain_cases_correct": 7,
+    "loss_cases_correct": 0,
+    "gained_turns_correct": 7,
+    "lost_turns_correct": 0,
+    "gain_cases_abstention": 0,
+    "loss_cases_abstention": 0,
+    "gained_turns_abstention": 0,
+    "lost_turns_abstention": 0,
+    "whole_policy": 442,
+    "reserve_fallback": 58,
+    "fitting_rank0": 442,
+    "legacy_raw_missing_fitting_rank0": 10,
+    "candidate_recovers_fitting_rank0": 10,
+    "newly_delivered_rank0_in_final": 6
+  },
+  "historical_miss_gained_sources": [
+    {
+      "id": "9d25d4e0",
+      "question": "How many pieces of jewelry did I acquire in the last two months?",
+      "source_session_id": "answer_fcff2dc4_2",
+      "source_position": 8,
+      "source_role": "user",
+      "source_text_sha256": "d4e70c357a7c030d8ccefe1ed4eb796036b759ed3795048bf9bf869e61c4b929",
+      "source_text_excerpt": "I'm thinking of getting a jewelry cleaning kit that includes a solution and a soft cloth. Do you think that would be a good idea? And by the way, I'm really glad I got those emerald earrings at the flea market last weekend - they're really stunning!",
+      "already_in_baseline_semantic_memory": false,
+      "new_in_candidate_raw_section": true,
+      "precision_source_membership_changed": false
+    },
+    {
+      "id": "ba358f49",
+      "question": "How many years will I be when my friend Rachel gets married?",
+      "source_session_id": "answer_cbd08e3c_2",
+      "source_position": 2,
+      "source_role": "user",
+      "source_text_sha256": "c098afbc90595e9255e7902964adb781e8192c0a97796ac9bdfd63f38683fbbc",
+      "source_text_excerpt": "I'm 32, so I'm in my 30s. I'd say my skin type is normal, but it's been looking a bit dull lately. My main concerns are fine lines and wrinkles, especially around my eyes. I'm open to trying out different products, but I'd prefer something not too expensive.",
+      "already_in_baseline_semantic_memory": false,
+      "new_in_candidate_raw_section": true,
+      "precision_source_membership_changed": false
+    },
+    {
+      "id": "bf659f65",
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "source_session_id": "answer_7726e7e9_2",
+      "source_position": 0,
+      "source_role": "user",
+      "source_text_sha256": "d5fbc72c680cfd8298bedf3c97847185a13615b90c459405fb7fb5f124a399a9",
+      "source_text_excerpt": "I'm looking for some new music recommendations. I've been really into indie and folk-rock lately, especially after discovering The Whiskey Wanderers at a music festival last weekend - I bought their EP 'Midnight Sky' at the festival merchandise booth and can't get enough of it. Can you suggest some similar artists or bands I might like?",
+      "already_in_baseline_semantic_memory": false,
+      "new_in_candidate_raw_section": true,
+      "precision_source_membership_changed": true
+    },
+    {
+      "id": "d851d5ba",
+      "question": "How much money did I raise for charity in total?",
+      "source_session_id": "answer_5cdf9bd2_4",
+      "source_position": 0,
+      "source_role": "user",
+      "source_text_sha256": "ee188c487496896d13bf2f1029cb5e00c24d3f921535a0af3b6bf179b54e9db9",
+      "source_text_excerpt": "I'm planning to participate in a charity cycling event next month and I want to make sure I'm prepared. Can you give me some tips on how to train for it? By the way, I've been getting more into charity events lately - I helped raise $2,000 for a local animal shelter on January 20th, and it was an amazing experience!",
+      "already_in_baseline_semantic_memory": false,
+      "new_in_candidate_raw_section": true,
+      "precision_source_membership_changed": true
+    },
+    {
+      "id": "e3038f8c",
+      "question": "How many rare items do I have in total?",
+      "source_session_id": "answer_b6018747_4",
+      "source_position": 0,
+      "source_role": "user",
+      "source_text_sha256": "17a6c04c833f973991c395e7b0b2f06f3b5ce708a340ceeefc26ca6d9dc907da",
+      "source_text_excerpt": "I'm looking for a professional book conservator to sign my recently acquired first edition of \"To Kill a Mockingbird\". Do you have any recommendations or know of any reputable services in my area? By the way, I've been collecting rare books for a while now and have a small but valuable collection of 5 books.",
+      "already_in_baseline_semantic_memory": false,
+      "new_in_candidate_raw_section": true,
+      "precision_source_membership_changed": false
+    }
+  ],
+  "checks": [
+    "physical newline JSONL iteration",
+    "source turn/date/role/hash and complete-body presence independently recomputed from cleaned upstream for every annotated occurrence",
+    "historical grade joined from frozen checkpoint",
+    "all cohorts and negative gate recomputed",
+    "rank-0 mechanism flags checked against raw and final packets"
+  ],
+  "limits": [
+    "Complete source-body presence is a literal proxy, not semantic sufficiency, role interpretation, causal answer repair, or score.",
+    "The five source excerpts are evaluator-only qualitative review pointers; no new answers or grades were generated.",
+    "Rank-0 relevance is not established by the mechanical recovery count."
+  ],
+  "paid_calls": 0,
+  "new_answers": 0,
+  "new_embeddings": 0
+}
