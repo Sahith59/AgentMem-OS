@@ -4,7 +4,9 @@ from .evidence_packet import RetrievalHit, digest, eligible_sources, pack
 from .multi_vector_retrieval import MultiVectorRetriever
 
 
-def rank(snapshot, question, *, scope, as_of, encoder=None):
+def rank(snapshot, question, *, scope, as_of, encoder=None, positive_lexical_only=False):
+    if type(positive_lexical_only) is not bool:
+        raise ValueError("Lexical policy must be boolean")
     if not isinstance(question, str) or not question.strip():
         raise ValueError("Explicit question required")
     # Mirror the legacy indexer's blank filtering BEFORE mapping positional IDs.
@@ -15,7 +17,9 @@ def rank(snapshot, question, *, scope, as_of, encoder=None):
     retriever.index([t.text for t in turns])
     return tuple(
         RetrievalHit(turns[i].id, digest(turns[i].text), score, order)
-        for order, (i, score) in enumerate(retriever.ranked_indices(question))
+        for order, (i, score) in enumerate(retriever.ranked_indices(
+            question, positive_lexical_only=positive_lexical_only
+        ))
     )
 
 

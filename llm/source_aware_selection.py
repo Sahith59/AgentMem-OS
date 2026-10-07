@@ -94,6 +94,11 @@ def select(snapshot, hits, baseline, *, scope, as_of, use_presence=True,
     )
 
 
-def supplement(snapshot, question, baseline, *, scope, as_of, encoder=None, **policy):
-    hits = rank(snapshot, question, scope=scope, as_of=as_of, encoder=encoder)
-    return select(snapshot, hits, baseline, scope=scope, as_of=as_of, **policy)
+def supplement(snapshot, question, baseline, *, scope, as_of, encoder=None,
+               positive_lexical_only=False, **policy):
+    hits = rank(snapshot, question, scope=scope, as_of=as_of, encoder=encoder,
+                positive_lexical_only=positive_lexical_only)
+    text, report = select(snapshot, hits, baseline, scope=scope, as_of=as_of, **policy)
+    report["ranking"] = ("dense-positive-lexical-rrf-k60" if positive_lexical_only
+                         else "existing-dense-lexical-rrf-k60")
+    return text, report
