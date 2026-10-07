@@ -12,11 +12,13 @@ from .source_presence import map_presence
 
 
 def select(snapshot, hits, baseline, *, scope, as_of, use_presence=True,
-           char_budget=40000, extra_budget=4000, max_anchors=8, neighbor_turns=1):
+           char_budget=40000, extra_budget=4000, max_anchors=8, neighbor_turns=1,
+           allocation="greedy"):
     if (type(baseline) is not str or type(use_presence) is not bool
             or any(type(v) is not int or v < 0 for v in
                    (char_budget, extra_budget, max_anchors, neighbor_turns))
-            or len(baseline) > char_budget):
+            or len(baseline) > char_budget or allocation not in ("greedy", "joint")
+            or (allocation == "joint" and max_anchors > 8)):
         raise ValueError("Invalid baseline or policy")
     eligible = eligible_sources(snapshot, scope=scope, as_of=as_of)
     by_id = {t.id: t for t in snapshot.turns}
@@ -40,15 +42,19 @@ def select(snapshot, hits, baseline, *, scope, as_of, use_presence=True,
         by_session.setdefault(t.session, {})[t.position] = t
     chosen, admitted = set(), []
     allowance = max(0, min(extra_budget, char_budget - len(baseline)) - 2)
+    block_prefix = "[ORIGINAL SOURCE EVIDENCE: relevance and completeness are unverified]\n"
+
+    def source_header(t):
+        return f"[{t.id} | {t.role} | observed {t.observed_at.isoformat()}]\n"
 
     def render(ids):
         if not ids:
             return "", []
-        text = "[ORIGINAL SOURCE EVIDENCE: relevance and completeness are unverified]\n"
+        text = block_prefix
         receipts = []
         for t in sorted((by_id[i] for i in ids),
                         key=lambda t: (t.observed_at, t.session, t.position)):
-            header = f"[{t.id} | {t.role} | observed {t.observed_at.isoformat()}]\n"
+            header = source_header(t)
             start = len(text) + len(header)
             text += header + t.text + "\n"
             receipts.append(dict(id=t.id, session=t.session, position=t.position,
@@ -56,7 +62,7 @@ def select(snapshot, hits, baseline, *, scope, as_of, use_presence=True,
                                  sha256=digest(t.text), start=start, end=start + len(t.text)))
         return text, receipts
 
-    bundles = []
+    bundles, valid = [], []
     for h in anchors:
         t = by_id[h.source_id]
         session = by_session[t.session]
@@ -66,22 +72,71 @@ def select(snapshot, hits, baseline, *, scope, as_of, use_presence=True,
         required = [session[i].id for i in positions if i in session]
         row = dict(anchor=t.id, required=required, baseline_reused=sorted(set(required) & present),
                    missing_positions=missing_positions)
-        new_ids = set(required) - present
         if missing_positions:
             row["status"] = "position_gap"
         elif set(required) - allowed:
             row["status"] = "future_neighbor"
-        elif len(render(chosen | new_ids)[0]) > allowance:
-            row["status"] = "bundle_budget_nonfit"
         else:
-            chosen |= new_ids
-            admitted.append(t.id)
-            row["status"] = "admitted"
+            valid.append(len(bundles))
         bundles.append(row)
+
+    optimization = None
+    if allocation == "joint":
+        # At most eight frozen anchors: exact subset enumeration, no model or
+        # answer-dependent utility. Neighbors are costs, not extra rank votes.
+        try:
+            math.fsum(anchors[i].score for i in valid)
+        except OverflowError as error:
+            raise ValueError("Nonfinite allocation utility") from error
+        costs = {i: len(source_header(by_id[i])) + len(by_id[i].text) + 1 for i in allowed}
+
+        def cost(ids):
+            return len(block_prefix) + sum(costs[i] for i in ids) if ids else 0
+
+        best_key, best_seed, best_covered = None, (), ()
+        packets = set()
+        for mask in range(1 << len(valid)):
+            seed = tuple(i for bit, i in enumerate(valid) if mask & (1 << bit))
+            ids = frozenset(i for j in seed for i in bundles[j]["required"] if i not in present)
+            packets.add(ids)
+            size = cost(ids)
+            if size > allowance:
+                continue
+            covered = tuple(i for i in valid if set(bundles[i]["required"]) <= present | ids)
+            utility = math.fsum(anchors[i].score for i in covered)
+            key = (-utility, size, covered, seed, tuple(sorted(ids)))
+            if best_key is None or key < best_key:
+                best_key, chosen, best_seed, best_covered = key, set(ids), seed, covered
+        optimization = dict(
+            policy="exact-complete-bundle-rrf-sum-v1", utility=-best_key[0],
+            subset_count=1 << len(valid), distinct_enumerated_source_sets=len(packets),
+            seed_anchor_ids=[anchors[i].source_id for i in best_seed],
+            covered_anchor_ids=[anchors[i].source_id for i in best_covered],
+            rendered_block_chars=best_key[1],
+        )
+        for i in valid:
+            row = bundles[i]
+            if i in best_covered:
+                row["status"] = "admitted"
+                admitted.append(row["anchor"])
+            elif cost(set(row["required"]) - present) > allowance:
+                row["status"] = "bundle_budget_nonfit"
+            else:
+                row["status"] = "allocation_not_selected"
+    else:
+        for i in valid:
+            row = bundles[i]
+            new_ids = set(row["required"]) - present
+            if len(render(chosen | new_ids)[0]) > allowance:
+                row["status"] = "bundle_budget_nonfit"
+            else:
+                chosen |= new_ids
+                admitted.append(row["anchor"])
+                row["status"] = "admitted"
     block, receipts = render(chosen)
     offset = len(baseline) + 2 if block else len(baseline)
     packet = baseline + ("\n\n" + block if block else "")
-    return packet, dict(
+    report = dict(
         schema="source-aware-selection-v1", scope=scope, as_of=as_of.isoformat(),
         policy="presence-aware" if use_presence else "matched-no-presence-control",
         baseline_sha256=digest(baseline), candidate_sha256=digest(packet),
@@ -92,6 +147,9 @@ def select(snapshot, hits, baseline, *, scope, as_of, use_presence=True,
         admitted_anchors=admitted, bundles=bundles, receipts=receipts, presence=ledger,
         semantic_completeness="NOT_CERTIFIED", answer_accuracy="NOT_MEASURED",
     )
+    if optimization is not None:
+        report["allocation"] = optimization
+    return packet, report
 
 
 def supplement(snapshot, question, baseline, *, scope, as_of, encoder=None,
