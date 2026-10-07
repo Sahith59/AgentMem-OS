@@ -191,7 +191,9 @@ class MultiVectorRetriever:
         post = " [...]" if hi + 1 < len(segs) else ""
         return pre + out + post
 
-    def ranked_indices(self, query: str, *, positive_lexical_only: bool = False) -> List[Tuple[int, float]]:
+    def ranked_indices(
+        self, query: str, *, positive_lexical_only: bool = False
+    ) -> List[Tuple[int, float]]:
         """Return unexpanded original turn indices in the existing RRF order.
 
         Default matches legacy search. The opt-in lexical policy gives no
