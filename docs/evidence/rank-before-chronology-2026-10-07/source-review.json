@@ -1,0 +1,499 @@
+{
+  "schema": "rank-before-chronology-source-review-v1",
+  "reviewer": "assistant; not independent human annotation",
+  "status": "NO_PAID_PROPOSAL",
+  "review_scope": "All12gaining annotated cases and10rank0-recovery cases; no annotated losses. This is not semantic safety review of all changed text in442cases.",
+  "classification_counts": {
+    "historically_correct_extra_support": 7,
+    "historical_miss_already_known_content": 4,
+    "plausible_new_age_operand_with_inference_uncertainty": 1
+  },
+  "source_gain_is_not_new_information": true,
+  "source_triage_gate": "FAIL_UNCHANGED",
+  "all500_answer_accuracy": "NOT_MEASURED",
+  "source_rows": [
+    {
+      "id": "2ce6a0f2",
+      "historically_correct": true,
+      "question": "How many different art-related events did I attend in the past month?",
+      "historical_answer": "4 art-related events.",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_901a6763_3",
+        "source_key": "lme-session-ec25ce39b13779a955854cf3564b2da47e6e6df317019a8b5af78fed9eb9eff2",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "c3e259767c3d8da1ceaf0bc73a3b7bb95521f88a2576f716185bd5692bdec393",
+        "raw_input_ranks": [
+          19
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 30715,
+        "end": 30914,
+        "sha256": "2b326ba67cb36b1af2041f803d75684a09dbb05566a02605c5a2c94e656f7628"
+      },
+      "legacy_context_sha256": "a76648b5efc32bd6752d9dad42435f258961ba8825ebd005c26da79f9d415120",
+      "candidate_context_sha256": "ecce915f25a00f0a53f981272e334d1756cabde375f4e343e8b6f35efb369373",
+      "baseline_witnesses": [],
+      "new_answer": false
+    },
+    {
+      "id": "6ade9755",
+      "historically_correct": true,
+      "question": "Where do I take yoga classes?",
+      "historical_answer": "Serenity Yoga (and Down Dog for home practice)",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_9398da02",
+        "source_key": "lme-session-b5a328dbb7c13c0d966f6af221f7a55c3e0d031e70d3a89e7c3b2dfeba3ae6fe",
+        "position": 4,
+        "role": "user",
+        "text_sha256": "92ae2f2894232a705f89f6c3083fbc20c4bb84306a61296433b6d813ac72297e",
+        "raw_input_ranks": [
+          10
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 29842,
+        "end": 30008,
+        "sha256": "c2080c6766d6eca10c936c025975245db248d3379833c90cd4651a5b19f7ee95"
+      },
+      "legacy_context_sha256": "0c33b1df16d81d8ba1d07eb7a28644ba53b1e22087e00d462a6aa5d3a66fb165",
+      "candidate_context_sha256": "464ead2f859172bc1e9685c66e2b0cbdfb83da0e057f808b5e7f0373b9b6fad3",
+      "baseline_witnesses": [],
+      "new_answer": false
+    },
+    {
+      "id": "6cb6f249",
+      "historically_correct": true,
+      "question": "How many days did I take social media breaks in total?",
+      "historical_answer": "17 days",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_a4204937_2",
+        "source_key": "lme-session-aea0ef228c9a416653d56bb917a6b1c076ae1bfe37bcb257ef8c71417eb2eff7",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "7c8dab039da59e0fa2a1b887b6cc1e07e8493a02d704f91d51cd2ea90f218ee7",
+        "raw_input_ranks": [
+          26
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 14235,
+        "end": 14495,
+        "sha256": "7f6d414fcbe7891cba458fcec8e92ae6b0a2eb28980b029fa4222ff3a465069e"
+      },
+      "legacy_context_sha256": "6e40adf81fd5f3d158698e7dd119e101b620ba52154047455e1918c6f2a042de",
+      "candidate_context_sha256": "f3fd0dd5b324e0574017c73089b79aba77581494c0fc03d9a78c94e953099780",
+      "baseline_witnesses": [],
+      "new_answer": false
+    },
+    {
+      "id": "9d25d4e0",
+      "historically_correct": false,
+      "question": "How many pieces of jewelry did I acquire in the last two months?",
+      "historical_answer": "2 pieces of jewelry",
+      "classification": "REDUNDANT_KNOWN_PURCHASE",
+      "review": "The added emerald-earring purchase is already represented by an extracted event and a different original user turn. The engagement-ring acquisition timing is still absent as a complete annotated turn. Repeating the earrings does not establish the third acquisition.",
+      "gained_original_source": {
+        "session_id": "answer_fcff2dc4_2",
+        "source_key": "lme-session-abe27d18412e9d8cccd566fade0d3d6eba69ac9e9691c0a9dda35ba18a711578",
+        "position": 8,
+        "role": "user",
+        "text_sha256": "d4e70c357a7c030d8ccefe1ed4eb796036b759ed3795048bf9bf869e61c4b929",
+        "raw_input_ranks": [
+          18
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 11780,
+        "end": 12029,
+        "sha256": "886a176065cac3c9bc5bf424055c2173ec54c41238be7ebf4d950bc9dac24bf2"
+      },
+      "legacy_context_sha256": "65adeece8a98ca8672f9cef2ad49ec5e8a15b90bc2d8aeef6f435b4808eb9893",
+      "candidate_context_sha256": "fc1e76d2f1b18c424b065f818003e5cb032ad526e06f83b6f0a7bb9e306e0b14",
+      "baseline_witnesses": [
+        {
+          "context": "legacy",
+          "start": 499,
+          "end": 630,
+          "sha256": "9e463b8fb4a97883e77e69ceb089b2e68b01f8a53b1436015c036104d54d69b1",
+          "text": "[2023/05/14] (event) The user acquired a new pair of emerald earrings at a flea market during the weekend of 2023/05/13–2023/05/14."
+        },
+        {
+          "context": "legacy",
+          "start": 11000,
+          "end": 11341,
+          "sha256": "94072cdb3348fc0bbfd8476564f321f19b64ad461ee60b2a910270bb5319af7b",
+          "text": "[2023/05/21 (Sun) 21:58] I'm thinking of cleaning my jewelry collection this weekend and I'm not sure what's the best way to clean different types of jewelry. Do you have any tips or recommendations? By the way, I just got a new pair of earrings last weekend at a flea market - a stunning pair of emerald earrings that I'm absolutely loving!"
+        }
+      ],
+      "new_answer": false
+    },
+    {
+      "id": "a346bb18",
+      "historically_correct": true,
+      "question": "How many minutes did I exceed my target time by in the marathon?",
+      "historical_answer": "12 minutes",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_4934b2d7_1",
+        "source_key": "lme-session-e084498457da5240fb8bc5dd64ce83ebdef930ad50b1fffe6ff0d856007cdd57",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "fb3bbdc3beebd28b69d8af345854c61dc3b0f6729998ed190c2b8761c2830232",
+        "raw_input_ranks": [
+          24
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 20462,
+        "end": 20740,
+        "sha256": "40b08359e5bbb422702ec15fb31fa543e396706067d01a7115097ddcc53918a6"
+      },
+      "legacy_context_sha256": "031e331bb06737a875d22af8dce8222f699fbb5939cda3db008463baac93fcc2",
+      "candidate_context_sha256": "ca945326e46b5ba3636b18b81e2a385d6768cb507a5b00791af6d536fde184c7",
+      "baseline_witnesses": [],
+      "new_answer": false
+    },
+    {
+      "id": "a3838d2b",
+      "historically_correct": true,
+      "question": "How many charity events did I participate in before the 'Run for the Cure' event?",
+      "historical_answer": "4 charity events",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_4ffa04a2_3",
+        "source_key": "lme-session-ec8081ac1848931a3b9d9bf6d70cb89a759cec409988c2cc7d5dac1eb2693a9d",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "bb8198d4e8e9928a930cb8f9596743a89c486c63143ce089305509ce6ef9daa5",
+        "raw_input_ranks": [
+          15
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 22488,
+        "end": 22743,
+        "sha256": "6ece9aae9fd8c8d245cc194c5a61dd503aead91759348018cf5f453c7012ef1d"
+      },
+      "legacy_context_sha256": "7cc8dc038d87ef49ef0fa5e82d23a7be4f150b38966410beba54696fb84fe0dc",
+      "candidate_context_sha256": "7c7b16098f55972c0d0054594192d1919377568ef7eced36c887243aa9ed894c",
+      "baseline_witnesses": [],
+      "new_answer": false
+    },
+    {
+      "id": "ba358f49",
+      "historically_correct": false,
+      "question": "How many years will I be when my friend Rachel gets married?",
+      "historical_answer": "not mentioned",
+      "classification": "PLAUSIBLE_NEW_AGE_OPERAND_NOT_PROVEN_REPAIR",
+      "review": "The candidate adds the user's age32; the baseline already says Rachel marries next year. The age source is September1,2022 16:14 and the question September1,2022 23:52. A possible repair of the historical abstention, but next-year age33 assumes birthday/wedding timing that is not specified. Do not certify an exact age or answer gain.",
+      "gained_original_source": {
+        "session_id": "answer_cbd08e3c_2",
+        "source_key": "lme-session-4a32705ca6f5c81a720e74c36d3ed57bff28e3af4e874b9f0f05e477053c8331",
+        "position": 2,
+        "role": "user",
+        "text_sha256": "c098afbc90595e9255e7902964adb781e8192c0a97796ac9bdfd63f38683fbbc",
+        "raw_input_ranks": [
+          33
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 21156,
+        "end": 21414,
+        "sha256": "942429b3274d3ad0401ea6817a1d8afb5044f66c02d46ca5b14035132ec303e3"
+      },
+      "legacy_context_sha256": "d37329a9fde2007876cbbf5a27f0ada52e35b22db7503e7422c01d4f506cf253",
+      "candidate_context_sha256": "43c48c1aeafe03978bad5d7fb26240b92ebc8b48d786629544a8ffa336b0fc2f",
+      "baseline_witnesses": [
+        {
+          "context": "legacy",
+          "start": 36116,
+          "end": 36422,
+          "sha256": "a051397448d891bad54af7798b82bcde587188bc7594c8120245174045836461",
+          "text": "[2022/09/01 (Thu) 03:06] I'm looking for some advice on skincare routines for my age group. I've been noticing some fine lines and wrinkles lately, and I want to start taking better care of my skin. By the way, my friend Rachel's getting married next year, and it's got me thinking about my own life goals."
+        }
+      ],
+      "new_answer": false
+    },
+    {
+      "id": "bf659f65",
+      "historically_correct": false,
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "historical_answer": "2 music albums or EPs",
+      "classification": "REDUNDANT_KNOWN_PURCHASE",
+      "review": "The added Midnight Sky purchase is already present in multiple extracted facts. The original Tame Impala vinyl ownership source remains missing as a complete annotated turn, although a signed-vinyl fact and assistant echo are present. Purchase/download scope and event identity remain unresolved; this is not a demonstrated third purchase.",
+      "gained_original_source": {
+        "session_id": "answer_7726e7e9_2",
+        "source_key": "lme-session-38701e88bd04532fb7861ca2658b7f9ae76947204245fcb70b96a922f616e86c",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "d5fbc72c680cfd8298bedf3c97847185a13615b90c459405fb7fb5f124a399a9",
+        "raw_input_ranks": [
+          23
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 30290,
+        "end": 30628,
+        "sha256": "a4377813fb9e7d5c5d0429a47e7ced58bba528909df609d5a97625d2f017fd3e"
+      },
+      "legacy_context_sha256": "22d7f7880de6406eb2b2e7db99d99c54d103fc5358d6b2c5f8b31098a606d33e",
+      "candidate_context_sha256": "1c74dbccc1babd694f06f2fb51b21ac0e9ad6f911a24065d6071733e4d8df934",
+      "baseline_witnesses": [
+        {
+          "context": "legacy",
+          "start": 943,
+          "end": 1069,
+          "sha256": "730c308b21cc739390789ae32136a656052819d09e5f921656ac53cc3dfdd939",
+          "text": "[2023/05/13] (event) The user bought The Whiskey Wanderers' EP \"Midnight Sky\" at the festival merchandise booth on 2023/05/13."
+        },
+        {
+          "context": "legacy",
+          "start": 6901,
+          "end": 7028,
+          "sha256": "5fe366cec42b5306c24455ff74662fda25e8886bd3ffea6d855228af440dba7e",
+          "text": "[noted 2023/05/26] (event) The user got a Tame Impala vinyl record signed after the show at Red Rocks Amphitheatre in Colorado."
+        }
+      ],
+      "new_answer": false
+    },
+    {
+      "id": "d851d5ba",
+      "historically_correct": false,
+      "question": "How much money did I raise for charity in total?",
+      "historical_answer": "Over $8,750",
+      "classification": "REDUNDANT_AMOUNT_REFERENCE_SCOPE_UNRESOLVED",
+      "review": "The added animal-shelter $2,000 is already in the extracted facts. The baseline also has a benefit concert raising over$5,000; historical answer over$8,750 vs reference$3,750 remains a source/reference scope ambiguity. Added source does not settle which events count. No regrade or arithmetic-failure claim.",
+      "gained_original_source": {
+        "session_id": "answer_5cdf9bd2_4",
+        "source_key": "lme-session-d2760506dc668fdbc82cd0afbf4e1211490f520d1da2f686cd611b2aff3e6d40",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "ee188c487496896d13bf2f1029cb5e00c24d3f921535a0af3b6bf179b54e9db9",
+        "raw_input_ranks": [
+          2
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 30049,
+        "end": 30366,
+        "sha256": "21e82675a344f96c6af870cd2f9c410ccfbb5d22e4e68c35706f356a1601b762"
+      },
+      "legacy_context_sha256": "c529a70d4ec60a690e20331da7b0b3560e65c0b3b467dfff6f09d0741f9eff18",
+      "candidate_context_sha256": "b74e541e95aa7546d46bcbe92f0f05795248097e3f38280be4ed0d6125ecf8b9",
+      "baseline_witnesses": [
+        {
+          "context": "legacy",
+          "start": 383,
+          "end": 480,
+          "sha256": "3bb8ccf351762dfa74ea2dffd0fd8d9d57141b960d571574eb1f4082b026a699",
+          "text": "[2023/01/20] (event) The user helped raise $2,000 for a local animal shelter on January 20, 2023."
+        },
+        {
+          "context": "legacy",
+          "start": 115,
+          "end": 256,
+          "sha256": "a0af2e99f178e6a23d09f27dc30a5f3460b33df65118b7d4a0a20fcd2d7e1179",
+          "text": "[2022/04/01] (event) The music benefit concert the user helped organize in April 2022 raised over $5,000 for a local music education program."
+        }
+      ],
+      "new_answer": false
+    },
+    {
+      "id": "e3038f8c",
+      "historically_correct": false,
+      "question": "How many rare items do I have in total?",
+      "historical_answer": "At least 87 rare items.",
+      "classification": "REDUNDANT_KNOWN_COUNT_MISSING_FIGURINES",
+      "review": "The added five rare books are already in the facts and historical answer. The original12rarefigurines source is still absent. Candidate does not establish the missing quantity needed to move87toward99.",
+      "gained_original_source": {
+        "session_id": "answer_b6018747_4",
+        "source_key": "lme-session-a10b09bf7a62a0b709bfb33595384e54e6f16c466d6f31e6dbad646d962d65e2",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "17a6c04c833f973991c395e7b0b2f06f3b5ce708a340ceeefc26ca6d9dc907da",
+        "raw_input_ranks": [
+          20
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 20581,
+        "end": 20890,
+        "sha256": "806e154005b02ae14efb40f18d048e27d27717b5cb4fab7bb2a9da2843491024"
+      },
+      "legacy_context_sha256": "b83da23a61e4e99355da654f5e9db3d064acb23c19abd6c13e838f53cb56376f",
+      "candidate_context_sha256": "1d24b23ab8cca5ee3d135533d9dbb607794fe18af65652f3a0078f76cbad96ce",
+      "baseline_witnesses": [
+        {
+          "context": "legacy",
+          "start": 2449,
+          "end": 2537,
+          "sha256": "47d872ceb80b71e260009d4313d7833c18a603e3b4d8c4779a921ece5aef4ba0",
+          "text": "[noted 2023/05/22] (state) The user has a small but valuable collection of 5 rare books."
+        },
+        {
+          "context": "legacy",
+          "start": 1602,
+          "end": 1658,
+          "sha256": "ae3b810212144a72f9966c7807e04e604fc2345ce4672f9705105a8ee67260aa",
+          "text": "[noted 2023/05/22] (state) The user has 57 rare records."
+        },
+        {
+          "context": "legacy",
+          "start": 3365,
+          "end": 3507,
+          "sha256": "0762cf6231f6c54bc68a027bd9236079e20acec6b18f6e7ae5daa19d6ad90f6d",
+          "text": "[noted 2023/05/23] (state) The user is considering getting a fireproof safe or renting a safety deposit box to store the user's 25 rare coins."
+        }
+      ],
+      "new_answer": false
+    },
+    {
+      "id": "gpt4_2f56ae70",
+      "historically_correct": true,
+      "question": "Which streaming service did I start using most recently?",
+      "historical_answer": "Disney+",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_7a36e820_2",
+        "source_key": "lme-session-04146c8a4701a922d3799711c10ef0a8862bdf0870420b127826502b94fbbd1b",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "87b19e49a9b141b60d15f527111e7a8fe15f4a7b9fca1ac39019a5d67947805a",
+        "raw_input_ranks": [
+          1
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 30766,
+        "end": 31036,
+        "sha256": "8c4dcdde5ce90cca1c14bc0e9b35fadeeca050b7bfdd01d5651c0bdf02070799"
+      },
+      "legacy_context_sha256": "81eddf95b0bae41d63b7474dd76b0d711f30de443ac9626d8decccc3231fad3e",
+      "candidate_context_sha256": "b79936eb3ff9d8cc3fa78b495ba9b2d977ea3f27e9e560c7f0065ada422abb2b",
+      "baseline_witnesses": [],
+      "new_answer": false
+    },
+    {
+      "id": "gpt4_59c863d7",
+      "historically_correct": true,
+      "question": "How many model kits have I worked on or bought?",
+      "historical_answer": "5 model kits/projects",
+      "classification": "ADDITIONAL_ORIGINAL_SUPPORT_PREVIOUSLY_CORRECT",
+      "review": "Adds original user support to a previously correct answer. No new answer generated; no causal repair claim.",
+      "gained_original_source": {
+        "session_id": "answer_593bdffd_2",
+        "source_key": "lme-session-cd9e84826b9e60fb7999cdaa1219266b345a283c306d08c2875831326b01c2f7",
+        "position": 0,
+        "role": "user",
+        "text_sha256": "405344364b65fcc230dd2141b2405d8b3b0f3d250f8e3f466966a2c096502375",
+        "raw_input_ranks": [
+          14
+        ]
+      },
+      "candidate_body_receipt": {
+        "start": 28189,
+        "end": 28500,
+        "sha256": "4bd60b28201b070b945e7f474eddc7078fbe1c47c78edc8ac7a2a15c180a7230"
+      },
+      "legacy_context_sha256": "968b48594f139a25e80594e4e6e7cfdffc4b0338a01ef3c00b6757c90f62ca42",
+      "candidate_context_sha256": "39ae54833b6c8fad354aa03e03179190e40a2e41a0d60154eb74d0e260f88919",
+      "baseline_witnesses": [],
+      "new_answer": false
+    }
+  ],
+  "rank0_rows": [
+    {
+      "id": "0862e8bf_abs",
+      "rank0_sha256": "e89847c26d5a5c13eefe92e41a91132ad6a42a35d18a6d6a07b3930373272f58",
+      "new_in_final": false,
+      "review": "Financial-services diversity does not provide hamster name.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "311778f1",
+      "rank0_sha256": "d4818af8818ffab0fad32afebd5c8d526887bfc813f6614cb22cde06913442ed",
+      "new_in_final": true,
+      "review": "Osiris myths do not provide Netflix documentary viewing hours.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "8550ddae",
+      "rank0_sha256": "ef4ad1b4d8850c3e746034ed4fe91223ee02e85f17d8001a8c2bdd8d7563dac5",
+      "new_in_final": true,
+      "review": "Game completion last weekend does not identify a cocktail.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "a346bb18",
+      "rank0_sha256": "427c264ecf877fd95699ff836b4acfcf8d59ec6e125d8b66ef763a661fa1d4f3",
+      "new_in_final": false,
+      "review": "Half-marathon best time is not the full-marathon target and finish pair.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "af082822",
+      "rank0_sha256": "79c7ff0aded0337573f7f2df9ab0597111d3f47f6496ead11ab32feded96c9ff",
+      "new_in_final": true,
+      "review": "Benevento geography does not date the Nordstrom sale visit.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "ba358f49_abs",
+      "rank0_sha256": "70c6a1521361db8f390c5797a7c55e40178e84d5fb23f909e27798a4d0630aad",
+      "new_in_final": true,
+      "review": "Generic recommendation workflow does not provide Rachel age or user wedding date.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "cf22b7bf",
+      "rank0_sha256": "1a23e03da0d3ff74d7c461a941864a91d0ffa3ae6062c80b997286fb60f86c8e",
+      "new_in_final": true,
+      "review": "Cat-food planning does not provide the user gym weight change.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "gpt4_7fce9456",
+      "rank0_sha256": "0e0c29937bb5d43b745075e8df6ff5146dd41ffa5c9ee324112a8928471b16c3",
+      "new_in_final": true,
+      "review": "Literary race/identity question does not count viewed properties.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "rank0_sha256": "a15760483fa742ecc32323cc8164913225132573b6f94d42b6e0242841cf0b9f",
+      "new_in_final": false,
+      "review": "Assistant echoes toaster-oven upgrade amid kitchen advice; not sufficient original evidence of the full distinct item count.",
+      "answer_repair_claim": false
+    },
+    {
+      "id": "gpt4_d84a3211",
+      "rank0_sha256": "5e755e50f03d76d626665ec1312581c1ccfc115f410416fc798cf606cbf7aa8a",
+      "new_in_final": false,
+      "review": "Bike mileage347 is not bike expenses or money spent.",
+      "answer_repair_claim": false
+    }
+  ],
+  "abstention_review": "Thirty abstention cases have zero annotated gains/losses. Two rank0 recoveries are irrelevant to their unanswerable questions. Changed contexts may still alter abstention behavior; not certified without answers.",
+  "limits": [
+    "Same-day historical benchmark time policy retained, not strict production-as-of validation.",
+    "Runtime input chunks may be retriever-transformed; complete chunk receipts do not certify original source identity.",
+    "All500development-exposed; evaluator-only witnesses cannot enter selector.",
+    "No paid calls, new answers or model changes."
+  ],
+  "input_sha256": {
+    "source-review-inputs.json": "e3b4ea61df6c2fd6bea3493f74e0913db83d295225d0a5918c222329ca12ebcd",
+    "audit.json": "848280a852ccb0ade47a79eb1054785df9cc0fa2c4ce932973fde5acc7140b78",
+    "mechanism-audit.json": "5870063e3154e0c492ff681cbf82362ab6e6e0b64bf68658a659a82378e7324e"
+  }
+}

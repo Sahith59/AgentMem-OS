@@ -1,0 +1,98 @@
+{
+  "schema": "rank-before-chronology-freeze-v1",
+  "status": "FROZEN_BEFORE_CANDIDATE_OUTPUTS",
+  "policy": "whole_rank_v1 opt-in; legacy default; reserve fallback",
+  "cases": 500,
+  "no_paid_or_embedding_calls": true,
+  "runtime_labels_loaded": false,
+  "inputs": {
+    "frozen_policy": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-07-rank-before-chronology/POLICY.md",
+      "sha256": "ff1b73bc494f38011d27656147e81a4844117b73016424f53acd89cc06fd168e"
+    },
+    "runner": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-07-rank-before-chronology/audit.py",
+      "sha256": "ed0142b82f4882840b97180141acc7ef237d8d40f36af3059fdfadc218dac2f2"
+    },
+    "source_db": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/unified-english-all500-001/assembler.db",
+      "sha256": "b7717c386ce255891ef9a2ff3c9495a1297f574ea86cd050758ed92bc026ce17"
+    },
+    "assembler_policy": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/unified-english-all500-001/policy.json",
+      "sha256": "6f6b17fdef38f7023ba84ec4d303e05fcfc91016cd65f319ab08b50705c021da"
+    },
+    "cache": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/integrity-audit-001/corrected-cache-v2/longmemeval_s.json",
+      "sha256": "8134cf8973d9c763b58fe9c663b972c49845620a1c18dde4e6d83c8083976857"
+    },
+    "runtime_projection": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-07-rank-before-chronology/runtime-projection.json",
+      "sha256": "f6ed4989aac7e0f1e5477300807b4449f792c6d4208e330969d1a6c1c239cbd0"
+    },
+    "corrected_package": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/full500-corrected-measurement-package-001/package.json",
+      "sha256": "461514b60a50845c130ee65b8bffdb2054f3ab198994e923feeabcf65873f67c"
+    },
+    "precision_package": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/full500-precision-measurement-package-001/package.json",
+      "sha256": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab"
+    },
+    "upstream_evaluator_only": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/integrity-audit-001/longmemeval_s_cleaned.json",
+      "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
+    },
+    "paid_checkpoint_evaluator_only": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/paid-full500-precision-measurement1-001/checkpoint.json",
+      "sha256": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1"
+    },
+    "context_assembler_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/llm/context_assembler.py",
+      "sha256": "ea4d543ed2cb65c0b47934f83b513f8a34e8217fd6f482e7b60c0e80969ec86c"
+    },
+    "token_counter_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/llm/token_counter.py",
+      "sha256": "3da2611b8c6aca1bf7ced84c182e56b70a51644e8ee64df0783d43a2d7b0051c"
+    },
+    "fact_retrieval_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/llm/fact_retrieval.py",
+      "sha256": "44f895ffbbcb97f9c35720fa77976762d9a4020ddf18f0e3e2b4fb2efded5dfa"
+    },
+    "packer_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/llm/ranked_chunk_packing.py",
+      "sha256": "aaac43d036c1ffaf24f88af4b888b08c65b8a83f06631343b7046ca4ba9447ba"
+    },
+    "precision_supplement_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/precise_source_supplement.py",
+      "sha256": "5d41e91e32834c320ddd6f6f11808bd91e2a097154623fdcd2bc7479b791b93c"
+    },
+    "precision_ranking_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/precise_lexical_retrieval.py",
+      "sha256": "6322a64bc1fda519408ea5aa52e5e9eef749ededa2a7ce049a1fbb2848108614"
+    },
+    "dated_adapter_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/dated_event_adapter.py",
+      "sha256": "db78557f149de9cf36c580f98922aa7fc5e7b567d9bc6285174ac1ad8b5f56df"
+    },
+    "recall_adapter_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/recall_span_adapter.py",
+      "sha256": "7da46419ce6eed3d2970fea279754fde0d47ac997bd2e718699d39e50c548e62"
+    },
+    "scope_adapter_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/tools/corrected_question_scope_adapter.py",
+      "sha256": "3b605a2f84c2b99ce5f4bee8796e04d29f912be836477ab81c96f0ec7152d583"
+    },
+    "scope_cache_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/tools/build_question_local_english_cache.py",
+      "sha256": "ef90d443a76d5b14a1a44a2fa6f3c85186d0aef4cb618b04498e6090fec6772a"
+    },
+    "tfidf_adapter_code": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/benchmarks/real_code_utils.py",
+      "sha256": "8fa728961f98116af43d30979932b17e8df8ebf9a9a7d732c2c428d4499e64d6"
+    },
+    "packer_tests": {
+      "path": "/Volumes/Sahith_SSD/AgentMem-OS/AgentMem-OS/tests/test_ranked_chunk_packing.py",
+      "sha256": "20b8c3566d1d332ab1e9a53f82ce0619dcf086c385c2dcdd39b405fe5904cafc"
+    }
+  }
+}

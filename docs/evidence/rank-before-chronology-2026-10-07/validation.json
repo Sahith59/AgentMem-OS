@@ -1,0 +1,15 @@
+{
+  "focused_tests": 134,
+  "skips": {
+    "live_local_redis_opt_in": 1
+  },
+  "new_files_ruff": "PASS",
+  "assembler_ruff": "7_PREEXISTING_DIAGNOSTICS_UNCHANGED_FROM_HEAD",
+  "diff_check": "PASS",
+  "prior_test_pass_without_async_plugin": {
+    "passed": 131,
+    "skipped": 4,
+    "superseded_by_async_enabled_run": true
+  },
+  "paid_calls": 0
+}

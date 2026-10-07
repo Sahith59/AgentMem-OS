@@ -138,7 +138,12 @@ class ContextAssembler:
     passed as the system message to the LLM.
     """
 
-    def __init__(self, model_window: int = 128_000):
+    def __init__(self, model_window: int = 128_000, *, raw_evidence_policy="legacy"):
+        if type(raw_evidence_policy) is not str or raw_evidence_policy not in {
+            "legacy", "whole_rank_v1"}:
+            raise ValueError("Unknown raw evidence policy")
+        self.raw_evidence_policy = raw_evidence_policy
+        self.last_raw_evidence_packing = {}
         self.model_window = model_window
         self.budget = int(model_window * 0.60)  # 60% for context, 40% for response
         self.allocations = {
@@ -194,6 +199,7 @@ class ContextAssembler:
         user_id: second axis of the fact scope (make_scope_key) — the facts
         tier reads with the SAME scope derivation consolidation writes with.
         """
+        self.last_raw_evidence_packing = {}
         store = self._get_store()
         session = store.get_or_create_session(session_id)
 
@@ -456,15 +462,8 @@ class ContextAssembler:
                     # single assistant-stated passage, so putting rank-0 at
                     # the front is more useful than reconstructing a timeline.
                     # No-ops gracefully when chunks carry no parseable dates.
-                    chunks = self._order_evidence(
-                        chunks, sem_budget,
-                        chronological=not recall_intent,
-                    )
-                    sem_text = "\n---\n".join(chunks)
-                    sem_section = self._fit_to_budget(
-                        sem_text, sem_budget, "[SEMANTIC MEMORY]",
-                        keep="head",
-                    )
+                    sem_section = self._render_raw_evidence(
+                        chunks, sem_budget, chronological=not recall_intent)
                     sections.append(sem_section)
             except Exception as e:
                 logger.debug(f"[ContextAssembler] Semantic retrieval skipped: {e}")
@@ -585,6 +584,24 @@ class ContextAssembler:
     # ──────────────────────────────────────────────────────────────────────────
 
     _EVIDENCE_DATE_RE = None  # compiled lazily
+
+    def _render_raw_evidence(self, chunks, token_budget, chronological=True):
+        """Opt-in whole-chunk packing; existing reserve paths remain legacy."""
+        receipt = getattr(self._chroma, "last_receipt", None) or {}
+        if self.raw_evidence_policy == "whole_rank_v1" and not receipt.get("reserve"):
+            from .ranked_chunk_packing import pack_ranked_chunks
+
+            section, report = pack_ranked_chunks(
+                chunks, token_budget=token_budget, counter=self.counter,
+                chronological=chronological)
+            self.last_raw_evidence_packing = report
+            return section
+        self.last_raw_evidence_packing = dict(
+            policy="legacy", reason=("reserve_fallback" if receipt.get("reserve")
+                                     else "legacy_requested"))
+        ordered = self._order_evidence(chunks, token_budget, chronological=chronological)
+        return self._fit_to_budget(
+            "\n---\n".join(ordered), token_budget, "[SEMANTIC MEMORY]", keep="head")
 
     def _order_evidence(self, chunks: list, token_budget: int,
                         chronological: bool = True) -> list:

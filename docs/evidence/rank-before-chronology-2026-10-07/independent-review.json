@@ -1,0 +1,48 @@
+{
+  "schema": "independent-rank-before-chronology-review-v1",
+  "status": "PASS_STRUCTURAL_ONLY",
+  "code_sha256": {
+    "ranked_chunk_packing": "aaac43d036c1ffaf24f88af4b888b08c65b8a83f06631343b7046ca4ba9447ba",
+    "context_assembler": "ea4d543ed2cb65c0b47934f83b513f8a34e8217fd6f482e7b60c0e80969ec86c",
+    "token_counter": "3da2611b8c6aca1bf7ced84c182e56b70a51644e8ee64df0783d43a2d7b0051c",
+    "frozen_policy": "ff1b73bc494f38011d27656147e81a4844117b73016424f53acd89cc06fd168e",
+    "runner": "ed0142b82f4882840b97180141acc7ef237d8d40f36af3059fdfadc218dac2f2"
+  },
+  "method": "Separate greedy reference and independent date-key/receipt calculations, actual TokenCounter, deterministic random seed 0xC0DE7107; no DB/provider/label/candidate audit imports.",
+  "random_cases": 800,
+  "zero_budget_cases": 81,
+  "duplicate_chunk_cases": 158,
+  "unicode_cases": 249,
+  "chronological_reorder_cases": 46,
+  "decision_status_occurrences": {
+    "admitted": 1248,
+    "blank_input": 742,
+    "character_nonfit": 1275,
+    "token_nonfit": 203
+  },
+  "invalid_shapes_rejected": 5,
+  "root_reproduction": {
+    "legacy_rank0_full": false,
+    "legacy_rank0_needle": false,
+    "legacy_lower_rank_needle": true,
+    "candidate_rank0_full": true,
+    "candidate_lower_rank_full": false,
+    "candidate_chars": 119,
+    "candidate_tokens": 38,
+    "budget_tokens": 60
+  },
+  "checks": [
+    "exact candidate section and greedy decisions match independent reference",
+    "complete admitted chunks and offsets/hashes match receipts",
+    "token and character budgets never exceeded",
+    "rank admission remains monotone",
+    "invalid input shapes rejected"
+  ],
+  "limitations": [
+    "The test checks mechanical packing of input chunks, not original-source identity, semantic completeness, answer behavior, or all-500 trace outcomes.",
+    "Randomized corpus is synthetic; it does not certify retrieved production chunks or the running audit."
+  ],
+  "paid_calls": 0,
+  "model_calls": 0,
+  "new_embeddings": 0
+}

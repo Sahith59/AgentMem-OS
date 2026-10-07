@@ -1,0 +1,211 @@
+{
+  "schema": "rank-before-chronology-independent-semantic-review-v1",
+  "status": "BOUNDED_SOURCE_REVIEW_NO_ANSWER_CLAIM",
+  "input_sha256": {
+    "source_review_inputs": "e3b4ea61df6c2fd6bea3493f74e0913db83d295225d0a5918c222329ca12ebcd",
+    "mechanism_audit": "5870063e3154e0c492ff681cbf82362ab6e6e0b64bf68658a659a82378e7324e",
+    "precision_package": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab",
+    "legacy_traces": "45f52858b923aa489dd19d96d974a0053f78399046e4d8bdf5b538e3c3dd5604",
+    "candidate_traces": "073130d0cf6113fe187ac1fddd1076bbd95244feb4ca428270b55a9ed7a13ec3"
+  },
+  "five_historical_miss_gains": [
+    {
+      "id": "9d25d4e0",
+      "question": "How many pieces of jewelry did I acquire in the last two months?",
+      "reference_evaluator_only": "3",
+      "saved_historical_answer": "2 pieces of jewelry",
+      "gained_source_role": "user",
+      "gained_source_sha256": "d4e70c357a7c030d8ccefe1ed4eb796036b759ed3795048bf9bf869e61c4b929",
+      "gained_source_excerpt": "[2023/05/21 (Sun) 21:58] I'm thinking of getting a jewelry cleaning kit that includes a solution and a soft cloth. Do you think that would be a good idea? And by the way, I'm really glad I got those emerald earrings at the flea market last weekend - they're really stunning!",
+      "legacy_context_sha256": "65adeece8a98ca8672f9cef2ad49ec5e8a15b90bc2d8aeef6f435b4808eb9893",
+      "candidate_context_sha256": "fc1e76d2f1b18c424b065f818003e5cb032ad526e06f83b6f0a7bb9e306e0b14",
+      "classification": "redundant_event_evidence",
+      "assessment": "The gained turn confirms emerald earrings acquired at the flea market. Frozen baseline already states that acquisition in semantic facts and has another original user mention of the same earrings. This gained body adds no distinct jewelry item.",
+      "new_annotated_body_delivered": true,
+      "new_answer_or_grade_measured": false
+    },
+    {
+      "id": "ba358f49",
+      "question": "How many years will I be when my friend Rachel gets married?",
+      "reference_evaluator_only": "33",
+      "saved_historical_answer": "not mentioned",
+      "gained_source_role": "user",
+      "gained_source_sha256": "c098afbc90595e9255e7902964adb781e8192c0a97796ac9bdfd63f38683fbbc",
+      "gained_source_excerpt": "[2022/09/01 (Thu) 16:14] I'm 32, so I'm in my 30s. I'd say my skin type is normal, but it's been looking a bit dull lately. My main concerns are fine lines and wrinkles, especially around my eyes. I'm open to trying out different products, but I'd prefer something not too expensive.",
+      "legacy_context_sha256": "d37329a9fde2007876cbbf5a27f0ada52e35b22db7503e7422c01d4f506cf253",
+      "candidate_context_sha256": "43c48c1aeafe03978bad5d7fb26240b92ebc8b48d786629544a8ffa336b0fc2f",
+      "classification": "missing_operand_with_timing_uncertainty",
+      "assessment": "The gained user turn says the user is 32 on 2022-09-01; baseline says Rachel gets married next year. This supplies a previously absent current-age operand. Exact age at that future wedding is still underdetermined without birthday and wedding timing; 33 is plausible, not source-certified.",
+      "new_annotated_body_delivered": true,
+      "new_answer_or_grade_measured": false
+    },
+    {
+      "id": "bf659f65",
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "reference_evaluator_only": "3",
+      "saved_historical_answer": "2 music albums or EPs",
+      "gained_source_role": "user",
+      "gained_source_sha256": "d5fbc72c680cfd8298bedf3c97847185a13615b90c459405fb7fb5f124a399a9",
+      "gained_source_excerpt": "[2023/05/29 (Mon) 18:21] I'm looking for some new music recommendations. I've been really into indie and folk-rock lately, especially after discovering The Whiskey Wanderers at a music festival last weekend - I bought their EP 'Midnight Sky' at the festival merchandise booth and can't get enough of it. Can you suggest some similar artists or bands I might like?",
+      "legacy_context_sha256": "22d7f7880de6406eb2b2e7db99d99c54d103fc5358d6b2c5f8b31098a606d33e",
+      "candidate_context_sha256": "1c74dbccc1babd694f06f2fb51b21ac0e9ad6f911a24065d6071733e4d8df934",
+      "classification": "redundant_purchase_evidence",
+      "assessment": "The gained turn says the user bought The Whiskey Wanderers EP Midnight Sky. Frozen baseline already states that purchase multiple times in dated semantic facts; the turn does not establish another distinct album or EP.",
+      "new_annotated_body_delivered": true,
+      "new_answer_or_grade_measured": false
+    },
+    {
+      "id": "d851d5ba",
+      "question": "How much money did I raise for charity in total?",
+      "reference_evaluator_only": "$3,750",
+      "saved_historical_answer": "Over $8,750",
+      "gained_source_role": "user",
+      "gained_source_sha256": "ee188c487496896d13bf2f1029cb5e00c24d3f921535a0af3b6bf179b54e9db9",
+      "gained_source_excerpt": "[2023/03/20 (Mon) 19:19] I'm planning to participate in a charity cycling event next month and I want to make sure I'm prepared. Can you give me some tips on how to train for it? By the way, I've been getting more into charity events lately - I helped raise $2,000 for a local animal shelter on January 20th, and it was an amazing experience!",
+      "legacy_context_sha256": "c529a70d4ec60a690e20331da7b0b3560e65c0b3b467dfff6f09d0741f9eff18",
+      "candidate_context_sha256": "b74e541e95aa7546d46bcbe92f0f05795248097e3f38280be4ed0d6125ecf8b9",
+      "classification": "redundant_amount_reference_unresolved",
+      "assessment": "The gained turn states $2,000 raised for a shelter on January 20. The baseline already has that amount and a separate over-$5,000 benefit concert that helped produce the saved over-$8,750 answer. This turn does not resolve whether that concert belongs in the reference total, including its chronology inconsistency.",
+      "new_annotated_body_delivered": true,
+      "new_answer_or_grade_measured": false
+    },
+    {
+      "id": "e3038f8c",
+      "question": "How many rare items do I have in total?",
+      "reference_evaluator_only": "99",
+      "saved_historical_answer": "At least 87 rare items.",
+      "gained_source_role": "user",
+      "gained_source_sha256": "17a6c04c833f973991c395e7b0b2f06f3b5ce708a340ceeefc26ca6d9dc907da",
+      "gained_source_excerpt": "[2023/05/22 (Mon) 21:02] I'm looking for a professional book conservator to sign my recently acquired first edition of \"To Kill a Mockingbird\". Do you have any recommendations or know of any reputable services in my area? By the way, I've been collecting rare books for a while now and have a small but valuable collection of 5 books.",
+      "legacy_context_sha256": "b83da23a61e4e99355da654f5e9db3d064acb23c19abd6c13e838f53cb56376f",
+      "candidate_context_sha256": "1d24b23ab8cca5ee3d135533d9dbb607794fe18af65652f3a0078f76cbad96ce",
+      "classification": "redundant_category_operand",
+      "assessment": "The gained turn says the user has five rare books; baseline already has that five-book fact. The separate twelve-figurine original source needed to bridge the saved at-least-87 count toward the reference 99 is still absent as a complete source body.",
+      "new_annotated_body_delivered": true,
+      "new_answer_or_grade_measured": false
+    }
+  ],
+  "five_gain_assessment": {
+    "previously_missing_operand_cases": 1,
+    "redundant_or_reference_unresolved_cases": 4,
+    "qualified_case": "ba358f49",
+    "qualification": "Age 32 is newly delivered but future exact age depends on unspecified birthday/wedding timing."
+  },
+  "ten_recovered_rank0_chunks": [
+    {
+      "id": "0862e8bf_abs",
+      "question": "What is the name of my hamster?",
+      "rank0_sha256": "e89847c26d5a5c13eefe92e41a91132ad6a42a35d18a6d6a07b3930373272f58",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/30 (Tue) 19:25] What is being done to address the lack of diversity in the financial services industry?",
+      "newly_delivered_in_final": false,
+      "classification": "unrelated",
+      "assessment": "Financial-services diversity question does not identify the hamster."
+    },
+    {
+      "id": "311778f1",
+      "question": "How many hours did I spend watching documentaries on Netflix last month?",
+      "rank0_sha256": "d4818af8818ffab0fad32afebd5c8d526887bfc813f6614cb22cde06913442ed",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/29 (Mon) 02:25] What were some of the key myths and legends associated with Osiris, and how did they inform religious practice?",
+      "newly_delivered_in_final": true,
+      "classification": "unrelated",
+      "assessment": "Osiris mythology does not give Netflix documentary viewing hours."
+    },
+    {
+      "id": "8550ddae",
+      "question": "What type of cocktail recipe did I try last weekend?",
+      "rank0_sha256": "ef4ad1b4d8850c3e746034ed4fe91223ee02e85f17d8001a8c2bdd8d7563dac5",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/29 (Mon) 17:24] I've also been trying to catch up on the latest gaming news and updates, so I've been watching a lot of videos on IGN and GameSpot. Speaking of gaming, I finally completed \"The Last of Us Part II\" on my PlayStation 5 after playing it for 10 hrs last weekend. What do you think about the game? Have you heard anything about a potential sequel or DLC?",
+      "newly_delivered_in_final": true,
+      "classification": "unrelated_numeric_distractor",
+      "assessment": "Ten hours of The Last of Us Part II gaming is unrelated to a cocktail recipe and could distract a numeric answer."
+    },
+    {
+      "id": "a346bb18",
+      "question": "How many minutes did I exceed my target time by in the marathon?",
+      "rank0_sha256": "427c264ecf877fd95699ff836b4acfcf8d59ec6e125d8b66ef763a661fa1d4f3",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/30 (Tue) 04:57] I'm thinking about signing up for another half-marathon. Can you tell me what the average finish time is for a half-marathon, and do you have any tips for improving my time? By the way, my personal best is 2 hours and 15 minutes, which I achieved on February 10th.",
+      "newly_delivered_in_final": false,
+      "classification": "related_topic_wrong_operand",
+      "assessment": "A half-marathon personal best is running-related but does not supply the queried marathon target-time excess."
+    },
+    {
+      "id": "af082822",
+      "question": "How many weeks ago did I attend the friends and family sale at Nordstrom?",
+      "rank0_sha256": "79c7ff0aded0337573f7f2df9ab0597111d3f47f6496ead11ab32feded96c9ff",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2022/11/18 (Fri) 21:39] How does the geography of Benevento affect the city's agricultural industry, and how does that industry impact the local economy?",
+      "newly_delivered_in_final": true,
+      "classification": "unrelated",
+      "assessment": "Benevento geography does not date a Nordstrom sale."
+    },
+    {
+      "id": "ba358f49_abs",
+      "question": "How old will Rachel be when I get married?",
+      "rank0_sha256": "70c6a1521361db8f390c5797a7c55e40178e84d5fb23f909e27798a4d0630aad",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/30 (Tue) 20:49] i will be sending recommendations and it will provide me a step by step process on how to complete the recommendation (5-10 steps with a bit of detail to start but still open ended for flexibility).",
+      "newly_delivered_in_final": true,
+      "classification": "unrelated",
+      "assessment": "A generic step-by-step recommendation-process message does not establish Rachel’s age at the user’s marriage."
+    },
+    {
+      "id": "cf22b7bf",
+      "question": "How much weight have I lost since I started going to the gym consistently?",
+      "rank0_sha256": "1a23e03da0d3ff74d7c461a941864a91d0ffa3ae6062c80b997286fb60f86c8e",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/06/02 (Fri) 12:39] I'd be happy to help you track your cat's food supply.\n\nLet's get started! To estimate how long the 12 packets of Whiskas food will last Luna, we'll need to know a few more details.\n\nCan you please tell me:\n\n1. How much food does Luna eat per day? Is it a specific amount (e.g., 1 cup, 2 cups), or do you free-feed her?\n2. What is Luna's age, weight, and activity level (e.g., indoor, outdoor, playful, lazy)? This will help us estimate her daily caloric needs.\n\nOnce I have ",
+      "newly_delivered_in_final": true,
+      "classification": "unrelated_entity_distractor",
+      "assessment": "The assistant asks about a cat’s weight and food; it does not state the user’s gym weight loss."
+    },
+    {
+      "id": "gpt4_7fce9456",
+      "question": "How many properties did I view before making an offer on the townhouse in the Brookside neighborhood?",
+      "rank0_sha256": "0e0c29937bb5d43b745075e8df6ff5146dd41ffa5c9ee324112a8928471b16c3",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/03/08 (Wed) 16:28] How does the author address issues of race and identity in the narrative?",
+      "newly_delivered_in_final": true,
+      "classification": "unrelated",
+      "assessment": "Literary race-and-identity question does not count viewed properties."
+    },
+    {
+      "id": "gpt4_ab202e7f",
+      "question": "How many kitchen items did I replace or fix?",
+      "rank0_sha256": "a15760483fa742ecc32323cc8164913225132573b6f94d42b6e0242841cf0b9f",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/30 (Tue) 03:52] Tiramisu is a classic Italian dessert that's sure to impress!\n\nI'm glad to hear that you've decluttered your kitchen countertops and upgraded to a toaster oven. It's amazing how much more efficient and versatile it is compared to a traditional toaster.\n\nOrganizing kitchen utensils and gadgets can be a challenge, but with a few simple tips, you can keep your kitchen tidy and functional. Here are some suggestions:\n\n1. **Purge and categorize**: Get rid of any duplicate or u",
+      "newly_delivered_in_final": false,
+      "classification": "topical_assistant_recap_already_delivered",
+      "assessment": "Assistant recap mentions a toaster-oven upgrade and is kitchen-related, but was already complete in the final legacy packet; it is not a new user-confirmed count."
+    },
+    {
+      "id": "gpt4_d84a3211",
+      "question": "How much total money have I spent on bike-related expenses since the start of the year?",
+      "rank0_sha256": "5e755e50f03d76d626665ec1312581c1ccfc115f410416fc798cf606cbf7aa8a",
+      "rank0_role_unknown_from_chunk": true,
+      "rank0_excerpt": "[2023/05/05 (Fri) 23:05] I've been keeping track of my bike mileage and I'm currently at 347 miles since the start of the year. Can you give me some tips on how to track my bike mileage more accurately, and also, do you know any way to calculate my average speed?",
+      "newly_delivered_in_final": false,
+      "classification": "related_topic_wrong_measure",
+      "assessment": "Bike mileage is related to cycling but supplies no expense amount."
+    }
+  ],
+  "rank0_assessment": {
+    "recovered_raw_chunks": 10,
+    "newly_delivered_in_final": 6,
+    "newly_delivered_direct_answer_facts_observed": 0,
+    "limit": "Question relevance assessed from the displayed rank-0 chunk, not from full-history semantic entailment."
+  },
+  "limits": [
+    "This is an independent assistant source review, not a new answer run or human annotation.",
+    "Full-turn coverage and rank-0 delivery do not prove semantic sufficiency, answer improvement, or absence of regressions from other packet changes.",
+    "The baseline facts can restate original turns; duplicate semantic content is distinct from exact source-body presence.",
+    "All 500 examples are development-exposed."
+  ],
+  "paid_calls": 0,
+  "new_answers": 0,
+  "new_embeddings": 0
+}

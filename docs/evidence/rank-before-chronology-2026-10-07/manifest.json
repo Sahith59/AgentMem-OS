@@ -1,0 +1,32 @@
+{
+  "schema": "rank-before-chronology-public-evidence-v1",
+  "files_sha256": {
+    "POLICY.md": "ff1b73bc494f38011d27656147e81a4844117b73016424f53acd89cc06fd168e",
+    "REPORT.md": "402498c66eb65cfc81f561cf1fc6749cc2c70f3871ccdf240c811b042c87291a",
+    "audit.py": "ed0142b82f4882840b97180141acc7ef237d8d40f36af3059fdfadc218dac2f2",
+    "evaluate_v2.py": "5f022a840cfea0676d63b00754e830857634f862e9902fa9690d35fef42c0bbf",
+    "mechanism_audit_v2.py": "be422999f689bba827ab4275c8e62ab4a35cd3107078adb5fbdac2cd073b12eb",
+    "audit.json": "848280a852ccb0ade47a79eb1054785df9cc0fa2c4ce932973fde5acc7140b78",
+    "mechanism-audit.json": "5870063e3154e0c492ff681cbf82362ab6e6e0b64bf68658a659a82378e7324e",
+    "source-review.json": "77c7017c4d12e50ed37cb36d0b82cf73fec9c7a7d8fcea1916989ef7d44205f1",
+    "freeze.json": "77f4a9e933ca574a97b5ededd5b3b0c8b0779bee38c4cb2fe29c64cb9376dec2",
+    "phase1.json": "64076ec7526aa2f1c12f48f1110e832929bd0a5836e0566e2d2c1c3cbf3f8d81",
+    "legacy-exact.json": "3c3653555721bad0d87ae190a557daf54c467bdb8d4974dd41a2892a5901c164",
+    "reproduction.json": "4797034d38ec01e152093f879b8ce96008b6744f9147e581106b35ce14affc5c",
+    "validation.json": "8dfe4a655359488822a5a5fc2a5274337c32934bdbfa20efaffc762fe5a0b023",
+    "reader-correction.json": "6c258741eb17922997919243ad5d3071d0262fe533ba6041e75dcb343a75b418",
+    "independent-review.json": "0d51a2e9153e1ebaac7f2fb6b0b817a9ad86675721cc809fe11e4c1cf7349ebc",
+    "independent-verification.json": "d9900d3d85636ebbe1720e7a355cca7a30a2d97bda1ffdd2692c6054114b12e7",
+    "independent-evaluation-verification.json": "029a6bb8fe8cfcd45ac4c4a3c18d026bf274f582beb938b32458b58880fad853",
+    "independent-semantic-review.json": "21da84769ef1d87743eb5cfdbf43a3cda3c19cac52824d2d7c7443e3d3a5cf71"
+  },
+  "local_only_artifacts": {
+    "runtime-projection.json": "f6ed4989aac7e0f1e5477300807b4449f792c6d4208e330969d1a6c1c239cbd0",
+    "legacy-traces.jsonl": "45f52858b923aa489dd19d96d974a0053f78399046e4d8bdf5b538e3c3dd5604",
+    "candidate-traces.jsonl": "073130d0cf6113fe187ac1fddd1076bbd95244feb4ca428270b55a9ed7a13ec3",
+    "source-review-inputs.json": "e3b4ea61df6c2fd6bea3493f74e0913db83d295225d0a5918c222329ca12ebcd",
+    "evaluation.log": "656c3a0be0ac8d091b4e2ec4f10022a955fb02db6430a98811f4056b1770acf8",
+    "mechanism_audit.py": "4392c718693488076d08bd83edf21975b7dcafedd0c4bce41a98261279951d9c"
+  },
+  "limits": "Large contexts/traces/projection/DB and full saved-answer review input remain local. Scripts require original memory-relative layout and frozen dependencies; copies are evidence snapshots, not standalone public replay commands. No source selection or answer gain certified."
+}
