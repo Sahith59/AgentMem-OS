@@ -1,0 +1,17 @@
+{
+  "policy_sha256": "ed89ee5139af8e76cb43a4ce99b910a65d9c69391cac6e7cc0899696a6ebe35f",
+  "script_sha256": "c71ead2c89383837b219e76fcfe550bf4d4806390ffc5516b8d20bc5ff3605ff",
+  "code_sha256": {
+    "benchmarks/source_capacity_audit.py": "05e620231c936964b5c631a6f6e7162dcbf7a4de3443298247697fcc2df80910",
+    "llm/evidence_packet.py": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324"
+  },
+  "inputs_sha256": {
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/runtime.json": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/labels.json": "3225604ba0b8aa0061ee868051a950efb76f96397a4b994ab98ec7850177ec01",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-07-atomic-allocation/packets.jsonl": "d6011cbbc231d788ef99eea28369de5f0b2e553dbd81414750bf29d4250b12bc",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-07-atomic-allocation/audit.json": "0a88c285a4ea2315eaa20fc47e4e137ca9bde69054c6fc21cc40f1f0537e0526",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/paid-full500-precision-measurement1-001/checkpoint.json": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1"
+  },
+  "paid_calls": 0,
+  "candidate_packets_created": 0
+}
