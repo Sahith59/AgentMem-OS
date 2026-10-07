@@ -11,6 +11,8 @@ from .evidence_packet import digest, eligible_sources
 
 _DATE_LINE = re.compile(r"(?m)^\[\d{4}/\d{2}/\d{2} \([A-Za-z]{3}\) \d{2}:\d{2}\]")
 _ROLE_LINE = re.compile(r"(?m)^(?:USER|ASSISTANT): ")
+_SECTION_FRAME = re.compile(r"</?\[[^\]\n]+\]>")
+_SECTION_OPEN = re.compile(r"<\[([A-Z][A-Z ]*)\]>\n")
 _MARKERS = (
     "<[SEMANTIC MEMORY]>", "</[SEMANTIC MEMORY]>",
     "<[RECENT TURNS]>", "</[RECENT TURNS]>",
@@ -18,10 +20,46 @@ _MARKERS = (
 )
 
 
+def _regions(baseline):
+    """Parse the entire outer envelope before trusting any inner source marker."""
+    regions, seen, cursor = [], set(), 0
+    additional = "[ADDITIONAL SOURCE EVIDENCE]\n"
+    while cursor < len(baseline):
+        if baseline.startswith(additional, cursor):
+            start = cursor + len(additional)
+            # The additional-source renderer is a single final outer section.
+            if additional in baseline[start:] or _SECTION_FRAME.search(baseline[start:]):
+                return [], ["ambiguous_additional_source_framing"]
+            regions.append(("ADDITIONAL SOURCE EVIDENCE", start, len(baseline)))
+            return regions, []
+        opening = _SECTION_OPEN.match(baseline, cursor)
+        if not opening or opening[1] in seen:
+            return [], ["unrecognized_or_duplicate_outer_framing"]
+        name = opening[1]
+        seen.add(name)
+        start = opening.end()
+        closing = f"\n</[{name}]>"
+        end = baseline.find(closing, start)
+        if end < 0 or _SECTION_FRAME.search(baseline[start:end]):
+            return [], ["unclosed_or_nested_outer_framing"]
+        if name in {"SEMANTIC MEMORY", "RECENT TURNS"}:
+            regions.append((name, start, end))
+        cursor = end + len(closing)
+        if cursor == len(baseline):
+            break
+        if not baseline.startswith("\n\n", cursor):
+            return [], ["invalid_outer_section_separator"]
+        cursor += 2
+    return regions, []
+
+
 def map_presence(snapshot, baseline, *, scope, as_of):
     """Return offset-bound, unique source matches; uncertainty never means present.
 
-    Only time-eligible records participate in matching and ambiguity checks.
+    Only time-eligible records may be matched. All scoped records participate in
+    framing/prefix safety checks, because the frozen baseline itself is not
+    certified free of quoted or future text. This can conservatively disable a
+    certificate, never admit a future source or change retrieval scores.
     Sources with embedded framing syntax disable reconstruction conservatively.
     The caller must supply its complete original scoped snapshot.
     """
@@ -30,16 +68,16 @@ def map_presence(snapshot, baseline, *, scope, as_of):
         raise ValueError("Explicit baseline required")
     by_text, by_role_text = defaultdict(list), defaultdict(list)
     unsafe = False
-    for t in turns:
+    for t in snapshot.turns:
         by_text[t.text].append(t)
         by_role_text[t.role, t.text].append(t)
         # Dated text is renderer metadata only at the start of the original turn.
         body = t.text.split("] ", 1)[-1]
-        if (any(marker in t.text for marker in _MARKERS)
+        if (any(marker in t.text for marker in _MARKERS) or _SECTION_FRAME.search(t.text)
                 or _ROLE_LINE.search(t.text) or _DATE_LINE.search(body)):
             unsafe = True
     report = dict(
-        schema="source-presence-v1", scope=scope, baseline_sha256=digest(baseline),
+        schema="source-presence-v2", scope=scope, baseline_sha256=digest(baseline),
         receipts=[], ambiguous=[], unmatched_ids=[], hazards=[],
         inference="EXACT_RENDERER_MATCH_ONLY", semantic_completeness="NOT_CERTIFIED",
     )
@@ -48,26 +86,9 @@ def map_presence(snapshot, baseline, *, scope, as_of):
         report["unmatched_ids"] = [t.id for t in turns]
         return report
 
-    regions = []
-    for kind in ("SEMANTIC MEMORY", "RECENT TURNS"):
-        opening, closing = f"<[{kind}]>\n", f"</[{kind}]>"
-        if baseline.count(opening) == baseline.count(closing) == 1:
-            start = baseline.index(opening) + len(opening)
-            end = baseline.index(closing)
-            if start <= end:
-                regions.append((kind, start, end))
-        elif opening in baseline or closing in baseline:
-            report["hazards"].append(f"ambiguous_{kind}_framing")
-    header = "[ADDITIONAL SOURCE EVIDENCE]\n"
-    if baseline.count(header) == 1:
-        start = baseline.index(header) + len(header)
-        regions.append(("ADDITIONAL SOURCE EVIDENCE", start, len(baseline)))
-    elif header in baseline:
-        report["hazards"].append("ambiguous_additional_source_framing")
-    # Nested or intersecting regions cannot certify top-level source frames.
-    regions.sort(key=lambda r: r[1])
-    if any(a[2] > b[1] for a, b in zip(regions, regions[1:])):
-        report["hazards"].append("overlapping_renderer_regions")
+    regions, hazards = _regions(baseline)
+    report["hazards"].extend(hazards)
+    if hazards:
         report["unmatched_ids"] = [t.id for t in turns]
         return report
 
@@ -95,7 +116,7 @@ def map_presence(snapshot, baseline, *, scope, as_of):
                     # Neither a truncated larger turn nor a delimiter in it may
                     # silently certify the smaller event's identity.
                     prefix_collision = any(
-                        other != t.text and other.startswith(t.text + "\n")
+                        other != t.text and other.startswith(t.text)
                         for other in by_text
                     )
                     if len(identities) != 1 or prefix_collision:
