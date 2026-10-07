@@ -1,0 +1,21 @@
+{
+  "schema": "atomic-allocation-evidence-v1",
+  "files": {
+    "POLICY.md": "4a9c1ac7ed156ab31d9597eef21f0061544a2e843d43d758b54b1e2d7ac7713e",
+    "freeze.json": "c96416a095828c2042fc27a9a1aac3efbbb7489f4be75df26b3bc7267f99284b",
+    "audit.json": "0a88c285a4ea2315eaa20fc47e4e137ca9bde69054c6fc21cc40f1f0537e0526",
+    "verification.json": "dedb068f697d0d1ef5b33a313b538c76b92e52496136d96a882cb5fbe6c8005b",
+    "source-review.json": "97f606d2503a71e003999631e19e6065c6a07e4c54b7d8f88fde967fcd343bfa",
+    "pre-audit-review.json": "b017f9f12ed7c74d17ce9e6b32e3bb677eba5c0477bd94098e7b029721ffe715",
+    "validation.json": "024ed545b8b69e41cc7f8433fa6d67fa8aa30a8c8407ecfcc17192ec67717e3d",
+    "changed-miss-source-extracts.json": "aae04262671f18373ec9a7817cf5d693f552a1b278cb82eb3b73ef1be955e844",
+    "lossless-neighbor-diagnostic.json": "4c53f59592d82a32edd6e9c2f5867fb8db0759d9a0504470e9647a8eaef51119",
+    "README.md": "9054d6905885e031dab8b01a42afab7c2bf2cc2abf0b1473061148ce65625e6f",
+    "reproduction/audit.py": "bd459912f7d799168597c9202aa986888c05be11c8485e9fce76d5f861b9a82b"
+  },
+  "external": {
+    "codex-memory-2026-09-08/plans/2026-10-07-atomic-allocation/packets.jsonl": "d6011cbbc231d788ef99eea28369de5f0b2e553dbd81414750bf29d4250b12bc"
+  },
+  "paid_calls": 0,
+  "new_answers": 0
+}

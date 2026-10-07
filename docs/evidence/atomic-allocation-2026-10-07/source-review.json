@@ -1,0 +1,1389 @@
+{
+  "schema": "atomic-allocation-source-review-v1",
+  "status": "offline_qualitative_review_no_new_answer_or_grade",
+  "input_sha256": {
+    "audit": "0a88c285a4ea2315eaa20fc47e4e137ca9bde69054c6fc21cc40f1f0537e0526",
+    "packets": "d6011cbbc231d788ef99eea28369de5f0b2e553dbd81414750bf29d4250b12bc",
+    "runtime": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "labels": "3225604ba0b8aa0061ee868051a950efb76f96397a4b994ab98ec7850177ec01",
+    "historical_package": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab",
+    "historical_checkpoint": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1"
+  },
+  "case_counts": {
+    "historical_miss_gain": 2,
+    "historical_miss_loss": 2,
+    "historical_correct_loss": 3,
+    "changed_abstention_packet": 8
+  },
+  "finding": "Higher frozen RRF-sum utility reallocates complete bundles but can replace answer-bearing original turns with topical assistant advice or unrelated conversation. Two historical misses gain annotated raw text and two lose it; several literal raw losses retain equivalent semantic facts in the baseline. Source coverage alone does not establish any changed answer grade.",
+  "readiness": "FAIL_NO_PAID_PROPOSAL",
+  "limits": [
+    "The seven gain/loss cases are source reviewed against frozen packets, original source turns, reference text and saved historical answer, but no new answers were generated or graded.",
+    "Flagged-turn presence is literal normalized-body containment; a lost raw turn may leave a semantic fact in baseline, while a gained turn may be redundant or insufficient.",
+    "Eight abstention packets changed; the review checks changed sources for answer-bearing facts and role/entity confusion, but absence claims are scoped to inspected saved sources and baseline.",
+    "Assistant-authored statements retain assistant provenance; they are not user confirmations."
+  ],
+  "cases": [
+    {
+      "id": "031748ae_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": false,
+      "abstention": true,
+      "question": "How many engineers do I lead when I just started my new role as Software Engineer Manager?",
+      "reference_evaluator_only": "The information provided is not enough. You mentioned starting the role as Senior Software Engineer but not Software Engineer Manager.",
+      "historical_saved_answer": "4 engineers",
+      "risk_class": "role_conflation_risk",
+      "source_assessment": "Question asks for engineers led in a Software Engineer Manager role; reference says only Senior Software Engineer was mentioned. New assistant-authored outing recap discusses four engineers, and the baseline also says four engineers, but this does not establish the queried Manager role. Saved answer 4 was historically marked wrong; added evidence can reinforce a role conflation.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "093c147d91446d5771797732",
+          "session": "lme-session-b86481ba667128b9971cab3d8a7d1272e063b0f014a3c85e71866725de611abd",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/25 (Thu) 19:20",
+          "text_sha256": "2bf0b560db655fdec6b56bc265cbf7d7df76b8e09c40272cc3ae259d1175564a",
+          "exact_excerpt": "[2023/05/25 (Thu) 19:20] What a great idea! Treating your engineers to a fun team outing can be a wonderful way to boost morale, encourage bonding, and create lasting memories. I'd be happy to help you with some activity suggestions in the city. Here are a few ideas to get you started:\n\n**Outdoor Activities**\n\n1. **Escape Room Challenge**: Take your team to an escape room and challenge them to solve puzzles and mysteries to escape within a certai",
+          "text_chars": 2659
+        },
+        {
+          "id": "1f3c87644f6a675ec99334e8",
+          "session": "lme-session-b86481ba667128b9971cab3d8a7d1272e063b0f014a3c85e71866725de611abd",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/25 (Thu) 19:20",
+          "text_sha256": "d57c1218d71b5cbc0b821f9b6f4fb22770e0e6a3de5f7c73996edba00f853cc1",
+          "exact_excerpt": "[2023/05/25 (Thu) 19:20] I'm planning a team outing for my engineers and I need some suggestions for fun activities in the city. Do you have any recommendations?",
+          "text_chars": 161
+        },
+        {
+          "id": "f79874cbcfdcae18dc0e1178",
+          "session": "lme-session-b86481ba667128b9971cab3d8a7d1272e063b0f014a3c85e71866725de611abd",
+          "position": 11,
+          "role": "assistant",
+          "session_date": "2023/05/25 (Thu) 19:20",
+          "text_sha256": "13a4a0edd5bcdd5b190fc7de7d6de8bedde98281bb7c291244244d97c9cb081a",
+          "exact_excerpt": "[2023/05/25 (Thu) 19:20] Thank you for clarifying that.\n\nSo, to recap, you're planning a team outing for 5 people: 4 engineers from your team, including yourself, and your manager Rachel. You're considering City View Rooftop as the venue and are interested in their Corporate Team Building Package. You're also thinking about the format and agenda for the outing, including structured activities to encourage teamwork and collaboration.\n\nI'm happy to",
+          "text_chars": 570
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "0a47873536b0c5d7221c1def",
+          "session": "lme-session-dfd3d7be720722fd44b69d1655123d58f6c18344000a4edff7f4b1ab083d9039",
+          "position": 7,
+          "role": "assistant",
+          "session_date": "2023/05/27 (Sat) 10:13",
+          "text_sha256": "680df89a584ab1180454b5f820ba128b25235c2e637a72d65c78b84ee4b8027e",
+          "exact_excerpt": "[2023/05/27 (Sat) 10:13] Mount Tamalpais State Park is a fantastic choice.\n\nNow, about delegating tasks effectively, I'm happy to help! As a senior software engineer and team lead, delegating tasks is a crucial skill to master. Here are some suggestions to help you delegate tasks more effectively:\n\n1. **Clearly define tasks and objectives**: Break down larger tasks into smaller, manageable chunks, and ensure each task has a clear objective, scope",
+          "text_chars": 2507
+        },
+        {
+          "id": "b82dac5e32f5fcaad5d2ca33",
+          "session": "lme-session-dfd3d7be720722fd44b69d1655123d58f6c18344000a4edff7f4b1ab083d9039",
+          "position": 6,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 10:13",
+          "text_sha256": "e65ced205c23cfca99bc83b6c87be30024993fe31d91f712d06970b3d94b90bc",
+          "exact_excerpt": "[2023/05/27 (Sat) 10:13] Mount Tamalpais State Park sounds great. I'll check the trail conditions and plan the hike accordingly. By the way, I've been thinking about our team's workload and I think I need to delegate some tasks more effectively to ensure we're meeting our project deadlines. Do you have any suggestions on how I can do that better?",
+          "text_chars": 348
+        },
+        {
+          "id": "ff04f2ddc7c3578431fc7a44",
+          "session": "lme-session-dfd3d7be720722fd44b69d1655123d58f6c18344000a4edff7f4b1ab083d9039",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 10:13",
+          "text_sha256": "fe5bad0a5e541e7f10b84d40c57e66fc15ff6953b678e0626e9c1b85e108be60",
+          "exact_excerpt": "[2023/05/27 (Sat) 10:13] That's really helpful, thank you! I think I need to work on setting realistic deadlines and expectations, as well as providing necessary resources and support to my team members. I'll make sure to implement these suggestions and see how it goes. By the way, I'm looking forward to our team hike at Mount Tamalpais State Park, it'll be a great opportunity to bond with my team and get some exercise. I'm really proud of the pr",
+          "text_chars": 511
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "0be20d845037aded82fe70135f687c28b460b96ec4365c777168b3f592e36aa9",
+      "control_packet_sha256": "a6d990a74c3988b47bf1b1cf575232868bacced5d14112f0040354789697e1c1",
+      "candidate_packet_sha256": "b17ab633018bb87b6108a0ea395fa610d8ca74dedde59ba1531adbb02c0dab5d"
+    },
+    {
+      "id": "0862e8bf_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": true,
+      "abstention": true,
+      "question": "What is the name of my hamster?",
+      "reference_evaluator_only": "You did not mention this information. You mentioned your cat Luna but not your hamster.",
+      "historical_saved_answer": "not mentioned",
+      "risk_class": "unrelated_sources_no_hamster_name",
+      "source_assessment": "New turns concern Terraria characters, a beehive and request limits. No new source identifies the user’s hamster. Saved abstention remains supported by the inspected change.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "4578f797d393860d0761e740",
+          "session": "lme-session-13c5f36ad6002d085a5b71d16f1eb42b8960688d39734d205f110f1d0b1e244f",
+          "position": 4,
+          "role": "assistant",
+          "session_date": "2023/05/29 (Mon) 09:04",
+          "text_sha256": "fb055ca633cb869072700428b64774d213c1bfebfb12a9e8dde69e09646c21d1",
+          "exact_excerpt": "[2023/05/29 (Mon) 09:04] There is no limit to the number of requests you can make to me in a day. You can ask as many questions as you like, and I'll do my best to assist you with each one.",
+          "text_chars": 189
+        },
+        {
+          "id": "5f38020a2f627635b44efcc5",
+          "session": "lme-session-2a87d30c7232831c9929b1e441d57d7af33eae66b9418ddac7747c53787e524c",
+          "position": 7,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 09:07",
+          "text_sha256": "a0a3a0b4cabbfb803ca60e42087cf0f7c0e608a9e36008bd390431a74dc3c8ef",
+          "exact_excerpt": "[2023/05/30 (Tue) 09:07] i just found a skeleton with a bag on him in the underground jungle. his names is billy marrows. who is he?",
+          "text_chars": 132
+        },
+        {
+          "id": "985694bf8bd5ede1bde45ff8",
+          "session": "lme-session-2a87d30c7232831c9929b1e441d57d7af33eae66b9418ddac7747c53787e524c",
+          "position": 6,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 09:07",
+          "text_sha256": "ac408119a298c9f6a40601e7eb21af629c692cb8ff3cc581596f425e73680f86",
+          "exact_excerpt": "[2023/05/30 (Tue) 09:07] A huge beehive is a structure that can be found in the Jungle biome in Terraria. They are typically found hanging from trees and can be harvested for honey, which can be used for various purposes such as making honeyed food, and also for crafting certain items such as the honeyed grog.\n\nThe beehive can be harvested by using a weapon or tool that deals damage to it, the beehive will then release honey which can be collecte",
+          "text_chars": 1264
+        },
+        {
+          "id": "b02ec17758cea531560d5fef",
+          "session": "lme-session-2a87d30c7232831c9929b1e441d57d7af33eae66b9418ddac7747c53787e524c",
+          "position": 5,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 09:07",
+          "text_sha256": "b103ec806128df91540baff7fa2e097293ef7d56b7db59de22f61ef0f6c60e67",
+          "exact_excerpt": "[2023/05/30 (Tue) 09:07] I just found a huge beehive. what does that do",
+          "text_chars": 71
+        },
+        {
+          "id": "d6236ce70ab282b7831f32be",
+          "session": "lme-session-2a87d30c7232831c9929b1e441d57d7af33eae66b9418ddac7747c53787e524c",
+          "position": 8,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 09:07",
+          "text_sha256": "2d343248ced88cb024fb95ca24d4770bd1b9869ed6d200c116fb51491b113961",
+          "exact_excerpt": "[2023/05/30 (Tue) 09:07] The skeleton you found in the underground jungle with a bag on him and named Billy Marrows is a reference to a character from the popular animated series \"Gravity Falls.\" The character, Bill Cipher, is a powerful demon who takes the form of a triangular shaped being.\n\nIt seems that the developers of Terraria have included this Easter egg as a fun nod to the show, and the character serves no actual purpose in the game.\n\nKe",
+          "text_chars": 682
+        },
+        {
+          "id": "f01d187105cfc359ba7213f0",
+          "session": "lme-session-13c5f36ad6002d085a5b71d16f1eb42b8960688d39734d205f110f1d0b1e244f",
+          "position": 3,
+          "role": "user",
+          "session_date": "2023/05/29 (Mon) 09:04",
+          "text_sha256": "7171b7ceb1d0aaa1185540e39a97371b83205835cfd4d6f05b09653aeff0be3c",
+          "exact_excerpt": "[2023/05/29 (Mon) 09:04] How many requests can I make a day",
+          "text_chars": 59
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "2ec292d40a82450d0749e863",
+          "session": "lme-session-e55e28b539f50ae14398f585be2efd7ea385f659b436e2e11b74d230809b8adf",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/22 (Mon) 22:27",
+          "text_sha256": "9db9ccf9c2585bfff646aece738d8e939db7932f52f3c2fec724b64720a794f3",
+          "exact_excerpt": "[2023/05/22 (Mon) 22:27] how to make my drawings in Procreate more children like?",
+          "text_chars": 81
+        },
+        {
+          "id": "6b31067da4b994ed2f80b0ba",
+          "session": "lme-session-2a87d30c7232831c9929b1e441d57d7af33eae66b9418ddac7747c53787e524c",
+          "position": 2,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 09:07",
+          "text_sha256": "1fb5cfb0499a93bc96731f864d9ac6663fa09ac1065bba99088339ff96bd6625",
+          "exact_excerpt": "[2023/05/30 (Tue) 09:07] The suspicious looking eye you found in Terraria is most likely the Eye of Cthulhu. It is a boss that can be summoned by using a Suspicious Looking Eye item. The Suspicious Looking Eye can be crafted using 6 Lens, which drop from the Demon Eye enemy or purchased from the merchant NPC.\n\nThe Eye of Cthulhu is the first boss that can be fought in the game, it can be summoned by using the Suspicious Looking Eye at night, a me",
+          "text_chars": 1193
+        },
+        {
+          "id": "789210ad8ae745287ac4b799",
+          "session": "lme-session-e55e28b539f50ae14398f585be2efd7ea385f659b436e2e11b74d230809b8adf",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/22 (Mon) 22:27",
+          "text_sha256": "6f9baff32b94e807310795069086b88eab659d690eec2048d72225a2709e7ea5",
+          "exact_excerpt": "[2023/05/22 (Mon) 22:27] Here are a few tips to make your drawings in Procreate more childlike:\n\n1. Use bold, bright colors. Children's artwork is often characterized by the use of vibrant, eye-catching colors.\n2. Keep your lines simple and expressive. Children's drawings tend to be more gestural and less detailed, so try using loose, expressive lines rather than trying to be too precise.\n3. Experiment with different brush styles. Procreate has a",
+          "text_chars": 1123
+        },
+        {
+          "id": "d2248392b2e4a35c2647a486",
+          "session": "lme-session-2a87d30c7232831c9929b1e441d57d7af33eae66b9418ddac7747c53787e524c",
+          "position": 3,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 09:07",
+          "text_sha256": "53d6b9a5344eeb9d228a7fa25dd54672ae33dc15fd647de14757a1550597a022",
+          "exact_excerpt": "[2023/05/30 (Tue) 09:07] What does the spelunker potion do?",
+          "text_chars": 59
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "8b706f6a8dcd4356084b9b0271e7929a7d54c981de4de08c5e6d59cb9b3bd2e7",
+      "control_packet_sha256": "aaa3ed99ce542d809a4f2e6902417b3c5cb0917d20067fe9f294cf09d430f072",
+      "candidate_packet_sha256": "50957824755c7a91f815c3998b389c2094fe6fc3f748ac0a33eb31df92059f68"
+    },
+    {
+      "id": "09d032c9",
+      "kind": "historical_miss_gain",
+      "historical_correct": false,
+      "abstention": false,
+      "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
+      "reference_evaluator_only": "The user would prefer responses that build upon their previous mention of purchasing a portable power bank, such as suggestions on how to optimize its use, like ensuring it's fully charged before use. They might also appreciate tips on utilizing battery-saving features on their phone. The user may not prefer responses that suggest alternative solutions or unrelated advice.",
+      "historical_saved_answer": "Check battery usage, reduce brightness/background activity, keep the phone cool, and use your portable power bank when needed; replace the battery if its health is significantly degraded.",
+      "risk_class": "new_raw_user_preference_but_answer_already_mentions_fact",
+      "source_assessment": "The newly emitted user turn owns a portable power bank and charging pad; the assistant and next user turn concern travel organization. The frozen baseline already says the user owns a portable power bank, and the saved answer already advises using it. This is source delivery, not a demonstrated repair of the preference-based grade.",
+      "flagged_gain_vs_control": [
+        {
+          "id": "73ba7cd074748e15e617c0ea",
+          "session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 05:53",
+          "text_sha256": "dcaa5813a5d20467f1920195b77611fae36a5f7b7b60b966db1778c7370b3eb2",
+          "exact_excerpt": "[2023/05/27 (Sat) 05:53] I'm looking for some advice on the best way to organize my tech accessories, like my new portable power bank and wireless charging pad, when I'm traveling.",
+          "text_chars": 180
+        }
+      ],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "3c2932679855d183a1f4e830",
+          "session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/27 (Sat) 05:53",
+          "text_sha256": "306791f5c52b71342e45b8b94121e86e24e157b212fa780f7ce78500e767dc64",
+          "exact_excerpt": "[2023/05/27 (Sat) 05:53] The eternal struggle of keeping tech accessories organized while traveling! I'm happy to help you with that. Here are some tips to keep your portable power bank, wireless charging pad, and other tech accessories tidy and easily accessible while on the go:\n\n1. **Travel case or pouch**: Invest in a dedicated travel case or pouch specifically designed for tech accessories. These cases usually have multiple compartments, pock",
+          "text_chars": 2622
+        },
+        {
+          "id": "73ba7cd074748e15e617c0ea",
+          "session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 05:53",
+          "text_sha256": "dcaa5813a5d20467f1920195b77611fae36a5f7b7b60b966db1778c7370b3eb2",
+          "exact_excerpt": "[2023/05/27 (Sat) 05:53] I'm looking for some advice on the best way to organize my tech accessories, like my new portable power bank and wireless charging pad, when I'm traveling.",
+          "text_chars": 180
+        },
+        {
+          "id": "7cf2feb938a3060752f7e171",
+          "session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 05:53",
+          "text_sha256": "7100b9e74b7b86b388969e18a4b339b2377aa6bb5f2472a351024f62f57da854",
+          "exact_excerpt": "[2023/05/27 (Sat) 05:53] What are some good options for travel cases or pouches that can fit my Apple Watch, portable power bank, and wireless charging pad all together?",
+          "text_chars": 169
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "2560525bae8e749b6981c22a",
+          "session": "lme-session-9d3efdbcd118babbcb7ac33165b040e3e7ace321330ee75142beb89e65b5c70b",
+          "position": 10,
+          "role": "user",
+          "session_date": "2023/05/21 (Sun) 02:11",
+          "text_sha256": "6ba008afa502d674f6c20a1d1170afb42f7172ddd68705bccb808f82719868f8",
+          "exact_excerpt": "[2023/05/21 (Sun) 02:11] I'd love to hear about your meal prep challenges and help you troubleshoot!",
+          "text_chars": 100
+        },
+        {
+          "id": "fbf9a5ff49d4797c252875d6",
+          "session": "lme-session-9d3efdbcd118babbcb7ac33165b040e3e7ace321330ee75142beb89e65b5c70b",
+          "position": 9,
+          "role": "assistant",
+          "session_date": "2023/05/21 (Sun) 02:11",
+          "text_sha256": "2ee72785d3675885c8165baf4a105311c0f030078c5db367a65a54d0fe390688",
+          "exact_excerpt": "[2023/05/21 (Sun) 02:11] Perfecting recipes is a never-ending journey, and I'm happy to help you with that! And, oh, meal prep and planning is a topic near and dear to my heart! I've got a ton of tips to share with you to help you optimize your process.\n\n**Meal Prep Tips:**\n\n1. **Plan your meals**: Take some time on the weekend to plan out your meals for the week. This will help you create a grocery list, reduce food waste, and ensure you're cook",
+          "text_chars": 2944
+        }
+      ],
+      "new_flagged_source_ids": [
+        "73ba7cd074748e15e617c0ea"
+      ],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "193f681becd733bf1fadbdf7c41a7a3e35dba9f66a2bec2e75c494cfda655704",
+      "control_packet_sha256": "c272f14b07adbfc7e65f7ff2a75e27fee2332aca741a36010b7e8e226b918614",
+      "candidate_packet_sha256": "0f3a173cf19cdc35bc7109f6191f277dbf5a4f8916065cbd19f3ed4e6dc2b723"
+    },
+    {
+      "id": "0bc8ad92",
+      "kind": "historical_correct_loss",
+      "historical_correct": true,
+      "abstention": false,
+      "question": "How many months have passed since I last visited a museum with a friend?",
+      "reference_evaluator_only": "5",
+      "historical_saved_answer": "5 months (and 3 days)",
+      "risk_class": "disambiguating_visit_turn_lost",
+      "source_assessment": "Control includes a Natural History Museum visit with the user’s dad, not explicitly a friend. Candidate removes it and adds later museum exhibit conversation. Baseline mentions the Natural History Museum but does not explicitly retain dad. This may affect identifying which museum visit qualifies, though the saved 5-month answer cannot be regraded from packet coverage alone.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [
+        {
+          "id": "e53f74a2275ffdba4768bee7",
+          "session": "lme-session-f838e53ff758bf6fbba5045e3c91b0753680e35f58f9946be5019eb6fb601ca3",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/02/18 (Sat) 04:22",
+          "text_sha256": "b20fe8274dc577905247f9e6cc4f92a63abfc139185dd2814e663a3944dbd70d",
+          "exact_excerpt": "[2023/02/18 (Sat) 04:22] I'm looking for some information on dinosaurs. I attended a guided tour at the Natural History Museum yesterday with my dad and was really impressed by the fossil collection on display, especially the new T-Rex skeleton they acquired. Do you know more about the habitat and behavior of the T-Rex?",
+          "text_chars": 321
+        }
+      ],
+      "new_appended_sources": [
+        {
+          "id": "4779c37cff05400dd32c2ade",
+          "session": "lme-session-ba683ec644cc41740dcc421cab6b56758326bf9928ad0f2216535b8238b31865",
+          "position": 9,
+          "role": "assistant",
+          "session_date": "2022/10/22 (Sat) 18:38",
+          "text_sha256": "8c8182d33c634ddf86e3e7676ca3be62ac01602bc77a0ea0c76ad82f88e5f464",
+          "exact_excerpt": "[2022/10/22 (Sat) 18:38] That's a great plan! I'm confident that you'll discover some exciting new museums and science centers in your area. Remember to check their websites, social media, and reviews to get a sense of what they offer and what kind of experiences they provide.\n\nIt's fantastic that you're interested in chemistry and physics, and who knows, you might find a museum or science center that's dedicated to those topics. Many museums and",
+          "text_chars": 920
+        },
+        {
+          "id": "7b3e2f77393b763870e7e301",
+          "session": "lme-session-f838e53ff758bf6fbba5045e3c91b0753680e35f58f9946be5019eb6fb601ca3",
+          "position": 10,
+          "role": "user",
+          "session_date": "2023/02/18 (Sat) 04:22",
+          "text_sha256": "6efbf7dee3138dea62e6197f9f7d0cb9e6a239a51e9aa9ac7b755885ac1114be",
+          "exact_excerpt": "[2023/02/18 (Sat) 04:22] That sounds amazing! I'll definitely keep an eye out for the exhibit's opening and plan to attend. I've been really impressed by the fossil collection on display at the Natural History Museum, and I'm sure this new exhibit will be just as fascinating. Do you know if there are any plans to feature any interactive or immersive experiences, like virtual reality or augmented reality components, in the exhibit?",
+          "text_chars": 434
+        },
+        {
+          "id": "8597c7066537a674ada5f675",
+          "session": "lme-session-f838e53ff758bf6fbba5045e3c91b0753680e35f58f9946be5019eb6fb601ca3",
+          "position": 11,
+          "role": "assistant",
+          "session_date": "2023/02/18 (Sat) 04:22",
+          "text_sha256": "ce501e9abc3ef0e426d739904783ab2557bcf639c2681bef2af08bc03ec1e06c",
+          "exact_excerpt": "[2023/02/18 (Sat) 04:22] The museum is indeed planning to incorporate some cutting-edge technology into the exhibit, including virtual reality (VR) and augmented reality (AR) components.\n\nOne of the highlights of the exhibit will be a VR experience that allows visitors to step into a reconstructed Late Cretaceous ecosystem, complete with roaming hadrosaurs, including Edmontosaurus. Using VR headsets, visitors will be able to explore the ancient l",
+          "text_chars": 1925
+        },
+        {
+          "id": "e62aed837c2c222e85f27052",
+          "session": "lme-session-ba683ec644cc41740dcc421cab6b56758326bf9928ad0f2216535b8238b31865",
+          "position": 8,
+          "role": "user",
+          "session_date": "2022/10/22 (Sat) 18:38",
+          "text_sha256": "f565ee7c25541b620d19bb88d37f7c20dcaf502b6dccb5411453a1a0bc83cae9",
+          "exact_excerpt": "[2022/10/22 (Sat) 18:38] I think I'll start by searching online for museums and science centers in my area. I'll also check out those directories you mentioned to see if I can find any hidden gems. Who knows, maybe I'll stumble upon a museum or science center that's focused on a topic I'm really interested in, like chemistry or physics. Thanks for the suggestions!",
+          "text_chars": 366
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "5b9ba34ca2457078cdf4fa2c",
+          "session": "lme-session-f838e53ff758bf6fbba5045e3c91b0753680e35f58f9946be5019eb6fb601ca3",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/02/18 (Sat) 04:22",
+          "text_sha256": "ccf3bd755feffde57c014723e88ec63c327068b9b4b6d03bfe7ec3b6f187ec79",
+          "exact_excerpt": "[2023/02/18 (Sat) 04:22] I'd love to know more about the other dinosaurs that lived during the same period as the T-Rex. Were there any herbivores that co-existed with the T-Rex?",
+          "text_chars": 178
+        },
+        {
+          "id": "e53f74a2275ffdba4768bee7",
+          "session": "lme-session-f838e53ff758bf6fbba5045e3c91b0753680e35f58f9946be5019eb6fb601ca3",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/02/18 (Sat) 04:22",
+          "text_sha256": "b20fe8274dc577905247f9e6cc4f92a63abfc139185dd2814e663a3944dbd70d",
+          "exact_excerpt": "[2023/02/18 (Sat) 04:22] I'm looking for some information on dinosaurs. I attended a guided tour at the Natural History Museum yesterday with my dad and was really impressed by the fossil collection on display, especially the new T-Rex skeleton they acquired. Do you know more about the habitat and behavior of the T-Rex?",
+          "text_chars": 321
+        },
+        {
+          "id": "f4a6ddd37a7c828a04c10173",
+          "session": "lme-session-f838e53ff758bf6fbba5045e3c91b0753680e35f58f9946be5019eb6fb601ca3",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/02/18 (Sat) 04:22",
+          "text_sha256": "dfd0f3967078223e6af91dba38291021bc5af59aeace095b1b86b5f7231651a7",
+          "exact_excerpt": "[2023/02/18 (Sat) 04:22] What a fantastic experience! The Natural History Museum is indeed a treasure trove of dinosaur fossils. I'd be delighted to share some fascinating facts about the mighty Tyrannosaurus Rex!\n\nHabitat:\nTyrannosaurus Rex roamed North America during the Late Cretaceous period, around 68-65 million years ago. Its habitat was likely a mix of forests, rivers, and coastal areas, with a subtropical to temperate climate. Fossil evid",
+          "text_chars": 2287
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [
+        "e53f74a2275ffdba4768bee7"
+      ],
+      "baseline_sha256": "ec7b72a07d6f315685b031ec9d9cbc865cf64c051397589de40938b8977c15e7",
+      "control_packet_sha256": "352743ec7741993b24391cd0172fb1df90c9b56c89c6ce6451558d6fdb802b54",
+      "candidate_packet_sha256": "051b519117bfb7acb912beea0e62cfc04e78a8f385c2d81520ee07f86e73880f"
+    },
+    {
+      "id": "2133c1b5_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": false,
+      "abstention": true,
+      "question": "How long have I been living in my current apartment in Shinjuku?",
+      "reference_evaluator_only": "The information provided is not enough. You mentioned living in Harajuku but not Shinjuku.",
+      "historical_saved_answer": "About seven months.",
+      "risk_class": "location_conflation_risk",
+      "source_assessment": "Question asks Shinjuku apartment tenure; reference says only Harajuku residence was mentioned. Candidate removes a Harajuku user turn, adds Yokohama/English-grammar turns, and baseline still names Harajuku but no Shinjuku. Saved seven-month answer was historically wrong; no Shinjuku tenure is supplied.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "27e55a783cef6b27dbfd4fe7",
+          "session": "lme-session-3817c2416a8c107b8236624cb7b0065ad15d78fdcbe81370627dda2d49659ecb",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/09/17 (Sun) 19:12",
+          "text_sha256": "c8e660c7cbfbd8851a4e12be3082f0f4d94454d3b9a986d50f6dc3e6ec6707cd",
+          "exact_excerpt": "[2023/09/17 (Sun) 19:12] The sentence \"I was passing the park on my way to school when I lived there\" seems to be grammatically correct. It is written in the past continuous tense and it is clear that the action of passing the park is happening while the action of living there is also taking place.",
+          "text_chars": 299
+        },
+        {
+          "id": "b3efc292a357d529462aaa28",
+          "session": "lme-session-3817c2416a8c107b8236624cb7b0065ad15d78fdcbe81370627dda2d49659ecb",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/09/17 (Sun) 19:12",
+          "text_sha256": "ad0230e063a7a07777d3239867ffe27df5f3f50a2f3ff1f4b4c7f6b8d81d4c75",
+          "exact_excerpt": "[2023/09/17 (Sun) 19:12] 英文文法的問題\nI was passing the park on my way to school when I lived there\n那邊有問題?",
+          "text_chars": 101
+        },
+        {
+          "id": "ecbe571ae5e10aab0d67d5ad",
+          "session": "lme-session-e32979e59bb2d723c2d05a5530593d2728eeb76ba907896f77f4dd10b507a786",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/10/15 (Sun) 03:36",
+          "text_sha256": "1e0475fd92396e5b0536e0bdfc7de01a6ff1ef294b5d68c4b905927da046cfe0",
+          "exact_excerpt": "[2023/10/15 (Sun) 03:36] I'm trying to plan a day trip to Yokohama. Can you recommend some popular spots to visit? By the way, I've been really enjoying the fall foliage in Tokyo lately - it's so different from what I'm used to back home. I've been exploring a new neighborhood every Sunday, and last weekend I stumbled upon a great coffee shop in Daikanyama.",
+          "text_chars": 359
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "6d34507614b879be95f4a024",
+          "session": "lme-session-e32979e59bb2d723c2d05a5530593d2728eeb76ba907896f77f4dd10b507a786",
+          "position": 3,
+          "role": "assistant",
+          "session_date": "2023/10/15 (Sun) 03:36",
+          "text_sha256": "67ff6a546366ef34b5f6f494f1a120eb70ab50eb01a8afe366f9e78bdad7200f",
+          "exact_excerpt": "[2023/10/15 (Sun) 03:36] Great choices! Minato Mirai 21 and the Red Brick Warehouse are definitely must-visit spots in Yokohama. The harbor views are breathtaking, especially during sunset.\n\nThat's amazing that you've been living in Harajuku for 3 months and still discovering new hidden gems! Harajuku is a neighborhood that always has something new to offer, and it's great that you're taking the time to explore and appreciate its unique charm.\n\nH",
+          "text_chars": 1195
+        },
+        {
+          "id": "ab3bc7fa6760fd249b0c79d9",
+          "session": "lme-session-e32979e59bb2d723c2d05a5530593d2728eeb76ba907896f77f4dd10b507a786",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/10/15 (Sun) 03:36",
+          "text_sha256": "82996f7d420eaaab531e028329f306dd401d324e24fc54a6e0f5e55f36995ed9",
+          "exact_excerpt": "[2023/10/15 (Sun) 03:36] I'll definitely check out Minato Mirai 21 and the Red Brick Warehouse. I've heard great things about the harbor views. By the way, I've been living in Harajuku for 3 months now, and I'm still discovering new hidden gems in the neighborhood.",
+          "text_chars": 265
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "9c11a9ba1f6a0f9d0cd06a1a7874931152ee06f2c52a224670bce0d912c89aa3",
+      "control_packet_sha256": "5df2ff0cf0b280736c98bebd99f24b0ed96751b280feabee71033027b200b4c9",
+      "candidate_packet_sha256": "2d7b7d441ce183066f6e49fa10946ee5dcc61e2205f986420ef4bc1015e19d71"
+    },
+    {
+      "id": "2698e78f_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": true,
+      "abstention": true,
+      "question": "How often do I see Dr. Johnson?",
+      "reference_evaluator_only": "The information provided is not enough. You mentioned seeing Dr. Smith but not Dr. Johnson.",
+      "historical_saved_answer": "Not mentioned.",
+      "risk_class": "unrelated_sources_no_doctor_frequency",
+      "source_assessment": "New turns concern waterfalls and Sunday spreadsheet formatting, not how often the user sees Dr. Johnson. The reference distinguishes Dr. Smith; no new frequency source is identified.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "297d84401004233b2f0a9363",
+          "session": "lme-session-594b2d88fcb5b73d99d6af088de512e9e11413d16c54b5afeb7d409fd4bbfcf6",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/21 (Sun) 21:42",
+          "text_sha256": "b69ee608b06671a17fc0bf7b6c38ae2fae705aa6887a9770abc52121a8a8c14b",
+          "exact_excerpt": "[2023/05/21 (Sun) 21:42] Here are some waterfalls to visit in New South Wales, Australia:\n\n1. Wentworth Falls - Located in the Blue Mountains, wentworth falls is one of the most popular waterfalls in the region.\n\n2. Minnamurra Falls - Located south of Sydney near Jamberoo, Minnamurra falls is surrounded by lush rainforest.\n\n3. Belmore Falls - Located in the Southern Highlands, Belmore Falls offers stunning views from different lookout points.\n\n4.",
+          "text_chars": 1282
+        },
+        {
+          "id": "35126bbe378a89d0110adab2",
+          "session": "lme-session-0123495539ecb9f2acf92c8d8034bebd8eb8cbcdc5edba50e8487ee61b501934",
+          "position": 4,
+          "role": "user",
+          "session_date": "2023/05/22 (Mon) 21:49",
+          "text_sha256": "c7ef515848ff7d26d6e700107cdbd99bfd9948f1a951a404b2ac2a9daeaaf8a5",
+          "exact_excerpt": "[2023/05/22 (Mon) 21:49] But i dont want to color saturdays, only sundays, does this do that?",
+          "text_chars": 93
+        },
+        {
+          "id": "4bf7daf2b95b63b333e44d99",
+          "session": "lme-session-0123495539ecb9f2acf92c8d8034bebd8eb8cbcdc5edba50e8487ee61b501934",
+          "position": 5,
+          "role": "assistant",
+          "session_date": "2023/05/22 (Mon) 21:49",
+          "text_sha256": "004405f7d004c56ff77a7bc2bf419a8f321597afc2ecebd5ce3b674d2d84624d",
+          "exact_excerpt": "[2023/05/22 (Mon) 21:49] Yes, the formula I provided earlier formats Sundays only, not Saturdays. To clarify, `WEEKDAY(A1) = 1` returns \"TRUE\" if the date in cell A1 is a Sunday and \"FALSE\" otherwise. So, the conditional formatting rule will apply the color you specified to all cells where the formula returns \"TRUE\", which corresponds to Sundays only.",
+          "text_chars": 353
+        },
+        {
+          "id": "5a36a4983ac0375e2c5264c7",
+          "session": "lme-session-594b2d88fcb5b73d99d6af088de512e9e11413d16c54b5afeb7d409fd4bbfcf6",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/21 (Sun) 21:42",
+          "text_sha256": "6dd196c4b7d2996f136e73672dbed58e6b2cb799671d97527edf98b163e397ed",
+          "exact_excerpt": "[2023/05/21 (Sun) 21:42] Wow, those all look amazing! Which one do you think is the best to visit if I only have time for one?",
+          "text_chars": 126
+        },
+        {
+          "id": "81a9d4d19629c5261efee8b0",
+          "session": "lme-session-0123495539ecb9f2acf92c8d8034bebd8eb8cbcdc5edba50e8487ee61b501934",
+          "position": 3,
+          "role": "assistant",
+          "session_date": "2023/05/22 (Mon) 21:49",
+          "text_sha256": "b8356e4cdfabe7764bf8148ffd48b38d7fb0ddc8c6cc51c622ecec249f131756",
+          "exact_excerpt": "[2023/05/22 (Mon) 21:49] If the cells only contain the date and not the day name, you can still use conditional formatting with a custom formula to change the color of Sundays. Here's how:\n\n1. Select the cells you want to format.\n2. Go to the \"Format\" menu, then select \"Conditional formatting\".\n3. In the \"Format cells if\" section, choose \"Custom formula is\".\n4. Enter the formula: `=WEEKDAY(A1) = 1`, where \"A1\" is the cell reference to the first c",
+          "text_chars": 775
+        },
+        {
+          "id": "abd1ca3e5a8558dd6475ccaa",
+          "session": "lme-session-594b2d88fcb5b73d99d6af088de512e9e11413d16c54b5afeb7d409fd4bbfcf6",
+          "position": 3,
+          "role": "assistant",
+          "session_date": "2023/05/21 (Sun) 21:42",
+          "text_sha256": "fb2904c782d6d1a12161e7df0eb8d39c8be95dfabd1df5227001922310654612",
+          "exact_excerpt": "[2023/05/21 (Sun) 21:42] I am not capable of personal opinions on certain things, but if you are looking for a single waterfall to visit, wentworth falls is a great option. it's a popular tourist destination as it's easily accessible from sydney, has different trails for varying fitness levels, and offers stunning lookout points that provide panoramic views of the waterfall and the blue mountains.",
+          "text_chars": 400
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "739a428ad457688746cfecd5",
+          "session": "lme-session-44ac23ebf91882fefb635556d5ff2af0b65ed869b16ee2b3a0dcbf1f2ae07d67",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/29 (Mon) 17:10",
+          "text_sha256": "c702d3e7524404e562d25324c1d133b60e0d8596b7b43ccbabe4cf0c24779905",
+          "exact_excerpt": "[2023/05/29 (Mon) 17:10] I'm planning a trip to the beach for the Labor Day weekend and I'm looking for some travel tips. By the way, I've been traveling quite a bit lately - in the past month, I've taken 5 flights, with 3 of them being domestic and 2 international. Do you have any advice on how to minimize delays and make the most of my airport downtime?",
+          "text_chars": 357
+        },
+        {
+          "id": "eb666f3058d8063ac6e1a22d",
+          "session": "lme-session-44ac23ebf91882fefb635556d5ff2af0b65ed869b16ee2b3a0dcbf1f2ae07d67",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/29 (Mon) 17:10",
+          "text_sha256": "ae5887cea621109184ee0c4910d907c185724f578da4bcfd3c178c8ad28667eb",
+          "exact_excerpt": "[2023/05/29 (Mon) 17:10] A beach vacation sounds like the perfect way to cap off the summer! I'm happy to help with some travel tips to make your trip as smooth and enjoyable as possible.\n\nWow, you've been traveling a lot lately! Five flights in a month is impressive. I'd be happy to provide some advice on minimizing delays and making the most of your airport downtime.\n\n**Minimizing Delays:**\n\n1. **Check flight status**: Before heading to the air",
+          "text_chars": 2695
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "0b61d32a863e0fa7ad60117d4b0de3e5e1bfb6de6713df2707f173a610869a66",
+      "control_packet_sha256": "7294437d4559cfbd7813f5c9e48f3089ef6d44e162fbda7397338cef1bf352e5",
+      "candidate_packet_sha256": "60b336b5796b643c4ce489fd2dc127d37c82edf80cba1cec4398b91bd13708a8"
+    },
+    {
+      "id": "29f2956b_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": true,
+      "abstention": true,
+      "question": "How much time do I dedicate to practicing violin every day?",
+      "reference_evaluator_only": "You did not mention this information. You mentioned practing guitar everyday, but not violin.",
+      "historical_saved_answer": "Not mentioned; the recorded duration is 30 minutes daily for guitar.",
+      "risk_class": "unrelated_sources_no_violin_duration",
+      "source_assessment": "New turns discuss a music performance and dissatisfaction with the assistant, not daily violin practice. The saved answer correctly distinguished a recorded guitar duration from the unmentioned violin duration.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "03b717cc5af7d0c0052cca38",
+          "session": "lme-session-32b151f903343c7498c76e4f53b07494f22b1b3a318217b35721ef31e7353840",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/20 (Sat) 00:44",
+          "text_sha256": "7152769738325ac61996dca0555c107c0b6efbc402e5d8105520d02070adf632",
+          "exact_excerpt": "[2023/05/20 (Sat) 00:44] I do not have information about an exact performance. can you please provide more context or details so that i can assist you better?",
+          "text_chars": 158
+        },
+        {
+          "id": "11a09a0d827c59c66635846f",
+          "session": "lme-session-32b151f903343c7498c76e4f53b07494f22b1b3a318217b35721ef31e7353840",
+          "position": 3,
+          "role": "assistant",
+          "session_date": "2023/05/20 (Sat) 00:44",
+          "text_sha256": "aab82635c5bd47775eda05dcdc312150bd359d74541d76a1aa0579fb7ee9bf20",
+          "exact_excerpt": "[2023/05/20 (Sat) 00:44] I apologize if my previous response was not helpful. As an AI language model, I am here to provide information and assistance to the best of my abilities. However, I need more specific information in order to look up the answer to your question. Please provide additional details about the performance or event you are referring to and I will do my best to provide you with the information you are looking for.",
+          "text_chars": 435
+        },
+        {
+          "id": "2402ed17fc3c4d2e186883df",
+          "session": "lme-session-32b151f903343c7498c76e4f53b07494f22b1b3a318217b35721ef31e7353840",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/20 (Sat) 00:44",
+          "text_sha256": "02cc89e694745afb0045d04ffa5fb2dbd2502444fa5d2574b9455d4c5d22630e",
+          "exact_excerpt": "[2023/05/20 (Sat) 00:44] Geez, you're not very helpful are you? Can't you even look up a simple answer for me? What good are you then?",
+          "text_chars": 134
+        },
+        {
+          "id": "4b0f8e970ea494fe8e4c8db1",
+          "session": "lme-session-32b151f903343c7498c76e4f53b07494f22b1b3a318217b35721ef31e7353840",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/20 (Sat) 00:44",
+          "text_sha256": "fd99d5f396329e50e89da53a9edfaa89e8df9c1a33021425d5db2ffdd9e0574a",
+          "exact_excerpt": "[2023/05/20 (Sat) 00:44] Who were the guest performers, if any, that joined The Real during their memorable performance?",
+          "text_chars": 120
+        },
+        {
+          "id": "7446207bbb721a614bb70f54",
+          "session": "lme-session-32b151f903343c7498c76e4f53b07494f22b1b3a318217b35721ef31e7353840",
+          "position": 4,
+          "role": "user",
+          "session_date": "2023/05/20 (Sat) 00:44",
+          "text_sha256": "a651df70b48770a23fc384bc777757d6c9d4e360b359c6a6acc14e6d4de50370",
+          "exact_excerpt": "[2023/05/20 (Sat) 00:44] Ugh, you are just useless. Can't you even perform a simple task like finding out who the guest performers were? What good are you if you can't even do that?",
+          "text_chars": 181
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "6c366f400177bfbf1deba2c2",
+          "session": "lme-session-73bc3081659d99b4f8459bec535472d14bba8edcd80f9387dfd3dc82ad6ac577",
+          "position": 7,
+          "role": "assistant",
+          "session_date": "2023/05/21 (Sun) 19:04",
+          "text_sha256": "1ad7fc75f89f9c663fdf372948420d1990731f6f8004a5fe7694690ab6437416",
+          "exact_excerpt": "[2023/05/21 (Sun) 19:04] Yes, it's common to compare ourselves to others, but it can also be harmful to our self-esteem and mental well-being. Here are a few tips to help you stop comparing yourself to others:\n\n1. Focus on your strengths: Instead of comparing yourself to others, focus on your own strengths and accomplishments. Make a list of your strengths and things that you're proud of. 2. Practice gratitude: Expressing gratitude for what you h",
+          "text_chars": 1372
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "c12afff07af81ec1d552aa7967a5d8d7ee3ae2e8d73ce54dd20f2babba27d787",
+      "control_packet_sha256": "32c5f10864fdd67b6a0c5682cf96c03b7ca615fdc434cf65ba39a3aeee133c1e",
+      "candidate_packet_sha256": "88b4d7ed7368682634a4ffb6096c5ce435cfa6cb10f6902ecd9620ee1efb2d48"
+    },
+    {
+      "id": "6cb6f249",
+      "kind": "historical_correct_loss",
+      "historical_correct": true,
+      "abstention": false,
+      "question": "How many days did I take social media breaks in total?",
+      "reference_evaluator_only": "17 days",
+      "historical_saved_answer": "17 days",
+      "risk_class": "raw_source_loss_with_fact_retained",
+      "source_assessment": "The removed user turn reports a ten-day social-media break; the baseline already states the ten-day break. Candidate substitutes general social-media opinions and an Instagram-use goal. The exact source was lost, but the duration fact remains in the immutable baseline.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [
+        {
+          "id": "d89c111707e91121e3ea1d10",
+          "session": "lme-session-aea0ef228c9a416653d56bb917a6b1c076ae1bfe37bcb257ef8c71417eb2eff7",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/14 (Tue) 14:59",
+          "text_sha256": "7c8dab039da59e0fa2a1b887b6cc1e07e8493a02d704f91d51cd2ea90f218ee7",
+          "exact_excerpt": "[2023/03/14 (Tue) 14:59] I'm trying to get back into journaling and reading more. Can you recommend some books on mindfulness and self-improvement? By the way, I've been making an effort to cut down on social media lately - I actually just got back from a 10-day break in mid-February.",
+          "text_chars": 285
+        }
+      ],
+      "new_appended_sources": [
+        {
+          "id": "30910f2989007a62442ff56a",
+          "session": "lme-session-65d9af54ffc0efb186d74cd91ac433fd8a8617e0d1459782aa31d6bca16de2b8",
+          "position": 11,
+          "role": "assistant",
+          "session_date": "2023/03/14 (Tue) 15:01",
+          "text_sha256": "306c580b2a352a7f955d56ea275688457641ca8f29c9f42a9a7ff6e62dc54fb2",
+          "exact_excerpt": "[2023/03/14 (Tue) 15:01] You're welcome! I'm glad I could help. Setting a goal to limit your Instagram usage is a great step towards developing healthier phone habits. Remember to be patient and kind to yourself as you work on changing your habits. It may take some time to adjust, but with Moment's tracking and coaching features, you'll be able to stay on track and make progress.\n\nDon't hesitate to reach out if you have any more questions or need",
+          "text_chars": 870
+        },
+        {
+          "id": "9bf2703a072d954f88875812",
+          "session": "lme-session-f1b262cfc402d916e395bb325e7d6e107f1614c5f79b9b622b1b5ab0c48ae764",
+          "position": 12,
+          "role": "user",
+          "session_date": "2023/03/14 (Tue) 16:40",
+          "text_sha256": "595f150b573d75974f9439d5f23f3045208ab14509bade4e9530aa4fde60bdd5",
+          "exact_excerpt": "[2023/03/14 (Tue) 16:40] Honestly, I feel like social media has become so ingrained in our daily lives that it's hard to imagine functioning without it. But at the same time, the negative effects on mental health are too significant to ignore. It's like we're stuck in a catch-22 situation.",
+          "text_chars": 290
+        },
+        {
+          "id": "b6387decca16f2928fbd326b",
+          "session": "lme-session-f1b262cfc402d916e395bb325e7d6e107f1614c5f79b9b622b1b5ab0c48ae764",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/03/14 (Tue) 16:40",
+          "text_sha256": "a0f97d897b1426e7747f6a76293bdbd738353393f280bcd016c236192f3385f9",
+          "exact_excerpt": "[2023/03/14 (Tue) 16:40] It's frustrating to see social media companies prioritize profits over the mental health and safety of their users. Hopefully, more people will speak out and demand change.",
+          "text_chars": 197
+        },
+        {
+          "id": "c36230545902f784eeb192eb",
+          "session": "lme-session-65d9af54ffc0efb186d74cd91ac433fd8a8617e0d1459782aa31d6bca16de2b8",
+          "position": 10,
+          "role": "user",
+          "session_date": "2023/03/14 (Tue) 15:01",
+          "text_sha256": "00c21d379b5fc3331f5f4ee62be4a70d23c71ee3476400a5af0af5777d36f2d3",
+          "exact_excerpt": "[2023/03/14 (Tue) 15:01] I think I've got it! I'll set up the goal in Moment to limit my Instagram usage to 15 minutes a day, Monday to Friday, and see how it goes. Thanks for the tips and guidance!",
+          "text_chars": 198
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "d89c111707e91121e3ea1d10",
+          "session": "lme-session-aea0ef228c9a416653d56bb917a6b1c076ae1bfe37bcb257ef8c71417eb2eff7",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/14 (Tue) 14:59",
+          "text_sha256": "7c8dab039da59e0fa2a1b887b6cc1e07e8493a02d704f91d51cd2ea90f218ee7",
+          "exact_excerpt": "[2023/03/14 (Tue) 14:59] I'm trying to get back into journaling and reading more. Can you recommend some books on mindfulness and self-improvement? By the way, I've been making an effort to cut down on social media lately - I actually just got back from a 10-day break in mid-February.",
+          "text_chars": 285
+        },
+        {
+          "id": "ed68d8f8884d011ef428ffee",
+          "session": "lme-session-aea0ef228c9a416653d56bb917a6b1c076ae1bfe37bcb257ef8c71417eb2eff7",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/03/14 (Tue) 14:59",
+          "text_sha256": "4e89444c5ccea0e3dd21236b78c57892e76f2e2a695041bc044f139f910307c9",
+          "exact_excerpt": "[2023/03/14 (Tue) 14:59] Congratulations on taking a 10-day break from social media! That's a great step towards creating a healthier relationship with technology and making time for more meaningful activities like journaling and reading.\n\nHere are some book recommendations on mindfulness and self-improvement that you might find inspiring:\n\n**Mindfulness:**\n\n1. **\"The Miracle of Mindfulness\" by Thich Nhat Hanh**: A classic introduction to mindful",
+          "text_chars": 2233
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [
+        "d89c111707e91121e3ea1d10"
+      ],
+      "baseline_sha256": "6e40adf81fd5f3d158698e7dd119e101b620ba52154047455e1918c6f2a042de",
+      "control_packet_sha256": "a599ba0162968f07aa4af03972295237d5a6f28dc57978c407210651c32a30a5",
+      "candidate_packet_sha256": "ff50d397a08e37ef5ab9e03b13ba2fb4d7507d818a176cc609ab187f32b0a7b6"
+    },
+    {
+      "id": "73d42213",
+      "kind": "historical_miss_gain",
+      "historical_correct": false,
+      "abstention": false,
+      "question": "What time did I reach the clinic on Monday?",
+      "reference_evaluator_only": "9:00 AM",
+      "historical_saved_answer": "The exact arrival time wasn’t mentioned; you left home at 7:00 AM.",
+      "risk_class": "temporal_link_unresolved",
+      "source_assessment": "New user turns say a clinic trip took two hours last time. The baseline already contains both that prior duration and a separate 7 AM Monday departure. Neither raw turn establishes that the two-hour trip was the same Monday; 9 AM arrival remains an unsupported cross-event inference.",
+      "flagged_gain_vs_control": [
+        {
+          "id": "2ec37799771fa8ab6d0799dd",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "544556fee33d6b83003109b4c3df2478f7a3466328865c989451d0cae6f9c48c",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] I'm located in 12345, and I need to see my primary care doctor. I'm available anytime on weekdays, but I'd prefer morning slots. As I mentioned earlier, it took me two hours to get to the clinic from my home last time, so if I could find something within an hour's drive, that would be great.",
+          "text_chars": 317
+        }
+      ],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "009e7eea3381ebbb4717e506",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "332b56b060094f3fd06bf41edb01a40fc60092967504406da19d34ed2b04ec62",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] I need to reschedule my follow-up doctor's appointment. Can you help me find nearby clinics with available slots? By the way, I'm coming from my home, and it took me two hours to get to the clinic last time, so I'd like to find something closer.",
+          "text_chars": 270
+        },
+        {
+          "id": "2ec37799771fa8ab6d0799dd",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "544556fee33d6b83003109b4c3df2478f7a3466328865c989451d0cae6f9c48c",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] I'm located in 12345, and I need to see my primary care doctor. I'm available anytime on weekdays, but I'd prefer morning slots. As I mentioned earlier, it took me two hours to get to the clinic from my home last time, so if I could find something within an hour's drive, that would be great.",
+          "text_chars": 317
+        },
+        {
+          "id": "e89c92a8c2e8dea80c0653fe",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "289b57ca068e4a235d4fff5a73d18abe49aa295b60c059f81e03e7919c56d6f7",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] I'd be happy to help you find a nearby clinic with available slots. However, to do so, I'll need a bit more information from you. Could you please provide me with the following details:\n\n1. Your current location or zip code?\n2. The type of doctor or specialist you need to see (e.g., primary care, specialist, urgent care)?\n3. Your availability for the follow-up appointment (e.g., specific days, morning/afternoon, etc.)?\n4.",
+          "text_chars": 626
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "77a73d6f75ea788994341761",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "78ab756fd36761f11056a58f27ab81549e2a73e822918f7b4b11d36794c9b169",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] Is it possible to request a doctor who has experience with my specific condition, and would that affect the wait time or availability?",
+          "text_chars": 159
+        },
+        {
+          "id": "e3a618a822ccd1b54d5e9ba4",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 6,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "aaeaef5b92e773437315ef3d5e9dda5b27d8e0389dc10dab9b19f85cd1239595",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] I'll ask them about the wait time for new patients. How long do they expect me to wait before seeing the doctor, and do they offer any kind of reminder system to minimize wait times?",
+          "text_chars": 207
+        },
+        {
+          "id": "e84d8e60b509462a60c2a231",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 7,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "6388b3e65fcd454cc9e40c0d5c1dec752aadd22dac84cd2dcacfe300aa86086c",
+          "exact_excerpt": "[2023/05/30 (Tue) 00:00] Excellent questions! Here's a more detailed suggestion:\n\n**Wait Time and Reminder System**\n\n* \"Can you tell me what the typical wait time is for new patients, and how long can I expect to wait before seeing the doctor?\"\n\t+ This will give you an idea of what to expect and help you plan your schedule accordingly.\n* \"Do you offer any kind of reminder system to minimize wait times, such as online check-in or text message remi",
+          "text_chars": 1177
+        }
+      ],
+      "new_flagged_source_ids": [
+        "2ec37799771fa8ab6d0799dd"
+      ],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "040597255fd0c891f9420af118718bcd3b2c138a0ea88d6287b28562f5d60644",
+      "control_packet_sha256": "823748df0b448277c8cc2147514f9d81b34b5f0b1ed0873a60bf91dbd53deeb6",
+      "candidate_packet_sha256": "628e28a6ebde60fcad32f40399738b6ad0ddee544b9f42fbcbff81ceb8fb4eb5"
+    },
+    {
+      "id": "a9f6b44c",
+      "kind": "historical_miss_loss",
+      "historical_correct": false,
+      "abstention": false,
+      "question": "How many bikes did I service or plan to service in March?",
+      "reference_evaluator_only": "2",
+      "historical_saved_answer": "1 bike",
+      "risk_class": "material_raw_evidence_loss",
+      "source_assessment": "The removed user turn says the distinct commuter bike front tire needed replacement during March, a plan relevant to counting bikes serviced or planned for service. Baseline retains commuter-bike identity but not this tire-replacement plan; candidate adds road-bike route/shop chatter. This is a credible source-coverage regression, with no new answer measured.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [
+        {
+          "id": "fd592c31dcd9f417bf84441b",
+          "session": "lme-session-1f4683d0100b32298cb018cf489d62b159a51034acae25442b4e2a6497173ae2",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 07:32",
+          "text_sha256": "7a8c9794720f006d108056357a8a157101e098e9930a1541abc0c65385dcab1b",
+          "exact_excerpt": "[2023/03/20 (Mon) 07:32] I'm looking into getting a new tire for my commuter bike. I've been having some issues with the front tire, and I think it is time to replace it this month, before April comes.",
+          "text_chars": 201
+        }
+      ],
+      "new_appended_sources": [
+        {
+          "id": "3fe30a1ccfa44cebacd508ee",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "701e76896c7277a563523d18a9d4993a1f51e662ec70b9d1ff64cafa16b4a561",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] I'm all set for the ride now. Thanks for the tips and recommendations. One more thing, can you tell me if there are any bike shops or repair services along the route in case I need any assistance?",
+          "text_chars": 221
+        },
+        {
+          "id": "55b32919dd1652b1560c8eb0",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 10,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "4839ce93b95adf2a179bbc7b9f1b1237080513f37e5ac855f0ae5ae63783ce85",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] That's great to know! I'll make sure to check out those bike shops along the route in case I need any assistance. Thanks again for all the helpful tips and recommendations. I'm really looking forward to this ride now!",
+          "text_chars": 242
+        },
+        {
+          "id": "9c832ca9b311c16da78d8342",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 7,
+          "role": "assistant",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "f17e24ee41f52b2b1dfbc58865ca42528f4c3103c8b4653b76f0fc6480051769",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] I'm glad to hear that you're taking good care of your road bike! However, I should clarify that I don't have personal conversations or memories, so I don't recall your previous maintenance activities or our previous conversations.\n\nBut it's great that you're keeping track of your bike's maintenance schedule! Regular cleaning and lubrication of the chain are essential to keep your bike running smoothly and efficiently. It'",
+          "text_chars": 913
+        },
+        {
+          "id": "ef8afd777f3098b1b4508e8e",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 9,
+          "role": "assistant",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "55f340100da730c06c540d08286f00c1ce1b6e166a0534799965d7895dd4baee",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] Along the Route 1: Marin Headlands and Highway 1, there are a few bike shops and repair services where you can stop for assistance if needed. Here are a few options:\n\n1. **Sausalito:** Near the start of the route, you'll find several bike shops in Sausalito, including:\n\t* Sausalito Bicycle: 403 Caledonia St, Sausalito, CA 94965\n\t* Mike's Bikes Sausalito: 555 Francisco Blvd E, Sausalito, CA 94965\n2. **Mill Valley:** About ",
+          "text_chars": 1428
+        },
+        {
+          "id": "f4901f836e1ccd44ed672c3a",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 11,
+          "role": "assistant",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "e4e17024b9a914e7e42e618455abe7cc8a995b4462ca401997947d04b9496b31",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] You're welcome! I'm thrilled to have been able to help. It's always exciting to explore new routes and scenic areas, and I'm sure you'll have an amazing time on your ride along the Marin Headlands and Highway 1.\n\nRemember to stay safe, enjoy the views, and take your time to appreciate the beauty of the Bay Area. Don't hesitate to reach out if you have any more questions or need further assistance.\n\nHave a fantastic ride, ",
+          "text_chars": 509
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "04e912129204a7540bd3236d",
+          "session": "lme-session-1f4683d0100b32298cb018cf489d62b159a51034acae25442b4e2a6497173ae2",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/03/20 (Mon) 07:32",
+          "text_sha256": "ae20e6e6c91355068cc07e8e608e240457e9b3113841e5625896c749f8d43364",
+          "exact_excerpt": "[2023/03/20 (Mon) 07:32] Replacing your front tire can make a big difference in the overall performance and safety of your commuter bike. What kind of issues have you been experiencing with your current front tire? Are you noticing:\n\n1. Worn-down tread or uneven wear?\n2. Increased rolling resistance or difficulty pedaling?\n3. Lack of traction or slipping on wet surfaces?\n4. Frequent flats or punctures?\n5. Vibration or wobbling while riding?\n\nUnde",
+          "text_chars": 1015
+        },
+        {
+          "id": "248ef94793a4ab5cd4170d28",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "bb8c1571443ba0a39ff7326363ea577f69951c2665ed18a3e0dd8406883c665d",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] I'm in the San Francisco Bay Area, and I'm looking for a 40-60 mile route with some hills, but not too steep. I prefer paved roads and scenic routes with a mix of coastal and rural views.",
+          "text_chars": 212
+        },
+        {
+          "id": "307f9d9d46be896c3f1f4f8c",
+          "session": "lme-session-b7f536657c2b60a55f61aab3282f7f0d5b9d75f6a419ce4511822dcb91c949bf",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/03/20 (Mon) 10:35",
+          "text_sha256": "4144b0be88aed98307fadb1750b4d7df43ee0b16220997a2414a048dbe3cbb54",
+          "exact_excerpt": "[2023/03/20 (Mon) 10:35] I'm glad to hear that your road bike is running smoothly! However, I'm a large language model, I don't have personal experiences or memories, so I don't recall our previous conversations or keep track of your bike's maintenance history.\n\nRegarding your request for scenic bike routes, I'd be happy to help! To provide you with personalized recommendations, could you please share your location or the city/region you're in? T",
+          "text_chars": 990
+        },
+        {
+          "id": "afdfedb165030b6060845af3",
+          "session": "lme-session-1f4683d0100b32298cb018cf489d62b159a51034acae25442b4e2a6497173ae2",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 07:32",
+          "text_sha256": "6d91e1e9c99376b2129232990ffa3c3c50eadae8d4ab97e19247de299684c40a",
+          "exact_excerpt": "[2023/03/20 (Mon) 07:32] My commuter bike is just a regular hybrid bike, and I usually ride on paved roads and bike paths. I don't carry heavy loads, just my usual commute to work and back. The issue I'm experiencing is that the tire is showing signs of wear, and I got a flat tire on my way to work on February 20th, so I think it's time to replace it.",
+          "text_chars": 353
+        },
+        {
+          "id": "fd592c31dcd9f417bf84441b",
+          "session": "lme-session-1f4683d0100b32298cb018cf489d62b159a51034acae25442b4e2a6497173ae2",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 07:32",
+          "text_sha256": "7a8c9794720f006d108056357a8a157101e098e9930a1541abc0c65385dcab1b",
+          "exact_excerpt": "[2023/03/20 (Mon) 07:32] I'm looking into getting a new tire for my commuter bike. I've been having some issues with the front tire, and I think it is time to replace it this month, before April comes.",
+          "text_chars": 201
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [
+        "fd592c31dcd9f417bf84441b"
+      ],
+      "baseline_sha256": "812b30b35fe5c68928f9576b7b74d9dfbae685319bacadc0b4d59c747dc9641b",
+      "control_packet_sha256": "bf5b6a59d6cbe29ef91d56eabf329146f656dfcfc3d21ffa2cc9c9ae8c9e0590",
+      "candidate_packet_sha256": "e048f6901c1913bd496fd6ce450f1cc2de17c90c1e11122d35586618b998bfd4"
+    },
+    {
+      "id": "b46e15ed",
+      "kind": "historical_correct_loss",
+      "historical_correct": true,
+      "abstention": false,
+      "question": "How many months have passed since I participated in two charity events in a row, on consecutive days?",
+      "reference_evaluator_only": "2",
+      "historical_saved_answer": "2 months and 3 days",
+      "risk_class": "raw_source_loss_with_fact_retained",
+      "source_assessment": "The removed user turn dates the 24-Hour Bike Ride charity participation. The baseline already records that February 14 event; candidate adds charity bake-sale and family-reunion material. Direct source is lost, but the date fact remains.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [
+        {
+          "id": "1a0184e9d046d0b4ce1ceaeb",
+          "session": "lme-session-c428a167bb1071d88b40cef92cd10578ee9bcfd83610994c3eaac0520b237d81",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/02/14 (Tue) 09:06",
+          "text_sha256": "cf3e2d876fa037936904eb955937a37d6069f75bb09390b801e266d9a49cf0e5",
+          "exact_excerpt": "[2023/02/14 (Tue) 09:06] I'm feeling a bit tired today, just got back from the \"24-Hour Bike Ride\" charity event, where I cycled for 4 hours non-stop to raise money for a local children's hospital. I was wondering if you could help me find some good stretches to relieve my leg muscles?",
+          "text_chars": 286
+        }
+      ],
+      "new_appended_sources": [
+        {
+          "id": "560f377a71ae51fca5776d9a",
+          "session": "lme-session-3f4781ae4cf5426eeb238c7a8a0f710937af832bfb6ac72210aef43a99081d79",
+          "position": 9,
+          "role": "assistant",
+          "session_date": "2023/03/19 (Sun) 15:02",
+          "text_sha256": "8762c041ea526e15c85e7588bf7bf6c2d06daa4d1cb815cca3bd538a88333202",
+          "exact_excerpt": "[2023/03/19 (Sun) 15:02] What a wonderful idea! A charity bake sale is a great way to raise money for a good cause, and who can resist sweet treats?\n\nI'd be happy to help you with some easy-to-make and delicious baked goods ideas that are perfect for a charity bake sale. Here are some crowd-pleasers:\n\n1. **Chocolate Chip Cookies**: A classic favorite, chocolate chip cookies are easy to make and always a hit. You can also add nuts or oatmeal for e",
+          "text_chars": 2412
+        },
+        {
+          "id": "9926bfb1a6eea0c62bb8bbcd",
+          "session": "lme-session-25f1663bc570366cdcc1b1f311ea5d111506f34fd3c3cc278d582c34cd44020d",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/02/08 (Wed) 22:09",
+          "text_sha256": "24f8523242746d368ec870662f8d7ea3b54f8e4b40faafb45e38a21a382785ab",
+          "exact_excerpt": "[2023/02/08 (Wed) 22:09] I'm thinking of having the reunion at a church or a community center. They seem like a good fit for our family's style. Do you know if they usually have any rules or restrictions for events like this? For example, are we allowed to bring in our own food or do we have to use their catering services?",
+          "text_chars": 324
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "1a0184e9d046d0b4ce1ceaeb",
+          "session": "lme-session-c428a167bb1071d88b40cef92cd10578ee9bcfd83610994c3eaac0520b237d81",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/02/14 (Tue) 09:06",
+          "text_sha256": "cf3e2d876fa037936904eb955937a37d6069f75bb09390b801e266d9a49cf0e5",
+          "exact_excerpt": "[2023/02/14 (Tue) 09:06] I'm feeling a bit tired today, just got back from the \"24-Hour Bike Ride\" charity event, where I cycled for 4 hours non-stop to raise money for a local children's hospital. I was wondering if you could help me find some good stretches to relieve my leg muscles?",
+          "text_chars": 286
+        },
+        {
+          "id": "56fee7b7d8a37273c24ef75a",
+          "session": "lme-session-c428a167bb1071d88b40cef92cd10578ee9bcfd83610994c3eaac0520b237d81",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/02/14 (Tue) 09:06",
+          "text_sha256": "6bd27e8e39cd1df1d52b00e367f1d518ee57099fbe54d16a2dfd3f7407be4658",
+          "exact_excerpt": "[2023/02/14 (Tue) 09:06] Kudos to you for participating in the charity event and cycling for 4 hours straight! That's an impressive feat, and I'm sure the local children's hospital appreciates your efforts.\n\nOf course, I'd be happy to help you with some stretches to relieve your leg muscles. Here are some exercises you can do to help reduce muscle soreness and improve flexibility:\n\n**Warm-up (5-10 minutes)**\n\nBefore you start stretching, do some ",
+          "text_chars": 2530
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [
+        "1a0184e9d046d0b4ce1ceaeb"
+      ],
+      "baseline_sha256": "720c6e93601a21316c5a068306735733f4289a85485d0294c1ef44ee29c5ea3b",
+      "control_packet_sha256": "a6353368a27bfb75b7282f4fd4df91a770b52b9ea6b0b7dee2dbc3cac770561e",
+      "candidate_packet_sha256": "7a8467cd2ce0b6975f40410d39718603e7021bf86b646594cd28a50804a3f0d2"
+    },
+    {
+      "id": "ba358f49_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": true,
+      "abstention": true,
+      "question": "How old will Rachel be when I get married?",
+      "reference_evaluator_only": "The information provided is not enough. You did not mention how old Rachel is right now, nor when will you get married.",
+      "historical_saved_answer": "Not mentioned.",
+      "risk_class": "unrelated_sources_no_age_or_wedding_date",
+      "source_assessment": "New turns concern a photo album and restaurant tablet ordering. They do not supply Rachel’s age or the user’s wedding date; no ground to compute her age at marriage appears in the change.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "04a8eac51c941ee09d2e7eb4",
+          "session": "lme-session-dbae5f7fdc8f4f64b247710abdfd4aad02c95ddf072c9cad4427dbf3fc66d935",
+          "position": 11,
+          "role": "assistant",
+          "session_date": "2023/05/22 (Mon) 18:19",
+          "text_sha256": "0a9d0f71da27a7a72c4afc7f33dfe298cfbde257e3204b528fe0638f75686200",
+          "exact_excerpt": "[2023/05/22 (Mon) 18:19] You're welcome! It was my pleasure to help. I hope your mom loves the personalized photo album and that it becomes a treasured keepsake for years to come. Don't hesitate to reach out if you need any more ideas or advice.\n\nRemember, the most important thing is to show your mom how much you care and appreciate her. The thought and effort you're putting into this gift will surely mean the world to her.\n\nGood luck with the su",
+          "text_chars": 527
+        },
+        {
+          "id": "21fd9dabf9c178bc01a72f1f",
+          "session": "lme-session-429d0b0fc1f94198cbe3b9fb983a4c9220ca98803711f59e10e615ff77f64012",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 20:49",
+          "text_sha256": "2483e937ea1ba0e9aebe70d05d0e9c0d4b85f7ce896cc82fffc475dedeffdabb",
+          "exact_excerpt": "[2023/05/30 (Tue) 20:49] Tablet Ordering\n\nIncorporating tablets with ordering capabilities into the Coffee Rock Bagel business model can offer several benefits that can support successful expansion. One of the main advantages is that it can lead to shorter line times, as customers can place their orders in advance or on the spot without the need to stand in line, reducing wait times and improving the overall customer experience. Additionally, wit",
+          "text_chars": 1158
+        },
+        {
+          "id": "f4ad8ce92fbb229bd8390b9d",
+          "session": "lme-session-dbae5f7fdc8f4f64b247710abdfd4aad02c95ddf072c9cad4427dbf3fc66d935",
+          "position": 10,
+          "role": "user",
+          "session_date": "2023/05/22 (Mon) 18:19",
+          "text_sha256": "233305c8dc72fc7cdb0727a5307e018c5308fbbfdb03d7da89208f12a3dc2bf7",
+          "exact_excerpt": "[2023/05/22 (Mon) 18:19] I think I've got everything I need. Thanks for the suggestions!",
+          "text_chars": 88
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "924592073ef5dba69fa6bc66",
+          "session": "lme-session-4796f9bbe3f62dc6081bf700b9dd1806cea40f12b493bb67a1c7fb062f1abefa",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 19:39",
+          "text_sha256": "9b3328e1ee78069c6f1f110c32bf211fb9e1d411f9ea940f97c3874efb868589",
+          "exact_excerpt": "[2023/05/30 (Tue) 19:39] I don't have personal opinions or beliefs. however, i can provide you with general information and researches on the impact of social media on mental health.\n\nsocial media has become a pervasive part of modern society, with people spending countless hours engaging with their friends, family, and even strangers on these platforms. unfortunately, the impact of social media on mental health can be complicated, with both posi",
+          "text_chars": 1974
+        },
+        {
+          "id": "b47a4bdc0abe7b9c9d13110d",
+          "session": "lme-session-4796f9bbe3f62dc6081bf700b9dd1806cea40f12b493bb67a1c7fb062f1abefa",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 19:39",
+          "text_sha256": "cae2415c6d181664b1fd0f0564c7d8e8edb7bb2abb4c69e84db5a64877d2e9d5",
+          "exact_excerpt": "[2023/05/30 (Tue) 19:39] Do you even have mental health? How can you give advice on protecting it?",
+          "text_chars": 98
+        },
+        {
+          "id": "bdbf1c90f8be5292a938a8e1",
+          "session": "lme-session-4796f9bbe3f62dc6081bf700b9dd1806cea40f12b493bb67a1c7fb062f1abefa",
+          "position": 3,
+          "role": "assistant",
+          "session_date": "2023/05/30 (Tue) 19:39",
+          "text_sha256": "ea3c0c664fcfc8260a7643ca469a4a2cbc042e9d962d394ac51bc68ab2911463",
+          "exact_excerpt": "[2023/05/30 (Tue) 19:39] I do not have mental health, emotions, or personal experiences. i provide information based on research, studies, and expert opinions to help users understand and address mental health issues. my purpose is to assist and support users in acquiring helpful insights and guidance on how to safeguard their well-being or seek professional help when necessary.",
+          "text_chars": 381
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "a351b0a24ccd9e3dc7c5241e86443d38959268f4ee6558bed8ea61478f016407",
+      "control_packet_sha256": "9dc66bf44565198518d2754622c9d9f68b219d99839d8209c8643ea3082026d8",
+      "candidate_packet_sha256": "32e88e02445ff568a629a4da065a9507734f7639654e221ea859988e70dea001"
+    },
+    {
+      "id": "bf659f65",
+      "kind": "historical_miss_loss",
+      "historical_correct": false,
+      "abstention": false,
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "reference_evaluator_only": "3",
+      "historical_saved_answer": "2 music albums or EPs",
+      "risk_class": "raw_source_loss_with_fact_retained",
+      "source_assessment": "The removed user turn explicitly says the Whiskey Wanderers EP Midnight Sky was bought. The baseline already states that purchase repeatedly, so the literal annotated loss is not equivalent to loss of the fact. Candidate adds festival/music-discussion sources rather than that original purchase turn.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [
+        {
+          "id": "d0a8b58dbc02d23b54248f58",
+          "session": "lme-session-38701e88bd04532fb7861ca2658b7f9ae76947204245fcb70b96a922f616e86c",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/29 (Mon) 18:21",
+          "text_sha256": "d5fbc72c680cfd8298bedf3c97847185a13615b90c459405fb7fb5f124a399a9",
+          "exact_excerpt": "[2023/05/29 (Mon) 18:21] I'm looking for some new music recommendations. I've been really into indie and folk-rock lately, especially after discovering The Whiskey Wanderers at a music festival last weekend - I bought their EP 'Midnight Sky' at the festival merchandise booth and can't get enough of it. Can you suggest some similar artists or bands I might like?",
+          "text_chars": 363
+        }
+      ],
+      "new_appended_sources": [
+        {
+          "id": "a020d3510f22dba077c24ecc",
+          "session": "lme-session-85e1cf2506e4c11fadc0fa07838a052c08c64c786d3c1a837f01b84ec318badd",
+          "position": 7,
+          "role": "assistant",
+          "session_date": "2023/05/20 (Sat) 12:42",
+          "text_sha256": "92d99bd9ee7e5715ac36c7ddc5bf687cd1ec75ecea8aae726544718cc316c3f5",
+          "exact_excerpt": "[2023/05/20 (Sat) 12:42] Music podcasts and YouTube channels are an excellent way to discover new music and stay current with the latest trends.\n\n**Music Podcasts:**\n\n1. **The Needle Drop**: A podcast hosted by Anthony Fantano, featuring in-depth album reviews and discussions on various genres.\n2. **Pitchfork**: You already mentioned Pitchfork, but it's definitely worth recommending! They feature interviews, reviews, and discussions on new music.",
+          "text_chars": 2169
+        },
+        {
+          "id": "ac206ba38b7e0824c994b4a8",
+          "session": "lme-session-85e1cf2506e4c11fadc0fa07838a052c08c64c786d3c1a837f01b84ec318badd",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/05/20 (Sat) 12:42",
+          "text_sha256": "894b5d2088dc5c502f75c4ece776d180e135f27e59504923d06a782b553f956b",
+          "exact_excerpt": "[2023/05/20 (Sat) 12:42] That's a great list! I'll definitely check out some of those podcasts and YouTube channels. By the way, have you heard about the music festival I attended last weekend? It was amazing, and I discovered some great new bands like \"The Whiskey Wanderers\".",
+          "text_chars": 277
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "4b35b96564d2248a33821b7a",
+          "session": "lme-session-38701e88bd04532fb7861ca2658b7f9ae76947204245fcb70b96a922f616e86c",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/29 (Mon) 18:21",
+          "text_sha256": "b531a6fc959ac0abf18dc8b66cf372de1bd8bfb039110774b5379a6530ad976c",
+          "exact_excerpt": "[2023/05/29 (Mon) 18:21] I'm happy to help you with some music recommendations! However, I have to break it to you that The Whiskey Wanderers don't seem to exist, and neither does their EP 'Midnight Sky'. It's possible that you might have misremembered the name of the band or the EP, or maybe they're a fictional band.\n\nBut don't worry, I can still help you discover new music that fits your taste in indie and folk-rock! Here are some similar artis",
+          "text_chars": 2073
+        },
+        {
+          "id": "d0a8b58dbc02d23b54248f58",
+          "session": "lme-session-38701e88bd04532fb7861ca2658b7f9ae76947204245fcb70b96a922f616e86c",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/29 (Mon) 18:21",
+          "text_sha256": "d5fbc72c680cfd8298bedf3c97847185a13615b90c459405fb7fb5f124a399a9",
+          "exact_excerpt": "[2023/05/29 (Mon) 18:21] I'm looking for some new music recommendations. I've been really into indie and folk-rock lately, especially after discovering The Whiskey Wanderers at a music festival last weekend - I bought their EP 'Midnight Sky' at the festival merchandise booth and can't get enough of it. Can you suggest some similar artists or bands I might like?",
+          "text_chars": 363
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [
+        "d0a8b58dbc02d23b54248f58"
+      ],
+      "baseline_sha256": "22d7f7880de6406eb2b2e7db99d99c54d103fc5358d6b2c5f8b31098a606d33e",
+      "control_packet_sha256": "31a247883859c13e78df0a95118b74fae941315c813fae125c42b42eae927a9e",
+      "candidate_packet_sha256": "318499fe5e839e384f7f3eef3d7cd2fea1952f4e58046cda011cc354c02560e1"
+    },
+    {
+      "id": "e5ba910e_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": true,
+      "abstention": true,
+      "question": "What is the total cost of my recently purchased headphones and the iPad?",
+      "reference_evaluator_only": "The information provided is not enough. You mentioned purchasing a headphone, but you did not mention the iPad.",
+      "historical_saved_answer": "Not determinable—the headphones cost $378, but the iPad price is not mentioned.",
+      "risk_class": "headphone_detail_without_ipad_price",
+      "source_assessment": "The candidate adds assistant-authored headphone and power-bank advice, but the baseline and changed sources do not give an iPad purchase price. The saved answer correctly says total cost cannot be computed.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "a37ad070ce30b7ed0bc20876",
+          "session": "lme-session-47ca4e8fe729740d8d4bfd6f7b0028a47ecb2f8b4eef5331d693a7c254a14798",
+          "position": 9,
+          "role": "assistant",
+          "session_date": "2023/05/25 (Thu) 23:54",
+          "text_sha256": "5a0cf210d68486a821973779f363208e1d102d9daa284c6ec371bc980749b853",
+          "exact_excerpt": "[2023/05/25 (Thu) 23:54] A 20,000mAh power bank should provide a good balance between capacity and portability.\n\n**Sony WH-1000XM4 Headphones**\n\nI'm thrilled to hear that you're enjoying your Sony WH-1000XM4 headphones! The noise-cancelling feature is indeed a game-changer for commuters like yourself. The WH-1000XM4 is a top-notch headphone that offers excellent sound quality, comfort, and noise-cancellation.\n\nThe noise-cancellation technology in",
+          "text_chars": 1558
+        },
+        {
+          "id": "a61b7e54cae6256111f96b47",
+          "session": "lme-session-cbbe3c3511ce2a748ea4269a543b524de3446d34bce87ad1e646f2653503d279",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/26 (Fri) 07:43",
+          "text_sha256": "9f89bde093ff71266ccfec452fd54ef637023b1107562333bdd1b1e50da52958",
+          "exact_excerpt": "[2023/05/26 (Fri) 07:43] How did the music video address the issues of mental health and self-esteem?",
+          "text_chars": 101
+        },
+        {
+          "id": "ca64cca11ec5eb65fc0ea404",
+          "session": "lme-session-cbbe3c3511ce2a748ea4269a543b524de3446d34bce87ad1e646f2653503d279",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/26 (Fri) 07:43",
+          "text_sha256": "ce867daf06bcb56232a64d34b11db73326c9201a4a3b3c30500dac608391cfb7",
+          "exact_excerpt": "[2023/05/26 (Fri) 07:43] I do not have access to a specific music video without context or a reference for analysis. however, in general, music videos can address issues of mental health and self-esteem by depicting the struggles people may face and conveying a message of hope and empowerment. they can also provide relatable messages through lyrics and imagery, encouraging viewers to seek support or learn coping mechanisms for mental health issue",
+          "text_chars": 656
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "e07a3f3e2566a90f45170bd6",
+          "session": "lme-session-00129e441afe904a76e8123734defaec109233278ce4f87a31186d64e0dd7124",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/29 (Mon) 14:57",
+          "text_sha256": "dced5384178a34f980d5b6b87ba815cb959d8eaba712950f7d5e8a5e689c3e9f",
+          "exact_excerpt": "[2023/05/29 (Mon) 14:57] I'd be happy to help you compare prices for the Dell XPS 13. However, I'm a large language model, I don't have have real-time access to current prices or sales. But I can give you some general advice and suggestions on where to find the best deals.\n\nThe Dell XPS 13 is a popular and highly-regarded laptop, and prices can vary depending on the configuration, storage, and condition. Here are some general price ranges to expe",
+          "text_chars": 1811
+        },
+        {
+          "id": "ec8539ee9e68014a0c034799",
+          "session": "lme-session-00129e441afe904a76e8123734defaec109233278ce4f87a31186d64e0dd7124",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/29 (Mon) 14:57",
+          "text_sha256": "b4f2e5530c5597e9f22c65d122db9636383b15df7fbba33fdc2235ddae758d08",
+          "exact_excerpt": "[2023/05/29 (Mon) 14:57] I'm thinking of getting a new laptop and was wondering if you could help me compare prices for the Dell XPS 13. By the way, I just got a new phone case for my Samsung Galaxy S22 from Case-Mate for $30, and it's been working out great.",
+          "text_chars": 259
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "f8c9354ca9ef1918c1cb78c6789a1141879ce8f7b67987777d1d72210e49521e",
+      "control_packet_sha256": "2b64faafd26d877a197708a5adf4394ec67626153e81dda21638d5e5ed556406",
+      "candidate_packet_sha256": "49bed956f2674ec4de10d66119b0d05f2a3723e1f1a9bb647f157b3aec8d99e7"
+    },
+    {
+      "id": "f685340e_abs",
+      "kind": "changed_abstention_packet",
+      "historical_correct": true,
+      "abstention": true,
+      "question": "How often do I play table tennis with my friends at the local park?",
+      "reference_evaluator_only": "The information provided is not enough. You mentioned playing tennis but not table tennis.",
+      "historical_saved_answer": "Not mentioned; tennis is every other week.",
+      "risk_class": "activity_identity_unresolved",
+      "source_assessment": "New turns concern yoga and running routes, not table tennis with friends. The reference distinguishes tennis from table tennis; no new table-tennis frequency is identified.",
+      "flagged_gain_vs_control": [],
+      "flagged_loss_vs_control": [],
+      "new_appended_sources": [
+        {
+          "id": "0da41ab0c87fa425a4afecea",
+          "session": "lme-session-0d3061b67da27037965ebe97bce5576645e4abc202c751ca7d4024a83de2878a",
+          "position": 6,
+          "role": "user",
+          "session_date": "2023/05/23 (Tue) 11:17",
+          "text_sha256": "d65695802fbd0f0d6ec830c84f18b3cd3fd1da91c8b3e22bb350e229598e9c16",
+          "exact_excerpt": "[2023/05/23 (Tue) 11:17] I think I'll try the CorePower Yoga Almaden. I've heard good things about them. Do you have any tips on how to stay motivated to exercise regularly?",
+          "text_chars": 173
+        },
+        {
+          "id": "367e3e1e89925aee4a7106d4",
+          "session": "lme-session-0d3061b67da27037965ebe97bce5576645e4abc202c751ca7d4024a83de2878a",
+          "position": 1,
+          "role": "assistant",
+          "session_date": "2023/05/23 (Tue) 11:17",
+          "text_sha256": "191169c24306d8b2ad0c847adf17f84df719466a824a4b654142aaa2a614c8ef",
+          "exact_excerpt": "[2023/05/23 (Tue) 11:17] I'd be happy to help! However, I need a bit more information from you. Since I'm a large language model, I don't have access to your location or personal information. Could you please provide me with the following details:\n\n1. Your city or zip code?\n2. How far would you like your jogging route to be (e.g., 3 miles, 5 miles, etc.)?\n3. Are there any specific landmarks, parks, or areas you'd like to include or avoid in your ",
+          "text_chars": 791
+        },
+        {
+          "id": "811ccaffe1dfeba0ade17d04",
+          "session": "lme-session-0d3061b67da27037965ebe97bce5576645e4abc202c751ca7d4024a83de2878a",
+          "position": 5,
+          "role": "assistant",
+          "session_date": "2023/05/23 (Tue) 11:17",
+          "text_sha256": "b00c6c8241429ae3e43dde78529a33f78cdbada545547bb3109ba58099b2f5da",
+          "exact_excerpt": "[2023/05/23 (Tue) 11:17] The Almaden Lake Park Loop is a wonderful route.\n\nAs for yoga studios near Almaden Lake Park, I've found a few options for you:\n\n1. **YogaSource Los Gatos**: About 1.5 miles from Almaden Lake Park (5-minute drive)\n\t* Address: 15550 Los Gatos Blvd, Los Gatos, CA 95032\n\t* Offers various yoga styles, including Hatha, Vinyasa, and Restorative Yoga\n2. **CorePower Yoga Almaden**: About 2.5 miles from Almaden Lake Park (7-minute",
+          "text_chars": 1205
+        },
+        {
+          "id": "c78d9c3b8930b05643a005fa",
+          "session": "lme-session-0d3061b67da27037965ebe97bce5576645e4abc202c751ca7d4024a83de2878a",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/23 (Tue) 11:17",
+          "text_sha256": "0bd2b19575c6b1448083109d94e35defb500be4a3c8d87cee0c2cb29ac4c709d",
+          "exact_excerpt": "[2023/05/23 (Tue) 11:17] I'm in 95123, and I'd like a 5-mile route. Also, I prefer routes with minimal traffic and nice scenery.",
+          "text_chars": 128
+        }
+      ],
+      "removed_appended_sources": [
+        {
+          "id": "644af721226835c57566d8f7",
+          "session": "lme-session-34a7edbf364d78c3d5162ed9075d8e3dd5efe1ea6993ecf27f0075b2050cae33",
+          "position": 10,
+          "role": "user",
+          "session_date": "2023/05/22 (Mon) 20:40",
+          "text_sha256": "80b2443c805c83f316134fbfa8b975711c6058483e63a4f9dacae8f36502580d",
+          "exact_excerpt": "[2023/05/22 (Mon) 20:40] I think I'll try the Skippy creamy peanut butter. I've heard good things about it, and it's easy to find in most pet stores. By the way, I'm planning to take Max to the dog park this weekend for some off-leash playtime. Do you have any tips on how to ensure his safety while he's playing with other dogs?",
+          "text_chars": 329
+        },
+        {
+          "id": "92f8094766ba4e8beafa47db",
+          "session": "lme-session-34a7edbf364d78c3d5162ed9075d8e3dd5efe1ea6993ecf27f0075b2050cae33",
+          "position": 11,
+          "role": "assistant",
+          "session_date": "2023/05/22 (Mon) 20:40",
+          "text_sha256": "032229932b1f0eb0de2ae555ae3846a986ac7c430a32b82b18713e40abac451f",
+          "exact_excerpt": "[2023/05/22 (Mon) 20:40] Skippy creamy peanut butter is a popular choice among dog owners, and it's widely available in pet stores.\n\nNow, about ensuring Max's safety at the dog park:\n\n1. **Supervise, Supervise, Supervise:** Always keep a close eye on Max while he's playing with other dogs. Be aware of his body language and behavior, and intervene if you notice any signs of fear, aggression, or exhaustion.\n2. **Choose a Suitable Dog Park:** Opt fo",
+          "text_chars": 2121
+        }
+      ],
+      "new_flagged_source_ids": [],
+      "removed_flagged_source_ids": [],
+      "baseline_sha256": "8dca1307bf326acb6d41713ea5808803a7d16d31943981cfb74f962b4228853f",
+      "control_packet_sha256": "fa46389ca2bc79d123a9145c38e99a7b08db68f9e2fe63ba916357fbac4a516d",
+      "candidate_packet_sha256": "6d46269bd3d0bd0e0ec847f1b17c966e8abeceda5ff700f34d5bd94460520539"
+    }
+  ]
+}
