@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "comparisons": 216,
+  "reference_commit": "a7e44e3",
+  "reference_source_sha256": "be74addbc264065c4e03e480d08ea14d2213bae5bd5c54cc9a2d50896876e332",
+  "new_source_sha256": "b2a5d751a38e45bd3d76b327456f9f9815c1448674076135386a7f76d7977aae",
+  "paid_calls": 0,
+  "scope": "Deterministic local vector parity across tied/non-tied scores, 3 neighbor widths, 3 snippet caps, 4 deep policies, 3 queries. Not accuracy or all-input equivalence proof."
+}

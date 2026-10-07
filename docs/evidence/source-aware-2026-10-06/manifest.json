@@ -1,0 +1,43 @@
+{
+  "schema": "source-aware-evidence-manifest-v1",
+  "files": {
+    "PLAN.md": "7c3a53fbd93c948e50adc5abdb1189f6173d78bf7df334550536124d75de0630",
+    "POLICY.md": "34c755738c4659a28ac2256dc540f01205bec478b0e761fc110bd83e2879a6b8",
+    "CORRECTION.md": "9bb16a5280420030313359aa9a9d2d2f275c8b7ddbefe5d1bb8425610f6b42b6",
+    "LEXICAL_POLICY.md": "ca575aecc4c8c66fdc21fd701802adc99a06c4dc7f22948ec4b71463b1113171",
+    "audit.json": "ed372bcca1b46d32baca67957711167d1d921c435ac61db5902bf28ac0ed6f1c",
+    "audit-v2.json": "dc2f90df30fa3c3f0fe7f88c3d69bafa998275b19dd0d0d302ef115c650889d1",
+    "audit-lexical.json": "2d690ba56a06ee68d615373ed3a9717e0514e26f2bebc350ccaf6e08f8294920",
+    "freeze.json": "bb4d4b587ec0bf2b5270425829ff5872d46d2c3b9f3b05e6193400bbea9fd9d8",
+    "freeze-v2.json": "386cadd326178fa4afc2b1c8bcf5faa0d766ce29b2c0126f2c5c14cd1384a475",
+    "freeze-lexical.json": "4660eca0d78e4e0a0d9bb1108db7b091946f23b135e0762065fe6084f359df6c",
+    "independent-verification.json": "553a821811697a396e5f1ce1c0e7a4535ca31ab2a05176dc8a3b964a7576b325",
+    "lexical-independent-verification.json": "8eb493b1a8b2641edcdba37570338baddb54960c26d47b01fd1c3a1b9fe5e00d",
+    "gain-source-review.json": "1710400d24f904d1b4f66d22e36557dcfff4b5a67e9f201a5acc02cca3899874",
+    "gain-source-review-v2.json": "614395361bb82591140229b53fbe6e637641d9b2f45ea55538537776df855de0",
+    "qualitative-review.json": "79bc6384d13c04756a3a5e1d6588cf64891575a6ce70008e071668c75debee09",
+    "temporal-contract-audit.json": "071a609391b5ebf9e2df0a47fb1365a7b4d44feafe9a78b39bf122297f8456fe",
+    "packing-diagnosis.json": "992074453316f6019f9a4559ef397603286a633c1c2de9f6733d26e14a32a5ba",
+    "role-budget-diagnosis.json": "0663062e1c509da1184c97699e955d856d0b0cabd9be36868b89e613f24599bf",
+    "rank-headroom.json": "3ff3177e52d1eea9108128cca6d2b935acf19508751d717b3155c8a67ea02762",
+    "lexical-diagnosis.json": "76df0c9f3ec5e52b72512f479cd89eeb73c3471aa4919ac1b50f73c01a6ce358",
+    "legacy-parity.json": "85d8d5d612d18d451d404e637fe6029be730a8ce38b7d2cc4012d64973225591",
+    "README.md": "24ca36c8bf0adf670c4d9c3ac71fe552009cbe4f5624bb9581eecb7daa076279",
+    "validation.json": "e5d0c2655dcbffd1010a789f94b65c86e72209b7bf647b4b987b06e2bb643511",
+    "qualification-budget-review.json": "be00f3ac4eaac3010270c1956ec38e47b7da340497ad0dbe0b862f70f35a009c",
+    "format-only-equivalence.json": "2085994c3cc1015ed8bdc166ffb5ea223724759640e882f04950ee69fae844ba",
+    "reproduction/audit.py": "091b85264bce2886d4274a0d782099de0bff82cfed58f6274cee8ce80568f910",
+    "reproduction/audit_v2.py": "21dab4dd95a8b69099978f070ab179a4fd308d8b77d0858870b78bbd602e6807",
+    "reproduction/audit_lexical.py": "b8f6b1b61b61c336263449b43c05d5adaaa2aa0402c6f2d819239d69026095fa",
+    "reproduction/diagnose_lexical.py": "f82c35fd8db321bfa899ffe379824e468ce7bc557dbabafcb08aefe7704f4583",
+    "reproduction/diagnose_rank_headroom.py": "e26194c7417e717741093b3eb2152e54c54259705661cf88c7b1ec00c8c8f61c",
+    "reproduction/legacy_parity.py": "bcc1bdb0bfaaeb54349db40a03f5a2bd117389b4ac3dbaf6ef407ac1b808b6f5"
+  },
+  "external": {
+    "codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/packets.jsonl": "f6bb60627879f86a85d49a7f3c43b3f53300dea6d3083928bedb29278eef6d96",
+    "codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/packets-v2.jsonl": "0b3c4fbb4873a123db5760c185183d9274f2c427a39de95eca1ed4d46f7a54f2",
+    "codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/packets-lexical.jsonl": "e5aaf0e13a0f2788c112b87e0f8e20f261a9ebad203fae487938bb4bb7f7555d"
+  },
+  "paid_calls": 0,
+  "new_answers": 0
+}
