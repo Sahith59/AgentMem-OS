@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "tests_passed": 37,
+  "tests": [
+    "tests/test_source_capacity_audit.py",
+    "tests/test_atomic_allocation.py",
+    "tests/test_evidence_packet.py"
+  ],
+  "environment": "outer venv Python3.13; PYTEST_DISABLE_PLUGIN_AUTOLOAD=1; --noconftest",
+  "warning": "Unknown config option asyncio_mode with plugin autoload disabled",
+  "ruff": "PASS",
+  "diff_check": "PASS",
+  "implementation_commit": "980e432",
+  "code_sha256": "05e620231c936964b5c631a6f6e7162dcbf7a4de3443298247697fcc2df80910",
+  "test_sha256": "28661f842422289b6c0ffde00f2bad46077b5c9e35f44b5d872b8c19531d7191",
+  "paid_calls": 0
+}

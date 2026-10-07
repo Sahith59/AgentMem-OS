@@ -1,0 +1,36 @@
+{
+  "schema": "source-capacity-independent-verification-v1",
+  "status": "PASS_WITH_SCOPE_LIMITS",
+  "input_hashes": {
+    "POLICY.md": "ed89ee5139af8e76cb43a4ce99b910a65d9c69391cac6e7cc0899696a6ebe35f",
+    "audit.py": "c71ead2c89383837b219e76fcfe550bf4d4806390ffc5516b8d20bc5ff3605ff",
+    "freeze.json": "3a4aaef8cf811a5943dc79563e11b264fde8d1ad995dbf675bbb910f7bc85865",
+    "audit.json": "80ae39eef59c011d295d74475f33f2e5d52ac07620ba33ef55268e2b8f746c3a"
+  },
+  "checks": {
+    "all500_case_joins_and_original_sources": true,
+    "freeze_code_and_input_hashes": true,
+    "presence_source_identity_offsets_cutoff_and_hash": true,
+    "independent_per_target_cartesian_minimum_costs_and_witness_ids": true,
+    "future_and_position_gap_bundle_rejection": true,
+    "exact_header_body_prefix_separator_and_reuse_cost": true,
+    "any_all_summary_denominators_and_sections": true,
+    "duplicate_body_screening": true,
+    "rows": 500,
+    "historical77_any_all_fixed": [
+      16,
+      5
+    ],
+    "historical77_any_all_unrestricted": [
+      31,
+      16
+    ]
+  },
+  "limits": [
+    "Evaluator-only annotation-conditioned capacity: witnesses must never enter runtime selection or answer packets.",
+    "A full annotated turn is a diagnostic proxy; other sources may suffice and a delivered turn may still be irrelevant, ambiguous, or unused by the answerer.",
+    "The baseline is preserved, including known same-day future-stamped text; this check validates eligible new-source bundles and does not certify baseline temporal cleanliness.",
+    "No new embeddings, model answers, paid calls, runtime candidate packets, or answer accuracy measurements."
+  ],
+  "readiness": "NOT_APPLICABLE"
+}
