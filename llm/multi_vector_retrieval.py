@@ -191,12 +191,17 @@ class MultiVectorRetriever:
         post = " [...]" if hi + 1 < len(segs) else ""
         return pre + out + post
 
-    def ranked_indices(self, query: str) -> List[Tuple[int, float]]:
+    def ranked_indices(
+        self, query: str, *, positive_lexical_only: bool = False
+    ) -> List[Tuple[int, float]]:
         """Return unexpanded original turn indices in the existing RRF order.
 
-        Same ranking as legacy search; source identity and neighborhood packing
-        are caller concerns. An injected encoder avoids the global model loader.
+        Default matches legacy search. The opt-in lexical policy gives no
+        keyword rank credit to zero matches; their dense contribution remains.
+        Source identity and neighborhood packing are caller concerns.
         """
+        if type(positive_lexical_only) is not bool:
+            raise ValueError("Lexical policy must be boolean")
         if self._matrix is None or not self._turns:
             return []
 
@@ -225,8 +230,10 @@ class MultiVectorRetriever:
         # the two signals' incomparable score scales, no tuned weights.
         n = len(self._turns)
         rrf = [0.0] * n
-        for sims in (dense_sims, tfidf_sims):
+        for channel, sims in enumerate((dense_sims, tfidf_sims)):
             for rank, idx in enumerate(sims.argsort()[::-1]):
+                if channel == 1 and positive_lexical_only and sims[idx] <= 0:
+                    continue
                 rrf[int(idx)] += 1.0 / (60 + rank + 1)
 
         order = np.argsort(rrf)[::-1]

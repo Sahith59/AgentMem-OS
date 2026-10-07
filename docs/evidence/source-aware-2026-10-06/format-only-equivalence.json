@@ -1,0 +1,9 @@
+{
+  "status": "AST_IDENTICAL_FORMAT_ONLY",
+  "file": "llm/multi_vector_retrieval.py",
+  "audited_commit": "2b159ff",
+  "audited_sha256": "b2a5d751a38e45bd3d76b327456f9f9815c1448674076135386a7f76d7977aae",
+  "formatted_sha256": "19dbad1de7972cf1d37fc6ea48ab276e8e0b75cff13ef3b180b050746508b92e",
+  "reason": "Final Ruff check caught E501 on newly added signature; wrap only, no AST change. Frozen outputs/code hashes remain unchanged.",
+  "paid_calls": 0
+}

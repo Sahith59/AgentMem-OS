@@ -60,6 +60,63 @@ def test_existing_rrf_order_and_legacy_neighbor_output_are_preserved():
     ]
 
 
+def test_positive_lexical_policy_keeps_dense_only_sources_and_removes_false_votes():
+    class DenseEncoder(Encoder):
+        def encode(self, texts, **kwargs):
+            return np.array([[1.0, 0.0] if t.startswith("query:") or "gamma" in t
+                             else [0.0, 1.0] for t in texts])
+
+    retriever = MultiVectorRetriever(encoder=DenseEncoder())
+    retriever.index(["alpha story", "beta story", "gamma story"])
+    legacy = dict(retriever.ranked_indices("alpha"))
+    positive = dict(retriever.ranked_indices("alpha", positive_lexical_only=True))
+    # Gamma has strongest dense relevance but no lexical overlap. It stays,
+    # with exactly its dense vote; alpha retains both votes unchanged.
+    assert set(positive) == {0, 1, 2}
+    assert positive[2] == pytest.approx(1 / 61)
+    assert positive[0] == legacy[0]
+    assert positive[1] < legacy[1] and positive[2] < legacy[2]
+    assert retriever.ranked_indices("alpha")[0][0] == 2
+    assert retriever.ranked_indices("alpha", positive_lexical_only=True)[0][0] == 0
+
+
+def test_zero_lexical_query_is_dense_only_and_positive_channel_is_unchanged():
+    retriever = MultiVectorRetriever(encoder=Encoder())
+    retriever.index(["alpha story", "beta story", "gamma story"])
+    assert retriever.ranked_indices("absent", positive_lexical_only=True) == [
+        (2, 1 / 61), (1, 1 / 62), (0, 1 / 63)
+    ]
+    assert retriever.ranked_indices("story", positive_lexical_only=True) == (
+        retriever.ranked_indices("story")
+    )
+
+
+@pytest.mark.parametrize("invalid", [0, 1, "true", None])
+def test_lexical_policy_fails_closed_even_for_empty_scope(invalid):
+    with pytest.raises(ValueError, match="Lexical policy"):
+        MultiVectorRetriever(encoder=Encoder()).ranked_indices(
+            "alpha", positive_lexical_only=invalid
+        )
+    with pytest.raises(ValueError, match="Lexical policy"):
+        rank(SourceSnapshot("scope", ()), "alpha", scope="scope", as_of=NOW,
+             encoder=Encoder(), positive_lexical_only=invalid)
+
+
+def test_source_aware_core_forwards_opt_in_lexical_policy_with_exact_receipts():
+    a = turn("a", "alpha story")
+    b = turn("b", "gamma story", session="other")
+    text, report = ContextAssembler.assemble_source_aware_packet(
+        SourceSnapshot("scope", (a, b)), "absent", "baseline", scope="scope", as_of=NOW,
+        encoder=Encoder(), positive_lexical_only=True, max_anchors=1, neighbor_turns=0,
+    )
+    assert text.startswith("baseline")
+    assert report["ranking"] == "dense-positive-lexical-rrf-k60"
+    assert report["candidate_hits"][0]["score"] == 1 / 61
+    receipt = report["receipts"][0]
+    offset = report["block_offset"]
+    assert text[offset + receipt["start"]:offset + receipt["end"]] == b.text
+
+
 def test_blank_sources_and_future_sources_cannot_shift_bound_ids():
     encoder = Encoder()
     a = turn("nonsequential-a", "alpha story", 0)

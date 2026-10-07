@@ -1,0 +1,67 @@
+{
+  "schema": "source-aware-selection-independent-verification-v2",
+  "verified_at_utc": "2026-10-07T02:29:20.543239+00:00",
+  "status": "PASS_FOR_FROZEN_OFFLINE_MECHANICS_AND_CONSERVATIVE_SOURCE_IDENTITY",
+  "scope": "Versioned v2 audit only; original v1 audit remains uncertified for presence identity.",
+  "sha256": {
+    "freeze_v2": "386cadd326178fa4afc2b1c8bcf5faa0d766ce29b2c0126f2c5c14cd1384a475",
+    "audit_v2": "dc2f90df30fa3c3f0fe7f88c3d69bafa998275b19dd0d0d302ef115c650889d1",
+    "packets_v2": "0b3c4fbb4873a123db5760c185183d9274f2c427a39de95eca1ed4d46f7a54f2",
+    "policy": "34c755738c4659a28ac2256dc540f01205bec478b0e761fc110bd83e2879a6b8",
+    "correction": "9bb16a5280420030313359aa9a9d2d2f275c8b7ddbefe5d1bb8425610f6b42b6",
+    "audit_script_v2": "21dab4dd95a8b69099978f070ab179a4fd308d8b77d0858870b78bbd602e6807"
+  },
+  "frozen_bindings": {
+    "policy_matches_freeze": true,
+    "correction_matches_freeze": true,
+    "audit_script_matches_freeze": true,
+    "all_six_code_files_match_freeze": true,
+    "all_seven_input_files_match_freeze": true,
+    "original_historical_checkpoint_preserved": true,
+    "original_hybrid_rank_top8_matched_all_500": true
+  },
+  "independent_replay": {
+    "packet_pairs": 500,
+    "historical_correct": 423,
+    "historical_misses": 77,
+    "abstentions": 30,
+    "receipts_verified": 3399,
+    "presence_certificates_verified": 15168,
+    "ambiguous_presence_entries": 76,
+    "presence_hazard_cases": 2,
+    "certificate_renderers": {
+      "SEMANTIC MEMORY": 12491,
+      "RECENT TURNS": 2085,
+      "ADDITIONAL SOURCE EVIDENCE": 592
+    },
+    "certified_proper_prefixes_of_other_scoped_sources": 0,
+    "future_presence_certificates": 0,
+    "future_appended_sources": 0,
+    "out_of_scope_appended_sources": 0,
+    "invalid_offsets_hashes_dates_roles_or_positions": 0,
+    "invalid_atomic_admitted_bundles": 0,
+    "packet_prefix_or_40000_total_or_4000_extra_violations": 0,
+    "grade_label_and_cohort_join_mismatches": 0
+  },
+  "adversarial_rechecks": {
+    "same_line_shorter_source_prefix": "AMBIGUOUS_UNCERTIFIED",
+    "future_source_forged_additional_header": "HAZARD_NO_CERTIFICATE",
+    "untrusted_system_or_facts_additional_header": "NO_CERTIFICATE_WITH_VALID_OUTER_SECTIONS",
+    "v1_seven_ambiguous_certificates": "REMOVED_FROM_V2"
+  },
+  "outcome": {
+    "readiness": "FAIL",
+    "historical_miss_cases_gaining_annotated_turn": 7,
+    "historical_miss_net_gain_cases_vs_matched_control": 6,
+    "all500_annotated_turn_losses_vs_baseline": 0,
+    "paid_calls": 0,
+    "new_answers": 0,
+    "answer_accuracy": "NOT_MEASURED"
+  },
+  "limits": [
+    "Certificates establish unique exact scoped source text under the frozen known-renderer envelope; arbitrary caller-supplied baseline strings are not cryptographically authenticated.",
+    "Full annotated body-text presence is a proxy, not certified answer-span identity or answer correctness.",
+    "The frozen baseline was not re-certified for temporal correctness or all semantic qualifiers.",
+    "The previously frozen v1 output is preserved but its presence-ledger identity claim is superseded."
+  ]
+}

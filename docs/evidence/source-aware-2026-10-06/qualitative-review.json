@@ -1,0 +1,463 @@
+{
+  "schema": "source-aware-qualitative-review-v1",
+  "status": "OFFLINE_SOURCE_REVIEW_ONLY",
+  "reviewed_at_utc": "2026-10-07T02:38:00.986970+00:00",
+  "input_sha256": {
+    "../codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/audit-v2.json": "dc2f90df30fa3c3f0fe7f88c3d69bafa998275b19dd0d0d302ef115c650889d1",
+    "../codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/packets-v2.jsonl": "0b3c4fbb4873a123db5760c185183d9274f2c427a39de95eca1ed4d46f7a54f2",
+    "../codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/gain-source-review.json": "1710400d24f904d1b4f66d22e36557dcfff4b5a67e9f201a5acc02cca3899874",
+    "../codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/runtime.json": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "../codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/labels.json": "3225604ba0b8aa0061ee868051a950efb76f96397a4b994ab98ec7850177ec01",
+    "../codex-memory-2026-09-08/runs/english-improvement-2026-09-11/full500-precision-measurement-package-001/package.json": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab",
+    "../codex-memory-2026-09-08/runs/english-improvement-2026-09-11/paid-full500-precision-measurement1-001/checkpoint.json": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1"
+  },
+  "summary": {
+    "historical_miss_annotated_gains_reviewed": 7,
+    "plausible_needed_fact_repairs_vs_baseline": 3,
+    "of_those_also_in_matched_control": 1,
+    "historical_correct_control_relative_loss_cases_reviewed": 5,
+    "historical_correct_control_relative_lost_annotated_turns": 6,
+    "baseline_annotated_losses_in_those_cases": 0,
+    "deterministic_abstention_cases_reviewed": 3,
+    "readiness": "FAIL",
+    "new_answers": 0,
+    "grades_changed": 0
+  },
+  "historical_miss_gains": [
+    {
+      "id": "1a8a66a6",
+      "question": "How many magazine subscriptions do I currently have?",
+      "reference": "2",
+      "saved_answer": "1 magazine subscription",
+      "observed_class": "REFERENCE_OR_CATEGORY_UNRESOLVED",
+      "note": "New user turn confirms Forbes cancellation and New Yorker subscription; baseline already states New Yorker, and this turn does not identify a second active magazine. The saved answer counted one.",
+      "gained_source_ids": [
+        "5f81e5ff46058a270c4f3d2e"
+      ],
+      "gained_source_texts": [
+        "[2023/04/01 (Sat) 00:37] I've been trying to reduce my carbon footprint lately, and I'm looking for some eco-friendly product recommendations. Specifically, I'm in the market for a reusable water bottle. Do you have any suggestions? By the way, I just canceled my Forbes magazine subscription in early March because I wasn't finding the articles that interesting, but I've been enjoying other publications like The New Yorker, which I subscribed to in early February."
+      ],
+      "gained_source_ids_also_in_matched_control": [],
+      "candidate_receipt_ids": [
+        "5f81e5ff46058a270c4f3d2e",
+        "29b68389d9f61275c6f271b5",
+        "b7dc652625afc662c0964179",
+        "82498e2e70e8821a5cd8cca8",
+        "b9166c1fe5712e740176ac3f",
+        "9aaf9712413eafee62df5a15"
+      ],
+      "control_receipt_ids": [
+        "3db4ba15eff1f1eee3245059",
+        "9f566393c4b57894e58839fb",
+        "f5bb424a7fd0d925db2c05a2"
+      ]
+    },
+    {
+      "id": "80ec1f4f",
+      "question": "How many different museums or galleries did I visit in the month of February?",
+      "reference": "2",
+      "saved_answer": "1",
+      "observed_class": "PLAUSIBLE_NEEDED_FACT",
+      "note": "New user turn says Natural History Museum visit was on February 8; baseline names Art Cube February 15 and mentions niece/museum without that visit date. The saved answer counted one February institution.",
+      "gained_source_ids": [
+        "6bbde35129cc5f6f3e17cf07"
+      ],
+      "gained_source_texts": [
+        "[2023/03/03 (Fri) 15:10] I'm looking for some art supply stores in the city. Do you have any recommendations? By the way, I took my niece to the Natural History Museum on 2/8 and she loved the dinosaur exhibit!"
+      ],
+      "gained_source_ids_also_in_matched_control": [],
+      "candidate_receipt_ids": [
+        "c66e0e6790f8f9cf8d301f16",
+        "1ea91305521faab3a2565ed9",
+        "ce11cdf00ef1f2fcbaeda8cc",
+        "58500e02f171bae04245a58a",
+        "6bbde35129cc5f6f3e17cf07"
+      ],
+      "control_receipt_ids": [
+        "21369694e5cc54fbcda99cad",
+        "d2adb5d0f0238208faf8df73",
+        "36c929c94a89bc5e76fff9e9",
+        "0b06f654a8119d8d15f26ad0",
+        "af21a623add98c1008191742",
+        "0f7d87f4fddc1e38e20c2712"
+      ]
+    },
+    {
+      "id": "a9f6b44c",
+      "question": "How many bikes did I service or plan to service in March?",
+      "reference": "2",
+      "saved_answer": "1 bike",
+      "observed_class": "PLAUSIBLE_NEEDED_FACT_MATCHED_CONTROL",
+      "note": "New user turn plans commuter-bike front-tire replacement before April, distinct from baseline road-bike service in March. Matched control also appended this turn, so this is baseline-relative evidence recovery, not candidate-only recovery.",
+      "gained_source_ids": [
+        "fd592c31dcd9f417bf84441b"
+      ],
+      "gained_source_texts": [
+        "[2023/03/20 (Mon) 07:32] I'm looking into getting a new tire for my commuter bike. I've been having some issues with the front tire, and I think it is time to replace it this month, before April comes."
+      ],
+      "gained_source_ids_also_in_matched_control": [
+        "fd592c31dcd9f417bf84441b"
+      ],
+      "candidate_receipt_ids": [
+        "fd592c31dcd9f417bf84441b",
+        "04e912129204a7540bd3236d",
+        "afdfedb165030b6060845af3",
+        "307f9d9d46be896c3f1f4f8c",
+        "248ef94793a4ab5cd4170d28"
+      ],
+      "control_receipt_ids": [
+        "fd592c31dcd9f417bf84441b",
+        "04e912129204a7540bd3236d",
+        "afdfedb165030b6060845af3",
+        "5ca4c9357eab71ce40c16e4e",
+        "307f9d9d46be896c3f1f4f8c",
+        "248ef94793a4ab5cd4170d28"
+      ]
+    },
+    {
+      "id": "bf659f65",
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "reference": "3",
+      "saved_answer": "2 music albums or EPs",
+      "observed_class": "REDUNDANT_FACT_WITH_SOURCE_CONFLICT",
+      "note": "New turn repeats Midnight Sky EP purchase already represented in facts and explicitly counted in saved answer. Baseline also includes assistant denial of that band/EP, so additional source does not resolve third-album reference gap.",
+      "gained_source_ids": [
+        "d0a8b58dbc02d23b54248f58"
+      ],
+      "gained_source_texts": [
+        "[2023/05/29 (Mon) 18:21] I'm looking for some new music recommendations. I've been really into indie and folk-rock lately, especially after discovering The Whiskey Wanderers at a music festival last weekend - I bought their EP 'Midnight Sky' at the festival merchandise booth and can't get enough of it. Can you suggest some similar artists or bands I might like?"
+      ],
+      "gained_source_ids_also_in_matched_control": [],
+      "candidate_receipt_ids": [
+        "f2abd364adb9c4d65931210f",
+        "db27b2ddea5943de24ec8dd7",
+        "d0a8b58dbc02d23b54248f58",
+        "4b35b96564d2248a33821b7a"
+      ],
+      "control_receipt_ids": [
+        "ac206ba38b7e0824c994b4a8",
+        "74b91dc13850d553aa90e6e8",
+        "19fef1c32d21c9eca93927eb",
+        "64eff9dc04a8ec68c97903bb",
+        "66170106c2125cf701f374c5"
+      ]
+    },
+    {
+      "id": "d851d5ba",
+      "question": "How much money did I raise for charity in total?",
+      "reference": "$3,750",
+      "saved_answer": "Over $8,750",
+      "observed_class": "REDUNDANT_REFERENCE_UNRESOLVED",
+      "note": "New turn repeats January animal-shelter $2,000 already in baseline and included by saved answer. It neither reconciles the older $5,000 concert nor establishes reference $3,750.",
+      "gained_source_ids": [
+        "45dca31a40fb8f59996add3f"
+      ],
+      "gained_source_texts": [
+        "[2023/03/20 (Mon) 19:19] I'm planning to participate in a charity cycling event next month and I want to make sure I'm prepared. Can you give me some tips on how to train for it? By the way, I've been getting more into charity events lately - I helped raise $2,000 for a local animal shelter on January 20th, and it was an amazing experience!"
+      ],
+      "gained_source_ids_also_in_matched_control": [],
+      "candidate_receipt_ids": [
+        "45dca31a40fb8f59996add3f",
+        "fcc79dc17c506fd791dc1c9f"
+      ],
+      "control_receipt_ids": [
+        "70dc2704c61a8b33e1281c11",
+        "3e36b600754349bd80ed1258"
+      ]
+    },
+    {
+      "id": "e3038f8c",
+      "question": "How many rare items do I have in total?",
+      "reference": "99",
+      "saved_answer": "At least 87 rare items.",
+      "observed_class": "PLAUSIBLE_NEEDED_FACT",
+      "note": "New user turn supplies 12 rare figurines; baseline mentions figurine storage but no count. Saved answer says 57 records + 25 coins + 5 books = at least 87 and lacks figurine count; 87+12 matches reference 99, without any new answer run.",
+      "gained_source_ids": [
+        "ea9176392e4f794d9f3b7c60"
+      ],
+      "gained_source_texts": [
+        "[2023/05/22 (Mon) 15:51] I'll keep that in mind. Yeah, I have 12 rare figurines in my collection, and I'm always looking to improve my knowledge about them. Do you think these appraisers would also be able to help me find a good way to store them safely? I've been meaning to get a better display case or a secure storage solution to protect them from damage."
+      ],
+      "gained_source_ids_also_in_matched_control": [],
+      "candidate_receipt_ids": [
+        "ea9176392e4f794d9f3b7c60",
+        "7ab556eed86255896fde748a",
+        "b5c21fcc631523132584bf3a",
+        "50b55bcd3db3d35f72748151"
+      ],
+      "control_receipt_ids": [
+        "0b6248aefb777221333b6794",
+        "422465c0ad62a17f8e241dd5"
+      ]
+    },
+    {
+      "id": "gpt4_731e37d7",
+      "question": "How much total money did I spend on attending workshops in the last four months?",
+      "reference": "$720",
+      "saved_answer": "$200 (confirmed spending within the last four months)",
+      "observed_class": "REDUNDANT_FACT",
+      "note": "New user turn says February 22 photography workshop was free; baseline facts already say this and saved answer used zero cost. It does not supply the missing cost/chronology for other workshops.",
+      "gained_source_ids": [
+        "52e73c68705c862f3feea00f"
+      ],
+      "gained_source_texts": [
+        "[2023/02/26 (Sun) 11:52] I'm looking for some tips on how to improve my portrait photography skills. Do you have any resources or tutorials that can help me with that? By the way, I recently attended a one-day photography workshop on February 22 at a local studio, and it was really helpful - it was a free event, but I had to register online in advance."
+      ],
+      "gained_source_ids_also_in_matched_control": [],
+      "candidate_receipt_ids": [
+        "52e73c68705c862f3feea00f",
+        "1a0b6ccd397f5da8e6b4196e",
+        "d68a1c554ac4ef1dfda2a87f",
+        "5ec55f8517587c94f962710e",
+        "96906aef89ec3cd7d9a3eb50",
+        "a8f796c16636b95055a0ed97"
+      ],
+      "control_receipt_ids": [
+        "456e3f79eabca3356aef8a13",
+        "8d999927a28c4a0dae4082e3",
+        "b30f902fa081d7caab69d7cc",
+        "5af04131b6db0664fd4b82be",
+        "6f81451a52912e35040f14e9"
+      ]
+    }
+  ],
+  "historical_correct_control_relative_losses": [
+    {
+      "id": "35a27287",
+      "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+      "reference": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+      "saved_answer": "In Belo Horizonte, try the Sunday Feira de Arte e Artesanato near Santa Teresa, Pra\u00e7a Duque de Caxias for street culture and music, and local Meetup/Eventbrite groups for French- or Spanish-language exchanges.",
+      "observed_risk": "LOW_TO_MODERATE_PREFERENCE_DEPTH",
+      "note": "Control adds user request for French/Spanish idiom and colloquial-learning apps. Candidate omits that full turn and adds unrelated music/sports material. Baseline retains French/Spanish language-exchange and cultural-event preference, but not the informal-language detail; no new recommendation was measured.",
+      "annotated_source_ids_control_only": [
+        "fd153792ee53198a02431a2d"
+      ],
+      "control_only_source_bodies": [
+        "Can you recommend any language learning apps or websites that focus on idiomatic expressions and colloquialisms in French and Spanish? I've been trying to improve my conversational skills and want to learn more informal language."
+      ],
+      "baseline_annotated_ids": [
+        "8e3a10a2b99a597c25e1f13e",
+        "bbd8e2a5b86c809e9f664022"
+      ],
+      "candidate_annotated_ids": [
+        "8e3a10a2b99a597c25e1f13e",
+        "bbd8e2a5b86c809e9f664022"
+      ],
+      "candidate_receipt_ids": [
+        "04ec8041ebdd55c261c46078",
+        "28e22975839d8f1e30f93e7d",
+        "d0e24b93a7db5f848913fe81",
+        "d31b042fcdaa3a05465f98a5",
+        "d8bc0bc1a62153a275ab1aa9",
+        "e88ffc6d6167c85e9065d070"
+      ],
+      "control_receipt_ids": [
+        "b9f48c447a86d8bd1c0fe2ee",
+        "bbd8e2a5b86c809e9f664022",
+        "fd153792ee53198a02431a2d"
+      ]
+    },
+    {
+      "id": "830ce83f",
+      "question": "Where did Rachel move to after her recent relocation?",
+      "reference": "the suburbs",
+      "saved_answer": "Chicago (initially; later she moved back to the suburbs)",
+      "observed_risk": "LOW_FACT_LOSS_MODERATE_DISTRACTOR",
+      "note": "Control adds original Chicago-move user turns. Candidate omits them and adds badger migration discussion. Baseline facts already state Chicago then later suburbs, supporting the saved correct chronology; source-level corroboration is reduced.",
+      "annotated_source_ids_control_only": [
+        "4536d7bdfc4cd70c64e74be8",
+        "968e09bb7c945dd47f538db3"
+      ],
+      "control_only_source_bodies": [
+        "I'm also thinking about visiting my friend Rachel who recently moved to a new apartment in the city. Do you know what the weather is like in the city this time of year?",
+        "She moved to Chicago."
+      ],
+      "baseline_annotated_ids": [],
+      "candidate_annotated_ids": [],
+      "candidate_receipt_ids": [
+        "08085180350362da34d74f84",
+        "67760039dba5fbe02c78b5fe",
+        "91994205c6bfcf4dd88cc61e",
+        "a907aee8089f73b3f4753582"
+      ],
+      "control_receipt_ids": [
+        "4536d7bdfc4cd70c64e74be8",
+        "63d327f9e21da024bac85926",
+        "968e09bb7c945dd47f538db3",
+        "b24753cf3a62ffff4ac4e4dc",
+        "de3fe5fe7c46af13f6976454",
+        "fdd15241f1e3df75fae0f2e5"
+      ]
+    },
+    {
+      "id": "a346bb18",
+      "question": "How many minutes did I exceed my target time by in the marathon?",
+      "reference": "12",
+      "saved_answer": "12 minutes",
+      "observed_risk": "LOW_FACT_LOSS_MODERATE_DISTRACTOR",
+      "note": "Control adds 4h22 marathon completion. Candidate omits that turn and adds half-marathon/bike discussion. Baseline facts retain 4h22 completion and 4h10 target, so the 12-minute arithmetic remains present.",
+      "annotated_source_ids_control_only": [
+        "35046014ccca2c74baeef612"
+      ],
+      "control_only_source_bodies": [
+        "I'm planning to travel to a new city for a work trip and I was wondering if you could recommend some good running routes in the area. By the way, I just completed my first full marathon in 4h 22min, so I'm looking for routes that can help me keep my endurance up while I'm away."
+      ],
+      "baseline_annotated_ids": [
+        "17b63a1d0c8288a8853d2935"
+      ],
+      "candidate_annotated_ids": [
+        "17b63a1d0c8288a8853d2935"
+      ],
+      "candidate_receipt_ids": [
+        "2fa254fbdbf1d4b6f84ae42f",
+        "f9db0d3c5f68edf378532301"
+      ],
+      "control_receipt_ids": [
+        "1394b0929663755592bed75d",
+        "17b63a1d0c8288a8853d2935",
+        "35046014ccca2c74baeef612",
+        "b6ddd0d11c6bcef93f678177"
+      ]
+    },
+    {
+      "id": "gpt4_2ba83207",
+      "question": "Which grocery store did I spend the most money at in the past month?",
+      "reference": "Thrive Market",
+      "saved_answer": "Thrive Market \u2014 around $150.",
+      "observed_risk": "LOW_FACT_LOSS",
+      "note": "Control adds $120 Walmart trip; candidate omits it and adds Publix/Thrive-related material. Baseline facts retain Walmart $120, Thrive $150, Trader Joe $80 and Publix $60, so the saved Thrive Market maximum remains text-supported.",
+      "annotated_source_ids_control_only": [
+        "575024eb06d3e3e28c703e2a"
+      ],
+      "control_only_source_bodies": [
+        "I'm trying to plan my meals for the upcoming week and was wondering if you could help me with some recipe suggestions. By the way, I just want to mention that I went grocery shopping last Saturday, exactly a week ago, and spent around $120 at Walmart, which is actually a bit higher than I expected, but I did get some good deals with a 10% off coupon on dairy products."
+      ],
+      "baseline_annotated_ids": [],
+      "candidate_annotated_ids": [],
+      "candidate_receipt_ids": [
+        "18eb7dcb1a06b3a3c2bf6b12",
+        "3c5af213b639edf95fe505d7",
+        "d738fb109ca0a0b71f868a00"
+      ],
+      "control_receipt_ids": [
+        "0b0779e30736e921e9213f89",
+        "13fddfbafa901ebcc57a6aa4",
+        "575024eb06d3e3e28c703e2a",
+        "70bf56c7d24bde2cb7c179d0",
+        "8219cfbee6fe3ea7193b84fe"
+      ]
+    },
+    {
+      "id": "gpt4_7abb270c",
+      "question": "What is the order of the six museums I visited from earliest to latest?",
+      "reference": "Science Museum, Museum of Contemporary Art, Metropolitan Museum of Art, Museum of History, Modern Art Museum, Natural History Museum",
+      "saved_answer": "Science Museum \u2192 Museum of Contemporary Art \u2192 Metropolitan Museum of Art \u2192 Museum of History \u2192 Modern Art Museum \u2192 Natural History Museum",
+      "observed_risk": "LOW_FACT_LOSS_MODERATE_ATTRIBUTION",
+      "note": "Control adds original Modern Art Museum tour user turn; candidate omits it and adds assistant museum discussion. Baseline facts retain dated Modern Art Museum visit and other museum chronology; direct user-source support is thinner, no new order answer measured.",
+      "annotated_source_ids_control_only": [
+        "6190510ee79c8b1ddc5779e7"
+      ],
+      "control_only_source_bodies": [
+        "I'm planning to visit the Modern Art Museum again soon and I was wondering if you could recommend any upcoming exhibitions or events that I shouldn't miss. By the way, I attended their guided tour of \"The Evolution of Abstract Expressionism\" today, led by Dr. Patel, which was fantastic - her insights into Pollock and Rothko's works were incredibly enlightening."
+      ],
+      "baseline_annotated_ids": [
+        "6c132974c416dc6a99120548",
+        "b6c2c99e051b1b40c9bbbbab"
+      ],
+      "candidate_annotated_ids": [
+        "6c132974c416dc6a99120548",
+        "b6c2c99e051b1b40c9bbbbab"
+      ],
+      "candidate_receipt_ids": [
+        "7d418f26e6cf7d8d3fc55048",
+        "abd2ff2272c3755f0cf09181"
+      ],
+      "control_receipt_ids": [
+        "6190510ee79c8b1ddc5779e7",
+        "84fa29046be2e54edfaa5e8f",
+        "8794e63b9de5f8a8442a4570",
+        "a956d52e079a6d5f336101c6",
+        "e40741185281936636860b6c",
+        "f277364c6577a47f2f115268"
+      ]
+    }
+  ],
+  "abstention_sample": [
+    {
+      "id": "80ec1f4f_abs",
+      "question": "How many different museums or galleries did I visit in December?",
+      "reference": "0. You did not mention visitng any museum in December",
+      "saved_answer": "Not mentioned (no December visits are recorded).",
+      "observed_risk": "DATE_DISTRACTOR",
+      "note": "Candidate appends February Art Cube material and a user correction about that visit. No December visit appears in added receipts; month confusion remains a possible, unmeasured risk.",
+      "candidate_receipt_ids": [
+        "0ae77cbf699246a25bd7a897",
+        "82d1568604da17b1658688c8",
+        "66bc046b142725819404d4b6",
+        "8ee1d22b1d4d1f5aa2d306c2",
+        "e28c396d7a5cba7cf1d47d6e"
+      ],
+      "control_receipt_ids": [
+        "870041955382abbbe6b57f0a",
+        "f1c26784437414d49e16ef35",
+        "26bf99a2084214525e42cdf2",
+        "66bc046b142725819404d4b6",
+        "8ee1d22b1d4d1f5aa2d306c2",
+        "e28c396d7a5cba7cf1d47d6e"
+      ],
+      "candidate_extra_chars": 3121
+    },
+    {
+      "id": "bc8a6e93_abs",
+      "question": "What did I bake for my uncle's birthday party?",
+      "reference": "You did not mention this information. You mentioned baking for your niece's birthday party but not your uncle's",
+      "saved_answer": "Lemon blueberry cake",
+      "observed_risk": "LEMON_ATTRIBUTION_BAIT",
+      "note": "Candidate appends a lemon-curd cake request and assistant recipe for an upcoming dinner party. It does not say the user baked anything for an uncle; saved answer already incorrectly named lemon blueberry cake, so this is salient bait, not evidence of the asked event.",
+      "candidate_receipt_ids": [
+        "b6802e516c60f2ba57f05ca5",
+        "ed910cd0e7220f5fb7686799"
+      ],
+      "control_receipt_ids": [
+        "b900226927e1d4e087d32ff5",
+        "bd9207c9fd2877392ea9f957",
+        "ed902842b430a8182c86f8ce",
+        "67ba25f65725ba5d7a9b2111",
+        "cde0c7afd42158d29cf37d3e",
+        "cbb54e1735e3bc8c993d977b",
+        "8bb4902cf1b839a36141b75a"
+      ],
+      "candidate_extra_chars": 3229
+    },
+    {
+      "id": "60bf93ed_abs",
+      "question": "How many days did it take for my iPad case to arrive after I bought it?",
+      "reference": "The information provided is not enough. You did not mention buying an iPad case.",
+      "saved_answer": "not mentioned",
+      "observed_risk": "UNRELATED_DISTRACTOR",
+      "note": "Candidate appends specialty-food-store and paper-topic conversation. It contains no actual iPad-case purchase or delivery timing; the substring iPad appears only inside Tripadvisor. No newly supported answer.",
+      "candidate_receipt_ids": [
+        "6b6c05ca945a824d25e9b772",
+        "b8566ff9426cb7a6c97f882e",
+        "0333964b2a67b2f18ead9fa1",
+        "2d45845314bb0f651dd92c25",
+        "631f93e6ab02194c8fbdb6ed",
+        "625687bacff2ea846e58c24e",
+        "5448a8306729a355a83ef2e0"
+      ],
+      "control_receipt_ids": [
+        "5d9ca15c2b5074958cb06819",
+        "625687bacff2ea846e58c24e",
+        "5448a8306729a355a83ef2e0"
+      ],
+      "candidate_extra_chars": 2594
+    }
+  ],
+  "limits": [
+    "This is independent source reading, not human ground-truth relabeling or model inference.",
+    "The three plausible repairs are evidence paths relative to frozen baseline; one also appears in matched control, and none is a demonstrated corrected answer.",
+    "Control-relative annotated-text losses are not losses relative to the unchanged baseline; source attribution and attention risks remain unmeasured.",
+    "The deterministic abstention sample is SHA256(question ID) first three, not a representative statistical sample.",
+    "No paid calls, answerer runs, or judge calls were made."
+  ]
+}

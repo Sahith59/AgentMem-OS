@@ -1,0 +1,101 @@
+{
+  "schema": "positive-lexical-independent-verification-v1",
+  "verified_at_utc": "2026-10-07T02:49:09.114657+00:00",
+  "status": "PASS_OFFLINE_INTEGRITY_NEGATIVE_READINESS",
+  "sha256": {
+    "audit_lexical": "2d690ba56a06ee68d615373ed3a9717e0514e26f2bebc350ccaf6e08f8294920",
+    "packets_lexical": "e5aaf0e13a0f2788c112b87e0f8e20f261a9ebad203fae487938bb4bb7f7555d",
+    "freeze_lexical": "4660eca0d78e4e0a0d9bb1108db7b091946f23b135e0762065fe6084f359df6c",
+    "policy": "ca575aecc4c8c66fdc21fd701802adc99a06c4dc7f22948ec4b71463b1113171",
+    "audit_script": "b8f6b1b61b61c336263449b43c05d5adaaa2aa0402c6f2d819239d69026095fa",
+    "lexical_diagnosis": "76df0c9f3ec5e52b72512f479cd89eeb73c3471aa4919ac1b50f73c01a6ce358"
+  },
+  "bindings": {
+    "policy_script_correction_and_six_code_hashes_match_freeze": true,
+    "all_eight_input_hashes_match_freeze": true,
+    "corrected_source_aware_v2_control_byte_equal_all500": true,
+    "independent_cached_embedding_tfidf_rrf_top8_replay_match_all499_nonempty_cases": true,
+    "zero_label_fields_in_runtime_selection": true
+  },
+  "checks": {
+    "cases": 500,
+    "empty_scope_cases": 1,
+    "anchor_order_or_membership_changed_cases": 27,
+    "packet_changed_cases": 11,
+    "historical_miss_anchor_changed_cases": 7,
+    "historical_miss_packet_changed_cases": 2,
+    "abstention_packet_changed_cases": 1,
+    "source_receipts_verified_both_arms": 3448,
+    "presence_certificates_verified_both_arms": 30336,
+    "source_framing_hazard_cases": 2,
+    "out_of_scope_or_future_appended_sources": 0,
+    "invalid_source_offsets_hashes_roles_dates_positions": 0,
+    "invalid_admitted_atomic_bundles": 0,
+    "prefix_or_budget_violations": 0,
+    "grade_label_join_mismatches": 0
+  },
+  "tie_order_reconciliation": {
+    "prior_diagnosis_cases_with_selected_zero_keyword_anchor": 26,
+    "cases_with_both_zero_selected_and_changed_anchor_list": 25,
+    "zero_selected_but_anchor_list_unchanged": [
+      "gpt4_0a05b494"
+    ],
+    "changed_anchor_list_without_selected_zero_keyword_anchor": [
+      "gpt4_59149c78",
+      "gpt4_8c8961ae"
+    ],
+    "explanation": "The two extra cases swap equal-score anchors while membership and packet receipts stay identical. NumPy default argsort is not stable for ties; changing other documents zero-vote scores can change the order of tied positive-vote anchors. The one unchanged case retains a zero-score lexical anchor after its RRF credit is removed."
+  },
+  "source_impact_review": [
+    {
+      "id": "gpt4_8279ba02",
+      "historical_miss": true,
+      "abstention": false,
+      "question": "How many days ago did I buy a smoker?",
+      "control_packet_source_ids": [
+        "9a2d09f6692c7de5ad98855a",
+        "214769fd34b967b95e3d132b",
+        "922924135b1f6d03a930e3a8",
+        "af9e83694921ed14345205a9",
+        "4e0bd846be459113966bad20",
+        "bf6c25044dd496d2e34ff75b"
+      ],
+      "candidate_packet_source_ids": [
+        "1d6666dd5244ac76c079bfb3",
+        "78d6d7ba05fa1f7940642890",
+        "af9e83694921ed14345205a9",
+        "4e0bd846be459113966bad20",
+        "bf6c25044dd496d2e34ff75b"
+      ],
+      "observation": "The swapped original turns discuss assistant personality or interview/artist topics, not smoker purchase timing. Neither arm gains or loses annotated smoker evidence. Saved answer remains not mentioned; no new answer was run."
+    },
+    {
+      "id": "gpt4_fe651585_abs",
+      "historical_miss": true,
+      "abstention": true,
+      "question": "Who became a parent first, Tom or Alex?",
+      "control_packet_source_ids": [
+        "f32c5143e62e15005078bc84",
+        "5201f9a1a2cadfbc9c000ef6"
+      ],
+      "candidate_packet_source_ids": [],
+      "observation": "Positive-only lexical voting removes an unrelated hello exchange. Baseline and both arms contain Alex-parent evidence but no Tom-parent timestamp; annotated presence is unchanged. Saved historical answer Alex was incorrect, and no new answer was run."
+    }
+  ],
+  "outcome": {
+    "readiness": "FAIL",
+    "historical77_cases_gaining_vs_original_baseline": 7,
+    "historical77_net_cases_vs_matched_control": 0,
+    "annotated_turns_gained_vs_control": 0,
+    "annotated_turns_lost_vs_control": 0,
+    "paid_calls": 0,
+    "new_answers": 0,
+    "answer_accuracy": "NOT_MEASURED"
+  },
+  "limits": [
+    "Changed anchor ordering can result from unstable NumPy tie sorting even when no selected zero-keyword anchor appears in the prior diagnosis; equal-score swaps had no packet effect here.",
+    "Zero TF-IDF cosine does not mean semantic irrelevance; dense votes and source eligibility remained.",
+    "Annotated text presence and source receipts do not measure final-answer correctness, and the frozen baseline itself was not temporally re-certified.",
+    "Historical corrected source-aware v2 failure is preserved; this lexical experiment adds no paid-run recommendation."
+  ]
+}

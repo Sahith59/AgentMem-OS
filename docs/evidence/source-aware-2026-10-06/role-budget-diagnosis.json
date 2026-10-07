@@ -1,0 +1,50 @@
+{
+  "all500": {
+    "control": {
+      "source_turns": {
+        "user": 890,
+        "assistant": 776
+      },
+      "source_body_characters": {
+        "user": 196180,
+        "assistant": 926930
+      },
+      "limit": "Body characters only; excludes metadata/separators and is not token or relevance accounting."
+    },
+    "candidate": {
+      "source_turns": {
+        "user": 923,
+        "assistant": 810
+      },
+      "source_body_characters": {
+        "user": 184178,
+        "assistant": 943647
+      },
+      "limit": "Body characters only; excludes metadata/separators and is not token or relevance accounting."
+    }
+  },
+  "historical77misses": {
+    "control": {
+      "source_turns": {
+        "user": 140,
+        "assistant": 129
+      },
+      "source_body_characters": {
+        "user": 29966,
+        "assistant": 146401
+      },
+      "limit": "Body characters only; excludes metadata/separators and is not token or relevance accounting."
+    },
+    "candidate": {
+      "source_turns": {
+        "user": 141,
+        "assistant": 121
+      },
+      "source_body_characters": {
+        "user": 28642,
+        "assistant": 150945
+      },
+      "limit": "Body characters only; excludes metadata/separators and is not token or relevance accounting."
+    }
+  }
+}

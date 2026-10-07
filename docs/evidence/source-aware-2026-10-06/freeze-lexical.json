@@ -1,0 +1,24 @@
+{
+  "policy_sha256": "ca575aecc4c8c66fdc21fd701802adc99a06c4dc7f22948ec4b71463b1113171",
+  "correction_sha256": "9bb16a5280420030313359aa9a9d2d2f275c8b7ddbefe5d1bb8425610f6b42b6",
+  "script_sha256": "b8f6b1b61b61c336263449b43c05d5adaaa2aa0402c6f2d819239d69026095fa",
+  "code_sha256": {
+    "llm/source_presence.py": "d1b1544ec60f4206d9b9313cb35aafdfbcb59acc09a8ff2d8ed0907d4078821a",
+    "llm/source_aware_selection.py": "f5b8c0d28fad5b17b12a2dd7c4a3483cd3aa2f626660da41d26def66ba84da82",
+    "llm/hybrid_source_retrieval.py": "85c1e153468e1fd914f22c515c2a4d9b3b6059b849528e12e8f9cc7451a4510f",
+    "llm/multi_vector_retrieval.py": "b2a5d751a38e45bd3d76b327456f9f9815c1448674076135386a7f76d7977aae",
+    "llm/evidence_packet.py": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324",
+    "llm/context_assembler.py": "cb9f860e279fe6e4c5814a854a3130f50216b904996af78dba2c899696b46398"
+  },
+  "input_sha256": {
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/runtime.json": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/labels.json": "3225604ba0b8aa0061ee868051a950efb76f96397a4b994ab98ec7850177ec01",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/packets-v2.jsonl": "0b3c4fbb4873a123db5760c185183d9274f2c427a39de95eca1ed4d46f7a54f2",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-source-aware-selection/audit-v2.json": "dc2f90df30fa3c3f0fe7f88c3d69bafa998275b19dd0d0d302ef115c650889d1",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/embeddings-complete.json": "d92895a55fc92f0094ea5a02ff5e9b631d7fd97fec481b13f7faf1ffc267c9e3",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/embedding-keys.json": "6e398bcbad625ccb2f6320849170e6c4678d9a966f679a9e8397893bcc50d003",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/plans/2026-10-06-hybrid-source-audit/embeddings.npy": "a27105ac43379d76bfc4f20ff97e87231afff57bd9b721aa9fbf54d6308e78d4",
+    "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/runs/english-improvement-2026-09-11/paid-full500-precision-measurement1-001/checkpoint.json": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1"
+  },
+  "paid_calls": 0
+}

@@ -1,0 +1,1504 @@
+{
+  "schema": "qualification-budget-review-v1",
+  "status": "offline_diagnosis_only_no_candidate_packet_no_answer_run",
+  "input_sha256": {
+    "diagnosis": "992074453316f6019f9a4559ef397603286a633c1c2de9f6733d26e14a32a5ba",
+    "runtime": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "packets_v2": "0b3c4fbb4873a123db5760c185183d9274f2c427a39de95eca1ed4d46f7a54f2",
+    "historical_package": "43c8c0f8451c407533a40ff92e06c521278457280d044d61cb1fe1e643a3a5ab",
+    "historical_checkpoint": "32315336bf892a7fe7aaf324d912051159220dbed4e7193bb255e2834c6a92a1",
+    "retriever": "b2a5d751a38e45bd3d76b327456f9f9815c1448674076135386a7f76d7977aae",
+    "selector": "f5b8c0d28fad5b17b12a2dd7c4a3483cd3aa2f626660da41d26def66ba84da82"
+  },
+  "scope": {
+    "historical_misses": 77,
+    "blocked_annotated_turns": 26,
+    "affected_cases": 21,
+    "blocked_turn_reason_counts": {
+      "bundle_competes_for_remaining_budget": 12,
+      "whole_neighborhood_exceeds_available_budget": 14
+    },
+    "affected_case_reason_counts": {
+      "bundle_competes_for_remaining_budget": 11,
+      "whole_neighborhood_exceeds_available_budget": 13
+    },
+    "cases_with_both_reasons": 3,
+    "all_target_roles_user": true,
+    "targets_fitting_empty_addition_budget": 26,
+    "context_necessity_case_counts": {
+      "bounded_qualification_plausible": 14,
+      "uncertain": 7
+    },
+    "answer_repair_potential_case_counts": {
+      "redundant_or_not_established_repair": 4,
+      "reference_or_identity_unresolved": 6,
+      "plausible_missing_evidence": 10,
+      "assistant_bears_potentially_relevant_detail": 1
+    }
+  },
+  "interpretation": [
+    "Standalone fit measures only whether one fully attributed target could occupy an otherwise empty source addition. It does not establish fit after earlier ranked admissions, need for adjacent turns, answer sufficiency, or improvement over the frozen baseline.",
+    "All 26 targets are absent verbatim from both matched-control and corrected-v2 candidate packets and lack candidate append receipts. The case review uses original neighbor turns and frozen historical answers as evaluator-only evidence; those labels and answers were never runtime retrieval inputs.",
+    "No case proves that a complete adjacent assistant body must be retained. The guitar case has assistant-authored comparison details that are potentially material, while several other cases have unresolved identity or temporal links. Automatic user-only clipping would not preserve these reliably.",
+    "The frozen source-aware v2 offline gate remains failed at seven of 77 historical misses with no paid recommendation. These observations do not regrade answers or forecast a score."
+  ],
+  "bounded_design_basis": [
+    "Any later span design should be separately frozen and label-blind: select from original source-bound turns, keep role/session/position/full observation time and exact quoted offsets, and render an explicit indication whenever neighboring text was omitted.",
+    "Use a general, auditable relation/qualification policy rather than a gold-conditioned phrase picker. Preserve dates, negation, modality, pronoun antecedents, entity identity, counts, and cross-turn qualifiers; allow abstention from compression when referents or roles cannot be established.",
+    "Do not assume assistant turns are irrelevant. If assistant-authored text supplies a substantive comparison or qualifier, preserve its source role and exact span or reject the compression. Avoid treating assistant-generated claims as user facts.",
+    "Budget and rank effects require a fresh all-500 offline audit with matched corrected-v2 control and source receipts before any answer-model comparison. This review alone supports no heuristic-clipping implementation or paid run."
+  ],
+  "known_context_regression": "llm/multi_vector_retrieval.py search docstring reports ctx=0 had four previously stable referent-dependent failures, including a bike-in-March date carried by a neighbor; it is historical evidence against blanket neighbor removal, not a current run result.",
+  "cases": [
+    {
+      "id": "09d032c9",
+      "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
+      "historical_saved_answer": "Check battery usage, reduce brightness/background activity, keep the phone cool, and use your portable power bank when needed; replace the battery if its health is significantly degraded.",
+      "reference_answer_evaluator_only_excerpt": "The user would prefer responses that build upon their previous mention of purchasing a portable power bank, such as suggestions on how to optimize its use, like ensuring it's fully charged before use. They might also appreciate tips on utilizing battery-saving features on their phone. The user may not prefer responses that suggest alternative solutions or unrelated advice.",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "redundant_or_not_established_repair",
+      "assessment": "The user turn itself names the new power bank and wireless charging pad; the assistant gives organizer advice. The saved answer already mentions the power bank, so this target alone is not a demonstrated answer repair.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "73ba7cd074748e15e617c0ea",
+          "session_id": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 05:53",
+          "text_sha256": "dcaa5813a5d20467f1920195b77611fae36a5f7b7b60b966db1778c7370b3eb2",
+          "exact_source_text": "[2023/05/27 (Sat) 05:53] I'm looking for some advice on the best way to organize my tech accessories, like my new portable power bank and wireless charging pad, when I'm traveling.",
+          "standalone_rendered_chars": 316,
+          "empty_addition_allowance_chars": 3709,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "73ba7cd074748e15e617c0ea",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3009,
+              "available": 3709,
+              "individually_fits": true
+            },
+            {
+              "anchor": "3c2932679855d183a1f4e830",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3244,
+              "available": 3709,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "3c2932679855d183a1f4e830",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/27 (Sat) 05:53",
+              "text_sha256": "306791f5c52b71342e45b8b94121e86e24e157b212fa780f7ce78500e767dc64",
+              "text_chars": 2622,
+              "exact_excerpt": "[2023/05/27 (Sat) 05:53] The eternal struggle of keeping tech accessories organized while traveling! I'm happy to help you with that. Here are some tips to keep your portable power bank, wireless charging pad, and other tech accessories tidy and easily accessible while on the go:\n\n1. **Travel case or pouch**: Invest in a dedicated travel case or pouch specifically designed for tech accessories. These cases usually have multiple compartments, pock"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "fbf9a5ff49d4797c252875d6"
+      ],
+      "candidate_appended_source_ids": [
+        "fbf9a5ff49d4797c252875d6",
+        "2560525bae8e749b6981c22a"
+      ]
+    },
+    {
+      "id": "0bc8ad93",
+      "question": "I mentioned visiting a museum two months ago. Did I visit with a friend or not?",
+      "historical_saved_answer": "Yes—with a friend who was a chemistry professor.",
+      "reference_answer_evaluator_only_excerpt": "No, you did not visit with a friend.",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "reference_or_identity_unresolved",
+      "assessment": "The user mentions a History Museum lecture on Petra, but neither this user turn nor its adjacent Petra-history answer establishes whether a friend accompanied that museum visit. The saved answer selects a different Science Museum visit with a chemistry-professor friend.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "66c652e8317e860094374526",
+          "session_id": "lme-session-2fbfcb8f3a2a0e16f7cbe66720b7f6692c9a5c7a9e9ffc389cca7eb381009068",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/01/11 (Wed) 06:16",
+          "text_sha256": "4a0cb8a47659ee54051ff57e751e9a15ec2a941c36f729194b78bde9540b7aaa",
+          "exact_source_text": "[2023/01/11 (Wed) 06:16] I'm planning a trip to Jordan and I'm really interested in visiting Petra. Can you tell me more about the history of the city and its significance? By the way, I just learned a lot about it in a lecture at the History Museum about ancient civilizations this month.",
+          "standalone_rendered_chars": 425,
+          "empty_addition_allowance_chars": 2362,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "66c652e8317e860094374526",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3367,
+              "available": 2362,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "8e3eb32a1ba763e6c536c288",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/01/11 (Wed) 06:16",
+              "text_sha256": "3ec8fd05f82b22c6f9dddb3966172c959be93390f3e24b091b2435864a96f6f2",
+              "text_chars": 2871,
+              "exact_excerpt": "[2023/01/11 (Wed) 06:16] What a great coincidence! Petra is an incredible archaeological site, and I'm happy to delve deeper into its rich history and significance.\n\nPetra, located in southern Jordan, is an ancient city carved into the sandstone cliffs and rocks of the Arabian Desert. The site dates back to the 6th century BCE, when it was the capital of the Nabataean Kingdom, a powerful and wealthy civilization that controlled the trade routes b"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "ff5b6e2e820cc93aec191dc3"
+      ],
+      "candidate_appended_source_ids": [
+        "7744f82e81781b7065c094e5",
+        "ff5b6e2e820cc93aec191dc3",
+        "869c22cbf126a7b9c9a9d6b0"
+      ]
+    },
+    {
+      "id": "10d9b85a",
+      "question": "How many days did I spend attending workshops, lectures, and conferences in April?",
+      "historical_saved_answer": "1 day",
+      "reference_answer_evaluator_only_excerpt": "3 days",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The two user turns directly supply April 10 lecture and April 17–18 two-day workshop dates. Adjacent course and feature-scaling advice appears unnecessary for the dates, but both events must be assembled and counted with the question window.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "a1a9c0b3d2cd44d7e1ec26ee",
+          "session_id": "lme-session-b7706883f7fb03eab695acc6ab3e0fbd783b002252914c6ad1330657aa30b81b",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/01 (Mon) 16:19",
+          "text_sha256": "9212c2bfa3530179fd4bb53cce8392c38b914ea8c471b4f7098600a8023fbfff",
+          "exact_source_text": "[2023/05/01 (Mon) 16:19] I'm looking for some resources on urban planning and sustainable development. Do you know any good online courses or books on the topic? By the way, I recently attended a lecture on sustainable development at the public library on the 10th of April, and it got me interested in learning more.",
+          "standalone_rendered_chars": 453,
+          "empty_addition_allowance_chars": 3875,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "a1a9c0b3d2cd44d7e1ec26ee",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3233,
+              "available": 3875,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "682e73c2af374860e79f1390",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/01 (Mon) 16:19",
+              "text_sha256": "b3d1a317cd87399ac41e09fdaf8b5240668d329c4585e6092c32af36c02f7a25",
+              "text_chars": 2709,
+              "exact_excerpt": "[2023/05/01 (Mon) 16:19] That's great to hear that you're interested in learning more about urban planning and sustainable development! There are many excellent online courses and books on the topic. Here are a few recommendations:\n\n**Online Courses:**\n\n1. **Coursera - Sustainable Development** (University of Michigan): A 4-course specialization that covers the basics of sustainable development, including urban planning, energy, and climate chang"
+            }
+          ]
+        },
+        {
+          "source_id": "b483864998f1b92c6610bd72",
+          "session_id": "lme-session-88aa13fc3e5b0b1a01b4efeb80c29eedcbb227bd7697104baa063aca40515f98",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/01 (Mon) 20:24",
+          "text_sha256": "4a017b3a2c31f94f26affcc4919f96f1b583bc4dbfa40ea1f87e1c4699fa225b",
+          "exact_source_text": "[2023/05/01 (Mon) 20:24] I actually learned about standardization and normalization in a 2-day workshop I attended on the 17th and 18th of April, but I'm still a bit unclear on when to use each. The workshop covered a lot of topics, including supervised learning and deep learning, but I didn't get a chance to ask about this specific question. Can you give me an example of when you would use standardization over normalization?",
+          "standalone_rendered_chars": 565,
+          "empty_addition_allowance_chars": 3875,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "b483864998f1b92c6610bd72",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 6419,
+              "available": 3875,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "a8f5dce474519f4d65887cc2",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/01 (Mon) 20:24",
+              "text_sha256": "bde2242c42e2d06aa2f7c9e7a5acd92a71acb25307ecfc72870f4266de91ba6e",
+              "text_chars": 2786,
+              "exact_excerpt": "[2023/05/01 (Mon) 20:24] Feature scaling is a crucial step in machine learning!\n\nStandardization and normalization are two common techniques used for feature scaling, and they're often confused with each other. I'd be happy to clarify the difference between them.\n\n**Standardization (Z-scoring)**\n\nStandardization, also known as Z-scoring, is a technique that rescales features to have a mean of 0 and a standard deviation of 1. This is done by subtr"
+            },
+            {
+              "source_id": "67a12dbdec82691b05a4f839",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/05/01 (Mon) 20:24",
+              "text_sha256": "ae84902c8e19fa219dfaf22ad3c8b94d0d8f5c0a75022577ecd9669dafa87287",
+              "text_chars": 2926,
+              "exact_excerpt": "[2023/05/01 (Mon) 20:24] I'm glad you got to attend a workshop on machine learning!\n\nI'd be happy to provide an example to help clarify when to use standardization over normalization.\n\n**Example:**\n\nSuppose you're working on a regression problem to predict house prices based on various features, including:\n\n1. Number of bedrooms (1-5)\n2. Square footage (500-5000 sqft)\n3. Distance to city center (0-10 miles)\n4. Age of the house (10-100 years)\n\nIn "
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "30bc74ce094fb1408bcd1be1",
+        "cf7ba0e52139f5772e9070bc"
+      ],
+      "candidate_appended_source_ids": [
+        "b5cf0d306b6c24eb19d18fbf",
+        "cf7ba0e52139f5772e9070bc",
+        "1a0491e430cde97d14117971",
+        "30bc74ce094fb1408bcd1be1",
+        "7f290b137986c70d450cc856"
+      ]
+    },
+    {
+      "id": "1a8a66a6",
+      "question": "How many magazine subscriptions do I currently have?",
+      "historical_saved_answer": "1 magazine subscription",
+      "reference_answer_evaluator_only_excerpt": "2",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "redundant_or_not_established_repair",
+      "assessment": "The user gives a New Yorker subscription start; adjacent plastic-alternative advice does not qualify it. The saved answer already identifies that subscription, so a new packet would not itself explain the reference count.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "c7c37653046239e2814246c7",
+          "session_id": "lme-session-af86608315fdc6d5fa51704c0d3c251b6981ef1a7093dbad271eb0e908f15e99",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/04/01 (Sat) 19:02",
+          "text_sha256": "18dbb73ff4ccb94cdd5ae4f55095522dcb5f027a12a5866009202719043ca4c9",
+          "exact_source_text": "[2023/04/01 (Sat) 19:02] I've been trying to reduce my plastic usage lately, and I was wondering if you could suggest some eco-friendly alternatives to single-use plastics in daily life. By the way, speaking of staying informed, I've been loving my subscription to The New Yorker magazine, which I subscribed to in early February - the weekly issues have been keeping me up-to-date on current events and culture.",
+          "standalone_rendered_chars": 548,
+          "empty_addition_allowance_chars": 3998,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "c7c37653046239e2814246c7",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 2788,
+              "available": 3998,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "497e461b454cb2adca52b005",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/04/01 (Sat) 19:02",
+              "text_sha256": "aa5fd35db12af5f33b460696191119c7d3a31f732672ac52a41770d604777ce6",
+              "text_chars": 2169,
+              "exact_excerpt": "[2023/04/01 (Sat) 19:02] Great to hear that you're making an effort to reduce your plastic usage! Every small step counts, and making conscious choices in daily life can have a significant impact when combined with the efforts of others.\n\nHere are some eco-friendly alternatives to single-use plastics in daily life:\n\n1. **Reusable water bottles**: Instead of buying bottled water, invest in a refillable water bottle made of stainless steel, glass, "
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "9aaf9712413eafee62df5a15",
+        "5f81e5ff46058a270c4f3d2e",
+        "82498e2e70e8821a5cd8cca8"
+      ],
+      "candidate_appended_source_ids": [
+        "5f81e5ff46058a270c4f3d2e",
+        "29b68389d9f61275c6f271b5",
+        "b7dc652625afc662c0964179",
+        "82498e2e70e8821a5cd8cca8",
+        "b9166c1fe5712e740176ac3f",
+        "9aaf9712413eafee62df5a15"
+      ]
+    },
+    {
+      "id": "2311e44b",
+      "question": "How many pages do I have left to read in 'The Nightingale'?",
+      "historical_saved_answer": "Unknown—your current page in *The Nightingale* isn’t mentioned.",
+      "reference_answer_evaluator_only_excerpt": "190",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user reports page 250 of The Nightingale. The saved answer already has the roughly 440-page total but says the current page is unknown. Neighboring reading-habit advice is not needed for that calculation; the exact title and current-page qualifier are.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "8a79fa90f525b41cbadff535",
+          "session_id": "lme-session-5137725c008810416853accbf2093ac6e70b00f6827cb065ace154dce3c0d0e2",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 01:32",
+          "text_sha256": "9c4f0ae0180cebdfb7dbae4acb42763b93b3adb7eb04dcf5f3f495d2a7dd276c",
+          "exact_source_text": "[2023/05/30 (Tue) 01:32] I'm currently on page 250 of 'The Nightingale' by Kristin Hannah, and I'm really getting into it. I'd like to apply the principles from 'Atomic Habits' and 'Deep Work' to improve my reading habits. Can you help me create a plan to increase my reading speed and retention? Specifically, I'd like to know how to schedule my reading sessions, eliminate distractions, and practice active reading.",
+          "standalone_rendered_chars": 553,
+          "empty_addition_allowance_chars": 3998,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "d01d89d6649c0371f74ccd67",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3802,
+              "available": 3998,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "d01d89d6649c0371f74ccd67",
+              "position": 7,
+              "role": "assistant",
+              "session_date": "2023/05/30 (Tue) 01:32",
+              "text_sha256": "42a427ee30674187e805d80503d01582c33f446cf1071a8426b7c0425ea21f6a",
+              "text_chars": 2877,
+              "exact_excerpt": "[2023/05/30 (Tue) 01:32] Both \"Atomic Habits\" and \"Deep Work\" can help you improve your reading habits, but in different ways.\n\n**\"Atomic Habits\" by James Clear:**\n\nThis book will help you build a consistent reading habit, which is essential for increasing your reading speed and retention. Here are a few ways \"Atomic Habits\" can help:\n\n1. **Create a reading habit stack**: Clear introduces the concept of \"habit stacking,\" which involves building n"
+            },
+            {
+              "source_id": "cd9e538d5ccfe75c09777509",
+              "position": 9,
+              "role": "assistant",
+              "session_date": "2023/05/30 (Tue) 01:32",
+              "text_sha256": "0bb344df463b791ea860d5dc1597629ef9d1c18a5a6cf4382fd03cccb1407c38",
+              "text_chars": 3133,
+              "exact_excerpt": "[2023/05/30 (Tue) 01:32] I'm thrilled to help you create a plan to improve your reading habits!\n\nGiven your current progress in 'The Nightingale', I'll suggest a plan that's tailored to your reading style and schedule. Feel free to adjust it as needed to suit your lifestyle.\n\n**Scheduling Reading Sessions:**\n\n1. **Set a specific goal**: Commit to reading a certain number of pages or a specific amount of time each day/week. For example, aim to rea"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "61fb6b875da5d18a4eae3387",
+        "397e768ad2f0bd9c22144784",
+        "d6c0d996f3ece65c092df843"
+      ],
+      "candidate_appended_source_ids": [
+        "d6c0d996f3ece65c092df843",
+        "397e768ad2f0bd9c22144784",
+        "61fb6b875da5d18a4eae3387",
+        "92fcca8cb763edf421b0fedb"
+      ]
+    },
+    {
+      "id": "37f165cf",
+      "question": "What was the page count of the two novels I finished in January and March?",
+      "historical_saved_answer": "341 pages and 416 pages",
+      "reference_answer_evaluator_only_excerpt": "856",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "reference_or_identity_unresolved",
+      "assessment": "The user reports a 440-page Nightingale finished on May 22; the question asks novels finished in January and March. Its assistant inaccurately changes the stated three-week completion to five weeks. This target may be outside the requested window and can distract.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "8a6fe5de69e6ba7fd6f34c76",
+          "session_id": "lme-session-8e9fedc6a4a3342d634b1834e102963ce77bf42a3b6d61036d8406121e96a156",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/22 (Mon) 13:27",
+          "text_sha256": "b3d82ddf359af11581af9122314c774ee570ddd4bff0ecc4f49d69b783af31d1",
+          "exact_source_text": "[2023/05/22 (Mon) 13:27] I'm looking for some book recommendations. I just finished a historical fiction novel, \"The Nightingale\" by Kristin Hannah, which had 440 pages and took me around 3 weeks to complete. Do you have any suggestions for similar books or authors?",
+          "standalone_rendered_chars": 402,
+          "empty_addition_allowance_chars": 1382,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "f6be02107b8a37225c09f257",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3120,
+              "available": 1382,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "f6be02107b8a37225c09f257",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/22 (Mon) 13:27",
+              "text_sha256": "c26111002d35cdef9da79862666bf1c95b1ccdb851cac7f021ca9e1689463e57",
+              "text_chars": 2438,
+              "exact_excerpt": "[2023/05/22 (Mon) 13:27] \"The Nightingale\" is a powerful and emotional read! I'd be happy to recommend some similar books and authors that you might enjoy. Since you took around 5 weeks to finish a 440-page book, I'll suggest novels with similar page counts and reading times. Here are a few recommendations:\n\n**Similar Historical Fiction Novels:**\n\n1. **\"All the Light We Cannot See\" by Anthony Doerr** (530 pages): A Pulitzer Prize-winning novel se"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [],
+      "candidate_appended_source_ids": []
+    },
+    {
+      "id": "3a704032",
+      "question": "How many plants did I acquire in the last month?",
+      "historical_saved_answer": "2 plants",
+      "reference_answer_evaluator_only_excerpt": "3",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user says the nursery purchase included both a peace lily and a succulent two weeks earlier. Adjacent assistant plant-care advice does not appear necessary to count these two, but a full count still needs other acquisitions and de-duplication.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "62110e7c70eef58327a699f5",
+          "session_id": "lme-session-84b8d74b31ed0837a38942ec852443fc5d1b4154461f89713b587ded78432bc8",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/20 (Sat) 20:05",
+          "text_sha256": "98cccebe941d5e6fdced2dbe535a7d8a69526b80dd229403747feb4d37cb11b0",
+          "exact_source_text": "[2023/05/20 (Sat) 20:05] I actually use a mixture of water and fertilizer when I water my plants, which I got from the nursery where I bought the peace lily and a succulent plant two weeks ago. Do you think that's okay to use for my peace lily, or should I switch to a balanced fertilizer?",
+          "standalone_rendered_chars": 425,
+          "empty_addition_allowance_chars": 3697,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "62110e7c70eef58327a699f5",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 5547,
+              "available": 3697,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "31468741da27836bed6fa65e",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/20 (Sat) 20:05",
+              "text_sha256": "4e91e120757ca429308c0497aef73275eaa65a902dd8290f8113c00b7c2b3b2f",
+              "text_chars": 2851,
+              "exact_excerpt": "[2023/05/20 (Sat) 20:05] Congratulations on your new peace lily! Losing a few leaves is indeed normal, especially when the plant is adjusting to its new environment. Here are some general tips to help keep your peace lily healthy and thriving:\n\n1. **Lighting:** Peace lilies prefer bright, indirect light but not direct sunlight, which can cause leaf scorch. East- or west-facing windows are ideal. Avoid placing it in a spot with low light, as it ma"
+            },
+            {
+              "source_id": "6fea094847ade10b1e2a7e9b",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/05/20 (Sat) 20:05",
+              "text_sha256": "9b6868142cc308993d22b53f79ff7e503e8c3ce0c0adff7af57769d79773237a",
+              "text_chars": 2129,
+              "exact_excerpt": "[2023/05/20 (Sat) 20:05] Using a mixture of water and fertilizer specifically recommended by the nursery is a good starting point. However, it's essential to understand the type of fertilizer and its concentration to ensure it's suitable for your peace lily.\n\nHere are a few things to consider:\n\n1. **Fertilizer type:** If the mixture contains a balanced fertilizer (e.g., 20-20-20, N-P-K), it should be suitable for your peace lily. However, if it's"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "19b6738eaf3841f9ff648be3",
+        "46b108cf8dc122a14748d403"
+      ],
+      "candidate_appended_source_ids": [
+        "46b108cf8dc122a14748d403",
+        "63ab5e89d05bb102a9f3fdf7",
+        "75b51ec5a7eb14e3d11fc63a",
+        "19b6738eaf3841f9ff648be3",
+        "03d59724dfb5b555a92e8b7d"
+      ]
+    },
+    {
+      "id": "46a3abf7",
+      "question": "How many tanks do I currently have, including the one I set up for my friend's kid?",
+      "historical_saved_answer": "2 tanks",
+      "reference_answer_evaluator_only_excerpt": "3",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "reference_or_identity_unresolved",
+      "assessment": "The user mentions a community tank, while the saved answer already treats Amazonia as a 20-gallon community tank. This source does not establish a third distinct tank; adjacent plant recommendations add no clear identity disambiguation.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "b5614abfc457994840493b7f",
+          "session_id": "lme-session-9a60b124e466a2bb93c5fdb1de38af5a97c6ba3a0e61dde667ebfe1c0648b93d",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/21 (Sun) 12:06",
+          "text_sha256": "e1104784d53606da14f92c759c1512b30f58b83a269c30b34b204e7007d03ac3",
+          "exact_source_text": "[2023/05/21 (Sun) 12:06] I'm looking for some advice on live plants for my community tank. I've got an anacharis and a java moss, but I'm interested in adding some more variety. Do you have any recommendations for beginner-friendly plants that are easy to care for?",
+          "standalone_rendered_chars": 401,
+          "empty_addition_allowance_chars": 3998,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "b5614abfc457994840493b7f",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 2258,
+              "available": 3998,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "887ea1a284b1ab070f5fe792",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/21 (Sun) 12:06",
+              "text_sha256": "c8f9bc3ecfc90be65528258641dc0b0b454b52b0e7a700f003035fc63ac69882",
+              "text_chars": 1786,
+              "exact_excerpt": "[2023/05/21 (Sun) 12:06] Live plants are a wonderful addition to any aquarium, and there are many beginner-friendly options that are easy to care for. I'd be happy to help you with some recommendations.\n\nFor your community tank, here are some easy-to-care-for plants that can thrive in a variety of lighting conditions:\n\n1. **Amazon Swords (Echinocorys spp.)**: These plants are very hardy and can tolerate a range of lighting conditions. They come i"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "e45ebc78ce6cd39ae6c20dcc"
+      ],
+      "candidate_appended_source_ids": [
+        "6c7cdafdbf797e4423e1d1dd",
+        "e45ebc78ce6cd39ae6c20dcc",
+        "34e62240416f2ebb18da663d"
+      ]
+    },
+    {
+      "id": "6d550036",
+      "question": "How many projects have I led or am currently leading?",
+      "historical_saved_answer": "3 projects, counting the one you led and the two you are currently working on.",
+      "reference_answer_evaluator_only_excerpt": "2",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "reference_or_identity_unresolved",
+      "assessment": "The user calls the Data Mining effort a solo class project. Whether that counts as a project the user led, and whether it duplicates another customer-data project, is unclear. Adjacent feature-engineering advice does not resolve the lead-or-current scope.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "8bd008c72f092c5670f0adcc",
+          "session_id": "lme-session-2605669c19a084a4dd0df843bff2dd940010d18f59fb81463ae32c9f11e33698",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/29 (Mon) 09:25",
+          "text_sha256": "82d4e8b26ff864b54d7c8b84fc0fb47b6a889a61fda915e696c7bf5b21629a83",
+          "exact_source_text": "[2023/05/29 (Mon) 09:25] I've been working on a solo project for my Data Mining class, and I'm really interested in applying some of these techniques to my customer purchase data. I'm trying to identify patterns and trends, and I think feature engineering will really help me with that. Do you have any specific tips on how to handle high cardinality categorical variables in my dataset?",
+          "standalone_rendered_chars": 523,
+          "empty_addition_allowance_chars": 3663,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "24f53c32b0b95ea82268198a",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 4245,
+              "available": 3663,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "24f53c32b0b95ea82268198a",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/29 (Mon) 09:25",
+              "text_sha256": "40d56c1bc476c6a93c598f8fe2fffd773822d3bb228bea6f99d20649974b6f3a",
+              "text_chars": 3368,
+              "exact_excerpt": "[2023/05/29 (Mon) 09:25] Feature engineering! It's a crucial step in the data mining process, and it can make or break the performance of your models. I'm happy to help you with some tips and resources to improve your feature engineering skills.\n\n**Tips:**\n\n1. **Domain knowledge is key**: Understand the business problem, the data, and the industry. This will help you identify relevant features and create meaningful transformations.\n2. **Explore a"
+            },
+            {
+              "source_id": "beed3108bc22938c589be74d",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/05/29 (Mon) 09:25",
+              "text_sha256": "abcbdef4faa4edfc2e5a3c2d6360a432e5aebe30620267ac084c8e94622d26ae",
+              "text_chars": 3017,
+              "exact_excerpt": "[2023/05/29 (Mon) 09:25] High cardinality categorical variables can be a challenge! They can lead to the curse of dimensionality, overfitting, and computational issues. Here are some tips to help you handle high cardinality categorical variables in your customer purchase data:\n\n**1. **Grouping and Binning**: Group similar categories together based on business knowledge or clustering algorithms. For example, group products into categories (e.g., e"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "521631be4689613c6868f6ac"
+      ],
+      "candidate_appended_source_ids": [
+        "fd8de3ed22229f05a5a9080f",
+        "521631be4689613c6868f6ac",
+        "eb0877ab3d0908702701648b"
+      ]
+    },
+    {
+      "id": "73d42213",
+      "question": "What time did I reach the clinic on Monday?",
+      "historical_saved_answer": "The exact arrival time wasn’t mentioned; you left home at 7:00 AM.",
+      "reference_answer_evaluator_only_excerpt": "9:00 AM",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "reference_or_identity_unresolved",
+      "assessment": "One user turn says they left at 7 AM Monday; another says a prior trip to the clinic took two hours. The latter is explicitly last time, so combining them into a 9 AM arrival for that Monday is not source-certified. Adjacent assistant clinic or campaign advice does not repair that temporal link.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "2ec37799771fa8ab6d0799dd",
+          "session_id": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/05/30 (Tue) 00:00",
+          "text_sha256": "544556fee33d6b83003109b4c3df2478f7a3466328865c989451d0cae6f9c48c",
+          "exact_source_text": "[2023/05/30 (Tue) 00:00] I'm located in 12345, and I need to see my primary care doctor. I'm available anytime on weekdays, but I'd prefer morning slots. As I mentioned earlier, it took me two hours to get to the clinic from my home last time, so if I could find something within an hour's drive, that would be great.",
+          "standalone_rendered_chars": 453,
+          "empty_addition_allowance_chars": 2779,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "e89c92a8c2e8dea80c0653fe",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 1486,
+              "available": 2779,
+              "individually_fits": true
+            },
+            {
+              "anchor": "2ec37799771fa8ab6d0799dd",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 1150,
+              "available": 2779,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "e89c92a8c2e8dea80c0653fe",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/30 (Tue) 00:00",
+              "text_sha256": "289b57ca068e4a235d4fff5a73d18abe49aa295b60c059f81e03e7919c56d6f7",
+              "text_chars": 626,
+              "exact_excerpt": "[2023/05/30 (Tue) 00:00] I'd be happy to help you find a nearby clinic with available slots. However, to do so, I'll need a bit more information from you. Could you please provide me with the following details:\n\n1. Your current location or zip code?\n2. The type of doctor or specialist you need to see (e.g., primary care, specialist, urgent care)?\n3. Your availability for the follow-up appointment (e.g., specific days, morning/afternoon, etc.)?\n4."
+            },
+            {
+              "source_id": "d6ad5a7bb4fac4e3a320f8b8",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/05/30 (Tue) 00:00",
+              "text_sha256": "6d5c16d5f491043c3e578e14ff99c19acbcf762dd4ce59db54632196d59ed6d1",
+              "text_chars": 1407,
+              "exact_excerpt": "[2023/05/30 (Tue) 00:00] I've searched for primary care clinics near you with morning availability. Since you're looking for a clinic within an hour's drive, I'll provide you with a list of options within a 60-mile radius of the 12345 zip code. Please note that availability and wait times may vary, and it's always best to call ahead to confirm.\n\nHere are a few options:\n\n1. **Family Care Medical Center** - 30 miles, 45-minute drive\n\t* Address: 123"
+            }
+          ]
+        },
+        {
+          "source_id": "d8089516f281a9edb5d32de5",
+          "session_id": "lme-session-ca143a9f37f08048b0516bf1d28b182a35f9585241abe2169c72ddf6300854f8",
+          "position": 4,
+          "role": "user",
+          "session_date": "2023/05/20 (Sat) 23:43",
+          "text_sha256": "4c7a14397dee1cf9c8de4eaf079dac6b9ee64b9425859398f241a3137db8a5e7",
+          "exact_source_text": "[2023/05/20 (Sat) 23:43] I left home at 7 AM on Monday for my doctor's appointment, and I'm still trying to get my rhythm back. As for the project, it's a marketing campaign, and the deadline is in two weeks. I'm not sure where to start, but I know I need to finalize the content, design the visuals, and coordinate with the team for the launch.",
+          "standalone_rendered_chars": 481,
+          "empty_addition_allowance_chars": 2779,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "d8089516f281a9edb5d32de5",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3192,
+              "available": 2779,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "2af36f40fa4edd30990233c4",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/05/20 (Sat) 23:43",
+              "text_sha256": "587e9025182ed8c4f6e622b3e5776cee550ed09f8f6ca15654c06a9622edc4fc",
+              "text_chars": 1225,
+              "exact_excerpt": "[2023/05/20 (Sat) 23:43] Let's take a step back, take a deep breath, and tackle this together.\n\nFirst, let's acknowledge that playing catch-up can be overwhelming, especially when you're facing a looming deadline. But don't worry, we can break down your tasks into manageable chunks, and I'll help you prioritize them.\n\nTo get started, can you tell me more about the project with the approaching deadline? What's the project about, and what's the spe"
+            },
+            {
+              "source_id": "3e4a5530d8435d8dda430f49",
+              "position": 5,
+              "role": "assistant",
+              "session_date": "2023/05/20 (Sat) 23:43",
+              "text_sha256": "288f332caecb7a71c8277124fa11b6e229381a124baf3e1a2f77ce1d0a676ced",
+              "text_chars": 2640,
+              "exact_excerpt": "[2023/05/20 (Sat) 23:43] It can be tough to get back into the swing of things after a disrupted routine.\n\nLet's break down your marketing campaign project into smaller, manageable tasks. Based on what you've shared, here's a rough outline to get you started:\n\n**Content Finalization**\n\n1. Review and finalize the campaign's messaging and key takeaways\n2. Write and edit the main campaign copy (e.g., website content, social media posts, email newslet"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "e84d8e60b509462a60c2a231"
+      ],
+      "candidate_appended_source_ids": [
+        "e3a618a822ccd1b54d5e9ba4",
+        "e84d8e60b509462a60c2a231",
+        "77a73d6f75ea788994341761"
+      ]
+    },
+    {
+      "id": "92a0aa75",
+      "question": "How long have I been working in my current role?",
+      "historical_saved_answer": "Not mentioned.",
+      "reference_answer_evaluator_only_excerpt": "1 year and 5 months",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "reference_or_identity_unresolved",
+      "assessment": "The user says promotion to Senior Marketing Specialist followed two years and four months as Marketing Coordinator. The question asks tenure in the current role, so the number can be a misleading prior-role duration; assistant slide advice does not supply the current-role start.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "cd80e8eec78d4d2f4b25e9d5",
+          "session_id": "lme-session-4562241059e9999dc733538ea5cd4eebd5370aba945d1ffb823c88dc178376f1",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/27 (Sat) 19:34",
+          "text_sha256": "8ac178f751967a9ea94c7efc4c572d60a49fa39ee26a5c8a4a4c182d6b1dceba",
+          "exact_source_text": "[2023/05/27 (Sat) 19:34] I'm looking to create a presentation for an upcoming conference, and I need some help with designing the slides. Do you have any templates or design tips you can share? By the way, I've been in marketing for a while now, started as a Marketing Coordinator and worked my way up to Senior Marketing Specialist after 2 years and 4 months.",
+          "standalone_rendered_chars": 496,
+          "empty_addition_allowance_chars": 2628,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "cd80e8eec78d4d2f4b25e9d5",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3150,
+              "available": 2628,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "c75dcd91ff9cbcd0ccb3bd92",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/27 (Sat) 19:34",
+              "text_sha256": "018e2c17b57eefcab0a2e3de9e838471a9f98777eadc18fc3dbeca0620aff780",
+              "text_chars": 2583,
+              "exact_excerpt": "[2023/05/27 (Sat) 19:34] Congratulations on your career progression! I'd be happy to help you with designing your presentation slides.\n\nI don't have specific templates to share, but I can offer some general design tips and best practices to make your slides engaging and effective:\n\n1. **Keep it simple and concise**: Avoid clutter and focus on one key message per slide. Use clear and concise language, and break up complex information into smaller "
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "63ca0f98ac4af073c4b0c650"
+      ],
+      "candidate_appended_source_ids": [
+        "ffa03f0ccb9b808e3e356d07",
+        "63ca0f98ac4af073c4b0c650"
+      ]
+    },
+    {
+      "id": "95228167",
+      "question": "I'm getting excited about my visit to the music store this weekend. Any tips on what to look for in a new guitar?",
+      "historical_saved_answer": "Since you’re interested in open D and coil-splitting, prioritize a comfortable, well-set-up Les Paul with stable tuning, clear pickups, good sustain, and electronics that sound strong in both humbucker and split-coil modes.",
+      "reference_answer_evaluator_only_excerpt": "The user would prefer responses that highlight the differences between Fender Stratocaster and Gibson Les Paul electric guitars, such as the feel of the neck, weight, and sound profile. They might not prefer general tips on buying an electric guitar or suggestions that do not take into account their current guitar and desired upgrade.",
+      "context_necessity": "uncertain",
+      "answer_repair_potential": "assistant_bears_potentially_relevant_detail",
+      "assessment": "The user names a Fender Stratocaster-to-Gibson Les Paul upgrade. The adjacent assistant gives explicit neck, weight, and sound comparisons relevant to the reference preference, while the saved answer gives guitar-store tips but only partial direct comparison. A short span might preserve those comparisons, but removing the assistant body wholesale is not justified.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "de57cda578da1dc2bf40cf6e",
+          "session_id": "lme-session-dc3cf2696bb157e8878f38acef6ee8dbaae67165a6be3dbf7a4828feef2bd74c",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/25 (Thu) 23:11",
+          "text_sha256": "c36a6786d4a0c9568fc378356ae51dd6b3056da88319f1ed7c661211d939ae90",
+          "exact_source_text": "[2023/05/25 (Thu) 23:11] I'm considering upgrading from a Fender Stratocaster to a Gibson Les Paul. Can you tell me the main differences between these two guitars?",
+          "standalone_rendered_chars": 299,
+          "empty_addition_allowance_chars": 3805,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "e31e31564710f8cd5f4cd894",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 2879,
+              "available": 3805,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "e31e31564710f8cd5f4cd894",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/25 (Thu) 23:11",
+              "text_sha256": "e302b51c6e076d47cf358d6653c3f13cae7a125d9c201ed5b59ecdd38a832412",
+              "text_chars": 2509,
+              "exact_excerpt": "[2023/05/25 (Thu) 23:11] What a great question! The Fender Stratocaster and Gibson Les Paul are two of the most iconic electric guitars in the world, and they have many differences that set them apart. Here are the main differences to consider:\n\n**Body Shape and Construction**\n\n* Stratocaster: Contoured, beveled body with a bolt-on neck, made of alder, ash, or mahogany.\n* Les Paul: Single-cutaway, mahogany body with a set-in neck, made of mahogan"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "6f2c748956a2cdf97ad8cfa8"
+      ],
+      "candidate_appended_source_ids": [
+        "fca9e8689c6c6b5558ce8d1c",
+        "6f2c748956a2cdf97ad8cfa8",
+        "5cd4e2a144e68f725ff28ef8"
+      ]
+    },
+    {
+      "id": "9d25d4e0",
+      "question": "How many pieces of jewelry did I acquire in the last two months?",
+      "historical_saved_answer": "2 pieces of jewelry",
+      "reference_answer_evaluator_only_excerpt": "3",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "User turns report emerald earrings from the flea market last weekend and an engagement ring received about a month earlier. Assistant cleaning or resizing advice adds little to acquisition counting; whether received means bought and how many other pieces count must remain qualified.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "0b849a219143a3c0e74453e6",
+          "session_id": "lme-session-efbb1902f53abf623e8c5a61d9e13795821193d0989a1aca4c2f42438ea8840d",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/28 (Sun) 14:40",
+          "text_sha256": "1e9abe8af0cf305664e385194d4c66e975afb5cd43da8f152ee956ce776da02c",
+          "exact_source_text": "[2023/05/28 (Sun) 14:40] I need help with cleaning my jewelry. Can you give me some tips on how to properly clean my gold chains and rings? Oh, and by the way, I got my engagement ring a month ago, and I still need to get it resized - it's still a bit too loose.",
+          "standalone_rendered_chars": 398,
+          "empty_addition_allowance_chars": 2979,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "0b849a219143a3c0e74453e6",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3101,
+              "available": 2979,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "16074cceebe3bdf896989482",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/28 (Sun) 14:40",
+              "text_sha256": "75ebd4891b7050a9ff50fd0ed82c267d272655eb9a5febe902eee6431a5d4bc2",
+              "text_chars": 2632,
+              "exact_excerpt": "[2023/05/28 (Sun) 14:40] Congratulations on your recent engagement! I'd be happy to help you with cleaning your gold jewelry and offer some advice on getting your engagement ring resized.\n\n**Cleaning Your Gold Chains and Rings:**\n\n1. **Avoid harsh chemicals:** Never use bleach, acid, or abrasive cleaners, as they can damage or discolor your gold jewelry. Instead, opt for mild soap and water or a gentle cleaning solution specifically designed for "
+            }
+          ]
+        },
+        {
+          "source_id": "397ce30210f663684b0f0f48",
+          "session_id": "lme-session-abe27d18412e9d8cccd566fade0d3d6eba69ac9e9691c0a9dda35ba18a711578",
+          "position": 8,
+          "role": "user",
+          "session_date": "2023/05/21 (Sun) 21:58",
+          "text_sha256": "d4e70c357a7c030d8ccefe1ed4eb796036b759ed3795048bf9bf869e61c4b929",
+          "exact_source_text": "[2023/05/21 (Sun) 21:58] I'm thinking of getting a jewelry cleaning kit that includes a solution and a soft cloth. Do you think that would be a good idea? And by the way, I'm really glad I got those emerald earrings at the flea market last weekend - they're really stunning!",
+          "standalone_rendered_chars": 410,
+          "empty_addition_allowance_chars": 2979,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "397ce30210f663684b0f0f48",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3979,
+              "available": 2979,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "03291cfc607fd77e6996c45d",
+              "position": 7,
+              "role": "assistant",
+              "session_date": "2023/05/21 (Sun) 21:58",
+              "text_sha256": "a58c431175376842a30a80a26030783b906beeda3e6afcaff78e4ce5041eddaf",
+              "text_chars": 2332,
+              "exact_excerpt": "[2023/05/21 (Sun) 21:58] When it comes to cleaning your emerald earrings, it's essential to use gentle, safe, and specifically designed products to avoid damaging the emeralds or their settings. Here are some recommendations for jewelry cleaning solutions and products that are safe to use on emeralds:\n\n**Avoid harsh chemicals**: Never use harsh chemicals, abrasive materials, or hot water to clean emeralds, as they can damage the stone or its sett"
+            },
+            {
+              "source_id": "0017d6a1b241ebe7efc3a316",
+              "position": 9,
+              "role": "assistant",
+              "session_date": "2023/05/21 (Sun) 21:58",
+              "text_sha256": "8e4660565cbed23e22425cb2f34415e714381951638b88a2650365340957a86e",
+              "text_chars": 1095,
+              "exact_excerpt": "[2023/05/21 (Sun) 21:58] A jewelry cleaning kit with a solution and a soft cloth is a great idea! That way, you'll have a gentle and effective way to clean your emerald earrings and other jewelry pieces. Just make sure to choose a kit that's specifically designed for cleaning emeralds and gemstones, and follow the instructions carefully.\n\nAs for your emerald earrings, I'm thrilled to hear you're enjoying them! Flea markets can be a great source f"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "1522761b22c21ec88d46bd82"
+      ],
+      "candidate_appended_source_ids": [
+        "1522761b22c21ec88d46bd82",
+        "4120b07ae9692a83162a08ec"
+      ]
+    },
+    {
+      "id": "a9f6b44c",
+      "question": "How many bikes did I service or plan to service in March?",
+      "historical_saved_answer": "1 bike",
+      "reference_answer_evaluator_only_excerpt": "2",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "redundant_or_not_established_repair",
+      "assessment": "Both user turns refer to servicing the same road bike at Pedal Power on March 10. Adjacent weather and trail advice does not add a second bike. The source-aware candidate already recovered a separate commuter-bike repair plan; these two targets should not be double-counted.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "54cf9ac430d7aa6ae35b2d91",
+          "session_id": "lme-session-a69921a24151b578ae50e68bc0a64c233326a3bed63ba95acd309f7729290e1e",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 18:33",
+          "text_sha256": "2916888bd8593dc85ddb5869fc0e8e82ad0745d25e30ca8191f7ab4df4d11d7d",
+          "exact_source_text": "[2023/03/20 (Mon) 18:33] I'm planning a long ride this weekend and wanted to check the weather forecast for Saturday. Can you tell me if it's supposed to be sunny or rainy? By the way, I'm really looking forward to the ride after getting my road bike serviced at Pedal Power on March 10th - it's been running so smoothly since then!",
+          "standalone_rendered_chars": 468,
+          "empty_addition_allowance_chars": 3810,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "447662d4fb26b7a475ab9b73",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 1736,
+              "available": 3810,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "447662d4fb26b7a475ab9b73",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/03/20 (Mon) 18:33",
+              "text_sha256": "dc95a80bd03002cd8a5213311993b5f9f0ffc0191957997da7ed19f42c366cd3",
+              "text_chars": 819,
+              "exact_excerpt": "[2023/03/20 (Mon) 18:33] I'm happy to help you with the weather forecast! However, I'm a large language model, I don't have access to real-time weather information or your specific location. I'm not aware of your location, so I can't provide you with a accurate weather forecast.\n\nBut I can suggest some ways for you to get the weather forecast for your area. You can:\n\n1. Check online weather websites such as weather.com, accuweather.com, or wunder"
+            }
+          ]
+        },
+        {
+          "source_id": "c8616cd19b0b5541bcde96e3",
+          "session_id": "lme-session-a69921a24151b578ae50e68bc0a64c233326a3bed63ba95acd309f7729290e1e",
+          "position": 6,
+          "role": "user",
+          "session_date": "2023/03/20 (Mon) 18:33",
+          "text_sha256": "732bbe4e0245c50f4fecadadca5a87970b496f474b826f5f18c856c1c6e3635a",
+          "exact_source_text": "[2023/03/20 (Mon) 18:33] I usually ride on trails with a mix of rocks and smooth sections. I like the challenge of navigating through technical sections, but I also enjoy the flowy parts where I can pick up speed. As for my favorite trail, I have a few that I like to ride regularly, but I'm always looking to explore new ones. By the way, speaking of bike maintenance, I'm glad I got my road bike serviced at Pedal Power on March 10th, they replaced the worn-out brake pads and cables, and it's made a big difference in my rides.",
+          "standalone_rendered_chars": 666,
+          "empty_addition_allowance_chars": 3810,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "e33352cdd2a5490ea39628d6",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 1998,
+              "available": 3810,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "06dab64f0074073e7888a16e",
+              "position": 5,
+              "role": "assistant",
+              "session_date": "2023/03/20 (Mon) 18:33",
+              "text_sha256": "26f80d49c962d810041c3bf11ce278f3d24328174de72634188af2a060842b9d",
+              "text_chars": 514,
+              "exact_excerpt": "[2023/03/20 (Mon) 18:33] That sounds like a lot of fun! Riding on bumpy trails can be exhilarating, and it's great that you've found a water bottle cage that can keep up with your adventures. A secure and reliable water bottle cage is essential for staying hydrated on long rides, especially on rough terrain.\n\nI'm curious, what kind of trails do you usually ride on? Are they more technical, with rocks and roots, or are they more flowy and smooth? "
+            },
+            {
+              "source_id": "e33352cdd2a5490ea39628d6",
+              "position": 7,
+              "role": "assistant",
+              "session_date": "2023/03/20 (Mon) 18:33",
+              "text_sha256": "8cb8c1ce78e05621dbfcbc638d1ed2dedd49f9981dcc0a682980b9893bdd96f9",
+              "text_chars": 928,
+              "exact_excerpt": "[2023/03/20 (Mon) 18:33] It sounds like you enjoy a good mix of technical and flowy trails! Navigating through rough sections can be a great challenge, but it's also satisfying to ride smoothly through them. And it's always exciting to explore new trails and discover new routes.\n\nI'm glad to hear that you're taking good care of your road bike, too! Regular maintenance is essential to ensure your bike is running smoothly and safely. It's great tha"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "307f9d9d46be896c3f1f4f8c",
+        "04e912129204a7540bd3236d"
+      ],
+      "candidate_appended_source_ids": [
+        "fd592c31dcd9f417bf84441b",
+        "04e912129204a7540bd3236d",
+        "afdfedb165030b6060845af3",
+        "307f9d9d46be896c3f1f4f8c",
+        "248ef94793a4ab5cd4170d28"
+      ]
+    },
+    {
+      "id": "b5ef892d",
+      "question": "How many days did I spend on camping trips in the United States this year?",
+      "historical_saved_answer": "3 days",
+      "reference_answer_evaluator_only_excerpt": "8 days.",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user says a five-day Yellowstone camping trip occurred last month. Adjacent Colorado hiking recommendations do not establish additional completed camping days. The five days may contribute to a year total only alongside other trips.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "e9ee07ba12e78a42da75b93e",
+          "session_id": "lme-session-2c68010b4eef27ccc5e6fbfdfe7a6d1424a3884e37f535f9635a100bbdfad58f",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/04/29 (Sat) 15:49",
+          "text_sha256": "2f2f9c3dd252e62c072c2a428e29708d649e08846fc6276c7bf1ab945033175c",
+          "exact_source_text": "[2023/04/29 (Sat) 15:49] I'm planning a trip to the Rocky Mountains in Colorado and I was wondering if you could recommend some good hiking trails and camping spots in the area. By the way, I just got back from an amazing 5-day camping trip to Yellowstone National Park last month, and I'm still buzzing from the experience.",
+          "standalone_rendered_chars": 460,
+          "empty_addition_allowance_chars": 2232,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "e9ee07ba12e78a42da75b93e",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 2857,
+              "available": 2232,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "94ccb739184227d08f771f3f",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/04/29 (Sat) 15:49",
+              "text_sha256": "8d199e1cdf9eef2c6decbbb92cdbeee6a396596af5d8cd01be499cc87a638949",
+              "text_chars": 2326,
+              "exact_excerpt": "[2023/04/29 (Sat) 15:49] Yellowstone is an amazing destination! I'm sure you had an incredible time exploring the geysers, hot springs, and wildlife.\n\nNow, the Rocky Mountains in Colorado are a fantastic choice for your next adventure! The state has countless hiking trails and camping spots to choose from, so I'll provide you with some recommendations to get you started:\n\n**Hiking Trails:**\n\n1. **Garden of the Gods**: A free park in Colorado Spri"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "47241062f927eeae446de82d"
+      ],
+      "candidate_appended_source_ids": [
+        "d5405a09dfcf1027d75c2ff4",
+        "47241062f927eeae446de82d",
+        "871082373dfc44ff200c1bfe"
+      ]
+    },
+    {
+      "id": "c18a7dc8",
+      "question": "How many years older am I than when I graduated from college?",
+      "historical_saved_answer": "Cannot be determined from the available memories.",
+      "reference_answer_evaluator_only_excerpt": "7",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user gives Berkeley graduation at age 25. Adjacent course recommendations do not supply this age. The answer still needs a separately sourced current age before computing the difference.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "d88bc38b0916067885c01d04",
+          "session_id": "lme-session-2925515d531718e13026f82405fd5260225adc0ad8ad51861b30fd648d0f9e6e",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/05/26 (Fri) 19:08",
+          "text_sha256": "755fc03dc586046f14083e942cb96d9e98e3d4107fbc6ad55d3f2a75234d5c33",
+          "exact_source_text": "[2023/05/26 (Fri) 19:08] I'm looking to explore some online courses to improve my marketing skills, particularly in content creation and strategy. I've been working in digital marketing for a while now, and I think it's essential to stay updated on the latest trends. By the way, I have a Bachelor's degree in Business Administration with a concentration in Marketing from the University of California, Berkeley, which I completed at the age of 25. Do you have any course recommendations that would be suitable for someone with my background and experience?",
+          "standalone_rendered_chars": 693,
+          "empty_addition_allowance_chars": 3436,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "d88bc38b0916067885c01d04",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3352,
+              "available": 3436,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "17617aaaf073c5f9e0704b63",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/05/26 (Fri) 19:08",
+              "text_sha256": "54b888caa86089dbed4cc789c72ad8d6e6cdd4b9a2aeb5bb80e56cb4789099a9",
+              "text_chars": 2588,
+              "exact_excerpt": "[2023/05/26 (Fri) 19:08] A Berkeley grad! That's impressive! With your background and experience, you're wise to stay updated on the latest marketing trends. I'd be happy to recommend some online courses that can help you enhance your content creation and strategy skills. Here are a few options:\n\n**Content Creation:**\n\n1. **HubSpot Content Marketing Certification**: A free course that covers the fundamentals of content marketing, including creati"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "085cc00f92033e3aab29bc79",
+        "29939f1a2261e362e84d271c",
+        "0076d7406607cf8ad44e2967",
+        "73ff7643acee9c3fb4f58762"
+      ],
+      "candidate_appended_source_ids": [
+        "23bdd471b615712f2a8bed69",
+        "085cc00f92033e3aab29bc79",
+        "242a1eb91332fbf7dbd0af77",
+        "0076d7406607cf8ad44e2967",
+        "2563e2e5bc851d94e3d5b87e",
+        "29939f1a2261e362e84d271c",
+        "1de0b681bd62cfcb86155642",
+        "73ff7643acee9c3fb4f58762",
+        "9910d8ac5019bec8baabce52"
+      ]
+    },
+    {
+      "id": "e3038f8c",
+      "question": "How many rare items do I have in total?",
+      "historical_saved_answer": "At least 87 rare items.",
+      "reference_answer_evaluator_only_excerpt": "99",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "redundant_or_not_established_repair",
+      "assessment": "The user says they own 25 rare coins, but that fact is already in the frozen baseline. Assistant storage advice does not add the missing collectible category; the source-aware gain in this case came from a distinct figurine turn.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "d800c8098ff6c6a05621df87",
+          "session_id": "lme-session-e5a02372b21637b69cfd50f77878e7dee4707f74a4911aa47a4ebe26198e9e9a",
+          "position": 4,
+          "role": "user",
+          "session_date": "2023/05/23 (Tue) 22:19",
+          "text_sha256": "6bd0b950dc957848e3ae2e0e2f14e33156f7076f2e5ead1e99cf04f751bd7b02",
+          "exact_source_text": "[2023/05/23 (Tue) 22:19] I actually have 25 rare coins that I need to store safely, so I'll definitely consider those factors when choosing between a fireproof safe and a safety deposit box.",
+          "standalone_rendered_chars": 326,
+          "empty_addition_allowance_chars": 3998,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "d800c8098ff6c6a05621df87",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 6555,
+              "available": 3998,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "14ee86e1123dccc31c29c8b8",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/05/23 (Tue) 22:19",
+              "text_sha256": "aa7724af3057c7796e8abe1589052494aa592a035f81c03cc3c10a4c89249c9f",
+              "text_chars": 3094,
+              "exact_excerpt": "[2023/05/23 (Tue) 22:19] Excellent decision! Protecting your valuable items is crucial. I'm happy to help you with recommendations on fireproof safes and safety deposit boxes.\n\n**Fireproof Safes:**\n\n1. **Look for UL Certification**: Ensure the safe is certified by Underwriters Laboratories (UL), a reputable third-party testing organization. UL ratings indicate the safe's ability to withstand fire, heat, and impact.\n2. **Choose the Right Size**: S"
+            },
+            {
+              "source_id": "58de794eea791e96d294c664",
+              "position": 5,
+              "role": "assistant",
+              "session_date": "2023/05/23 (Tue) 22:19",
+              "text_sha256": "364d04960cabc4ebea3d8bd33dd4cb9b22086952a9ae72323ace57cdc91a054d",
+              "text_chars": 2993,
+              "exact_excerpt": "[2023/05/23 (Tue) 22:19] With 25 rare coins, you'll want to ensure they're stored in a secure and protected environment to preserve their value and condition. Both fireproof safes and safety deposit boxes can provide a safe haven for your coins, but let's explore some additional considerations specific to coin storage.\n\n**Coin Storage Considerations:**\n\n1. **Climate Control**: Coins can be sensitive to temperature and humidity changes, which can "
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "b5c21fcc631523132584bf3a",
+        "ea9176392e4f794d9f3b7c60"
+      ],
+      "candidate_appended_source_ids": [
+        "ea9176392e4f794d9f3b7c60",
+        "7ab556eed86255896fde748a",
+        "b5c21fcc631523132584bf3a",
+        "50b55bcd3db3d35f72748151"
+      ]
+    },
+    {
+      "id": "gpt4_1e4a8aec",
+      "question": "What gardening-related activity did I do two weeks ago?",
+      "historical_saved_answer": "You used your gardening app and checked on your rapidly climbing cucumber plants.",
+      "reference_answer_evaluator_only_excerpt": "planting 12 new tomato saplings",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user explicitly says twelve tomato saplings were planted today on April 21. Adjacent tomato-care advice does not change the activity or date; matching two weeks ago still requires the question timestamp.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "2d1138a1bb7f959d27e91b26",
+          "session_id": "lme-session-e4da6764cfd21b44031d853afdbba6f0164548d489836844ac9fa8deb786be66",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/04/21 (Fri) 00:30",
+          "text_sha256": "16e80f4e7436bbeba08830acb18046256caf6ba47c33b7008f39438b855c58b6",
+          "exact_source_text": "[2023/04/21 (Fri) 00:30] I'm looking for some advice on how to keep my tomato plants healthy and pest-free. By the way, I just planted 12 new tomato saplings today and I'm excited to see them grow.",
+          "standalone_rendered_chars": 333,
+          "empty_addition_allowance_chars": 2354,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "dcd926d1d36ffb6f904a46c6",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3108,
+              "available": 2354,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "dcd926d1d36ffb6f904a46c6",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/04/21 (Fri) 00:30",
+              "text_sha256": "4e56056c3cae49d662c25a05f3db4cc3ee2f9be0de7074dee11594c78878339c",
+              "text_chars": 2468,
+              "exact_excerpt": "[2023/04/21 (Fri) 00:30] Congratulations on planting your new tomato saplings! With proper care and attention, they'll thrive and provide you with a bountiful harvest. Here are some tips to keep your tomato plants healthy and pest-free:\n\n**Soil and Watering**\n\n1. **Soil quality**: Tomatoes love well-draining, fertile soil with a pH between 6.0 and 6.8. Add organic matter like compost or manure to improve soil structure and fertility.\n2. **Water d"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "bedaed48d862e7e9a9a23571"
+      ],
+      "candidate_appended_source_ids": [
+        "dad020d75d0dadaff4ae3c59",
+        "bedaed48d862e7e9a9a23571"
+      ]
+    },
+    {
+      "id": "gpt4_7fce9456",
+      "question": "How many properties did I view before making an offer on the townhouse in the Brookside neighborhood?",
+      "historical_saved_answer": "3 properties",
+      "reference_answer_evaluator_only_excerpt": "I viewed four properties before making an offer on the townhouse in the Brookside neighborhood. The reasons I didn't make an offer on them were: the kitchen of the bungalow needed serious renovation, the property in Cedar Creek was out of my budget, the noise from the highway was a deal-breaker for the 1-bedroom condo, and my offer on the 2-bedroom condo was rejected due to a higher bid.",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user turns identify distinct February 15 two-bedroom and February 10 one-bedroom condos and their rejection or noise reasons. Assistant paperwork and condo-evaluation advice do not appear needed to count viewed properties; all other properties still need source identity.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "2d93d076757333b534f0ab8f",
+          "session_id": "lme-session-b1b77e74196656ff33e73382aaca49578ad156ca201d7528f804d1f6fb98c12e",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/08 (Wed) 12:09",
+          "text_sha256": "f49fd6bee8d1a25de0c15c85c34f258d223f68e5b0c9a5aeec57cf26a66445a8",
+          "exact_source_text": "[2023/03/08 (Wed) 12:09] I'm in the process of buying a new home and I need some help with organizing all the paperwork. I've been house hunting for a while, and it's been a wild ride. I actually fell in love with a 2-bedroom condo on February 15th, it had amazing modern appliances and a community pool, but unfortunately, my offer got rejected on the 17th due to a higher bid. Anyway, can you help me create a checklist for all the documents I need to finalize the deal on my new home?",
+          "standalone_rendered_chars": 623,
+          "empty_addition_allowance_chars": 3916,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "2d93d076757333b534f0ab8f",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3625,
+              "available": 3916,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "cf970da878a6e9d05f3fd031",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/03/08 (Wed) 12:09",
+              "text_sha256": "d38665203611d83ff5371aad0cf006255c7f05c8946406ec7fb053b9f5f26db2",
+              "text_chars": 2931,
+              "exact_excerpt": "[2023/03/08 (Wed) 12:09] I'm so sorry to hear that your first offer didn't work out, but congratulations on finding a new home!\n\nOf course, I'd be happy to help you create a checklist for all the documents you'll need to finalize the deal on your new home. Here's a comprehensive list to get you started:\n\n**Pre-Contract Documents:**\n\n1. **Purchase Agreement**: A signed contract outlining the terms of the sale, including price, contingencies, and c"
+            }
+          ]
+        },
+        {
+          "source_id": "7cb511743f33efe87fc55f31",
+          "session_id": "lme-session-d8291a94e0b8a916ec318c7c4c9fc54537fa1d90d0e4fbc0adaf0267782ce5c2",
+          "position": 6,
+          "role": "user",
+          "session_date": "2023/03/08 (Wed) 16:03",
+          "text_sha256": "be050a912608551d3babc146d860892c20dd8b8b27221b09f64347e5db7b6af6",
+          "exact_source_text": "[2023/03/08 (Wed) 16:03] I appreciate your detailed explanation on the importance of research when buying a condo. I'm currently looking at condos in the downtown area, and I'm considering a few options. I viewed a 1-bedroom condo on February 10th, but the noise from the highway was a deal-breaker. I'm looking for a condo with modern appliances and a community pool. Do you have any tips on how to evaluate a condo's appliances and amenities?",
+          "standalone_rendered_chars": 580,
+          "empty_addition_allowance_chars": 3916,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "7cb511743f33efe87fc55f31",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 5948,
+              "available": 3916,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "6033d62aa9b5152a857215db",
+              "position": 5,
+              "role": "assistant",
+              "session_date": "2023/03/08 (Wed) 16:03",
+              "text_sha256": "39763104be647b942ddd3f6aa4d613ff3b778b110b6e29989ac96c7e1f925c62",
+              "text_chars": 2590,
+              "exact_excerpt": "[2023/03/08 (Wed) 16:03] Research is crucial in finding the right condo that fits your needs, budget, and lifestyle. Here are some reasons why research is key:\n\n1. **Informed Decision-Making**: Research helps you make an informed decision about the condo you're interested in. You'll be able to weigh the pros and cons, compare different options, and make a decision that's right for you.\n2. **Avoiding Surprises**: Research can help you avoid surpri"
+            },
+            {
+              "source_id": "824ef0c877ab99d24c8d698c",
+              "position": 7,
+              "role": "assistant",
+              "session_date": "2023/03/08 (Wed) 16:03",
+              "text_sha256": "93dc155c561424e1a1182d8e3c9f2eda4b8b3c94d1992a9f6cbb47dc493000ad",
+              "text_chars": 2636,
+              "exact_excerpt": "[2023/03/08 (Wed) 16:03] I'm glad you're being thorough in your condo search!\n\nEvaluating a condo's appliances and amenities is a crucial part of the buying process. Here are some tips to help you assess these important features:\n\n**Appliances:**\n\n1. **Age and Condition**: Check the age and condition of the appliances. Are they new, or are they nearing the end of their lifespan?\n2. **Brand and Quality**: Research the brand and quality of the appl"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "077693126c7b2fe5b7d2f275",
+        "f7bc98f90d53c92667a5084d"
+      ],
+      "candidate_appended_source_ids": [
+        "077693126c7b2fe5b7d2f275",
+        "1c77f1edebfb46e6e03a09d4",
+        "f7bc98f90d53c92667a5084d",
+        "b2dbd6addd4860bd658a1940"
+      ]
+    },
+    {
+      "id": "gpt4_8279ba02",
+      "question": "How many days ago did I buy a smoker?",
+      "historical_saved_answer": "not mentioned",
+      "reference_answer_evaluator_only_excerpt": "10 days ago. 11 days (including the last day) is also acceptable.",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user says they acquired a smoker today on March 15. Adjacent sauce and wood-pairing recommendations do not establish the purchase date; relative-day interpretation requires the question timestamp.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "d28caab127fd78c7af303c94",
+          "session_id": "lme-session-c67489a8a1124beab527766c761e90c2e0570fa71b5a42ac16479dfb751df0dc",
+          "position": 2,
+          "role": "user",
+          "session_date": "2023/03/15 (Wed) 06:05",
+          "text_sha256": "c1697203a63c3a6635842261caa37524bca513550b513e2a2db64fb7dea101b5",
+          "exact_source_text": "[2023/03/15 (Wed) 06:05] I just got a smoker today and I'm excited to experiment with different types of wood and meats. I'm thinking of trying out a mix of hickory and apple wood, I've heard they pair well with pork and beef. What are some recommended meat and wood pairings that I should try out?",
+          "standalone_rendered_chars": 434,
+          "empty_addition_allowance_chars": 3247,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "whole_neighborhood_exceeds_available_budget",
+          "bundle_observations": [
+            {
+              "anchor": "d28caab127fd78c7af303c94",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 5327,
+              "available": 3247,
+              "individually_fits": false
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "856962c71fc2aa99df53ff15",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/03/15 (Wed) 06:05",
+              "text_sha256": "df87db307c45ea6fd04af95c3a4744a55c8c05445424d96d4011d0ad67ad0a50",
+              "text_chars": 2221,
+              "exact_excerpt": "[2023/03/15 (Wed) 06:05] Here are a few unique and delicious ones to try:\n\n**Recipe 1: Spicy Pineapple BBQ Sauce**\n\n* 1 cup ketchup\n* 1/2 cup pineapple juice\n* 1/4 cup brown sugar\n* 2 tablespoons apple cider vinegar\n* 1 teaspoon smoked paprika\n* 1/2 teaspoon ground cumin\n* 1/4 teaspoon cayenne pepper\n* Salt and pepper to taste\n\nThis sweet and spicy sauce is perfect for pork or chicken. The pineapple juice adds a fruity twist, while the cayenne pe"
+            },
+            {
+              "source_id": "0e8e9112ae33b7228e91ed80",
+              "position": 3,
+              "role": "assistant",
+              "session_date": "2023/03/15 (Wed) 06:05",
+              "text_sha256": "a7630e92dd7588c1f5c0d8fd52cb9f1fa4ab842ab36e3cbfe0fb00f1d1301fd9",
+              "text_chars": 2530,
+              "exact_excerpt": "[2023/03/15 (Wed) 06:05] Congratulations on your smoker! Hickory and apple wood is a fantastic combination for pork and beef. Here are some recommended meat and wood pairings you might want to try:\n\n**Pork:**\n\n* Hickory and Apple Wood (as you mentioned): This classic combination is perfect for pork shoulders, ribs, and butts. The hickory adds a strong, sweet, and smoky flavor, while the apple wood adds a fruity and mild flavor.\n* Cherry Wood: Che"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "214769fd34b967b95e3d132b",
+        "4e0bd846be459113966bad20"
+      ],
+      "candidate_appended_source_ids": [
+        "9a2d09f6692c7de5ad98855a",
+        "214769fd34b967b95e3d132b",
+        "922924135b1f6d03a930e3a8",
+        "af9e83694921ed14345205a9",
+        "4e0bd846be459113966bad20",
+        "bf6c25044dd496d2e34ff75b"
+      ]
+    },
+    {
+      "id": "gpt4_8279ba03",
+      "question": "What kitchen appliance did I buy 10 days ago?",
+      "historical_saved_answer": "not mentioned",
+      "reference_answer_evaluator_only_excerpt": "a smoker",
+      "context_necessity": "bounded_qualification_plausible",
+      "answer_repair_potential": "plausible_missing_evidence",
+      "assessment": "The user says they acquired a smoker today on March 15. Adjacent BBQ recipes do not identify a different appliance; relative-day interpretation requires the question timestamp.",
+      "target_standalone_sufficient_to_answer_whole_question": "not_established_by_this_review",
+      "targets": [
+        {
+          "source_id": "7f853183f49f26dec06898b5",
+          "session_id": "lme-session-cabc3a41ea202dc117316220307cb002f7417f853dab2bd66fa23c1da9bbbe45",
+          "position": 0,
+          "role": "user",
+          "session_date": "2023/03/15 (Wed) 11:56",
+          "text_sha256": "2f6163490e1b63a35cea430a8c31e635c04aa2a41411a4c034dbd6557baf4a4f",
+          "exact_source_text": "[2023/03/15 (Wed) 11:56] I'm looking for some new BBQ sauce recipes to try out. I've been experimenting with making my own from scratch and I'm always looking to improve. By the way, I just got a smoker today and I'm excited to experiment with different types of wood and meats today.",
+          "standalone_rendered_chars": 420,
+          "empty_addition_allowance_chars": 3717,
+          "standalone_fits_empty_addition_budget": true,
+          "packet_absent_exact_text": true,
+          "reason": "bundle_competes_for_remaining_budget",
+          "bundle_observations": [
+            {
+              "anchor": "df52b2407c37d30c56689797",
+              "status": "bundle_budget_nonfit",
+              "new_source_chars": 3421,
+              "available": 3717,
+              "individually_fits": true
+            }
+          ],
+          "adjacent_original_turns": [
+            {
+              "source_id": "df52b2407c37d30c56689797",
+              "position": 1,
+              "role": "assistant",
+              "session_date": "2023/03/15 (Wed) 11:56",
+              "text_sha256": "eba25980ee75f5d73a6ebc3e7f547ebf76aacffb0137f22eae1be6237e08427d",
+              "text_chars": 2656,
+              "exact_excerpt": "[2023/03/15 (Wed) 11:56] That sounds like a fantastic setup! Congratulations on getting a smoker, and I'm more than happy to help you with some new BBQ sauce recipes to try out.\n\nBefore we dive into the recipes, I have to ask: what type of wood are you planning to experiment with today? Different woods can impart unique flavors to your meats, and it's great that you're thinking about pairing them with your BBQ sauces.\n\nNow, let's get to the sauce"
+            }
+          ]
+        }
+      ],
+      "candidate_admitted_anchor_ids": [
+        "4582f4331f2888ecbb4eb256",
+        "e649d28e0b4013855a1b94ee"
+      ],
+      "candidate_appended_source_ids": [
+        "b08d1b6fec77f841d13883c5",
+        "4582f4331f2888ecbb4eb256",
+        "514b9b2c01e39070b4ef61dc",
+        "e649d28e0b4013855a1b94ee",
+        "d2da45c41b1a823e98eea910"
+      ]
+    }
+  ],
+  "limits": [
+    "Reference answers and historical generated answers are evaluator-only; neither proves semantic sufficiency of any span.",
+    "Original neighbors may contain assistant-authored errors or generic advice. Classification is a qualitative source review, not a new grade.",
+    "The target-alone cost uses the exact frozen renderer header/prefix and empty addition allowance, but does not simulate a new candidate policy or rerank anchors.",
+    "Full-text absence and receipt absence are precise for these source turns in corrected-v2 and matched-control packets; other baseline facts may duplicate their meaning."
+  ]
+}
