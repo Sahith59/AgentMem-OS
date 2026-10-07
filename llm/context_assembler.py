@@ -559,6 +559,15 @@ class ContextAssembler:
                           extra_budget=extra_budget, max_anchors=max_anchors,
                           neighbor_turns=neighbor_turns)
 
+    @staticmethod
+    def assemble_source_aware_packet(snapshot, query, baseline, *, scope, as_of,
+                                    encoder=None, **policy):
+        """Opt-in presence-aware source selection; normal assembly is unchanged."""
+        from agentmem_os.llm.source_aware_selection import supplement
+
+        return supplement(snapshot, query, baseline, scope=scope, as_of=as_of,
+                          encoder=encoder, **policy)
+
     def get_budget_breakdown(self) -> dict:
         """Return token budget per section for debugging and paper evaluations."""
         return {
