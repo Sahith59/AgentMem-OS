@@ -1,0 +1,257 @@
+{
+  "schema": "source-review-smoke-v1",
+  "scope": "60bf93ed",
+  "question_sha256": "897318976a936a7b02b22c8cdfc5b6bfcb6878262765a8a5199cd6904169db11",
+  "dossier_sha256": "7d4dad50a06a3f5252d31073886793313c4cc85f3275664c15fef0a1118e89c6",
+  "snapshot_sha256": "200a1ef9890f683d51f2e7f93202d10cf72713ee8dcb2ec353f0f092ea1b88c0",
+  "as_of": "2023-01-24T23:56:00",
+  "review_status": "OFFLINE_REVIEW_ONLY",
+  "runtime_selection_status": "UNREVIEWED_UNCHANGED",
+  "answer_accuracy": "NOT_MEASURED",
+  "answer_path_eligible": false,
+  "review_depth": {
+    "proposed_turns_read_in_full": 8,
+    "proposed_turns_total": 8,
+    "baseline": "Reviewed complete 36,135-codepoint baseline for exact original-turn body presence and searched backpack/date contexts; this is not a semantic audit of every baseline claim.",
+    "eligible_source_pool": "Lexically searched all 494 source bodies for backpack/bookbag/laptop bag and targeted date/arrival terms; deep-read the two user date-bearing turns, the six other proposal turns, and relevant adjacent source turns. No full-history semantic completeness claim.",
+    "source_identity": "Exact-body witnesses establish literal presence, not certified historical source identity; baseline declares NOT_CERTIFIED."
+  },
+  "proposal_reviews": [
+    {
+      "proposal_index": 0,
+      "unit_id": "review-0",
+      "classification": "ALREADY_KNOWN_RELEVANT",
+      "assessment": "User says the new laptop backpack arrived on 1/20. The complete original turn is already verbatim in the baseline. Its arrival date is an operand, not an addition.",
+      "witnesses": {
+        "source_id": "fc49d092e4ead008f06d35e0",
+        "source_sha256": "e7d1b80c687506bc9a2f685dcb2cadd3abf08ed374701b561309134cfc648b98",
+        "source_role": "user",
+        "source_observed_at": "2023-01-24T09:37:00",
+        "source_session": "lme-session-267c828e153d58623256391b244fb3b0c615a619b9c4ea28a005eaffbc482773",
+        "source_position": 0,
+        "source_span_codepoints": [
+          0,
+          331
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          19964,
+          20295
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "e7d1b80c687506bc9a2f685dcb2cadd3abf08ed374701b561309134cfc648b98",
+        "relevant_phrase": {
+          "text": "It arrived on 1/20",
+          "source_span_codepoints": [
+            244,
+            262
+          ],
+          "baseline_span_codepoints": [
+            20208,
+            20226
+          ]
+        }
+      }
+    },
+    {
+      "proposal_index": 1,
+      "unit_id": "review-1",
+      "classification": "ALREADY_KNOWN_RELEVANT",
+      "assessment": "User says the backpack used for the work laptop was bought from Amazon on 1/15. The complete original turn is already verbatim in the baseline. Its purchase date is an operand, not an addition.",
+      "witnesses": {
+        "source_id": "b967f3ac761beb72b74c6aa0",
+        "source_sha256": "995c84fd449e3c9586aabf54c35be2b8144cd9824e38c6211c1bc6d8a764bf58",
+        "source_role": "user",
+        "source_observed_at": "2023-01-24T07:19:00",
+        "source_session": "lme-session-51c0d31532427148457f76151c15bfc4f40695340db21c30399d97561fd631a5",
+        "source_position": 2,
+        "source_span_codepoints": [
+          0,
+          578
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          10988,
+          11566
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "995c84fd449e3c9586aabf54c35be2b8144cd9824e38c6211c1bc6d8a764bf58",
+        "relevant_phrase": {
+          "text": "I bought it from Amazon on 1/15",
+          "source_span_codepoints": [
+            546,
+            577
+          ],
+          "baseline_span_codepoints": [
+            11534,
+            11565
+          ]
+        }
+      }
+    },
+    {
+      "proposal_index": 2,
+      "unit_id": "review-2",
+      "classification": "IRRELEVANT_ALREADY_PRESENT",
+      "assessment": "User describes laptop Wi-Fi and a January 28 system update; no backpack purchase or arrival. January 28 is later than the Jan 24 question window despite this eligible turn being observed Jan 24.",
+      "witnesses": {
+        "source_id": "21262b85456962650e609832",
+        "source_sha256": "a59be444e623bd40adac2c0e0e7c75da455443a5c5791837e73a2f600064382b",
+        "source_role": "user",
+        "source_observed_at": "2023-01-24T07:19:00",
+        "source_session": "lme-session-51c0d31532427148457f76151c15bfc4f40695340db21c30399d97561fd631a5",
+        "source_position": 8,
+        "source_span_codepoints": [
+          0,
+          443
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          11571,
+          12014
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "a59be444e623bd40adac2c0e0e7c75da455443a5c5791837e73a2f600064382b"
+      }
+    },
+    {
+      "proposal_index": 3,
+      "unit_id": "review-3",
+      "classification": "IRRELEVANT_ALREADY_PRESENT",
+      "assessment": "User discusses a password-manager download on February 12 and laptop security; no backpack purchase or arrival. February 12 is later than the Jan 24 question window despite this eligible turn being observed Jan 24.",
+      "witnesses": {
+        "source_id": "b69b28cc8cfe43ff6920d52a",
+        "source_sha256": "08bd86c1574f46ddd8e54abac4ab34bb2cc02d7e2eddc7a6f63a668ae69a24a6",
+        "source_role": "user",
+        "source_observed_at": "2023-01-24T07:19:00",
+        "source_session": "lme-session-51c0d31532427148457f76151c15bfc4f40695340db21c30399d97561fd631a5",
+        "source_position": 10,
+        "source_span_codepoints": [
+          0,
+          427
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          12019,
+          12446
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "08bd86c1574f46ddd8e54abac4ab34bb2cc02d7e2eddc7a6f63a668ae69a24a6"
+      }
+    },
+    {
+      "proposal_index": 4,
+      "unit_id": "review-4",
+      "classification": "IRRELEVANT_ALREADY_PRESENT",
+      "assessment": "Assistant gives generic Wi-Fi troubleshooting suggestions, not a user report of a backpack event or elapsed time.",
+      "witnesses": {
+        "source_id": "075b5802b7eee714768424a2",
+        "source_sha256": "a5feff88b389faa0358507e9f1b784311cd8b92ea1f03a93d2b4fa755cfbb3e9",
+        "source_role": "assistant",
+        "source_observed_at": "2023-01-24T07:19:00",
+        "source_session": "lme-session-51c0d31532427148457f76151c15bfc4f40695340db21c30399d97561fd631a5",
+        "source_position": 9,
+        "source_span_codepoints": [
+          0,
+          2889
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          12451,
+          15340
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "a5feff88b389faa0358507e9f1b784311cd8b92ea1f03a93d2b4fa755cfbb3e9"
+      }
+    },
+    {
+      "proposal_index": 5,
+      "unit_id": "review-5",
+      "classification": "IRRELEVANT_ALREADY_PRESENT",
+      "assessment": "Assistant gives conditional laptop RAM upgrade advice, not a user report of a backpack event or elapsed time.",
+      "witnesses": {
+        "source_id": "08efaa395bfb6804f18bfa89",
+        "source_sha256": "f02b7f79abc2ed628ddd3c95d67b308788c79671539c8b678335db8866c2d240",
+        "source_role": "assistant",
+        "source_observed_at": "2023-01-24T08:43:00",
+        "source_session": "lme-session-b07f10190692b7d63d337359f2c924e3dec268ce5a0e1ae3c4246669104282f0",
+        "source_position": 7,
+        "source_span_codepoints": [
+          0,
+          2513
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          16645,
+          19158
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "f02b7f79abc2ed628ddd3c95d67b308788c79671539c8b678335db8866c2d240"
+      }
+    },
+    {
+      "proposal_index": 6,
+      "unit_id": "review-6",
+      "classification": "IRRELEVANT_ALREADY_PRESENT",
+      "assessment": "User considers a laptop RAM upgrade and television models; no backpack purchase or arrival.",
+      "witnesses": {
+        "source_id": "e770304915872f3055d3eebe",
+        "source_sha256": "a8cc0262d788089edba040269938fbcc27cefb3fe16b89409ea97c8cc15d9975",
+        "source_role": "user",
+        "source_observed_at": "2023-01-24T08:43:00",
+        "source_session": "lme-session-b07f10190692b7d63d337359f2c924e3dec268ce5a0e1ae3c4246669104282f0",
+        "source_position": 8,
+        "source_span_codepoints": [
+          0,
+          278
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          16087,
+          16365
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "a8cc0262d788089edba040269938fbcc27cefb3fe16b89409ea97c8cc15d9975"
+      }
+    },
+    {
+      "proposal_index": 7,
+      "unit_id": "review-7",
+      "classification": "IRRELEVANT_ALREADY_PRESENT",
+      "assessment": "User discusses past trips and trip journaling; no backpack purchase or arrival.",
+      "witnesses": {
+        "source_id": "c6497e51c2edabac8f0ed0ca",
+        "source_sha256": "396061ebef0b4fe55118fbb84a08ef6b7f5e7a90868ee86b601941073b686b3e",
+        "source_role": "user",
+        "source_observed_at": "2023-01-24T12:15:00",
+        "source_session": "lme-session-e5749416ec94d496ecf208173f57c27dd22f87d5ee65f20646a5a52aef1ce4fe",
+        "source_position": 4,
+        "source_span_codepoints": [
+          0,
+          463
+        ],
+        "baseline_sha256": "612a230e32dd70a0a0df5b2611ac24570a36c195529063dfc61bca02f43dfe68",
+        "baseline_exact_body_span_codepoints": [
+          25848,
+          26311
+        ],
+        "baseline_exact_body_occurrences": 1,
+        "baseline_body_sha256": "396061ebef0b4fe55118fbb84a08ef6b7f5e7a90868ee86b601941073b686b3e"
+      }
+    }
+  ],
+  "cross_source_qualifications": {
+    "role": "Both relevant date claims are user assertions. Assistant echoes/advice are not independent evidence of purchase or delivery.",
+    "event_and_referent": "In each user turn, “it” refers locally to a backpack. Across two distinct sessions the work-laptop use and new-backpack language make the same-item link plausible, but no durable item ID explicitly certifies identity.",
+    "time": "Turn observations are Jan 24, 2023, both before the as-of cutoff. The event dates are written as 1/15 and 1/20 without explicit year; 2023 follows from Jan 24 turn context, so preserve that inference rather than labeling the year as quoted.",
+    "quantity": "The two proposed date phrases are the purchase and arrival operands for an elapsed-days question. This review does not compute or certify a corrected answer.",
+    "modality": "Both relevant dates are retrospective user reports (“bought”, “arrived”), not plans. Other proposals contain conditional advice or unrelated future-dated claims.",
+    "correction_and_negation": "The bounded lexical scan found no other eligible backpack purchase or arrival date claim that contradicts these two turns; this is not proof no paraphrased correction exists elsewhere.",
+    "new_information": "Both relevant original turns already occur exactly once in the legacy baseline, including their date clauses; all six other proposed original turns also occur exactly once and add no relevant backpack event."
+  },
+  "limitations": [
+    "Legacy baseline is mixed evidence and not ground truth.",
+    "No gold label, grader, model answer, score prediction, or corrected-answer claim was used.",
+    "This is one exposed-case reviewer input, not held-out validation or authorization for runtime promotion."
+  ]
+}

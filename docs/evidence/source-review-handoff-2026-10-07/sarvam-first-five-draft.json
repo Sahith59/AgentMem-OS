@@ -1,0 +1,159 @@
+{
+  "status": "DRAFT_ENGLISH_CONTROLS_ONLY_NOT_EXECUTED",
+  "scored_use": "EXCLUDED_FROM_ANY_FUTURE_BENCHMARK",
+  "native_rendering_status": "PENDING_FOUNDER_LANGUAGE_CHOICE_AND_REVIEW",
+  "fixtures": [
+    {
+      "id": "appointment_update",
+      "source_user": "synthetic-user-A",
+      "turns": [
+        {
+          "id": "a1",
+          "role": "user",
+          "text": "My appointment with Kavya is on October 12, 2026 at 10:00 AM in Hyderabad."
+        },
+        {
+          "id": "a2",
+          "role": "user",
+          "text": "Move that appointment to October 13 at 11:30 AM. The October 12 time is no longer valid."
+        }
+      ],
+      "checks": [
+        "Restart, then ask for the current appointment.",
+        "Ask for the original appointment separately."
+      ],
+      "operations": [
+        "ingest",
+        "restart",
+        "recall_current",
+        "recall_historical"
+      ]
+    },
+    {
+      "id": "preference_and_role",
+      "source_user": "synthetic-user-A",
+      "turns": [
+        {
+          "id": "p1",
+          "role": "user",
+          "text": "I prefer tea without sugar."
+        },
+        {
+          "id": "p2",
+          "role": "assistant",
+          "text": "You could try sweet coffee."
+        },
+        {
+          "id": "p3",
+          "role": "user",
+          "text": "I now prefer black coffee without sugar. Replace my tea preference."
+        }
+      ],
+      "checks": [
+        "Restart, then ask for the current drink preference.",
+        "Verify the assistant suggestion did not become a user preference."
+      ],
+      "operations": [
+        "ingest",
+        "restart",
+        "recall_current"
+      ]
+    },
+    {
+      "id": "cancel_and_rebook",
+      "source_user": "synthetic-user-A",
+      "turns": [
+        {
+          "id": "c1",
+          "role": "user",
+          "text": "I booked a studio visit for October 15, 2026 at 2:00 PM."
+        },
+        {
+          "id": "c2",
+          "role": "user",
+          "text": "Cancel that studio visit."
+        },
+        {
+          "id": "c3",
+          "role": "user",
+          "text": "I made a new studio booking for October 18 at 4:00 PM."
+        }
+      ],
+      "checks": [
+        "Restart, then ask which booking is active.",
+        "Ask whether the October 15 booking is still active."
+      ],
+      "operations": [
+        "ingest",
+        "restart",
+        "recall_current",
+        "recall_cancelled"
+      ]
+    },
+    {
+      "id": "same_name_distinct_people",
+      "source_user": "synthetic-user-A",
+      "turns": [
+        {
+          "id": "n1",
+          "role": "user",
+          "text": "My colleague Ravi Patel likes morning meetings."
+        },
+        {
+          "id": "n2",
+          "role": "user",
+          "text": "My cousin Ravi Shah prefers evening calls. Ravi Shah and Ravi Patel are different people."
+        }
+      ],
+      "checks": [
+        "Ask for each fully named person separately.",
+        "Ask an ambiguous Ravi-only question and preserve uncertainty."
+      ],
+      "operations": [
+        "ingest",
+        "restart",
+        "recall_distinct",
+        "ambiguous_reference"
+      ]
+    },
+    {
+      "id": "forget_and_isolate",
+      "source_user": "synthetic-user-A",
+      "turns": [
+        {
+          "id": "f1",
+          "role": "user",
+          "text": "My preferred appointment location is Lakeside Studio."
+        }
+      ],
+      "second_user": {
+        "id": "synthetic-user-B",
+        "turns": [
+          {
+            "id": "f2",
+            "role": "user",
+            "text": "My preferred appointment location is Hillview Studio."
+          }
+        ]
+      },
+      "checks": [
+        "Forget user-A location; restart; query all memory paths for that fact.",
+        "User-B must still retain Hillview Studio.",
+        "User-A must not receive user-B location."
+      ],
+      "operations": [
+        "ingest_two_scopes",
+        "forget_user_A_location",
+        "restart",
+        "verify_raw_fact_profile_cache_vector_forget",
+        "verify_scope_isolation"
+      ]
+    }
+  ],
+  "limits": [
+    "Synthetic non-sensitive development fixtures.",
+    "Dates are example event dates; actual observation timestamps must be frozen before execution.",
+    "Do not insert expected state into extraction or retrieval requests.",
+    "No liveSarvamAPI, native-ingestion proof, persistence test result or paid authorization."
+  ]
+}

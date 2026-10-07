@@ -1,0 +1,23 @@
+{
+  "policy_sha256": "90adc95e3ffcebaa409677535e782855f6502d97b184249c2db96b0074017990",
+  "script_sha256": "338c1ce90503e6b2e4980651f948d4cbdbd0bcf1a77eda40ffadc875a1534cb7",
+  "code_sha256": {
+    "benchmarks/source_unit_review.py": "97141ab4aa492f4d5458e6cf95a9950c2fe33dfce0d5cfb19d3e111d32f5a423",
+    "llm/source_unit_compiler.py": "c74e26a7d93f3c5e2539084f1893813559b8032996eaefcc7796e3a18bb5e926",
+    "llm/source_unit_contract.py": "35972491218b6051be9493ccef60c5ffd18ead1fce3b94c341ba8e8b2f1bc171",
+    "llm/evidence_packet.py": "497e72fa94dc7d33be7dde7ba8b54b146d35d34174655b6d2883be610e7f1324",
+    "tests/test_source_unit_review.py": "e7e0b7744ce0a329c708c177c36f1a7873e0f3fd60300c89d9af10ae71791742"
+  },
+  "runtime_sha256": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+  "prior_hits_sha256": "46caf43c3a3fdd22b7860c4b69d9616ca1d59e48dcafcabe798d95d805e71680",
+  "proposal_policy": "Existing first8 hybrid hits, whole-turn mechanical examples; no automatic semantic selection",
+  "unit_preview_char_budget": 4000,
+  "review_dossier_budget": "UNBUDGETED_OFFLINE_ONLY",
+  "review_sample_ids": [
+    "60bf93ed",
+    "852ce960",
+    "gpt4_d84a3211"
+  ],
+  "paid_calls": 0,
+  "evaluator_labels_loaded": false
+}

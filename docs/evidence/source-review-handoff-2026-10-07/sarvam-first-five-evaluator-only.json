@@ -1,0 +1,46 @@
+{
+  "status": "EVALUATOR_ONLY_DRAFT",
+  "never_pass_to_runtime": true,
+  "expected": {
+    "appointment_update": {
+      "current": "October13,2026 11:30AM Hyderabad",
+      "historical": "October12,2026 10:00AM Hyderabad",
+      "support": [
+        "a1",
+        "a2"
+      ]
+    },
+    "preference_and_role": {
+      "current": "black coffee without sugar",
+      "not_user_assertion": "sweet coffee",
+      "support": [
+        "p1",
+        "p3"
+      ]
+    },
+    "cancel_and_rebook": {
+      "current": "October18,2026 4:00PM",
+      "cancelled": "October15,2026 2:00PM",
+      "support": [
+        "c1",
+        "c2",
+        "c3"
+      ]
+    },
+    "same_name_distinct_people": {
+      "Ravi Patel": "morning meetings",
+      "Ravi Shah": "evening calls",
+      "Ravi only": "ambiguous; do not auto-merge",
+      "support": [
+        "n1",
+        "n2"
+      ]
+    },
+    "forget_and_isolate": {
+      "user_A_location_after_forget": "not retrievable from any active memory path",
+      "user_B_location": "Hillview Studio",
+      "cross_scope_disclosure": "none",
+      "note": "Audit operation result as well as answer; a verbal claim of forgetting is not sufficient."
+    }
+  }
+}
