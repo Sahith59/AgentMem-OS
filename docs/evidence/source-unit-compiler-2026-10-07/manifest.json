@@ -1,0 +1,17 @@
+{
+  "schema": "source-unit-public-evidence-v1",
+  "files_sha256": {
+    "POLICY.md": "8f54cf7a8dbf3bf2d5862e8595f0d6d94746e6799efb82a91e59a2de2bed8b3c",
+    "REPORT.md": "f5cbf4fced4886856e08956798190d08cdd8fad824fd7bf8fa8db90dd2cae4f3",
+    "audit.py": "a27d0f075de7e600d98e961298e22cc1eb3ba4e3adc951966bff58b0474deec9",
+    "audit.json": "944d0c1eb6f44d534cc7ae4ae4bfc8e494c5a158b0d1a03cfb4cb0cae34bd10c",
+    "freeze.json": "cfde3a6e2f7b2772f1c06a8f547b13a53664c9f1910e4368d0651543de76165d",
+    "validation.json": "476c08651b42dd78f7a3ccc66e024a4dcca13597d6a8606a79e902a57d6047ff",
+    "independent-review.json": "9473c8476b911432cd1724b2df2dd01927b031c5ce84c053f47c85e9d78a7bbb",
+    "stress-verification.json": "5aec15462d05e5135d6010d690cc8a26d1ba438046742626e92cbfe361b40569"
+  },
+  "local_only_artifacts": {
+    "batches.jsonl": "5eed09ea749e1f5d0fdadb9f23eb4f533ce3d8bf3476256c9621c8aec55cb01c"
+  },
+  "limits": "Large runtime input and source-ID batch log remain local and hash-bound. Stress audit selects every eligible full turn; it is not a retrieval candidate or evidence of4k/40k fit. No paid/model calls."
+}
