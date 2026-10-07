@@ -1,0 +1,34 @@
+{
+  "schema": "atomic-allocation-independent-verification-v1",
+  "status": "PASS_WITH_SCOPED_LIMITS",
+  "artifact_sha256": {
+    "POLICY.md": "4a9c1ac7ed156ab31d9597eef21f0061544a2e843d43d758b54b1e2d7ac7713e",
+    "audit.py": "bd459912f7d799168597c9202aa986888c05be11c8485e9fce76d5f861b9a82b",
+    "freeze.json": "c96416a095828c2042fc27a9a1aac3efbbb7489f4be75df26b3bc7267f99284b",
+    "audit.json": "0a88c285a4ea2315eaa20fc47e4e137ca9bde69054c6fc21cc40f1f0537e0526",
+    "packets.jsonl": "d6011cbbc231d788ef99eea28369de5f0b2e553dbd81414750bf29d4250b12bc"
+  },
+  "checks": {
+    "all500_exact_control_replay": true,
+    "source_metadata_cutoffs_hashes_offsets_and_full_renderer": true,
+    "complete_neighborhoods_and_bundle_statuses": true,
+    "independent_subset_optimization_and_ties": true,
+    "label_proxy_joins_and_changed_case_sets": true,
+    "cases": 500,
+    "receipts": 3691,
+    "presence_certificates_counted_per_arm": 30336,
+    "candidate_packet_changes": 131,
+    "historical_miss_gains_vs_control": 2,
+    "historical_miss_losses_vs_control": 2,
+    "correct_case_losses_vs_control": 3,
+    "changed_abstention_packets": 8,
+    "subsets_enumerated": 127505
+  },
+  "limits": [
+    "No rerun of embeddings, model answers, or independent semantic grading; ranking scores and historical labels are frozen inputs.",
+    "Baseline presence receipts were independently checked against source text, scope, time, role, date, hash, and packet offsets, but this check does not reimplement the legacy baseline parser or certify semantic completeness.",
+    "Annotated coverage uses literal normalized body containment and is an evaluator-only proxy, not answer accuracy or sufficient support.",
+    "The original baseline may contain same-day future-stamped text; preserving it does not certify temporal cleanliness."
+  ],
+  "readiness": "FAIL_NO_PAID_PROPOSAL"
+}

@@ -1,0 +1,911 @@
+{
+  "schema": "lossless-neighbor-reuse-diagnostic-v1",
+  "status": "static_offline_potential_only_no_span_parser_no_candidate_packet_no_model_calls",
+  "inputs_sha256": {
+    "diagnosis": "992074453316f6019f9a4559ef397603286a633c1c2de9f6733d26e14a32a5ba",
+    "runtime": "d913dd05f2d28791264f1c7d5df431b8c6e05ea2554096db0f889a8a658fcedb",
+    "packets_v2": "0b3c4fbb4873a123db5760c185183d9274f2c427a39de95eca1ed4d46f7a54f2",
+    "qualification_review": "be00f3ac4eaac3010270c1956ec38e47b7da340497ad0dbe0b862f70f35a009c",
+    "whole_turn_ledger_code": "d1b1544ec60f4206d9b9313cb35aafdfbcb59acc09a8ff2d8ed0907d4078821a",
+    "packer_code": "f5b8c0d28fad5b17b12a2dd7c4a3483cd3aa2f626660da41d26def66ba84da82",
+    "legacy_snippet_code": "19dbad1de7972cf1d37fc6ea48ab276e8e0b75cff13ef3b180b050746508b92e"
+  },
+  "scope": {
+    "blocked_annotated_turns": 26,
+    "blocked_cases": 21,
+    "distinct_required_partner_case_source_pairs": 44,
+    "status_counts": {
+      "no_dated_head_match_at_least_32_chars": 40,
+      "partial_dated_head_candidate": 1,
+      "whole_turn_already_certified": 3
+    },
+    "immediate_target_neighbor_occurrences": 37
+  },
+  "finding": {
+    "case_id": "6d550036",
+    "source_id": "24f53c32b0b95ea82268198a",
+    "source_role": "assistant",
+    "source_chars": 3368,
+    "baseline_prefix_chars": 2621,
+    "missing_source_suffix_chars": 747,
+    "baseline_offset_chars": [
+      28856,
+      31477
+    ],
+    "baseline_prefix_ends_at": "SEMANTIC MEMORY outer section boundary",
+    "baseline_has_unique_prefix_in_scope": true,
+    "question_time_eligible": true,
+    "exact_full_union_chars_with_prior_admissions": 5751,
+    "addition_allowance_chars": 3663,
+    "current_overshoot_chars": 2088,
+    "ideal_text_only_cost_after_prefix_reuse_chars": 3130,
+    "remaining_room_for_new_span_framing_chars": 533,
+    "meaning": "The sole newly identifiable partial prefix could, if certified, make this rejected complete neighborhood fit; this is a character upper-bound diagnostic, not a candidate packet, source-delivery result, or answer-gain prediction."
+  },
+  "identity_contract_for_future_consideration": [
+    "Validate the exact immutable source snapshot, scope, source hashes, original position/role, and full observation timestamp; include all scoped sources, including future ones, when testing uniqueness but only reuse an as-of-eligible source.",
+    "Parse the entire frozen baseline outer envelope and recognized renderer boundaries before accepting a source fragment. A literal interior match or an unframed sentence-window snippet is not source identity.",
+    "Accept only an exact original source interval beginning at offset zero with the original date stamp at a trusted line/chunk boundary, unique across all scoped originals; conservatively reject duplicate/prefix collisions, nested framing, and uncertain snippet markers.",
+    "Bind each certified baseline interval to the source ID and exact baseline offsets; append only the exact uncovered original suffix with source ID, role, date, full text hash, and source offset range. Record a union-of-intervals receipt and require coverage [0,len(source)) for a complete neighborhood.",
+    "Retain assistant role as assistant. Do not upgrade assistant advice or paraphrased semantic facts to user statements. Partial delivery is not equivalent to contiguous reader context or answer correctness."
+  ],
+  "limits": [
+    "Forty required partners had no matched original dated head of at least 32 characters; this does not rule out shorter or interior string coincidences, which are unsafe to credit without provenance.",
+    "Three complete partner heads were already recognized by the frozen whole-turn ledger; they offer no new byte savings.",
+    "The one partial source ends at the outer semantic-memory boundary with no explicit source ID in the legacy packet. Its identity is plausible from unique exact original prefix plus known renderer framing, but no partial-span certificate implementation exists.",
+    "The measured 533 characters is headroom before any new cross-piece reference and span framing; no packet was generated or evaluated.",
+    "The existing v2 gate failure, historical answers, and temporal policy remain unchanged. A single unresolved case does not warrant a new span parser in this turn."
+  ],
+  "required_partners": [
+    {
+      "case_id": "09d032c9",
+      "partner_source_id": "3c2932679855d183a1f4e830",
+      "required_for_flagged_targets": [
+        "73ba7cd074748e15e617c0ea"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+      "source_position": 1,
+      "source_date": "2023/05/27 (Sat) 05:53",
+      "source_sha256": "306791f5c52b71342e45b8b94121e86e24e157b212fa780f7ce78500e767dc64",
+      "source_chars": 2622,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "09d032c9",
+      "partner_source_id": "7cf2feb938a3060752f7e171",
+      "required_for_flagged_targets": [
+        "73ba7cd074748e15e617c0ea"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+      "source_position": 2,
+      "source_date": "2023/05/27 (Sat) 05:53",
+      "source_sha256": "7100b9e74b7b86b388969e18a4b339b2377aa6bb5f2472a351024f62f57da854",
+      "source_chars": 169,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "0bc8ad93",
+      "partner_source_id": "8e3eb32a1ba763e6c536c288",
+      "required_for_flagged_targets": [
+        "66c652e8317e860094374526"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-2fbfcb8f3a2a0e16f7cbe66720b7f6692c9a5c7a9e9ffc389cca7eb381009068",
+      "source_position": 1,
+      "source_date": "2023/01/11 (Wed) 06:16",
+      "source_sha256": "3ec8fd05f82b22c6f9dddb3966172c959be93390f3e24b091b2435864a96f6f2",
+      "source_chars": 2871,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "10d9b85a",
+      "partner_source_id": "67a12dbdec82691b05a4f839",
+      "required_for_flagged_targets": [
+        "b483864998f1b92c6610bd72"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-88aa13fc3e5b0b1a01b4efeb80c29eedcbb227bd7697104baa063aca40515f98",
+      "source_position": 3,
+      "source_date": "2023/05/01 (Mon) 20:24",
+      "source_sha256": "ae84902c8e19fa219dfaf22ad3c8b94d0d8f5c0a75022577ecd9669dafa87287",
+      "source_chars": 2926,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "10d9b85a",
+      "partner_source_id": "682e73c2af374860e79f1390",
+      "required_for_flagged_targets": [
+        "a1a9c0b3d2cd44d7e1ec26ee"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-b7706883f7fb03eab695acc6ab3e0fbd783b002252914c6ad1330657aa30b81b",
+      "source_position": 1,
+      "source_date": "2023/05/01 (Mon) 16:19",
+      "source_sha256": "b3d1a317cd87399ac41e09fdaf8b5240668d329c4585e6092c32af36c02f7a25",
+      "source_chars": 2709,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "10d9b85a",
+      "partner_source_id": "a8f5dce474519f4d65887cc2",
+      "required_for_flagged_targets": [
+        "b483864998f1b92c6610bd72"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-88aa13fc3e5b0b1a01b4efeb80c29eedcbb227bd7697104baa063aca40515f98",
+      "source_position": 1,
+      "source_date": "2023/05/01 (Mon) 20:24",
+      "source_sha256": "bde2242c42e2d06aa2f7c9e7a5acd92a71acb25307ecfc72870f4266de91ba6e",
+      "source_chars": 2786,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "1a8a66a6",
+      "partner_source_id": "497e461b454cb2adca52b005",
+      "required_for_flagged_targets": [
+        "c7c37653046239e2814246c7"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-af86608315fdc6d5fa51704c0d3c251b6981ef1a7093dbad271eb0e908f15e99",
+      "source_position": 1,
+      "source_date": "2023/04/01 (Sat) 19:02",
+      "source_sha256": "aa5fd35db12af5f33b460696191119c7d3a31f732672ac52a41770d604777ce6",
+      "source_chars": 2169,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "2311e44b",
+      "partner_source_id": "8eeffe0b5d1d17c22262cb79",
+      "required_for_flagged_targets": [
+        "8a79fa90f525b41cbadff535"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-5137725c008810416853accbf2093ac6e70b00f6827cb065ace154dce3c0d0e2",
+      "source_position": 6,
+      "source_date": "2023/05/30 (Tue) 01:32",
+      "source_sha256": "41152ec353986916e82316966d289908b50799d7b1a1b3b6359be2b280b36769",
+      "source_chars": 235,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "2311e44b",
+      "partner_source_id": "d01d89d6649c0371f74ccd67",
+      "required_for_flagged_targets": [
+        "8a79fa90f525b41cbadff535"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-5137725c008810416853accbf2093ac6e70b00f6827cb065ace154dce3c0d0e2",
+      "source_position": 7,
+      "source_date": "2023/05/30 (Tue) 01:32",
+      "source_sha256": "42a427ee30674187e805d80503d01582c33f446cf1071a8426b7c0425ea21f6a",
+      "source_chars": 2877,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "37f165cf",
+      "partner_source_id": "d613b258680d67307faa023f",
+      "required_for_flagged_targets": [
+        "8a6fe5de69e6ba7fd6f34c76"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-8e9fedc6a4a3342d634b1834e102963ce77bf42a3b6d61036d8406121e96a156",
+      "source_position": 2,
+      "source_date": "2023/05/22 (Mon) 13:27",
+      "source_sha256": "ccb61563e1b3b4aa4a7216d243ce8b00a9a90039b93d4b6058a04c6dd5ea0fd9",
+      "source_chars": 143,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "37f165cf",
+      "partner_source_id": "f6be02107b8a37225c09f257",
+      "required_for_flagged_targets": [
+        "8a6fe5de69e6ba7fd6f34c76"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-8e9fedc6a4a3342d634b1834e102963ce77bf42a3b6d61036d8406121e96a156",
+      "source_position": 1,
+      "source_date": "2023/05/22 (Mon) 13:27",
+      "source_sha256": "c26111002d35cdef9da79862666bf1c95b1ccdb851cac7f021ca9e1689463e57",
+      "source_chars": 2438,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "3a704032",
+      "partner_source_id": "31468741da27836bed6fa65e",
+      "required_for_flagged_targets": [
+        "62110e7c70eef58327a699f5"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-84b8d74b31ed0837a38942ec852443fc5d1b4154461f89713b587ded78432bc8",
+      "source_position": 1,
+      "source_date": "2023/05/20 (Sat) 20:05",
+      "source_sha256": "4e91e120757ca429308c0497aef73275eaa65a902dd8290f8113c00b7c2b3b2f",
+      "source_chars": 2851,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "3a704032",
+      "partner_source_id": "6fea094847ade10b1e2a7e9b",
+      "required_for_flagged_targets": [
+        "62110e7c70eef58327a699f5"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-84b8d74b31ed0837a38942ec852443fc5d1b4154461f89713b587ded78432bc8",
+      "source_position": 3,
+      "source_date": "2023/05/20 (Sat) 20:05",
+      "source_sha256": "9b6868142cc308993d22b53f79ff7e503e8c3ce0c0adff7af57769d79773237a",
+      "source_chars": 2129,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "46a3abf7",
+      "partner_source_id": "887ea1a284b1ab070f5fe792",
+      "required_for_flagged_targets": [
+        "b5614abfc457994840493b7f"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-9a60b124e466a2bb93c5fdb1de38af5a97c6ba3a0e61dde667ebfe1c0648b93d",
+      "source_position": 1,
+      "source_date": "2023/05/21 (Sun) 12:06",
+      "source_sha256": "c8f9bc3ecfc90be65528258641dc0b0b454b52b0e7a700f003035fc63ac69882",
+      "source_chars": 1786,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "6d550036",
+      "partner_source_id": "24f53c32b0b95ea82268198a",
+      "required_for_flagged_targets": [
+        "8bd008c72f092c5670f0adcc"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-2605669c19a084a4dd0df843bff2dd940010d18f59fb81463ae32c9f11e33698",
+      "source_position": 1,
+      "source_date": "2023/05/29 (Mon) 09:25",
+      "source_sha256": "40d56c1bc476c6a93c598f8fe2fffd773822d3bb228bea6f99d20649974b6f3a",
+      "source_chars": 3368,
+      "longest_exact_dated_head_chars": 2621,
+      "baseline_head_start": 28856,
+      "baseline_head_end": 31477,
+      "baseline_receipt": null,
+      "status": "partial_dated_head_candidate",
+      "baseline_left_boundary_excerpt": "ge more in communication?\n---\n",
+      "baseline_right_boundary_excerpt": "\n</[SEMANTIC MEMORY]>\n\n<[RECENT TURNS]>\n8] I'm thinking of t",
+      "original_at_cut_excerpt": "ection, engineering, and preprocessing.\n4. **Featuretools**: A library specifically designed for feature engineering.\n\n**R Libraries:**\n\n1. **dplyr**: For data ",
+      "baseline_head_occurrences": 1,
+      "scoped_originals_containing_matched_head": 1,
+      "question_date": "2023/05/30 (Tue) 23:32",
+      "baseline_sha256": "4c183a5ef9587141f4da77927c70a4bffde5f940a610e70e10a909b583653087",
+      "baseline_framing_hazards": [],
+      "baseline_ambiguous_whole_receipts": 0,
+      "scoped_originals_containing_matched_head_all_sessions": 1
+    },
+    {
+      "case_id": "6d550036",
+      "partner_source_id": "fd3b78c4d9a23d4c7d8e0216",
+      "required_for_flagged_targets": [
+        "8bd008c72f092c5670f0adcc"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-2605669c19a084a4dd0df843bff2dd940010d18f59fb81463ae32c9f11e33698",
+      "source_position": 0,
+      "source_date": "2023/05/29 (Mon) 09:25",
+      "source_sha256": "621727d449a6499df66df05d42bc3e6fef4c79ec54b3da8bee62d022dbf29312",
+      "source_chars": 217,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "73d42213",
+      "partner_source_id": "009e7eea3381ebbb4717e506",
+      "required_for_flagged_targets": [
+        "2ec37799771fa8ab6d0799dd"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+      "source_position": 0,
+      "source_date": "2023/05/30 (Tue) 00:00",
+      "source_sha256": "332b56b060094f3fd06bf41edb01a40fc60092967504406da19d34ed2b04ec62",
+      "source_chars": 270,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "73d42213",
+      "partner_source_id": "2af36f40fa4edd30990233c4",
+      "required_for_flagged_targets": [
+        "d8089516f281a9edb5d32de5"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-ca143a9f37f08048b0516bf1d28b182a35f9585241abe2169c72ddf6300854f8",
+      "source_position": 3,
+      "source_date": "2023/05/20 (Sat) 23:43",
+      "source_sha256": "587e9025182ed8c4f6e622b3e5776cee550ed09f8f6ca15654c06a9622edc4fc",
+      "source_chars": 1225,
+      "longest_exact_dated_head_chars": 1225,
+      "baseline_head_start": 15493,
+      "baseline_head_end": 16718,
+      "baseline_receipt": {
+        "id": "2af36f40fa4edd30990233c4",
+        "session": "lme-session-ca143a9f37f08048b0516bf1d28b182a35f9585241abe2169c72ddf6300854f8",
+        "position": 3,
+        "role": "assistant",
+        "observed_at": "2023-05-20T23:43:00",
+        "sha256": "587e9025182ed8c4f6e622b3e5776cee550ed09f8f6ca15654c06a9622edc4fc",
+        "start": 15493,
+        "end": 16718,
+        "renderer": "SEMANTIC MEMORY",
+        "future": false
+      },
+      "status": "whole_turn_already_certified",
+      "baseline_left_boundary_excerpt": "e day\n\nLet's get started!\n---\n",
+      "baseline_right_boundary_excerpt": "\n---\n[2023/05/21 (Sun) 02:25] Congratulations to the Chiefs ",
+      "original_at_cut_excerpt": "ou know it, you'll be back on track and feeling more in control of your project.",
+      "baseline_head_occurrences": 1,
+      "scoped_originals_containing_matched_head": 1
+    },
+    {
+      "case_id": "73d42213",
+      "partner_source_id": "3e4a5530d8435d8dda430f49",
+      "required_for_flagged_targets": [
+        "d8089516f281a9edb5d32de5"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-ca143a9f37f08048b0516bf1d28b182a35f9585241abe2169c72ddf6300854f8",
+      "source_position": 5,
+      "source_date": "2023/05/20 (Sat) 23:43",
+      "source_sha256": "288f332caecb7a71c8277124fa11b6e229381a124baf3e1a2f77ce1d0a676ced",
+      "source_chars": 2640,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "73d42213",
+      "partner_source_id": "d6ad5a7bb4fac4e3a320f8b8",
+      "required_for_flagged_targets": [
+        "2ec37799771fa8ab6d0799dd"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+      "source_position": 3,
+      "source_date": "2023/05/30 (Tue) 00:00",
+      "source_sha256": "6d5c16d5f491043c3e578e14ff99c19acbcf762dd4ce59db54632196d59ed6d1",
+      "source_chars": 1407,
+      "longest_exact_dated_head_chars": 1407,
+      "baseline_head_start": 35811,
+      "baseline_head_end": 37218,
+      "baseline_receipt": {
+        "id": "d6ad5a7bb4fac4e3a320f8b8",
+        "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+        "position": 3,
+        "role": "assistant",
+        "observed_at": "2023-05-30T00:00:00",
+        "sha256": "6d5c16d5f491043c3e578e14ff99c19acbcf762dd4ce59db54632196d59ed6d1",
+        "start": 35811,
+        "end": 37218,
+        "renderer": "ADDITIONAL SOURCE EVIDENCE",
+        "future": false
+      },
+      "status": "whole_turn_already_certified",
+      "baseline_left_boundary_excerpt": "6d5c16d5f491043c | assistant]\n",
+      "baseline_right_boundary_excerpt": "\n",
+      "original_at_cut_excerpt": "ope this helps you find a more convenient option for your follow-up appointment!",
+      "baseline_head_occurrences": 1,
+      "scoped_originals_containing_matched_head": 1
+    },
+    {
+      "case_id": "73d42213",
+      "partner_source_id": "e89c92a8c2e8dea80c0653fe",
+      "required_for_flagged_targets": [
+        "2ec37799771fa8ab6d0799dd"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+      "source_position": 1,
+      "source_date": "2023/05/30 (Tue) 00:00",
+      "source_sha256": "289b57ca068e4a235d4fff5a73d18abe49aa295b60c059f81e03e7919c56d6f7",
+      "source_chars": 626,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "92a0aa75",
+      "partner_source_id": "c75dcd91ff9cbcd0ccb3bd92",
+      "required_for_flagged_targets": [
+        "cd80e8eec78d4d2f4b25e9d5"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-4562241059e9999dc733538ea5cd4eebd5370aba945d1ffb823c88dc178376f1",
+      "source_position": 1,
+      "source_date": "2023/05/27 (Sat) 19:34",
+      "source_sha256": "018e2c17b57eefcab0a2e3de9e838471a9f98777eadc18fc3dbeca0620aff780",
+      "source_chars": 2583,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "95228167",
+      "partner_source_id": "5f99f8eb5972b8fbadeb3c06",
+      "required_for_flagged_targets": [
+        "de57cda578da1dc2bf40cf6e"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-dc3cf2696bb157e8878f38acef6ee8dbaae67165a6be3dbf7a4828feef2bd74c",
+      "source_position": 2,
+      "source_date": "2023/05/25 (Thu) 23:11",
+      "source_sha256": "ed0ce106bee3221bbe73c33aa4a0a6e57cd577e7a09be0562537e522fd061737",
+      "source_chars": 96,
+      "longest_exact_dated_head_chars": 96,
+      "baseline_head_start": 20220,
+      "baseline_head_end": 20316,
+      "baseline_receipt": {
+        "id": "5f99f8eb5972b8fbadeb3c06",
+        "session": "lme-session-dc3cf2696bb157e8878f38acef6ee8dbaae67165a6be3dbf7a4828feef2bd74c",
+        "position": 2,
+        "role": "user",
+        "observed_at": "2023-05-25T23:11:00",
+        "sha256": "ed0ce106bee3221bbe73c33aa4a0a6e57cd577e7a09be0562537e522fd061737",
+        "start": 20220,
+        "end": 20316,
+        "renderer": "SEMANTIC MEMORY",
+        "future": false
+      },
+      "status": "whole_turn_already_certified",
+      "baseline_left_boundary_excerpt": "ions like the D500 or D5?\n---\n",
+      "baseline_right_boundary_excerpt": "\n---\n[2023/05/27 (Sat) 01:58] Dropping hints can be a delica",
+      "original_at_cut_excerpt": ") 23:11] What are the most common types of music that people play on a Les Paul?",
+      "baseline_head_occurrences": 1,
+      "scoped_originals_containing_matched_head": 1
+    },
+    {
+      "case_id": "95228167",
+      "partner_source_id": "e31e31564710f8cd5f4cd894",
+      "required_for_flagged_targets": [
+        "de57cda578da1dc2bf40cf6e"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-dc3cf2696bb157e8878f38acef6ee8dbaae67165a6be3dbf7a4828feef2bd74c",
+      "source_position": 1,
+      "source_date": "2023/05/25 (Thu) 23:11",
+      "source_sha256": "e302b51c6e076d47cf358d6653c3f13cae7a125d9c201ed5b59ecdd38a832412",
+      "source_chars": 2509,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "9d25d4e0",
+      "partner_source_id": "0017d6a1b241ebe7efc3a316",
+      "required_for_flagged_targets": [
+        "397ce30210f663684b0f0f48"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-abe27d18412e9d8cccd566fade0d3d6eba69ac9e9691c0a9dda35ba18a711578",
+      "source_position": 9,
+      "source_date": "2023/05/21 (Sun) 21:58",
+      "source_sha256": "8e4660565cbed23e22425cb2f34415e714381951638b88a2650365340957a86e",
+      "source_chars": 1095,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "9d25d4e0",
+      "partner_source_id": "03291cfc607fd77e6996c45d",
+      "required_for_flagged_targets": [
+        "397ce30210f663684b0f0f48"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-abe27d18412e9d8cccd566fade0d3d6eba69ac9e9691c0a9dda35ba18a711578",
+      "source_position": 7,
+      "source_date": "2023/05/21 (Sun) 21:58",
+      "source_sha256": "a58c431175376842a30a80a26030783b906beeda3e6afcaff78e4ce5041eddaf",
+      "source_chars": 2332,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "9d25d4e0",
+      "partner_source_id": "16074cceebe3bdf896989482",
+      "required_for_flagged_targets": [
+        "0b849a219143a3c0e74453e6"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-efbb1902f53abf623e8c5a61d9e13795821193d0989a1aca4c2f42438ea8840d",
+      "source_position": 1,
+      "source_date": "2023/05/28 (Sun) 14:40",
+      "source_sha256": "75ebd4891b7050a9ff50fd0ed82c267d272655eb9a5febe902eee6431a5d4bc2",
+      "source_chars": 2632,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "a9f6b44c",
+      "partner_source_id": "1494e34e95ed64215405c564",
+      "required_for_flagged_targets": [
+        "54cf9ac430d7aa6ae35b2d91"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-a69921a24151b578ae50e68bc0a64c233326a3bed63ba95acd309f7729290e1e",
+      "source_position": 2,
+      "source_date": "2023/03/20 (Mon) 18:33",
+      "source_sha256": "9d72dee9ae9aac58ab143415863270a40b17a71bfa6592cd053a7f78a57f86a1",
+      "source_chars": 312,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "a9f6b44c",
+      "partner_source_id": "447662d4fb26b7a475ab9b73",
+      "required_for_flagged_targets": [
+        "54cf9ac430d7aa6ae35b2d91"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-a69921a24151b578ae50e68bc0a64c233326a3bed63ba95acd309f7729290e1e",
+      "source_position": 1,
+      "source_date": "2023/03/20 (Mon) 18:33",
+      "source_sha256": "dc95a80bd03002cd8a5213311993b5f9f0ffc0191957997da7ed19f42c366cd3",
+      "source_chars": 819,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "a9f6b44c",
+      "partner_source_id": "c30e81f81f2dd64063577ec9",
+      "required_for_flagged_targets": [
+        "c8616cd19b0b5541bcde96e3"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-a69921a24151b578ae50e68bc0a64c233326a3bed63ba95acd309f7729290e1e",
+      "source_position": 8,
+      "source_date": "2023/03/20 (Mon) 18:33",
+      "source_sha256": "9b7d7c2f9efc1c5c9f275857388756c0713d122f0b9f86188d2e4ef605516f1b",
+      "source_chars": 267,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "a9f6b44c",
+      "partner_source_id": "e33352cdd2a5490ea39628d6",
+      "required_for_flagged_targets": [
+        "c8616cd19b0b5541bcde96e3"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-a69921a24151b578ae50e68bc0a64c233326a3bed63ba95acd309f7729290e1e",
+      "source_position": 7,
+      "source_date": "2023/03/20 (Mon) 18:33",
+      "source_sha256": "8cb8c1ce78e05621dbfcbc638d1ed2dedd49f9981dcc0a682980b9893bdd96f9",
+      "source_chars": 928,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "b5ef892d",
+      "partner_source_id": "94ccb739184227d08f771f3f",
+      "required_for_flagged_targets": [
+        "e9ee07ba12e78a42da75b93e"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-2c68010b4eef27ccc5e6fbfdfe7a6d1424a3884e37f535f9635a100bbdfad58f",
+      "source_position": 1,
+      "source_date": "2023/04/29 (Sat) 15:49",
+      "source_sha256": "8d199e1cdf9eef2c6decbbb92cdbeee6a396596af5d8cd01be499cc87a638949",
+      "source_chars": 2326,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "c18a7dc8",
+      "partner_source_id": "17617aaaf073c5f9e0704b63",
+      "required_for_flagged_targets": [
+        "d88bc38b0916067885c01d04"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-2925515d531718e13026f82405fd5260225adc0ad8ad51861b30fd648d0f9e6e",
+      "source_position": 1,
+      "source_date": "2023/05/26 (Fri) 19:08",
+      "source_sha256": "54b888caa86089dbed4cc789c72ad8d6e6cdd4b9a2aeb5bb80e56cb4789099a9",
+      "source_chars": 2588,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "e3038f8c",
+      "partner_source_id": "14ee86e1123dccc31c29c8b8",
+      "required_for_flagged_targets": [
+        "d800c8098ff6c6a05621df87"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-e5a02372b21637b69cfd50f77878e7dee4707f74a4911aa47a4ebe26198e9e9a",
+      "source_position": 3,
+      "source_date": "2023/05/23 (Tue) 22:19",
+      "source_sha256": "aa7724af3057c7796e8abe1589052494aa592a035f81c03cc3c10a4c89249c9f",
+      "source_chars": 3094,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "e3038f8c",
+      "partner_source_id": "58de794eea791e96d294c664",
+      "required_for_flagged_targets": [
+        "d800c8098ff6c6a05621df87"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-e5a02372b21637b69cfd50f77878e7dee4707f74a4911aa47a4ebe26198e9e9a",
+      "source_position": 5,
+      "source_date": "2023/05/23 (Tue) 22:19",
+      "source_sha256": "364d04960cabc4ebea3d8bd33dd4cb9b22086952a9ae72323ace57cdc91a054d",
+      "source_chars": 2993,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_1e4a8aec",
+      "partner_source_id": "be8427f9b38a7bb6faa2140f",
+      "required_for_flagged_targets": [
+        "2d1138a1bb7f959d27e91b26"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-e4da6764cfd21b44031d853afdbba6f0164548d489836844ac9fa8deb786be66",
+      "source_position": 2,
+      "source_date": "2023/04/21 (Fri) 00:30",
+      "source_sha256": "54a4db80ea4858f5372f5e796e3b280c5a2a5fa37d1e8275e9e33ad55b80588b",
+      "source_chars": 170,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_1e4a8aec",
+      "partner_source_id": "dcd926d1d36ffb6f904a46c6",
+      "required_for_flagged_targets": [
+        "2d1138a1bb7f959d27e91b26"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-e4da6764cfd21b44031d853afdbba6f0164548d489836844ac9fa8deb786be66",
+      "source_position": 1,
+      "source_date": "2023/04/21 (Fri) 00:30",
+      "source_sha256": "4e56056c3cae49d662c25a05f3db4cc3ee2f9be0de7074dee11594c78878339c",
+      "source_chars": 2468,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_7fce9456",
+      "partner_source_id": "6033d62aa9b5152a857215db",
+      "required_for_flagged_targets": [
+        "7cb511743f33efe87fc55f31"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-d8291a94e0b8a916ec318c7c4c9fc54537fa1d90d0e4fbc0adaf0267782ce5c2",
+      "source_position": 5,
+      "source_date": "2023/03/08 (Wed) 16:03",
+      "source_sha256": "39763104be647b942ddd3f6aa4d613ff3b778b110b6e29989ac96c7e1f925c62",
+      "source_chars": 2590,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_7fce9456",
+      "partner_source_id": "824ef0c877ab99d24c8d698c",
+      "required_for_flagged_targets": [
+        "7cb511743f33efe87fc55f31"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-d8291a94e0b8a916ec318c7c4c9fc54537fa1d90d0e4fbc0adaf0267782ce5c2",
+      "source_position": 7,
+      "source_date": "2023/03/08 (Wed) 16:03",
+      "source_sha256": "93dc155c561424e1a1182d8e3c9f2eda4b8b3c94d1992a9f6cbb47dc493000ad",
+      "source_chars": 2636,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_7fce9456",
+      "partner_source_id": "cf970da878a6e9d05f3fd031",
+      "required_for_flagged_targets": [
+        "2d93d076757333b534f0ab8f"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-b1b77e74196656ff33e73382aaca49578ad156ca201d7528f804d1f6fb98c12e",
+      "source_position": 1,
+      "source_date": "2023/03/08 (Wed) 12:09",
+      "source_sha256": "d38665203611d83ff5371aad0cf006255c7f05c8946406ec7fb053b9f5f26db2",
+      "source_chars": 2931,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_8279ba02",
+      "partner_source_id": "0e8e9112ae33b7228e91ed80",
+      "required_for_flagged_targets": [
+        "d28caab127fd78c7af303c94"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-c67489a8a1124beab527766c761e90c2e0570fa71b5a42ac16479dfb751df0dc",
+      "source_position": 3,
+      "source_date": "2023/03/15 (Wed) 06:05",
+      "source_sha256": "a7630e92dd7588c1f5c0d8fd52cb9f1fa4ab842ab36e3cbfe0fb00f1d1301fd9",
+      "source_chars": 2530,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_8279ba02",
+      "partner_source_id": "856962c71fc2aa99df53ff15",
+      "required_for_flagged_targets": [
+        "d28caab127fd78c7af303c94"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-c67489a8a1124beab527766c761e90c2e0570fa71b5a42ac16479dfb751df0dc",
+      "source_position": 1,
+      "source_date": "2023/03/15 (Wed) 06:05",
+      "source_sha256": "df87db307c45ea6fd04af95c3a4744a55c8c05445424d96d4011d0ad67ad0a50",
+      "source_chars": 2221,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_8279ba03",
+      "partner_source_id": "9922668e13d07ad25076cc9d",
+      "required_for_flagged_targets": [
+        "7f853183f49f26dec06898b5"
+      ],
+      "source_role": "user",
+      "source_session": "lme-session-cabc3a41ea202dc117316220307cb002f7417f853dab2bd66fa23c1da9bbbe45",
+      "source_position": 2,
+      "source_date": "2023/03/15 (Wed) 11:56",
+      "source_sha256": "e4719cb0bb0896d9ddcce4bd78c9a499a420409251146d5aa9c0dc0821e2b776",
+      "source_chars": 208,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    },
+    {
+      "case_id": "gpt4_8279ba03",
+      "partner_source_id": "df52b2407c37d30c56689797",
+      "required_for_flagged_targets": [
+        "7f853183f49f26dec06898b5"
+      ],
+      "source_role": "assistant",
+      "source_session": "lme-session-cabc3a41ea202dc117316220307cb002f7417f853dab2bd66fa23c1da9bbbe45",
+      "source_position": 1,
+      "source_date": "2023/03/15 (Wed) 11:56",
+      "source_sha256": "eba25980ee75f5d73a6ebc3e7f547ebf76aacffb0137f22eae1be6237e08427d",
+      "source_chars": 2656,
+      "longest_exact_dated_head_chars": 0,
+      "baseline_head_start": null,
+      "baseline_head_end": null,
+      "baseline_receipt": null,
+      "status": "no_dated_head_match_at_least_32_chars"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "status": "EVALUATOR_ONLY_EXTRACTS_NOT_NEW_ANSWERS",
+  "rows": [
+    {
+      "id": "09d032c9",
+      "question": "I've been having trouble with the battery life on my phone lately. Any tips?",
+      "saved_answer": "Check battery usage, reduce brightness/background activity, keep the phone cool, and use your portable power bank when needed; replace the battery if its health is significantly degraded.",
+      "gain_sources": [
+        {
+          "id": "73ba7cd074748e15e617c0ea",
+          "position": 0,
+          "role": "user",
+          "text": "[2023/05/27 (Sat) 05:53] I'm looking for some advice on the best way to organize my tech accessories, like my new portable power bank and wireless charging pad, when I'm traveling.",
+          "session": "lme-session-b02615316af1936a62687d7cf48d8680f42ca36c6e054d92fd9ddc63a94b65f8",
+          "date": "2023/05/27 (Sat) 05:53"
+        }
+      ],
+      "loss_sources": []
+    },
+    {
+      "id": "73d42213",
+      "question": "What time did I reach the clinic on Monday?",
+      "saved_answer": "The exact arrival time wasn\u2019t mentioned; you left home at 7:00 AM.",
+      "gain_sources": [
+        {
+          "id": "2ec37799771fa8ab6d0799dd",
+          "position": 2,
+          "role": "user",
+          "text": "[2023/05/30 (Tue) 00:00] I'm located in 12345, and I need to see my primary care doctor. I'm available anytime on weekdays, but I'd prefer morning slots. As I mentioned earlier, it took me two hours to get to the clinic from my home last time, so if I could find something within an hour's drive, that would be great.",
+          "session": "lme-session-df7ae4dd9843b5b8dc1d8b1b7c7c1600f855515f44fe20b79c82b779f84fe930",
+          "date": "2023/05/30 (Tue) 00:00"
+        }
+      ],
+      "loss_sources": []
+    },
+    {
+      "id": "a9f6b44c",
+      "question": "How many bikes did I service or plan to service in March?",
+      "saved_answer": "1 bike",
+      "gain_sources": [],
+      "loss_sources": [
+        {
+          "id": "fd592c31dcd9f417bf84441b",
+          "position": 0,
+          "role": "user",
+          "text": "[2023/03/20 (Mon) 07:32] I'm looking into getting a new tire for my commuter bike. I've been having some issues with the front tire, and I think it is time to replace it this month, before April comes.",
+          "session": "lme-session-1f4683d0100b32298cb018cf489d62b159a51034acae25442b4e2a6497173ae2",
+          "date": "2023/03/20 (Mon) 07:32"
+        }
+      ]
+    },
+    {
+      "id": "bf659f65",
+      "question": "How many music albums or EPs have I purchased or downloaded?",
+      "saved_answer": "2 music albums or EPs",
+      "gain_sources": [],
+      "loss_sources": [
+        {
+          "id": "d0a8b58dbc02d23b54248f58",
+          "position": 0,
+          "role": "user",
+          "text": "[2023/05/29 (Mon) 18:21] I'm looking for some new music recommendations. I've been really into indie and folk-rock lately, especially after discovering The Whiskey Wanderers at a music festival last weekend - I bought their EP 'Midnight Sky' at the festival merchandise booth and can't get enough of it. Can you suggest some similar artists or bands I might like?",
+          "session": "lme-session-38701e88bd04532fb7861ca2658b7f9ae76947204245fcb70b96a922f616e86c",
+          "date": "2023/05/29 (Mon) 18:21"
+        }
+      ]
+    }
+  ]
+}

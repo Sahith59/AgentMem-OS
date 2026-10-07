@@ -1,0 +1,15 @@
+{
+  "status": "PASS_FOCUSED_OFFLINE",
+  "code_commit": "9c2a4cc",
+  "focused_tests": 121,
+  "new_atomic_allocation_tests": 14,
+  "ruff": "PASS: llm/source_aware_selection.py and tests/test_atomic_allocation.py",
+  "diff_check": "PASS",
+  "environment": "isolated uv Python3.13/scikit-learn1.8.0; plugins and conftest disabled",
+  "warning": "Expected unknown asyncio_mode with plugins disabled",
+  "initial_failures": [
+    "A missing bracket in a new test stopped collection; corrected before candidate output.",
+    "The synthetic equal-utility test allowance fit both sources; reduced that fixture allowance to actually test the intended one-source tie. No benchmark policy changed."
+  ],
+  "paid_calls": 0
+}
