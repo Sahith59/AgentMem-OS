@@ -1,0 +1,687 @@
+{
+  "status": "ASSISTANT_REVIEWED_EXPLORATORY",
+  "human_validated": false,
+  "case_count": 38,
+  "cases": [
+    {
+      "case_id": "D01-en",
+      "runtime_sha256": "912a9599c50e2e746bedddc91ec04e2d79883790052b67d810e226204f5f2b98",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D01-hi",
+      "runtime_sha256": "e8e09f8ab7a4faa6ff3f7d1ac43b111e657272a4ccc23baedd04ac75948a2e3f",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D01-te",
+      "runtime_sha256": "44e40f8edbaabaaf01692d46425d24a9c545406b7ef690b9813bcd65286db452",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D02-hi",
+      "runtime_sha256": "b4d4481730048efaac8dd6cfd3baa4e500511f73ab951de5b58f383ad8d72f9d",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D02-te",
+      "runtime_sha256": "5ce9b7d77ac44a93ad94362fa3b37668670a70649d30981ead6ca61032c8acb3",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D03-en",
+      "runtime_sha256": "9842b9029b4d0f3dcd9c5d5631f26f59553641a05d64c391f63d4fe6acef04a9",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D03-hi",
+      "runtime_sha256": "b3de20cb4eb0f228f7c6e44831f00bd5ac074510b18b21269f6d7bef2998ed13",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D03-te",
+      "runtime_sha256": "f602389d03d3e3f9c69aa1a24992b51473c971c12eee0e871bef4a6808977baf",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D04-en",
+      "runtime_sha256": "117e8ef2b9d2625d36d7fdd921cd45e9c110fe453fe67dfb7570564ab2017d37",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D04-hi",
+      "runtime_sha256": "76e33cd75c4873b1c6cf9e535aa6637c5b6a879c2e8ba6ec05cee49720933947",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D04-te",
+      "runtime_sha256": "91c7a02dc32c2824d32b9af87733777aca2278cd4bb585cb4a50f7833b7ae6f7",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D05-en",
+      "runtime_sha256": "4507e868105ba6ec203dce814d602afafbb64b2761fa774eaf6c9f64870bd4c6",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D05-hi",
+      "runtime_sha256": "39105add16841686ea38b9ed372c8e85caf1b3bd75f050ba38d43fedb469827e",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D05-te",
+      "runtime_sha256": "7b3bb63b4be639b0b899040fc8c734b08fc4d92d984179f154817169c14e28ab",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D06-en",
+      "runtime_sha256": "76c5c43cc6c32e62e84b6884f2360351d521d1428a8ae0a4b9cfad59de38f194",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D06-hi",
+      "runtime_sha256": "1e7be2afe8842b3a27ae9bb5d13b06631860dc47a9ac49e1b6d6bdd0073cdd25",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D06-te",
+      "runtime_sha256": "a72eecca38055815ad678f195c12222d63e4aede85c3ee5a2c168587b67e28ac",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D07-en",
+      "runtime_sha256": "ccace76ca24c01f1bab21fa315f0a4d087e2a2a8cb453b4039fafd707b5cc76c",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D07-hi",
+      "runtime_sha256": "1325b64154bff596f51f7c4037642bb39c3ef38d8952465c109521fd0e1df2c2",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D07-te",
+      "runtime_sha256": "bc5b0fe4d03905b4a23d7eb4c8347b6297ee20a397fd332622a0bdd2074d43d4",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D08-en",
+      "runtime_sha256": "d3c8b128b74a968c72b67299d6a3cf7c674c73754ec5f244c13ca2745e4c6fca",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D08-hi",
+      "runtime_sha256": "9a1e9c7272671f18ecbd0e4f901badb57a55a6aadc27794559254bc992c6074a",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D08-te",
+      "runtime_sha256": "53dd05f80e3b47506ddda07dfa61df6a94aa30734761631e49960e6e6d2a6769",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D09-en",
+      "runtime_sha256": "7e722b04e3ea2dbd0b4245bc32fc4961cb0cb49fcfdee2285bfd0949a0a215a6",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D09-hi",
+      "runtime_sha256": "fdd0a804b1548a719df0d073aeda3cc59ecfa2e698af7e5b14e2c0bc83fa699a",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D09-te",
+      "runtime_sha256": "3c6cca69cb64cf4a892cac5acafaf51ba6a20cf08e42040bbc30af889aaac35e",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D10-en",
+      "runtime_sha256": "44251452efd1778aa2d20074ea437fc610cc532c3966e62e885a10f7b89adade",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D10-hi",
+      "runtime_sha256": "9b86009a610b10c34f9bf1153b0248b940c2bd04257e9f91857521d11ff2fcc9",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D10-te",
+      "runtime_sha256": "899175583720b8a7bd94cced4f82d3f67338d6be4cbbcf9c0316a31c0a2a3343",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D11-en",
+      "runtime_sha256": "efafbd406ddc88601b4b1c8a4e9718f29a32bd3d6c0d2f09243c46cf79204216",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D11-hi",
+      "runtime_sha256": "899a4d2323cbf581caac7c216610bb6288d5a8201e5004d8a4d51039d23f854b",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D11-te",
+      "runtime_sha256": "9040354c361b4113fd6d7818644305242bdeab4fdf6184b5295616ab0e6a6874",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D12-en",
+      "runtime_sha256": "b1e8c7e034ed8f929212dff2ca3564e33cb3a9acdecb2f79463587ead246ee68",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [
+        "Withdrawal-answer interpretation only; raw sources remain in audit artifacts. Not a deletion/erasure test."
+      ],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D12-hi",
+      "runtime_sha256": "da3fd810479130291803ebe547a8ebd928418348c706eb1e39d242a4931e3f01",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [
+        "Withdrawal-answer interpretation only; raw sources remain in audit artifacts. Not a deletion/erasure test."
+      ],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D12-te",
+      "runtime_sha256": "4cdfd008475456a26cd517c1341320f7cf290bf8a1f522716c35017ab9739cc7",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "question_answerable_from_authorized_sources"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [
+        "Withdrawal-answer interpretation only; raw sources remain in audit artifacts. Not a deletion/erasure test."
+      ],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D04-ambiguous-en",
+      "runtime_sha256": "98a4077049901a528fe99b38950101f82c58c0caba8b1b30e7f38a5585b4fa0e",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "ambiguity_requires_clarification"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "NOT_APPLICABLE",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D04-ambiguous-hi",
+      "runtime_sha256": "d5798e8e5fbc26f56bc5078f7b7f2225f154bf1845fa4362ebbe93294ae20e2d",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "ambiguity_requires_clarification"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    },
+    {
+      "case_id": "D04-ambiguous-te",
+      "runtime_sha256": "ed41db1e69c4b543a394241c52a570e391d6c4bbd73ee9bcd99844387b370614",
+      "author": "Codex assistant",
+      "review_level": "ASSISTANT_PEER_REVIEWED",
+      "checks": [
+        "names_and_identifiers",
+        "date_and_condition_preservation",
+        "no_unstated_identity",
+        "source_and_customer_scope",
+        "ambiguity_requires_clarification"
+      ],
+      "independent_human_review": "PENDING",
+      "native_human_review": "PENDING",
+      "limits": [],
+      "peer_reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors"
+    }
+  ],
+  "limits": [
+    "38 renderings, 12 scenario templates, 9 family groups; translations, contrasts and repeats are correlated.",
+    "Assistant-authored and assistant-reviewed; independent human and native review pending.",
+    "Exploratory exact-field/source checks, not production or public benchmark validation."
+  ],
+  "corrections": [
+    "D02-en duplicate omitted; use D01-en as the shared English anchor.",
+    "D03 speaker/addressee mismatch repaired; English script tag corrected.",
+    "D07 asks specifically about recorded approval condition, independent of the current date.",
+    "Native wording has agent review only; independent human review remains pending.",
+    "Added three missing-identity-context contrasts. Removed per-case null/clarification hints after peer review; shared answer policy still permits clarification."
+  ],
+  "reviewed_gold_sha256": "f0e87094805f67cb695147d20a15f9735440b01cd43df7815895d30b21695f62",
+  "peer_review_summary": {
+    "date": "2026-10-09",
+    "reviewer": "GPT-6-sol /root/sarvam_benchmark_competitors",
+    "scope": "All 38 runtime cases and gold labels, followed by recheck of corrected ambiguity cases, runner and cost allocation.",
+    "verdict": "No blocker to exploratory preparation. Independent native human validation pending.",
+    "issues_corrected": [
+      "Extraction omission no longer hides original evidence from SQLite",
+      "Conditional call question no longer depends on future-date interpretation",
+      "Romanized pickup actor corrected",
+      "Duplicate English anchor removed",
+      "ISO dates and timezone-aware cutoffs validated",
+      "Per-case abstention hints removed",
+      "Extraction cost allocated to SQLite, including failed outputs"
+    ]
+  }
+}
