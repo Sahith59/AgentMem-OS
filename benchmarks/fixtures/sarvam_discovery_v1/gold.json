@@ -1,0 +1,578 @@
+{
+  "schema": "sarvam-discovery-gold-v1",
+  "evaluator_only": true,
+  "cases": {
+    "D01-en": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D01-hi": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D01-te": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D02-hi": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D02-te": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D03-en": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D03-hi": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D03-te": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D04-en": {
+      "needs_clarification": false,
+      "values": {
+        "alias_account": "P7",
+        "similar_name_account": "P8"
+      },
+      "required_evidence_alternatives": {
+        "alias_account": [
+          [
+            "s01"
+          ]
+        ],
+        "similar_name_account": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D04-hi": {
+      "needs_clarification": false,
+      "values": {
+        "alias_account": "P7",
+        "similar_name_account": "P8"
+      },
+      "required_evidence_alternatives": {
+        "alias_account": [
+          [
+            "s01"
+          ]
+        ],
+        "similar_name_account": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D04-te": {
+      "needs_clarification": false,
+      "values": {
+        "alias_account": "P7",
+        "similar_name_account": "P8"
+      },
+      "required_evidence_alternatives": {
+        "alias_account": [
+          [
+            "s01"
+          ]
+        ],
+        "similar_name_account": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D05-en": {
+      "needs_clarification": false,
+      "values": {
+        "referent_kind": "common_word"
+      },
+      "required_evidence_alternatives": {
+        "referent_kind": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D05-hi": {
+      "needs_clarification": false,
+      "values": {
+        "referent_kind": "common_word"
+      },
+      "required_evidence_alternatives": {
+        "referent_kind": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D05-te": {
+      "needs_clarification": false,
+      "values": {
+        "referent_kind": "common_word"
+      },
+      "required_evidence_alternatives": {
+        "referent_kind": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D06-en": {
+      "needs_clarification": false,
+      "values": {
+        "current_desk": "A2",
+        "future_desk": "B4"
+      },
+      "required_evidence_alternatives": {
+        "current_desk": [
+          [
+            "s02"
+          ]
+        ],
+        "future_desk": [
+          [
+            "s02"
+          ]
+        ]
+      }
+    },
+    "D06-hi": {
+      "needs_clarification": false,
+      "values": {
+        "current_desk": "A2",
+        "future_desk": "B4"
+      },
+      "required_evidence_alternatives": {
+        "current_desk": [
+          [
+            "s02"
+          ]
+        ],
+        "future_desk": [
+          [
+            "s02"
+          ]
+        ]
+      }
+    },
+    "D06-te": {
+      "needs_clarification": false,
+      "values": {
+        "current_desk": "A2",
+        "future_desk": "B4"
+      },
+      "required_evidence_alternatives": {
+        "current_desk": [
+          [
+            "s02"
+          ]
+        ],
+        "future_desk": [
+          [
+            "s02"
+          ]
+        ]
+      }
+    },
+    "D07-en": {
+      "needs_clarification": false,
+      "values": {
+        "call_authorized": "no",
+        "conditional_date": "2026-10-18"
+      },
+      "required_evidence_alternatives": {
+        "call_authorized": [
+          [
+            "s01",
+            "s02"
+          ]
+        ],
+        "conditional_date": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D07-hi": {
+      "needs_clarification": false,
+      "values": {
+        "call_authorized": "no",
+        "conditional_date": "2026-10-18"
+      },
+      "required_evidence_alternatives": {
+        "call_authorized": [
+          [
+            "s01",
+            "s02"
+          ]
+        ],
+        "conditional_date": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D07-te": {
+      "needs_clarification": false,
+      "values": {
+        "call_authorized": "no",
+        "conditional_date": "2026-10-18"
+      },
+      "required_evidence_alternatives": {
+        "call_authorized": [
+          [
+            "s01",
+            "s02"
+          ]
+        ],
+        "conditional_date": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D08-en": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s09"
+          ]
+        ]
+      }
+    },
+    "D08-hi": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s09"
+          ]
+        ]
+      }
+    },
+    "D08-te": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "K7"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s09"
+          ]
+        ]
+      }
+    },
+    "D09-en": {
+      "needs_clarification": false,
+      "values": {
+        "confirmed_delivery_date": "2026-10-23"
+      },
+      "required_evidence_alternatives": {
+        "confirmed_delivery_date": [
+          [
+            "s04"
+          ]
+        ]
+      }
+    },
+    "D09-hi": {
+      "needs_clarification": false,
+      "values": {
+        "confirmed_delivery_date": "2026-10-23"
+      },
+      "required_evidence_alternatives": {
+        "confirmed_delivery_date": [
+          [
+            "s04"
+          ]
+        ]
+      }
+    },
+    "D09-te": {
+      "needs_clarification": false,
+      "values": {
+        "confirmed_delivery_date": "2026-10-23"
+      },
+      "required_evidence_alternatives": {
+        "confirmed_delivery_date": [
+          [
+            "s04"
+          ]
+        ]
+      }
+    },
+    "D10-en": {
+      "needs_clarification": false,
+      "values": {
+        "contact_channel": "email"
+      },
+      "required_evidence_alternatives": {
+        "contact_channel": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D10-hi": {
+      "needs_clarification": false,
+      "values": {
+        "contact_channel": "email"
+      },
+      "required_evidence_alternatives": {
+        "contact_channel": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D10-te": {
+      "needs_clarification": false,
+      "values": {
+        "contact_channel": "email"
+      },
+      "required_evidence_alternatives": {
+        "contact_channel": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D11-en": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "X5"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D11-hi": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "X5"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D11-te": {
+      "needs_clarification": false,
+      "values": {
+        "pickup_counter": "X5"
+      },
+      "required_evidence_alternatives": {
+        "pickup_counter": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D12-en": {
+      "needs_clarification": false,
+      "values": {
+        "current_address": null,
+        "notebook_color": "blue"
+      },
+      "required_evidence_alternatives": {
+        "current_address": [
+          [
+            "s02"
+          ]
+        ],
+        "notebook_color": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D12-hi": {
+      "needs_clarification": false,
+      "values": {
+        "current_address": null,
+        "notebook_color": "blue"
+      },
+      "required_evidence_alternatives": {
+        "current_address": [
+          [
+            "s02"
+          ]
+        ],
+        "notebook_color": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D12-te": {
+      "needs_clarification": false,
+      "values": {
+        "current_address": null,
+        "notebook_color": "blue"
+      },
+      "required_evidence_alternatives": {
+        "current_address": [
+          [
+            "s02"
+          ]
+        ],
+        "notebook_color": [
+          [
+            "s01"
+          ]
+        ]
+      }
+    },
+    "D04-ambiguous-en": {
+      "needs_clarification": true,
+      "values": {
+        "alias_account": null
+      },
+      "required_evidence_alternatives": {
+        "alias_account": [
+          [
+            "s01",
+            "s02"
+          ]
+        ]
+      }
+    },
+    "D04-ambiguous-hi": {
+      "needs_clarification": true,
+      "values": {
+        "alias_account": null
+      },
+      "required_evidence_alternatives": {
+        "alias_account": [
+          [
+            "s01",
+            "s02"
+          ]
+        ]
+      }
+    },
+    "D04-ambiguous-te": {
+      "needs_clarification": true,
+      "values": {
+        "alias_account": null
+      },
+      "required_evidence_alternatives": {
+        "alias_account": [
+          [
+            "s01",
+            "s02"
+          ]
+        ]
+      }
+    }
+  }
+}

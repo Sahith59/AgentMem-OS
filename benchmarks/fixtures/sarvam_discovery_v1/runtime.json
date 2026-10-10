@@ -1,0 +1,1746 @@
+{
+  "schema": "sarvam-discovery-v1",
+  "purpose": "EXPLORATORY_ASSISTANT_REVIEWED_NOT_HOLDOUT",
+  "cases": [
+    {
+      "id": "D01-en",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which pickup counter should I use? Return pickup_counter as its exact code.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ]
+    },
+    {
+      "id": "D01-hi",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मुझे किस पिकअप काउंटर पर जाना चाहिए? pickup_counter में उसका सटीक कोड दें।",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ]
+    },
+    {
+      "id": "D01-te",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నేను ఏ పికప్ కౌంటర్‌కి వెళ్లాలి? pickup_counter లో దాని కోడ్‌ను యథాతథంగా ఇవ్వండి.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ]
+    },
+    {
+      "id": "D02-hi",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which pickup counter should I use? Return pickup_counter as its exact code.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ]
+    },
+    {
+      "id": "D02-te",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which pickup counter should I use? Return pickup_counter as its exact code.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ]
+    },
+    {
+      "id": "D03-en",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "english_latin"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which pickup counter should I use? Return pickup_counter as its exact code.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "I will collect my parcel at counter K7."
+        }
+      ]
+    },
+    {
+      "id": "D03-hi",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "romanized"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मुझे किस पिकअप काउंटर पर जाना चाहिए? pickup_counter में उसका सटीक कोड दें।",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Mera parcel main counter K7 se loonga."
+        }
+      ]
+    },
+    {
+      "id": "D03-te",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "romanized"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నేను ఏ పికప్ కౌంటర్‌కి వెళ్లాలి? pickup_counter లో దాని కోడ్‌ను యథాతథంగా ఇవ్వండి.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Naa parcel nenu counter K7 daggara teesukuntaanu."
+        }
+      ]
+    },
+    {
+      "id": "D04-en",
+      "family": "D04",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Give the account for Anand K. as alias_account, and for Anand Kumar as similar_name_account. Copy account IDs.",
+      "fields": [
+        "alias_account",
+        "similar_name_account"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "directory",
+          "text": "Verified directory: account P7 belongs to Anand Krishnan, who also uses Anand K. Account P8 belongs to Anand Kumar. P7 and P8 are different people."
+        }
+      ]
+    },
+    {
+      "id": "D04-hi",
+      "family": "D04",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Anand K. का खाता alias_account में और Anand Kumar का खाता similar_name_account में दें। खाता ID ज्यों की त्यों लिखें।",
+      "fields": [
+        "alias_account",
+        "similar_name_account"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "directory",
+          "text": "सत्यापित निर्देशिका: खाता P7 Anand Krishnan का है, जो Anand K. नाम भी इस्तेमाल करते हैं। खाता P8 Anand Kumar का है। P7 और P8 अलग-अलग व्यक्ति हैं।"
+        }
+      ]
+    },
+    {
+      "id": "D04-te",
+      "family": "D04",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Anand K. ఖాతాను alias_account లో, Anand Kumar ఖాతాను similar_name_account లో ఇవ్వండి. ఖాతా IDలను యథాతథంగా రాయండి.",
+      "fields": [
+        "alias_account",
+        "similar_name_account"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "directory",
+          "text": "ధృవీకరించిన డైరెక్టరీ: P7 ఖాతా Anand Krishnan ది; ఆయన Anand K. అనే పేరు కూడా వాడతారు. P8 ఖాతా Anand Kumar ది. P7, P8 వేర్వేరు వ్యక్తులు."
+        }
+      ]
+    },
+    {
+      "id": "D05-en",
+      "family": "D05",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Does sarvam in my note mean a common word or the company? Set referent_kind to common_word or company.",
+      "fields": [
+        "referent_kind"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "In this note I use the word sarvam to mean everything. I am not referring to the company Sarvam AI."
+        }
+      ]
+    },
+    {
+      "id": "D05-hi",
+      "family": "D05",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मेरे नोट में सर्वम् सामान्य शब्द है या कंपनी? referent_kind में common_word या company लिखें।",
+      "fields": [
+        "referent_kind"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "इस नोट में मैं सर्वम् शब्द का अर्थ सब कुछ ले रहा हूँ। मैं Sarvam AI कंपनी की बात नहीं कर रहा हूँ।"
+        }
+      ]
+    },
+    {
+      "id": "D05-te",
+      "family": "D05",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నా నోట్‌లో సర్వం సాధారణ పదమా లేదా కంపెనీనా? referent_kind లో common_word లేదా company రాయండి.",
+      "fields": [
+        "referent_kind"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "ఈ నోట్‌లో సర్వం అనే పదాన్ని అన్నీ అనే అర్థంలో వాడుతున్నాను. నేను Sarvam AI కంపెనీ గురించి చెప్పడం లేదు."
+        }
+      ]
+    },
+    {
+      "id": "D06-en",
+      "family": "D06",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "As of 2026-10-15, give current_desk and the desk starting 2026-10-20 as future_desk.",
+      "fields": [
+        "current_desk",
+        "future_desk"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ]
+    },
+    {
+      "id": "D06-hi",
+      "family": "D06",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "2026-10-15 के अनुसार current_desk बताएं और 2026-10-20 से लागू डेस्क future_desk में दें।",
+      "fields": [
+        "current_desk",
+        "future_desk"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ]
+    },
+    {
+      "id": "D06-te",
+      "family": "D06",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "2026-10-15 నాటికి current_desk ఇవ్వండి; 2026-10-20 నుంచి వర్తించే డెస్క్‌ను future_desk లో ఇవ్వండి.",
+      "fields": [
+        "current_desk",
+        "future_desk"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ]
+    },
+    {
+      "id": "D07-en",
+      "family": "D07",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Based on the recorded repair-approval status, is the proposed 2026-10-18 call authorized? Return call_authorized as yes or no and conditional_date as YYYY-MM-DD.",
+      "fields": [
+        "call_authorized",
+        "conditional_date"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ]
+    },
+    {
+      "id": "D07-hi",
+      "family": "D07",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "दर्ज मरम्मत-मंज़ूरी की स्थिति के आधार पर, क्या 2026-10-18 की प्रस्तावित कॉल की अनुमति है? call_authorized में yes या no और conditional_date में YYYY-MM-DD दें।",
+      "fields": [
+        "call_authorized",
+        "conditional_date"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ]
+    },
+    {
+      "id": "D07-te",
+      "family": "D07",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నమోదైన మరమ్మతు ఆమోద స్థితి ఆధారంగా, ప్రతిపాదించిన 2026-10-18 కాల్‌కు అనుమతి ఉందా? call_authorized లో yes లేదా no, conditional_date లో YYYY-MM-DD ఇవ్వండి.",
+      "fields": [
+        "call_authorized",
+        "conditional_date"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ]
+    },
+    {
+      "id": "D08-en",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which pickup counter should I use? Return pickup_counter as its exact code.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z1. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z2. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z3. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z4. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z5. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s06",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:05:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z6. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s07",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-4",
+          "observed_at": "2026-10-09T10:06:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z7. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s08",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-4",
+          "observed_at": "2026-10-09T10:07:00+05:30",
+          "role": "user",
+          "text": "For a past visit I used service desk Z8. That was not a parcel pickup counter."
+        },
+        {
+          "id": "s09",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-5",
+          "observed_at": "2026-10-09T10:08:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        },
+        {
+          "id": "s10",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-5",
+          "observed_at": "2026-10-09T10:09:00+05:30",
+          "role": "user",
+          "text": "Note 9: an unrelated appointment used room R9; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s11",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-6",
+          "observed_at": "2026-10-09T10:10:00+05:30",
+          "role": "user",
+          "text": "Note 10: an unrelated appointment used room R10; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s12",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-6",
+          "observed_at": "2026-10-09T10:11:00+05:30",
+          "role": "user",
+          "text": "Note 11: an unrelated appointment used room R11; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s13",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-7",
+          "observed_at": "2026-10-09T10:12:00+05:30",
+          "role": "user",
+          "text": "Note 12: an unrelated appointment used room R12; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s14",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-7",
+          "observed_at": "2026-10-09T10:13:00+05:30",
+          "role": "user",
+          "text": "Note 13: an unrelated appointment used room R13; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s15",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-8",
+          "observed_at": "2026-10-09T10:14:00+05:30",
+          "role": "user",
+          "text": "Note 14: an unrelated appointment used room R14; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s16",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-8",
+          "observed_at": "2026-10-09T10:15:00+05:30",
+          "role": "user",
+          "text": "Note 15: an unrelated appointment used room R15; this does not change my parcel pickup counter."
+        },
+        {
+          "id": "s17",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-9",
+          "observed_at": "2026-10-09T10:16:00+05:30",
+          "role": "user",
+          "text": "Note 16: an unrelated appointment used room R16; this does not change my parcel pickup counter."
+        }
+      ]
+    },
+    {
+      "id": "D08-hi",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मुझे किस पिकअप काउंटर पर जाना चाहिए? pickup_counter में उसका सटीक कोड दें।",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z1 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z2 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z3 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z4 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z5 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s06",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:05:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z6 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s07",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-4",
+          "observed_at": "2026-10-09T10:06:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z7 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s08",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-4",
+          "observed_at": "2026-10-09T10:07:00+05:30",
+          "role": "user",
+          "text": "पिछली मुलाकात में मैंने सेवा डेस्क Z8 इस्तेमाल किया था। वह पार्सल पिकअप काउंटर नहीं था।"
+        },
+        {
+          "id": "s09",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-5",
+          "observed_at": "2026-10-09T10:08:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        },
+        {
+          "id": "s10",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-5",
+          "observed_at": "2026-10-09T10:09:00+05:30",
+          "role": "user",
+          "text": "नोट 9: एक अलग अपॉइंटमेंट कमरा R9 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s11",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-6",
+          "observed_at": "2026-10-09T10:10:00+05:30",
+          "role": "user",
+          "text": "नोट 10: एक अलग अपॉइंटमेंट कमरा R10 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s12",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-6",
+          "observed_at": "2026-10-09T10:11:00+05:30",
+          "role": "user",
+          "text": "नोट 11: एक अलग अपॉइंटमेंट कमरा R11 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s13",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-7",
+          "observed_at": "2026-10-09T10:12:00+05:30",
+          "role": "user",
+          "text": "नोट 12: एक अलग अपॉइंटमेंट कमरा R12 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s14",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-7",
+          "observed_at": "2026-10-09T10:13:00+05:30",
+          "role": "user",
+          "text": "नोट 13: एक अलग अपॉइंटमेंट कमरा R13 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s15",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-8",
+          "observed_at": "2026-10-09T10:14:00+05:30",
+          "role": "user",
+          "text": "नोट 14: एक अलग अपॉइंटमेंट कमरा R14 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s16",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-8",
+          "observed_at": "2026-10-09T10:15:00+05:30",
+          "role": "user",
+          "text": "नोट 15: एक अलग अपॉइंटमेंट कमरा R15 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        },
+        {
+          "id": "s17",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-9",
+          "observed_at": "2026-10-09T10:16:00+05:30",
+          "role": "user",
+          "text": "नोट 16: एक अलग अपॉइंटमेंट कमरा R16 में था; इससे मेरा पार्सल पिकअप काउंटर नहीं बदलता।"
+        }
+      ]
+    },
+    {
+      "id": "D08-te",
+      "family": "pickup_counter",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నేను ఏ పికప్ కౌంటర్‌కి వెళ్లాలి? pickup_counter లో దాని కోడ్‌ను యథాతథంగా ఇవ్వండి.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z1 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z2 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z3 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z4 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z5 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s06",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:05:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z6 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s07",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-4",
+          "observed_at": "2026-10-09T10:06:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z7 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s08",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-4",
+          "observed_at": "2026-10-09T10:07:00+05:30",
+          "role": "user",
+          "text": "గత సందర్శనలో సర్వీస్ డెస్క్ Z8 వాడాను. అది పార్సెల్ పికప్ కౌంటర్ కాదు."
+        },
+        {
+          "id": "s09",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-5",
+          "observed_at": "2026-10-09T10:08:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        },
+        {
+          "id": "s10",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-5",
+          "observed_at": "2026-10-09T10:09:00+05:30",
+          "role": "user",
+          "text": "నోట్ 9: వేరే అపాయింట్‌మెంట్ గది R9 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s11",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-6",
+          "observed_at": "2026-10-09T10:10:00+05:30",
+          "role": "user",
+          "text": "నోట్ 10: వేరే అపాయింట్‌మెంట్ గది R10 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s12",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-6",
+          "observed_at": "2026-10-09T10:11:00+05:30",
+          "role": "user",
+          "text": "నోట్ 11: వేరే అపాయింట్‌మెంట్ గది R11 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s13",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-7",
+          "observed_at": "2026-10-09T10:12:00+05:30",
+          "role": "user",
+          "text": "నోట్ 12: వేరే అపాయింట్‌మెంట్ గది R12 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s14",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-7",
+          "observed_at": "2026-10-09T10:13:00+05:30",
+          "role": "user",
+          "text": "నోట్ 13: వేరే అపాయింట్‌మెంట్ గది R13 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s15",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-8",
+          "observed_at": "2026-10-09T10:14:00+05:30",
+          "role": "user",
+          "text": "నోట్ 14: వేరే అపాయింట్‌మెంట్ గది R14 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s16",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-8",
+          "observed_at": "2026-10-09T10:15:00+05:30",
+          "role": "user",
+          "text": "నోట్ 15: వేరే అపాయింట్‌మెంట్ గది R15 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        },
+        {
+          "id": "s17",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-9",
+          "observed_at": "2026-10-09T10:16:00+05:30",
+          "role": "user",
+          "text": "నోట్ 16: వేరే అపాయింట్‌మెంట్ గది R16 లో ఉంది; దీనివల్ల నా పార్సెల్ పికప్ కౌంటర్ మారదు."
+        }
+      ]
+    },
+    {
+      "id": "D09-en",
+      "family": "D09",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "What is the current confirmed_delivery_date for O42? Use YYYY-MM-DD.",
+      "fields": [
+        "confirmed_delivery_date"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ]
+    },
+    {
+      "id": "D09-hi",
+      "family": "D09",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "O42 की वर्तमान confirmed_delivery_date क्या है? YYYY-MM-DD इस्तेमाल करें।",
+      "fields": [
+        "confirmed_delivery_date"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ]
+    },
+    {
+      "id": "D09-te",
+      "family": "D09",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "O42 ప్రస్తుత confirmed_delivery_date ఏమిటి? YYYY-MM-DD వాడండి.",
+      "fields": [
+        "confirmed_delivery_date"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ]
+    },
+    {
+      "id": "D10-en",
+      "family": "D10",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "What is my contact_channel? Use email or phone.",
+      "fields": [
+        "contact_channel"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Contact me by email, not by phone."
+        }
+      ]
+    },
+    {
+      "id": "D10-hi",
+      "family": "D10",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मेरा contact_channel क्या है? email या phone लिखें।",
+      "fields": [
+        "contact_channel"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मुझसे ईमेल पर संपर्क करें, फ़ोन पर नहीं।"
+        }
+      ]
+    },
+    {
+      "id": "D10-te",
+      "family": "D10",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నా contact_channel ఏమిటి? email లేదా phone రాయండి.",
+      "fields": [
+        "contact_channel"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నన్ను ఈమెయిల్ ద్వారా సంప్రదించండి, ఫోన్ ద్వారా కాదు."
+        }
+      ]
+    },
+    {
+      "id": "D11-en",
+      "family": "D11",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which pickup counter should I use? Return pickup_counter as its exact code.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My pickup counter is X5."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U18",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "My pickup counter is X9."
+        },
+        {
+          "id": "s03",
+          "tenant": "T2",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "user",
+          "text": "My pickup counter is X0."
+        }
+      ]
+    },
+    {
+      "id": "D11-hi",
+      "family": "D11",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मुझे किस पिकअप काउंटर पर जाना चाहिए? pickup_counter में उसका सटीक कोड दें।",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा पिकअप काउंटर X5 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U18",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मेरा पिकअप काउंटर X9 है।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T2",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "user",
+          "text": "मेरा पिकअप काउंटर X0 है।"
+        }
+      ]
+    },
+    {
+      "id": "D11-te",
+      "family": "D11",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "నేను ఏ పికప్ కౌంటర్‌కి వెళ్లాలి? pickup_counter లో దాని కోడ్‌ను యథాతథంగా ఇవ్వండి.",
+      "fields": [
+        "pickup_counter"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పికప్ కౌంటర్ X5."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U18",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "నా పికప్ కౌంటర్ X9."
+        },
+        {
+          "id": "s03",
+          "tenant": "T2",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "user",
+          "text": "నా పికప్ కౌంటర్ X0."
+        }
+      ]
+    },
+    {
+      "id": "D12-en",
+      "family": "D12",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "What is my usable current_address and notebook_color? Use null for withdrawn information; color in English.",
+      "fields": [
+        "current_address",
+        "notebook_color"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My delivery address is Flat 7, Cedar Court. My notebook preference is blue."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Forget my delivery address. Keep only my notebook preference."
+        }
+      ]
+    },
+    {
+      "id": "D12-hi",
+      "family": "D12",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "मेरा इस्तेमाल करने योग्य current_address और notebook_color क्या है? वापस ली गई जानकारी के लिए null दें; रंग अंग्रेज़ी में दें।",
+      "fields": [
+        "current_address",
+        "notebook_color"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा डिलीवरी पता Flat 7, Cedar Court है। मुझे नीली नोटबुक पसंद है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मेरा डिलीवरी पता भूल जाएं। केवल मेरी नोटबुक की पसंद याद रखें।"
+        }
+      ]
+    },
+    {
+      "id": "D12-te",
+      "family": "D12",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "ప్రస్తుతం ఉపయోగించదగిన నా current_address, notebook_color ఏమిటి? ఉపసంహరించుకున్న సమాచారం కోసం null ఇవ్వండి; రంగును ఇంగ్లీషులో ఇవ్వండి.",
+      "fields": [
+        "current_address",
+        "notebook_color"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా డెలివరీ చిరునామా Flat 7, Cedar Court. నాకు నీలం రంగు నోట్‌బుక్ ఇష్టం."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "నా డెలివరీ చిరునామాను మర్చిపోండి. నా నోట్‌బుక్ అభిరుచిని మాత్రమే గుర్తుంచుకోండి."
+        }
+      ]
+    },
+    {
+      "id": "D04-ambiguous-en",
+      "family": "D04",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "Which account is verified for the sender \"Anand K\"? Return alias_account.",
+      "fields": [
+        "alias_account"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "directory",
+          "text": "Verified directory: account P7 belongs to Anand Krishnan; account P8 belongs to Anand Kumar."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "A new message is signed \"Anand K\"."
+        }
+      ]
+    },
+    {
+      "id": "D04-ambiguous-hi",
+      "family": "D04",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "\"आनंद के\" नाम से संदेश भेजने वाले का कौन सा खाता सत्यापित है? alias_account दें।",
+      "fields": [
+        "alias_account"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "directory",
+          "text": "सत्यापित निर्देशिका: खाता P7 आनंद कृष्णन का है; खाता P8 आनंद कुमार का है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "एक नए संदेश में \"आनंद के\" नाम से हस्ताक्षर हैं।"
+        }
+      ]
+    },
+    {
+      "id": "D04-ambiguous-te",
+      "family": "D04",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "tenant": "T1",
+      "authorized_customer": "U17",
+      "as_of": "2026-10-15T12:00:00+05:30",
+      "question": "\"ఆనంద్ కె\" పేరుతో సందేశం పంపిన వ్యక్తికి ఏ ఖాతా ధృవీకరించబడింది? alias_account ఇవ్వండి.",
+      "fields": [
+        "alias_account"
+      ],
+      "records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "directory",
+          "text": "ధృవీకరించిన డైరెక్టరీ: P7 ఖాతా ఆనంద్ కృష్ణన్‌కు చెందినది; P8 ఖాతా ఆనంద్ కుమార్‌కు చెందినది."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "ఒక కొత్త సందేశంలో \"ఆనంద్ కె\" అనే సంతకం ఉంది."
+        }
+      ]
+    }
+  ]
+}
