@@ -1,0 +1,17 @@
+{
+  "status": "PASS_OFFLINE_AUDIT_NOT_MODEL_QUALITY",
+  "package_sha256": "bf04d07dbe2a9b2fe2e77be5ce08cdc19eed511de6af2af075cf182ef5fa0b65",
+  "simulated_calls": 72,
+  "rejected_extractions": 8,
+  "invalid_answers": 1,
+  "sqlite_stores_reopened": 24,
+  "original_record_occurrences_preserved": 60,
+  "empty_or_rejected_packet_pairs_equal_control": 16,
+  "all_semantic_reviews_unreviewed": true,
+  "all_extraction_compute_charged_to_sqlite": true,
+  "completed_resume_new_dispatches": 0,
+  "network_calls": 0,
+  "paid_calls": 0,
+  "sarvam_accuracy": "NOT_MEASURED",
+  "live_schema_support": "UNTESTED"
+}
