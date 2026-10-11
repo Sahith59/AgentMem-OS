@@ -1,0 +1,56 @@
+{
+  "schema": "sarvam-runtime-stop-v1",
+  "observed_at_utc": "2026-10-11T03:02:08.091603+00:00",
+  "local_date": "2026-10-10",
+  "source_commit": "4656fbce9ed01b4cdc63a57255cd87b1885f4c78",
+  "package_sha256": "acf3956980d4acdc4cc8b740aaff6e4dd1f1908f310d98ed247ca2b2ef178b0c",
+  "first_job": "r1-D01-en-extract",
+  "request_sha256": "7ca95952fc2489882d594cf0a220e19552dfb0db6dc2e47053efdf0f9c989d9c",
+  "raw_response_sha256": "5f1b67f399453327e0939112f6d26421c37fabedc5689d4122a1d58957a00964",
+  "http_status": 200,
+  "returned_model": "sarvam-105b",
+  "finish_reason": "length",
+  "final_content": null,
+  "usage": {
+    "completion_tokens": 4096,
+    "prompt_tokens": 362,
+    "total_tokens": 4458,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 4095,
+      "rejected_prediction_tokens": null
+    },
+    "prompt_tokens_details": null
+  },
+  "elapsed_seconds": 17.08714733296074,
+  "execution": {
+    "intended_calls": 228,
+    "attempted": 1,
+    "completed": 0,
+    "reserved_ninr": 4137615360,
+    "usage_ninr": 310426560,
+    "attempts_with_unknown_usage": 0,
+    "mode": "live",
+    "quality": "NOT_SCORED_USE_SEPARATE_EVALUATOR"
+  },
+  "rates": {
+    "frozen_input_inr_per_million": 29.28,
+    "frozen_output_inr_per_million": 73.2,
+    "current_input_inr_per_million": 15,
+    "current_output_inr_per_million": 60,
+    "current_source": "https://docs.sarvam.ai/api/getting-started/pricing"
+  },
+  "current_rate_usage_estimate_inr": 0.25119,
+  "frozen_rate_usage_estimate_inr": 0.31042656,
+  "reserved_inr": 4.13761536,
+  "invoice_verified": false,
+  "quality_status": "NO_VALID_EXTRACTION_OR_ANSWER; NOT_A_MEMORY_COMPARISON",
+  "failure_class": "REASONING_EXHAUSTED_COMPLETION_BUDGET",
+  "live_retry_count": 0,
+  "remaining_requests_not_dispatched": 227,
+  "paid_automatic_continuation_allowed": false,
+  "independent_recheck": "Request equals first frozen request; receipt token arithmetic, finish/content, reservation and stop state rechecked independently of scorer.",
+  "private_checkpoint_sha256": "251847797902c8703bb2a00a0c06b962f6998617834553b743e4606dba5ce91d",
+  "publication_scope": "Request body and aggregate receipt fields only; raw receipt/checkpoint remain local. No API key, header, account identifier or provider receipt ID is published."
+}
