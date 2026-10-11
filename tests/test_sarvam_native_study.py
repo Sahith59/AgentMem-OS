@@ -1,10 +1,12 @@
 import json
 import sqlite3
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 
 from benchmarks.sarvam_native_study import backend
 from benchmarks.sarvam_native_study.dataset import build
+from benchmarks.sarvam_native_study.diagnostic import profile_request
 from benchmarks.sarvam_native_study.runner import initial
 from benchmarks.sarvam_native_study.score import grade
 from benchmarks.sarvam_native_study.transport import Meter, payload, save
@@ -165,3 +167,34 @@ def test_oracle_backend_actions_and_read_answers_all_cases(tmp_path):
             "final_backend": backend.state(db),
         }
         assert grade(case, label, result)["task_success"], case["id"]
+
+
+def test_reasoning_diagnostic_keeps_inputs_tools_and_equal_cap():
+    cases, _ = build()
+    for case in cases[:30]:
+        for arm in ("full_history", "sqlite"):
+            a = profile_request(case, "sarvam-105b", arm, None)
+            b = profile_request(case, "sarvam-105b", arm, "low")
+            assert a["max_tokens"] == b["max_tokens"] == 8192
+            assert {k: v for k, v in a.items() if k != "reasoning_effort"} == {
+                k: v for k, v in b.items() if k != "reasoning_effort"
+            }
+
+
+def test_concurrent_budget_reservations_cannot_overcommit(tmp_path):
+    meter = Meter(tmp_path)
+    req = payload("sarvam-105b", [])
+
+    def reserve(i):
+        try:
+            meter.reserve(f"j{i}", "setup", req)
+            return True
+        except ValueError:
+            return False
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        outcomes = list(pool.map(reserve, range(140)))
+    s = meter.summary()["setup"]
+    assert 0 < sum(outcomes) < 140
+    assert s["calls"] == sum(outcomes)
+    assert s["charged_with_headroom_inr"] <= 300
