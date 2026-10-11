@@ -2,7 +2,8 @@ import json
 
 import pytest
 
-from benchmarks.sarvam_native_study.analyze import combine, pairs, usage_audit
+from benchmarks.sarvam_native_study.analyze import combine, pairs, unique_cases, usage_audit
+from benchmarks.sarvam_native_study.dataset import build
 
 
 def test_continuation_cannot_erase_failure_or_leave_missing_episode():
@@ -63,3 +64,17 @@ def test_missing_reasoning_telemetry_is_not_reported_zero(tmp_path):
     assert result["reasoning_token_count_unreported"] == 1
     assert result["calls_reporting_positive_reasoning_tokens"] == 1
     assert result["reported_reasoning_tokens"] == 7
+
+
+def test_visible_input_overlap_is_excluded_without_outcome_selection():
+    cases, _ = build()
+    selected = unique_cases(cases)
+    assert len(selected["discovery"]) == 451
+    assert len(selected["confirmation"]) == 186
+    assert selected == unique_cases(list(reversed(cases)))
+    # Different grouping IDs do not make repeated conditional inputs unseen.
+    assert "conditional-17-en" not in selected["confirmation"]
+    assert "conditional-18-hi" not in selected["confirmation"]
+    # Byte-identical action variants are represented by a predeclared lexical rule.
+    assert "action_retry-01-en" in selected["discovery"]
+    assert "action_update-01-en" not in selected["discovery"]

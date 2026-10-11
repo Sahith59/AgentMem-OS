@@ -5,6 +5,7 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from .runner import initial
 from .score import score
 from .transport import Meter, digest, save
 
@@ -143,6 +144,22 @@ def usage_audit(root):
     return dict(result)
 
 
+def unique_cases(cases):
+    """Post-discovery sensitivity selection uses only visible inputs, never scores."""
+    clustered = {"discovery": defaultdict(list), "confirmation": defaultdict(list)}
+    for case in cases:
+        fingerprint = digest(initial(case, "sarvam-105b", "full_history"))
+        clustered[case["split"]][fingerprint].append(case["id"])
+    return {
+        "discovery": sorted(min(ids) for ids in clustered["discovery"].values()),
+        "confirmation": sorted(
+            min(ids)
+            for fingerprint, ids in clustered["confirmation"].items()
+            if fingerprint not in clustered["discovery"]
+        ),
+    }
+
+
 def analyze(root):
     root = Path(root)
     phases = ("discovery", "discovery-continuation-001", "attribution", "confirmation")
@@ -163,11 +180,22 @@ def analyze(root):
     for phase in ("confirmation", "attribution"):
         if not all(r["attempted"] for r in raw[phase]):
             raise ValueError("Unattempted jobs in " + phase)
+    cases = json.loads((root / "bank/runtime.json").read_text())
+    selected = unique_cases(cases)
+    sensitivity = {
+        "policy": "Post-discovery input audit; lexical representative, no outcome selection",
+        "case_ids": selected,
+        "discovery": summarize([r for r in discovery if r["case_id"] in selected["discovery"]]),
+        "confirmation": summarize(
+            [r for r in raw["confirmation"] if r["case_id"] in selected["confirmation"]]
+        ),
+    }
     return {
         "bank_sha256": digest(json.loads((root / "bank/runtime.json").read_text())),
         "discovery": summarize(discovery),
         "confirmation": summarize(raw["confirmation"]),
         "attribution": summarize(raw["attribution"], diagnostic=True),
+        "deduplicated_sensitivity": sensitivity,
         "meter": Meter(root / "calls").summary(),
         "receipt_usage": usage_audit(root),
         "limits": [
