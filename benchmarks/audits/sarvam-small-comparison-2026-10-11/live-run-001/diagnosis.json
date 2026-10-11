@@ -1,0 +1,124 @@
+{
+  "schema": "sarvam-small-comparison-stop-v1",
+  "local_date": "2026-10-11",
+  "source_commit": "50d484740c05e49fe08cac4f0b4e907e11ae0491",
+  "package_sha256": "07cb99155472ad97d49234351870726f8df314c6c5a51b6db1212b8ecae84744",
+  "request_sha256": "e986f883abf88e3a815db59ce4991a040865b0f8bb52e2d2ca54b9d34b1d00c6",
+  "same_request_as_successful_probe": true,
+  "checkpoint_sha256": "3f83b21a42a57b847e9df79f84bca7d1cab1dda48d84d8ce870cf67c88d469d9",
+  "raw_response_sha256": "325d3ac16ae2369de21d683c90b67b9b3a20f5d7c27af2e5d6ac494c82f3bd08",
+  "http_status": 200,
+  "returned_model": "sarvam-105b",
+  "system_fingerprint": "vllm-0.29.1rc1.dev145+gfe61f3317-tp2-1c00f7c7",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 293,
+    "prompt_tokens": 366,
+    "total_tokens": 659,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null
+    },
+    "prompt_tokens_details": null
+  },
+  "elapsed_seconds": 2.483350499998778,
+  "final_content": "{\"facts\":[{\"attribute\":\"user_id\",\"value\":\"U17\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"tenant_id\",\"value\":\"T1\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"session_id\",\"value\":\"session-1\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"user_role\",\"value\":\"user\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"observed_at\",\"value\":\"2026-10-09T10:00:00+05:30\",\"status\":\"current\",\"condition\":null,\"valid_from\":\"2026-10-09T10:00:00+05:30\",\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"instruction\",\"value\":\"For my parcel, use pickup counter K7.\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]}]}",
+  "unaccepted_facts_for_review_only": [
+    {
+      "attribute": "user_id",
+      "value": "U17",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "tenant_id",
+      "value": "T1",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "session_id",
+      "value": "session-1",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "user_role",
+      "value": "user",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "observed_at",
+      "value": "2026-10-09T10:00:00+05:30",
+      "status": "current",
+      "condition": null,
+      "valid_from": "2026-10-09T10:00:00+05:30",
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "instruction",
+      "value": "For my parcel, use pickup counter K7.",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    }
+  ],
+  "validation_errors": [
+    {
+      "path": "facts[4].valid_from",
+      "value": "2026-10-09T10:00:00+05:30",
+      "issue": "datetime supplied where ISO date required"
+    }
+  ],
+  "execution": {
+    "intended_calls": 72,
+    "attempted": 1,
+    "completed": 0,
+    "reserved_ninr": 4137615360,
+    "usage_ninr": 32164080,
+    "attempts_with_unknown_usage": 0,
+    "mode": "live",
+    "quality": "NOT_SCORED_USE_SEPARATE_EVALUATOR"
+  },
+  "unattempted_calls": 71,
+  "retries": 0,
+  "current_rate_usage_estimate_inr": 0.02307,
+  "frozen_rate_usage_estimate_inr": 0.03216408,
+  "retained_reservation_inr": 4.13761536,
+  "invoice_verified": false,
+  "status": "INCOMPLETE_NO_HEADLINE_SCORE",
+  "failure_class": "EXTRACTED_VALID_FROM_CONTAINS_OBSERVED_DATETIME",
+  "source_meaning_review": "Instruction preserved; observed metadata copied to validity field; no confirmed-action invention",
+  "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_HUMAN",
+  "next_paid_calls_authorized": false
+}
