@@ -1,0 +1,17 @@
+{
+  "exact_binding_and_only_one_field_change": "PASS",
+  "parent_checkpoint_unchanged": true,
+  "parent_package_preflight": "PASS",
+  "source_hashes_unchanged": true,
+  "final_parser_replay": "PASS",
+  "token_cost_arithmetic": "PASS",
+  "all_seven_values_match_input_fields": true,
+  "pickup_instruction_preserved_exactly": true,
+  "six_metadata_copies": true,
+  "no_confirmed_status_or_invented_valid_dates": true,
+  "current_status_on_metadata_semantics": "NOT_ESTABLISHED_AS_USEFUL_MEMORY",
+  "resend_refused_before_key_or_provider": true,
+  "checkpoint_unchanged_by_verification": true,
+  "network_calls_during_verification": 0,
+  "checkpoint_sha256": "a651a09aa1f07a4da457ca71da4119fec84f0e62371778fdeb8804e93158bcc1"
+}
