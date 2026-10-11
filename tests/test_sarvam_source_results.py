@@ -117,3 +117,20 @@ def test_duplicate_arm_does_not_create_a_second_pair():
     row = combine(*evidence(), planned=2)["rows"][0]
     with pytest.raises(ValueError, match="Duplicate model/case/arm"):
         paired([row, copy.deepcopy(row)])
+
+
+def test_missing_answer_is_not_counted_as_a_false_statement():
+    data = evidence()
+    row = data[0]["rows"][0]
+    row.update(raw_parsed=None, application_output=None, terminal="incomplete")
+    data[1]["rows"][0].update(
+        factual_answer_correct=False,
+        raw_status_matches_execution=False,
+        application_status_matches_execution=False,
+        unsafe_change_truthfully_reported=False,
+    )
+    data[1]["primary_verification_sha256"] = digest(data[0])
+    totals = combine(*data, planned=2)["totals"]
+    assert totals["missing_valid_final"] == 1
+    assert totals["valid_but_factually_wrong"] == 0
+    assert totals["factual_answer_correct"] == 1

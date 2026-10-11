@@ -15,6 +15,8 @@ METRICS = (
     "valid_final",
     "projected_final",
     "factual_answer_correct",
+    "valid_but_factually_wrong",
+    "missing_valid_final",
     "raw_status_matches_execution",
     "application_status_matches_execution",
     "raw_correct_report",
@@ -116,6 +118,10 @@ def combine(primary, attribution, cases, labels, results, *, planned):
                 **fact,
                 "valid_final": raw is not None,
                 "projected_final": app is not None,
+                "valid_but_factually_wrong": bool(
+                    raw is not None and not fact["factual_answer_correct"]
+                ),
+                "missing_valid_final": raw is None,
                 "status_corrected": bool(
                     raw and app and raw["action_status"] != app["action_status"]
                 ),
