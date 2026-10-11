@@ -1,0 +1,1581 @@
+{
+  "status": "OFFLINE_CANDIDATE_REPLAY_NOT_ANSWER_SCORE",
+  "new_api_calls": 0,
+  "runs": [
+    {
+      "run": 3,
+      "checkpoint_sha256": "d125c318b33476d033b997d120c52613ea8744dc598dd9892fcace438250d50c",
+      "new_rejections": 8,
+      "existing_rejections": 2,
+      "rows": [
+        {
+          "job_id": "r1-D01-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D01-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D01-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D06-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-19"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D06-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "service_desk",
+                "value": "A2",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": "2026-10-20",
+                "source_ids": [
+                  "s01",
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "service_desk",
+                "value": "B4",
+                "status": "requested",
+                "condition": "Effective 2026-10-20",
+                "valid_from": "2026-10-20",
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D06-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-20"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D07-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 0,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D07-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "requested_action",
+                "value": "Call on 2026-10-18 only upon repair approval",
+                "status": "requested",
+                "condition": "repair approval",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "repair_status",
+                "value": "not approved",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D07-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 3,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "repair_approval_status",
+                "value": "pending",
+                "status": "current",
+                "condition": "repair has not been approved yet",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "repair_approval_status",
+                "value": "pending",
+                "status": "requested",
+                "condition": "repair has not been approved yet, and approval is a precondition for a callback",
+                "valid_from": null,
+                "valid_until": "2026-10-18",
+                "source_ids": [
+                  "s01",
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "callback_request",
+                "value": "call on 2026-10-18 if repair is approved",
+                "status": "requested",
+                "condition": "repair must be approved for the callback to occur",
+                "valid_from": null,
+                "valid_until": "2026-10-18",
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D09-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 6,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 3,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 4,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 5,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D09-hi-extract",
+          "old_status": "rejected",
+          "old_fact_count": 0,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "INVALID_FACT_CONTRACT",
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D09-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 5,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "confirmed_delivery_date",
+                "value": "2026-10-20",
+                "status": "historical",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "confirmed_delivery_date",
+                "value": "2026-10-23",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s04"
+                ]
+              },
+              {
+                "attribute": "delivery_request_date",
+                "value": "2026-10-22",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "delivery_request_status",
+                "value": "rejected",
+                "status": "historical",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s03"
+                ]
+              },
+              {
+                "attribute": "delivery_request_status",
+                "value": "approved",
+                "status": "confirmed",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s04"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D01-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 0,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D01-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D01-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D06-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 3,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-19"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_until",
+                "value": "2026-10-19"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D06-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "current_service_desk",
+                "value": "A2",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "requested_service_desk",
+                "value": "B4",
+                "status": "requested",
+                "condition": "2026-10-20",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D06-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-20"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D07-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "call_requested_date",
+                "value": "2026-10-18",
+                "status": "requested",
+                "condition": "if the repair is approved",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "repair_approval_status",
+                "value": "not approved",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D07-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D07-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "repair_approval_status",
+                "value": "pending",
+                "status": "current",
+                "condition": "repair has not yet been approved",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "call_request",
+                "value": "Call on 2026-10-18 only if repair is approved",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D09-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 5,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "order_delivery_date",
+                "value": "2026-10-20",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "order_delivery_date",
+                "value": "2026-10-22",
+                "status": "requested",
+                "condition": "delivery request",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "delivery_date_request",
+                "value": "rejected",
+                "status": "historical",
+                "condition": "delivery request for 2026-10-22",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s03"
+                ]
+              },
+              {
+                "attribute": "order_delivery_date",
+                "value": "2026-10-23",
+                "status": "current",
+                "condition": "later change accepted",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s04"
+                ]
+              },
+              {
+                "attribute": "order_delivery_date",
+                "value": "2026-10-20",
+                "status": "historical",
+                "condition": "delayed old backend receipt replay, not new change",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s05"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D09-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 3,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 1,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D09-te-extract",
+          "old_status": "rejected",
+          "old_fact_count": 0,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "INVALID_FACT_CONTRACT",
+            "semantic_review": "UNREVIEWED"
+          }
+        }
+      ]
+    },
+    {
+      "run": 4,
+      "checkpoint_sha256": "3ebd75424b0ba744fbe948becb4c102fdf48348df68dd99aad71d267b17c572d",
+      "new_rejections": 5,
+      "existing_rejections": 2,
+      "rows": [
+        {
+          "job_id": "r1-D01-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D01-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D01-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter_instruction",
+                "value": "Use pickup counter K7 for my parcel.",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D06-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "service_desk",
+                "value": "A2",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": "2026-10-20",
+                "source_ids": [
+                  "s01",
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "service_desk",
+                "value": "B4",
+                "status": "requested",
+                "condition": null,
+                "valid_from": "2026-10-20",
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D06-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "service_desk",
+                "value": "A2",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": "2026-10-20",
+                "source_ids": [
+                  "s01",
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "service_desk",
+                "value": "B4",
+                "status": "requested",
+                "condition": "Effective from 2026-10-20",
+                "valid_from": "2026-10-20",
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D06-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-20"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D07-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "contact_request",
+                "value": "Call on 2026-10-18 only if the repair is approved.",
+                "status": "requested",
+                "condition": "repair approved",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "repair_status",
+                "value": "not approved yet",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D07-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "repair_approval_status",
+                "value": "not_approved",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "repair_approval_status",
+                "value": "approved",
+                "status": "requested",
+                "condition": "repair_approval",
+                "valid_from": "2026-10-18",
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D07-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 3,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "repair_approval_status",
+                "value": "pending",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "repair_approval_status",
+                "value": "not_received",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "call_request",
+                "value": "Call me on 2026-10-18 only if repair approval is received.",
+                "status": "requested",
+                "condition": "repair approval must be received",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r1-D09-en-extract",
+          "old_status": "rejected",
+          "old_fact_count": 0,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "INVALID_FACT_CONTRACT",
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D09-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 4,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 3,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r1-D09-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 7,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "order_id",
+                "value": "O42",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01",
+                  "s04"
+                ]
+              },
+              {
+                "attribute": "confirmed_delivery_date",
+                "value": "2026-10-20",
+                "status": "historical",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01",
+                  "s05"
+                ]
+              },
+              {
+                "attribute": "confirmed_delivery_date",
+                "value": "2026-10-23",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s04"
+                ]
+              },
+              {
+                "attribute": "delivery_request",
+                "value": "2026-10-22",
+                "status": "withdrawn",
+                "condition": "request was denied",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02",
+                  "s03"
+                ]
+              },
+              {
+                "attribute": "version",
+                "value": "7",
+                "status": "historical",
+                "condition": "original backend receipt",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01",
+                  "s05"
+                ]
+              },
+              {
+                "attribute": "version",
+                "value": "8",
+                "status": "current",
+                "condition": "approved change",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s04"
+                ]
+              },
+              {
+                "attribute": "delivery_date",
+                "value": "2026-10-20",
+                "status": "historical",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s05"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D01-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "requested",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D01-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "requested",
+                "condition": "For the user's parcel",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D01-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 1,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "pickup_counter",
+                "value": "K7",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D06-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 3,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-19"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_until",
+                "value": "2026-10-19"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D06-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "service_desk",
+                "value": "A2",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": "2026-10-20",
+                "source_ids": [
+                  "s01",
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "service_desk",
+                "value": "B4",
+                "status": "requested",
+                "condition": "From 2026-10-20",
+                "valid_from": "2026-10-20",
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D06-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "current_service_desk",
+                "value": "A2",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "service_desk_assignment",
+                "value": "B4",
+                "status": "requested",
+                "condition": "Effective from 2026-10-20. Until then, keep A2.",
+                "valid_from": "2026-10-20",
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D07-en-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "user requested_call_date",
+                "value": "2026-10-18",
+                "status": "requested",
+                "condition": "if the repair is approved",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "repair_approval_status",
+                "value": "not approved",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D07-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "repair_approval_status",
+                "value": "not approved",
+                "status": "current",
+                "condition": "repair has not been approved",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01",
+                  "s02"
+                ]
+              },
+              {
+                "attribute": "requested_callback_date",
+                "value": "2026-10-18",
+                "status": "requested",
+                "condition": "repair must be approved first",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D07-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 2,
+          "new_status": "admitted_structure_only",
+          "new_admission": {
+            "status": "admitted_structure_only",
+            "facts": [
+              {
+                "attribute": "call_request",
+                "value": "Call me on 2026-10-18 only if repair approval is granted.",
+                "status": "requested",
+                "condition": "only if repair approval is granted",
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s01"
+                ]
+              },
+              {
+                "attribute": "repair_approval",
+                "value": "Repair approval has not yet been granted.",
+                "status": "current",
+                "condition": null,
+                "valid_from": null,
+                "valid_until": null,
+                "source_ids": [
+                  "s02"
+                ]
+              }
+            ],
+            "reason": null,
+            "semantic_review": "UNREVIEWED",
+            "date_witness_check": "LITERAL_ONLY_NOT_ENTAILMENT"
+          }
+        },
+        {
+          "job_id": "r2-D09-en-extract",
+          "old_status": "rejected",
+          "old_fact_count": 0,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "INVALID_FACT_CONTRACT",
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D09-hi-extract",
+          "old_status": "complete",
+          "old_fact_count": 6,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 0,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 1,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 2,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 3,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 4,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 4,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 5,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 5,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        },
+        {
+          "job_id": "r2-D09-te-extract",
+          "old_status": "complete",
+          "old_fact_count": 7,
+          "new_status": "rejected",
+          "new_admission": {
+            "status": "rejected",
+            "facts": [],
+            "reason": "VALIDITY_DATE_WITHOUT_CITED_LITERAL_WITNESS",
+            "missing_date_witnesses": [
+              {
+                "fact_index": 0,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 1,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 3,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 3,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 4,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 4,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 5,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 6,
+                "field": "valid_from",
+                "value": "2026-10-09"
+              },
+              {
+                "fact_index": 6,
+                "field": "valid_until",
+                "value": "2026-10-09"
+              }
+            ],
+            "semantic_review": "UNREVIEWED"
+          }
+        }
+      ]
+    }
+  ],
+  "limits": "Literal date occurrence is necessary only; same-date wrong meaning can pass. Derived or spelled dates may be rejected conservatively."
+}

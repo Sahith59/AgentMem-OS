@@ -1,0 +1,96 @@
+{
+  "review_level": "ASSISTANT_NOT_INDEPENDENT",
+  "checkpoint_sha256": "49e83383227b6fb57c9f3da0ae5f30aa0a342146d88d43cb022e2b5d524303b7",
+  "rows": [
+    {
+      "job_id": "r1-D01-en-extract",
+      "status": "EMPTY",
+      "source_review_note": "All useful content omitted; original pickup instruction still available.",
+      "fact_count": 0,
+      "source_hash": "a55da1cac5c9e11ab4e19afa4c9938389f0b36b0ccd74a4e3c798adcf6e7c365",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D01-hi-extract",
+      "status": "SUPPORTED_WITH_LIMITS",
+      "source_review_note": "K7 is supported; requested status consistent with instruction. SQLite answer copied attribute pickup_counter_id into field name, so answer invalid.",
+      "fact_count": 1,
+      "source_hash": "59e216dbaa185fc07ccdbfe58873d87a94dcf64c5d3f18d86295239173f5306d",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D01-te-extract",
+      "status": "EMPTY",
+      "source_review_note": "Useful pickup instruction omitted; originals retained.",
+      "fact_count": 0,
+      "source_hash": "70f44d0f4fcd472d7a58979e5b8908811ebe559c3fa98ad1063472d6b807c34e",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D06-en-extract",
+      "status": "EMPTY",
+      "source_review_note": "Current and future service desk information omitted; originals retained.",
+      "fact_count": 0,
+      "source_hash": "1995a7a7b4d15f0d969fbf645570349e5bc2810e5ed07a731efbcdec382d7d54",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D06-hi-extract",
+      "status": "CAUTION",
+      "source_review_note": "A2/B4 and change date preserved. Current user assertion labeled confirmed; no independent backend confirmation. This should not be interpreted as backend-confirmed action.",
+      "fact_count": 2,
+      "source_hash": "87ed2ef2c9ae24d6566a87c4c01d4bfe622fac346e173dd66b8efda919aac4b8",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D06-te-extract",
+      "status": "CAUTION",
+      "source_review_note": "A2/B4 and change date preserved. valid_until2026-10-20 has unspecified inclusive/exclusive semantics; preserve original until/from wording.",
+      "fact_count": 3,
+      "source_hash": "16ef1b79ea88db424ecc5a3153ace37062374f00cdc2e87fa7c2dc4e86464f97",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D07-en-extract",
+      "status": "CAUTION",
+      "source_review_note": "Callback date and approval condition preserved. Existing nonapproval is represented with conditional status/condition, even though it is an asserted current state. Do not promote to approval.",
+      "fact_count": 2,
+      "source_hash": "d060fc6fc9cb15c2aa1ba86d43b1e0a1b7249877d1c518e931d10a0f0e0631ca",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D07-hi-extract",
+      "status": "CAUTION",
+      "source_review_note": "Callback condition and current nonapproval preserved; condition string none is not JSON null, so a consumer could misinterpret it.",
+      "fact_count": 2,
+      "source_hash": "d19261fb2322eda83b25a1b42bc1347b7890eb1057b75ab09ed2d1b305cfd83d",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    },
+    {
+      "job_id": "r1-D07-te-extract",
+      "status": "TRUNCATED_NOT_ADMITTED",
+      "source_review_note": "No complete final facts; repeated escaped whitespace,finishlength,4096completion,zero reasoning. Stop preserved.",
+      "fact_count": 0,
+      "source_hash": "ad7528e8aabf1f6a87603c12ed1ce7ba48383eaf01c9dbd6e73c3ed1dd14366f",
+      "reviewer": "assistant",
+      "independent_native_review": false,
+      "scope": "Actual original text and candidate output; status vocabulary/end-date convention remain underspecified."
+    }
+  ]
+}

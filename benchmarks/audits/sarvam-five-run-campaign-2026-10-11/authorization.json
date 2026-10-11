@@ -1,0 +1,23 @@
+{
+  "schema": "sarvam-five-run-authorization-v1",
+  "date_utc": "2026-10-11T13:50:42.734762+00:00",
+  "user_authorization": "Yes I approve for the next 5 runs and please do not stop and work relentlessly until we get an improvement or until we get any gain.. or a positive news..",
+  "maximum_runs": 5,
+  "maximum_calls_per_run": 72,
+  "maximum_total_calls": 360,
+  "reservation_per_run_ninr": 297908305920,
+  "maximum_total_reservation_ninr": 1489541529600,
+  "model": "sarvam-105b",
+  "retries": 0,
+  "first_package_sha256": "bf04d07dbe2a9b2fe2e77be5ce08cdc19eed511de6af2af075cf182ef5fa0b65",
+  "decision_policy": [
+    "Run 1: exact frozen v3 comparison.",
+    "Replicate any apparent advantage with same frozen package before further claims.",
+    "If control saturates or memory loses, diagnose every miss and fact; spend follow-ups only on a discriminating predeclared hypothesis, within fixed-model/call/output/reservation limits.",
+    "New follow-up scope must be frozen offline before dispatch; no within-run tuning or dropping failures.",
+    "A stopped run consumes its run slot; do not resume or hide it. Diagnose infrastructure failures before a new scope. Unknown usage retains full reservation.",
+    "Use remaining runs for confirmation or well-motivated repair, not selection of the luckiest score.",
+    "If all arms saturate, no architecture gain is claimed; preserve allowance instead of needless repeats."
+  ],
+  "stop_policy": "Per-run infrastructure/accounting/authentication/budget stops unchanged; campaign ceiling or unresolved external blocker stops dispatch. No further paid calls beyond five runs."
+}

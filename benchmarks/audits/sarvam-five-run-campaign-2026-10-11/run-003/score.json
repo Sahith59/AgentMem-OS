@@ -1,0 +1,4236 @@
+{
+  "schema": "sarvam-comparison-score-v5",
+  "extraction_review": [
+    {
+      "job_id": "r1-D01-en-extract",
+      "case_id": "D01-en",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "parcel_pickup_counter",
+          "value": "K7",
+          "status": "current",
+          "condition": null,
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "parcel_pickup_counter",
+            "value": "K7",
+            "status": "current",
+            "condition": null,
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\"facts\":[{\"attribute\":\"parcel_pickup_counter\",\"value\":\"K7\",\"status\":\"current\",\"condition\":null,\"valid_from\":\"2026-10-09\",\"valid_until\":null,\"source_ids\":[\"s01\"]}]}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D01-hi-extract",
+      "case_id": "D01-hi",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "pickup_counter",
+          "value": "K7",
+          "status": "requested",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "pickup_counter",
+            "value": "K7",
+            "status": "requested",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D01-te-extract",
+      "case_id": "D01-te",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "pickup_counter",
+          "value": "K7",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "pickup_counter",
+            "value": "K7",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D06-en-extract",
+      "case_id": "D06-en",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "current_service_desk",
+          "value": "A2",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": "2026-10-19",
+          "source_ids": [
+            "s01",
+            "s02"
+          ]
+        },
+        {
+          "attribute": "planned_service_desk_change",
+          "value": "B4",
+          "status": "requested",
+          "condition": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2.",
+          "valid_from": "2026-10-20",
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "current_service_desk",
+            "value": "A2",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": "2026-10-19",
+            "source_ids": [
+              "s01",
+              "s02"
+            ]
+          },
+          {
+            "attribute": "planned_service_desk_change",
+            "value": "B4",
+            "status": "requested",
+            "condition": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2.",
+            "valid_from": "2026-10-20",
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\"facts\":[{\"attribute\":\"current_service_desk\",\"value\":\"A2\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":\"2026-10-19\",\"source_ids\":[\"s01\",\"s02\"]},{\"attribute\":\"planned_service_desk_change\",\"value\":\"B4\",\"status\":\"requested\",\"condition\":\"Starting on 2026-10-20, use desk B4 instead. Until then, keep A2.\",\"valid_from\":\"2026-10-20\",\"valid_until\":null,\"source_ids\":[\"s02\"]}]}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D06-hi-extract",
+      "case_id": "D06-hi",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "service_desk",
+          "value": "A2",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": "2026-10-20",
+          "source_ids": [
+            "s01",
+            "s02"
+          ]
+        },
+        {
+          "attribute": "service_desk",
+          "value": "B4",
+          "status": "requested",
+          "condition": "Effective 2026-10-20",
+          "valid_from": "2026-10-20",
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "service_desk",
+            "value": "A2",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": "2026-10-20",
+            "source_ids": [
+              "s01",
+              "s02"
+            ]
+          },
+          {
+            "attribute": "service_desk",
+            "value": "B4",
+            "status": "requested",
+            "condition": "Effective 2026-10-20",
+            "valid_from": "2026-10-20",
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-20\",\n      \"source_ids\": [\"s01\", \"s02\"]\n    },\n    {\n      \"attribute\": \"service_desk\",\n      \"value\": \"B4\",\n      \"status\": \"requested\",\n      \"condition\": \"Effective 2026-10-20\",\n      \"valid_from\": \"2026-10-20\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D06-te-extract",
+      "case_id": "D06-te",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "current_service_desk",
+          "value": "A2",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": "2026-10-20",
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "requested_service_desk",
+          "value": "B4",
+          "status": "requested",
+          "condition": null,
+          "valid_from": "2026-10-20",
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "current_service_desk",
+            "value": "A2",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": "2026-10-20",
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "requested_service_desk",
+            "value": "B4",
+            "status": "requested",
+            "condition": null,
+            "valid_from": "2026-10-20",
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"current_service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-20\",\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"requested_service_desk\",\n      \"value\": \"B4\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-20\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D07-en-extract",
+      "case_id": "D07-en",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ],
+      "facts": [],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\"facts\":[]}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D07-hi-extract",
+      "case_id": "D07-hi",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "requested_action",
+          "value": "Call on 2026-10-18 only upon repair approval",
+          "status": "requested",
+          "condition": "repair approval",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "repair_status",
+          "value": "not approved",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "requested_action",
+            "value": "Call on 2026-10-18 only upon repair approval",
+            "status": "requested",
+            "condition": "repair approval",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "repair_status",
+            "value": "not approved",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"requested_action\",\n      \"value\": \"Call on 2026-10-18 only upon repair approval\",\n      \"status\": \"requested\",\n      \"condition\": \"repair approval\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"repair_status\",\n      \"value\": \"not approved\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D07-te-extract",
+      "case_id": "D07-te",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "repair_approval_status",
+          "value": "pending",
+          "status": "current",
+          "condition": "repair has not been approved yet",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "repair_approval_status",
+          "value": "pending",
+          "status": "requested",
+          "condition": "repair has not been approved yet, and approval is a precondition for a callback",
+          "valid_from": null,
+          "valid_until": "2026-10-18",
+          "source_ids": [
+            "s01",
+            "s02"
+          ]
+        },
+        {
+          "attribute": "callback_request",
+          "value": "call on 2026-10-18 if repair is approved",
+          "status": "requested",
+          "condition": "repair must be approved for the callback to occur",
+          "valid_from": null,
+          "valid_until": "2026-10-18",
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "repair_approval_status",
+            "value": "pending",
+            "status": "current",
+            "condition": "repair has not been approved yet",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "repair_approval_status",
+            "value": "pending",
+            "status": "requested",
+            "condition": "repair has not been approved yet, and approval is a precondition for a callback",
+            "valid_from": null,
+            "valid_until": "2026-10-18",
+            "source_ids": [
+              "s01",
+              "s02"
+            ]
+          },
+          {
+            "attribute": "callback_request",
+            "value": "call on 2026-10-18 if repair is approved",
+            "status": "requested",
+            "condition": "repair must be approved for the callback to occur",
+            "valid_from": null,
+            "valid_until": "2026-10-18",
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"pending\",\n      \"status\": \"current\",\n      \"condition\": \"repair has not been approved yet\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"pending\",\n      \"status\": \"requested\",\n      \"condition\": \"repair has not been approved yet, and approval is a precondition for a callback\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-18\",\n      \"source_ids\": [\"s01\", \"s02\"]\n    },\n    {\n      \"attribute\": \"callback_request\",\n      \"value\": \"call on 2026-10-18 if repair is approved\",\n      \"status\": \"requested\",\n      \"condition\": \"repair must be approved for the callback to occur\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-18\",\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D09-en-extract",
+      "case_id": "D09-en",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-20",
+          "status": "historical",
+          "condition": null,
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s01",
+            "s05"
+          ]
+        },
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-22",
+          "status": "requested",
+          "condition": "user requested delivery on 2026-10-22",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-23",
+          "status": "confirmed",
+          "condition": "later change was accepted",
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s04"
+          ]
+        },
+        {
+          "attribute": "version",
+          "value": "7",
+          "status": "historical",
+          "condition": "replay of original backend receipt, not a new change",
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s05"
+          ]
+        },
+        {
+          "attribute": "version",
+          "value": "8",
+          "status": "current",
+          "condition": "later change was accepted",
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s04"
+          ]
+        },
+        {
+          "attribute": "booking_change_status",
+          "value": "rejected",
+          "status": "historical",
+          "condition": "user request for 2026-10-22",
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s03"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-20",
+            "status": "historical",
+            "condition": null,
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s01",
+              "s05"
+            ]
+          },
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-22",
+            "status": "requested",
+            "condition": "user requested delivery on 2026-10-22",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-23",
+            "status": "confirmed",
+            "condition": "later change was accepted",
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s04"
+            ]
+          },
+          {
+            "attribute": "version",
+            "value": "7",
+            "status": "historical",
+            "condition": "replay of original backend receipt, not a new change",
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s05"
+            ]
+          },
+          {
+            "attribute": "version",
+            "value": "8",
+            "status": "current",
+            "condition": "later change was accepted",
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s04"
+            ]
+          },
+          {
+            "attribute": "booking_change_status",
+            "value": "rejected",
+            "status": "historical",
+            "condition": "user request for 2026-10-22",
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s03"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": \"user requested delivery on 2026-10-22\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"confirmed\",\n      \"condition\": \"later change was accepted\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"version\",\n      \"value\": \"7\",\n      \"status\": \"historical\",\n      \"condition\": \"replay of original backend receipt, not a new change\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s05\"]\n    },\n    {\n      \"attribute\": \"version\",\n      \"value\": \"8\",\n      \"status\": \"current\",\n      \"condition\": \"later change was accepted\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"booking_change_status\",\n      \"value\": \"rejected\",\n      \"status\": \"historical\",\n      \"condition\": \"user request for 2026-10-22\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s03\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D09-hi-extract",
+      "case_id": "D09-hi",
+      "repeat": 1,
+      "status": "rejected",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ],
+      "facts": [],
+      "admission": {
+        "status": "rejected",
+        "facts": [],
+        "reason": "INVALID_FACT_CONTRACT",
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"order_id\",\n      \"value\": \"O42\",\n      \"status\": \"current\",\n      \"condition\": \"backend_confirmed_delivery_date=2026-10-23, version=8\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"requested_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"rejected\",\n      \"condition\": \"backend_rejected_request_not_accepted\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s02\", \"s03\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"superseded_by_later_version_8\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"backend_version\",\n      \"value\": \"7\",\n      \"status\": \"historical\",\n      \"condition\": \"superseded_by_version_8\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"backend_version\",\n      \"value\": \"8\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D09-te-extract",
+      "case_id": "D09-te",
+      "repeat": 1,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-20",
+          "status": "historical",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-23",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s04"
+          ]
+        },
+        {
+          "attribute": "delivery_request_date",
+          "value": "2026-10-22",
+          "status": "requested",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "delivery_request_status",
+          "value": "rejected",
+          "status": "historical",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s03"
+          ]
+        },
+        {
+          "attribute": "delivery_request_status",
+          "value": "approved",
+          "status": "confirmed",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s04"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-20",
+            "status": "historical",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-23",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s04"
+            ]
+          },
+          {
+            "attribute": "delivery_request_date",
+            "value": "2026-10-22",
+            "status": "requested",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "delivery_request_status",
+            "value": "rejected",
+            "status": "historical",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s03"
+            ]
+          },
+          {
+            "attribute": "delivery_request_status",
+            "value": "approved",
+            "status": "confirmed",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s04"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"delivery_request_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"delivery_request_status\",\n      \"value\": \"rejected\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s03\"]\n    },\n    {\n      \"attribute\": \"delivery_request_status\",\n      \"value\": \"approved\",\n      \"status\": \"confirmed\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D01-en-extract",
+      "case_id": "D01-en",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ],
+      "facts": [],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\"facts\":[]}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D01-hi-extract",
+      "case_id": "D01-hi",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "pickup_counter",
+          "value": "K7",
+          "status": "requested",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "pickup_counter",
+            "value": "K7",
+            "status": "requested",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D01-te-extract",
+      "case_id": "D01-te",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "pickup_counter",
+          "value": "K7",
+          "status": "requested",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "pickup_counter",
+            "value": "K7",
+            "status": "requested",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\n        \"s01\"\n      ]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D06-en-extract",
+      "case_id": "D06-en",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "current_service_desk",
+          "value": "A2",
+          "status": "current",
+          "condition": null,
+          "valid_from": "2026-10-09",
+          "valid_until": "2026-10-19",
+          "source_ids": [
+            "s01",
+            "s02"
+          ]
+        },
+        {
+          "attribute": "requested_service_desk_change",
+          "value": "B4",
+          "status": "requested",
+          "condition": "Effective 2026-10-20",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "service_desk_until_change",
+          "value": "A2",
+          "status": "current",
+          "condition": "Until 2026-10-19",
+          "valid_from": "2026-10-09",
+          "valid_until": "2026-10-19",
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "current_service_desk",
+            "value": "A2",
+            "status": "current",
+            "condition": null,
+            "valid_from": "2026-10-09",
+            "valid_until": "2026-10-19",
+            "source_ids": [
+              "s01",
+              "s02"
+            ]
+          },
+          {
+            "attribute": "requested_service_desk_change",
+            "value": "B4",
+            "status": "requested",
+            "condition": "Effective 2026-10-20",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "service_desk_until_change",
+            "value": "A2",
+            "status": "current",
+            "condition": "Until 2026-10-19",
+            "valid_from": "2026-10-09",
+            "valid_until": "2026-10-19",
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\"facts\":[{\"attribute\":\"current_service_desk\",\"value\":\"A2\",\"status\":\"current\",\"condition\":null,\"valid_from\":\"2026-10-09\",\"valid_until\":\"2026-10-19\",\"source_ids\":[\"s01\",\"s02\"]},{\"attribute\":\"requested_service_desk_change\",\"value\":\"B4\",\"status\":\"requested\",\"condition\":\"Effective 2026-10-20\",\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s02\"]},{\"attribute\":\"service_desk_until_change\",\"value\":\"A2\",\"status\":\"current\",\"condition\":\"Until 2026-10-19\",\"valid_from\":\"2026-10-09\",\"valid_until\":\"2026-10-19\",\"source_ids\":[\"s02\"]}]}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D06-hi-extract",
+      "case_id": "D06-hi",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "current_service_desk",
+          "value": "A2",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "requested_service_desk",
+          "value": "B4",
+          "status": "requested",
+          "condition": "2026-10-20",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "current_service_desk",
+            "value": "A2",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "requested_service_desk",
+            "value": "B4",
+            "status": "requested",
+            "condition": "2026-10-20",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"current_service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"requested_service_desk\",\n      \"value\": \"B4\",\n      \"status\": \"requested\",\n      \"condition\": \"2026-10-20\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D06-te-extract",
+      "case_id": "D06-te",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "current_service_desk",
+          "value": "A2",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": "2026-10-20",
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "requested_service_desk_change",
+          "value": "Change to B4 starting 2026-10-20",
+          "status": "requested",
+          "condition": null,
+          "valid_from": "2026-10-20",
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "current_service_desk",
+            "value": "A2",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": "2026-10-20",
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "requested_service_desk_change",
+            "value": "Change to B4 starting 2026-10-20",
+            "status": "requested",
+            "condition": null,
+            "valid_from": "2026-10-20",
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"current_service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-20\",\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"requested_service_desk_change\",\n      \"value\": \"Change to B4 starting 2026-10-20\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-20\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D07-en-extract",
+      "case_id": "D07-en",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "call_requested_date",
+          "value": "2026-10-18",
+          "status": "requested",
+          "condition": "if the repair is approved",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "repair_approval_status",
+          "value": "not approved",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "call_requested_date",
+            "value": "2026-10-18",
+            "status": "requested",
+            "condition": "if the repair is approved",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "repair_approval_status",
+            "value": "not approved",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"call_requested_date\",\n      \"value\": \"2026-10-18\",\n      \"status\": \"requested\",\n      \"condition\": \"if the repair is approved\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"not approved\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D07-hi-extract",
+      "case_id": "D07-hi",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "repair_status",
+          "value": "not approved",
+          "status": "current",
+          "condition": "pending_approval_for_callback",
+          "valid_from": "2026-10-09",
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "scheduled_callback_date",
+          "value": "2026-10-18",
+          "status": "requested",
+          "condition": "conditional_on_repair_approval",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "repair_status",
+            "value": "not approved",
+            "status": "current",
+            "condition": "pending_approval_for_callback",
+            "valid_from": "2026-10-09",
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "scheduled_callback_date",
+            "value": "2026-10-18",
+            "status": "requested",
+            "condition": "conditional_on_repair_approval",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"repair_status\",\n      \"value\": \"not approved\",\n      \"status\": \"current\",\n      \"condition\": \"pending_approval_for_callback\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"scheduled_callback_date\",\n      \"value\": \"2026-10-18\",\n      \"status\": \"requested\",\n      \"condition\": \"conditional_on_repair_approval\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D07-te-extract",
+      "case_id": "D07-te",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "repair_approval_status",
+          "value": "pending",
+          "status": "current",
+          "condition": "repair has not yet been approved",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "call_request",
+          "value": "Call on 2026-10-18 only if repair is approved",
+          "status": "requested",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "repair_approval_status",
+            "value": "pending",
+            "status": "current",
+            "condition": "repair has not yet been approved",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "call_request",
+            "value": "Call on 2026-10-18 only if repair is approved",
+            "status": "requested",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"pending\",\n      \"status\": \"current\",\n      \"condition\": \"repair has not yet been approved\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"call_request\",\n      \"value\": \"Call on 2026-10-18 only if repair is approved\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D09-en-extract",
+      "case_id": "D09-en",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "order_delivery_date",
+          "value": "2026-10-20",
+          "status": "current",
+          "condition": null,
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s01"
+          ]
+        },
+        {
+          "attribute": "order_delivery_date",
+          "value": "2026-10-22",
+          "status": "requested",
+          "condition": "delivery request",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s02"
+          ]
+        },
+        {
+          "attribute": "delivery_date_request",
+          "value": "rejected",
+          "status": "historical",
+          "condition": "delivery request for 2026-10-22",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s03"
+          ]
+        },
+        {
+          "attribute": "order_delivery_date",
+          "value": "2026-10-23",
+          "status": "current",
+          "condition": "later change accepted",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s04"
+          ]
+        },
+        {
+          "attribute": "order_delivery_date",
+          "value": "2026-10-20",
+          "status": "historical",
+          "condition": "delayed old backend receipt replay, not new change",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s05"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "order_delivery_date",
+            "value": "2026-10-20",
+            "status": "current",
+            "condition": null,
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s01"
+            ]
+          },
+          {
+            "attribute": "order_delivery_date",
+            "value": "2026-10-22",
+            "status": "requested",
+            "condition": "delivery request",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s02"
+            ]
+          },
+          {
+            "attribute": "delivery_date_request",
+            "value": "rejected",
+            "status": "historical",
+            "condition": "delivery request for 2026-10-22",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s03"
+            ]
+          },
+          {
+            "attribute": "order_delivery_date",
+            "value": "2026-10-23",
+            "status": "current",
+            "condition": "later change accepted",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s04"
+            ]
+          },
+          {
+            "attribute": "order_delivery_date",
+            "value": "2026-10-20",
+            "status": "historical",
+            "condition": "delayed old backend receipt replay, not new change",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s05"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": \"delivery request\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"delivery_date_request\",\n      \"value\": \"rejected\",\n      \"status\": \"historical\",\n      \"condition\": \"delivery request for 2026-10-22\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s03\"]\n    },\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": \"later change accepted\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"delayed old backend receipt replay, not new change\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s05\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D09-hi-extract",
+      "case_id": "D09-hi",
+      "repeat": 2,
+      "status": "complete",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ],
+      "facts": [
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-20",
+          "status": "historical",
+          "condition": "Original backend receipt; superseded by version 8",
+          "valid_from": null,
+          "valid_until": "2026-10-09",
+          "source_ids": [
+            "s01",
+            "s05"
+          ]
+        },
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-22",
+          "status": "requested",
+          "condition": "User delivery request; rejected by backend",
+          "valid_from": null,
+          "valid_until": "2026-10-09",
+          "source_ids": [
+            "s02",
+            "s03"
+          ]
+        },
+        {
+          "attribute": "confirmed_delivery_date",
+          "value": "2026-10-23",
+          "status": "current",
+          "condition": "Later change accepted by backend",
+          "valid_from": null,
+          "valid_until": null,
+          "source_ids": [
+            "s04"
+          ]
+        }
+      ],
+      "admission": {
+        "status": "admitted_structure_only",
+        "facts": [
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-20",
+            "status": "historical",
+            "condition": "Original backend receipt; superseded by version 8",
+            "valid_from": null,
+            "valid_until": "2026-10-09",
+            "source_ids": [
+              "s01",
+              "s05"
+            ]
+          },
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-22",
+            "status": "requested",
+            "condition": "User delivery request; rejected by backend",
+            "valid_from": null,
+            "valid_until": "2026-10-09",
+            "source_ids": [
+              "s02",
+              "s03"
+            ]
+          },
+          {
+            "attribute": "confirmed_delivery_date",
+            "value": "2026-10-23",
+            "status": "current",
+            "condition": "Later change accepted by backend",
+            "valid_from": null,
+            "valid_until": null,
+            "source_ids": [
+              "s04"
+            ]
+          }
+        ],
+        "reason": null,
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"Original backend receipt; superseded by version 8\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": \"User delivery request; rejected by backend\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s02\", \"s03\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": \"Later change accepted by backend\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D09-te-extract",
+      "case_id": "D09-te",
+      "repeat": 2,
+      "status": "rejected",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ],
+      "facts": [],
+      "admission": {
+        "status": "rejected",
+        "facts": [],
+        "reason": "INVALID_FACT_CONTRACT",
+        "semantic_review": "UNREVIEWED"
+      },
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"This is a resubmitted receipt, not a new change.\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s05\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": \"The previous request for 2026-10-22 was rejected.\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"delivery_request\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"rejected\",\n      \"condition\": \"The request was rejected; booking unchanged.\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s03\"]\n    }\n  ]\n}",
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    }
+  ],
+  "status": "EXPLORATORY_COMPLETE",
+  "package_sha256": "c5f311786829f294624108d0f323bfab0986ba1519ee59ea26731e0895aa2809",
+  "execution": {
+    "intended_calls": 72,
+    "attempted": 72,
+    "dispatch_started": 72,
+    "completed": 70,
+    "resolved": 72,
+    "rejected_extractions": 2,
+    "invalid_answers": 0,
+    "reserved_ninr": 297908305920,
+    "usage_ninr": 1959183360,
+    "attempts_with_unknown_usage": 0,
+    "mode": "live",
+    "quality": "NOT_SCORED_USE_SEPARATE_EVALUATOR"
+  },
+  "metering": {
+    "basis": "provider usage at frozen uncached rates; not an invoice",
+    "allocation": "all extraction (including failures/repeats) charged to SQLite",
+    "stages": {
+      "extract": {
+        "calls_with_known_usage": 24,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 17706,
+        "completion_tokens": 5113,
+        "known_usage_ninr": 892703280,
+        "reserved_ninr": 99302768640,
+        "reserved_attempt_slots": 24,
+        "dispatch_started_calls": 24,
+        "not_dispatched_slots": 0
+      },
+      "full_history": {
+        "calls_with_known_usage": 24,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 13344,
+        "completion_tokens": 1454,
+        "known_usage_ninr": 497145120,
+        "reserved_ninr": 99302768640,
+        "reserved_attempt_slots": 24,
+        "dispatch_started_calls": 24,
+        "not_dispatched_slots": 0
+      },
+      "sqlite": {
+        "calls_with_known_usage": 24,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 15897,
+        "completion_tokens": 1419,
+        "known_usage_ninr": 569334960,
+        "reserved_ninr": 99302768640,
+        "reserved_attempt_slots": 24,
+        "dispatch_started_calls": 24,
+        "not_dispatched_slots": 0
+      }
+    },
+    "arms": {
+      "full_history": {
+        "calls_with_known_usage": 24,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 13344,
+        "completion_tokens": 1454,
+        "known_usage_ninr": 497145120,
+        "reserved_ninr": 99302768640,
+        "reserved_attempt_slots": 24,
+        "dispatch_started_calls": 24,
+        "not_dispatched_slots": 0
+      },
+      "sqlite": {
+        "calls_with_known_usage": 48,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 33603,
+        "completion_tokens": 6532,
+        "known_usage_ninr": 1462038240,
+        "reserved_ninr": 198605537280,
+        "reserved_attempt_slots": 48,
+        "dispatch_started_calls": 48,
+        "not_dispatched_slots": 0
+      }
+    }
+  },
+  "independent_human_validation": false,
+  "limits": [
+    "Assistant-authored and reviewed labels; exploratory only.",
+    "Translations, contrasts and repeats are correlated, not independent samples.",
+    "Exact canonical fields; no free-text or full explanation quality judgment.",
+    "Required citation coverage does not prove every cited source entails an answer.",
+    "Invalid/unattempted answers stay visible; valid-only accuracy is conditional.",
+    "Same answer settings and original sources; SQLite adds extraction compute.",
+    "No causal architecture, novelty, production or all-language quality claim.",
+    "Admission is structural; source meaning remains UNREVIEWED.",
+    "Source-only fallback is not successful memory extraction.",
+    "Malformed completed answers count as unsuccessful in all-intended accuracy."
+  ],
+  "arms": {
+    "full_history": {
+      "intended": 24,
+      "valid_answers": 24,
+      "status_counts": {
+        "complete": 24
+      },
+      "correct_answers": 23,
+      "accuracy_among_valid": 0.9583333333333334,
+      "correct_with_required_evidence": 17,
+      "field_count": 36,
+      "correct_fields": 35,
+      "clarification_correct": 24,
+      "citation_count": 40,
+      "accuracy_over_intended": 0.9583333333333334,
+      "by_evidence_path": {
+        "originals_only_control": {
+          "intended": 24,
+          "valid_answers": 24,
+          "status_counts": {
+            "complete": 24
+          },
+          "correct_answers": 23,
+          "accuracy_among_valid": 0.9583333333333334,
+          "correct_with_required_evidence": 17,
+          "field_count": 36,
+          "correct_fields": 35,
+          "clarification_correct": 24,
+          "citation_count": 40
+        }
+      }
+    },
+    "sqlite": {
+      "intended": 24,
+      "valid_answers": 24,
+      "status_counts": {
+        "complete": 24
+      },
+      "correct_answers": 24,
+      "accuracy_among_valid": 1.0,
+      "correct_with_required_evidence": 19,
+      "field_count": 36,
+      "correct_fields": 36,
+      "clarification_correct": 24,
+      "citation_count": 43,
+      "accuracy_over_intended": 1.0,
+      "by_evidence_path": {
+        "originals_after_rejection": {
+          "intended": 2,
+          "valid_answers": 2,
+          "status_counts": {
+            "complete": 2
+          },
+          "correct_answers": 2,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 2,
+          "field_count": 2,
+          "correct_fields": 2,
+          "clarification_correct": 2,
+          "citation_count": 2
+        },
+        "originals_with_admitted_facts": {
+          "intended": 20,
+          "valid_answers": 20,
+          "status_counts": {
+            "complete": 20
+          },
+          "correct_answers": 20,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 16,
+          "field_count": 31,
+          "correct_fields": 31,
+          "clarification_correct": 20,
+          "citation_count": 38
+        },
+        "originals_with_empty_extraction": {
+          "intended": 2,
+          "valid_answers": 2,
+          "status_counts": {
+            "complete": 2
+          },
+          "correct_answers": 2,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 1,
+          "field_count": 3,
+          "correct_fields": 3,
+          "clarification_correct": 2,
+          "citation_count": 3
+        }
+      }
+    }
+  },
+  "paired": {
+    "intended": 24,
+    "comparable": 24,
+    "sqlite_wins": 1,
+    "sqlite_losses": 0,
+    "ties": 23,
+    "rows": [
+      {
+        "case_id": "D01-en",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D01-hi",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D01-te",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D06-en",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D06-hi",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D06-te",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D07-en",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D07-hi",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D07-te",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 1
+      },
+      {
+        "case_id": "D09-en",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D09-hi",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D09-te",
+        "repeat": 1,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D01-en",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D01-hi",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D01-te",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D06-en",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D06-hi",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D06-te",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D07-en",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D07-hi",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D07-te",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D09-en",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D09-hi",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      },
+      {
+        "case_id": "D09-te",
+        "repeat": 2,
+        "comparable": true,
+        "sqlite_minus_history": 0
+      }
+    ]
+  },
+  "subgroups": {
+    "family": {
+      "D06": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 4,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 6,
+          "citation_count": 16
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 2,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 6,
+          "citation_count": 14
+        }
+      },
+      "D07": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 5,
+          "accuracy_among_valid": 0.8333333333333334,
+          "correct_with_required_evidence": 1,
+          "field_count": 12,
+          "correct_fields": 11,
+          "clarification_correct": 6,
+          "citation_count": 12
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 5,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 6,
+          "citation_count": 17
+        }
+      },
+      "D09": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 6,
+          "correct_fields": 6,
+          "clarification_correct": 6,
+          "citation_count": 6
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 6,
+          "correct_fields": 6,
+          "clarification_correct": 6,
+          "citation_count": 6
+        }
+      },
+      "pickup_counter": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 6,
+          "correct_fields": 6,
+          "clarification_correct": 6,
+          "citation_count": 6
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 6,
+          "status_counts": {
+            "complete": 6
+          },
+          "correct_answers": 6,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 6,
+          "correct_fields": 6,
+          "clarification_correct": 6,
+          "citation_count": 6
+        }
+      }
+    },
+    "source_language": {
+      "en": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 7,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 15
+        }
+      },
+      "hi": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        }
+      },
+      "te": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 7,
+          "accuracy_among_valid": 0.875,
+          "correct_with_required_evidence": 5,
+          "field_count": 12,
+          "correct_fields": 11,
+          "clarification_correct": 8,
+          "citation_count": 12
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        }
+      }
+    },
+    "query_language": {
+      "en": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 7,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 15
+        }
+      },
+      "hi": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        }
+      },
+      "te": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 7,
+          "accuracy_among_valid": 0.875,
+          "correct_with_required_evidence": 5,
+          "field_count": 12,
+          "correct_fields": 11,
+          "clarification_correct": 8,
+          "citation_count": 12
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 8,
+          "status_counts": {
+            "complete": 8
+          },
+          "correct_answers": 8,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 6,
+          "field_count": 12,
+          "correct_fields": 12,
+          "clarification_correct": 8,
+          "citation_count": 14
+        }
+      }
+    },
+    "repeat": {
+      "1": {
+        "full_history": {
+          "intended": 12,
+          "valid_answers": 12,
+          "status_counts": {
+            "complete": 12
+          },
+          "correct_answers": 11,
+          "accuracy_among_valid": 0.9166666666666666,
+          "correct_with_required_evidence": 8,
+          "field_count": 18,
+          "correct_fields": 17,
+          "clarification_correct": 12,
+          "citation_count": 19
+        },
+        "sqlite": {
+          "intended": 12,
+          "valid_answers": 12,
+          "status_counts": {
+            "complete": 12
+          },
+          "correct_answers": 12,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 9,
+          "field_count": 18,
+          "correct_fields": 18,
+          "clarification_correct": 12,
+          "citation_count": 21
+        }
+      },
+      "2": {
+        "full_history": {
+          "intended": 12,
+          "valid_answers": 12,
+          "status_counts": {
+            "complete": 12
+          },
+          "correct_answers": 12,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 9,
+          "field_count": 18,
+          "correct_fields": 18,
+          "clarification_correct": 12,
+          "citation_count": 21
+        },
+        "sqlite": {
+          "intended": 12,
+          "valid_answers": 12,
+          "status_counts": {
+            "complete": 12
+          },
+          "correct_answers": 12,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 10,
+          "field_count": 18,
+          "correct_fields": 18,
+          "clarification_correct": 12,
+          "citation_count": 22
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "job_id": "r1-D01-en-full_history",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D01-en-sqlite",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D01-hi-sqlite",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D01-hi-full_history",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D01-te-full_history",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D01-te-sqlite",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D06-en-sqlite",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r1-D06-en-full_history",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": false,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r1-D06-hi-full_history",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r1-D06-hi-sqlite",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": false,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r1-D06-te-sqlite",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": false,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r1-D06-te-full_history",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": false,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r1-D07-en-full_history",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r1-D07-en-sqlite",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_empty_extraction",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": false,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r1-D07-hi-sqlite",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r1-D07-hi-full_history",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": false,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r1-D07-te-full_history",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": false
+        },
+        "required_evidence_covered": {
+          "call_authorized": false,
+          "conditional_date": false
+        },
+        "clarification_correct": true,
+        "answer_correct": false,
+        "answer_and_required_evidence": false,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D07-te-sqlite",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r1-D09-en-sqlite",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D09-en-full_history",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D09-hi-full_history",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D09-hi-sqlite",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_after_rejection",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D09-te-sqlite",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D09-te-full_history",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D01-en-sqlite",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_empty_extraction",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D01-en-full_history",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D01-hi-full_history",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D01-hi-sqlite",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D01-te-sqlite",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D01-te-full_history",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D06-en-full_history",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D06-en-sqlite",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D06-hi-sqlite",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": false,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r2-D06-hi-full_history",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D06-te-full_history",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D06-te-sqlite",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "current_desk": true,
+          "future_desk": true
+        },
+        "required_evidence_covered": {
+          "current_desk": false,
+          "future_desk": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r2-D07-en-sqlite",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D07-en-full_history",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": false,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r2-D07-hi-full_history",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": false,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r2-D07-hi-sqlite",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D07-te-sqlite",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 3
+      }
+    },
+    {
+      "job_id": "r2-D07-te-full_history",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "call_authorized": true,
+          "conditional_date": true
+        },
+        "required_evidence_covered": {
+          "call_authorized": false,
+          "conditional_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": false,
+        "citation_count": 2
+      }
+    },
+    {
+      "job_id": "r2-D09-en-full_history",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D09-en-sqlite",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D09-hi-sqlite",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_with_admitted_facts",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D09-hi-full_history",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D09-te-full_history",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r2-D09-te-sqlite",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_after_rejection",
+      "grade": {
+        "value_correct": {
+          "confirmed_delivery_date": true
+        },
+        "required_evidence_covered": {
+          "confirmed_delivery_date": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    }
+  ]
+}

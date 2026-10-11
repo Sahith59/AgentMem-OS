@@ -1,0 +1,12 @@
+{
+  "approved": true,
+  "mode": "live",
+  "package_sha256": "c5f311786829f294624108d0f323bfab0986ba1519ee59ea26731e0895aa2809",
+  "maximum_attempts": 72,
+  "budget_ninr": 297908305920,
+  "output_directory": "/Volumes/Sahith_SSD/AgentMem-OS/codex-memory-2026-09-08/tracks/sarvam/experiments/2026-10-11-five-run-campaign/run-004/live-run",
+  "accepted_review_level": "ASSISTANT_REVIEWED_NOT_HUMAN_VALIDATED",
+  "authorization_text": "Yes I approve for the next 5 runs and please do not stop and work relentlessly until we get an improvement or until we get any gain.. or a positive news..",
+  "campaign_run": 4,
+  "campaign_authorization_sha256": "a9f0f743ae4f66a7e6b11a6f43ec7bf1cf5a296d955a72ed645c6e689ab4bf54"
+}

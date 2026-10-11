@@ -1,0 +1,810 @@
+{
+  "checkpoint_sha256": "d125c318b33476d033b997d120c52613ea8744dc598dd9892fcace438250d50c",
+  "review_scope": "All24actual extraction outputs reviewed against originaltext; narrative findings preserve semantic uncertainties. RawscorerUNREVIEWED not overwritten. No reviewedlabel enters inference.",
+  "rows": [
+    {
+      "job_id": "r1-D01-en-extract",
+      "source_review_note": "K7 supported, but valid_from copied from observed date: text gives no effective date.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ],
+      "candidate_final_text": "{\"facts\":[{\"attribute\":\"parcel_pickup_counter\",\"value\":\"K7\",\"status\":\"current\",\"condition\":null,\"valid_from\":\"2026-10-09\",\"valid_until\":null,\"source_ids\":[\"s01\"]}]}",
+      "admitted_fact_count": 1,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D01-hi-extract",
+      "source_review_note": "K7 and requested pickup instruction supported; null validity appropriate.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 1,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D01-te-extract",
+      "source_review_note": "K7 supported; no effective date invented.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 1,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D06-en-extract",
+      "source_review_note": "A2/B4 preserved. End date October19 is inferred from October20; inclusive/exclusive interval policy unspecified. Treat as derived, not quoted.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ],
+      "candidate_final_text": "{\"facts\":[{\"attribute\":\"current_service_desk\",\"value\":\"A2\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":\"2026-10-19\",\"source_ids\":[\"s01\",\"s02\"]},{\"attribute\":\"planned_service_desk_change\",\"value\":\"B4\",\"status\":\"requested\",\"condition\":\"Starting on 2026-10-20, use desk B4 instead. Until then, keep A2.\",\"valid_from\":\"2026-10-20\",\"valid_until\":null,\"source_ids\":[\"s02\"]}]}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D06-hi-extract",
+      "source_review_note": "A2/B4/date preserved; endpointOctober20 boundary semantics unspecified.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-20\",\n      \"source_ids\": [\"s01\", \"s02\"]\n    },\n    {\n      \"attribute\": \"service_desk\",\n      \"value\": \"B4\",\n      \"status\": \"requested\",\n      \"condition\": \"Effective 2026-10-20\",\n      \"valid_from\": \"2026-10-20\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D06-te-extract",
+      "source_review_note": "A2 valid_untilOctober20 cites only s01, which has no date; s02 is needed. B4/date supported.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"current_service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-20\",\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"requested_service_desk\",\n      \"value\": \"B4\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-20\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D07-en-extract",
+      "source_review_note": "Empty set omits callback condition and current nonapproval; originals preserved.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ],
+      "candidate_final_text": "{\"facts\":[]}",
+      "admitted_fact_count": 0,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D07-hi-extract",
+      "source_review_note": "Callback date/precondition and current nonapproval preserved.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"requested_action\",\n      \"value\": \"Call on 2026-10-18 only upon repair approval\",\n      \"status\": \"requested\",\n      \"condition\": \"repair approval\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"repair_status\",\n      \"value\": \"not approved\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D07-te-extract",
+      "source_review_note": "Callback condition retained, but repair pending valid_untilOctober18 is unsupported: scheduled callback date does not bound repair status. Duplicate pending facts muddy status; date-witness guard would miss wrong-role use.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"pending\",\n      \"status\": \"current\",\n      \"condition\": \"repair has not been approved yet\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"pending\",\n      \"status\": \"requested\",\n      \"condition\": \"repair has not been approved yet, and approval is a precondition for a callback\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-18\",\n      \"source_ids\": [\"s01\", \"s02\"]\n    },\n    {\n      \"attribute\": \"callback_request\",\n      \"value\": \"call on 2026-10-18 if repair is approved\",\n      \"status\": \"requested\",\n      \"condition\": \"repair must be approved for the callback to occur\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-18\",\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 3,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D09-en-extract",
+      "source_review_note": "Old/current delivery and requested date broadly retained; effective dates copied from observation. Rejection fact condition mentions requested22 but cites only rejectionreceipt; relational context spans s02/s03.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": \"user requested delivery on 2026-10-22\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"confirmed\",\n      \"condition\": \"later change was accepted\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"version\",\n      \"value\": \"7\",\n      \"status\": \"historical\",\n      \"condition\": \"replay of original backend receipt, not a new change\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s05\"]\n    },\n    {\n      \"attribute\": \"version\",\n      \"value\": \"8\",\n      \"status\": \"current\",\n      \"condition\": \"later change was accepted\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"booking_change_status\",\n      \"value\": \"rejected\",\n      \"status\": \"historical\",\n      \"condition\": \"user request for 2026-10-22\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s03\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 6,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D09-hi-extract",
+      "source_review_note": "Structural rejection: status rejected is outside enum. Candidate also invents observation-derived intervals; no accepted augmentation.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"order_id\",\n      \"value\": \"O42\",\n      \"status\": \"current\",\n      \"condition\": \"backend_confirmed_delivery_date=2026-10-23, version=8\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"requested_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"rejected\",\n      \"condition\": \"backend_rejected_request_not_accepted\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s02\", \"s03\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"superseded_by_later_version_8\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"backend_version\",\n      \"value\": \"7\",\n      \"status\": \"historical\",\n      \"condition\": \"superseded_by_version_8\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"backend_version\",\n      \"value\": \"8\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 0,
+      "admission_status": "rejected",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r1-D09-te-extract",
+      "source_review_note": "Dates/outcomes broadly retained. Confirmed23 is labeled current; old20 historical. Separate approved request status lacks a linked request identity; originals needed to avoid conflating rejected22 and later23.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"delivery_request_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"delivery_request_status\",\n      \"value\": \"rejected\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s03\"]\n    },\n    {\n      \"attribute\": \"delivery_request_status\",\n      \"value\": \"approved\",\n      \"status\": \"confirmed\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 5,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D01-en-extract",
+      "source_review_note": "Empty set omits pickup instruction; originals preserved.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ],
+      "candidate_final_text": "{\"facts\":[]}",
+      "admitted_fact_count": 0,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D01-hi-extract",
+      "source_review_note": "K7 requested instruction supported.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 1,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D01-te-extract",
+      "source_review_note": "K7 requested instruction supported.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"pickup_counter\",\n      \"value\": \"K7\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\n        \"s01\"\n      ]\n    }\n  ]\n}",
+      "admitted_fact_count": 1,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D06-en-extract",
+      "source_review_note": "A2/B4 retained but observed date invented as valid_from; October19 endpoint derived without policy. B4date only incondition; duplicate current facts.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ],
+      "candidate_final_text": "{\"facts\":[{\"attribute\":\"current_service_desk\",\"value\":\"A2\",\"status\":\"current\",\"condition\":null,\"valid_from\":\"2026-10-09\",\"valid_until\":\"2026-10-19\",\"source_ids\":[\"s01\",\"s02\"]},{\"attribute\":\"requested_service_desk_change\",\"value\":\"B4\",\"status\":\"requested\",\"condition\":\"Effective 2026-10-20\",\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s02\"]},{\"attribute\":\"service_desk_until_change\",\"value\":\"A2\",\"status\":\"current\",\"condition\":\"Until 2026-10-19\",\"valid_from\":\"2026-10-09\",\"valid_until\":\"2026-10-19\",\"source_ids\":[\"s02\"]}]}",
+      "admitted_fact_count": 3,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D06-hi-extract",
+      "source_review_note": "A2/B4 retained, transition date is incondition, not validity; consumer must preserve condition semantics.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"current_service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"requested_service_desk\",\n      \"value\": \"B4\",\n      \"status\": \"requested\",\n      \"condition\": \"2026-10-20\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D06-te-extract",
+      "source_review_note": "A2 valid_untilOctober20 cites only s01 without date. B4/date correctly cited.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"current_service_desk\",\n      \"value\": \"A2\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-20\",\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"requested_service_desk_change\",\n      \"value\": \"Change to B4 starting 2026-10-20\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-20\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D07-en-extract",
+      "source_review_note": "Callback date/precondition and existing nonapproval preserved.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"call_requested_date\",\n      \"value\": \"2026-10-18\",\n      \"status\": \"requested\",\n      \"condition\": \"if the repair is approved\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"not approved\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D07-hi-extract",
+      "source_review_note": "Nonapproval supported but observationdate invented as valid_from; callbackdate/condition retained.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"repair_status\",\n      \"value\": \"not approved\",\n      \"status\": \"current\",\n      \"condition\": \"pending_approval_for_callback\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"scheduled_callback_date\",\n      \"value\": \"2026-10-18\",\n      \"status\": \"requested\",\n      \"condition\": \"conditional_on_repair_approval\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D07-te-extract",
+      "source_review_note": "Callback condition retained insidevalue while condition fieldnull. Negation retained; structured condition incomplete.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"repair_approval_status\",\n      \"value\": \"pending\",\n      \"status\": \"current\",\n      \"condition\": \"repair has not yet been approved\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"call_request\",\n      \"value\": \"Call on 2026-10-18 only if repair is approved\",\n      \"status\": \"requested\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 2,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D09-en-extract",
+      "source_review_note": "Contradictory current dates20and23 remain: s01 historical truth not marked superseded despite later acceptedversion8. Correct answer still obtained from originals.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"current\",\n      \"condition\": null,\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": \"delivery request\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s02\"]\n    },\n    {\n      \"attribute\": \"delivery_date_request\",\n      \"value\": \"rejected\",\n      \"status\": \"historical\",\n      \"condition\": \"delivery request for 2026-10-22\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s03\"]\n    },\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": \"later change accepted\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"order_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"delayed old backend receipt replay, not new change\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s05\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 5,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D09-hi-extract",
+      "source_review_note": "Main historical/requested/current distinctions retained but old/requested validity ends invented from observationdate. Rejecteddelivery label exists only incondition.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"Original backend receipt; superseded by version 8\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\", \"s05\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"requested\",\n      \"condition\": \"User delivery request; rejected by backend\",\n      \"valid_from\": null,\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s02\", \"s03\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": \"Later change accepted by backend\",\n      \"valid_from\": null,\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 3,
+      "admission_status": "complete",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    },
+    {
+      "job_id": "r2-D09-te-extract",
+      "source_review_note": "Structural rejection: rejected status outsideenum. Multiple observationdate intervals unsupported; false link of later23 confirmation to earlier rejected22 incondition. Originals retained.",
+      "originals": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ],
+      "candidate_final_text": "{\n  \"facts\": [\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": \"This is a resubmitted receipt, not a new change.\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s05\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-20\",\n      \"status\": \"historical\",\n      \"condition\": null,\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s01\"]\n    },\n    {\n      \"attribute\": \"confirmed_delivery_date\",\n      \"value\": \"2026-10-23\",\n      \"status\": \"current\",\n      \"condition\": \"The previous request for 2026-10-22 was rejected.\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": null,\n      \"source_ids\": [\"s04\"]\n    },\n    {\n      \"attribute\": \"delivery_request\",\n      \"value\": \"2026-10-22\",\n      \"status\": \"rejected\",\n      \"condition\": \"The request was rejected; booking unchanged.\",\n      \"valid_from\": \"2026-10-09\",\n      \"valid_until\": \"2026-10-09\",\n      \"source_ids\": [\"s03\"]\n    }\n  ]\n}",
+      "admitted_fact_count": 0,
+      "admission_status": "rejected",
+      "review_level": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_NATIVE_VALIDATION",
+      "no_entailment_certification": true
+    }
+  ]
+}
