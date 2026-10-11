@@ -1,0 +1,207 @@
+"""Same exact-field evaluator; source-grounded fact review stays separate."""
+
+from collections import defaultdict
+from pathlib import Path
+
+from benchmarks.sarvam_discovery.contract import runtime_cases as all_cases
+from benchmarks.sarvam_discovery.score import (
+    gold_labels as original_gold_labels,
+)
+from benchmarks.sarvam_discovery.score import (
+    grade,
+    summarize,
+)
+from benchmarks.sarvam_discovery.score import (
+    metering as original_metering,
+)
+
+from .contract import eligible, loads, runtime_cases
+from .runner import extraction_id, parse_receipt, validate_state
+
+
+def metering(package, state):
+    result = original_metering(package, state)
+    for stage, summary in result["stages"].items():
+        jobs = [
+            state["jobs"][s["id"]]
+            for s in package["jobs"]
+            if s["stage"] == stage and s["id"] in state["jobs"]
+        ]
+        summary["reserved_attempt_slots"] = summary.pop("attempted_calls")
+        summary["dispatch_started_calls"] = sum(j["dispatch_started"] for j in jobs)
+        summary["not_dispatched_slots"] = sum(not j["dispatch_started"] for j in jobs)
+        summary["calls_with_unknown_usage"] = sum(
+            j["dispatch_started"] and "usage_ninr" not in j for j in jobs
+        )
+    stages = result["stages"]
+    result["arms"] = {
+        "full_history": dict(stages["full_history"]),
+        "sqlite": {k: stages["sqlite"][k] + stages["extract"][k] for k in stages["sqlite"]},
+    }
+    return result
+
+
+def gold_labels(cases):
+    labels = original_gold_labels(all_cases())
+    if [c["id"] for c in cases] != [c["id"] for c in runtime_cases()]:
+        raise ValueError("Gold selection differs from frozen subset")
+    return {c["id"]: labels[c["id"]] for c in cases}
+
+
+def extraction_review(package, state, indexed):
+    rows = []
+    for spec in package["jobs"]:
+        if spec["stage"] != "extract":
+            continue
+        job = state["jobs"].get(spec["id"], {})
+        rows.append(
+            {
+                "job_id": spec["id"],
+                "case_id": spec["case_id"],
+                "repeat": spec["repeat"],
+                "status": job.get("status", "not_attempted"),
+                "original_records": eligible(indexed[spec["case_id"]]),
+                "facts": job.get("parsed"),
+                "admission": job.get("admission"),
+                "candidate_final_text": parse_receipt(job["receipt"])[0]
+                if job.get("status") in {"complete", "rejected"}
+                else None,
+                "semantic_review": {
+                    name: "UNREVIEWED"
+                    for name in (
+                        "supported_meaning",
+                        "metadata_duplication",
+                        "dates_preserved",
+                        "conditions_preserved",
+                        "requested_vs_confirmed",
+                        "identity_scope",
+                    )
+                },
+            }
+        )
+    return rows
+
+
+def evaluate(package, directory):
+    directory = Path(directory).resolve()
+    state = loads((directory / "checkpoint.json").read_text())
+    execution = validate_state(package, state, directory)
+    cases = runtime_cases()
+    labels = gold_labels(cases)
+    indexed = {c["id"]: c for c in cases}
+    rows = []
+    for spec in package["jobs"]:
+        if spec["stage"] == "extract":
+            continue
+        case = indexed[spec["case_id"]]
+        job = state["jobs"].get(spec["id"], {})
+        row = {
+            "job_id": spec["id"],
+            "case_id": case["id"],
+            "family": case["family"],
+            "repeat": spec["repeat"],
+            "arm": spec["stage"],
+            "rendering": case["rendering"],
+            "status": job.get("status", "not_attempted"),
+        }
+        if spec["stage"] == "sqlite":
+            admission = state["jobs"].get(extraction_id(spec), {}).get("admission")
+            row["evidence_path"] = (
+                "originals_after_rejection"
+                if admission and admission["status"] == "rejected"
+                else "originals_with_admitted_facts"
+                if admission and admission["facts"]
+                else "originals_with_empty_extraction"
+                if admission
+                else "not_prepared"
+            )
+        else:
+            row["evidence_path"] = "originals_only_control"
+        if row["status"] == "complete":
+            row["grade"] = grade(job["parsed"], labels[case["id"]])
+        rows.append(row)
+    groups = defaultdict(list)
+    for row in rows:
+        groups[(row["case_id"], row["repeat"])].append(row)
+    pairs = []
+    for (case_id, repeat), pair in groups.items():
+        arms = {r["arm"]: r for r in pair}
+        comparable = all(r["status"] == "complete" for r in pair)
+        delta = (
+            (
+                int(arms["sqlite"]["grade"]["answer_correct"])
+                - int(arms["full_history"]["grade"]["answer_correct"])
+            )
+            if comparable
+            else None
+        )
+        pairs.append(
+            {
+                "case_id": case_id,
+                "repeat": repeat,
+                "comparable": comparable,
+                "sqlite_minus_history": delta,
+            }
+        )
+    subgroup = {}
+    for name, key in (
+        ("family", lambda r: r["family"]),
+        ("source_language", lambda r: r["rendering"]["source_language"]),
+        ("query_language", lambda r: r["rendering"]["query_language"]),
+        ("repeat", lambda r: str(r["repeat"])),
+    ):
+        subgroup[name] = {
+            value: {
+                arm: summarize([r for r in rows if key(r) == value and r["arm"] == arm])
+                for arm in ("full_history", "sqlite")
+            }
+            for value in sorted({key(r) for r in rows})
+        }
+    arms = {}
+    fully_resolved = execution["resolved"] == execution["intended_calls"]
+    for arm in ("full_history", "sqlite"):
+        selected = [r for r in rows if r["arm"] == arm]
+        arms[arm] = summarize(selected)
+        arms[arm]["accuracy_over_intended"] = (
+            arms[arm]["correct_answers"] / len(selected) if fully_resolved else None
+        )
+        arms[arm]["by_evidence_path"] = {
+            path: summarize([r for r in selected if r["evidence_path"] == path])
+            for path in sorted({r["evidence_path"] for r in selected})
+        }
+    return {
+        "schema": "sarvam-comparison-score-v3",
+        "extraction_review": extraction_review(package, state, indexed),
+        "status": "SIMULATED_TEST_ONLY"
+        if execution["mode"] == "offline-test"
+        else "EXPLORATORY_COMPLETE"
+        if fully_resolved
+        else "INCOMPLETE_NO_HEADLINE_SCORE",
+        "package_sha256": state["binding"]["package_sha256"],
+        "execution": execution,
+        "metering": metering(package, state),
+        "independent_human_validation": False,
+        "limits": [
+            "Assistant-authored and reviewed labels; exploratory only.",
+            "Translations, contrasts and repeats are correlated, not independent samples.",
+            "Exact canonical fields; no free-text or full explanation quality judgment.",
+            "Required citation coverage does not prove every cited source entails an answer.",
+            "Invalid/unattempted answers stay visible; valid-only accuracy is conditional.",
+            "Same answer settings and original sources; SQLite adds extraction compute.",
+            "No causal architecture, novelty, production or all-language quality claim.",
+            "Admission is structural; source meaning remains UNREVIEWED.",
+            "Source-only fallback is not successful memory extraction.",
+            "Malformed completed answers count as unsuccessful in all-intended accuracy.",
+        ],
+        "arms": arms,
+        "paired": {
+            "intended": len(pairs),
+            "comparable": sum(p["comparable"] for p in pairs),
+            "sqlite_wins": sum(p["sqlite_minus_history"] == 1 for p in pairs),
+            "sqlite_losses": sum(p["sqlite_minus_history"] == -1 for p in pairs),
+            "ties": sum(p["sqlite_minus_history"] == 0 for p in pairs),
+            "rows": pairs,
+        },
+        "subgroups": subgroup,
+        "rows": rows,
+    }

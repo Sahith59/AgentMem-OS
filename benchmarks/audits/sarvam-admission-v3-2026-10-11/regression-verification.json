@@ -1,0 +1,13 @@
+{
+  "historical_source_files_unchanged": 16,
+  "historical_checkpoints_unchanged": 3,
+  "english_current_state_unchanged": true,
+  "tests_passed": 138,
+  "v3_tests": 54,
+  "legacy_tests": 84,
+  "network_calls_in_tests": 0,
+  "paid_calls_this_turn": 0,
+  "credential_reads": 0,
+  "test_warning": "asyncio_mode unknown because plugin autoload was disabled; all selected tests are synchronous",
+  "initial_issues": "Ruff found formatting/import order issues; corrected before passing tests and commit. No functional test failure."
+}

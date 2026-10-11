@@ -1,0 +1,17 @@
+{
+  "checked_local_date": "2026-10-11",
+  "sources": [
+    "https://docs.sarvam.ai/api-reference/chat/chat-completions-v1",
+    "https://docs.sarvam.ai/api/api-guides-tutorials/chat-completion/overview"
+  ],
+  "verified_documented_fields": [
+    "response_format.type=json_schema",
+    "json_schema.name",
+    "json_schema.schema",
+    "json_schema.strict"
+  ],
+  "keyword_list_support": "NOT_ENUMERATED_IN_REVIEWED_DOCS",
+  "live_validation": "NOT_EXECUTED",
+  "source_markdown_sha256": "468736b61b2cccb7d615329cf877c350702b3aeb43a9a7efdeda6856bef0484b",
+  "notes": "HTML and public Markdown confirm the API shape. Browser rejected Markdown MIME; system Python lacked a trusted certificate chain. curl with normal TLS validation retrieved the Markdown. No TLS validation was disabled, no authenticated call or credentials used."
+}
