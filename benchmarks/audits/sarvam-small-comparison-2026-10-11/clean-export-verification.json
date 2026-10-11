@@ -1,0 +1,8 @@
+{
+  "clean_git_export_commit": "e79bb5fae74692e8d1298b814661745d353cb44c",
+  "without_site_packages": true,
+  "without_credential_environment": true,
+  "identical_preflight": true,
+  "package_sha256": "07cb99155472ad97d49234351870726f8df314c6c5a51b6db1212b8ecae84744",
+  "paid_calls": 0
+}

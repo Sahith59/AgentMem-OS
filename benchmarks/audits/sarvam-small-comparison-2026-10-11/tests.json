@@ -1,0 +1,13 @@
+{
+  "source_commit": "e79bb5fae74692e8d1298b814661745d353cb44c",
+  "command": "python -m pytest tests/test_sarvam_comparison_v2.py tests/test_sarvam_discovery.py -q",
+  "passed": 84,
+  "new_tests": 38,
+  "legacy_tests": 46,
+  "seconds": 12.92,
+  "network_disabled": true,
+  "ruff": "PASS (N999 ignored only for hyphenated worktree root name)",
+  "diff_check": "PASS",
+  "new_test_sha256": "8a3efa03131814f5c37de584144c92309f9d55bf1148d53430a8fe49d9fa4afe",
+  "paid_calls": 0
+}

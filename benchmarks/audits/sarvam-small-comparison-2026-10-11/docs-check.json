@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-10-11T04:05:59.549613+00:00",
+  "local_date": "2026-10-11",
+  "pricing": {
+    "url": "https://docs.sarvam.ai/api/getting-started/pricing",
+    "input_inr_per_million": 15,
+    "output_inr_per_million": 60
+  },
+  "reasoning": {
+    "url": "https://docs.sarvam.ai/api/api-guides-tutorials/chat-completion/how-to/adjust-the-models-thinking-level",
+    "explicit_null_disables_optional_reasoning": true
+  },
+  "model": {
+    "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-105b",
+    "documented_context": "128K",
+    "starter_max_output": 4096
+  },
+  "reservation_uses_higher_frozen_rates": true,
+  "account_balance_checked": false,
+  "paid_calls": 0
+}
