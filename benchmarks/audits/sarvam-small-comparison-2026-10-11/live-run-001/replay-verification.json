@@ -1,0 +1,10 @@
+{
+  "status": "PASS_SAVED_EVIDENCE_REPLAY",
+  "network_calls": 0,
+  "schema_rejection_reproduced": true,
+  "exact_request_and_package_verified": true,
+  "usage_costs_recomputed": true,
+  "source_only_counterfactual_matches_control": true,
+  "accuracy": "NOT_MEASURED",
+  "provider_attestation": "NOT_INDEPENDENTLY_VERIFIED"
+}
