@@ -1,0 +1,15 @@
+{
+  "focused_tests_passed": 164,
+  "new_profile_tests": 26,
+  "historical_tests": 138,
+  "network_during_tests": "disabled",
+  "lint": "pass with N999 ignored for hyphenated worktree root; prior package convention",
+  "test_development_corrections": [
+    "v4 test initially expected live-status label for a simulation; corrected expectation, runtime unchanged",
+    "v5 test import path corrected to tests.test_sarvam_comparison_v4"
+  ],
+  "credentials": "private launcher only; no keys in receipts or publication",
+  "run_count": 5,
+  "api_calls": 244,
+  "retries": 0
+}

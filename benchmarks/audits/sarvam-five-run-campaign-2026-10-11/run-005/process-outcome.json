@@ -1,0 +1,18 @@
+{
+  "status": "COMPLETE",
+  "execution": {
+    "intended_calls": 72,
+    "attempted": 72,
+    "dispatch_started": 72,
+    "completed": 65,
+    "resolved": 72,
+    "rejected_extractions": 7,
+    "invalid_answers": 0,
+    "reserved_ninr": 297908305920,
+    "usage_ninr": 1872983040,
+    "attempts_with_unknown_usage": 0,
+    "mode": "live",
+    "quality": "NOT_SCORED_USE_SEPARATE_EVALUATOR"
+  },
+  "finished_at_utc": "2026-10-11T14:05:53.491879+00:00"
+}

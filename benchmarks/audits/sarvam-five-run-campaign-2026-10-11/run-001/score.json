@@ -1,0 +1,2372 @@
+{
+  "schema": "sarvam-comparison-score-v3",
+  "extraction_review": [
+    {
+      "job_id": "r1-D01-en-extract",
+      "case_id": "D01-en",
+      "repeat": 1,
+      "status": "error",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D01-hi-extract",
+      "case_id": "D01-hi",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D01-te-extract",
+      "case_id": "D01-te",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D06-en-extract",
+      "case_id": "D06-en",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D06-hi-extract",
+      "case_id": "D06-hi",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D06-te-extract",
+      "case_id": "D06-te",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D07-en-extract",
+      "case_id": "D07-en",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D07-hi-extract",
+      "case_id": "D07-hi",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D07-te-extract",
+      "case_id": "D07-te",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D09-en-extract",
+      "case_id": "D09-en",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D09-hi-extract",
+      "case_id": "D09-hi",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r1-D09-te-extract",
+      "case_id": "D09-te",
+      "repeat": 1,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D01-en-extract",
+      "case_id": "D01-en",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "For my parcel, use pickup counter K7."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D01-hi-extract",
+      "case_id": "D01-hi",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरे पार्सल के लिए पिकअप काउंटर K7 का इस्तेमाल करें।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D01-te-extract",
+      "case_id": "D01-te",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా పార్సెల్ కోసం పికప్ కౌంటర్ K7 వాడండి."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D06-en-extract",
+      "case_id": "D06-en",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "My current service desk is A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "Starting on 2026-10-20, use desk B4 instead. Until then, keep A2."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D06-hi-extract",
+      "case_id": "D06-hi",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मेरा वर्तमान सेवा डेस्क A2 है।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 से B4 डेस्क का इस्तेमाल करें। तब तक A2 ही रखें।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D06-te-extract",
+      "case_id": "D06-te",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "నా ప్రస్తుత సర్వీస్ డెస్క్ A2."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-20 నుంచి B4 డెస్క్ వాడండి. అప్పటివరకు A2 నే ఉంచండి."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D07-en-extract",
+      "case_id": "D07-en",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "Call me on 2026-10-18 only if the repair is approved."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "The repair has not been approved yet."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D07-hi-extract",
+      "case_id": "D07-hi",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "मरम्मत मंज़ूर होने पर ही मुझे 2026-10-18 को कॉल करें।"
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मरम्मत को अभी मंज़ूरी नहीं मिली है।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D07-te-extract",
+      "case_id": "D07-te",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఆమోదం వస్తే మాత్రమే 2026-10-18 న నాకు కాల్ చేయండి."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "మరమ్మతుకు ఇంకా ఆమోదం రాలేదు."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D09-en-extract",
+      "case_id": "D09-en",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "I request delivery on 2026-10-22."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "Backend result: that request was rejected; no booking change."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "Backend receipt: a later change was accepted; order O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "Delayed old backend receipt: order O42 confirmed_delivery_date=2026-10-20, version=7. This is a replay, not a new change."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D09-hi-extract",
+      "case_id": "D09-hi",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "मैं 2026-10-22 को डिलीवरी का अनुरोध करता हूँ।"
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड परिणाम: वह अनुरोध अस्वीकार हुआ; बुकिंग नहीं बदली।"
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "बैकएंड रसीद: बाद का बदलाव स्वीकार हुआ; ऑर्डर O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "देरी से आई पुरानी बैकएंड रसीद: ऑर्डर O42 confirmed_delivery_date=2026-10-20, version=7. यह दोबारा भेजी गई रसीद है, नया बदलाव नहीं।"
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    },
+    {
+      "job_id": "r2-D09-te-extract",
+      "case_id": "D09-te",
+      "repeat": 2,
+      "status": "not_attempted",
+      "original_records": [
+        {
+          "id": "s01",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:00:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7."
+        },
+        {
+          "id": "s02",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-1",
+          "observed_at": "2026-10-09T10:01:00+05:30",
+          "role": "user",
+          "text": "2026-10-22 న డెలివరీ చేయమని కోరుతున్నాను."
+        },
+        {
+          "id": "s03",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:02:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ ఫలితం: ఆ అభ్యర్థన తిరస్కరించబడింది; బుకింగ్ మారలేదు."
+        },
+        {
+          "id": "s04",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-2",
+          "observed_at": "2026-10-09T10:03:00+05:30",
+          "role": "tool",
+          "text": "బ్యాకెండ్ రసీదు: తర్వాతి మార్పు ఆమోదించబడింది; ఆర్డర్ O42 confirmed_delivery_date=2026-10-23, version=8."
+        },
+        {
+          "id": "s05",
+          "tenant": "T1",
+          "customer": "U17",
+          "session": "session-3",
+          "observed_at": "2026-10-09T10:04:00+05:30",
+          "role": "tool",
+          "text": "ఆలస్యంగా వచ్చిన పాత బ్యాకెండ్ రసీదు: ఆర్డర్ O42 confirmed_delivery_date=2026-10-20, version=7. ఇది మళ్లీ పంపిన రసీదు, కొత్త మార్పు కాదు."
+        }
+      ],
+      "facts": null,
+      "admission": null,
+      "candidate_final_text": null,
+      "semantic_review": {
+        "supported_meaning": "UNREVIEWED",
+        "metadata_duplication": "UNREVIEWED",
+        "dates_preserved": "UNREVIEWED",
+        "conditions_preserved": "UNREVIEWED",
+        "requested_vs_confirmed": "UNREVIEWED",
+        "identity_scope": "UNREVIEWED"
+      }
+    }
+  ],
+  "status": "INCOMPLETE_NO_HEADLINE_SCORE",
+  "package_sha256": "bf04d07dbe2a9b2fe2e77be5ce08cdc19eed511de6af2af075cf182ef5fa0b65",
+  "execution": {
+    "intended_calls": 72,
+    "attempted": 2,
+    "dispatch_started": 2,
+    "completed": 1,
+    "resolved": 1,
+    "rejected_extractions": 0,
+    "invalid_answers": 0,
+    "reserved_ninr": 8275230720,
+    "usage_ninr": 13922640,
+    "attempts_with_unknown_usage": 1,
+    "mode": "live",
+    "quality": "NOT_SCORED_USE_SEPARATE_EVALUATOR"
+  },
+  "metering": {
+    "basis": "provider usage at frozen uncached rates; not an invoice",
+    "allocation": "all extraction (including failures/repeats) charged to SQLite",
+    "stages": {
+      "extract": {
+        "calls_with_known_usage": 0,
+        "calls_with_unknown_usage": 1,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "known_usage_ninr": 0,
+        "reserved_ninr": 4137615360,
+        "reserved_attempt_slots": 1,
+        "dispatch_started_calls": 1,
+        "not_dispatched_slots": 0
+      },
+      "full_history": {
+        "calls_with_known_usage": 1,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 398,
+        "completion_tokens": 31,
+        "known_usage_ninr": 13922640,
+        "reserved_ninr": 4137615360,
+        "reserved_attempt_slots": 1,
+        "dispatch_started_calls": 1,
+        "not_dispatched_slots": 0
+      },
+      "sqlite": {
+        "calls_with_known_usage": 0,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "known_usage_ninr": 0,
+        "reserved_ninr": 0,
+        "reserved_attempt_slots": 0,
+        "dispatch_started_calls": 0,
+        "not_dispatched_slots": 0
+      }
+    },
+    "arms": {
+      "full_history": {
+        "calls_with_known_usage": 1,
+        "calls_with_unknown_usage": 0,
+        "prompt_tokens": 398,
+        "completion_tokens": 31,
+        "known_usage_ninr": 13922640,
+        "reserved_ninr": 4137615360,
+        "reserved_attempt_slots": 1,
+        "dispatch_started_calls": 1,
+        "not_dispatched_slots": 0
+      },
+      "sqlite": {
+        "calls_with_known_usage": 0,
+        "calls_with_unknown_usage": 1,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "known_usage_ninr": 0,
+        "reserved_ninr": 4137615360,
+        "reserved_attempt_slots": 1,
+        "dispatch_started_calls": 1,
+        "not_dispatched_slots": 0
+      }
+    }
+  },
+  "independent_human_validation": false,
+  "limits": [
+    "Assistant-authored and reviewed labels; exploratory only.",
+    "Translations, contrasts and repeats are correlated, not independent samples.",
+    "Exact canonical fields; no free-text or full explanation quality judgment.",
+    "Required citation coverage does not prove every cited source entails an answer.",
+    "Invalid/unattempted answers stay visible; valid-only accuracy is conditional.",
+    "Same answer settings and original sources; SQLite adds extraction compute.",
+    "No causal architecture, novelty, production or all-language quality claim.",
+    "Admission is structural; source meaning remains UNREVIEWED.",
+    "Source-only fallback is not successful memory extraction.",
+    "Malformed completed answers count as unsuccessful in all-intended accuracy."
+  ],
+  "arms": {
+    "full_history": {
+      "intended": 24,
+      "valid_answers": 1,
+      "status_counts": {
+        "complete": 1,
+        "not_attempted": 23
+      },
+      "correct_answers": 1,
+      "accuracy_among_valid": 1.0,
+      "correct_with_required_evidence": 1,
+      "field_count": 1,
+      "correct_fields": 1,
+      "clarification_correct": 1,
+      "citation_count": 1,
+      "accuracy_over_intended": null,
+      "by_evidence_path": {
+        "originals_only_control": {
+          "intended": 24,
+          "valid_answers": 1,
+          "status_counts": {
+            "complete": 1,
+            "not_attempted": 23
+          },
+          "correct_answers": 1,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 1,
+          "field_count": 1,
+          "correct_fields": 1,
+          "clarification_correct": 1,
+          "citation_count": 1
+        }
+      }
+    },
+    "sqlite": {
+      "intended": 24,
+      "valid_answers": 0,
+      "status_counts": {
+        "not_attempted": 24
+      },
+      "correct_answers": 0,
+      "accuracy_among_valid": null,
+      "correct_with_required_evidence": 0,
+      "field_count": 0,
+      "correct_fields": 0,
+      "clarification_correct": 0,
+      "citation_count": 0,
+      "accuracy_over_intended": null,
+      "by_evidence_path": {
+        "not_prepared": {
+          "intended": 24,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 24
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      }
+    }
+  },
+  "paired": {
+    "intended": 24,
+    "comparable": 0,
+    "sqlite_wins": 0,
+    "sqlite_losses": 0,
+    "ties": 0,
+    "rows": [
+      {
+        "case_id": "D01-en",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D01-hi",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D01-te",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D06-en",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D06-hi",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D06-te",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D07-en",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D07-hi",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D07-te",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D09-en",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D09-hi",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D09-te",
+        "repeat": 1,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D01-en",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D01-hi",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D01-te",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D06-en",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D06-hi",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D06-te",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D07-en",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D07-hi",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D07-te",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D09-en",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D09-hi",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      },
+      {
+        "case_id": "D09-te",
+        "repeat": 2,
+        "comparable": false,
+        "sqlite_minus_history": null
+      }
+    ]
+  },
+  "subgroups": {
+    "family": {
+      "D06": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "D07": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "D09": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "pickup_counter": {
+        "full_history": {
+          "intended": 6,
+          "valid_answers": 1,
+          "status_counts": {
+            "complete": 1,
+            "not_attempted": 5
+          },
+          "correct_answers": 1,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 1,
+          "field_count": 1,
+          "correct_fields": 1,
+          "clarification_correct": 1,
+          "citation_count": 1
+        },
+        "sqlite": {
+          "intended": 6,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 6
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      }
+    },
+    "source_language": {
+      "en": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 1,
+          "status_counts": {
+            "complete": 1,
+            "not_attempted": 7
+          },
+          "correct_answers": 1,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 1,
+          "field_count": 1,
+          "correct_fields": 1,
+          "clarification_correct": 1,
+          "citation_count": 1
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "hi": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "te": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      }
+    },
+    "query_language": {
+      "en": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 1,
+          "status_counts": {
+            "complete": 1,
+            "not_attempted": 7
+          },
+          "correct_answers": 1,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 1,
+          "field_count": 1,
+          "correct_fields": 1,
+          "clarification_correct": 1,
+          "citation_count": 1
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "hi": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "te": {
+        "full_history": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 8,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 8
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      }
+    },
+    "repeat": {
+      "1": {
+        "full_history": {
+          "intended": 12,
+          "valid_answers": 1,
+          "status_counts": {
+            "complete": 1,
+            "not_attempted": 11
+          },
+          "correct_answers": 1,
+          "accuracy_among_valid": 1.0,
+          "correct_with_required_evidence": 1,
+          "field_count": 1,
+          "correct_fields": 1,
+          "clarification_correct": 1,
+          "citation_count": 1
+        },
+        "sqlite": {
+          "intended": 12,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 12
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      },
+      "2": {
+        "full_history": {
+          "intended": 12,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 12
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        },
+        "sqlite": {
+          "intended": 12,
+          "valid_answers": 0,
+          "status_counts": {
+            "not_attempted": 12
+          },
+          "correct_answers": 0,
+          "accuracy_among_valid": null,
+          "correct_with_required_evidence": 0,
+          "field_count": 0,
+          "correct_fields": 0,
+          "clarification_correct": 0,
+          "citation_count": 0
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "job_id": "r1-D01-en-full_history",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "complete",
+      "evidence_path": "originals_only_control",
+      "grade": {
+        "value_correct": {
+          "pickup_counter": true
+        },
+        "required_evidence_covered": {
+          "pickup_counter": true
+        },
+        "clarification_correct": true,
+        "answer_correct": true,
+        "answer_and_required_evidence": true,
+        "citation_count": 1
+      }
+    },
+    {
+      "job_id": "r1-D01-en-sqlite",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D01-hi-sqlite",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D01-hi-full_history",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D01-te-full_history",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D01-te-sqlite",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D06-en-sqlite",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D06-en-full_history",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D06-hi-full_history",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D06-hi-sqlite",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D06-te-sqlite",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D06-te-full_history",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D07-en-full_history",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D07-en-sqlite",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D07-hi-sqlite",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D07-hi-full_history",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D07-te-full_history",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D07-te-sqlite",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D09-en-sqlite",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D09-en-full_history",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D09-hi-full_history",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r1-D09-hi-sqlite",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D09-te-sqlite",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r1-D09-te-full_history",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 1,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D01-en-sqlite",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D01-en-full_history",
+      "case_id": "D01-en",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D01-hi-full_history",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D01-hi-sqlite",
+      "case_id": "D01-hi",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D01-te-sqlite",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D01-te-full_history",
+      "case_id": "D01-te",
+      "family": "pickup_counter",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D06-en-full_history",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D06-en-sqlite",
+      "case_id": "D06-en",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D06-hi-sqlite",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D06-hi-full_history",
+      "case_id": "D06-hi",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D06-te-full_history",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D06-te-sqlite",
+      "case_id": "D06-te",
+      "family": "D06",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D07-en-sqlite",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D07-en-full_history",
+      "case_id": "D07-en",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D07-hi-full_history",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D07-hi-sqlite",
+      "case_id": "D07-hi",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D07-te-sqlite",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D07-te-full_history",
+      "case_id": "D07-te",
+      "family": "D07",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D09-en-full_history",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D09-en-sqlite",
+      "case_id": "D09-en",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "en",
+        "query_language": "en",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D09-hi-sqlite",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    },
+    {
+      "job_id": "r2-D09-hi-full_history",
+      "case_id": "D09-hi",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "hi",
+        "query_language": "hi",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D09-te-full_history",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "full_history",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "originals_only_control"
+    },
+    {
+      "job_id": "r2-D09-te-sqlite",
+      "case_id": "D09-te",
+      "family": "D09",
+      "repeat": 2,
+      "arm": "sqlite",
+      "rendering": {
+        "source_language": "te",
+        "query_language": "te",
+        "source_script": "native_or_english"
+      },
+      "status": "not_attempted",
+      "evidence_path": "not_prepared"
+    }
+  ]
+}
