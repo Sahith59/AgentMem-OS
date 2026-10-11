@@ -3,6 +3,10 @@ import sqlite3
 
 import pytest
 
+from benchmarks.sarvam_native_study import backend
+from benchmarks.sarvam_native_study.dataset import build
+from benchmarks.sarvam_native_study.runner import initial
+from benchmarks.sarvam_native_study.score import grade
 from benchmarks.sarvam_native_study.transport import Meter, payload, save
 
 
@@ -59,3 +63,105 @@ def test_budget_ceiling_and_immutable_artifact(tmp_path):
     with pytest.raises(FileExistsError):
         save(target, {"new": 2})
     assert json.loads(target.read_text()) == {"old": 1}
+
+
+def test_bank_group_splits_and_equivalence():
+    cases, gold = build()
+    assert len(cases) == len(gold) == 700
+    assert len({c["base_id"] for c in cases}) == 200
+    assert len({c["template_group"] for c in cases}) == 100
+    groups = {}
+    for c in cases:
+        groups.setdefault(c["template_group"], set()).add(c["split"])
+    assert all(len(splits) == 1 for splits in groups.values())
+    by_base = {}
+    for c in cases:
+        label = {k: v for k, v in gold[c["id"]].items() if k != "runtime_sha256"}
+        if c["base_id"] in by_base:
+            assert label == by_base[c["base_id"]]
+        by_base[c["base_id"]] = label
+
+
+def test_no_gold_or_backend_or_ids_in_inference_projection():
+    cases, _ = build()
+    case = cases[0]
+    for arm in ("full_history", "sqlite"):
+        request = initial(case, "sarvam-105b", arm)
+        altered = {
+            **case,
+            "id": "POISONED",
+            "review": "POISONED",
+            "split": "POISONED",
+            "backend": {"secret_label": "POISONED"},
+            "answer": "POISONED",
+        }
+        assert initial(altered, "sarvam-105b", arm) == request
+
+
+def test_real_sqlite_update_idempotency_rejection_restart(tmp_path):
+    cases, _ = build()
+    case = next(c for c in cases if c["id"] == "action_update-00-en")
+    db = tmp_path / "ordinary.sqlite"
+    backend.create(db, case)
+    args = {
+        "appointment_id": "O-1000",
+        "date": "2026-12-01",
+        "idempotency_key": "REQ-700",
+        "expected_version": 4,
+    }
+    assert backend.execute(db, "update_appointment", args)["status"] == "confirmed"
+    assert backend.execute(db, "update_appointment", args)["status"] == "already_applied"
+    assert backend.state(db)["version"] == 5
+    assert len(backend.state(db)["operations"]) == 1
+    stale = {**args, "idempotency_key": "different"}
+    assert backend.execute(db, "update_appointment", stale)["status"] == "rejected"
+    assert backend.execute(db, "update_appointment", {**args, "expected_version": True}) == {
+        "error": "invalid_arguments"
+    }
+    assert backend.execute(db, "read_records", {})["records"] == case["records"]
+
+
+def test_correct_words_do_not_hide_missing_backend_action(tmp_path):
+    cases, gold = build()
+    case = next(c for c in cases if c["id"] == "action_update-00-en")
+    db = tmp_path / "ordinary.sqlite"
+    backend.create(db, case)
+    result = {
+        "terminal": "answer",
+        "content": json.dumps(
+            {k: gold[case["id"]][k] for k in ("answer", "needs_clarification", "action_status")}
+        ),
+        "final_backend": backend.state(db),
+        "tool_trace": [],
+    }
+    g = grade(case, gold[case["id"]], result)
+    assert g["answer_correct"] and not g["task_success"]
+    assert not g["backend_correct"] and not g["required_tool_receipt"]
+
+
+def test_oracle_backend_actions_and_read_answers_all_cases(tmp_path):
+    """Checks fixture/scorer consistency, never claimed as model results."""
+    cases, gold = build()
+    for case in cases:
+        label = gold[case["id"]]
+        db = tmp_path / (case["id"] + ".sqlite")
+        backend.create(db, case)
+        trace = []
+        if label["action_status"] in ("confirmed", "rejected"):
+            i = int(case["base_id"].rsplit("-", 1)[1])
+            args = {
+                "appointment_id": case["backend"]["appointment_id"],
+                "date": f"2026-12-{i+1:02}",
+                "expected_version": case["backend"]["version"],
+                "idempotency_key": f"REQ-{i+700}",
+            }
+            response = backend.execute(db, "update_appointment", args)
+            trace = [{"name": "update_appointment", "arguments": args, "response": response}]
+        obj = {k: label[k] for k in ("answer", "needs_clarification", "action_status")}
+        result = {
+            "terminal": "answer",
+            "content": json.dumps(obj),
+            "tool_trace": trace,
+            "final_backend": backend.state(db),
+        }
+        assert grade(case, label, result)["task_success"], case["id"]
