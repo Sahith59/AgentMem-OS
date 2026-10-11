@@ -1,0 +1,15 @@
+{
+  "same_exact_request_as_successful_probe": true,
+  "one_attempt_zero_completed": true,
+  "one_date_schema_failure_confirmed": true,
+  "invalid_date_value_equals_original_observed_timestamp": true,
+  "all_six_fact_values_match_source_fields": true,
+  "instruction_preserved": true,
+  "entire_fact_set_rejected_not_stored": true,
+  "sql_stores_created": 0,
+  "source_only_counterfactual_equals_control": true,
+  "no_automatic_retry_before_provider": true,
+  "checkpoint_unchanged_by_audit": true,
+  "frozen_source_package_valid": true,
+  "provider_calls_in_audit": 0
+}

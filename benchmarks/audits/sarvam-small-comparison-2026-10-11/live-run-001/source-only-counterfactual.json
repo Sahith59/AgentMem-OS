@@ -1,0 +1,21 @@
+{
+  "status": "OFFLINE_COUNTERFACTUAL_NOT_LIVE_POLICY",
+  "rejected_entire_fact_set": true,
+  "kept_originals": [
+    {
+      "id": "s01",
+      "tenant": "T1",
+      "customer": "U17",
+      "session": "session-1",
+      "observed_at": "2026-10-09T10:00:00+05:30",
+      "role": "user",
+      "text": "For my parcel, use pickup counter K7."
+    }
+  ],
+  "candidate_facts": [],
+  "candidate_answer_request_sha256": "35d86939a2d784f753492c998faa6a07d410616c53c3458573b77ca8f4e8a22e",
+  "equals_full_history_request": true,
+  "new_calls": 0,
+  "accuracy": "NOT_MEASURED",
+  "not_integrated_into_frozen_runner": true
+}

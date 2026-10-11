@@ -1,0 +1,22 @@
+{
+  "checked_local_date": "2026-10-11",
+  "chat_completions_v1": {
+    "url": "https://docs.sarvam.ai/api-reference/chat/chat-completions-v1",
+    "observations": [
+      "response_format json_schema is documented for Structured Outputs; json_object promises valid JSON only.",
+      "Temperature zero is explicitly not bit-reproducible.",
+      "Explicit null reasoning is documented to disable reasoning."
+    ],
+    "live_schema_mode_tested": false,
+    "schema_keyword_support_tested": false
+  },
+  "pricing": {
+    "url": "https://docs.sarvam.ai/api/getting-started/pricing",
+    "input_inr_per_million": 15,
+    "output_inr_per_million": 60,
+    "cached_input_inr_per_million": 5,
+    "cache_discount_applied": false,
+    "invoice_verified": false
+  },
+  "interpretation": "The frozen request used json_object. Documentation of a schema mode is not proof of semantic grounding or this account/model accepting every schema keyword."
+}
