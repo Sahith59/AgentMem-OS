@@ -1,0 +1,13 @@
+{
+  "package_sha256": "07cb99155472ad97d49234351870726f8df314c6c5a51b6db1212b8ecae84744",
+  "cases": 12,
+  "families": 4,
+  "calls_no_retries": 72,
+  "answers": 48,
+  "extractions": 24,
+  "maximum_reservation_ninr": 297908305920,
+  "maximum_reservation_inr": 297.90830592,
+  "review": "ASSISTANT_REVIEWED_NOT_HUMAN_VALIDATED",
+  "provider_behavior": "ONE_EN_EXTRACTION_OBSERVED; COMPARATIVE_QUALITY_UNKNOWN",
+  "status": "OFFLINE_PACKAGE_VALIDATED"
+}

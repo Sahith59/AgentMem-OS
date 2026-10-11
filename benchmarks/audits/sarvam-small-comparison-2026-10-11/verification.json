@@ -1,0 +1,21 @@
+{
+  "status": "OFFLINE_PREPARATION_VERIFIED_NOT_LIVE_QUALITY",
+  "package_sha256": "07cb99155472ad97d49234351870726f8df314c6c5a51b6db1212b8ecae84744",
+  "legacy_package_checkpoint_code_and_probe_unchanged": true,
+  "planned_live_calls": 72,
+  "real_calls_this_turn": 0,
+  "simulated_calls": 72,
+  "simulated_stores": 24,
+  "simulated_pairs": 24,
+  "all_request_diffs_only_reasoning_effort": true,
+  "all_original_evidence_retained": true,
+  "durable_reservation_observed_before_each_simulated_dispatch": true,
+  "empty_and_nonempty_synthetic_fact_paths_exercised": true,
+  "arm_metering_sums_to_execution": true,
+  "all_semantic_reviews_explicitly_unreviewed": true,
+  "live_approval_false": true,
+  "credential_file_not_read": true,
+  "network_and_live_constructor_blocked": true,
+  "verification_script_sha256": "570b775c1d4017df8be521d8b1a69ff9d2b98cfafc1b77a8830d251ee20e6dc5",
+  "simulated_checkpoint_sha256": "f9a78724626ede0989f604c7954ba61def0e893448e1e33a52bddd2a0205bc1f"
+}
