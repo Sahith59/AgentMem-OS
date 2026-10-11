@@ -111,6 +111,38 @@ def summarize(rows, diagnostic=False):
     }
 
 
+def usage_audit(root):
+    result = defaultdict(Counter)
+    for path in sorted((root / "calls").glob("*.receipt.json")):
+        rec = json.loads(path.read_text())
+        request = json.loads(
+            path.with_name(path.name.replace(".receipt.json", ".request.json")).read_text()
+        )["request"]
+        stage = rec["job"].split("-", 1)[0]
+        group = "|".join((stage, request["model"], str(request["reasoning_effort"])))
+        out = result[group]
+        out["receipts"] += 1
+        out["http_status=" + str(rec.get("status"))] += 1
+        if rec.get("status") != 200:
+            continue
+        body = json.loads(rec["body_text"])
+        usage = body["usage"]
+        for field in ("prompt_tokens", "completion_tokens"):
+            out[field] += usage[field]
+            maximum = "maximum_" + field + "_per_call"
+            out[maximum] = max(out[maximum], usage[field])
+        details = usage.get("completion_tokens_details")
+        if details is None or details.get("reasoning_tokens") is None:
+            out["reasoning_token_count_unreported"] += 1
+        else:
+            out["reported_reasoning_tokens"] += details["reasoning_tokens"]
+            out["calls_reporting_positive_reasoning_tokens"] += details["reasoning_tokens"] > 0
+        out["visible_reasoning_content_calls"] += bool(
+            body["choices"][0]["message"].get("reasoning_content")
+        )
+    return dict(result)
+
+
 def analyze(root):
     root = Path(root)
     phases = ("discovery", "discovery-continuation-001", "attribution", "confirmation")
@@ -137,6 +169,7 @@ def analyze(root):
         "confirmation": summarize(raw["confirmation"]),
         "attribution": summarize(raw["attribution"], diagnostic=True),
         "meter": Meter(root / "calls").summary(),
+        "receipt_usage": usage_audit(root),
         "limits": [
             "Strict synthetic task success, not general model accuracy",
             "Translations and parameter variants are correlated",
