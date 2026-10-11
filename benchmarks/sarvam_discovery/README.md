@@ -1,6 +1,14 @@
 # Sarvam discovery comparison v1
 
-Status: runnable exploratory preparation, **no live results**. This measures whether
+Latest status (October 10): the original low-reasoning pilot stopped at its first
+extraction with no final content. A separately approved one-call null-reasoning
+probe returned valid JSON, but copied metadata rather than compact facts. **No
+final-answer comparison or memory score exists.** See the
+[diagnostic report](../audits/sarvam-discovery-2026-10-10/thinking-off-probe/REPORT.md).
+The configuration and run commands below describe the preserved original package;
+do not resume its failed checkpoint or infer approval for a new run.
+
+This runnable exploratory preparation measures whether
 ordinary stored facts help or harm a fixed Sarvam model on a small, inspectable set.
 It does not evaluate the AgentMem production engine or establish a new product gap.
 
@@ -102,7 +110,8 @@ python -m benchmarks.sarvam_discovery score \
 
 The exact HTTP configuration is checked against the
 [chat API contract](https://docs.sarvam.ai/api-reference/chat/chat-completions-v1).
-Provider behavior and account access are **not yet live-verified**. The first
+Account access and this one extraction have now been observed; broader provider
+behavior and answer quality remain unverified. In the original protocol, the first
 scheduled request is also the transport/response-contract check; incompatibility
 stops the package without an automatic fallback.
 

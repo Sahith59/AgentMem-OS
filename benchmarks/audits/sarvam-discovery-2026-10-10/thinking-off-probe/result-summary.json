@@ -1,0 +1,121 @@
+{
+  "schema": "sarvam-thinking-off-probe-result-v1",
+  "local_date": "2026-10-10",
+  "source_commit": "43050daf8de6ae0b76b2ad717dc316a3039e8d49",
+  "probe_sha256": "fa59041f381a10f971fe2afb361106e81482339519b47fc48c45519e4d2fc04f",
+  "request_sha256": "e986f883abf88e3a815db59ce4991a040865b0f8bb52e2d2ca54b9d34b1d00c6",
+  "checkpoint_sha256": "a651a09aa1f07a4da457ca71da4119fec84f0e62371778fdeb8804e93158bcc1",
+  "raw_response_sha256": "980b0cad97967516287a9f96db2dadea8612fed2516dfcca204e1d391bdf6342",
+  "executor_sha256": "aca067d8b0df1c45cccbe16535a4cb991cec5a4d2459edb8efbaa279d47b9e2d",
+  "attempts": 1,
+  "retries": 0,
+  "accepted_extractions": 1,
+  "answers": 0,
+  "http_status": 200,
+  "returned_model": "sarvam-105b",
+  "finish_reason": "stop",
+  "reasoning_setting": null,
+  "usage": {
+    "completion_tokens": 301,
+    "prompt_tokens": 366,
+    "total_tokens": 667,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null
+    },
+    "prompt_tokens_details": null
+  },
+  "elapsed_seconds": 2.365235875127837,
+  "final_content": "{\"facts\":[{\"attribute\":\"customer\",\"value\":\"U17\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"record_id\",\"value\":\"s01\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"observed_at\",\"value\":\"2026-10-09T10:00:00+05:30\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"role\",\"value\":\"user\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"session\",\"value\":\"session-1\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"tenant\",\"value\":\"T1\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]},{\"attribute\":\"text\",\"value\":\"For my parcel, use pickup counter K7.\",\"status\":\"current\",\"condition\":null,\"valid_from\":null,\"valid_until\":null,\"source_ids\":[\"s01\"]}]}",
+  "parsed_facts": [
+    {
+      "attribute": "customer",
+      "value": "U17",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "record_id",
+      "value": "s01",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "observed_at",
+      "value": "2026-10-09T10:00:00+05:30",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "role",
+      "value": "user",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "session",
+      "value": "session-1",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "tenant",
+      "value": "T1",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    },
+    {
+      "attribute": "text",
+      "value": "For my parcel, use pickup counter K7.",
+      "status": "current",
+      "condition": null,
+      "valid_from": null,
+      "valid_until": null,
+      "source_ids": [
+        "s01"
+      ]
+    }
+  ],
+  "frozen_usage_ninr": 32749680,
+  "current_rate_usage_estimate_ninr": 23550000,
+  "reserved_ninr": 4137615360,
+  "invoice_verified": false,
+  "protocol_status": "PASS_SINGLE_EXTRACTION",
+  "semantic_review": "SOURCE_CONTENT_PRESERVED_BUT_METADATA_ECHO_NOT_COMPACT_MEMORY",
+  "reviewer": "ASSISTANT_SOURCE_REVIEW_NOT_INDEPENDENT_HUMAN",
+  "accuracy_status": "NOT_MEASURED",
+  "full_pilot_authorized": false,
+  "next_paid_calls": 0
+}

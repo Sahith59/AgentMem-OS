@@ -1,0 +1,17 @@
+{
+  "network_calls": 0,
+  "uses_real_saved_extraction": true,
+  "persisted_and_reopened": "PASS",
+  "all_authorized_originals_retained": true,
+  "equal_original_evidence_between_arms": true,
+  "facts_count": 7,
+  "source_count": 1,
+  "sqlite_sha256": "3691363d77af9b0ad07d140ad6140ac799687006dbc91d6245848de46d620d2e",
+  "full_request_sha256": "d97a4843d2f1b34833fdf18cc774e36f28b901fb94fddc5b12a896ce318a3d53",
+  "sqlite_request_sha256": "6b245e58af21f524b825f1dd9e455b51c6e7d2ebac87d5565eb356d368cb080e",
+  "requests_not_sent": true,
+  "candidate_full_user_content_chars": 364,
+  "candidate_sqlite_user_content_chars": 1349,
+  "request_reasoning_setting": "historical low; offline construction only",
+  "answer_quality": "NOT_MEASURED"
+}
