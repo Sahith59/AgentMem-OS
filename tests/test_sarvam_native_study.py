@@ -7,6 +7,7 @@ import pytest
 from benchmarks.sarvam_native_study import backend
 from benchmarks.sarvam_native_study.dataset import build
 from benchmarks.sarvam_native_study.diagnostic import profile_request
+from benchmarks.sarvam_native_study.paced import continuation_jobs
 from benchmarks.sarvam_native_study.runner import initial
 from benchmarks.sarvam_native_study.score import grade
 from benchmarks.sarvam_native_study.transport import Meter, payload, save
@@ -198,3 +199,21 @@ def test_concurrent_budget_reservations_cannot_overcommit(tmp_path):
     assert 0 < sum(outcomes) < 140
     assert s["calls"] == sum(outcomes)
     assert s["charged_with_headroom_inr"] <= 300
+
+
+def test_continuation_excludes_successes_and_errors(tmp_path):
+    package = {"jobs": [{"id": "ok"}, {"id": "failed"}, {"id": "new"}]}
+    execution = {
+        "outcomes": [
+            {"id": "ok", "terminal": "answer"},
+            {"id": "failed", "terminal": "infrastructure_error"},
+        ]
+    }
+    for job in ("ok", "failed"):
+        folder = tmp_path / "episodes" / job
+        folder.mkdir(parents=True)
+        (folder / "result.json").write_text("{}")
+    assert continuation_jobs(package, execution, tmp_path) == [{"id": "new"}]
+    (tmp_path / "episodes/failed/result.json").unlink()
+    with pytest.raises(ValueError, match="Incomplete"):
+        continuation_jobs(package, execution, tmp_path)
