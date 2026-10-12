@@ -1,124 +1,31 @@
-# Cross-Lingual Memory: The Layer Nobody Has Built
+# Indic memory research roadmap
 
-India's AI stacks are learning to *speak* 22 languages. None of them can
-*remember* across two. This document is the problem statement, what already
-works in this repo today, and the measured roadmap.
+Updated October 11, 2026. This is an evidence-first research direction, not a claim that a multilingual memory product is ready. The [current Sarvam research index](SARVAM_RESEARCH.md) links actual experiments, failures and the next comparison. The [older roadmap](history/INDIC_ROADMAP_BEFORE_2026-10-11.md) is preserved as history; its universal competitor and first-invention claims were not established and are withdrawn.
 
----
+## Scope and product gate
 
-## The problem, in one user
+The intended eventual coverage is the languages supported by the relevant Sarvam services, with service/model/version recorded. We start measurement with English, Hindi and Telugu because we can review those cases. Coverage is earned per language and task; one translation does not establish full support. Neither API integration nor startup-program acceptance demonstrates product quality.
 
-Meet a real pattern, not an edge case: a user talks to a voice agent in
-Hindi on Monday ("मेरी बेटी की शादी दिसंबर में है" - my daughter's wedding
-is in December), then types in English on Thursday ("what flowers did I say
-I wanted?"). Every production memory system today (Mem0, Zep, Letta,
-LangMem, all built English-first) stores Monday and Thursday as two
-strangers. The Hindi fact does not resolve to the English query. The user
-repeats themselves, and the "memory" product has amnesia precisely for the
-users who code-mix, which in India is most users.
+Before designing new memory architecture, identify a reproducible failure in native Sarvam with a strong ordinary database, correct API use, clear instructions and verified tool permissions. Separate source interpretation, retrieval/persistence, action execution, reporting and evaluator errors. If an ordinary integration fix solves a case, publish that result. Do not label it a missing Sarvam memory capability.
 
-This is a known, publicly acknowledged gap, not our invention: the leading
-graph-memory vendor has multiple open GitHub issues requesting exactly
-cross-lingual entity resolution
-([#1141](https://github.com/getzep/graphiti/issues/1141),
-[#1380](https://github.com/getzep/graphiti/issues/1380),
-[#312](https://github.com/getzep/graphiti/issues/312),
-[#434](https://github.com/getzep/graphiti/issues/434)), with an FAQ answer
-of "on the roadmap." No memory vendor publishes a cross-lingual recall
-number. There is no benchmark for one to publish. That absence is the
-opportunity.
+Then test remaining persistent-information problems across sessions and languages with controlled identity, corrections, temporal scope and evidence provenance. A new component needs an equal-model/equal-budget comparison against strong ordinary controls. Product selection also requires a concrete user workflow and measurable benefit, not merely a difficult synthetic example.
 
-## What already works in this repo, measured
+## Public evaluation is required
 
-Cross-lingual entity aliasing is live in the knowledge graph today, not a
-slide. An Indic-script mention links to an entity the graph already knows
-through an embedding match (multilingual-e5-small), stored as a
-non-destructive `ALIAS_OF` edge:
+Publish protocols, licensed or synthetic case sources, exclusions, separate generation/label files, code revisions, raw receipts, cost/latency, per-language metrics, paired gains/losses and repeats. Current development artifacts already do part of this. An independent benchmark additionally needs reviewed diverse cases, held-out families and independent language review. Translations and parameter variants must be grouped; they are not independent samples. Competitor comparisons require actual matched reproductions and appropriate prior-art review. No competitor score or novelty outcome is assumed.
 
-```mermaid
-flowchart LR
-    H["Hindi query:<br/>दिल्ली की मीटिंग"] --> E["Multilingual<br/>embedding match"]
-    E -->|"cosine >= 0.90"| A["ALIAS_OF edge<br/>(non-destructive)"]
-    A --> N["Existing entity:<br/>'Delhi meeting'<br/>+ its English facts"]
-    N --> R["English-stored memory<br/>answers the Hindi query"]
-```
+## Historical implementation evidence
 
-Measured on a hand-labeled English/Hindi/Tamil set with adversarial hard
-negatives, published at every threshold (the honest table, including the
-operating points that fail):
+The repository contains experimental cross-lingual entity aliases (`ALIAS_OF`) using multilingual embeddings. An earlier hand-labelled EN/Hindi/Tamil set reported precision 0.762 / recall 0.533 at threshold 0.90. This is a historical draft-label measurement, not verified end-to-end multilingual memory quality. False aliases can contaminate retrieval and downstream answers even when original facts are not overwritten; non-destructive edges do not eliminate that risk.
 
-| Threshold | Precision | Recall | F1 |
-|---|---|---|---|
-| 0.80 | 0.135 | 1.000 | 0.238 |
-| 0.85 | 0.422 | 0.900 | 0.575 |
-| **0.90 (ships as default)** | **0.762** | **0.533** | **0.628** |
-| 0.95 | 1.000 | 0.200 | 0.333 |
+The English record remains historical 423/500 once under its original judge; provisional Terra 425/500 grades the same answers differently. Neither is an Indic score. Read [RESULTS.md](RESULTS.md) for the English context and [Sarvam history](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/SARVAM_HISTORY.md) for why the early multilingual memory advantage did not survive repetition.
 
-Known surviving failure, disclosed rather than hidden: two phonetically
-similar but unrelated places (Chennai / China) still cross the 0.90
-threshold. The design absorbs this safely: an alias edge can add retrieval
-reach but can never merge nodes or corrupt a fact. A false alias costs
-noise, never truth.
+## Sequence
 
-The substrate under this is the same engine documented in
-[BENCHMARKS.md](BENCHMARKS.md): 80.0% ± 0.5 on the full LongMemEval `_s` in English
-with full protocol disclosure, local-first extraction at $0 per
-conversation, and a bi-temporal knowledge graph. The cross-lingual layer is
-not a pivot away from that work; it is what that work was for. A memory
-layer must first demonstrably work in one language before "works across
-languages" means anything.
+1. Complete fresh native-action/reporting confirmation and review the remaining failures.
+2. Establish a strong ordinary-storage baseline, then investigate persistent, cross-session and cross-language evidence failures with newly reviewed cases. Do not assume a failure in advance.
+3. Select the smallest product component only if it fixes a reproduced residual problem and improves an observable workflow outcome.
+4. Publish a reviewed multilingual benchmark and matched baselines; expand language and domain coverage in measured stages.
+5. Add speech-path testing only with a text baseline, separating recognition mistakes from memory and action failures.
 
-## Why this matters commercially, not just technically
-
-- **Voice-first users are the growth frontier.** India's voice AI stacks
-  (Sarvam and others) handle code-mixed speech natively. Agents built on
-  them need memory that survives the code-mixing their users actually do.
-- **Token economics are worse in Indic scripts.** Devanagari and Tamil
-  commonly cost 2 to 4x more tokens per character than English under
-  standard tokenizers. A memory layer that compresses 115k tokens of
-  history into ~10k of relevant context (our measured operating point) is
-  cosmetic in English and decisive in Hindi.
-- **Privacy is not optional at India scale.** Our extraction runs on a
-  local 8B model. Conversations never leave the device to build memory.
-
-## The roadmap, with measurement gates
-
-Each phase ships with its own benchmark number or it did not happen. This
-mirrors how the English baseline was built (see
-[DECISIONS.md](DECISIONS.md), D8).
-
-**Phase 1: X-CRS, the cross-lingual recall benchmark.**
-Store facts in language A, query in language B, across English + Hindi +
-Tamil (then Telugu, Bengali). Metric: X-CRS (cross-lingual recall score),
-defined so that monolingual recall and cross-lingual recall are separately
-reported. Nobody publishes this number today; we intend to publish the
-first, including our failures on it.
-Status: metric design drafted, eval set labeling in progress.
-Result: _pending_.
-
-**Phase 2: Voice-path memory (V-CRS).**
-The same benchmark through a real speech pipeline (ASR in, TTS out), so
-recognition noise is part of the measurement, not an excuse. Designed to
-run on production Indic voice APIs (Sarvam's Saaras/Bulbul class of stack).
-Result: _pending_.
-
-**Phase 3: Code-mixed extraction hardening.**
-Hinglish and Tanglish transcripts through the extraction validators;
-measure fact-survival rates per language mix. Known open issue already
-logged: Hindi conversations currently yield zero extracted facts in one
-pipeline path. It is in this repo's issue tracker because roadmaps that
-hide their bugs are marketing.
-Result: _pending_.
-
-**Phase 4: The cross-lingual head-to-head.**
-The English head-to-head harness (real competitor libraries, same
-answerer, same judge) re-run on the cross-lingual set. Expected outcome,
-stated before running it: most incumbents will score near zero, because
-they were never built for this. The interesting number is ours.
-Result: _pending_.
-
----
-
-*If you work on Indic NLP, speech, or agent infrastructure and want to
-argue with the metric design before we freeze it, open an issue. Benchmark
-designs are exactly the thing that should be argued about in public.*
+No date for a novel product or industry-leading score is guaranteed. A result showing that ordinary controls suffice is also a valid research outcome.
