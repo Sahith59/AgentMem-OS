@@ -7,7 +7,7 @@ from benchmarks.sarvam_source_results import combine, paired
 
 
 def evidence():
-    case = {"id": "scenario-en"}
+    case = {"id": "scenario-en", "intent": "change"}
     label = {"runtime_sha256": digest(case), "required_new_write": False}
     rows, facts, results = [], [], {}
     for guarded in (False, True):
@@ -66,6 +66,7 @@ def test_truthful_unsafe_write_stays_distinct_from_safe_success():
     assert report["totals"]["factual_answer_correct"] == 2
     assert report["totals"]["unsafe_change_truthfully_reported"] == 1
     assert report["totals"]["safe_task_success"] == 1
+    assert all(group["intent"] == "change" for group in report["by_model_arm_intent"])
     pair = report["pairs"]["complete_pairs"][0]
     assert pair["transitions"]["factual_answer_correct"] == [True, True]
     assert pair["transitions"]["safe_task_success"] == [False, True]

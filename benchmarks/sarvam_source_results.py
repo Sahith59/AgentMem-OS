@@ -116,6 +116,7 @@ def combine(primary, attribution, cases, labels, results, *, planned):
             {
                 **original,
                 **fact,
+                "intent": case["intent"],
                 "valid_final": raw is not None,
                 "projected_final": app is not None,
                 "valid_but_factually_wrong": bool(
@@ -145,6 +146,7 @@ def combine(primary, attribution, cases, labels, results, *, planned):
         "totals": counts(rows),
         "terminals": dict(Counter(r["terminal"] for r in rows)),
         "by_model_arm": grouped(rows, ("model", "enforce")),
+        "by_model_arm_intent": grouped(rows, ("model", "enforce", "intent")),
         "by_model_arm_language": grouped(rows, ("model", "enforce", "language")),
         "by_model_arm_family": grouped(rows, ("model", "enforce", "family")),
         "by_model_arm_scenario": grouped(rows, ("model", "enforce", "workflow")),
