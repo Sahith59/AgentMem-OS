@@ -19,7 +19,7 @@ one-variable comparisons. Columns that matter for comparability:
 
 ## Latest measured English state (October 4, 2026)
 
-**Forward policy update:** GPT-4o-family inference is retired from new runs. Historical grades remain unchanged. The completed provisional Terra bridge regrades the same saved answers at425/500, with484/500 grade agreement and zero answer changes. This is not an architecture or answer-quality gain; [bridge evidence](results/terra-bridge-2026-10-04.json) preserves disagreements and assistant-review limits. See the [Luna foundation and evaluation migration](ENGLISH_LUNA_FOUNDATION_2026-10-04.md). Current multilingual studies have a separate [Sarvam research index](SARVAM_RESEARCH.md); their numbers are not English benchmark scores.
+**Forward policy update:** GPT-4o-family inference is retired from new runs. Historical grades remain unchanged. The completed provisional Terra bridge regrades the same saved answers at 425/500, with 484/500 grade agreement and zero answer changes. This is not an architecture or answer-quality gain; [bridge evidence](results/terra-bridge-2026-10-04.json) preserves disagreements and assistant-review limits. See the [Luna foundation and evaluation migration](ENGLISH_LUNA_FOUNDATION_2026-10-04.md). Current multilingual studies have a separate [Sarvam research index](SARVAM_RESEARCH.md); their numbers are not English benchmark scores.
 
 | Configuration | LongMemEval `_s` full 500 | Repeat status | Interpretation |
 |---|---:|---|---|

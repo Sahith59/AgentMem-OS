@@ -1,6 +1,6 @@
 # Indic memory research roadmap
 
-Updated October11,2026. This is an evidence-first research direction, not a claim that a multilingual memory product is ready. The [current Sarvam research index](SARVAM_RESEARCH.md) links actual experiments, failures and the next comparison. The [older roadmap](history/INDIC_ROADMAP_BEFORE_2026-10-11.md) is preserved as history; its universal competitor and first-invention claims were not established and are withdrawn.
+Updated October 11, 2026. This is an evidence-first research direction, not a claim that a multilingual memory product is ready. The [current Sarvam research index](SARVAM_RESEARCH.md) links actual experiments, failures and the next comparison. The [older roadmap](history/INDIC_ROADMAP_BEFORE_2026-10-11.md) is preserved as history; its universal competitor and first-invention claims were not established and are withdrawn.
 
 ## Scope and product gate
 
@@ -16,9 +16,9 @@ Publish protocols, licensed or synthetic case sources, exclusions, separate gene
 
 ## Historical implementation evidence
 
-The repository contains experimental cross-lingual entity aliases (`ALIAS_OF`) using multilingual embeddings. An earlier hand-labelled EN/Hindi/Tamil set reported precision0.762/recall0.533 at threshold0.90. This is a historical draft-label measurement, not verified end-to-end multilingual memory quality. False aliases can contaminate retrieval and downstream answers even when original facts are not overwritten; non-destructive edges do not eliminate that risk.
+The repository contains experimental cross-lingual entity aliases (`ALIAS_OF`) using multilingual embeddings. An earlier hand-labelled EN/Hindi/Tamil set reported precision 0.762 / recall 0.533 at threshold 0.90. This is a historical draft-label measurement, not verified end-to-end multilingual memory quality. False aliases can contaminate retrieval and downstream answers even when original facts are not overwritten; non-destructive edges do not eliminate that risk.
 
-The English record remains historical423/500 once under its original judge; provisional Terra425/500 grades the same answers differently. Neither is an Indic score. Read [RESULTS.md](RESULTS.md) for the English context and [Sarvam history](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/SARVAM_HISTORY.md) for why the early multilingual memory advantage did not survive repetition.
+The English record remains historical 423/500 once under its original judge; provisional Terra 425/500 grades the same answers differently. Neither is an Indic score. Read [RESULTS.md](RESULTS.md) for the English context and [Sarvam history](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/SARVAM_HISTORY.md) for why the early multilingual memory advantage did not survive repetition.
 
 ## Sequence
 

@@ -109,7 +109,7 @@ We test native Sarvam models with ordinary SQLite storage, tool permissions and 
 
 The latest completed saved-history test changed one reporting sentence. Base105B factual answers improved **59/72 → 72/72**; Conversations **70/72 → 71/72**, including one regression. Raw execution-status errors and a previously missed approved action remain. No new actions were performed in that test, and no memory advantage or general accuracy claim follows. [Report and reproducible evidence](benchmarks/audits/sarvam-reporter-wording-2026-10-11/REPORT.md).
 
-The next fresh-workflow confirmation uses40 related new scenarios rendered in three languages, two fixed models and paired final reports after shared native actions. Follow its actual status and the problem-selection criteria in [the Sarvam research index](docs/SARVAM_RESEARCH.md). A public benchmark remains planned; these development cases are not an independent benchmark.
+The fresh-workflow confirmation stopped after 32/240 episodes because our question wording was ambiguous about a historical request versus a current preference. All 111 calls are reconciled; no candidate is promoted. [Stopped-run evidence and corrected package](benchmarks/audits/sarvam-fresh-confirmation-2026-10-11/REPORT.md) preserve the failure. The revised 120-case package is frozen and unexecuted. Follow its actual status and the problem-selection criteria in [the Sarvam research index](docs/SARVAM_RESEARCH.md). A public benchmark remains planned; these development cases are not an independent benchmark.
 
 ---
 
