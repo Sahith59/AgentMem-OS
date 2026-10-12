@@ -1,6 +1,6 @@
 # AgentMem OS
 
-**Memory for AI agents, in any language.**
+**Local-first memory for AI agents, with measured English results and multilingual research.**
 
 [![CI](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml/badge.svg)](https://github.com/Sahith59/AgentMem-OS/actions/workflows/ci.yml)
 
@@ -11,10 +11,10 @@ An open-source, local-first memory engine for LLM agents. The latest development
 | Question | Answer |
 |---|---|
 | How good is it, really? | **[docs/RESULTS.md](docs/RESULTS.md)**: current 84.6% single run, 83.6% repeated predecessor, and qualified historical results |
-| Every number in one table? | **[docs/RESULTS.md](docs/RESULTS.md)**: every run ever, with harness, models, tokens, and artifact |
+| Every number in one table? | **[docs/RESULTS.md](docs/RESULTS.md)**: English runs; **[Sarvam research](docs/SARVAM_RESEARCH.md)**: multilingual studies and evidence |
 | What failed on the way? | **[docs/FAILURES.md](docs/FAILURES.md)**: every refuted idea, what it cost, what it bought |
 | Why is it built this way? | **[docs/DECISIONS.md](docs/DECISIONS.md)**: each decision with its measured outcome, good and bad |
-| What about Indian languages? | **[docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md)**: the cross-lingual layer, measured numbers, the benchmark nobody has built |
+| What about Indian languages? | **[docs/SARVAM_RESEARCH.md](docs/SARVAM_RESEARCH.md)**: current evidence, unresolved problems and the [Indic roadmap](docs/INDIC_ROADMAP.md) |
 | Can I trust vendor benchmark claims? | **[COMPETITIVE_ANALYSIS.md](COMPETITIVE_ANALYSIS.md)**: sourced claims, and why most published numbers are not comparable |
 | How do I run it? | [Quickstart](#quickstart): local, free, no API key |
 
@@ -69,10 +69,10 @@ Verbatim conversation evidence stays primary. A local 8B model proposes facts fr
 
 - **A benchmark record that includes failures.** We disclose the answerer, judge, split, memory source, context budget, repeat count and negative experiments. Single-run results are labelled as such. See [docs/RESULTS.md](docs/RESULTS.md) and [docs/FAILURES.md](docs/FAILURES.md).
 - **Cross-lingual identity under evaluation.** An earlier hand-labelled EN/Hindi/Tamil alias set measured precision 0.762 and recall 0.533 at one operating point. That does not establish end-to-end Hindi/Telugu memory accuracy or meet the later 0.95 automatic-merge precision target. See [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md).
-- **Extraction that cannot hallucinate silently.** The LLM proposes; deterministic validators decide, with logged rejection reasons. 19,195 sessions extracted into 98,372 validated facts at $0 API cost.
+- **Extraction with deterministic checks.** The LLM proposes facts; validators log acceptance/rejection. Historical extraction processed 19,195 sessions into 98,372 accepted facts at $0 API cost. Passing these checks does not prove that every fact is supported by its source.
 - **Dynamic trust, not static tiers.** Trust is a live number updated from evidence. Measured in an adversarial harness: retrieval precision 0.951 with trust-weighting versus 0.625 without, and an unreliable agent's perceived trust decays 0.50 to 0.27 automatically.
-- **Fork, not just share.** Child agents inherit abstracted knowledge and start with a clean episodic slate: the first formalization of git-style memory branching for LLM agents.
-- **A temporal knowledge graph that doesn't lie about the past.** Bi-temporal facts (`valid_from` / `valid_until`), deterministic zero-LLM-call supersession, point-in-time queries.
+- **Fork, not just share.** Child agents inherit abstracted knowledge and start with a clean episodic slate. This describes the implementation, not a claim of first invention.
+- **A temporal knowledge graph with validity intervals.** Bi-temporal facts (`valid_from` / `valid_until`), deterministic zero-LLM-call supersession, point-in-time queries.
 - **100% local-first.** Every tier runs on your machine. Plug in Claude, GPT, or a fully local Ollama model interchangeably.
 
 ---
@@ -83,12 +83,12 @@ Verbatim conversation evidence stays primary. A local 8B model proposes facts fr
 
 | Configuration | QA accuracy | Mean context sent |
 |---|---|---|
-| Precision-source pipeline, current | **84.6%** (423/500, one historical run; new judge protocol pending) | 40k-character cap; mean tokens not reported |
+| Precision-source pipeline, current | **84.6%** (423/500, one historical run; historical judge) | 40k-character cap; mean tokens not reported |
 | Prior revised pipeline | **83.6%** (418/500 in each of two repeats) | 40k-character cap; mean tokens not reported |
 | Historical full-evidence Luna series | 80.0% ± 0.5 (three 500-question runs) | ~8.5k tokens |
 | AgentMem OS, 24k operating point | 76.9% ± 1.0 (n=150, mean of 3 runs) | 5,698 tokens |
 
-The English rows use different corpus and retrieval configurations. The latest measured answerer was `gpt-5.6-luna`, with the benchmark's type-specific `gpt-4o` judge. GPT-4o-family inference is now retired for future runs; those historical grades remain unchanged. The affordable replacement judge and new scoring series require calibration. See the [Luna foundation plan](docs/ENGLISH_LUNA_FOUNDATION_2026-10-04.md). See [docs/RESULTS.md](docs/RESULTS.md) for repeat counts and historical comparability limits. A 90% result has not been measured.
+The English rows use different corpus and retrieval configurations. The latest measured answerer was `gpt-5.6-luna`, with the benchmark's type-specific `gpt-4o` judge. GPT-4o-family inference is now retired for future runs; those historical grades remain unchanged. A completed provisional Terra regrade scores 425/500 on those same saved answers, with 484/500 grade agreement. No answers changed, so this is a judge-scale difference, not an architecture gain. [Bridge evidence](docs/results/terra-bridge-2026-10-04.json) records the disagreements and assistant-review limits. No newer English answer improvement is established by this Sarvam work. See the [Luna foundation plan](docs/ENGLISH_LUNA_FOUNDATION_2026-10-04.md). See [docs/RESULTS.md](docs/RESULTS.md) for repeat counts and historical comparability limits. A 90% result has not been measured.
 
 **Why evidence delivery matters:** historical session-coverage analysis found a large association with answer accuracy, but a session hit does not prove that its answer-bearing turn or all operands reached the packet. Later full500 audits separate retrieval gaps from answer selection, abstention and judge sensitivity. See [docs/BENCHMARKS.md](docs/BENCHMARKS.md#the-coverage-finding-the-mechanism-behind-everything) for the original analysis and [docs/RESULTS.md](docs/RESULTS.md) for the qualified current result.
 
@@ -102,6 +102,14 @@ The English rows use different corpus and retrieval configurations. The latest m
 **Cross-lingual entity resolution pilot (EN/Hindi/Tamil, hand-labelled, with adversarial negatives):** precision 0.762 / recall 0.533 at one tested threshold. It is not yet an end-to-end Indic memory result or a production-quality automatic-merge operating point. Table and design in [docs/INDIC_ROADMAP.md](docs/INDIC_ROADMAP.md).
 
 An earlier n=30 head-to-head against Mem0, Letta, and LangMem lives with its caveats in [docs/BENCHMARKS.md](docs/BENCHMARKS.md). Historical per-question artifacts are in [`benchmarks/`](benchmarks/); later frozen-run receipts are retained in the project's evaluation memory.
+
+## Sarvam research: investigating the problem
+
+We test native Sarvam models with ordinary SQLite storage, tool permissions and source transcripts before deciding whether a new memory architecture is needed. English, Hindi and Telugu are the current diagnostic languages; they do not establish support across all Sarvam languages.
+
+The latest completed saved-history test changed one reporting sentence. Base105B factual answers improved **59/72 → 72/72**; Conversations **70/72 → 71/72**, including one regression. Raw execution-status errors and a previously missed approved action remain. No new actions were performed in that test, and no memory advantage or general accuracy claim follows. [Report and reproducible evidence](benchmarks/audits/sarvam-reporter-wording-2026-10-11/REPORT.md).
+
+The next fresh-workflow confirmation uses40 related new scenarios rendered in three languages, two fixed models and paired final reports after shared native actions. Follow its actual status and the problem-selection criteria in [the Sarvam research index](docs/SARVAM_RESEARCH.md). A public benchmark remains planned; these development cases are not an independent benchmark.
 
 ---
 
