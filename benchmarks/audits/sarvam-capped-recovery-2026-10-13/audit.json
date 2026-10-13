@@ -1,0 +1,135 @@
+{
+  "kind": "PROSPECTIVE_CAPPED_ACTOR_DIAGNOSTIC_NOT_PARENT_REPAIR",
+  "parent_selected_id": "confirm-fresh-13-en-m0",
+  "parent_reporters_not_reached": true,
+  "execution_mode": "production_default_transport",
+  "live_provider_observation": true,
+  "selected_runtime_sha256": "f59281ab1a618292b212f0bffa9067eb16983df383387e4cd2dc3c4af805c982",
+  "sealed_gold_sha256": "f27502aa6eaebbd86a7836fd4ca9bb4ee8f50fece0772f7e25df942851701245",
+  "new_calls": 2,
+  "new_native_or_tool_calls": 0,
+  "reports": {
+    "control": {
+      "terminal": "answer",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "application": {
+        "raw_content": "{\"action_status\":\"not_requested\",\"answer\":null,\"needs_clarification\":true}",
+        "raw_parsed": {
+          "action_status": "not_requested",
+          "answer": null,
+          "needs_clarification": true
+        },
+        "application_output": {
+          "action_status": "not_requested",
+          "answer": null,
+          "needs_clarification": true
+        },
+        "status_changed": false,
+        "status_basis": "trusted_read_intent"
+      },
+      "usage": {
+        "known": true,
+        "prompt_tokens": 835,
+        "completion_tokens": 5263,
+        "known_cost_microinr": 328305,
+        "retained_microinr": 410382,
+        "full_reservation_microinr": 3072000
+      },
+      "raw_action_status": "not_requested",
+      "receipt_owned_action_status": "not_requested",
+      "raw_status_matches_read_only": true,
+      "receipt_owned_status_matches_read_only": true,
+      "date_only_match": true,
+      "clarification_match": true,
+      "factual_match": true
+    },
+    "candidate": {
+      "terminal": "answer",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "application": {
+        "raw_content": "{\"action_status\":\"not_requested\",\"answer\":null,\"needs_clarification\":true}",
+        "raw_parsed": {
+          "action_status": "not_requested",
+          "answer": null,
+          "needs_clarification": true
+        },
+        "application_output": {
+          "action_status": "not_requested",
+          "answer": null,
+          "needs_clarification": true
+        },
+        "status_changed": false,
+        "status_basis": "trusted_read_intent"
+      },
+      "usage": {
+        "known": true,
+        "prompt_tokens": 843,
+        "completion_tokens": 3765,
+        "known_cost_microinr": 238545,
+        "retained_microinr": 298182,
+        "full_reservation_microinr": 3072000
+      },
+      "raw_action_status": "not_requested",
+      "receipt_owned_action_status": "not_requested",
+      "raw_status_matches_read_only": true,
+      "receipt_owned_status_matches_read_only": true,
+      "date_only_match": true,
+      "clarification_match": true,
+      "factual_match": true
+    }
+  },
+  "attempts": [
+    {
+      "job": "confirm-fresh-13-en-m0-a0-handoff-control",
+      "arm": "control",
+      "request_sha256": "c69ec849f387fe37c0d8c81c61fc95a6b7fb948db1fec006e0f49c1ababadc22",
+      "receipt_sha256": "0ce44059cf2653d8b3e54cb5632c38eefb4d88518468cf75bef167510b29a656",
+      "http_status": 200,
+      "usage": {
+        "known": true,
+        "prompt_tokens": 835,
+        "completion_tokens": 5263,
+        "known_cost_microinr": 328305,
+        "retained_microinr": 410382,
+        "full_reservation_microinr": 3072000
+      },
+      "terminal": "answer",
+      "elapsed_seconds": 24.789264625003852
+    },
+    {
+      "job": "confirm-fresh-13-en-m0-a0-handoff-candidate",
+      "arm": "candidate",
+      "request_sha256": "218055cdd59e274a4078915c4e9e8c65d962a018599ef93a23d4c9de834a7ac6",
+      "receipt_sha256": "69c5794cc3ad67ba6bfdc560b87aab898d725ba11575c3a2fbb881b1bf745d02",
+      "http_status": 200,
+      "usage": {
+        "known": true,
+        "prompt_tokens": 843,
+        "completion_tokens": 3765,
+        "known_cost_microinr": 238545,
+        "retained_microinr": 298182,
+        "full_reservation_microinr": 3072000
+      },
+      "terminal": "answer",
+      "elapsed_seconds": 17.631628791001276
+    }
+  ],
+  "candidate_primary_factual_match": true,
+  "known_usage_all": true,
+  "new_known_microinr": 566850,
+  "new_retained_microinr": 708564,
+  "cumulative_known_microinr": 271224630,
+  "cumulative_retained_microinr": 371289339,
+  "safe_backend_unchanged": true,
+  "preserved_parent_snapshot_replayed": true,
+  "not_matched_actual_compute": true,
+  "one_observed_english_base_case_only": true
+}

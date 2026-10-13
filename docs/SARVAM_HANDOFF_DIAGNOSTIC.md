@@ -10,4 +10,4 @@ The two reporters share one English example. They are not two independent cases,
 
 The phase allows at most two provider calls, a ₹6.144 conservative full-context reservation and a ₹8 phase ceiling within the standing total ₹6,000 native research budget. The original native call remains counted in earlier accounting. A missing or invalid report remains a failure. No result is selected after seeing the outputs.
 
-Published result and offline replay instructions will live in the dedicated audit directory. Use those instructions for reproduction; do not restart a historical paid manifest. A separate larger source-interpretation comparison must be frozen and announced before any further paid execution.
+[Published result and offline replay instructions](../benchmarks/audits/sarvam-capped-recovery-2026-10-13/README.md) record both correct live outputs and the limits of this one-case observation. Use those instructions for reproduction; do not restart a historical paid manifest. A separate larger source-interpretation comparison must be frozen and announced before any further paid execution.

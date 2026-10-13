@@ -1,0 +1,148 @@
+{
+  "review_type": "independent assistant semantic and raw-output review of the observed capped-actor handoff diagnostic",
+  "reviewed_at_utc": "2026-10-13T17:58:23.676775Z",
+  "scope": "One predeclared English sarvam-105b episode, two new no-tools reporter calls. Read-only review of saved provider requests/receipts, source/gold, copied parent, actor trace, meter, primary audit, and independent stdlib aggregation; no new API calls or source edits.",
+  "case_id": "fresh-13-en",
+  "episode_id": "confirm-fresh-13-en-m0",
+  "model": "sarvam-105b",
+  "family": "unresolved_condition",
+  "question": "From the stated condition, which date should I choose for VISIT-2113? Do not change it.",
+  "source_messages": [
+    {
+      "id": "note-13-0",
+      "role": "customer",
+      "content": "I am Meera; this is a follow-up about my booking."
+    },
+    {
+      "id": "note-13-1",
+      "role": "customer",
+      "content": "For VISIT-2113, I would choose 2027-04-14 if the morning slot is available, or 2027-05-14 if it is not."
+    },
+    {
+      "id": "note-13-2",
+      "role": "customer",
+      "content": "Nobody has checked the availability yet. Do not guess or change my booking."
+    }
+  ],
+  "source_interpretation": "The customer supplies 2027-04-14 if a morning slot is available and 2027-05-14 otherwise, but explicitly says availability has not been checked. No unique conditional choice is established; null with prospective clarification/condition resolution required is source-correct. The backend booked date 2027-03-14 answers a different question.",
+  "gold_expected_answer": {
+    "answer": null,
+    "needs_clarification": true
+  },
+  "source_gold_disagreement": false,
+  "original_failure": {
+    "actor_terminal": "invalid_action_response",
+    "native_actor_calls": [
+      "confirm-fresh-13-en-m0-a0"
+    ],
+    "tool_trace": [],
+    "both_original_reporters_not_reached": true,
+    "backend_unchanged": true,
+    "parent_verified": true,
+    "parent_complete": false,
+    "parent_mechanical_screen_pass": false,
+    "selected_paired_sha256": "08b9ca6b1459174ff91bebe6608f7ed7c5458dd096e6e782c94cdf76d142f577",
+    "selected_native_receipt_sha256": "0588e476303d1c411b6564f730d67c45d95392e14b61aaa2fc16b7b94c92d258"
+  },
+  "handoff": {
+    "production_default_transport_marker": true,
+    "frozen_plan_sha256": "0507096c37b93ede6b7392782a148a0ee8adbec36fb152b62ecc264da34cdfb5",
+    "manifest_sha256": "5874b0621f67fd9d34409821e94a87b586b1294215b52d0c14f1ccce5954176c",
+    "gold_sealed_sha256": "f27502aa6eaebbd86a7836fd4ca9bb4ee8f50fece0772f7e25df942851701245",
+    "selected_runtime_sha256": "f59281ab1a618292b212f0bffa9067eb16983df383387e4cd2dc3c4af805c982",
+    "reporter_calls": 2,
+    "new_native_or_backend_tool_calls": 0,
+    "request_contains_gold": false,
+    "same_original_actor_evidence_in_both_reporters": true,
+    "both_reporter_requests_have_no_executable_tools": true
+  },
+  "reporters": {
+    "control": {
+      "job": "confirm-fresh-13-en-m0-a0-handoff-control",
+      "request_sha256": "c69ec849f387fe37c0d8c81c61fc95a6b7fb948db1fec006e0f49c1ababadc22",
+      "receipt_file_sha256": "0ce44059cf2653d8b3e54cb5632c38eefb4d88518468cf75bef167510b29a656",
+      "provider_http_status": 200,
+      "provider_request_id": "20261013_79c09387-8f3c-4817-9953-bd88c8663e90",
+      "terminal": "answer",
+      "finish_reason": "stop",
+      "raw_content": "{\"action_status\":\"not_requested\",\"answer\":null,\"needs_clarification\":true}",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "application_output": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "status_changed": false,
+      "date_only_correct": true,
+      "clarification_contract_correct": true,
+      "primary_factual_correct": true,
+      "raw_status_correct": true,
+      "projected_status_correct": true,
+      "model_tool_calls": null,
+      "prompt_tokens": 835,
+      "completion_tokens": 5263,
+      "known_cost_microinr": 328305,
+      "retained_microinr": 410382,
+      "elapsed_seconds": 24.789264625003852
+    },
+    "candidate": {
+      "job": "confirm-fresh-13-en-m0-a0-handoff-candidate",
+      "request_sha256": "218055cdd59e274a4078915c4e9e8c65d962a018599ef93a23d4c9de834a7ac6",
+      "receipt_file_sha256": "69c5794cc3ad67ba6bfdc560b87aab898d725ba11575c3a2fbb881b1bf745d02",
+      "provider_http_status": 200,
+      "provider_request_id": "20261013_37862a88-4269-4efe-8aa3-c02840db4a79",
+      "terminal": "answer",
+      "finish_reason": "stop",
+      "raw_content": "{\"action_status\":\"not_requested\",\"answer\":null,\"needs_clarification\":true}",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "application_output": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "status_changed": false,
+      "date_only_correct": true,
+      "clarification_contract_correct": true,
+      "primary_factual_correct": true,
+      "raw_status_correct": true,
+      "projected_status_correct": true,
+      "model_tool_calls": null,
+      "prompt_tokens": 843,
+      "completion_tokens": 3765,
+      "known_cost_microinr": 238545,
+      "retained_microinr": 298182,
+      "elapsed_seconds": 17.631628791001276
+    }
+  },
+  "cost": {
+    "new_known_microinr": 566850,
+    "new_retained_microinr": 708564,
+    "new_known_inr": 0.56685,
+    "new_retained_inr": 0.708564,
+    "cumulative_known_microinr": 271224630,
+    "cumulative_retained_microinr": 371289339,
+    "raw_receipt_meter_and_independent_aggregation_agree": true
+  },
+  "semantic_verdict": "Both new reporters returned valid, identical null/true answers and raw not_requested status. The application projection preserved the same status. This is an observed successful no-tools answer recovery for the single predeclared capped actor; it does not repair or rescore the original v3 episode.",
+  "limitations": [
+    "Assistant source/language review is not independent human or native-speaker validation.",
+    "The two calls share one English source and one actor history; they are not two independent cases. Identical outputs provide no candidate-over-control advantage.",
+    "The handoff adds two calls after the original early exit, so it is not an equal-actual-compute comparison or broad reliability estimate.",
+    "The original v3 screen remains failed and the separate 108-call evidence-view experiment remains unexecuted.",
+    "The production transport marker, saved receipts and meter establish recorded execution in this workspace; they are not cryptographic attestation of the provider."
+  ],
+  "review_evidence_sha256": {
+    "audit_json": "91a4bb59c4844375127fabf6fa583e8cdc79d1d0f2989fb2da0007e1ab846096",
+    "independent_aggregation_json": "68a7840cce6256367156b4540c04f8e86a0de95cc8c1bbe517c9c8c94bb93ea6",
+    "parent_verification_json": "48f5af8bf606fe993f794b376296fe58523450175c9942f0a18c044036de2a94",
+    "parent_manifest_json": "2f96ece44c0821237e51c82e1309db86bcfce07501703d90f2098ba814b034a0"
+  }
+}
