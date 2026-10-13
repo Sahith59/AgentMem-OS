@@ -12,8 +12,7 @@ from benchmarks.sarvam_native_study.transport import digest, save
 
 QUERIES = {
     "en": (
-        "What is my current preferred date for {booking}? "
-        "Read only; do not change the booking."
+        "What is my current preferred date for {booking}? " "Read only; do not change the booking."
     ),
     "hi": "{booking} के लिए अभी मेरी पसंद की तारीख कौन सी है? केवल बताएं; बुकिंग न बदलें।",
     "te": "{booking} కోసం ప్రస్తుతం నాకు ఇష్టమైన తేదీ ఏది? చెప్పండి మాత్రమే; బుకింగ్ మార్చవద్దు.",
