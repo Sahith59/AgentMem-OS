@@ -16,3 +16,5 @@ python /tmp/sarvam-cap-evidence/phase/analysis/independent_check.py /tmp/sarvam-
 The outputs must equal `phase/audit.json` and `phase/independent-aggregation.json`. The snapshot supports all 240 eligibility/routing decisions and exact replay of the selected native receipt plus both new reporter calls. To replay all 844 historical parent calls, use the separately published [v3 archive](../sarvam-fresh-confirmation-v3-2026-10-13/README.md); that full replay was verified before this diagnostic.
 
 The raw source and labels are synthetic and development-exposed. Review is assistant-only; independent human/native review is absent. No broad accuracy, multilingual memory, latency distribution, production readiness or novel-product claim follows. Caller-provided artifact hashes are integrity links, not cryptographic proof of a provider's identity.
+
+[Clean-export verification](VERIFICATION.md) reproduces both audits, all315artifact hashes and240focused tests.

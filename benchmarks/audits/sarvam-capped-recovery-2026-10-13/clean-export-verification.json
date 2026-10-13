@@ -1,0 +1,69 @@
+{
+  "verified": true,
+  "commit": "5ab157a47d964ff84addab10ea0ab2e1b0a83380",
+  "archive_sha256": "c02fcf0a36139b9bd3545da993abe848ef436606b2b6dd4cb0cbd31fdf34b378",
+  "artifact_files": 315,
+  "both_audits_reproduce": true,
+  "portable_240_routing_census": true,
+  "focused_tests": 240,
+  "new_provider_calls": 0,
+  "logs": [
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "-m",
+        "benchmarks.sarvam_handoff_diagnostic",
+        "audit",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-cap-export-3tase6nc/evidence/phase",
+        "--output",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-cap-export-3tase6nc/primary.json"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-cap-export-3tase6nc/evidence/phase/analysis/independent_check.py",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-cap-export-3tase6nc/evidence/phase",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-cap-export-3tase6nc/secondary.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"verified\": true, \"parent_episodes\": 240, \"parent_actor_terminals\": {\"answer\": 221, \"incomplete\": 18, \"invalid_action_response\": 1}, \"old_missing_episodes\": [\"confirm-fresh-13-en-m0\"], \"new_calls\": 2, \"reports\": {\"control\": {\"raw\": {\"action_status\": \"not_requested\", \"answer\": null, \"needs_clarification\": true}, \"finish_reason\": \"stop\", \"valid_output\": true, \"factual_match\": true, \"raw_status_correct\": true, \"prompt_tokens\": 835, \"completion_tokens\": 5263, \"known_microinr\": 328305, \"elapsed_seconds\": 24.789264625003852}, \"candidate\": {\"raw\": {\"action_status\": \"not_requested\", \"answer\": null, \"needs_clarification\": true}, \"finish_reason\": \"stop\", \"valid_output\": true, \"factual_match\": true, \"raw_status_correct\": true, \"prompt_tokens\": 843, \"completion_tokens\": 3765, \"known_microinr\": 238545, \"elapsed_seconds\": 17.631628791001276}}, \"new_known_microinr\": 566850, \"new_retained_microinr\": 708564, \"no_native_or_tool_retry\": true, \"original_failure_preserved_in_snapshot\": true, \"one_case_not_two_independent_samples\": true}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_sarvam_native_study.py",
+        "tests/test_sarvam_native_analysis.py",
+        "tests/test_sarvam_native_controls.py",
+        "tests/test_sarvam_separated_control.py",
+        "tests/test_sarvam_finalization_transport.py",
+        "tests/test_sarvam_transcript_finalizer.py",
+        "tests/test_sarvam_approval_backend.py",
+        "tests/test_sarvam_integrated_control.py",
+        "tests/test_sarvam_receipt_reporting.py",
+        "tests/test_sarvam_ordinary_v2.py",
+        "tests/test_sarvam_source_attribution.py",
+        "tests/test_sarvam_source_results.py",
+        "tests/test_sarvam_source_action_replay.py",
+        "tests/test_sarvam_reporter_wording.py",
+        "tests/test_sarvam_fresh_confirmation.py",
+        "tests/test_sarvam_fresh_cases_v2.py",
+        "tests/test_sarvam_fresh_cases_v3.py",
+        "tests/test_sarvam_evidence_views.py",
+        "tests/test_sarvam_evidence_ablation.py",
+        "tests/test_sarvam_reporting_handoff.py",
+        "tests/test_sarvam_handoff_diagnostic.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "stdout": "........................................................................ [ 30%]\n........................................................................ [ 60%]\n........................................................................ [ 90%]\n........................                                                 [100%]\n=============================== warnings summary ===============================\n../../../../../../../../Volumes/Sahith_SSD/AgentMem-OS/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1441\n  /Volumes/Sahith_SSD/AgentMem-OS/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1441: PytestConfigWarning: Unknown config option: asyncio_mode\n  \n    self._warn_or_fail_if_strict(f\"Unknown config option: {key}\\n\")\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n240 passed, 1 warning in 8.12s\n",
+      "stderr": ""
+    }
+  ]
+}
