@@ -1,35 +1,55 @@
-# Sarvam research: current evidence and next test
+# Sarvam research: evidence, limits and next task
 
-Updated October 11, 2026. **We are still investigating which problem warrants a product.** We have useful integration findings; we do not yet have a demonstrated unique multilingual memory advantage. Sarvam work is separate from English baseline engineering.
+Updated October 13, 2026. We are investigating which problem warrants a product. We have measured integration gains and concrete failures, but no demonstrated unique multilingual memory advantage. This work is separate from the English baseline.
 
-## What the evidence says
+## Latest corrected comparison
 
-| Step | Measured result | What it means |
+All 240 native episodes were attempted once. Forty related scenarios, each rendered in English/Hindi/Telugu, were tested with two fixed Sarvam profiles. Both reporters share each native history; only their first instruction differs. All 120 episodes per model stay in the denominator, including unusable and unreached reports.
+
+| Model | Control date + clarification correct | Candidate | Paired gains / losses |
+|---|---:|---:|---:|
+| Sarvam-105B, low reasoning | 90/120 (75%) | 105/120 (87.5%) | 20 / 5 |
+| Sarvam-105B-Conversations | 95/120 (79.2%) | 96/120 (80%) | 4 / 3 |
+
+**The acceptance gate failed. No candidate is promoted.** Conversations wrong non-null dates increased from 18 to 22, and strict task success fell 85→84. One native response consumed its 8,192-token output cap and returned no content or tool calls; the pipeline skipped both reporters. Thus 478 reporter calls were issued for 480 planned slots. All failures remain included.
+
+Fourteen of the 20 base-model recoveries restore a previously unusable final output; six fix an answer that was usable but wrong. This is a useful reporting gain, not proof that a new memory architecture improved reasoning. The primary score includes the clarification flag. The candidate's supplementary 114/120 date-only result must not replace 105/120 as the headline.
+
+Actual actions are shared across reporter arms: 47/48 required new writes completed, zero forbidden state changes, and 11 unnecessary Conversations attempts. The ordinary backend blocked those attempts. A correct old-date answer does not count as task completion when an authorized update was missed. Model-reported status and receipt-owned application status are separate metrics.
+
+[Full report](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/REPORT.md), [interpretation](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/INTERPRETATION.md), [all failures and disagreements](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/FAILURE_REVIEW.md), [next task](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/NEXT_STEP.md).
+
+## What we have learned so far
+
+| Earlier step | Result | Interpretation |
 |---|---|---|
-| Early memory comparison and repeat | Pooled 47/48 for each arm; the initial advantage reversed | No demonstrated memory advantage on that small set |
-| Native capability study | Initial low strict scores included formatting and dataset problems | Those scores cannot establish a vendor memory weakness |
-| Ordinary tool/storage controls | Four unsafe unguarded Conversations writes in the source comparison; zero with the guard; 23/24 legitimate writes completed | Ordinary application enforcement matters; one legitimate action remained missed |
-| Saved-history reporting sentence | Base59/72→72/72; Conversations 70/72→71/72; one candidate regression | Useful narrow reporting improvement; raw status remains unreliable; no fresh action or memory gain |
-| Fresh-workflow confirmation | Stopped after 32/240 episodes and111 calls: our historical/current question ambiguity invalidates a clean confirmation | No promotion; v2 corrects12 questions and is frozen/unexecuted |
+| Early memory comparison and repeat | Pooled 47/48 for both arms; initial advantage reversed | No established memory advantage |
+| Native capability study | Low strict scores included formatting and dataset issues | Those scores do not establish a vendor memory weakness |
+| Ordinary storage/tool controls | Four unsafe unguarded Conversations writes; zero guarded; 23/24 legitimate writes completed | Ordinary host enforcement helps, with one missed legitimate action |
+| Saved-history reporting sentence | Base 59→72/72; Conversations 70→71/72, including one regression | Narrow reporting effect; no new action or memory result |
+| Initial fresh confirmation | Stopped 32/240 after 111 calls because our question was ambiguous | Test-design flaw preserved; not a clean confirmation |
+| Corrected v3 confirmation | Base 90→105/120; Conversations 95→96/120, but gate failed | Real base-model gain with important remaining failures |
 
-[Complete history](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/SARVAM_HISTORY.md), [latest completed report](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/REPORT.md), [all changed outputs and misses](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/FAILURE_REVIEW.md), [ordinary source comparison](../benchmarks/audits/sarvam-source-comparison-2026-10-11/REPORT.md).
+[Earlier research history](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/SARVAM_HISTORY.md), [saved-history result](../benchmarks/audits/sarvam-reporter-wording-2026-10-11/REPORT.md), [stopped-run evidence](../benchmarks/audits/sarvam-fresh-confirmation-2026-10-11/REPORT.md).
 
-The reporting gain changes one sentence in our integration. It is not evidence that Sarvam needs a new memory architecture. Raw model status may disagree with actual tool receipts; our ordinary application derives authoritative status from receipts and never repairs the date. A truthful answer about the old date still fails task completion if the model misses an authorized change.
+V2 corrected 12 historical/current questions but was never executed. A further assistant preflight found 12 preference/request ambiguities, corrected in v3 before execution. No source, expected date or backend contract was changed after seeing v3 outcomes. The cases inherit known mechanisms and 32 earlier exposed episodes; they are development research, not an independent holdout. Assistant review covers every source and reporter slot; independent native-speaking human review is still missing.
 
-The stopped run and corrected package are published in [the fresh confirmation evidence](../benchmarks/audits/sarvam-fresh-confirmation-2026-10-11/REPORT.md). All started calls are reconciled, with no retries. The original 14 frozen-contract misses include six outputs from an ambiguous question family; those cannot be treated as proved model mistakes. We own that test-design flaw. Original grades remain unchanged, and no corrected headline is promoted.
+## Concrete remaining problems and engineering
 
-Outside that family, one Telugu trace chooses a definite date despite explicitly unknown slot availability; a Hindi trace abstains despite availability being stated. These are concrete condition-handling leads in the observed integration. Whether action-permission wording or prior assistant claims causes them requires a controlled test. They are not yet evidence of a persistent-memory gap or novel product opportunity.
+Candidate Conversations missed all 12 preferred-date questions involving two booking references, despite the target preference being present. It missed 7/12 unresolved-condition questions and 2/12 resolved-condition questions. These are source-present failures: they do not establish that persistent memory or retrieval is missing. Cause between model interpretation, prior actor prose and evidence layout remains to be isolated.
 
-## What happens next
+The [evidence-view component](SARVAM_EVIDENCE_VIEWS.md) separates original source, executed receipts and unverified actor claims, with exact reconstruction checks. A three-arm comparison harness distinguishes lossless grouping from omitting actor prose. Its prospective 108-call selection remains blocked and unexecuted: one selected capped native history lacks the final request and the parent fails completeness. We did not drop the case or weaken the gate. Code tests are not live accuracy results.
 
-The corrected package retains all 40 related scenario instances, each rendered in English/Hindi/Telugu:120 inputs. Two fixed model profiles produce 240 fresh native episodes. Each episode executes once in an isolated ordinary database, then both reporter variants receive the identical completed transcript. At most 3 native calls plus 2 reports per episode: 1,200 calls. Four workers, 90 shared RPM, no automatic retries. Unreached or failed outputs remain disclosed.
+The skipped reporter after a capped, call-free native response is an identified integration recovery gap. An [opt-in reporting handoff](SARVAM_REPORTING_HANDOFF.md) is implemented and tested offline. Recovery must stop the actor, preserve the failed response, use only verified existing source/receipts, and expose no executable reporter tools or retries. Any opt-in implementation remains separate from the frozen results and needs prospective measurement.
 
-The test separates actual factual answer, raw status, receipt-owned status, desired backend state, unnecessary attempts and missed legitimate actions. Both per-model factual and safe-task totals must avoid net regression, with factual improvement in at least one model and no increase in unsupported date assertions. Every miss and changed output needs review. Assistant Hindi/Telugu review is authorized; independent language review remains missing. The cases inherit known mechanisms;32 parent episodes are already development-exposed. This is not an independent holdout. No second paid phase has run.
+## Accounting and reproducibility
 
-The existing total INR 6,000 research authority remains the ceiling. After the stopped phase, native research totals 6,191 calls, known token estimate INR 179.979855 and retained INR 257.233050. The stopped phase added111 calls / INR 10.225170 known. The corrected phase's conservative worst case is INR 2,580.48, not an expected bill. Published [pricing](https://docs.sarvam.ai/api/getting-started/pricing), checked October 12 UTC, is INR 15/60 per million input/output tokens for the two fixed models. Unknown usage retains its full reservation; estimates are not invoices or balance checks.
+V3 made 844 calls: known token-cost estimate ₹90.677925; retained with headroom ₹113.347725; no unknown-usage calls. Native research cumulative: 7,035 calls, ₹270.657780 known and ₹370.580775 retained under the existing total ₹6,000 research ceiling. Older separate pilots remain separately accounted in their history. Estimates use [published pricing](https://docs.sarvam.ai/api/getting-started/pricing), checked October 13: ₹15/₹60 per million input/output tokens, ignoring cache discounts and keeping 25% headroom. These are not invoices or an account-balance check.
 
-## When a finding becomes a product problem
+The archive preserves source/gold separation, every request and receipt, actual SQLite state, code hashes, complete assistant reviews and negative results. Offline request/backend replay and a separate parser/accounting check agree. No failed request was retried and no missing output was imputed. See the archive README for clean replay commands.
 
-A candidate problem must be reproducible on fresh reviewed cases, survive a clear prompt and strong ordinary-storage control, have a traceable cause, and matter in an actual user workflow. For memory specifically, persistence, identity or evidence selection must be causal. A prompt mistake, invalid API request or mislabeled test is not proof of a missing vendor capability.
+## When a finding warrants a product
 
-After the ordinary baseline is credible, investigate cross-session/language information failures without assuming they exist. Require matched models, budgets, full failure disclosure and independent evidence before proposing a new architecture or novelty claim. The public benchmark remains required; language coverage and external validation are still work to do. See [INDIC_ROADMAP.md](INDIC_ROADMAP.md).
+A candidate problem must reproduce on fresh reviewed cases, survive clear instructions and strong ordinary-storage controls, have a traceable cause, and matter in an actual user workflow. For memory specifically, missing persistence, identity or evidence selection must be causal. A prompt error, malformed test or reporting failure is not proof of a missing vendor memory capability.
+
+A public benchmark remains required, with documented language/task coverage and independent review. Neither startup-program acceptance nor these synthetic scores establishes novelty or production readiness. The planned eventual language scope follows the relevant Sarvam service/model, with coverage earned through testing. See [INDIC_ROADMAP.md](INDIC_ROADMAP.md).

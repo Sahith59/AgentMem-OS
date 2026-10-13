@@ -1,0 +1,10 @@
+# Next step after the corrected comparison
+
+**Do not promote the candidate or rerun the current manifest.** The frozen gate failed: two reporter slots were not reached, and Conversations wrong non-null dates increased from 18 to 22. All 240 native episodes and their failures remain in the record.
+
+1. Completed offline: implemented and independently reviewed an opt-in reporting handoff for the exact observed capped-actor class. It must use verified prior source/receipts, execute no new tool, retry no actor call, preserve the cap as an explicit failure marker, and reject uncertain tool outcomes. Commit `b956fb8` and 234 related tests pass; exact capped-input preparation makes no provider call and leaves the old result hash unchanged. Software tests and saved-input replay establish routing integrity only.
+2. Preserve the source-only 108-call evidence-view selection as **blocked and unexecuted**. Its selected capped episode has no candidate reporter request. Do not silently drop it, generate a replacement history, or relax the complete-parent prerequisite. A future comparison would need a new concrete protocol and launch notification under the remaining total research budget.
+3. Before another large run, separate preferred/requested dates from confirmed backend dates and distinguish known from unresolved conditions in a matched source-interpretation test. The present data show a source-present problem, not a proven retrieval or persistent-memory deficit. Keep models fixed, include strong ordinary controls, count added calls/tokens, preserve regressions and define the stopping rule before spending.
+4. Require fresh cases, independent Hindi/Telugu review and a reproducible public benchmark before generalizing or claiming a novel product advantage. Assistant review is sufficient for this explicitly limited development diagnosis, not for broad language-quality claims.
+
+This turn executes only the corrected v3 run. The 108-call screen and any recovery comparison remain unpaid/unexecuted. The English baseline is separate and unchanged.

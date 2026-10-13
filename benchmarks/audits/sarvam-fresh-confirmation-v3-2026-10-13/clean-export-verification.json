@@ -1,0 +1,89 @@
+{
+  "verified": true,
+  "commit": "058c39f21cb6f6031fd2dc3dd7e431399ae6a15a",
+  "artifact_files": 3348,
+  "archive_sha256": "b0378b68360ca06901e9c0b0d864d1fc4151e739dcc1b44a6c3dfa5545f7dfc4",
+  "both_audits_reproduce": true,
+  "v3_generation_matches": true,
+  "handoff_preparation_reproduces_without_dispatch": true,
+  "focused_tests": 234,
+  "logs": [
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "-m",
+        "benchmarks.sarvam_fresh_confirmation.audit",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/evidence/phase",
+        "--output",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/primary.json"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/evidence/phase/analysis/independent_check.py",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/evidence/phase",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/secondary.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\"verified\": true, \"rows_checked\": 480, \"native_episodes\": 240, \"calls\": 844, \"known_inr\": 90.677925, \"retained_inr\": 113.347725, \"unknown_calls\": 0, \"project_evaluator_imported\": false, \"new_model_calls\": 0, \"credential_read\": false, \"limitations\": \"Independent arithmetic/parser implementation by same assistant, not independent language or human review.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "-m",
+        "benchmarks.sarvam_fresh_cases_v3",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/generated"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/evidence/phase/analysis/verify_handoff.py",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/evidence/phase",
+        "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-v3-export-420ztmfx/handoff.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\"verified\": true, \"mode\": \"OFFLINE_PREPARATION_ONLY_NO_DISPATCH\", \"episode\": \"confirm-fresh-13-en-m0\", \"original_paired_sha256_unchanged\": \"08b9ca6b1459174ff91bebe6608f7ed7c5458dd096e6e782c94cdf76d142f577\", \"original_terminal\": \"invalid_action_response\", \"original_reporter_slots_still_not_reached\": true, \"source_sha256\": \"ea1c7daa3c3dbcffc656c366c4d0a1bde38b715548471591d5c6d47ebc3e58d9\", \"plan_sha256\": \"0507096c37b93ede6b7392782a148a0ee8adbec36fb152b62ecc264da34cdfb5\", \"reporter_request_sha256\": {\"control\": \"c69ec849f387fe37c0d8c81c61fc95a6b7fb948db1fec006e0f49c1ababadc22\", \"candidate\": \"218055cdd59e274a4078915c4e9e8c65d962a018599ef93a23d4c9de834a7ac6\"}, \"new_provider_calls\": 0, \"new_tool_actions\": 0, \"credential_read\": false, \"claim_file_created\": false, \"planned_total_calls_if_future_scope_authorized\": 3, \"live_accuracy_gain_measured\": false, \"limitations\": \"Caller authenticates artifacts and scope, provides stable claim storage and enforces spend. This plan is not an original result or a live recovery.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Volumes/Sahith_SSD/AgentMem-OS/venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/test_sarvam_native_study.py",
+        "tests/test_sarvam_native_analysis.py",
+        "tests/test_sarvam_native_controls.py",
+        "tests/test_sarvam_separated_control.py",
+        "tests/test_sarvam_finalization_transport.py",
+        "tests/test_sarvam_transcript_finalizer.py",
+        "tests/test_sarvam_approval_backend.py",
+        "tests/test_sarvam_integrated_control.py",
+        "tests/test_sarvam_receipt_reporting.py",
+        "tests/test_sarvam_ordinary_v2.py",
+        "tests/test_sarvam_source_attribution.py",
+        "tests/test_sarvam_source_results.py",
+        "tests/test_sarvam_source_action_replay.py",
+        "tests/test_sarvam_reporter_wording.py",
+        "tests/test_sarvam_fresh_confirmation.py",
+        "tests/test_sarvam_fresh_cases_v2.py",
+        "tests/test_sarvam_fresh_cases_v3.py",
+        "tests/test_sarvam_evidence_views.py",
+        "tests/test_sarvam_evidence_ablation.py",
+        "tests/test_sarvam_reporting_handoff.py",
+        "-q"
+      ],
+      "returncode": 0,
+      "stdout": "........................................................................ [ 30%]\n........................................................................ [ 61%]\n........................................................................ [ 92%]\n..................                                                       [100%]\n=============================== warnings summary ===============================\n../../../../../../../../Volumes/Sahith_SSD/AgentMem-OS/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1441\n  /Volumes/Sahith_SSD/AgentMem-OS/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:1441: PytestConfigWarning: Unknown config option: asyncio_mode\n  \n    self._warn_or_fail_if_strict(f\"Unknown config option: {key}\\n\")\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n234 passed, 1 warning in 6.79s\n",
+      "stderr": ""
+    }
+  ]
+}
