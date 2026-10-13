@@ -1,6 +1,6 @@
 # Corrected fresh Sarvam comparison v3
 
-Read [REPORT.md](REPORT.md), [FAILURE_REVIEW.md](FAILURE_REVIEW.md) and [NEXT_STEP.md](NEXT_STEP.md). This archive preserves the completed or stopped outcome, all attempted calls and missing outputs; never restart its manifest. The primary gate is unchanged by supplementary metrics. The bank has120related EN/HI/TE renderings of40scenarios and assistant-only language review. It is development research, not a held-out industry benchmark or a demonstrated memory-product advantage.
+Read [VERIFICATION.md](VERIFICATION.md) for the completed clean-export check. Read [REPORT.md](REPORT.md), [FAILURE_REVIEW.md](FAILURE_REVIEW.md) and [NEXT_STEP.md](NEXT_STEP.md). This archive preserves the completed or stopped outcome, all attempted calls and missing outputs; never restart its manifest. The primary gate is unchanged by supplementary metrics. The bank has120related EN/HI/TE renderings of40scenarios and assistant-only language review. It is development research, not a held-out industry benchmark or a demonstrated memory-product advantage.
 
 Verify the archive SHA256 and every extracted file against artifact-manifest.json. Extract to an empty directory. The following commands are offline; they neither read credentials nor call a model. Use new output paths.
 

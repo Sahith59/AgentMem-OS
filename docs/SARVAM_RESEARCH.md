@@ -40,7 +40,7 @@ Candidate Conversations missed all 12 preferred-date questions involving two boo
 
 The [evidence-view component](SARVAM_EVIDENCE_VIEWS.md) separates original source, executed receipts and unverified actor claims, with exact reconstruction checks. A three-arm comparison harness distinguishes lossless grouping from omitting actor prose. Its prospective 108-call selection remains blocked and unexecuted: one selected capped native history lacks the final request and the parent fails completeness. We did not drop the case or weaken the gate. Code tests are not live accuracy results.
 
-The skipped reporter after a capped, call-free native response is an identified integration recovery gap. Recovery must stop the actor, preserve the failed response, use only verified existing source/receipts, and expose no executable reporter tools or retries. Any opt-in implementation remains separate from the frozen results and needs prospective measurement.
+The skipped reporter after a capped, call-free native response is an identified integration recovery gap. An [opt-in reporting handoff](SARVAM_REPORTING_HANDOFF.md) is implemented and tested offline. Recovery must stop the actor, preserve the failed response, use only verified existing source/receipts, and expose no executable reporter tools or retries. Any opt-in implementation remains separate from the frozen results and needs prospective measurement.
 
 ## Accounting and reproducibility
 
