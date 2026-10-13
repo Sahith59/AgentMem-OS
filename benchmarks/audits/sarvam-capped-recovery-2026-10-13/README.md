@@ -18,3 +18,5 @@ The outputs must equal `phase/audit.json` and `phase/independent-aggregation.jso
 The raw source and labels are synthetic and development-exposed. Review is assistant-only; independent human/native review is absent. No broad accuracy, multilingual memory, latency distribution, production readiness or novel-product claim follows. Caller-provided artifact hashes are integrity links, not cryptographic proof of a provider's identity.
 
 [Clean-export verification](VERIFICATION.md) reproduces both audits, all315artifact hashes and240focused tests.
+
+The current [NEXT_STEP.md](NEXT_STEP.md) clarifies one inference in the original proposal retained inside the archive: failure of both interventions would not identify the cause of the remaining errors. This documentation correction changes no requests, labels, results or archive bytes.

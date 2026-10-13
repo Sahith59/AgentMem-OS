@@ -22,4 +22,4 @@ Independent preflight must verify all240histories, capped-history provenance, so
 
 Maximum conservative full-context reservation:360basecalls×₹3.072 +360Conversationscalls×₹1.2288 =₹1548.288. Confirm pricing/budget at actual freeze and notify the user before launch. This cost is a bound, not a bill. Do not execute automatically from this proposal. Any fresh confirmation, independent language review or public benchmark follows separately.
 
-If grouping/omission fails, the result narrows the cause toward source interpretation rather than persistent memory. Inspect preserved paired errors and test a genuinely different ordinary control; do not design a memory product around an unproved cause.
+If both contrasts fail, retain the negative result and investigate the remaining source-present errors with a different ordinary control. A negative test would reject these interventions on this case bank; it would not identify the underlying cause or establish a memory need.
