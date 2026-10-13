@@ -9,3 +9,6 @@ The corrected Sarvam comparison exposed a specific integration gap. One native r
 Execution status is projected from the same actual receipts and trusted intent. The answer and clarification flag are never repaired. Tests check that property alongside capped/uncertain outcomes, cross-scope state, source contamination, missing receipts, plan mutation and repeat dispatch. The exact saved capped episode prepares successfully offline without making a new call.
 
 The caller must authenticate supplied artifacts and identity, provide stable claim storage, and enforce the actual monetary budget in its dispatcher. Hashes link records but do not authenticate a server. This helper is opt-in research code, not a default production recovery policy. Its tests prove routing and rejection behavior; they do not prove a recovered answer, an accuracy gain or a memory advantage. A new frozen prospective comparison is required before live promotion.
+
+
+The separately frozen [observed-cap diagnostic](SARVAM_HANDOFF_DIAGNOSTIC.md) subsequently exercised this helper on the sole eligible saved English case with two real reporting calls. Both outputs were correct; the original failed episode remains unchanged. See the [published result](../benchmarks/audits/sarvam-capped-recovery-2026-10-13/REPORT.md). This is one-case evidence, not a default promotion or broad reliability estimate.
