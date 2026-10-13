@@ -1,6 +1,6 @@
 # Indic memory research roadmap
 
-Updated October 11, 2026. This is an evidence-first research direction, not a claim that a multilingual memory product is ready. The [current Sarvam research index](SARVAM_RESEARCH.md) links actual experiments, failures and the next comparison. The [older roadmap](history/INDIC_ROADMAP_BEFORE_2026-10-11.md) is preserved as history; its universal competitor and first-invention claims were not established and are withdrawn.
+Updated October 13, 2026. This is an evidence-first research direction, not a claim that a multilingual memory product is ready. The [current Sarvam research index](SARVAM_RESEARCH.md) links actual experiments, failures and the next comparison. The [older roadmap](history/INDIC_ROADMAP_BEFORE_2026-10-11.md) is preserved as history; its universal competitor and first-invention claims were not established and are withdrawn.
 
 ## Scope and product gate
 
@@ -29,3 +29,7 @@ The English record remains historical 423/500 once under its original judge; pro
 5. Add speech-path testing only with a text baseline, separating recognition mistakes from memory and action failures.
 
 No date for a novel product or industry-leading score is guaranteed. A result showing that ordinary controls suffice is also a valid research outcome.
+
+## October 13 checkpoint
+
+The corrected 240-episode comparison found a fixed-model base105B reporting gain (90→105/120), but the candidate failed acceptance: two reporter slots were never reached and Conversations wrong non-null dates increased 18→22. The separately proposed 108-call evidence-view screen is blocked and unexecuted; its selected capped history cannot be silently replaced. Source/condition interpretation and a skipped reporting handoff are concrete integration gaps. They do not yet establish a persistence problem or a novel memory product. See the [complete report](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/REPORT.md) and [bounded next task](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/NEXT_STEP.md).

@@ -105,13 +105,14 @@ An earlier n=30 head-to-head against Mem0, Letta, and LangMem lives with its cav
 
 ## Sarvam research: investigating the problem
 
-We test native Sarvam models with ordinary SQLite storage, tool permissions and source transcripts before deciding whether a new memory architecture is needed. English, Hindi and Telugu are the current diagnostic languages; they do not establish support across all Sarvam languages.
+We test native Sarvam models with ordinary SQLite storage, tool permissions and source transcripts before deciding whether a new memory architecture is needed. English, Hindi and Telugu are diagnostic languages here; they do not establish support across all Sarvam languages.
 
-The latest completed saved-history test changed one reporting sentence. Base105B factual answers improved **59/72 → 72/72**; Conversations **70/72 → 71/72**, including one regression. Raw execution-status errors and a previously missed approved action remain. No new actions were performed in that test, and no memory advantage or general accuracy claim follows. [Report and reproducible evidence](benchmarks/audits/sarvam-reporter-wording-2026-10-11/REPORT.md).
+The corrected comparison attempted **240 native episodes** using fixed models and shared histories for two reporter variants. Base105B date-plus-clarification accuracy improved **90/120 → 105/120 (75% → 87.5%)**. Conversations moved **95/120 → 96/120**, but wrong non-null dates increased **18 → 22**. One capped native response prevented both reporters from running; the two missing slots remain failures. **The acceptance gate failed and the candidate is not promoted.** [Report and reproducible evidence](benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/REPORT.md).
 
-The fresh-workflow confirmation stopped after 32/240 episodes because our question wording was ambiguous about a historical request versus a current preference. All 111 calls are reconciled; no candidate is promoted. [Stopped-run evidence and corrected package](benchmarks/audits/sarvam-fresh-confirmation-2026-10-11/REPORT.md) preserve the failure. The revised 120-case package is frozen and unexecuted. Follow its actual status and the problem-selection criteria in [the Sarvam research index](docs/SARVAM_RESEARCH.md). A public benchmark remains planned; these development cases are not an independent benchmark.
+This is a reporting-integration result on related synthetic development cases, with assistant-only language review. It does not demonstrate a new memory advantage or improve the separate English LongMemEval baseline. An evidence-view component and metered comparison harness are implemented, but the proposed 108-call screen remains unexecuted because its complete-parent requirements were not met. Follow the findings, recovery work and problem-selection criteria in [the Sarvam research index](docs/SARVAM_RESEARCH.md). A reviewed public benchmark remains required.
 
 ---
+
 
 ## Quickstart
 
