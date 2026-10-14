@@ -1,5 +1,7 @@
 # Sarvam saved-history source interpretation screen
 
+Completed once:720/720 calls. The candidate increases some factual counts but fails reliability gates and is not promoted. [Results and replay package](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/README.md). Historical studies are unchanged.
+
 `benchmarks/sarvam_source_interpretation.py` prepares a prospective, reporter-only comparison over all 240 frozen v3 native histories. It sends three fixed reporting views per history: chronological A, lossless grouped B, and grouped C with only nonempty actor prose withheld. The same `sarvam_evidence_ablation` renderer, model profiles, reporter instruction, schema and 8,192-token cap are used for every arm. No actor, tool or backend action is executed.
 
 Preparation takes the frozen v3 parent, the completed two-call diagnostic's `completion.json`, and an existing new study directory containing reviewed `PROTOCOL.md`, `budget.json`, `pacing-control.json` and `source-preflight.json`:

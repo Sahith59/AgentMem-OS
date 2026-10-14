@@ -2,7 +2,26 @@
 
 Updated October 13, 2026. We are investigating which problem warrants a product. We have measured integration gains and concrete failures, but no demonstrated unique multilingual memory advantage. This work is separate from the English baseline.
 
-## Latest corrected comparison
+## Latest: 720-call source-interpretation comparison
+
+All 240 saved native histories received three new reporters with the same models and profile: chronological A, lossless grouped B, and grouped C with prior agent prose withheld. No new actor or backend action was run. All720 calls completed once; two raw audits and complete English/Hindi/Telugu assistant reviews agree.
+
+| Model | A chronological | B grouped | C prose withheld |
+| --- | ---: | ---: | ---: |
+| Base105B | 104/120 (86.7%) | 99/120 (82.5%) | 105/120 (87.5%) |
+| Conversations | 96/120 (80.0%) | 100/120 (83.3%) | 103/120 (85.8%) |
+
+**The acceptance gate failed; C is not promoted.** C reduces wrong definite dates but increases false abstentions on both models, loses base projected-status coverage through incomplete outputs, and worsens Conversations raw status. Conversations' fully correct raw reports fall86→80. C-versus-A gains/losses are11/10 base and14/7 Conversations; all14 Conversations gains fix usable wrong answers. Descriptive scenario-cluster intervals include zero, so unseen-task efficacy is not established.
+
+The predeclared primary C−B contrast on184 treated histories has net+8 base and+3 Conversations, also with intervals including zero. The other56 histories have identical B=C payloads; base still shows1gain/3losses, demonstrating run variability. Source removal and shorter input remain confounded. This is a development bank of40 related scenarios, not720 independent customers or a vendor-wide rate.
+
+New cost: ₹93.896460 known / ₹117.370843 retained. Native cumulative:7,757 calls, ₹365.121090 known / ₹488.660182 retained under the standing total₹6,000 ceiling. These are token estimates, not invoices. No further paid phase was launched.
+
+[Complete report](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/REPORT.md), [offline replay](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/README.md), [next offline proposal](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/NEXT_STEP.md), [prior-art boundary](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/PRIOR_ART_UPDATE.md).
+
+Stop blanket prose removal and wording sweeps. Investigate a source-grounded query/evidence contract that distinguishes customer requests and conditional preferences from confirmed state. Typed records, temporal history and provenance are existing capabilities in other systems; no new product or persistence need follows merely from implementing them. A useful future candidate needs matched compute, fresh reviewed cases, acceptable workflow latency and a reproducible residual problem. Independent human/native review is still missing.
+
+## Earlier corrected native comparison
 
 All 240 native episodes were attempted once. Forty related scenarios, each rendered in English/Hindi/Telugu, were tested with two fixed Sarvam profiles. Both reporters share each native history; only their first instruction differs. All 120 episodes per model stay in the denominator, including unusable and unreached reports.
 
@@ -46,9 +65,9 @@ The skipped reporter after a capped, call-free native response is an identified 
 
 A separate, prospectively frozen two-call diagnostic succeeded on the sole eligible capped episode. Both existing Sarvam-105B reporters returned the correct null date, clarification required, and no action requested. No actor or backend action was repeated. All 240 prior routing records were checked; the original study and its failed gate remain unchanged. This is one English case and no candidate-over-control advantage was found here. [Result, protocol and raw evidence](../benchmarks/audits/sarvam-capped-recovery-2026-10-13/REPORT.md).
 
-The opt-in recovery path is now exercised with real provider responses, not just software tests. It adds compute: candidate reporting alone took 17.63 seconds, so this does not establish a fast voice path. The diagnostic added ₹0.566850 known estimate / ₹0.708564 retained. Native research cumulative is now 7,037 calls, ₹271.224630 known / ₹371.289339 retained. No new English LongMemEval result or multilingual memory advantage follows.
+The opt-in recovery path is now exercised with real provider responses, not just software tests. It adds compute: candidate reporting alone took 17.63 seconds, so this does not establish a fast voice path. The diagnostic added ₹0.566850 known estimate / ₹0.708564 retained. At the close of that diagnostic, native research cumulative was 7,037 calls, ₹271.224630 known / ₹371.289339 retained. No new English LongMemEval result or multilingual memory advantage follows.
 
-The next proposed study compares all 240 saved histories across ordinary chronological evidence, lossless evidence groups, and those groups without nonempty actor prose. It targets source interpretation with fixed models and reports both gains and regressions. The 720-call proposal remains unexecuted; the older blocked 108-call screen is preserved. [Next protocol requirements](../benchmarks/audits/sarvam-capped-recovery-2026-10-13/NEXT_STEP.md).
+That diagnostic proposed the all240-history/720-call study now completed above. Its original proposal and the older blocked108-call screen remain preserved; neither historical result is rewritten.
 
 ## Accounting and reproducibility
 
