@@ -1,0 +1,10 @@
+{
+  "status": "TWO_RAW_AUDITS_AGREE",
+  "planned_rows_compared": 720,
+  "fields_per_row": 11,
+  "paired_model_slice_contrasts_compared": 18,
+  "cost_and_local_release_order_match": true,
+  "primary_sha256": "8c208f56157cb753b0965d5b88d350ef2ee181dbb4ce5646d34e3ca36a849cc0",
+  "independent_sha256": "7e4c331123f726895c37ffbb527db591a77f62e8c5db5256e5c487d255e015fc",
+  "semantic_review_is_separate": true
+}

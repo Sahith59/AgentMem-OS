@@ -1,0 +1,52 @@
+{
+  "status": "ASSISTANT_LANGUAGE_REVIEWS_EXACT_COVERAGE_AND_RAW_AUDIT_MATCH",
+  "verified_at_utc": "2026-10-14T02:47:42+00:00",
+  "manifest_file_sha256": "ba66788d25b439471ba396c8aa2f56a1b4f136cd60cdbf0a04a40e2484bbf650",
+  "audit_file_sha256": "8c208f56157cb753b0965d5b88d350ef2ee181dbb4ce5646d34e3ca36a849cc0",
+  "execution_file_sha256": "9f322fddafe182d8f0f3e5af2a34575caa4e7db3ea0286339665540419e376a3",
+  "language_review_file_sha256": {
+    "en": "b82bec49adc44c28a68620be23b6723d53973f27e3d17c2a2d1427545e7bed13",
+    "hi": "d4de3549829ae68032645dd0b58050de34a840d3bb1f7de6da992fb7a14db11e",
+    "te": "16d147a825c9fb1fbd226e49464a4c79e055f0e28b6a05a73202bb15cafd212d"
+  },
+  "planned_and_reviewed_unique_reporter_jobs": 720,
+  "per_language": {
+    "en": {
+      "planned_and_reviewed_jobs": 240,
+      "factual_correct": 201,
+      "raw_status_correct": 185,
+      "invalid_or_missing_final": 4,
+      "source_cases": 40,
+      "native_histories": 80,
+      "source_gold_ambiguities": 0
+    },
+    "hi": {
+      "planned_and_reviewed_jobs": 240,
+      "factual_correct": 202,
+      "raw_status_correct": 192,
+      "invalid_or_missing_final": 6,
+      "source_cases": 40,
+      "native_histories": 80,
+      "source_gold_ambiguities": 0
+    },
+    "te": {
+      "planned_and_reviewed_jobs": 240,
+      "factual_correct": 204,
+      "raw_status_correct": 169,
+      "invalid_or_missing_final": 9,
+      "source_cases": 40,
+      "native_histories": 80,
+      "source_gold_ambiguities": 0
+    }
+  },
+  "raw_result_files_hash_checked": 720,
+  "raw_receipt_files_hash_checked": 720,
+  "raw_request_files_hash_checked": 480,
+  "hindi_request_payload_digests_checked": 240,
+  "factual_verdict_disagreements_with_audit": 0,
+  "raw_status_verdict_disagreements_with_audit": 0,
+  "source_gold_ambiguity_flags": 0,
+  "assistant_review_only": true,
+  "independent_native_human_review": false,
+  "scope_limit": "Coverage/hash/verdict consistency; this does not independently translate or validate source meaning and is not human/native-speaker review."
+}

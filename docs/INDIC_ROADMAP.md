@@ -22,7 +22,7 @@ The English record remains historical 423/500 once under its original judge; pro
 
 ## Sequence
 
-1. Complete fresh native-action/reporting confirmation and review the remaining failures.
+1. Native confirmation, one-case recovery and the720-call source-interpretation comparison are complete. The latest candidate fails reliability checks; next specify a question-specific evidence contract offline before any new paid comparison.
 2. Establish a strong ordinary-storage baseline, then investigate persistent, cross-session and cross-language evidence failures with newly reviewed cases. Do not assume a failure in advance.
 3. Select the smallest product component only if it fixes a reproduced residual problem and improves an observable workflow outcome.
 4. Publish a reviewed multilingual benchmark and matched baselines; expand language and domain coverage in measured stages.
@@ -35,4 +35,8 @@ No date for a novel product or industry-leading score is guaranteed. A result sh
 The corrected 240-episode comparison found a fixed-model base105B reporting gain (90→105/120), but the candidate failed acceptance: two reporter slots were never reached and Conversations wrong non-null dates increased 18→22. The separately proposed 108-call evidence-view screen is blocked and unexecuted; its selected capped history cannot be silently replaced. Source/condition interpretation and a skipped reporting handoff are concrete integration gaps. They do not yet establish a persistence problem or a novel memory product. See the [complete report](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/REPORT.md) and [bounded next task](../benchmarks/audits/sarvam-fresh-confirmation-v3-2026-10-13/NEXT_STEP.md).
 
 
-A separate two-call recovery diagnostic subsequently produced a correct final report in both original variants for the sole capped English case, with no repeated action. The old v3 scores/gate and blocked108-call proposal stay unchanged. This removes one observed reporting failure; it does not establish persistence as the remaining cause. Next is a proposed all240-history source-interpretation comparison with fixed models and paired ordinary controls. [Recovery result and next step](../benchmarks/audits/sarvam-capped-recovery-2026-10-13/REPORT.md).
+A separate two-call recovery diagnostic subsequently produced a correct final report in both original variants for the sole capped English case, with no repeated action. The old v3 scores/gate and blocked108-call proposal stay unchanged. This removes one observed reporting failure; it does not establish persistence as the remaining cause. The subsequently completed all240-history source-interpretation comparison is described below. [Recovery result and next step](../benchmarks/audits/sarvam-capped-recovery-2026-10-13/REPORT.md).
+
+## Latest source-interpretation decision
+
+The720-call comparison measured base104→105/120 and Conversations96→103/120 date-plus-clarification versus chronology, but failed predeclared reliability checks: more false abstentions on both models and worse status reporting/coverage. No candidate promotion or novel memory claim. Stop blanket prose removal; next investigate question-specific source interpretation against strong ordinary controls, with actual compute and fresh-case evidence. The historical English score is unchanged. [Report](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/REPORT.md) and [next proposal](../benchmarks/audits/sarvam-source-interpretation-2026-10-13/NEXT_STEP.md).

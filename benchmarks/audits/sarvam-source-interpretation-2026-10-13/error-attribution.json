@@ -1,0 +1,5876 @@
+{
+  "status": "DESCRIPTIVE_ERROR_ATTRIBUTION_NOT_CAUSAL_IDENTIFICATION",
+  "rows_checked": 720,
+  "summary": {
+    "sarvam-105b-conversations/chronological": {
+      "wrong_non_null_date": 22,
+      "wrong_answer_matches_current_backend_date": 19,
+      "raw_action_status_wrong": 11,
+      "wrong_status_repaired_by_existing_receipt_projection": 11,
+      "definite_answer_on_unknown_target": 10,
+      "false_abstention_on_known_target": 2
+    },
+    "sarvam-105b-conversations/grouped_actor_prose_withheld": {
+      "raw_action_status_wrong": 23,
+      "wrong_status_repaired_by_existing_receipt_projection": 23,
+      "false_abstention_on_known_target": 9,
+      "wrong_non_null_date": 8,
+      "definite_answer_on_unknown_target": 2,
+      "wrong_answer_matches_current_backend_date": 6
+    },
+    "sarvam-105b-conversations/grouped_lossless": {
+      "raw_action_status_wrong": 25,
+      "wrong_status_repaired_by_existing_receipt_projection": 25,
+      "wrong_non_null_date": 18,
+      "wrong_answer_matches_current_backend_date": 14,
+      "definite_answer_on_unknown_target": 6,
+      "false_abstention_on_known_target": 2
+    },
+    "sarvam-105b/chronological": {
+      "raw_action_status_wrong": 38,
+      "wrong_status_repaired_by_existing_receipt_projection": 38,
+      "missing_or_invalid_final": 5,
+      "correct_date_value_wrong_clarification": 8,
+      "wrong_non_null_date": 3,
+      "wrong_answer_matches_current_backend_date": 3
+    },
+    "sarvam-105b/grouped_lossless": {
+      "raw_action_status_wrong": 29,
+      "wrong_status_repaired_by_existing_receipt_projection": 29,
+      "wrong_non_null_date": 4,
+      "wrong_answer_matches_current_backend_date": 4,
+      "definite_answer_on_unknown_target": 2,
+      "missing_or_invalid_final": 8,
+      "correct_date_value_wrong_clarification": 8,
+      "false_abstention_on_known_target": 1
+    },
+    "sarvam-105b/grouped_actor_prose_withheld": {
+      "raw_action_status_wrong": 29,
+      "wrong_status_repaired_by_existing_receipt_projection": 29,
+      "missing_or_invalid_final": 6,
+      "correct_date_value_wrong_clarification": 6,
+      "wrong_non_null_date": 1,
+      "wrong_answer_matches_current_backend_date": 1,
+      "false_abstention_on_known_target": 2
+    }
+  },
+  "error_rows": [
+    {
+      "id": "confirm-fresh-31-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-31-en-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-31-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-31-en-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-29-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-29-hi-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-30",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-18-en-m1-source-chronological",
+      "history_id": "confirm-fresh-18-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-18-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-18-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-34-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-34-hi-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-34-hi-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-te-m0-source-chronological",
+      "history_id": "confirm-fresh-32-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-30-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-30-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-30-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-30-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-30-te-m0-source-chronological",
+      "history_id": "confirm-fresh-30-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-30-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-30-hi-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-18-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-18-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-18-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-39-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-39-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-39-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-39-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-35-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-en-m0-source-chronological",
+      "history_id": "confirm-fresh-35-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-35-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-36-en-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-08-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-08-hi-m1",
+      "family": "missing_replacement",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-25-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-25-te-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-26",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-26",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-36-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-36-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-13-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-13-hi-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-13-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-13-hi-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-13-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-13-hi-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-29-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-29-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-30",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-26-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-26-hi-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-27",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-27",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-13-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-13-hi-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-31-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-31-hi-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-31-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-31-hi-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-te-m0-source-chronological",
+      "history_id": "confirm-fresh-33-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-33-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-33-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-32-hi-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-32-hi-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-15-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-15-hi-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-16",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-16",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-35-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-35-hi-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-20-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-20-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-20-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-40-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-40-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-37-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "rejected",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-37-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-37-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": null,
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-07-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-07-te-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-03-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-03-en-m1",
+      "family": "request_correction",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-04",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-04-en-m0-source-chronological",
+      "history_id": "confirm-fresh-04-en-m0",
+      "family": "request_correction",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-19-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-19-hi-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-32-te-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-32-te-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-en-m1-source-chronological",
+      "history_id": "confirm-fresh-37-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-37-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-37-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-36-hi-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-10-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-10-en-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-10-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-10-hi-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-14-te-m1-source-chronological",
+      "history_id": "confirm-fresh-14-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-15",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-15",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-14-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-14-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-15",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-15",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-39-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-39-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-en-m1-source-chronological",
+      "history_id": "confirm-fresh-39-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-13-te-m1-source-chronological",
+      "history_id": "confirm-fresh-13-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-20-hi-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-19-en-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-38-te-m1-source-chronological",
+      "history_id": "confirm-fresh-38-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "rejected",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-38-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "rejected",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-38-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-35-en-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-16-te-m0-source-chronological",
+      "history_id": "confirm-fresh-16-te-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-17",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-15-te-m1-source-chronological",
+      "history_id": "confirm-fresh-15-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-16",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-16",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-15-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-15-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-16",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-16",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-05-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-05-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-06",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-05-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-05-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-06",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-40-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-40-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-40-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-14-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-14-hi-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-15",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-14-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-14-hi-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": null,
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-15",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-09-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-09-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-04-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-10",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-39-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-39-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-39-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-39-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": null,
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-18-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-te-m1-source-chronological",
+      "history_id": "confirm-fresh-18-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-18-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "confirmed",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-17-en-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-19-te-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-te-m0-source-chronological",
+      "history_id": "confirm-fresh-19-te-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "confirmed",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-te-m1-source-chronological",
+      "history_id": "confirm-fresh-20-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-20-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-20-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-37-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-37-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-te-m0-source-chronological",
+      "history_id": "confirm-fresh-37-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-37-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-12-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-12-te-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-13",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-38-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-38-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-08-en-m0-source-chronological",
+      "history_id": "confirm-fresh-08-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-08-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-08-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-08-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-08-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": null,
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-15-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-15-en-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-16",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-16",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-15-en-m1-source-chronological",
+      "history_id": "confirm-fresh-15-en-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-16",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-16",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-20-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-en-m1-source-chronological",
+      "history_id": "confirm-fresh-20-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-20-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-40-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-40-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-en-m0-source-chronological",
+      "history_id": "confirm-fresh-40-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-05-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-05-te-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-06",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-38-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-38-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-38-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-01-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-01-en-m1",
+      "family": "request_correction",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-02",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-13-en-m0-source-chronological",
+      "history_id": "confirm-fresh-13-en-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-30-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-30-te-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-30-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-30-te-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-35-hi-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-35-hi-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-38-en-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-25-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-25-en-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-04-26",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-26",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-26",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-27-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-27-te-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-28",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-28",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-28",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-19-en-m1-source-chronological",
+      "history_id": "confirm-fresh-19-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-19-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-19-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-32-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-32-en-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-13-te-m0-source-chronological",
+      "history_id": "confirm-fresh-13-te-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-13-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-13-te-m0",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-12-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-12-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-13",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-12-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-12-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-13",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-12-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-12-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-13",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-te-m0-source-chronological",
+      "history_id": "confirm-fresh-18-te-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-17-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-17-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-22-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-22-te-m0",
+      "family": "approved_change",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-23",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-23",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-37-en-m0-source-chronological",
+      "history_id": "confirm-fresh-37-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-37-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-37-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-13-en-m1-source-chronological",
+      "history_id": "confirm-fresh-13-en-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-13-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-13-en-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-14",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-14",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-hi-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-19-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-19-hi-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-37-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-37-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-37-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "rejected",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-06-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-06-te-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-06-te-m0-source-chronological",
+      "history_id": "confirm-fresh-06-te-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "correct_date_value_wrong_clarification",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-39-te-m0-source-chronological",
+      "history_id": "confirm-fresh-39-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-39-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-39-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-12-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-12-en-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-13",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-13",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-11-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-11-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-04-12",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-12",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-11-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-11-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-04-12",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-12",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-30-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-30-en-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-te-m0-source-chronological",
+      "history_id": "confirm-fresh-34-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-34-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-34-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-33-en-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-10-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-10-hi-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-11",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-18-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-18-hi-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "confirmed",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-17-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-17-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-en-m1-source-chronological",
+      "history_id": "confirm-fresh-17-en-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-04-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-04-hi-m1",
+      "family": "request_correction",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-01-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-01-te-m0",
+      "family": "request_correction",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-02",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-01-te-m0-source-chronological",
+      "history_id": "confirm-fresh-01-te-m0",
+      "family": "request_correction",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-05-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-05-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-06",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-05-en-m0-source-chronological",
+      "history_id": "confirm-fresh-05-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-06",
+      "labels": [
+        "correct_date_value_wrong_clarification",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-05-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-05-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-06",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-16-en-m1-source-chronological",
+      "history_id": "confirm-fresh-16-en-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-17",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-17",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-16-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-16-en-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-17",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-17",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-28-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-28-hi-m1",
+      "family": "approval_boundary",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-29",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-29",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-29",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-34-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-en-m0-source-chronological",
+      "history_id": "confirm-fresh-34-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-te-m0-source-chronological",
+      "history_id": "confirm-fresh-40-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-40-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-40-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-09-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-09-en-m1",
+      "family": "resolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-04-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-10",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-38-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-38-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-07-en-m0-source-chronological",
+      "history_id": "confirm-fresh-07-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-07-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-07-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-07-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-07-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-33-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-33-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-en-m0-source-chronological",
+      "history_id": "confirm-fresh-33-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-33-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "rejected",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-18-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-18-en-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-18-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-18-en-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-19",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-19",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-19",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-23-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-23-te-m0",
+      "family": "approved_change",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-24",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-24",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-23-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-23-te-m0",
+      "family": "approved_change",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-24",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-24",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-30-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-30-en-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-31",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-31",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-17-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-17-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-17-te-m1-source-chronological",
+      "history_id": "confirm-fresh-17-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-18",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-18",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-18",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-36-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-36-hi-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-35-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-te-m1-source-chronological",
+      "history_id": "confirm-fresh-35-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-04-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-04-en-m1",
+      "family": "request_correction",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-05",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-40-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-40-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-40-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-06-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-06-hi-m1",
+      "family": "missing_replacement",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-07",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-34-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-34-hi-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-07-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-07-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-07-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-07-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-07-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-07-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-08",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-11-en-m0-source-chronological",
+      "history_id": "confirm-fresh-11-en-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-04-12",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-12",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-12",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-06-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-06-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-06-en-m0-source-chronological",
+      "history_id": "confirm-fresh-06-en-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-20-te-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "rejected",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "false_abstention_on_known_target",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-33-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-33-hi-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-33-hi-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-16-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-16-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-17",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-17",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-16-te-m1-source-chronological",
+      "history_id": "confirm-fresh-16-te-m1",
+      "family": "unresolved_condition",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-17",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-17",
+      "labels": [
+        "wrong_non_null_date",
+        "definite_answer_on_unknown_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-26-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-26-te-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-27",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-27",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-en-m0-source-chronological",
+      "history_id": "confirm-fresh-20-en-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-21",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-20-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-20-en-m0",
+      "family": "separate_booking",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-21",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-21",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-34-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-34-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-34-te-m1-source-chronological",
+      "history_id": "confirm-fresh-34-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-04",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-04",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-02-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-02-en-m1",
+      "family": "request_correction",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-03",
+      "labels": [
+        "false_abstention_on_known_target"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-10-te-m0-source-chronological",
+      "history_id": "confirm-fresh-10-te-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-10-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-10-te-m0",
+      "family": "resolved_condition",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-11",
+      "labels": [
+        "false_abstention_on_known_target",
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-31-en-m0-source-chronological",
+      "history_id": "confirm-fresh-31-en-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-31-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-31-en-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-hi-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-37-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-37-hi-m1-source-chronological",
+      "history_id": "confirm-fresh-37-hi-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-08",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-08",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-39-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-en-m0-source-chronological",
+      "history_id": "confirm-fresh-39-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-39-en-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-36-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-36-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-te-m0-source-chronological",
+      "history_id": "confirm-fresh-36-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-06-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-06-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-06-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-06-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-06-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-06-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-07",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-38-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-38-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-38-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-38-te-m0-source-chronological",
+      "history_id": "confirm-fresh-38-te-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-09",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-hi-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-40-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-40-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-40-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-40-hi-m0",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-11",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-11",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-te-m1-source-chronological",
+      "history_id": "confirm-fresh-33-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-33-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-33-te-m1",
+      "family": "completed_older_request",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-03",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-03",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-en-m0-source-chronological",
+      "history_id": "confirm-fresh-32-en-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-32-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-32-en-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-02",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-02",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-en-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-36-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-36-en-m0-source-chronological",
+      "history_id": "confirm-fresh-36-en-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "en",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-06",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-06",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-35-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-35-te-m0-source-chronological",
+      "history_id": "confirm-fresh-35-te-m0",
+      "family": "completed_older_request",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-06-05",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-06-05",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-19-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-19-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-19-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-19-te-m1-source-chronological",
+      "history_id": "confirm-fresh-19-te-m1",
+      "family": "separate_booking",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-03-20",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-20",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-20",
+      "labels": [
+        "wrong_non_null_date",
+        "wrong_answer_matches_current_backend_date"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-31-te-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-31-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-31-te-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-31-te-m0",
+      "family": "future_approval",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-04-01",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-01",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-08-te-m0-source-chronological",
+      "history_id": "confirm-fresh-08-te-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": null,
+        "needs_clarification": true
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-29-en-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-29-en-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-30",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-29-en-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-29-en-m1",
+      "family": "future_approval",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "en",
+      "raw": {
+        "action_status": "not_performed",
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-03-30",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-03-30",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-te-m1-source-chronological",
+      "history_id": "confirm-fresh-39-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "chronological",
+      "language": "te",
+      "raw": {
+        "action_status": "rejected",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-te-m1-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-39-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "te",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-39-te-m1-source-grouped_lossless",
+      "history_id": "confirm-fresh-39-te-m1",
+      "family": "conflicting_request_key",
+      "model": "sarvam-105b-conversations",
+      "arm": "grouped_lossless",
+      "language": "te",
+      "raw": {
+        "action_status": "already_applied",
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": "2027-05-10",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-05-10",
+      "labels": [
+        "raw_action_status_wrong",
+        "wrong_status_repaired_by_existing_receipt_projection"
+      ],
+      "primary_correct": true
+    },
+    {
+      "id": "confirm-fresh-28-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-28-hi-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-29",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-29",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-08-hi-m0-source-grouped_lossless",
+      "history_id": "confirm-fresh-08-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "grouped_lossless",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-08-hi-m0-source-chronological",
+      "history_id": "confirm-fresh-08-hi-m0",
+      "family": "missing_replacement",
+      "model": "sarvam-105b",
+      "arm": "chronological",
+      "language": "hi",
+      "raw": {
+        "action_status": "not_requested",
+        "answer": null,
+        "needs_clarification": false
+      },
+      "target": {
+        "answer": null,
+        "needs_clarification": true
+      },
+      "current_backend_date": "2027-03-09",
+      "labels": [
+        "correct_date_value_wrong_clarification"
+      ],
+      "primary_correct": false
+    },
+    {
+      "id": "confirm-fresh-27-en-m0-source-grouped_actor_prose_withheld",
+      "history_id": "confirm-fresh-27-en-m0",
+      "family": "approval_boundary",
+      "model": "sarvam-105b",
+      "arm": "grouped_actor_prose_withheld",
+      "language": "en",
+      "raw": null,
+      "target": {
+        "answer": "2027-04-28",
+        "needs_clarification": false
+      },
+      "current_backend_date": "2027-04-28",
+      "labels": [
+        "missing_or_invalid_final"
+      ],
+      "primary_correct": false
+    }
+  ],
+  "limitations": [
+    "Labels can overlap; their totals are not a new accuracy denominator.",
+    "A wrong answer equaling the backend date does not prove why the model chose it.",
+    "Receipt projection is the same existing deterministic layer in every arm.",
+    "No gold, model answer, prior score or advancement criterion is changed."
+  ]
+}

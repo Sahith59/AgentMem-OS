@@ -1,0 +1,40 @@
+{
+  "status": "COMPLETED_REJECT_BLANKET_PROSE_OMISSION",
+  "semantic_review_complete": true,
+  "independent_human_review": false,
+  "forward_gate_pass": false,
+  "failed_checks": [
+    "C_no_higher_false_abstentions/sarvam-105b",
+    "C_no_lower_projected_status_correct/sarvam-105b",
+    "C_no_higher_false_abstentions/sarvam-105b-conversations",
+    "C_no_lower_raw_status_correct/sarvam-105b-conversations"
+  ],
+  "new_calls": 720,
+  "new_native_action_trials": 0,
+  "known_microinr": 93896460,
+  "retained_microinr": 117370843,
+  "cumulative_calls": 7757,
+  "cumulative_known_microinr": 365121090,
+  "cumulative_retained_microinr": 488660182,
+  "source_commit": "751e82035dde3275c94fce767d26826f00567f92",
+  "evidence_sha256": {
+    "PROTOCOL.md": "7efe12932f4291bc9137a8539cbb6edb85359f9d099bb65e3026a5f4c7832933",
+    "manifest.json": "ba66788d25b439471ba396c8aa2f56a1b4f136cd60cdbf0a04a40e2484bbf650",
+    "audit.json": "8c208f56157cb753b0965d5b88d350ef2ee181dbb4ce5646d34e3ca36a849cc0",
+    "independent-aggregation.json": "7e4c331123f726895c37ffbb527db591a77f62e8c5db5256e5c487d255e015fc",
+    "comparison-verification.json": "8cbc7760b5fea92d79ee44a7ff363d3c0cb39aed2f913c002762dac4dabf6e8f",
+    "review-verification.json": "d2dee9c28fe126b9b39ffd09c9678023e632b957a776367b246a02ff8fc29c76",
+    "REPORT.md": "84f5e1a4363edcbd46afd2b38c53a33c72bd27a626851d1463af1320d4ad7baa",
+    "NEXT_STEP.md": "7222865071577183effcc880377cba73f49f3fff9c3e90b136e7f26da216f5d4"
+  },
+  "decision": "Preserve measured paired factual gains and regressions; do not promote C, claim efficacy on unseen tasks, or build a memory-product premise from source-present errors. Stop blanket layout/prose and wording sweeps. Prepare the next ordinary question-specific evidence contract offline.",
+  "uncertainty": "Primary and operational descriptive scenario-cluster intervals include zero; synthetic development bank, related scenarios, assistant-only review, actual compute unequal.",
+  "previous_scores_unchanged": true,
+  "new_paid_phase_started": false,
+  "created_at_utc": "2026-10-14T02:48:50.179089+00:00",
+  "prepublication_claim_review_corrections": [
+    "Clarify 720 paid calls executed, no subsequent paid phase",
+    "Distinguish existing Hindi abstentions from new losses",
+    "Describe package pending publication without premature publication claim"
+  ]
+}

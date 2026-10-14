@@ -1,0 +1,18 @@
+{
+  "status": "CLEAN_GIT_EXPORT_AND_PUBLIC_ARCHIVE_REPLAY_PASS",
+  "commit": "64b0ce134836e9d418e7141dc52a47dcb46b3af8",
+  "archive_sha256": "ff5f55ef34b46ad6be496bfc49470fca84a412ea376631dd77a2ba0850519f90",
+  "artifact_files_verified": 3459,
+  "primary_and_independent_audits_exact_match": true,
+  "paired_comparison_exact_match": true,
+  "all720_semantic_review_bindings_match": true,
+  "semantic_replay_timestamp_excluded": true,
+  "focused_portable_tests_passed": 5,
+  "local_parent_fixture_test_deselected": 1,
+  "prior_local_preflight_tests_passed": 246,
+  "ruff_pass": true,
+  "api_calls": 0,
+  "credential_read": false,
+  "export_path": "/var/folders/jd/4kftgc9x66nbyt0s7fgzf2700000gn/T/sarvam-source-clean-ljvnh7qo",
+  "verification_wrapper_correction": "Initial semantic-check invocation omitted --output and failed argument parsing. Preserved initial log; corrected invocation passed. Source, raw data and both preceding audits unchanged."
+}
