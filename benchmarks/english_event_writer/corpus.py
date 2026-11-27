@@ -1,4 +1,5 @@
 """Reader for the author-selected ECB+ annotations (Cybulska and Vossen)."""
+
 import csv
 from collections import defaultdict
 from dataclasses import dataclass
@@ -64,8 +65,22 @@ def documents(folder):
                 if sent not in selected[name] or any(tokens[i][0] != sent for i in ids):
                     continue
                 mid = mark.get("m_id")
-                mentions.append(Mention(ids[0], ids[-1], sent, tuple(tokens[i][1] for i in ids),
-                                        tuple(tokens[i][2].casefold() for i in ids),
-                                        tuple(w.casefold() for w in by_sentence[sent][max(0,position-7):position]),
-                                        chains.get(mid, "singleton:" + mid)))
-            yield topic, name, {s: by_sentence[s] for s in sorted(selected[name])}, sorted(mentions, key=lambda m:(m.start,m.end))
+                mentions.append(
+                    Mention(
+                        ids[0],
+                        ids[-1],
+                        sent,
+                        tuple(tokens[i][1] for i in ids),
+                        tuple(tokens[i][2].casefold() for i in ids),
+                        tuple(
+                            w.casefold() for w in by_sentence[sent][max(0, position - 7) : position]
+                        ),
+                        chains.get(mid, "singleton:" + mid),
+                    )
+                )
+            yield (
+                topic,
+                name,
+                {s: by_sentence[s] for s in sorted(selected[name])},
+                sorted(mentions, key=lambda m: (m.start, m.end)),
+            )
