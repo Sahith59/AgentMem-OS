@@ -79,6 +79,18 @@ def distribution(s):
     return full, twin
 
 
+def online_partition(scores):
+    """Commit to A/B first, then pool C's pointers by their existing event."""
+    joined = scores[:, 0] > 0
+    zero = torch.zeros_like(scores[:, 0])
+    # Candidate order gives NEW deterministic priority on exact ties.
+    separate_decision = torch.stack((zero, scores[:, 1], scores[:, 2]), dim=1).argmax(1)
+    separate_labels = torch.tensor([4, 2, 3], device=scores.device)[separate_decision]
+    same_event = torch.logsumexp(scores[:, 1:3], dim=1) > 0
+    joined_labels = torch.where(same_event, 0, 1)
+    return torch.where(joined, joined_labels, separate_labels), joined.int()
+
+
 def objective(scores, y, arm):
     full, twin = distribution(scores)
     truth = PROBES[y]
@@ -118,8 +130,18 @@ def run(train, dev, width, seed, arm):
     with torch.no_grad():
         for start in range(0, len(dev[1]), 64):
             ix = np.arange(start, min(start + 64, len(dev[1])))
-            full, twin = distribution(model(batch(dev[0], ix)).squeeze(-1))
-            predictions.extend(zip(full.argmax(1).tolist(), twin.argmax(1).tolist()))
+            scores = model(batch(dev[0], ix)).squeeze(-1)
+            full, twin = distribution(scores)
+            online, prefix = online_partition(scores)
+            predictions.extend(
+                zip(
+                    full.argmax(1).tolist(),
+                    twin.argmax(1).tolist(),
+                    online.tolist(),
+                    prefix.tolist(),
+                    strict=True,
+                )
+            )
     return predictions
 
 
@@ -137,6 +159,8 @@ def main():
             "index": int(i),
             "gold": [y, int(PARTITIONS[y][0] == PARTITIONS[y][2])],
             "pred": {},
+            "online": {},
+            "first_link": {},
         }
         for doc, i, _, y in dv
     ]
@@ -149,7 +173,12 @@ def main():
             t = time.monotonic()
             pred = run(train, dev, len(vectorizer.vocabulary_), seed, arm)
             for r, answer in zip(rows, pred):
-                r["pred"][f"{arm}{seed}"] = list(answer)
+                key = f"{arm}{seed}"
+                retrospective, twin, online, prefix = answer
+                r["pred"][key] = [retrospective, twin]
+                r["online"][key] = [online, twin]
+                r["first_link"][key] = prefix
+                assert (PARTITIONS[online][0] == PARTITIONS[online][1]) == bool(prefix)
             print(arm, seed, round(time.monotonic() - t, 1), flush=True)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -165,6 +194,15 @@ def main():
     }
     for key in rows[0]["pred"]:
         summary["correct"][key] = sum(r["gold"] == r["pred"][key] for r in rows)
+    summary["online_correct"] = {
+        k: sum(r["gold"] == r["online"][k] for r in rows) for k in rows[0]["online"]
+    }
+    summary["all_prefix_correct_with_final_map"] = {
+        k: sum(
+            r["gold"] == r["pred"][k] and r["first_link"][k] == int(r["gold"][0] < 2) for r in rows
+        )
+        for k in rows[0]["first_link"]
+    }
     (out / "identity_counts.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(summary)
 
